@@ -1,0 +1,8 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Copyright</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>Copyright</h2>
+<p>With the exception of certain files copyrighted by the Internet Society (e.g., the <a href='/rfcs/'>XMPP RFCs</a>), all information on this website is copyright &#169; 1999 - 2010 by the <a href='http://www.xmpp.org/xsf/'>XMPP Standards Foundation</a> (XSF) and is made available in accordance with the XSF's <a href='/extensions/ipr-policy.shtml'>Intellectual Property Rights Policy</a>.</p>
+<!--#include virtual="/includes/foot.txt" -->

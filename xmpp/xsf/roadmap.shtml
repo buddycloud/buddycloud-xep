@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Roadmap</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Roadmap</h2>
+
+<table>
+  <tr class='tablebody'><td>Author:</td><td><a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a></td></tr>
+  <tr class='tablebody'><td>Version:</td><td>0.13</td></tr>
+  <tr class='tablebody'><td>Date:</td><td>2009-06-17</td></tr>
+</table>
+
+<!--#include virtual="/includes/mission.txt" -->
+
+<p>The XSF has identified several high-priority initiatives to help achieve that <a href='mission.shtml'>mission</a>:</p>
+<ol>
+  <li><p>Incorporate implementation and deployment experience into the core definition of XMPP by completing revisions to <a href='http://tools.ietf.org/html/draft-ietf-xmpp-3920bis'>rfc3920bis</a> and <a href='http://tools.ietf.org/html/draft-ietf-xmpp-3921bis'>rfc3921bis</a> within the IETF's <a href='http://www.ietf.org/html.charters/xmpp-charter.html'>XMPP Working Group</a>.</p></li>
+  <li><p>Define an implementable, user-friendly method for end-to-end encryption of XMPP traffic, based on the requirements in <a href='http://tools.ietf.org/html/draft-saintandre-xmpp-e2e-requirements'>draft-saintandre-xmpp-e2e-requirements</a> (one proposed approach is summarized in <a href='http://tools.ietf.org/html/draft-meyer-xmpp-e2e-encryption'>draft-meyer-xmpp-e2e-encryption</a>).</p>
+  <li><p>Improve XMPP file transfer by transitioning to <a href='http://xmpp.org/tech/jingle.shtml'>Jingle</a> (see <a href='http://www.xmpp.org/extensions/xep-0234.html'>XEP-0234</a>) with SOCKS5 bytestreams (<a href='http://www.xmpp.org/extensions/xep-0260.html'>XEP-0260</a>) and in-band bytestreams (<a href='http://www.xmpp.org/extensions/xep-0261.html'>XEP-0261</a>).</p></li>
+  <li><p>Improve the resistance of XMPP to spam, phishing, abuse, and denial of service attacks, with a current focus on <a href='http://www.xmpp.org/extensions/xep-0268.html'>XEP-0268: Incident Reporting</a>.</p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

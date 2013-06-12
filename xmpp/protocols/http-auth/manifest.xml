@@ -1,0 +1,14 @@
+<manifest>
+  <title>Verifying HTTP Requests via XMPP</title>
+  <abstract>This specification defines an XMPP protocol extension that enables verification of an HTTP request via XMPP.</abstract>
+  <specnum>XEP-0070</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0070.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/http-auth</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/http-auth.xsd</schema>
+  </schemas>
+</manifest>

@@ -1,0 +1,14 @@
+<manifest>
+  <title>Roster Versioning</title>
+  <abstract>This specification defines a proposed modification to the XMPP roster protocol that enables versioning of rosters such that the server will not send the roster to the client if the roster has not been modified, thus saving bandwidth during session establishment.</abstract>
+  <specnum>XEP-0237</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0237.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:features:rosterver</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/versioning-feature.xsd</schema>
+  </schemas>
+</manifest>

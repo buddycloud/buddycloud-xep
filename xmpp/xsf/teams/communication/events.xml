@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<events>
+<event>
+  <date>2010-03-16T18:00:00</date>
+  <duration>30</duration>
+  <summary>CommTeam Meeting</summary>
+  <description>Click xmpp:xsf@muc.ietf.org?join to participate.</description>
+  <alarm></alarm>
+</event>
+</events>

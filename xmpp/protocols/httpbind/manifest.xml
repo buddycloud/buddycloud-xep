@@ -1,0 +1,14 @@
+<manifest>
+  <title>HTTP Binding</title>
+  <abstract>This specification defines a transport protocol that emulates a bidirectional stream between two entities (such as a client and a server) by efficiently using multiple synchronous HTTP request/response pairs without requiring the use of polling or asynchronous chunking.</abstract>
+  <specnum>XEP-0124</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0124.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/httpbind</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/httpbind.xsd</schema>
+  </schemas>
+</manifest>

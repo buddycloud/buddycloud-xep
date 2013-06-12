@@ -1,0 +1,188 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'linklocal.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='linklocal.xsl'?>
+<registry>
+
+<meta>
+  <title>Link-Local Messaging TXT Record Parameters</title>
+  &LEGALNOTICE;
+  <overview>This is the official registry of Link-Local Messaging TXT Record Parameters as maintained by the &REGISTRAR; and authorized by &xep0174;. Note: For historical reasons this registry refers to "Link-Local Messaging" even though the name of the authorizing specification has been changed to "Serverless Messaging".</overview>
+  <revision>
+    <version>0.3</version>
+    <date>2008-11-26</date>
+    <initials>psa</initials>
+    <remark>Harmonized with version 2.0 of XEP-0174.</remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2008-03-05</date>
+    <initials>psa</initials>
+    <remark>Corrections per version 1.5 of XEP-0115.</remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2007-06-12</date>
+    <initials>psa</initials>
+    <remark>Initial version (populated from XEP-0174, version 1.0).</remark>
+  </revision>
+</meta>
+
+<param>
+  <name>1st</name>
+  <desc>The given or first name of the user.</desc>
+  <status>optional</status>
+</param>
+
+<param>
+  <name>email</name>
+  <desc>
+    The email address of the user; can contain a space-separated list 
+    of more than one email address.
+  </desc>
+  <status>optional</status>
+</param>
+
+<param>
+  <name>ext</name>
+  <desc>
+    A space-separated list of extensions; the value of this parameter MUST 
+    be the same as that provided via normal XMPP presence (if applicable) 
+    in the 'ext' attribute specified in Entity Capabilities (XEP-0115).
+  </desc>
+  <status>optional</status>
+</param>
+
+<param>
+  <name>hash</name>
+  <desc>
+    The hashing algorithm used to generated the 'ver' attribute in 
+    Entity Capabilities (XEP-0115) and therefore the ver parameter
+    in Link-Local Messaging.
+  </desc>
+  <status>recommended</status>
+</param>
+
+<param>
+  <name>jid</name>
+  <desc>
+    The Jabber ID of the user; can contain a space-separated list of 
+    more than one JID.
+  </desc>
+  <status>recommended</status>
+</param>
+
+<param>
+  <name>last</name>
+  <desc>The family or last name of the user.</desc>
+  <status>optional</status>
+</param>
+
+<param>
+  <name>msg</name>
+  <desc>
+    Natural-language text describing the user's state. This is 
+    equivalent to the XMPP &lt;status/&gt;; element.
+  </desc>
+  <status>optional</status>
+</param>
+
+<param>
+  <name>nick</name>
+  <desc>A friendly or informal name for the user.</desc>
+  <status>recommended</status>
+</param>
+
+<param>
+  <name>node</name>
+  <desc>
+    A unique identifier for the application; the value of this parameter MUST 
+    be the same as that provided via normal XMPP presence (if applicable) 
+    in the 'node' attribute specified in Entity Capabilities (XEP-0115).
+  </desc>
+  <status>recommended</status>
+</param>
+
+<param>
+  <name>phsh</name>
+  <desc>
+    The SHA-1 hash of the user's avatar icon or photo. This SHOULD be 
+    requested using mDNS in unicast mode by sending a DNS query to the 
+    mDNS multicast address (224.0.0.251 or its IPv6 equivalent FF02::FB).
+    The client SHOULD keep a local cache of icons keyed by hash. If the 
+    phsh value is not in the cache, the client SHOULD fetch the unknown 
+    icon and then cache it. Implementations SHOULD also include logic for 
+    expiring avatar icons.
+  </desc>
+  <status>optional</status>
+</param>
+
+<param>
+  <name>port.p2pj</name>
+  <desc>
+    The port for serverless communication. This MUST be the same as the
+    value provided for SRV lookups. Clients MUST use the port discovered 
+    via SRV lookups and MUST ignore the value of this parameter. However, 
+    clients SHOULD advertise this parameter if it is important to ensure
+    backwards-compatibility with some existing implementations. (Note: In
+    some existing implementations this value was hardcoded to "5298".)
+  </desc>
+  <status>deprecated</status>
+</param>
+
+<param>
+  <name>status</name>
+  <desc>
+    The presence availability of the user. Allowable values are "avail", 
+    "away", and "dnd", which map to mere XMPP presence (the user is 
+    available) and the XMPP &lt;show/&gt; values of "away" and "dnd", 
+    respectively; if the status parameter is not included, the status 
+    SHOULD be assumed to be "avail".
+  </desc>
+  <status>recommended</status>
+</param>
+
+<param>
+  <name>txtvers</name>
+  <desc>
+    The version of the TXT record supported by the client. For backwards 
+    compatibility this is hardcoded at "1". This parameter SHOULD be the
+    first one provided, in accordance with the DNS-SD specification.
+  </desc>
+  <status>deprecated</status>
+</param>
+
+<param>
+  <name>vc</name>
+  <desc>
+    A flag advertising the user's ability to engage in audio or video 
+    conferencing. If the user is able to engage in audio conferencing, 
+    the string MUST include the "A" character. If the user is able to 
+    engage in video conferencing, the string MUST include the "V" 
+    character. If the user is able to engage in conferencing with more 
+    than one participant, the string MUST include the "C" character. If 
+    the user is not currently engaged in an audio or video conference, 
+    the string MUST include the "!" character. The order of characters 
+    in the string is immaterial. NOTE: This flag is included only for
+    backwards-compatibility; implementations SHOULD use the node, ver, 
+    and ext parameters for more robust capabilities discovery as described 
+    in the Discovering Capabilities section of XEP-0174.
+  </desc>
+  <status>optional</status>
+</param>
+
+<param>
+  <name>ver</name>
+  <desc>
+    A hashed string that defines the XMPP service discovery (XEP-0030) 
+    identity of the application and the XMPP service discovery features 
+    supported by the application; the value of this parameter MUST be the 
+    same as that provided via normal XMPP presence (if applicable) in 
+    the 'ver' attribute specified in Entity Capabilities (XEP-0115).
+  </desc>
+  <status>recommended</status>
+</param>
+
+</registry>

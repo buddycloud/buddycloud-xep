@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Interop :: Producers</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Interop :: Producers</h2>
+
+<p>The following open-source projects and commercial software development companies have been approved for participation in the <a href='/interop/'>XMPP interop network</a>:</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr>
+    <th>Name</th>
+    <th>Contact Person</th>
+  </tr>
+  <tr>
+    <td><a href='http://ag-software.de/'>AG Software</a></td>
+    <td><a href='mailto:gnauck@ag-software.de'>Alexander Gnauck</a></td>
+  </tr>
+  <tr>
+    <td><a href='http://www.thecoccinella.org/'>Coccinella</a></td>
+    <td><a href='mailto:matsben@gmail.com'>Mats Bengtsson</a></td>
+  </tr>
+  <tr>
+    <td><a href='http://www.coversant.net/'>Coversant</a></td>
+    <td><a href='mailto:chris.mullins@coversant.com'>Chris Mullins</a></td>
+  </tr>
+  <tr>
+    <td><a href='http://www.danga.com/djabberd/'>djabberd</a></td>
+    <td><a href='xmpp:brad@danga.com'>Brad Fitzpatrick</a></td>
+  </tr>
+  <tr>
+    <td><a href='http://www.process-one.net/en/ejabberd/'>ejabberd</a></td>
+    <td><a href='mailto:mremond@process-one.net'>Micka&#235;l R&#233;mond</a></td>
+  </tr>
+  <tr>
+    <td><a href='http://camaya.net/gloox'>gloox</a></td>
+    <td><a href='xmpp:js@camaya.net'>Jacob Schr&#246;ter</a></td>
+  </tr>
+  <tr>
+    <td><a href='http://emacs-jabber.sourceforge.net/'>jabber.el</a></td>
+    <td><a href='xmpp:legoscia@jabber.cd.chalmers.se'>Magnus Henoch</a></td>
+  </tr>
+  <tr>
+    <td><a href='http://area51.myyearbook.com/trac.cgi/wiki/Lightr'>Lightr</a></td>
+    <td><a href='xmpp:dallasgutauckis@jabber.org'>Dallas Gutauckis</a></td>
+  </tr>
+  <tr>
+    <td><a href='http://www.ta-sa.org/net_xmpp2'>Net::XMPP2</a></td>
+    <td><a href='xmpp:elmex@jabber.org'>Robin Redeker</a></td>
+  </tr>
+  <tr>
+    <td><a href='http://www.igniterealtime.org/projects/openfire/'>Openfire</a></td>
+    <td><a href='mailto:matt@jivesoftware.com'>Matt Tucker</a></td>
+  </tr>
+  <tr>
+    <td><a href='http://psi-im.org/'>Psi</a></td>
+    <td><a href='xmpp:kismith@psi-im.org'>Kevin Smith</a></td>
+  </tr>
+</table>
+<p>Any recognized XMPP project or software vendor can be added to this list by completing the <a href='/xsf/docs/Interoperability-Confidentiality-Agreement.pdf'>Confidentiality Agreement</a>. If we have never heard of your project or company, we may ask you a few questions before accepting you for participation.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

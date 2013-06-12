@@ -1,0 +1,139 @@
+<html>
+<head>
+<title>JSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Member Meeting</h2>
+
+<p>This is the agenda for the 2004 Annual Meeting of the Members of the Jabber Software Foundation (JSF). Meeting participants may want to refer to the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+<ul>
+<li>Where: foundation at conference.jabber.org</li>
+<li>Time: Wednesday, 2004-09-01, 18:00 UTC</li>
+<li>When is 18:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+<ol>
+  <li>
+    <p><strong>Call for Quorum</strong></p>
+    <p>The following 42 JSF members voted via proxy:</p>
+    <pre>
+&lt; adrian at dtedu.net &gt;
+&lt; ahkitj at greta.electric.gen.nz &gt;
+&lt; al019409 at mi.uji.es &gt;
+&lt; aleksey at jabber.ru &gt;
+&lt; asiayeah at jabber.org &gt;
+&lt; bfletcher at jabber.com &gt;
+&lt; cbas at jabber.org &gt;
+&lt; davidy at jabber.funkypenguin.co.za &gt;
+&lt; dcorvoysier at jabber.com &gt;
+&lt; dizzyd at jabber.org &gt;
+&lt; edrin at jabber.org &gt;
+&lt; ginomi at tipic.com &gt;
+&lt; gnauck at myjabber.net &gt;
+&lt; hal at jabber.rocks.cc &gt;
+&lt; hildjj at jabber.org &gt;
+&lt; intosi at ik.nu &gt;
+&lt; jabber at vanbragt.com &gt;
+&lt; jajcus at jabber.bnet.pl &gt;
+&lt; jasonatoffice at oracle.sweeney.ath.cx &gt;
+&lt; jconley at jabber.org &gt;
+&lt; jfrankel at jabber.org &gt;
+&lt; julian at jabber.org &gt;
+&lt; justin at andbit.net &gt;
+&lt; linuxwolf at outer-planes.net &gt;
+&lt; martin at jabber.bettercom.de &gt;
+&lt; mawis at amessage.info &gt;
+&lt; mblsha at jabber.ru &gt;
+&lt; micressor at swissjabber.ch &gt;
+&lt; nickonov at jabber.com &gt;
+&lt; pgmillard at jabber.org &gt;
+&lt; ralphm at ik.nu &gt;
+&lt; reatmon at jabber.org &gt;
+&lt; richard_edward_dobson at jabber.org &gt;
+&lt; rob at cataclysm.cx &gt;
+&lt; rynok at jabber.com &gt;
+&lt; siegle at jabber.org &gt;
+&lt; stpeter at jabber.org &gt;
+&lt; tbamonti at corp.jabber.com &gt;
+&lt; temas at jabber.org &gt;
+&lt; trejkaz at jabber.xaoza.net &gt;
+&lt; uls at jabber.org &gt;
+&lt; zion at openaether.org &gt;
+    </pre>
+    <p>The JSF has 62 <a href="/members/memberlist.shtml">members</a> as of this date. Therefore quorum is achieved in accordance with section 3.8 of the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+  </li>
+  <li><strong>Items Subject to a Vote</strong>
+    <ol>
+      <li>
+        <p>Board Election</p>
+        <p>Vote yes or no for the following <a href="/board/candidates/2004/">candidates</a> (all candidates receiving more than 50% affirmative votes will be approved):</p>
+        <ul>
+<li><a href="/board/candidates/2004/Tony_Bamonti.shtml">Tony Bamonti</a></li>
+<li><a href="/board/candidates/2004/Ryan_Eatmon.shtml">Ryan Eatmon</a></li>
+<li><a href="/board/candidates/2004/Ulrich_Staudinger.shtml">Ulrich Staudinger</a></li>
+        </ul>
+      </li>
+      <li>
+        <p>Council Election</p>
+        <p>Vote yes or no for the following <a href="/council/candidates/2004/">candidates</a> (the top five vote-getters will be approved):</p>
+        <ul>
+<li><a href="/council/candidates/2004/Ralph_Meijer.shtml">Ralph Meijer</a></li>
+<li><a href="/council/candidates/2004/Peter_Millard.shtml">Peter Millard</a></li>
+<li><a href="/council/candidates/2004/Matthew_Miller.shtml">Matthew Miller</a></li>
+<li><a href="/council/candidates/2004/Thomas_Muldowney.shtml">Thomas Muldowney</a></li>
+<li><a href="/council/candidates/2004/Peter_Saint-Andre.shtml">Peter Saint-Andre</a></li>
+<li><a href="/council/candidates/2004/Dave_Smith.shtml">Dave Smith</a></li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Opportunity for JSF members to Vote in the Meeting</strong></p>
+    <p>No JSF members voted during the meeting.</p>
+  </li>
+  <li>
+    <p><strong>Announcement of Voting Results</strong></p>
+    <ol>
+      <li>
+        <p>Board Election</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'><th>Applicant</th><th>Yes</th><th>No</th></tr>
+<tr class='tablebody'><td>Tony Bamonti</td><td>40</td><td>2</td></tr>
+<tr class='tablebody'><td>Ryan Eatmon</td><td>39</td><td>3</td></tr>
+<tr class='tablebody'><td>Ulrich Staudinger</td><td>35</td><td>7</td></tr>
+</table>
+        <p>All three candidates are accepted.</p>
+      </li>
+      <li>
+        <p>Council Election</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'><th>Applicant</th><th>Yes</th><th>No</th></tr>
+<tr class='tablebody'><td>Ralph Meijer</td><td>41</td><td>1</td></tr>
+<tr class='tablebody'><td>Peter Millard</td><td>40</td><td>2</td></tr>
+<tr class='tablebody'><td>Matthew Miller</td><td>34</td><td>8</td></tr>
+<tr class='tablebody'><td>Thomas Muldowney</td><td>35</td><td>7</td></tr>
+<tr class='tablebody'><td>Peter Saint-Andre</td><td>36</td><td>6</td></tr>
+<tr class='tablebody'><td>Dave Smith</td><td>14</td><td>28</td></tr>
+</table>
+        <p>The following five candidates are accepted and will comprise the Council for 2004-2005:</p>
+        <ol>
+          <li>Ralph Meijer</li>
+          <li>Peter Millard</li>
+          <li>Matthew Miller</li>
+          <li>Thomas Muldowney</li>
+          <li>Peter Saint-Andre</li>
+        </ol>
+      </li>
+    </ol>
+    <p>The following individuals have missed the last three JSF votes and therefore will be removed from the membership:</p>
+    <ul>
+      <li>Tom Coffin</li>
+      <li>Martin Rogard</li>
+      <li>Yeuxiang Yang</li>
+    </ul>
+  <li>
+    <p><strong>Open Discussion</strong></p>
+  </li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

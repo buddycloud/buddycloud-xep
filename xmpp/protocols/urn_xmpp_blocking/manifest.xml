@@ -1,0 +1,16 @@
+<manifest>
+  <title>Simple Communications Blocking</title>
+  <abstract>This document specifies an XMPP protocol extension for simple communications blocking.</abstract>
+  <specnum>XEP-0191</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0191.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:blocking</name>
+    <name>urn:xmpp:blocking:errors</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/blocking.xsd</schema>
+    <schema>http://xmpp.org/schemas/blocking-errors.xsd</schema>
+  </schemas>
+</manifest>

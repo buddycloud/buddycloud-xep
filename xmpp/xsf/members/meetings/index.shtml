@@ -1,0 +1,46 @@
+﻿<html>
+<head>
+<title>XSF Member Meetings</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Member Meetings</h2>
+
+<p>This page contains information about offical meetings among the elected <a href='/xsf/members/'>members</a> of the <a href='/xsf/'>XMPP Standards Foundation</a> (formerly the Jabber Software Foundation).</p>
+<ul>
+<li><a href="2002-09-04.shtml">2002-09-04</a></li>
+<li><a href="2002-10-30.shtml">2002-10-30</a></li>
+<li><a href="2003-06-11.shtml">2003-06-11</a></li>
+<li><a href="2003-07-30.shtml">2003-07-30</a></li>
+<li><a href="2003-09-17.shtml">2003-09-17</a></li>
+<li><a href="2003-10-29.shtml">2003-10-29</a></li>
+<li><a href="2004-01-28.shtml">2004-01-28</a></li>
+<li><a href="2004-04-28.shtml">2004-04-28</a></li>
+<li><a href="2004-07-28.shtml">2004-07-28</a></li>
+<li><a href="2004-09-01.shtml">2004-09-01</a></li>
+<li><a href="2004-11-18.shtml">2004-11-18</a></li>
+<li><a href="2005-05-25.shtml">2005-05-25</a></li>
+<li><a href="2005-07-27.shtml">2005-07-27</a></li>
+<li><a href="2005-08-31.shtml">2005-08-31</a></li>
+<li><a href="2006-08-16.shtml">2006-08-16</a></li>
+<li><a href="2006-09-20.shtml">2006-09-20</a></li>
+<li><a href="2006-11-15.shtml">2006-11-15</a></li>
+<li><a href="2006-12-14.shtml">2006-12-14</a></li>
+<li><a href="2007-02-01.shtml">2007-02-01</a></li>
+<li><a href="2007-03-14.shtml">2007-03-14</a></li>
+<li><a href="2007-05-03.shtml">2007-05-03</a></li>
+<li><a href="2007-08-02.shtml">2007-08-02</a></li>
+<li><a href="2007-09-27.shtml">2007-09-27</a></li>
+<li><a href="2007-11-15.shtml">2007-11-15</a></li>
+<li><a href="2008-02-07.shtml">2008-02-07</a></li>
+<li><a href="2008-05-02.shtml">2008-05-02</a></li>
+<li><a href="2008-07-31.shtml">2008-07-31</a></li>
+<li><a href="2008-10-02.shtml">2008-10-02</a></li>
+<li><a href="2008-11-13.shtml">2008-11-13</a></li>
+<li><a href="2009-02-12.shtml">2009-02-12</a></li>
+<li><a href="2009-05-11.shtml">2009-05-11</a></li>
+<li><a href="2009-08-06.shtml">2009-08-06</a></li>
+<li><a href="2009-10-06.shtml">2009-10-06</a></li>
+<li><a href="2009-11-24.shtml">2009-11-24</a></li>
+<li><a href="2010-02-17.shtml">2009-11-24</a></li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

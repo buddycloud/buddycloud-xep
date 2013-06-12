@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Best Practice for Closing Idle Streams</title>
+  <abstract>This document specifies a best practice for closing an XML stream that is perceived to be idle.</abstract>
+  &LEGALNOTICE;
+  <number>0190</number>
+  <status>Active</status>
+  <type>Informational</type>
+  <sig>Standards</sig>
+  <dependencies>
+    <spec>XMPP Core</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby/>
+  <shortname>N/A</shortname>
+  <author>
+    <firstname>Carlo</firstname>
+    <surname>von Loesch</surname>
+    <email>lynX@jabber.getting.psyced.org</email>
+    <jid>lynX@ve.symlynX.com</jid>
+  </author>
+  <revision>
+    <version>1.0</version>
+    <date>2007-01-04</date>
+    <initials>psa</initials>
+    <remark>Per a vote of the XMPP Council, advanced status to Active.</remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2006-07-26</date>
+    <initials>psa</initials>
+    <remark><p>Initial version.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.2</version>
+    <date>2006-06-30</date>
+    <initials>cvl</initials>
+    <remark>Second draft.</remark>
+  </revision>
+  <revision>
+    <version>0.0.1</version>
+    <date>2006-05-31</date>
+    <initials>cvl</initials>
+    <remark>First draft.</remark>
+  </revision>
+</header>
+
+<section1 topic='Introduction' anchor='intro'>
+  &RFC3920BISNOTE;
+  <p><cite>RFC 3920</cite> describes several ways to terminate an XML stream, but does not always make a clear statement about which to use. This can lead to faulty implementations. In particular, closing a stream that has not been in use for a while is very often achieved using a connection-timeout error, then closing the socket. This can lead to loss of data. Therefore this document proposes a practice that will avoid such data loss.</p>
+  <p>Note: The recommendation described herein has been incorporated into <cite>rfc3920bis</cite>.</p>
+</section1>
+
+<section1 topic='How to Close an Idle Stream' anchor='do'>
+  <section2 topic='Handshake Stream Shutdown'>
+    <p>As shown in the basic "session" example in the Simplified Stream Examples (4.8 of RFC 3920), it is a valid transaction to close the outgoing stream by sending</p>
+	<code><![CDATA[ </stream:stream> ]]></code>
+    <p>then wait for the other entity to close its stream, like this:</p>
+	<code><![CDATA[ </stream:stream> ]]></code>
+    <p>and shut down the underlying TCP connection.</p>
+    <p>This will ensure that, should the other entity have transmitted any data, it will arrive and be processed before the TCP connection is terminated.</p>
+    <p>Special care MUST be taken that under no circumstance further packets may be written to the socket after the stream was closed, until the other side shuts down the socket.</p>
+    <p>On the outgoing TCP connection, an implementation MAY do a read-only shutdown of the socket, as long as the other side will safely be able to send its stream termination token.</p>
+  </section2>
+  <section2 topic='Handshake Failure'>
+    <p>In case the other entity fails to close the stream within a reasonable time frame, the entity that started the handshake is entitled to terminate the TCP connection. Since the stream has already been closed, it is correct not to produce an error condition.</p>
+  </section2>
+</section1>
+
+<section1 topic='Implementation Notes' anchor='impl'>
+ <p>Existing implementations should be updated to use the 'Handshake Stream Shutdown' strategy when shutting down streams that are no longer needed. This strategy is fully backwards-compatible and does not introduce any known communication problems.</p>
+</section1>
+
+<section1 topic='Security Considerations' anchor='security'>
+  <p>This proposal introduces no new security aspects.</p>
+</section1>
+
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This proposal requires no interaction with &IANA;.</p>
+</section1>
+
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <p>This proposal requires no interaction with the &REGISTRAR;.</p>
+</section1>
+
+</xep>

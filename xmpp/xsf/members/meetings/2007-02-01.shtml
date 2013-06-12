@@ -1,0 +1,125 @@
+<html>
+<head>
+<title>XSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Member Meeting</h2>
+
+<ul>
+<li>Where: foundation at conference.jabber.org</li>
+<li>Time: Thursday, 2007-02-01, 18:00 UTC</li>
+<li>When is 18:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+
+<ol>
+  <li>
+    <p><strong>Call for Quorum</strong></p>
+    <p>The following 41 XSF members voted via proxy:</p>
+    <pre>
+aleksey at jabber.ru
+artur.hefczyc at gmail.com
+asiayeah at jabber.org
+mremond at erlang-projects.org
+jajcus at jajcus.net
+brijesh.singh at jabber.org
+wolfspelz at jabber.bluehands.de
+ralphm at ik.nu
+kevdadrum at jabber.ex.ac.uk
+lucas at nussbaum.fr
+daniel at noll.id.au
+edrin at jabber.org
+pcurtis at terrapin.com
+mogorman at astjab.org
+tobiasfar at jabber.org
+richard_edward_dobson at jabber.org
+ginomi at tipic.com
+matt at jivesoftware.com
+ben.turner at jabber.org
+seanegan at google.com
+mawis at amessage.info
+ian at zoofy.com
+siegle at jabber.org
+machekku at uaznia.net
+micressor at swissjabber.ch
+cmullins at jabber.org
+rob at cataclysm.cx
+boyd.fletcher at xmpp.je.jfcom.mil
+hildjj at jabber.org
+legoscia at jabber.cd.chalmers.se
+intosi at ik.nu
+astro at spaceboyz.net
+jlseguineau at gmail.com
+axelsena at jabber.uww.edu
+linuxwolf at outer-planes.net
+stpeter at jabber.org
+fh at jabber.ccc.de
+daniel at jabber.vorpalcloud.org
+omega at im.apinc.org
+remko at el-tramo.be
+gnauck at myjabber.net
+    </pre>
+    <p>The XSF has 57 members as of this date. Therefore quorum is achieved in accordance with Section 3.8 of the <a href="/xsf/docs/bylaws.shtml">XSF Bylaws</a>.</p>
+  </li>
+  <li><strong>Items Subject to a Vote</strong>
+    <ol>
+      <li>
+        <p>New and Returning Members</p>
+        <p>Vote yes or no for the <a href="http://wiki.jabber.org/index.php/Membership_Applications_January_2007">Q1 2007 applicants</a>.</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Opportunity for XSF Members to Vote in the Meeting</strong></p>
+  </li>
+  <li>
+    <p><strong>Announcement of Voting Results</strong></p>
+<table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th>Applicant</th>
+<th>Yes</th>
+<th>No</th>
+</tr>
+<tr>
+<td>Dave Cridland</td>
+<td>35</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Gaston Dombiak</td>
+<td>38</td>
+<td>3</td>
+</tr>
+</table>
+
+<br/>
+
+<table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th>Reappliers</th>
+<th>Yes</th>
+<th>No</th>
+</tr>
+<tr>
+<td>Alexander Gnauck</td>
+<td>41</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Hal Rottenberg</td>
+<td>39</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Stephen Maka</td>
+<td>30</td>
+<td>11</td>
+</tr>
+</table>
+  </li>
+  <li>
+    <p><strong>Open Discussion</strong></p>
+  </li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Council Vote Tallies -- 2001-2002</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Council Vote Tallies -- 2001-2002</h2>
+<p>This page provides detailed voting status information for each <a href='/extensions/'>XMPP Extension Protocol</a> that was presented to the First <a href='/council/'>XMPP Council</a> in 2001-2002. For further information, refer to the <a href='http://mail.jabber.org/pipermail/council/'>mailing list archives</a> or contact the <a href='/extensions/editor.shtml'>XMPP Extensions Editor</a>.</p>
+<h3>Votes (in chronological order)</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'>
+<th>XEP</th>
+<th>ML</th>
+<th>MM</th>
+<th>PGM</th>
+<th>JER</th>
+<th>JP</th>
+<th>PSA</th>
+<th>DIZ</th>
+<th>DW</th>
+<th>OW</th>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0001.html'>0001</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0004.html'>0004</a></td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0009.html'>0009</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0011.html'>0011</a></td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>0</td>
+<td valign='top'>0</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0012.html'>0012</a></td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0019.html'>0019</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0020.html'>0020</a></td>
+<td valign='top'>-1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0022.html'>0022</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0023.html'>0023</a></td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0027.html'>0027</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0029.html'>0029</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0034.html'>0034</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+</tr>
+</table>
+<h3>Members of the First Council</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'>
+<th>Initials</th>
+<th>Full Name</th>
+</tr>
+<tr class='tablebody'>
+<td>ML</td>
+<td>Mike Lin</td>
+</tr>
+<tr class='tablebody'>
+<td>MM</td>
+<td>Max Metral</td>
+</tr>
+<tr class='tablebody'>
+<td>PGM</td>
+<td>Peter Millard</td>
+</tr>
+<tr class='tablebody'>
+<td>JER</td>
+<td>Jeremie Miller</td>
+</tr>
+<tr class='tablebody'>
+<td>JP</td>
+<td>Jim Powell</td>
+</tr>
+<tr class='tablebody'>
+<td>PSA</td>
+<td>Peter Saint-Andre</td>
+</tr>
+<tr class='tablebody'>
+<td>DIZ</td>
+<td>Dave Smith</td>
+</tr>
+<tr class='tablebody'>
+<td>DW</td>
+<td>Dave Waite</td>
+</tr>
+<tr class='tablebody'>
+<td>OW</td>
+<td>Oliver Wing</td>
+</tr>
+</table>
+<!--#include virtual="/includes/foot.txt" -->

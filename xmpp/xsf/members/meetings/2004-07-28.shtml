@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>JSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Member Meeting</h2>
+
+<p>This is the agenda for a meeting of the Members of the Jabber Software Foundation (JSF). Meeting participants may want to refer to the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+<ul>
+<li>Where: foundation at conference.jabber.org</li>
+<li>Time: Wednesday, 2004-07-28, 17:00 UTC</li>
+<li>When is 17:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+<ol>
+  <li>
+    <p><strong>Call for Quorum</strong></p>
+    <p>The following 39 JSF members voted via proxy:</p>
+    <pre>
+&lt; ahkitj at greta.electric.gen.nz &gt;
+&lt; al019409 at mi.uji.es &gt;
+&lt; aleksey at jabber.ru &gt;
+&lt; asiayeah at jabber.org &gt;
+&lt; bfletcher at jabber.com &gt;
+&lt; byair at jabber.org &gt;
+&lt; cbas at jabber.org &gt;
+&lt; cmullins at jabber.org &gt;
+&lt; dcorvoysier at jabber.com &gt;
+&lt; dizzyd at jabber.org &gt;
+&lt; edrin at jabber.org &gt;
+&lt; faceprint at faceprint.com &gt;
+&lt; ginomi at tipic.com &gt;
+&lt; gnauck at myjabber.net &gt;
+&lt; hildjj at jabber.org &gt;
+&lt; intosi at ik.nu &gt;
+&lt; jajcus at jabber.bnet.pl &gt;
+&lt; jconley at jabber.org &gt;
+&lt; jfrankel at jabber.org &gt;
+&lt; jlseguineau at im.antepo.com &gt;
+&lt; julian at jabber.org &gt;
+&lt; lgf at jabber.com &gt;
+&lt; linuxwolf at outer-planes.net &gt;
+&lt; mawis at amessage.info &gt;
+&lt; mblsha at jabber.ru &gt;
+&lt; micressor at swissjabber.ch &gt;
+&lt; paperino at tipic.com &gt;
+&lt; pcurtis at www.terrapin.com &gt;
+&lt; peregrine at legend.net.uk &gt;
+&lt; ralphm at ik.nu &gt;
+&lt; reatmon at jabber.org &gt;
+&lt; richard_edward_dobson at jabber.org &gt;
+&lt; rynok at jabber.com &gt;
+&lt; siegle at jabber.org &gt;
+&lt; stpeter at jabber.org &gt;
+&lt; talios at myjabber.net &gt;
+&lt; tbamonti at corp.jabber.com &gt;
+&lt; uls at jabber.org &gt;
+&lt; zion at openaether.org &gt;
+    </pre>
+    <p>The JSF has 65 <a href="/members/memberlist.shtml">members</a> as of this date. Therefore quorum is achieved.</p>
+  </li>
+  <li><strong>Items Subject to a Vote</strong>
+    <ol>
+      <li><p>Voting on new members and renewal of membership for current members.</p></li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Opportunity for JSF members to Vote in the Meeting</strong></p>
+    <p>No JSF members voted in the meeting.</p>
+  </li>
+  <li><strong>Announcement of Voting Results</strong>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'>
+  <th>Applicant</th><th>Yes</th><th>No</th></tr>
+  <tr class='tablebody'><td>Richard Dobson</td><td>36</td><td>3</td>
+  <tr class='tablebody'><td>Ryan Eatmon</td><td>36</td><td>3</td>
+  <tr class='tablebody'><td>Joe Hildebrand</td><td>38</td><td>1</td>
+  <tr class='tablebody'><td>Will Kamishlian</td><td>34</td><td>5</td>
+  <tr class='tablebody'><td>Justin Kirby</td><td>32</td><td>7</td>
+  <tr class='tablebody'><td>Jacek Konieczny</td><td>32</td><td>7</td>
+  <tr class='tablebody'><td>Ralph Meijer</td><td>39</td><td>0</td>
+  <tr class='tablebody'><td>Peter Millard</td><td>38</td><td>1</td>
+  <tr class='tablebody'><td>Matthew Miller</td><td>38</td><td>1</td>
+  <tr class='tablebody'><td>Julian Missig</td><td>29</td><td>10</td>
+  <tr class='tablebody'><td>Thomas Muldowney</td><td>38</td><td>1</td>
+  <tr class='tablebody'><td>Robert Norris</td><td>38</td><td>1</td>
+  <tr class='tablebody'><td>Ian Paterson</td><td>35</td><td>4</td>
+  <tr class='tablebody'><td>Michail Pishchagin</td><td>25</td><td>14</td>
+  <tr class='tablebody'><td>Martin Rogard</td><td>26</td><td>13</td>
+  <tr class='tablebody'><td>Damian Saez</td><td>23</td><td>16</td>
+  <tr class='tablebody'><td>Peter Saint-Andre</td><td>37</td><td>2</td>
+  <tr class='tablebody'><td>Jean-Louis Seguineau</td><td>34</td><td>5</td>
+  <tr class='tablebody'><td>Jonathan Siegle</td><td>34</td><td>5</td>
+  <tr class='tablebody'><td>Dave Smith</td><td>34</td><td>5</td>
+  <tr class='tablebody'><td>Dries Staelens</td><td>23</td><td>16</td>
+  <tr class='tablebody'><td>Jason Sweeney</td><td>20</td><td>19</td>
+  <tr class='tablebody'><td>Bart van Bragt</td><td>34</td><td>5</td>
+  <tr class='tablebody'><td>Heiner Wolf</td><td>36</td><td>3</td>
+  <tr class='tablebody'><td>Haohua Xu</td><td>13</td><td>26</td>
+  <tr class='tablebody'><td>David Young</td><td>35</td><td>4</td>
+</table>
+        <p>Therefore all but one of the preceding 26 individuals are accepted as JSF members for the next 12 months.</p>
+        <p>The following applicants were not accepted but are welcome to apply in the future:</p>
+        <ul>
+          <li>Haohua Xu</li>
+        </ul>
+        <p>The following 5 JSF members eligible for re-election did not re-apply and therefore will be dropped from the membership:</p>
+        <ul>
+          <li>Michael Bauer</li>
+          <li>Lukasz Karwacki</li>
+          <li>Jeremy Lunn</li>
+          <li>Marco Palombi</li>
+          <li>Nicholas Perez</li>
+          <li>David Waite</li>
+        </ul>
+        <p>The following JSF members have missed the last three votes and therefore will be dropped from the membership:</p>
+        <ul>
+          <li>John David Brewster</li>
+          <li>Jeremy Nickurack</li>
+        </ul>
+  </li>
+  <li>
+    <p><strong>Open Discussion</strong></p>
+  </li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

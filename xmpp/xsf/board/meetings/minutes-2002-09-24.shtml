@@ -1,0 +1,118 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2002-09-24 @ 16:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 16:05 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Michael Bauer</li>
+<li>Ryan Eatmon</li>
+<li>Jeremie Miller</li>
+<li>Marco Palombi</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>All Board members were in attendance. Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Overall Organization and Process</p>
+    <p>General agreement that the Board needs to set high-level strategy, not implement policies or manage day-to-day activities. Recognition that it would be valuable to involve the members more, e.g. by setting up working groups or committees in certain areas, such as Marketing (including sponsorship), Standardization/Integration, Intellectual Property, and Protocol Compliance. Need to show members the benefits of participating in these committees.</p> 
+  </li>
+  <li>
+    <p>Standardization</p>
+    <ol>
+      <li>
+        <p>Council Process</p>
+        <p>Bylaws stipulate that Board needs to formally approve the JSF's internal standardization process. Peter Saint-Andre to publish revised version of JEP-0001 based on experience gained in first year of operations. Board to vote on that version rather than current version. To be completed within 30 days.</p>
+      </li>
+      <li>
+        <p>IETF</p>
+        <p>Discussed the need for an official committee within the JSF to coordinate efforts within the IETF. Consensus was that this is not necessary at this time. Recognized the need for better communication regarding the IETF Working Group. Tony Bamonti to take leadership here.</p>
+      </li>
+      <li>
+        <p>Other Standards/Integration Efforts</p>
+        <p>Discussed interest in improving interoperability, working with other projects, connecting to or working with Liberty Alliance, SIP/SIMPLE, and Wireless Village initiatives/protocols. Need to get input from the members regarding priorities here. Tony Bamonti to spearhead this.</p>
+      </li>
+      <li>
+        <p>Compliance Program</p>
+        <p>Discussed need for some level of compliance testing and certification. Agreement that this is critical, especially for clients. Jabber Inc. can contribute or enable the JSF to use its protocol compliance testing tool. Details to be worked out by the Compliance Committee. Need to determine how protocol compliance interfaces with the JabberPowered program. Discussed potential for a layered set of marks (JabberPowered, perhaps JabberCertified).</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p>Intellectual Property Issues</p>
+    <p>Issues discussed included trademark, patents, enforcement (some overlap with compliance), the need for outside counsel, the need to marshall evidence of Jabber's prior art, and the danger of a split between the Jabber and XMPP labels. Need clear communication from the trademark holder (Jabber, Inc.) regarding rules and future plans. Peter Saint-Andre to find pro-bono legal counsel within 30 days to provide feedback on the draft IPR Policy.</p>
+  </li>
+  <li>
+    <p>Marketing and Standardization Items</p>
+    <p>Discussion deferred -- to be discussed by the Marketing Committee.</p>
+  </li>
+  <li>
+    <p>Budget</p>
+    <p>Question whether the JSF owes Jabber, Inc. for legal fees payed for incorporation or whether these should be forgiven. Tony Bamonti to clear this up. Jeremie Miller and Peter Saint-Andre to discuss payment with ISP that has hosted jabber.org and jabberstudio.org for 2+ years. This company (NetConnect of Monticello, Iowa) desires payment for services rendered (at least for the last 12 months) but is willing to provide future services in exchange for recognition / in-kind sponsorship. Immediate payment of invoice received from NetConnect contingent on clearing up debt to Jabber, Inc. Board discussed need to form Finance Committee to provide financial oversight, as well as need for an independent Treasurer (the current Treasurer, Stuart Lucko, is Comptroller of Jabber, Inc.).</p>
+  </li>
+  <li>
+    <p>Election of Officers</p>
+    <ul>
+      <li>Chair - Michael Bauer</li>
+      <li>Executive Director - Peter Saint-Andre</li>
+      <li>Secretary - Peter Saint-Andre</li>
+      <li>Treasurer - Stuart Lucko</li>
+    </ul>
+  </li>
+</ol>
+<h2>Resolutions</h2>
+<ol>
+  <li>
+    <p>Resolved: that the Board of the JSF approve the IPR Policy regarding intellectual property rights (IPR) as they pertain to the Jabber Protocol.</p>
+    <p>Action: Deferred pending outside legal review coordinated by Peter Saint-Andre within the next 30 days.</p>
+  </li>
+  <li>
+    <p>Resolved: that the Board of the JSF approve the JEP process used by the Council to enact protocol changes.</p>
+    <p>Action: Deferred pending updated version of the JEP process (JEP-0001) to be completed by Peter Saint-Andre within the next 30 days.</p>
+  </li>
+  <li>
+    <p>Resolved: that the Board of the JSF establish a Compliance Committee and Marketing Committee to be chaired by Jeremie Miller and Michael Bauer respectively, who will present committee charters to the Board for approval within the next 30 days.</p>
+    <p>Action: Approved</p>
+  </li>
+  <li>
+    <p>Resolved: that the Board of the JSF establish a Finance Committee within the next 30 days to ensure independent financial oversight of the JSF, to be chaired by Michael Bauer.</p>
+    <p>Action: Approved</p>
+  </li>
+  <li>
+    <p>Resolved: that the Board of the JSF call for a clear and formal statement from Jabber, Inc. regarding its future plans in relation to the Jabber trademark.</p>
+    <p>Action: Approved</p>
+  </li>
+  <li>
+    <p>Resolved: that the Board of the JSF recognize Tony Bamonti's initiatives to (1) create an overview of efforts regarding integration with other standards efforts and projects, and (2) to provide ongoing communication regarding IETF activities.</p>
+    <p>Action: Approved</p>
+  </li>
+</ol>
+<h2>Future Meetings</h2>
+<p>The Board scheduled future Board meetings for the following dates:</p>
+<ul>
+  <li>October 29, 2002</li>
+  <li>January 21, 2003</li>
+  <li>April 22, 2003</li>
+  <li>July 22, 2003</li>
+</ul>
+<p>The scheduling of these meetings does not preclude the scheduling of additional meetings, but will meet the requirement in the Bylaws to hold meetings at least quarterly. For record keeping purposes, the first quarterly meeting shall be deemed to be held on October 29, 2002.</p>
+<p>The Board also scheduled official meetings of the JSF Membership for the following dates:</p>
+<ul>
+  <li>October 22, 2002</li>
+  <li>January 14, 2003</li>
+  <li>April 15, 2003</li>
+  <li>July 15, 2003</li>
+</ul>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 18:15 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

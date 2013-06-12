@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Sponsors :: USSHC</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Sponsors :: USSHC</h2>
+
+<p>
+<a href='http://www.usshc.com/'><img alt='USSHC Logo' style='float: right; border-width: 0px' src='/images/logo-usshc.jpg' /></a>
+The <a href='http://www.usshc.com/'>US Secure Hosting Center</a> (USSHC), a Platinum Sponsor of the XMPP Standards Foundation (XSF), is a privately-owned, underground co-location data center located in the rural Midwestern United States. USSHC offers the most secure, carrier-class, disaster-tolerant co-location data center services available. Since the founding of the XSF in 2001, USSHC has securely and reliably hosted the XSF's computing infrastructure, including the web, mail, and source control servers for xmpp.org and the high-volume XMPP server at jabber.org.</p>
+<p>For more information about USSHC, visit &lt;<a href='http://www.usshc.com/'>www.usshc.com</a>&gt;.</p>
+
+</div>
+<!--#include virtual="/includes/foot.txt" -->

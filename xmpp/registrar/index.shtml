@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Registrar</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Registrar</h2>
+<p style='font-style: italic'>Last Updated: 2009-06-25</p>
+<p>As authorized by <a href='/extensions/xep-0053.html'>XEP-0053</a>, the XMPP Registrar maintains registries of protocol namespaces and of various parameters that are used by the IETF's <a href='/'>Extensible Messaging and Presence Protocol</a> (XMPP) as well as by <a href='/extensions/'>XMPP extensions</a> published by the <a href='/xsf/'>XMPP Standards Foundation</a>. The following registries are available:</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Registry</th>
+    <th>HTML</th>
+    <th>XML</th>
+  </tr>
+<tr class='tablebody'><td>Alternative XMPP Connection Methods</td><td><a href='alt-connections.html'>HTML</a></td><td><a href='alt-connections.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Advanced Message Processing Rule Actions</td><td><a href='amp-actions.html'>HTML</a></td><td><a href='amp-actions.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Advanced Message Processing Rule Conditions</td><td><a href='amp-conditions.html'>HTML</a></td><td><a href='amp-conditions.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Application-Specific Error Conditions</td><td><a href='errors.html'>HTML</a></td><td><a href='errors.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Data Forms Validation Datatypes</td><td><a href='xdv-datatypes.html'>HTML</a></td><td><a href='xdv-datatypes.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Data Forms Validation Datatype Prefixes</td><td><a href='xdv-prefixes.html'>HTML</a></td><td><a href='xdv-prefixes.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>FORM_TYPEs and Fields for Data Forms</td><td><a href='formtypes.html'>HTML</a></td><td><a href='formtypes.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Jingle Application Formats</td><td><a href='jingle-apps.html'>HTML</a></td><td><a href='jingle-apps.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Jingle Transport Methods</td><td><a href='jingle-transports.html'>HTML</a></td><td><a href='jingle-transports.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Link-Local Messaging TXT Records</td><td><a href='linklocal.html'>HTML</a></td><td><a href='linklocal.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Multi-User Chat Status Codes</td><td><a href='mucstatus.html'>HTML</a></td><td><a href='mucstatus.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Nodes for Service Discovery and Publish-Subscribe</td><td><a href='nodes.html'>HTML</a></td><td><a href='nodes.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Protocol Namespaces</td><td><a href='namespaces.html'>HTML</a></td><td><a href='namespaces.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Service Discovery Features</td><td><a href='disco-features.html'>HTML</a></td><td><a href='disco-features.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Service Discovery Identities</td><td><a href='disco-categories.html'>HTML</a></td><td><a href='disco-categories.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>SHIM Headers</td><td><a href='shim.html'>HTML</a></td><td><a href='shim.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Stream Compression Methods</td><td><a href='compress.html'>HTML</a></td><td><a href='compress.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Stream Features</td><td><a href='stream-features.html'>HTML</a></td><td><a href='stream-features.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>Stream Initiation Profiles</td><td><a href='si-profiles.html'>HTML</a></td><td><a href='si-profiles.xml'>XML</a></td></tr>
+<tr class='tablebody'><td>XMPP URI/IRI Querytypes</td><td><a href='querytypes.html'>HTML</a></td><td><a href='querytypes.xml'>XML</a></td></tr>
+</table>
+<p>The functions of the XMPP Registrar are managed by the <a href='/extensions/editor.shtml'>XMPP Extensions Editor</a>. Changes to the registries are announced on the <a href='http://mail.jabber.org/mailman/listinfo/standards/'>Standards mailing list</a>.</p>
+<!--#include virtual="/includes/foot.txt" -->

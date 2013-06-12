@@ -1,0 +1,161 @@
+<html>
+<head>
+<title>JSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Member Meeting</h2>
+
+<p>This is the agenda for the 2003 Annual Meeting of the Members of the Jabber Software Foundation (JSF). Meeting participants may want to refer to the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+<ul>
+<li>Where: foundation at conference.jabber.org</li>
+<li>Time: Wednesday, 2003-09-17, 17:00 UTC</li>
+<li>When is 17:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+<ol>
+  <li>
+    <p><strong>Call for Quorum</strong></p>
+    <p>The following 60 JSF members voted via proxy:</p>
+    <pre>
+&lt; Akuma at jabber.org &gt;
+&lt; Baccus at jabber.org &gt;
+&lt; airog at floobin.cx &gt;
+&lt; al019409 at mi.uji.es &gt;
+&lt; aleksey at jabber.ru &gt;
+&lt; ashvild at jabber.org &gt;
+&lt; bglee at myjabber.net &gt;
+&lt; cbas at rhymbox.com &gt;
+&lt; cmullins at jabber.org &gt;
+&lt; craigk at jabber.com &gt;
+&lt; daniel at chote.net &gt;
+&lt; dave2000 at jabber.org &gt;
+&lt; dizzyd at jabber.org &gt;
+&lt; dougal at gunters.org &gt;
+&lt; edrin at jabber.org &gt;
+&lt; frenchtouch at jabber.org &gt;
+&lt; gnauck at myjabber.net &gt;
+&lt; heg at imissary.com &gt;
+&lt; hildjj at jabber.org &gt;
+&lt; jajcus at jabber.bnet.pl &gt;
+&lt; jannic at jabber.gondor.com &gt;
+&lt; jer at jabber.org &gt;
+&lt; jeremy at austux.net &gt;
+&lt; jfrankel at jabber.org &gt;
+&lt; jivematt at jabber.org &gt;
+&lt; jlseguineau at im.antepo.com &gt;
+&lt; julian at jabber.org &gt;
+&lt; justin at andbit.net &gt;
+&lt; linuxwolf at outer-planes.net &gt;
+&lt; mankins at jabber.media.mit.edu &gt;
+&lt; marian at t-system.com.pl &gt;
+&lt; martin at jabber.bettercom.de &gt;
+&lt; mawis at charente.de &gt;
+&lt; mblsha at jabber.ru &gt;
+&lt; me at ukscone.net &gt;
+&lt; mike at jabber.org &gt;
+&lt; mikem at jabber.org &gt;
+&lt; mrose at jabber.dbc.mtview.ca.us &gt;
+&lt; nickonov at jabber.com &gt;
+&lt; nickperez at jabber.org &gt;
+&lt; ocrampal at tipic.com &gt;
+&lt; pcurtis at www.terrapin.com &gt;
+&lt; peregrine at legend.net.uk &gt;
+&lt; pgmillard at jabber.org &gt;
+&lt; pluto at tipic.com &gt;
+&lt; rabbit at jabber.wp.pl &gt;
+&lt; ragavans at jabber.org &gt;
+&lt; ralphm at ik.nu &gt;
+&lt; reatmon at jabber.org &gt;
+&lt; rob at cataclysm.cx &gt;
+&lt; rynok at jabber.com &gt;
+&lt; shawn at chote.net &gt;
+&lt; siegle at jabber.org &gt;
+&lt; smirk at jabber.org &gt;
+&lt; srlee at myjabber.net &gt;
+&lt; stpeter at jabber.org &gt;
+&lt; tbamonti at corp.jabber.com &gt;
+&lt; temas at jabber.org &gt;
+&lt; uls at jabber.org &gt;
+&lt; zion at openaether.org &gt;
+    </pre>
+    <p>The JSF has 81 <a href="/members/memberlist.shtml">members</a> as of this date. Therefore quorum is achieved in accordance with section 3.8 of the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+  </li>
+  <li><strong>Items Subject to a Vote</strong>
+    <ol>
+      <li>
+        <p>Board Election</p>
+        <p>Vote yes or no for the following <a href="/board/candidates/2003/">candidates</a> (all candidates receiving more than 50% affirmative votes will be approved):</p>
+        <ul>
+<li><a href="/board/candidates/2003/Michael_Bauer.shtml">Michael Bauer</a></li>
+<li><a href="/board/candidates/2003/Tony_Bamonti.shtml">Tony Bamonti</a></li>
+<li><a href="/board/candidates/2003/Russell_Davis.shtml">Russell Davis</a></li>
+<li><a href="/board/candidates/2003/Ryan_Eatmon.shtml">Ryan Eatmon</a></li>
+<li><a href="/board/candidates/2003/Harold_Gottschalk.shtml">Harold Gottschalk</a></li>
+        </ul>
+      </li>
+      <li>
+        <p>Council Election</p>
+        <p>Vote yes or no for the following <a href="/council/candidates/2003/">candidates</a> (the top five vote-getters will be approved):</p>
+        <ul>
+<li><a href="/council/candidates/2003/Paul_Curtis.shtml">Paul Curtis</a></li>
+<li><a href="/council/candidates/2003/Ryan_Eatmon.shtml">Ryan Eatmon</a></li>
+<li><a href="/council/candidates/2003/Jacek_Konieczny.shtml">Jacek Konieczny</a></li>
+<li><a href="/council/candidates/2003/Peter_Millard.shtml">Peter Millard</a></li>
+<li><a href="/council/candidates/2003/Matthew_Miller.shtml">Matthew Miller</a></li>
+<li><a href="/council/candidates/2003/Thomas_Muldowney.shtml">Thomas Muldowney</a></li>
+<li><a href="/council/candidates/2003/Rob_Norris.shtml">Rob Norris</a></li>
+<li><a href="/council/candidates/2003/Alexey_Shchepin.shtml">Alexey Shchepin</a></li>
+<li><a href="/council/candidates/2003/Dave_Smith.shtml">Dave Smith</a></li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Opportunity for JSF members to Vote in the Meeting</strong></p>
+    <p>JSF member Mike Prince voted during the meeting.</p>
+  </li>
+  <li>
+    <p><strong>Announcement of Voting Results</strong></p>
+    <ol>
+      <li>
+        <p>Board Election</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'><th>Applicant</th><th>Yes</th><th>No</th></tr>
+<tr class='tablebody'><td>Tony Bamonti</td><td>54</td><td>7</td></tr>
+<tr class='tablebody'><td>Michael Bauer</td><td>52</td><td>9</td></tr>
+<tr class='tablebody'><td>Russell Davis</td><td>51</td><td>10</td></tr>
+<tr class='tablebody'><td>Ryan Eatmon</td><td>51</td><td>10</td></tr>
+<tr class='tablebody'><td>Harold Gottschalk</td><td>52</td><td>9</td></tr>
+</table>
+        <p>All five candidates are accepted.</p>
+      </li>
+      <li>
+        <p>Council Election</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'><th>Applicant</th><th>Yes</th><th>No</th></tr>
+<tr class='tablebody'><td>Paul Curtis</td><td>35</td><td>26</td></tr>
+<tr class='tablebody'><td>Ryan Eatmon</td><td>30</td><td>31</td></tr>
+<tr class='tablebody'><td>Jacek Konieczny</td><td>26</td><td>35</td></tr>
+<tr class='tablebody'><td>Peter Millard</td><td>42</td><td>19</td></tr>
+<tr class='tablebody'><td>Matthew Miller</td><td>45</td><td>16</td></tr>
+<tr class='tablebody'><td>Thomas Muldowney</td><td>43</td><td>18</td></tr>
+<tr class='tablebody'><td>Rob Norris</td><td>41</td><td>20</td></tr>
+<tr class='tablebody'><td>Alexey Shchepin</td><td>13</td><td>48</td></tr>
+<tr class='tablebody'><td>Dave Smith</td><td>19</td><td>42</td></tr>
+</table>
+        <p>The following five candidates are accepted and will comprise the Council for 2003-2004:</p>
+        <ol>
+          <li>Paul Curtis</li>
+          <li>Peter Millard</li>
+          <li>Matthew Miller</li>
+          <li>Thomas Muldowney</li>
+          <li>Rob Norris</li>
+        </ol>
+      </li>
+  <li>
+    <p><strong>Open Discussion</strong></p>
+    <p>Peter Saint-Andre provided a brief report about the JSF's finances. Peter Millard provided a brief report about infrastructure.</p>
+  </li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

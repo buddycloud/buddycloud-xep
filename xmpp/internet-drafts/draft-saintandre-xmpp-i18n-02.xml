@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc compact="yes"?>
+<?rfc iprnotified="no" ?>
+<?rfc strict="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+
+<rfc category="info" docName="draft-saintandre-xmpp-i18n-02" ipr="trust200902">
+
+  <front>
+    <title abbrev="XMPP I18N">Internationalized Addresses in XMPP</title>
+
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>Cisco</organization>
+      <address>
+        <postal>
+          <street>1899 Wyknoop Street, Suite 600</street>
+          <city>Denver</city>
+          <region>CO</region>
+          <code>80202</code>
+          <country>USA</country>
+        </postal>
+        <phone>+1-303-308-3282</phone>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+
+    <date day="22" month="October" year="2010"/>
+
+    <keyword>internationalization</keyword>
+    <keyword>Jabber</keyword>
+    <keyword>XMPP</keyword>
+
+    <abstract>
+      <t>The Extensible Messaging and Presence Protocol (XMPP) as defined in RFC 3920 used stringprep in the preparation and comparison of non-ASCII characters within XMPP addresses.  This document explores whether it makes sense to move away from the use of stringprep in XMPP.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <t>The Extensible Messaging and Presence Protocol <xref target='XMPP'/> is a widely-deployed technology for real-time communication, commonly used for instant messaging (IM) among human users but also for communication among automated systems.  XMPP addresses (also called "JabberIDs" or JIDs) are of the form &lt;localpart@domainpart/resourcepart&gt;, where the localpart and resourcepart are formally optional but quite common because they are used to identify clients and other entities on the network.  In some sense, XMPP addresses have always been internationalized, because the developers of the original Jabber open-source project intended that all data sent over the wire would consist of UTF-8 encoded Unicode code points.  However, at that time (1999) the Jabber developers were quite unsophisticated about internationalization, nor they could not simply re-use a reliable internationalization technology that had been developed by the wider Internet community (as they could, for example, by re-using Secure Sockets Layer and Transport Layer Security for channel encryption); this lack of sophistication is evident in the community's first attempt at formally defining the format for JabberIDs in early 2002 <xref target='XEP-0029'/>.  When the first instantiation of the IETF's XMPP WG was formed in late 2002, IDNA2003 <xref target='RFC3490'/> had not yet been published and stringprep <xref target='RFC3454'/> was a very new technology.  During its work on <xref target='RFC3920'/>, the XMPP WG absorbed as best it could the advice of internationalization experts regarding appropriate methods for preparing and comparing XMPP addresses; however, the participants in the XMPP WG did not possess very much knowledge of internationalization and therefore did not necessarily make fully-informed decisions.  As a result of this early work, in <xref target='RFC3920'/> the XMPP WG decided to re-use IDNA2003 <xref target='RFC3490'/> and Nameprep <xref target='RFC3491'/> for the domainpart of a JID and to define two additional stringprep profiles: Nodeprep for the localpart and Resourceprep for the resourecepart.</t>
+      <t>Since the publication of <xref target='RFC3920'/> in 2004, the Internet community has gained more experience with internationalization.  In particular, IDNA2003, which is based on stringprep, has been superseded by IDNA2008 (<xref target='RFC5890'/>, <xref target='RFC5891'/>, <xref target='RFC5892'/>, <xref target='RFC5893'/>, <xref target='RFC5894'/>), which does not use stringprep.  This migration away from stringprep for internationalized domain names has prompted other "customers" of stringprep to consider new approaches to the preparation and comparision of internationalized addresses.  As a result, the IETF has formed the PRECIS WG as a common forum for seeking solutions to the problem statement outlined in <xref target='PROBLEM'/>.  This document has two purposes: (1) provide input to the PRECIS WG and (2) help inform the decisions of the XMPP WG regarding internationalization of XMPP addresses, eventually leading to replacement of <xref target='XMPP-ADDR'/>.</t> 
+    </section>
+
+    <section title="Characteristics and Uses of XMPP Addresses" anchor="char">
+      <t>As mentioned, XMPP addresses are of the form &lt;localpart@domainpart/resourcepart&gt;.  For the domainpart, it makes sense for XMPP to simply re-use the most up-to-date technology for internationalized domain names, which <xref target='RFC3920'/> did by re-using <xref target='RFC3490'/>.  Naturally, any migration from IDNA2003 to IDNA2008 will introduce migration issues as outlined under <xref target='migration'/>, but those issues need to be overcome so that XMPP technologies can follow best current practices for internationalization of domain names.</t>
+      <t>However, just because XMPP re-uses IDNA2008 does not necessarily imply that the underlying "inclusion approach" taken in IDNA2008 can also be applied directly to the localpart and resourcepart of an XMPP address.  To understand whether a new approach makes sense, we need to understand the uses and characteristics of XMPP addresses (and the parts thereof).</t>
+      <t>The inclusion approach used in IDNA2008 makes sense because domain names were always limited to the letter-digits-hyphen ("LDH") pattern; the progression to non-ASCII domain names simply introduced more characters that might qualify as letters and (in some cases) digits.  Extrapolating from that pattern, <xref target='RFC5894'/> argues that there is no good reason for a domain name to include characters such as symbols (e.g., hearts and stars), since the purpose of a domain name is to provide an unambiguous, memorable label for identifying and referring to resources on the Internet, not a personally expressive "handle" or a fun "tag" for interaction.</t>
+      <t>The localpart and resourcepart of a JID often serve purposes other than unambiguous, memorable labels.  For example, a human user of an XMPP-based IM system might expect that the username (localpart) portion of a JID could be expressive of their identity in some way, e.g. by matching some combination of their given name, surname, or nickname.  Similarly, an occupant of an XMPP-based chatroom <xref target='XEP-0045'/> might expect that their in-room nickname (resourcepart) could be a fun conversation-starter; for example, a regular visitor to an XMPP chatroom that the author frequents has an in-room nickname of "The King" where "King" is represented by the Unicode codepoint 'BLACK CHESS KING' (U+265A).  Such characters might difficult to communicate in some contexts (e.g., in screen readers for the blind), but are expressive and fun, which is not an unimportant consideration for many IM users -- even at the expense of reliability.</t>
+      <t>Does the desire for an expressive username or nickname trump the need for human-readable identifiers?  Given the wide implementation of full-Unicode addresses in human-oriented XMPP applications, IM client developers seem to think so.</t> 
+      <t>These admittedly anecdotal and subjective considerations vaguely indicate that the inclusion approach pursued in the IDNA2008 initiative is quite appropriate for the more restricted class of domain names but perhaps not as appropriate for the localpart or resourcepart of an XMPP address.</t>
+      <t>That being said, some XMPP implementations (e.g., a custom client) or deployments (e.g., an IM system at a large enterprise or branch of the military) might wish to "lock down" the expressive potential of XMPP addresses by limiting provisioned addresses to a particular subset or version of Unicode, by specifying which scripts, languages, code points, and text directions are supported, etc.  Currently there is no way for an implementation or deployment to do so in standardized manner that can be communicated to other entities on the network (e.g., during account provisioning).  Given that a deployed XMPP service acts in some ways like a registrar does for domain names, such methods might be helpful; although they are out of scope for the XMPP WG, they might be considered by the XMPP Standards Foundation (e.g., in revisions to or a replacement for <xref target='XEP-0077'/>).</t>
+    </section>
+
+    <section title="String Classes" anchor="classes">
+      <t>Both <xref target='PROBLEM'/> and <xref target='FRAMEWORK'/> propose that it might be valuable to think of internationalized addresses in terms of broad "string classes" such as domain name, email address, restricted identifier, less-restrictive identifier, and perhaps even free-form identifier (just about anything goes).  Particular technologies like XMPP could either borrow such a string class unchanged (as we do for domain names) or adapt or "profile" such a string class with modifications (e.g., as could possibly do by profiling the email address class, restricted identifier class, or less-restrictive for localparts and a possible free-form identifier class for resourceparts).</t>
+      <t>This document does not yet make recommendations about borrowing or adapting more general string classes, in part because those classes are not yet clearly defined.  However, as input to further discussion, this document explores the two string classes for which <xref target='RFC3920'/> defined new stringprep profiles: localparts and resourceparts.  The following subsections refer to the properties described in Section 3 of <xref target='PROBLEM'/> (input restrictions, normalization, case mapping, and bidirectionality).</t>
+      <section title="Localpart" anchor="classes-localpart">
+        <t>The localpart of an XMPP address is joined with a domainpart (via the '@' separator) in a way that on the surface looks like an email address, such as &lt;juliet@example.com&gt;.  However, there are some subtle differences, even if we assume that the username portion of an email address inherits from the "dot-atom-text" rule of <xref target='RFC5322'/> instead of the more complex "local-part" rule.  Specifically, within the ASCII block:</t>
+        <t>
+          <list style='symbols'>
+            <t>Several characters are allowed in email addresses but not allowed in JabberIDs: "&amp;" (U+0026), "'" (U+0027), and "/" (U+002F).</t>
+            <t>Several characters are allowed in JabberIDs but not allowed in email addresses: "(" (U+0028), ")" (U+0029), "," (U+002C), "." (U+002E), ";" (U+003B), "[" (U+005B), "\" (U+005C), and "]" (U+005D).</t>
+          </list>
+        </t>
+        <t>Those differences might not be significant enough to prevent the XMPP WG from adapting or "profiling" an email address class if the PRECIS WG produces such a class.  On the other hand, they might lead the XMPP WG toward borrowing or adapting either the restricted identifier class or the less-restrictive identifier class, depending on how those are defined.</t>
+        <t>With regard to input restrictions, the characters allowed in an XMPP localpart have always been lightly restricted.  Within the ASCII block, the only restricted characters are space, controls, " (U+0022),  &amp; (U+0026), ' (U+0027), / (U+002F), : (U+003A), &lt; (U+003C), &gt; (U+003E), and @ (U+0040).  Outside the ASCII block, no characters are currently restricted.  It is an open issue whether further restrictions are desirable (e.g., do XMPP localparts really need to include symbol characters such as hearts and stars?).</t>
+        <t>With regard to normalization, the Nodeprep profile of stringprep specifies that implementations apply Unicode normalization form NFKC (Compatibility Decomposition followed by Canonical Composition).  As briefly described in Section 2.4 of <xref target='PROBLEM'/>, it is an open question whether it is more appropriate to apply Unicode normalization form NFKC, form NFC (Canonical Decomposition followed by Canonical Composition), or no normalization at all.  These forms are defined in "Unicode Standard Annex #15: Unicode Normalization Forms" <xref target='UAX15'/>, along with several examples of the differing outputs they can produce.  As two examples, for the source code point U+FB01 (SMALL LATIN LIGATURE FI) NFC produces that same code point whereas NFKC produces "f" followed by "i" (U+0066 and U+0069), and for the source code points U+0032 (DIGIT TWO) and U+2075 (SUPERSCRIPT FIVE) NFC produces those same code points whereas NFKC produces U+0032 (DIGIT TWO) and U+0035 (DIGIT FIVE).  Very informally, XMPP developers can think of NFKC as trying to be smart -- and perhaps sometimes too smart.</t>
+        <t>With regard to case mapping, the Nodeprep profile of stringprep specifies that XMPP localparts are case-folded, and we want to retain that feature (e.g., we want &lt;juliet@example.com&gt; and &lt;Juliet@example.com&gt; to identify the same entity on the network).</t>
+        <t>With regard to bidirectionality (i.e., scripts that are written right to left), <xref target='RFC3920'/> did not provide any guidance other than pointing to Section 6 of <xref target='RFC3454'/>.  Any treatment of bidirectionality in XMPP localparts is an open issue (<xref target='RFC5893'/> provides some helpful discussion of the general topic, at least as applied to internationalized domain names).</t>
+      </section>
+      <section title="Resourcepart" anchor="classes-resourcepart">
+        <t>The resourcepart of an XMPP address has traditionally been a kind of "anything goes" string, even allowing the space character.  If the PRECIS WG defines something like a free-form identifier, the XMPP WG might borrow or adapt that class.  Another option would be to say that the resourcepart is Net-Unicode as specified in <xref target='RFC5198'/>.</t>
+        <t>With regard to input restrictions, the characters allowed in an XMPP resourcepart have always been lightly restricted.  Within the ASCII block, the only restricted characters are controls.  Outside the ASCII block, no characters are currently restricted.  Although is an open issue whether further restrictions are desirable, as explained under <xref target='char'/> XMPP-based IM systems have taken advantage of the lack of restrictions on resource identifiers (e.g., in multi-user chatrooms).</t>
+        <t>With regard to normalization, the Resourceprep profile of stringprep specifies that implementations apply Unicode normalization form NFKC (Compatibility Decomposition followed by Canonical Composition).</t>
+        <t>With regard to case mapping, the Resourceprep profile of stringprep specifies that XMPP localparts are not case-folded (e.g., in an XMPP-based chatroom, the participant "StPeter" could be different from the participant "stpeter").  It is an open question whether this behavior is necessary or desirable in all contexts.</t>
+        <t>With regard to bidirectionality (i.e., scripts that are written right to left), <xref target='RFC3920'/> did not provide any guidance.  Any treatment of bidirectionality in XMPP resourceparts is an open issue (<xref target='RFC5893'/> provides some helpful discussion of the general topic, at least as applied to internationalized domain names).</t>
+      </section>
+    </section>
+
+    <section title="Migration Issues" anchor="migration">
+      <t>Any move away from Nameprep, Nodeprep, and Resourceprep as they are defined today will inevitably introduce the potential for migration issues, such as JIDs that were not ambiguous before the migration but that become ambiguous after the migration.  These issues need to be clearly defined and well understood so that the costs and benefits of any change can be properly assessed -- especially if the change might have an impact on authentication (e.g., as described in <xref target='RFC3920'/>), authorization (e.g., presence subscriptions as described in <xref target='XMPP-IM'/>), access (e.g., joining a chatroom as described in <xref target='XEP-0045'/>), identification (e.g., in XMPP URIs or IRIs as described in <xref target='XMPP-URI'/>), and other security-related functions.</t>
+    </section>
+
+    <section title="User Interface Issues" anchor="ui">
+      <t><xref target='RFC5895'/> introduces the helpful concept of "the dividing line between user interface and protocol" and applies that concept to the complexs process of translating the user's (presumed) intentions into bits on the wire.  IDNA2003 conflated user interface processing and machine-readable protocols, and in many ways XMPP inherited that same error.  It would be desirable for XMPP technologies to define a clear dividing line between user interface and protocol.  This might mean that the XMPP community will need to define recommended mappings that are applied to a string before it is considered a JID (or the localpart of resourcepart of a JID).</t>
+    </section>
+
+    <section title="Recommendations" anchor="rec">
+      <section title="Possible Approaches" anchor="rec-approaches">
+        <t>This document does not yet provide definitive recommendations, but instead mainly seeks to foster discussion about internationalized addresses in XMPP.  However, there are three possible approaches that the XMPP WG might pursue in relation to its existing stringprep profiles:</t>
+        <t>
+          <list style='numbers'>
+            <t>Keep using Nameprep, Nodeprep, and/or Resourceprep as they are defined today.<vspace blankLines='1'/></t>
+            <t>Collaborate with other interested parties or working groups to define a new version of stringprep that tracks changes to Unicode since Unicode 3.2 as currently specified in <xref target='RFC3454'/>.<vspace blankLines='1'/></t>
+            <t>Pursue the general model followed in the IDNA2008 work by defining a tiered model of valid, disallowed, and unassigned characters; such an effort might be pursued only within the XMPP community (for Nodeprep, Resourceprep, or both) or more generally in concert with other users of stringprep.</t>
+          </list>
+        </t>
+        <t>The XMPP WG might even decide to use a mix of these approaches, e.g. to use the new, non-stringprep IDNA2008 approach for domainparts but the existing Nodeprep and Resourceprep profiles for localparts and resourceparts.</t>
+        <t>In general, given that the PRECIS WG has been formed as a common effort across different technologies, it is reasonable for the XMPP developer community to participate in that WG (and for the XMPP WG to cooperate with that WG) and to adopt whatever solutions are developed in that WG.</t>
+      </section>
+
+      <section title="Domainpart" anchor="rec-domainpart">
+        <t>RFC 3920 specifies the use of IDNA2003 for the domainpart of a JID (which in the terms of IDNA2008 <xref target='RFC5890'/> is a "domain name slot").  This document does not question the reasoning behind the IDNA2008 work and therefore recommends the use of IDNA2008 technologies in the document that obsoletes <xref target='XMPP-ADDR'/>.</t>
+      </section>
+
+      <section title="Localpart" anchor="rec-localpart">
+        <t>This document does not yet provide a recommendation regarding the localpart of a JID.</t>
+      </section>
+
+      <section title="Resourcepart" anchor="rec-resourcepart">
+        <t>This document does not yet provide a recommendation regarding the resourcepart of a JID.</t>
+      </section>
+
+    </section>
+
+    <section title="Security Considerations" anchor="security">
+      <t>The inclusion of non-ASCII characters in XMPP addresses has important security implications, such as the ability to mimic characters or entire addresses through the inclusion of "confusable characters" (see <xref target='RFC4690'/> and <xref target='RFC5890'/>).  These issues are explored at some length in <xref target='XMPP-ADDR'/>.  Other security considerations might apply and will be described in a future version of this specification.</t>
+    </section>
+
+    <section title="IANA Considerations" anchor="iana">
+      <t>This document has no actions for the IANA.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Informative References">
+
+<reference anchor='FRAMEWORK'>
+<front>
+<title>Precis Framework: Handling Internationalized Strings in Protocols</title>
+<author initials='M' surname='Blanchet' fullname='Marc Blanchet'>
+    <organization />
+</author>
+<date month='July' day='5' year='2010' />
+<abstract><t>Using Unicode codepoints in protocol strings requires preparation of the string.  This document describes the Precis Protocol Framework that prepares various classes of strings used in protocol elements. A protocol specification chooses a class of strings and then implements the corresponding preparation steps described in this document.  This document is based on the IDNAbis approach.  It obsoletes the Stringprep algorithm.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-blanchet-precis-framework-00' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-blanchet-precis-framework-00.txt' />
+</reference>
+
+<reference anchor='PROBLEM'>
+<front>
+<title>Stringprep Revision Problem Statement</title>
+<author initials='M' surname='Blanchet' fullname='Marc Blanchet'>
+    <organization />
+</author>
+<author initials='A' surname='Sullivan' fullname='Andrew Sullivan'>
+    <organization />
+</author>
+<date month='October' day='18' year='2010' />
+<abstract><t>Using Unicode codepoints in protocol strings that expect comparison with other strings [[anchor1: The WG will need to decide whether "other strings" is too broad.  In particular, what about protocol slots that can take strings other than plain ASCII? --ajs@shinkuro.com]] requires preparation of the string that contains the Unicode codepoints.  Internationalizing Domain Names in Applications (IDNA2003) defined and used Stringprep and Nameprep. Other protocols subsequently defined Stringprep profiles.  A new approach different from Stringprep and Nameprep is used for a revision of IDNA2003 (called IDNA2008).  Other Stringprep profiles need to be similarly updated or a replacement of Stringprep need to be designed.  This document outlines the issues to be faced by those designing a Stringprep replacement.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-precis-problem-statement-00' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-precis-problem-statement-00.txt' />
+</reference>
+
+<reference anchor="RFC3454">
+<front>
+<title>Preparation of Internationalized Strings ("stringprep")</title>
+<author initials='P.' surname='Hoffman' fullname='P.  Hoffman'>
+<organization /></author>
+<author initials='M.' surname='Blanchet' fullname='M.  Blanchet'>
+<organization /></author>
+<date month='December' year='2002' /></front>
+<seriesInfo name='RFC' value='3454' />
+<format type='TXT' octets='138684' target='ftp://ftp.isi.edu/in-notes/rfc3454.txt' />
+</reference>
+
+<reference anchor='RFC3490'>
+<front>
+<title>Internationalizing Domain Names in Applications (IDNA)</title>
+<author initials='P.' surname='Faltstrom' fullname='P. Faltstrom'>
+<organization /></author>
+<author initials='P.' surname='Hoffman' fullname='P. Hoffman'>
+<organization /></author>
+<author initials='A.' surname='Costello' fullname='A. Costello'>
+<organization /></author>
+<date month='March' year='2003' /></front>
+<seriesInfo name='RFC' value='3490' />
+<format type='TXT' octets='51943' target='ftp://ftp.isi.edu/in-notes/rfc3490.txt' />
+</reference>
+
+<reference anchor="RFC3491">
+<front>
+<title>Nameprep: A Stringprep Profile for Internationalized Domain Names (IDN)</title>
+<author initials='P.' surname='Hoffman' fullname='P.  Hoffman'>
+<organization /></author>
+<author initials='M.' surname='Blanchet' fullname='M.  Blanchet'>
+<organization /></author>
+<date month='March' year='2003' /></front>
+<seriesInfo name='RFC' value='3491' />
+<format type='TXT' octets='10316' target='ftp://ftp.isi.edu/in-notes/rfc3491.txt' />
+</reference>
+
+<reference anchor='RFC3920'>
+<front>
+<title abbrev='XMPP Core'>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P.' surname='Saint-Andre' fullname='Peter Saint-Andre' role='editor'>
+<organization>Jabber Software Foundation</organization>
+<address>
+<email>stpeter@jabber.org</email></address></author>
+<date year='2004' month='October' />
+<area>Applications</area>
+<workgroup>XMPP Working Group</workgroup>
+<keyword>RFC</keyword>
+<keyword>Request for Comments</keyword>
+<keyword>I-D</keyword>
+<keyword>Internet-Draft</keyword>
+<keyword>XMPP</keyword>
+<keyword>Extensible Messaging and Presence Protocol</keyword>
+<keyword>Jabber</keyword>
+<keyword>IM</keyword>
+<keyword>Instant Messaging</keyword>
+<keyword>Presence</keyword>
+<keyword>XML</keyword>
+<keyword>Extensible Markup Language</keyword>
+<abstract>
+<t>This memo defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a protocol for streaming Extensible Markup Language (XML) elements in order to exchange structured information in close to real time between any two network endpoints.  While XMPP provides a generalized, extensible framework for exchanging XML data, it is used mainly for the purpose of building instant messaging and presence applications that meet the requirements of RFC 2779.</t></abstract></front>
+<seriesInfo name='RFC' value='3920' />
+<format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+<format type='HTML' octets='237435' target='http://xml.resource.org/public/rfc/html/rfc3920.html' />
+<format type='XML' octets='234474' target='http://xml.resource.org/public/rfc/xml/rfc3920.xml' />
+</reference>
+
+<reference anchor='RFC4690'>
+<front>
+<title>Review and Recommendations for Internationalized Domain Names (IDNs)</title>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<author initials='P.' surname='Faltstrom' fullname='P. Faltstrom'>
+<organization /></author>
+<author initials='C.' surname='Karp' fullname='C. Karp'>
+<organization /></author>
+<author>
+<organization>IAB</organization></author>
+<date year='2006' month='September' />
+<abstract>
+<t>This note describes issues raised by the deployment and use of Internationalized Domain Names.  It describes problems both at the time of registration and for use of those names in the DNS.  It recommends that IETF should update the RFCs relating to IDNs and a framework to be followed in doing so, as well as summarizing and identifying some work that is required outside the IETF.  In particular, it proposes that some changes be investigated for the Internationalizing Domain Names in Applications (IDNA) standard and its supporting tables, based on experience gained since those standards were completed.  This memo provides information for the Internet community.</t></abstract></front>
+<seriesInfo name='RFC' value='4690' />
+<format type='TXT' octets='100929' target='ftp://ftp.isi.edu/in-notes/rfc4690.txt' />
+</reference>
+
+<reference anchor='RFC5198'>
+<front>
+<title>Unicode Format for Network Interchange</title>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<author initials='M.' surname='Padlipsky' fullname='M. Padlipsky'>
+<organization /></author>
+<date year='2008' month='March' />
+<abstract>
+<t>The Internet today is in need of a standardized form for the transmission of internationalized "text" information, paralleling the specifications for the use of ASCII that date from the early days of the ARPANET.  This document specifies that format, using UTF-8 with normalization and specific line-ending sequences. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5198' />
+<format type='TXT' octets='45708' target='http://www.rfc-editor.org/rfc/rfc5198.txt' />
+</reference>
+
+<reference anchor='RFC5322'>
+<front>
+<title>Internet Message Format</title>
+<author initials='P.' surname='Resnick' fullname='Peter W. 
+Resnick' role='editor'>
+<organization>Qualcomm Incorporated</organization>
+<address>
+<postal>
+<street>5775 Morehouse Drive</street>
+<city>San Diego</city>
+<region>CA</region>
+<code>92121-1714</code>
+<country>US</country></postal>
+<phone>+1 858 651 4478</phone>
+<email>presnick@qualcomm.com</email>
+<uri>http://www.qualcomm.com/~presnick/</uri></address></author>
+<date year='2008' month='October' />
+<abstract>
+<t>This document specifies the Internet 
+Message Format (IMF), a syntax for text messages
+			that are sent between computer users, within 
+the framework of "electronic mail"
+			messages. This specification is a revision of 
+Request For Comments (RFC) 2822, which
+			itself superseded Request For Comments (RFC) 
+822, "Standard for the Format of ARPA
+			Internet Text Messages", updating it to 
+reflect current practice and incorporating
+			incremental changes that were specified in 
+other RFCs.</t></abstract></front>
+<seriesInfo name='RFC' value='5322' />
+<format type='TXT' octets='122322' target='http://www.rfc-editor.org/rfc/rfc5322.txt' />
+<format type='HTML' octets='213342' target='http://xml.resource.org/public/rfc/html/rfc5322.html' />
+<format type='XML' octets='174183' target='http://xml.resource.org/public/rfc/xml/rfc5322.xml' />
+</reference>
+
+<reference anchor='RFC5890'>
+<front>
+<title>Internationalized Domain Names for Applications (IDNA): Definitions and Document Framework</title>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<date year='2010' month='August' />
+<abstract>
+<t>This document is one of a collection that, together, describe the protocol and usage context for a revision of Internationalized Domain Names for Applications (IDNA), superseding the earlier version.  It describes the document collection and provides definitions and other material that are common to the set. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5890' />
+<format type='TXT' octets='54245' target='http://www.rfc-editor.org/rfc/rfc5890.txt' />
+</reference>
+
+<reference anchor='RFC5891'>
+<front>
+<title>Internationalized Domain Names in Applications (IDNA): Protocol</title>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<date year='2010' month='August' />
+<abstract>
+<t>This document is the revised protocol definition for Internationalized Domain Names (IDNs).  The rationale for changes, the relationship to the older specification, and important terminology are provided in other documents.  This document specifies the protocol mechanism, called Internationalized Domain Names in Applications (IDNA), for registering and looking up IDNs in a way that does not require changes to the DNS itself.  IDNA is only meant for processing domain names, not free text. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5891' />
+<format type='TXT' octets='38105' target='http://www.rfc-editor.org/rfc/rfc5891.txt' />
+</reference>
+
+<reference anchor='RFC5892'>
+<front>
+<title>The Unicode Code Points and Internationalized Domain Names for Applications (IDNA)</title>
+<author initials='P.' surname='Faltstrom' fullname='P. Faltstrom'>
+<organization /></author>
+<date year='2010' month='August' />
+<abstract>
+<t>This document specifies rules for deciding whether a code point, considered in isolation or in context, is a candidate for inclusion in an Internationalized Domain Name (IDN).&lt;/t>&lt;t> It is part of the specification of Internationalizing Domain Names in Applications 2008 (IDNA2008). [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5892' />
+<format type='TXT' octets='187370' target='http://www.rfc-editor.org/rfc/rfc5892.txt' />
+</reference>
+
+<reference anchor='RFC5893'>
+<front>
+<title>Right-to-Left Scripts for Internationalized Domain Names for Applications (IDNA)</title>
+<author initials='H.' surname='Alvestrand' fullname='H. Alvestrand'>
+<organization /></author>
+<author initials='C.' surname='Karp' fullname='C. Karp'>
+<organization /></author>
+<date year='2010' month='August' />
+<abstract>
+<t>The use of right-to-left scripts in Internationalized Domain Names (IDNs) has presented several challenges.  This memo provides a new Bidi rule for Internationalized Domain Names for Applications (IDNA) labels, based on the encountered problems with some scripts and some shortcomings in the 2003 IDNA Bidi criterion. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5893' />
+<format type='TXT' octets='38870' target='http://www.rfc-editor.org/rfc/rfc5893.txt' />
+</reference>
+
+<reference anchor='RFC5894'>
+<front>
+<title>Internationalized Domain Names for Applications (IDNA): Background, Explanation, and Rationale</title>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<date year='2010' month='August' />
+<abstract>
+<t>Several years have passed since the original protocol for Internationalized Domain Names (IDNs) was completed and deployed.  During that time, a number of issues have arisen, including the need to update the system to deal with newer versions of Unicode.  Some of these issues require tuning of the existing protocols and the tables on which they depend.  This document provides an overview of a revised system and provides explanatory material for its components.  This document is not an Internet Standards Track specification; it is published for informational purposes.</t></abstract></front>
+<seriesInfo name='RFC' value='5894' />
+<format type='TXT' octets='115174' target='http://www.rfc-editor.org/rfc/rfc5894.txt' />
+</reference>
+
+<reference anchor='RFC5895'>
+<front>
+<title>Mapping Characters for Internationalized Domain Names in Applications (IDNA) 2008</title>
+<author initials='P.' surname='Resnick' fullname='P. Resnick'>
+<organization /></author>
+<author initials='P.' surname='Hoffman' fullname='P. Hoffman'>
+<organization /></author>
+<date year='2010' month='September' />
+<abstract>
+<t>In the original version of the Internationalized Domain Names in Applications (IDNA) protocol, any Unicode code points taken from user input were mapped into a set of Unicode code points that "made sense", and then encoded and passed to the domain name system (DNS).  The IDNA2008 protocol (described in RFCs 5890, 5891, 5892, and 5893) presumes that the input to the protocol comes from a set of "permitted" code points, which it then encodes and passes to the DNS, but does not specify what to do with the result of user input.  This document describes the actions that can be taken by an implementation between receiving user input and passing permitted code points to the new IDNA protocol.  This document is not an Internet Standards Track specification; it is published for informational purposes.</t></abstract></front>
+<seriesInfo name='RFC' value='5895' />
+<format type='TXT' octets='16556' target='http://www.rfc-editor.org/rfc/rfc5895.txt' />
+</reference>
+
+<reference anchor="UAX15">
+  <front>
+    <title>Unicode Standard Annex #15: Unicode Normalization Forms</title>
+    <author>
+      <organization>The Unicode Consortium</organization>
+    </author>
+    <date month="September" year="2010" />
+  </front>
+</reference>
+
+<reference anchor="XEP-0029">
+  <front>
+    <title>Definition of Jabber Identifiers (JIDs)</title>
+    <author initials="C." surname="Kaes" fullname="Craig Kaes">
+      <organization/>
+      <address>
+        <email>craigk@jabber.com</email>
+      </address>
+    </author>
+    <date day="03" month="October" year="2003"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0029"/>
+  <format type="HTML" target="http://xmpp.org/extensions/xep-0029.html"/>
+</reference>
+
+<reference anchor="XEP-0077">
+  <front>
+    <title>In-Band Registration</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="15" month="September" year="2009"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0077"/>
+  <format type="HTML" target="http://xmpp.org/extensions/xep-0077.html"/>
+</reference>
+
+<reference anchor="XEP-0045">
+  <front>
+    <title>Multi-User Chat</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="16" month="July" year="2008"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0045"/>
+  <format type="HTML" target="http://xmpp.org/extensions/xep-0045.html"/>
+</reference>
+
+<reference anchor="XMPP-ADDR">
+<front>
+<title>Extensible Messaging and Presence Protocol (XMPP): Address Format</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='October' day='6' year='2010' />
+<abstract><t>This document defines the address format for the Extensible Messaging and Presence Protocol (XMPP), including support for non- ASCII characters.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-xmpp-address-05' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-xmpp-address-05.txt' />
+</reference>
+
+<reference anchor="XMPP-IM">
+<front>
+<title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='October' day='6' year='2010' />
+<abstract><t>This document describes extensions to the core features of the Extensible Messaging and Presence Protocol (XMPP) that provide basic instant messaging (IM) and presence functionality in conformance with RFC 2779. This document obseletes RFC 3921.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-xmpp-3921bis-15' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-xmpp-3921bis-15.txt' />
+</reference>
+
+<reference anchor='XMPP-URI'>
+<front>
+<title>Internationalized Resource Identifiers (IRIs) and Uniform Resource Identifiers (URIs) for the Extensible Messaging and Presence Protocol (XMPP)</title>
+<author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+<organization /></author>
+<date year='2008' month='February' />
+<abstract>
+<t>This document defines the use of Internationalized Resource Identifiers (IRIs) and Uniform Resource Identifiers (URIs) in identifying or interacting with entities that can communicate via the Extensible Messaging and Presence Protocol (XMPP). [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5122' />
+<format type='TXT' octets='55566' target='ftp://ftp.isi.edu/in-notes/rfc5122.txt' />
+</reference>
+
+<reference anchor="XMPP">
+<front>
+<title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='October' day='6' year='2010' />
+<abstract><t>This document defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a technology for streaming Extensible Markup Language (XML) elements in order to exchange structured information in close to real time between any two or more network- aware entities. XMPP provides a generalized, extensible framework for incrementally exchanging XML data, upon which a variety of applications can be built. The framework includes methods for stream setup and teardown, channel encryption, authentication of a client to a server and of one server to another server, and primitives for push-style messages, publication of network availability information ("presence"), and request-response interactions between any two XMPP entities. This document obsoletes RFC 3920.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-xmpp-3920bis-17' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-xmpp-3920bis-17.txt' />
+</reference>
+
+
+    </references>
+
+  </back>
+</rfc>

@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html>
+<head>
+<title>XSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Member Meeting</h2>
+
+<ul>
+<li>Where: <a href="xmpp:foundation@conference.jabber.org?join">foundation@conference.jabber.org</a>
+<li>Log: <a href='http://logs.jabber.org/foundation@conference.jabber.org/2008-05-02.html'>http://logs.jabber.org/foundation@conference.jabber.org/2008-05-02.html</a></li>
+<li>Time: Friday, 2008-05-02, 18:00 UTC</li>
+<li>When is 18:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+
+<h3>Agenda</h3>
+
+<ol>
+  <li>
+    <strong>Call for Quorum</strong><p>The following 38 XSF members voted via proxy:</p>
+    <pre>fritzy@netflint.net
+philippe.sultan@inria.fr
+pavlix@pavlix.net
+intosi@ik.nu
+ralphm@ik.nu
+edrin@jabber.org
+jack@chesspark.com
+stpeter@jabber.org
+boyd.fletcher@xmpp.je.jfcom.mil
+admin@im.flosoft.biz
+linuxwolf@outer-planes.net
+lucas@nussbaum.fr
+zion@openaether.org
+gato@jivesoftware.com
+astro@spaceboyz.net
+ian@zoofy.com
+gnauck@jabber.org
+remko@el-tramo.be
+axelsena@jabber.uww.edu
+jcea@jabber.org
+siegle@jabber.org
+asiayeah@jabber.org
+smoku@xiaoka.com
+tobiasfar@jabber.org
+mwild1@jaim.at
+matt@jivesoftware.com
+bartvb@gmail.com
+js@camaya.net
+mremond@process-one.net
+daniel@vorpalcloud.org
+kevdadrum@jabber.ex.ac.uk
+micressor@swissjabber.ch
+omega@im.apinc.org
+dwd@jabber.org
+melo@simplicidade.org
+hildjj@jabber.org
+aadaam@gmail.com
+pcurtis@terrapin.com
+    </pre>
+    <p>The XSF has 51 members as of this date. Therefore quorum is achieved in accordance with Section 3.8 of the
+	<a href="/xsf/docs/bylaws.shtml">XSF Bylaws</a>.</p>
+  </li>
+  <li><p><strong>Items Subject to a Vote</strong></p>
+    <ol>
+      <li>
+        New and Returning members<p>Vote yes or no for the Q2 2008
+		<a href="http://wiki.jabber.org/index.php/Membership_Applications_April_2008" target="_blank">
+		applicants</a>.</p>
+      </li>
+    </ol>
+  </li>
+  <li><p>
+    <strong>Opportunity for XSF Members to Vote in the Meeting</strong></p></li>
+  <li><p>
+    <strong>Announcement of Voting Results</strong></p>
+    <table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th>Applicant </th><th>Yes</th><th>No</th>
+</tr>
+<tr>
+<td>Anders Conbereh</td>
+<td>37</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Mike Taylor</td>
+<td>17</td>
+<td>21</td>
+</tr>
+<tr>
+<td>Heiner Wolf </td>
+<td>35</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Fabio Forno</td>
+<td>38</td>
+<td>0</td>
+</tr>
+
+</table>
+<br/><br/>
+<table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th>
+Reappliers 
+</th><th>Yes</th><th>No</th>
+</tr>
+<tr>
+<td>Alexey Shchepin</td>
+<td>36</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Kevin Smith</td>
+<td>37</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Marco Balmer</td>
+<td>37</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Jakob Schr&ouml;ter</td>
+<td>37</td>
+<td>1</td>
+</tr>
+</table>
+  	</li>
+  <li><p><strong>Any Other Business?</strong></p></li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

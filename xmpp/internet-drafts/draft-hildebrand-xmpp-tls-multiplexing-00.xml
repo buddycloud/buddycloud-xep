@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc strict="yes"?>
+<rfc category="std" docName="draft-hildebrand-xmpp-tls-multiplexing-00" ipr="trust200902">
+  
+  <front>
+    <title abbrev='XMPP Multiplexing Using TLS'>Multiplexing of Connections between Extensible Messaging and Presence Protocol (XMPP) Servers Using Transport Layer Security (TLS)</title>
+    <author initials="J." surname="Hildebrand" fullname="Joe Hildebrand">
+      <organization>Cisco</organization>
+      <address>
+        <email>jhildebr@cisco.com</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>Cisco</organization>
+      <address>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+    <date year="2009" month="May" day="8"/>
+    <area>Applications</area>
+    <keyword>Transport Layer Security</keyword>
+    <keyword>TLS</keyword>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>XMPP</keyword>
+    <keyword>Jabber</keyword>
+    <abstract>
+      <t>This document specifies requirements for multiplexing of connections between Extensible Messaging and Presence Protocol (XMPP) servers using Transport Layer Security (TLS).</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section title="Problem Statement" anchor="problem">
+      <t>The Extensible Messaging and Presence Protocol (XMPP) has been widely deployed over the Internet since publication of <xref target='RFC3920'/> in 2004.  One common deployment scenario is for a hosting provider or application service provider to service multiple domains on the same machine or machines.  With the increasing popularity of so-called "cloud computing", some of these providers service thousands of domains.  Because RFC 3920 specifies that each domain-to-domain "link" shall use two XML streams (one in each direction) and because currently XMPP has no method by which an existing stream can be re-used for additional domains, establishing connectivity between two XMPP "clouds" can quickly necessitate a large number of TCP connections.  This is true even if the clouds have authenticated to each other using Transport Layer Security <xref target='TLS'/> and the Simple Authentication and Security Layer <xref target='SASL'/> with digital certificates issued by trusted roots.  Therefore it would be desirable to define a method by which two XMPP clouds could optionally multiplex communications between themselves, so that an existing domain-to-domain stream could be re-used for additional domains.  This document defines requirements for such a method.  Possible solutions will be defined in separate specifications, potentially for inclusion into <xref target='rfc3920bis'/>.</t>
+    </section>
+
+    <section title="Requirements" anchor="requirements">
+      <t>We stipulate the following requirements for server-to-server multiplexing in XMPP:</t>
+      <t>
+        <list style='symbols'>
+          <t>The multiplexing method must be backwards-compatible with existing server-to-server connection methods.</t>
+          <t>A party that supports multiplexing must also support bidirectional XML streams.</t>
+          <t>Each party to a server-to-server communication must be able to determine if the other party supports multiplexing.</t>
+          <t>If the addition of a new domain to an existing domain-to-domain stream fails, the existing stream must not be terminated, and the adding party may attempt to add the new domain again.</t>
+          <t>Multiplexing shall depend on presentation of a valid digital certificate for the multiplexed domain.</t>
+          <t>The certificate for a multiplexed domain should not be same (i.e., have the same subject) as a certificate that has previously been accepted for the stream; however, if it is the same then it shall replace the previous certificate with the same subject (e.g., to present a new certificate with a different expiry time).</t>
+          <t>When a multiplexed domain is accepted for the stream, each name on the certificate (e.g., id-on-dnsSRV or id-on-xmppAddr) becomes valid for this stream.</t>
+          <t>The protocol for accepting the initial certificate for a stream may be different from the protocol for accepting subsequent ("multiplexed") certificates for the stream.</t> 
+          <t>The process of adding a subsequent domain shall not affect transmission of application data over the stream.</t>
+          <t>If the stream is resumed, all of the certificates that were accepted for the previous session apply to the resumed session.</t>
+          <t>It is a security violation to proceed with transmission of application between two domains if multiplexing for those domains failed.  It is acceptable for the party that receives such applicatino data to terminate the stream.</t>
+          <t>It must be possible to remove a domain from the stream.</t>
+        </list>
+      </t>
+    </section>
+
+    <section title='Security Considerations' anchor='security'>
+      <t>The requirements in this memo are intended to provide guidance regarding solutions to the problem of securely multiplexing domain-to-domain XMPP communications over a single XML stream.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+<reference anchor='RFC3920'>
+<front>
+<title abbrev='XMPP Core'>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P.' surname='Saint-Andre' fullname='Peter Saint-Andre' role='editor'>
+<organization>Jabber Software Foundation</organization>
+<address>
+<email>stpeter@jabber.org</email></address></author>
+<date year='2004' month='October' />
+<area>Applications</area>
+<workgroup>XMPP Working Group</workgroup>
+<keyword>RFC</keyword>
+<keyword>Request for Comments</keyword>
+<keyword>I-D</keyword>
+<keyword>Internet-Draft</keyword>
+<keyword>XMPP</keyword>
+<keyword>Extensible Messaging and Presence Protocol</keyword>
+<keyword>Jabber</keyword>
+<keyword>IM</keyword>
+<keyword>Instant Messaging</keyword>
+<keyword>Presence</keyword>
+<keyword>XML</keyword>
+<keyword>Extensible Markup Language</keyword>
+<abstract>
+<t>This memo defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a protocol for streaming Extensible Markup Language (XML) elements in order to exchange structured information in close to real time between any two network endpoints.  While XMPP provides a generalized, extensible framework for exchanging XML data, it is used mainly for the purpose of building instant messaging and presence applications that meet the requirements of RFC 2779.</t></abstract></front>
+<seriesInfo name='RFC' value='3920' />
+<format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+<format type='HTML' octets='279912' target='http://xml.resource.org/public/rfc/html/rfc3920.html' />
+<format type='XML' octets='234610' target='http://xml.resource.org/public/rfc/xml/rfc3920.xml' />
+</reference>
+
+<reference anchor='TLS'>
+<front>
+<title>The Transport Layer Security (TLS) Protocol Version 1.2</title>
+<author initials='T.' surname='Dierks' fullname='T. Dierks'>
+<organization /></author>
+<author initials='E.' surname='Rescorla' fullname='E. Rescorla'>
+<organization /></author>
+<date year='2008' month='August' />
+<abstract>
+<t>This document specifies Version 1.2 of the Transport Layer Security (TLS) protocol.  The TLS protocol provides communications security over the Internet.  The protocol allows client/server applications to communicate in a way that is designed to prevent eavesdropping, tampering, or message forgery. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5246' />
+<format type='TXT' octets='222395' target='ftp://ftp.isi.edu/in-notes/rfc5246.txt' />
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor='rfc3920bis'>
+<front>
+<title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='March' day='8' year='2009' />
+<abstract><t>This document defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a technology for streaming Extensible Markup Language (XML) elements for the purpose of exchanging structured information in close to real time between any two or more network-aware entities.  XMPP provides a generalized, extensible framework for incrementally exchanging XML data, upon which a variety of applications can be built.  The framework includes methods for stream setup and teardown, channel encryption, authentication of a client to a server and of one server to another server, and primitives for push-style messages, publication of network availability information ("presence"), and request-response interactions.  This document also specifies the format for XMPP addresses, which are fully internationalizable.  This document obsoletes RFC 3920.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-rfc3920bis-09' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-saintandre-rfc3920bis-09.txt' />
+</reference>
+
+<reference anchor="SASL">
+<front>
+<title>Simple Authentication and Security Layer (SASL)</title>
+<author initials='A.' surname='Melnikov' fullname='A. Melnikov'>
+<organization /></author>
+<author initials='K.' surname='Zeilenga' fullname='K. Zeilenga'>
+<organization /></author>
+<date year='2006' month='June' />
+<abstract>
+<t>&lt;p>The Simple Authentication and Security Layer (SASL) is a framework for providing authentication and data security services in connection-oriented protocols via replaceable mechanisms. It provides a structured interface between protocols and mechanisms. The resulting framework allows new protocols to reuse existing mechanisms and allows old protocols to make use of new mechanisms. The framework also provides a protocol for securing subsequent protocol exchanges within a data security layer.&lt;/p>&lt;p> This document describes how a SASL mechanism is structured, describes how protocols include support for SASL, and defines the protocol for carrying a data security layer over a connection. In addition, this document defines one SASL mechanism, the EXTERNAL mechanism.&lt;/p>&lt;p> This document obsoletes RFC 2222. [STANDARDS TRACK]&lt;/p></t></abstract></front>
+<seriesInfo name='RFC' value='4422' />
+<format type='TXT' octets='73206' target='ftp://ftp.isi.edu/in-notes/rfc4422.txt' />
+</reference>
+
+    </references>
+
+    <section title="Copying Conditions" anchor="copying">
+      <t>Regarding this entire document or any portion of it, the authors make no guarantees and are not responsible for any damage resulting from its use.  The authors grant irrevocable permission to anyone to use, modify, and distribute it in any way that does not diminish the rights of anyone else to use, modify, and distribute it, provided that redistributed derivative works do not contain misleading author or version information.  Derivative works need not be licensed under similar terms.</t>
+    </section>
+
+  </back>
+</rfc>

@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Executive Director</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Executive Director</h2>
+
+<p>As explained in the <a href='/xsf/docs/bylaws.shtml'>XSF Bylaws</a>, the Executive Director of the XMPP Standards Foundation is responsible for day-to-day management of the business affairs of the organization. Because the XSF essentially exists as a legal framework for open standards development work (carried on through publication and discussion of the <a href='/extensions/'>XEP series</a>), historically the business affairs of the XSF have been limited to the following:</p>
+<ul>
+  <li>Maintenance of the XSF's non-profit status (e.g., business registration with the State of Delaware)</li>
+  <li>Interaction with <a href='/xsf/sponsors/'>sponsors</a> of the XSF</li>
+  <li>Interaction with legal counsel (e.g., to formulate the XSF's <a href='/extensions/ipr-policy.shtml'>IPR Policy</a>)</li>
+  <li>Interation with other standards development organizations (e.g., the <a href='http://www.ietf.org/'>IETF</a> and <a href='http://www.w3.org/'>W3C</a>) at a business level</li>
+  <li>Oversight related to the XSF's <a href='/trademark/'>management</a> of the JABBER trademark</li>
+  <li>Oversight related to the XSF's computing infrastructure (various servers used to host websites, mailing lists, and instant messaging services)</li>
+  <li>Coordination and consultation with the <a href='/xsf/board/'>Board of Directors</a> and <a href='council'>XMPP Council</a> on all appropriate issues</li>
+</ul>
+<p>The founding Executive Director of the organization was <a href='/xsf/people/bauer.shtml'>Michael Bauer</a>, who served from 2001 to 2002. Since that time, the Executive Director has been <a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a>, who was reaffirmed by the <a href='/xsf/board/'>XSF Board of Directors</a> in their annual meeting on 2010-01-06.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

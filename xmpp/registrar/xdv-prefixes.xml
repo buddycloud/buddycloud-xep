@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'xdv-prefixes.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xdv-prefixes.xsl'?>
+<registry>
+  <meta>
+    <title>Data Forms Validation Datatype Prefixes</title>
+    &LEGALNOTICE;
+    <overview>This is the official registry of datatype prefixes for use in the context of &xep0122;, as maintained by the &REGISTRAR;. This registry contains prefixes specified in XEP-0122 as well as prefixes submitted directly to the XMPP Registrar.</overview>
+    <revision>
+      <version>0.2</version>
+      <date>2005-08-26</date>
+      <initials>psa</initials>
+      <remark>Added sipub: prefix specified in XEP-0137.</remark>
+    </revision>
+    <revision>
+      <version>0.1</version>
+      <date>2004-09-22</date>
+      <initials>psa</initials>
+      <remark>Initial version with prefixes specified in XEP-0122.</remark>
+    </revision>
+  </meta>
+  <datatype-prefix>
+    <prefix>sipub</prefix>
+    <desc>The datatype for a stream initiation profile</desc>
+    <doc>&xep0137;</doc>
+  </datatype-prefix>
+  <datatype-prefix>
+    <prefix>x</prefix>
+    <desc>An ad-hoc datatype</desc>
+    <doc>&xep0122;</doc>
+  </datatype-prefix>
+  <datatype-prefix>
+    <prefix>xs</prefix>
+    <desc>A "standard" datatype as defined in XML Schema Part 2</desc>
+    <doc>&w3xmlschema2;</doc>
+  </datatype-prefix>
+</registry>

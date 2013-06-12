@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Sponsors :: Hitachi</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Sponsors :: Hitachi</h2>
+
+<p>
+<a href='http://www.hitachi.com/'><img alt='Hitachi Logo' style='float: right; border-width: 0px' src='/images/logo-hitachi.png'/></a>
+<a href='http://www.hitachi.com/'>Hitachi</a> is one of the world's leading global electronics companies. In 2001, Hitachi was founding sponsor of the XMPP Standards Foundation at the Platinum level, and has used Jabber/XMPP as the basis for internal projects and has translated Jabber documentation into Japanese. For more information about Hitachi, visit &lt;<a href='http://www.hitachi.com/'>www.hitachi.com</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

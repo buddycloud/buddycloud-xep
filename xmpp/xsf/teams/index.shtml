@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Teams</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Teams</h2>
+
+<p>In addition to the <a href='/xsf/board/'>Board of Directors</a> and the <a href='/council/'>XMPP Council</a>, several teams help to complete the work of the <a href='/xsf/'>XMPP Standards Foundation</a>. Elected <a href='/xsf/members/'>members</a> of the XSF are expected to serve on at least one team as part of their <a href='/xsf/members/responsibilities.shtml'>responsibilities</a>. The following teams are currently chartered or in the process of formation.</p>
+<ul>
+  <li><a href='/xsf/teams/communication/'>Communication</a></li>
+  <li><a href='/xsf/teams/infrastructure/'>Infrastructure</a></li>
+  <li><a href='/xsf/teams/techreview/'>Technical Review</a></li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

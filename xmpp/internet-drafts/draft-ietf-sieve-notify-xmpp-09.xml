@@ -1,0 +1,699 @@
+<?xml version='1.0'?>
+<!DOCTYPE rfc SYSTEM 'rfc2629.dtd'>
+<?rfc toc='yes'?>
+<?rfc tocdepth='2'?>
+<?rfc symrefs='yes'?>
+<?rfc compact='yes'?>
+<?rfc strict='yes'?>
+<rfc category='std' docName='draft-ietf-sieve-notify-xmpp-09' ipr='trust200902'>
+
+  <front>
+    <title abbrev='Sieve Notify Method: xmpp'>Sieve Notification Mechanism: xmpp</title>
+    <author initials='P.' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+      <organization>XMPP Standards Foundation</organization>
+      <address>
+        <email>stpeter@jabber.org</email>
+        <uri>https://stpeter.im/</uri>
+      </address>
+    </author>
+    <author initials='A.' surname='Melnikov' fullname='Alexey Melnikov'>
+      <organization>Isode Limited</organization>
+      <address>
+        <email>Alexey.Melnikov@isode.com</email>
+      </address>
+    </author>
+    <date year='2008' month='February' day='19'/>
+    <area>Applications</area>
+    <workgroup>Sieve Working Group</workgroup>
+    <keyword>Sieve</keyword>
+    <keyword>notification</keyword>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>XMPP</keyword>
+    <abstract>
+      <t>This document describes a profile of the Sieve extension for notifications, to allow notifications to be sent over the Extensible Messaging and Presence Protocol (XMPP), also known as Jabber.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title='Introduction' anchor='intro'>
+
+      <section title='Overview' anchor='intro-overview'>
+        <t>The <xref target="NOTIFY"/> extension to the <xref target="SIEVE"/> mail filtering language is a framework for providing notifications by employing URIs to specify the notification mechanism.  This document defines how XMPP URIs (see <xref target="XMPP-URI"/>) are used to generate notifications via the Extensible Messaging and Presence Protocol <xref target='XMPP'/>, which is widely implemented in Jabber instant messaging technologies.</t>
+      </section>
+
+      <section title='Terminology' anchor='intro-terms'>
+        <t>This document inherits terminology from <xref target='NOTIFY'/>, <xref target='SIEVE'/>, <xref target='XMPP'/>, and <xref target='XMPP-URI'/>.  In particular, the terms "parameter" and "tag" are used as described in <xref target='NOTIFY'/> to refer to aspects of Sieve scripts and the term "key" is used as described in <xref target='XMPP-URI'/> to refer to aspects of an XMPP URI.</t>
+        <t>The capitalized key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target='TERMS'/>.</t>
+      </section>
+
+    </section>
+
+    <section title='Definition' anchor='def'>
+
+      <section title='Notify parameter "method"' anchor='def-method'>
+        <t>The "method" parameter MUST be a URI that conforms to the XMPP URI scheme (as specified in <xref target='XMPP-URI'/>) and that identifies an XMPP account associated with the email inbox.  The URI MAY include the resource identifier of an XMPP address and/or the query component portion of an XMPP URI, but SHOULD NOT include an authority component or fragment identifier component.  The processing application MUST extract an XMPP address from the URI in accordance with the processing rules specified in <xref target='XMPP-URI'/>.  The resulting XMPP address MUST be encapsulated in XMPP syntax as the value of the XMPP 'to' attribute.</t>
+      </section>
+
+      <section title='Test notify_method_capability' anchor='def-capability'>
+        <t>In response to a notify_method_capability test for the "online" notification-capability, an implementation SHOULD return a value of "yes" if it has knowledge of an active presence session (see <xref target='XMPP-IM'/>) for the specified XMPP notification-uri; otherwise it SHOULD return a value of "maybe" (since typical XMPP systems may not allow a Sieve engine to gain knowledge about the presence of XMPP entities).</t>
+      </section>
+
+      <section title='Notify tag ":from"' anchor='def-from'>
+        <t>If included, the ":from" tag MUST be an electronic address that conforms to the "Mailbox" rule defined in <xref target='RFC2821'/>.  The value of the ":from" tag MAY be included in the human-readable XML character data of the XMPP notification; alternatively or in addition, it MAY be transformed into formal XMPP syntax, in which case it MUST be encapsulated as the value of an XMPP Stanza Headers and Internet Metadata <xref target='SHIM'/> header named "Resent-From".</t>
+      </section>
+
+      <section title='Notify tag ":importance"' anchor='def-importance'>
+        <t>The ":importance" tag has no special meaning for this notification mechanism, and this specification puts no restriction on its use.  The value of the ":importance" tag MAY be transformed into XMPP syntax (in addition to or instead of including appropriate text in the XML character data of the XMPP &lt;body/&gt; element); if so, it SHOULD be encapsulated as the value of an XMPP Stanza Headers and Internet Metadata <xref target='SHIM'/> header named "Urgency", where the XML character of that header is "high" if the value of the ":importance" tag is "1", "medium" if the value of the ":importance" tag is "2", and "low" if the value of the ":importance" tag is "3".</t>
+      </section>
+
+      <section title='Notify tag ":message"' anchor='def-message'>
+        <t>If the ":message" tag is included, that string MUST be transformed into the XML character data of an XMPP &lt;body/&gt; element (where the string is generated according to the guidelines specified in Section 3.6 of <xref target='NOTIFY'/>).</t>
+      </section>
+
+      <section title='Notify tag ":options"' anchor='def-options'>
+        <t>The ":options" tag has no special meaning for this notification mechanism.  Any handling of this tag is the responsibility of an implementation.</t>
+      </section>
+
+      <section title='XMPP syntax' anchor='def-syntax'>
+        <t>The xmpp mechanism results in the sending of an XMPP message to notify a recipient about an email message.  The general XMPP syntax is as follows:</t>
+        <t><list style='symbols'>
+          <t>The notification MUST be an XMPP &lt;message/&gt; stanza.</t>
+          <t>The value of the XMPP 'from' attribute SHOULD be the XMPP address of the notification service associated with the Sieve engine or the XMPP address of the entity to be notified.  The value of the XMPP 'from' attribute MUST NOT be generated from the Sieve ":from" tag.</t>
+          <t>The value of the XMPP 'to' attribute MUST be the XMPP address specified in the XMPP URI contained in the "method" notify parameter.</t>
+          <t>The value of the XMPP 'type' attribute MUST be 'headline' or 'normal'.</t>
+          <t>The XMPP &lt;message/&gt; stanza MUST include a &lt;body/&gt; child element.  If the ":message" tag is included in the Sieve script, that string MUST be used as the XML character data of the &lt;body/&gt; element.  If not and if the XMPP URI contained in the "method" notify parameter specified a "body" key in the query component, that value SHOULD be used.  Otherwise the XML character data SHOULD be some configurable text indicating that the message is a Sieve notification.</t>
+          <t>The XMPP &lt;message/&gt; stanza MAY include a &lt;subject/&gt; child element.  If the XMPP URI contained in the "method" notify parameter specified a "subject" key in the query component, that value SHOULD be used as the XML character data of the &lt;subject/&gt; element.  Otherwise the XML character data SHOULD be some configurable text indicating that the message is a Sieve notification.</t>
+          <t>The XMPP &lt;message/&gt; stanza SHOULD include a URI for the recipient to use as a hint in locating the message, encapsulated as the XML character data of a &lt;url/&gt; child element of an &lt;x/&gt; element qualified by the 'jabber:x:oob' namespace as specified in <xref target='OOB'/>.  If included, the URI SHOULD be an Internet Message Access Protocol <xref target='IMAP'/> URL that specifies the location of the message as defined in <xref target='IMAP-URL'/>, but MAY be another URI type that can specify or hint at the location of an email message, such as a URI for an HTTP resource <xref target='HTTP'/> or a POP3 mailbox <xref target='POP-URL'/> at which the message can be accessed.  It is not expected that an XMPP user agent shall directly handle such a URI, but instead that it shall invoke an appropriate helper application to handle the URI.</t>
+          <t>The XMPP &lt;message/&gt; stanza MAY include an XMPP Stanza Headers and Internet Metadata <xref target='SHIM'/> header named "Resent-From".  If the Sieve script included a ":from" tag, the "Resent-From" value MUST be the value of the ":from" tag; otherwise the "Resent-From" value SHOULD be the envelope recipient address of the original email message that triggered the notification.</t>
+        </list></t>
+      </section>
+
+    </section>
+
+    <section title='Examples' anchor='examples'>
+      <t>In the following examples, the sender of the email has an address of &lt;mailto:juliet@example.org&gt;, the entity to be notified has an email address of &lt;mailto:romeo@example.com&gt; and an XMPP address of romeo@im.example.com (resulting in an XMPP URI of &lt;xmpp:romeo@im.example.com&gt;), and the notification service associated with the Sieve engine has an XMPP address of notify.example.com.</t>
+      <t>Note:  In the following examples, line breaks are included in XMPP URIs solely for the purpose of readability.</t>
+      <section title='Basic action' anchor='examples-basic'>
+        <t>The following is a basic Sieve notify action with only a method.  The XML character data of the XMPP &lt;body/&gt; and &lt;subject/&gt; elements are therefore generated by the Sieve engine based on configuration.  In addition, the Sieve engine includes a URI pointing to the message.</t>
+        <figure>
+          <preamble>Basic action (Sieve syntax)</preamble>
+          <artwork><![CDATA[
+  notify "xmpp:romeo@im.example.com"
+          ]]></artwork>
+        </figure>
+        <t>The resulting XMPP &lt;message/&gt; stanza might be as follows.</t>
+        <figure>
+          <preamble>Basic action (XMPP syntax)</preamble>
+          <artwork><![CDATA[
+  <message from='notify.example.com' 
+           to='romeo@im.example.com' 
+           type='headline'
+           xml:lang='en'>
+    <subject>SIEVE</subject>
+    <body>&lt;juliet@example.com&gt; You got mail.</body>
+    <x xmlns='jabber:x:oob'>
+      <url>
+        imap://romeo@example.com/INBOX;UIDVALIDITY=385759043/;UID=18
+      </url>
+    </x>
+  </message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Action with body' anchor='examples-body'>
+        <t>The following action contains a "body" key in the query component of the XMPP URI but no ":message" tag in the Sieve script.  As a result, the XML character data of the XMPP &lt;body/&gt; element in the XMPP notification is taken from the XMPP URI.  In addition, the Sieve engine includes a URI pointing to the message.</t>
+        <figure>
+          <preamble>Action with body (Sieve syntax)</preamble>
+          <artwork><![CDATA[
+  notify "xmpp:romeo@im.example.com?message
+           ;body=Wherefore%20art%20thou%3F"
+          ]]></artwork>
+        </figure>
+        <t>The resulting XMPP &lt;message/&gt; stanza might be as follows.</t>
+        <figure>
+          <preamble>Action with body (XMPP syntax)</preamble>
+          <artwork><![CDATA[
+  <message from='notify.example.com' 
+           to='romeo@im.example.com' 
+           type='headline'
+           xml:lang='en'>
+    <subject>SIEVE</subject>
+    <body>Wherefore art thou?</body>
+    <x xmlns='jabber:x:oob'>
+      <url>
+        imap://romeo@example.com/INBOX;UIDVALIDITY=385759044/;UID=19
+      </url>
+    </x>
+  </message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Action with body, importance, message, and subject' anchor='examples-message'>
+        <t>The following action specifies an ":importance" tag and a ":message" tag in the Sieve script, as well as a "body" key and a "subject" key in the query component of the XMPP URI.  As a result, the ":message" tag from the Sieve script overrides the "body" key from the XMPP URI when generating the XML character data of the XMPP &lt;body/&gt; element.  In addition, the Sieve engine includes a URI pointing to the message.</t>
+        <figure>
+          <preamble>Action with body, importance, message, and subject (Sieve syntax)</preamble>
+          <artwork><![CDATA[
+  notify :importance "1"
+         :message "Contact Juliet immediately!"
+         "xmpp:romeo@im.example.com?message
+           ;body=You%27re%20in%20trouble
+           ;subject=ALERT%21"
+          ]]></artwork>
+        </figure>
+        <t>The resulting XMPP &lt;message/&gt; stanza might be as follows.</t>
+        <figure>
+          <preamble>Action with body, importance, message, and subject (XMPP syntax)</preamble>
+          <artwork><![CDATA[
+  <message from='notify.example.com' 
+           to='romeo@im.example.com' 
+           type='headline'
+           xml:lang='en'>
+    <subject>ALERT!</subject>
+    <body>Contact Juliet immediately!</body>
+    <headers xmlns='http://jabber.org/protocol/shim'>
+      <header name='Urgency'>high</header>
+    </headers>
+    <x xmlns='jabber:x:oob'>
+      <url>
+        imap://romeo@example.com/INBOX;UIDVALIDITY=385759045/;UID=20
+      </url>
+    </x>
+  </message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Action with from, message, importance, body, and subject' anchor='examples-full'>
+        <t>The following action specifies a ":from" tag, an ":importance" tag, and a ":message" tag in the Sieve script, as well as a "body" key and a "subject" key in the query component of the XMPP URI.  As a result, the ":message" tag from the Sieve script overrides the "body" key from the XMPP URI when generating the XML character data of the XMPP &lt;body/&gt; element.  In addition, the Sieve engine includes a URI pointing to the message, as well as an XMPP Stanza Headers and Internet Metadata <xref target='SHIM'/> header named "Resent-From" (which encapsulates the value of the ":from" tag).</t>
+        <figure>
+          <preamble>Action with body, from, importance, message, and subject (Sieve syntax)</preamble>
+          <artwork><![CDATA[
+  notify :from "romeo.my.romeo@example.com"
+         :importance "1"
+         :message "Contact Juliet immediately!"
+         "xmpp:romeo@im.example.com?message
+           ;body=You%27re%20in%20trouble
+           ;subject=ALERT%21"
+          ]]></artwork>
+        </figure>
+        <t>The resulting XMPP &lt;message/&gt; stanza might be as follows.</t>
+        <figure>
+          <preamble>Action with body, from, importance, message, and subject (XMPP syntax)</preamble>
+          <artwork><![CDATA[
+  <message from='notify.example.com' 
+           to='romeo@im.example.com' 
+           type='headline'
+           xml:lang='en'>
+    <subject>ALERT!</subject>
+    <body>Contact Juliet immediately!</body>
+    <headers xmlns='http://jabber.org/protocol/shim'>
+      <header name='Resent-From'>romeo.my.romeo@example.com</header>
+      <header name='Urgency'>high</header>
+    </headers>
+    <x xmlns='jabber:x:oob'>
+      <url>
+        imap://romeo@example.com/INBOX;UIDVALIDITY=385759045/;UID=21
+      </url>
+    </x>
+  </message>
+          ]]></artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section title='Requirements Conformance' anchor='conformance'>
+      <t>Section 3.8 of <xref target='NOTIFY'/> specifies a set of requirements for Sieve notification methods.  The conformance of the xmpp notification mechanism is provided here.</t>
+      <t>
+        <list style='numbers'>
+          <t>An implementation of the xmpp notification method SHOULD NOT modify the final notification text (e.g., to limit the length); however, a given deployment MAY do so (e.g., if recipients pay per character or byte for XMPP messages).  Modification of characters themselves should not be necessary, since XMPP character data is encoded in <xref target='UTF-8'/>.</t>
+          <t>An implementation MAY ignore parameters specified in the ":from", ":importance", and ":options" tags.</t>
+          <t>There is no recommended default message for an implementation to include if the ":message" tag is not specified.</t>
+          <t>A notification sent via the xmpp notification method MAY include a timestamp in the textual message.</t>
+          <t>The value of the XMPP 'from' attribute MUST be the XMPP address of the notification service associated with the Sieve engine.  The value of the Sieve ":from" tag MAY be transformed into the value of an XMPP Stanza Headers and Internet Metadata <xref target='SHIM'/> header named "Reply-To".</t>
+          <t>The value of the XMPP 'to' attribute MUST be the XMPP address specified in the XMPP URI contained in the "method" parameter.</t>
+          <t>In accordance with <xref target='XMPP-URI'/>, an implementation MUST ignore any URI action or key it does not understand (i.e., the URI MUST be processed as if the action or key were not present).  It is RECOMMENDED to support the XMPP "message" query type (see <xref target='QUERIES'/>) and the associated "body" and "subject" keys, which keys SHOULD be mapped to the XMPP &lt;body/&gt; and &lt;subject/&gt; child elements of the XMPP &lt;message/&gt; stanza, respectively.  However, if included then the Sieve notify ":message" tag MUST be mapped to the XMPP &lt;body/&gt; element, overriding the "body" key (if any) included in the XMPP URI.</t>
+          <t>An implementation MUST NOT include any other extraneous information not specified in parameters to the notify action.</t>
+          <t>In response to a notify_method_capability test for the "online" notification-capability, an implementation SHOULD return a value of "yes" if it has knowledge of an active presence session (see <xref target='XMPP-IM'/>) for the specified XMPP notification-uri but only if the entity that requested the test is authorized to know the presence of the associated XMPP entity (e.g., via explicit presence subscription as specified in <xref target='XMPP-IM'/>); otherwise it SHOULD return a value of "maybe" (since typical XMPP systems may not allow a Sieve engine to gain knowledge about the presence of XMPP entities).</t>
+          <t>An implementation SHOULD NOT attempt to retry delivery of a notification if it receives an XMPP error of type "auth" or "cancel", MAY attempt to retry delivery if it receives an XMPP error of type "wait", and MAY attempt to retry delivery if it receives an XMPP error of "modify" but only if it makes appropriate modifications to the notification (see <xref target='XMPP'/>); in any case the number of retries SHOULD be limited to a configurable number no less than 3 and no more than 10.  An implementation MAY throttle notifications if the number of notifications within a given time period becomes excessive according to local service policy.  Duplicate suppression (if any) is a matter of implementation and is not specified herein.</t>
+        </list>
+      </t>
+    </section>
+
+    <section title='Internationalization Considerations' anchor='i18n'>
+      <t>Although an XMPP address may contain nearly any <xref target='UNICODE'/> character, the value of the "method" parameter MUST be a Uniform Resource Identifier (see <xref target='URI'/>) rather than an Internationalized Resource Identifier (see <xref target='IRI'/>).  The rules specified in <xref target='XMPP-URI'/> MUST be followed when generating XMPP URIs.</t>
+      <t>In accordance with Section 13 of RFC 3920, all data sent over XMPP MUST be encoded in <xref target='UTF-8'/>.</t>
+    </section>
+
+    <section title='Security Considerations' anchor='sec'>
+      <t>Depending on the information included, sending a notification can be comparable to forwarding mail to the notification recipient.  Care must be taken when forwarding mail automatically, to ensure that confidential information is not sent into an insecure environment.  In particular, implementations MUST conform to the security considerations given in <xref target='NOTIFY'/>, <xref target='SIEVE'/>, and <xref target='XMPP'/>.</t>
+      <t><xref target='NOTIFY'/> specifies that a notification method MUST provide mechanisms for avoiding notification loops. One type of notification loop can be caused by message forwarding; however, such loops are prevented because XMPP does not support forwarding of messages from one XMPP address to another. Another type of notification loop can be caused by auto-replies to XMPP messages received by the XMPP notification service associated with the Sieve engine; therefore such a service MUST NOT auto-reply to XMPP messages it receives.</t>
+      <t>A common use case might be for a user to create a script that enables the Sieve engine to act differently if the user is currently available at a particular type of service (e.g., send notifications to the user's XMPP address if the user has an active session at an XMPP service).  Whether the user is currently available can be determined by means of a notify_method_capability test for the "online" notification-capability.  In XMPP, information about current network availability is called "presence" (see also <xref target='MODEL'/>).  Since <xref target='XMPP-IM'/> requires that a user must approve a presence subscription before an entity can gain access to the user's presence information, a limited but reasonably safe implementation might be for the Sieve engine to request a subscription to the user's presence.  The user would then need to approve that subscription request so that the Sieve engine can act appropriately depending on whether the user is online or offline.  However, the Sieve engine MUST NOT use the user's presence information when processing scripts on behalf of a script owner other than the user, unless the Sieve engine has explicit knowledge (e.g., via integration with an XMPP server's presence authorization rules) that the script owner is authorized to know the user's presence.  While it would be possible to design a more advanced approach to delegation of presence authorization, any such approach is left to future standards work.</t>
+    </section>
+
+    <section title='IANA Considerations' anchor='iana'>
+      <t>The following template provides the IANA registration of the Sieve notification mechanism specified in this document:</t>
+      <figure>
+        <artwork><![CDATA[
+  To: iana@iana.org
+  Subject: Registration of new Sieve notification mechanism
+  Mechanism name: xmpp
+  Mechanism URI: draft-saintandre-rfc4622bis
+  Mechanism-specific options: none
+  Standards Track/IESG-approved experimental RFC number: this RFC
+  Person and email address to contact for further information:
+       Peter Saint-Andre <stpeter@jabber.org>
+        ]]></artwork>
+      </figure>
+      <t>This information should be added to the list of Sieve notification mechanisms maintained at &lt;http://www.iana.org/assignments/sieve-notification&gt;.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title='Normative References'>
+
+<reference anchor='NOTIFY'>
+<front>
+<title>Sieve Email Filtering: Notifications</title>
+<author initials='A' surname='Melnikov' fullname='Alexey Melnikov'>
+    <organization />
+</author>
+<author initials='B' surname='Leiba' fullname='Barry Leiba'>
+    <organization />
+</author>
+<author initials='W' surname='Segmuller' fullname='Wolfgang Segmuller'>
+    <organization />
+</author>
+<author initials='T' surname='Martin' fullname='Tim Martin'>
+    <organization />
+</author>
+<date month='December' day='24' year='2007' />
+<abstract><t>Users go to great lengths to be notified as quickly as possible that they have received new mail. Most of these methods involve polling to check for new messages periodically. A push method handled by the final delivery agent gives users quicker notifications and saves server resources. This document does not specify the notification method but it is expected that using existing instant messaging infrastructure such as XMPP, or SMS messages will be popular. This draft describes an extension to the Sieve mail filtering language that allows users to give specific rules for how and when notifications should be sent.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-sieve-notify-12' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-sieve-notify-12.txt' />
+</reference>
+
+<reference anchor="OOB">
+  <front>
+    <title>Out of Band Data</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="16" month="August" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0066"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0066.html"/>
+</reference>
+
+<reference anchor="QUERIES">
+  <front>
+    <title>XMPP URI Scheme Query Components</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="13" month="September" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0147"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0147.html"/>
+</reference>
+
+<reference anchor='RFC2821'>
+<front>
+<title>Simple Mail Transfer Protocol</title>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<date year='2001' month='April' />
+<abstract>
+<t>This document is a self-contained specification of the basic protocol for the Internet electronic mail transport. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='2821' />
+<format type='TXT' octets='192504' target='ftp://ftp.isi.edu/in-notes/rfc2821.txt' />
+</reference>
+
+<reference anchor="SHIM">
+  <front>
+    <title>Stanza Headers and Internet Metadata</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <author initials="J." surname="Hildebrand" fullname="Joe Hildebrand">
+      <organization/>
+      <address>
+        <email>jhildebrand@jabber.com</email>
+      </address>
+    </author>
+    <date day="12" month="July" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0131"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0131.html"/>
+</reference>
+
+<reference anchor='SIEVE'>
+<front>
+<title>Sieve: An Email Filtering Language</title>
+<author initials='T' surname='Showalter' fullname='Tim Showalter'>
+    <organization />
+</author>
+<author initials='P' surname='Guenther' fullname='Philip Guenther'>
+    <organization />
+</author>
+<date month='October' day='8' year='2007' />
+<abstract><t>This document describes a language for filtering email messages at time of final delivery. It is designed to be implementable on either a mail client or mail server. It is meant to be extensible, simple, and independent of access protocol, mail architecture, and operating system. It is suitable for running on a mail server where users may not be allowed to execute arbitrary programs, such as on black box Internet Message Access Protocol (IMAP) servers, as the base language has no variables, loops, or ability to shell out to external programs.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-sieve-3028bis-13' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-sieve-3028bis-13.txt' />
+</reference>
+
+<reference anchor='TERMS'>
+  <front>
+    <title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+    <author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+      <organization>Harvard University</organization>
+      <address>
+        <postal>
+          <street>1350 Mass. Ave.</street>
+          <street>Cambridge</street>
+          <street>MA 02138</street>
+        </postal>
+        <phone>- +1 617 495 3864</phone>
+        <email>-</email>
+      </address>
+    </author>
+    <date month='March' year='1997'></date>
+    <area>General</area>
+    <keyword>keyword</keyword>
+    <abstract>
+      <t>In many standards track documents several words are used to signify the requirements in the specification.  These words are often capitalized.  This document defines these words as they should be interpreted in IETF documents.  Authors who follow these guidelines should incorporate this phrase near the beginning of their document:
+        <list>
+          <t>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in RFC 2119.</t>
+        </list>
+      </t>
+      <t>Note that the force of these words is modified by the requirement level of the document in which they are used.</t>
+    </abstract>
+  </front>
+  <seriesInfo name='BCP' value='14' />
+  <seriesInfo name='RFC' value='2119' />
+</reference>
+
+<reference anchor='XMPP-URI'>
+<front>
+<title>Internationalized Resource Identifiers (IRIs) and Uniform Resource Identifiers (URIs) for the Extensible Messaging and Presence Protocol (XMPP)</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='June' day='12' year='2007' />
+<abstract><t>This document defines the use of Internationalized Resource Identifiers (IRIs) and Uniform Resource Identifiers (URIs) in identifying or interacting with entities that can communicate via the Extensible Messaging and Presence Protocol (XMPP). This document obsoletes RFC 4622.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-rfc4622bis-01' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-saintandre-rfc4622bis-01.txt' />
+</reference>
+
+    </references>
+
+    <references title='Informative References'>
+
+<reference anchor='HTTP'>
+<front>
+<title abbrev='HTTP/1.1'>Hypertext Transfer Protocol -- HTTP/1.1</title>
+<author initials='R.' surname='Fielding' fullname='Roy T.  Fielding'>
+<organization abbrev='UC Irvine'>Department of Information and Computer Science</organization>
+<address>
+<postal>
+<street>University of California, Irvine</street>
+<city>Irvine</city>
+<region>CA</region>
+<code>92697-3425</code></postal>
+<facsimile>+1(949)824-1715</facsimile>
+<email>fielding@ics.uci.edu</email></address></author>
+<author initials='J.' surname='Gettys' fullname='James Gettys'>
+<organization abbrev='Compaq/W3C'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>jg@w3.org</email></address></author>
+<author initials='J.' surname='Mogul' fullname='Jeffrey C.  Mogul'>
+<organization abbrev='Compaq'>Compaq Computer Corporation</organization>
+<address>
+<postal>
+<street>Western Research Laboratory</street>
+<street>250 University Avenue</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94305</code></postal>
+<email>mogul@wrl.dec.com</email></address></author>
+<author initials='H.' surname='Frystyk' fullname='Henrik Frystyk Nielsen'>
+<organization abbrev='MIT/LCS'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>frystyk@w3.org</email></address></author>
+<author initials='L.' surname='Masinter' fullname='Larry Masinter'>
+<organization abbrev='Xerox'>Xerox Corporation</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>3333 Coyote Hill Road</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94034</code></postal>
+<email>masinter@parc.xerox.com</email></address></author>
+<author initials='P.' surname='Leach' fullname='Paul J.  Leach'>
+<organization abbrev='Microsoft'>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>1 Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code></postal>
+<email>paulle@microsoft.com</email></address></author>
+<author initials='T.' surname='Berners-Lee' fullname='Tim Berners-Lee'>
+<organization abbrev='MIT/LCS'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>timbl@w3.org</email></address></author>
+<date month='June' year='1999' />
+<abstract>
+<t>
+   The Hypertext Transfer Protocol (HTTP) is an application-level
+   protocol for distributed, collaborative, hypermedia information
+   systems.  It is a generic, stateless, protocol which can be used for
+   many tasks beyond its use for hypertext, such as name servers and
+   distributed object management systems, through extension of its
+   request methods, error codes and headers .  A feature of HTTP is
+   the typing and negotiation of data representation, allowing systems
+   to be built independently of the data being transferred.
+</t>
+<t>
+   HTTP has been in use by the World-Wide Web global information
+   initiative since 1990.  This specification defines the protocol
+   referred to as "HTTP/1.1", and is an update to RFC 2068 .
+</t></abstract></front>
+<seriesInfo name='RFC' value='2616' />
+<format type='TXT' octets='422317' target='ftp://ftp.isi.edu/in-notes/rfc2616.txt' />
+<format type='PS' octets='5529857' target='ftp://ftp.isi.edu/in-notes/rfc2616.ps' />
+<format type='PDF' octets='550558' target='ftp://ftp.isi.edu/in-notes/rfc2616.pdf' />
+<format type='HTML' octets='498891' target='http://xml.resource.org/public/rfc/html/rfc2616.html' />
+<format type='XML' octets='471630' target='http://xml.resource.org/public/rfc/xml/rfc2616.xml' />
+</reference>
+
+<reference anchor='IMAP'>
+<front>
+<title>INTERNET MESSAGE ACCESS PROTOCOL - VERSION 4rev1</title>
+<author initials='M.' surname='Crispin' fullname='M. Crispin'>
+<organization /></author>
+<date year='2003' month='March' />
+<abstract>
+<t>The Internet Message Access Protocol, Version 4rev1 (IMAP4rev1) allows a client to access and manipulate electronic mail messages on a server. IMAP4rev1 permits manipulation of mailboxes (remote message folders) in a way that is functionally equivalent to local folders. IMAP4rev1 also provides the capability for an offline client to resynchronize with the server. IMAP4rev1 includes operations for creating, deleting, and renaming mailboxes, checking for new messages, permanently removing messages, setting and clearing flags, RFC 2822 and RFC 2045 parsing, searching, and selective fetching of message attributes, texts, and portions thereof. Messages in IMAP4rev1 are accessed by the use of numbers. These numbers are either message sequence numbers or unique identifiers. IMAP4rev1 supports a single server. A mechanism for accessing configuration information to support multiple IMAP4rev1 servers is discussed in RFC 2244. IMAP4rev1 does not specify a means of posting mail; this function is handled by a mail transfer protocol such as RFC 2821. [STANDARDS TRACK] </t></abstract></front>
+<seriesInfo name='RFC' value='3501' />
+<format type='TXT' octets='227640' target='ftp://ftp.isi.edu/in-notes/rfc3501.txt' />
+</reference>
+
+<reference anchor='IMAP-URL'>
+<front>
+<title>IMAP URL Scheme</title>
+<author initials='A.' surname='Melnikov' fullname='A. Melnikov'>
+<organization /></author>
+<author initials='C.' surname='Newman' fullname='C. Newman'>
+<organization /></author>
+<date year='2007' month='November' />
+<abstract>
+<t>IMAP (RFC 3501) is a rich protocol for accessing remote message stores. It provides an ideal mechanism for accessing public mailing list archives as well as private and shared message stores. This document defines a URL scheme for referencing objects on an IMAP server.&lt;/t>&lt;t> This document obsoletes RFC 2192. It also updates RFC 4467. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5092' />
+<format type='TXT' octets='65197' target='ftp://ftp.isi.edu/in-notes/rfc5092.txt' />
+</reference>
+
+<reference anchor='MODEL'>
+<front>
+<title>A Model for Presence and Instant Messaging</title>
+<author initials='M.' surname='Day' fullname='Mark Day'>
+<organization>SightPath, Inc.</organization>
+<address>
+<postal>
+<street>135 Beaver Street</street>
+<city>Waltham</city>
+<region>MA</region>
+<code>02452</code>
+<country>US</country></postal>
+<email>mday@alum.mit.edu</email></address></author>
+<author initials='J.' surname='Rosenberg' fullname='Jonathan Rosenberg'>
+<organization>dynamicsoft</organization>
+<address>
+<postal>
+<street>200 Executive Drive</street>
+<street>Suite 120</street>
+<city>West Orange</city>
+<region>NJ</region>
+<code>07046</code>
+<country>US</country></postal>
+<email>jdrosen@dynamicsoft.com</email></address></author>
+<author initials='H.' surname='Sugano' fullname='Hiroyasu Sugano'>
+<organization>Fujitsu Laboratories Ltd.</organization>
+<address>
+<postal>
+<street>64 Nishiwaki</street>
+<street>Ohkubo-cho</street>
+<city>Akashi</city>
+<region />
+<code>674-8555</code>
+<country>JP</country></postal>
+<email>suga@flab.fujitsu.co.jp</email></address></author>
+<date year='2000' month='February' />
+<abstract>
+<t>This document defines an abstract model for a presence and instant messaging system. It defines the various entities involved, defines terminology, and outlines the services provided by the system. The goal is to provide a common vocabulary for further work on requirements for protocols and markup for presence and instant messaging.</t></abstract></front>
+<seriesInfo name='RFC' value='2778' />
+<format type='TXT' octets='35153' target='ftp://ftp.isi.edu/in-notes/rfc2778.txt' />
+</reference>
+
+<reference anchor='POP-URL'>
+<front>
+<title>POP URL Scheme</title>
+<author initials='R.' surname='Gellens' fullname='Randall Gellens'>
+<organization>QUALCOMM, Incorporated</organization>
+<address>
+<postal>
+<street>6455 Lusk Blvd.</street>
+<street>San Diego</street>
+<street>CA  92121-2779</street>
+<street>U.S.A.</street></postal>
+<phone>+1 619 651 5115</phone>
+<facsimile>+1 619 651 5334</facsimile>
+<email>Randy@Qualcomm.Com</email></address></author>
+<date year='1998' month='August' />
+<area>Applications</area>
+<keyword>POP</keyword>
+<keyword>post office protocol</keyword>
+<keyword>uniform resource</keyword></front>
+<seriesInfo name='RFC' value='2384' />
+<format type='TXT' octets='13649' target='ftp://ftp.isi.edu/in-notes/rfc2384.txt' />
+<format type='XML' octets='16503' target='http://xml.resource.org/public/rfc/xml/rfc2384.xml' />
+</reference>
+
+<reference anchor="IRI">
+<front>
+<title>Internationalized Resource Identifiers (IRIs)</title>
+<author initials='M.' surname='Duerst' fullname='M. Duerst'>
+<organization /></author>
+<author initials='M.' surname='Suignard' fullname='M. Suignard'>
+<organization /></author>
+<date year='2005' month='January' /></front>
+<seriesInfo name='RFC' value='3987' />
+<format type='TXT' octets='111190' target='ftp://ftp.isi.edu/in-notes/rfc3987.txt' />
+</reference>
+
+<reference anchor="UNICODE">
+  <front>
+    <title>The Unicode Standard, Version 3.2.0</title>
+    <author>
+      <organization>The Unicode Consortium</organization>
+    </author>
+    <date year="2000" />
+  </front>
+  <annotation>
+    The Unicode Standard, Version 3.2.0 is defined by The Unicode Standard, Version 3.0 (Reading, MA, Addison-Wesley, 2000. ISBN 0-201-61633-5), as amended by the Unicode Standard Annex #27: Unicode 3.1 (http://www.unicode.org/reports/tr27/) and by the Unicode Standard Annex #28: Unicode 3.2 (http://www.unicode.org/reports/tr28/).
+  </annotation>
+</reference>
+
+<reference anchor="URI">
+<front>
+<title>Uniform Resource Identifier (URI): Generic Syntax</title>
+<author initials='T.' surname='Berners-Lee' fullname='T. Berners-Lee'>
+<organization /></author>
+<author initials='R.' surname='Fielding' fullname='R. Fielding'>
+<organization /></author>
+<author initials='L.' surname='Masinter' fullname='L. Masinter'>
+<organization /></author>
+<date year='2005' month='January' /></front>
+<seriesInfo name='STD' value='66' />
+<seriesInfo name='RFC' value='3986' />
+<format type='TXT' octets='141811' target='ftp://ftp.isi.edu/in-notes/rfc3986.txt' />
+</reference>
+
+<reference anchor='UTF-8'>
+<front>
+<title>UTF-8, a transformation format of ISO 10646</title>
+<author initials='F.' surname='Yergeau' fullname='F. Yergeau'>
+<organization /></author>
+<date month='November' year='2003' /></front>
+<seriesInfo name='STD' value='63' />
+<seriesInfo name='RFC' value='3629' />
+<format type='TXT' octets='33856' target='ftp://ftp.isi.edu/in-notes/rfc3629.txt' />
+</reference>
+
+<reference anchor="XMPP">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3920' />
+  <format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+</reference>
+
+<reference anchor="XMPP-IM">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3921' />
+  <format type='TXT' octets='217527' target='ftp://ftp.isi.edu/in-notes/rfc3921.txt' />
+</reference>
+
+    </references>
+
+  </back>
+
+</rfc>

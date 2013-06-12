@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Members</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Members</h2>
+
+<p>This page contains information for and about elected members of the <a href='/xsf/'>XMPP Standards Foundation</a>. Membership is individual (not corporate) and is based on technical merit (not financial contribution, since membership is free). New members apply for membership and typically are elected by the existing members if they are active participants in the XMPP developer community through authoring or commenting on XMPP protocols, implementing XMPP-based software, offering XMPP-based services, and the like.</p>
+<ul>
+<li><a href='memberlist.shtml'>List of members</a></li>
+<li><a href='responsibilities.shtml'>Responsibilities of membership</a></li>
+<li><a href='http://mail.jabber.org/pipermail/members/'>Mailing list archives</a></li>
+<li><a href='/xsf/members/meetings/'>Official meeting minutes</a></li>
+</ul>
+<p>Applications from prospective new members are accepted during the first two weeks of every quarter (i.e., the first two weeks of January, April, July, and October). New members are admitted based on a vote of the existing members, and existing members are required to re-apply every 12 months. Application periods are announced on the <a href='http://mail.jabber.org/mailman/listinfo/jdev'>jdev discussion list</a> and completed on the wiki.xmpp.org site at &lt;<a href='http://wiki.xmpp.org/index.php/Membership_Applications'>http://wiki.xmpp.org/index.php/Membership_Applications</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

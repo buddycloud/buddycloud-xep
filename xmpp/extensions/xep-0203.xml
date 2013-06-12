@@ -1,0 +1,192 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Delayed Delivery</title>
+  <abstract>This specification defines an XMPP protocol extension for communicating the fact that an XML stanza has been delivered with a delay, for example because a message has been stored on a server while the intended recipient was offline or because a message is contained in the history of a multi-user chat room.</abstract>
+  &LEGALNOTICE;
+  <number>0203</number>
+  <status>Final</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <approver>Council</approver>
+  <dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XEP-0082</spec>
+  </dependencies>
+  <supersedes>
+    <spec>XEP-0091</spec>
+  </supersedes>
+  <supersededby/>
+  <shortname>delay</shortname>
+  <schemaloc>
+    <url>http://www.xmpp.org/schemas/delay.xsd</url>
+  </schemaloc>
+  &stpeter;
+  <revision>
+    <version>2.0</version>
+    <date>2009-09-15</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, advanced specification from Draft to Final; also addressed a security concern about forged timestamps that was provided during the Call for Experience.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2007-03-29</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, advanced from Experimental to Draft.</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2007-03-28</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, advanced to Draft; also removed service discovery per Council discussion.</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2007-03-19</date>
+    <initials>psa</initials>
+    <remark><p>Added service discovery section.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2006-12-20</date>
+    <initials>psa</initials>
+    <remark><p>Initial version.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.1</version>
+    <date>2006-12-19</date>
+    <initials>psa</initials>
+    <remark>First draft.</remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>Although the XMPP protocol extension defined in &xep0091; provides a way to communicate that an XML stanza (typically a &MESSAGE; or &PRESENCE; stanza) has been delivered with a delay, the timestamp format defined in that document does not adhere to the recommended date and time profiles for XMPP protocols defined in &xep0082;. Therefore, this document defines a replacement for <cite>XEP-0091</cite> which enables communication of delayed delivery information while adhering to <cite>XEP-0082</cite>.</p>
+</section1>
+<section1 topic='Protocol Definition' anchor='protocol'>
+  <p>The XML namespace defined herein is used to provide timestamp information about data stored for later delivery. The most common uses of this namespace are to stamp:</p>
+  <ul>
+    <li>A message that is sent to an offline entity and stored for later delivery (see &xep0160;).</li>
+    <li>The last available presence stanza sent by a connected client to a server.</li>
+    <li>Messages cached by a &xep0045; room for delivery to new participants when they join the room.</li>
+  </ul>
+  <p>Information about the delivery delay is communicated by adding to the &lt;message/&gt; or &lt;presence/&gt; stanza one and only one &lt;delay/&gt; child qualified by a namespace to be issued when this specification advances to a status of Draft. This information is added by the server or component that delivers the stanza. The following attributes are defined for the &lt;delay/&gt; element:</p>
+  <table caption='Defined Attributes'>
+    <tr>
+      <th>Attribute</th>
+      <th>Definition</th>
+      <th>Inclusion</th>
+    </tr>
+    <tr>
+      <td>from</td>
+      <td>The Jabber ID of the entity that originally sent the XML stanza or that delayed the delivery of the stanza (e.g., the address of a multi-user chat room).</td>
+      <td>RECOMMENDED</td>
+    </tr>
+    <tr>
+      <td>stamp</td>
+      <td>The time when the XML stanza was originally sent. The format MUST adhere to the dateTime format specified in <cite>XEP-0082</cite> and MUST be expressed in UTC.</td>
+      <td>REQUIRED</td>
+    </tr>
+  </table>
+  <p>In addition, the &lt;delay/&gt; element MAY contain XML character data that provides a natural-language description of the reason for the delay.</p>
+</section1>
+<section1 topic='Examples' anchor='examples'>
+  <example caption='Receiving a Message Sent While Offline'><![CDATA[
+<message
+    from='romeo@montague.net/orchard'
+    to='juliet@capulet.com'
+    type='chat'>
+  <body>
+    O blessed, blessed night! I am afeard.
+    Being in night, all this is but a dream,
+    Too flattering-sweet to be substantial.
+  </body>
+  <delay xmlns='urn:xmpp:delay'
+     from='capulet.com'
+     stamp='2002-09-10T23:08:25Z'>
+    Offline Storage
+  </delay>
+</message>
+  ]]></example>
+  <example caption='Receiving the Last Presence Update of Another Entity'><![CDATA[
+<presence from='juliet@capulet.com/balcony' to='romeo@montague.net'>
+  <status>anon!</status>
+  <show>xa</show>
+  <priority>1</priority>
+  <delay xmlns='urn:xmpp:delay'
+     from='juliet@capulet.com/balcony'
+     stamp='2002-09-10T23:41:07Z'/>
+</presence>
+  ]]></example>
+  <example caption='Receiving Cached Messages from a Conference Room'><![CDATA[
+<message
+    from='coven@macbeth.shakespeare.lit/secondwitch'
+    to='macbeth@shakespeare.lit/laptop'
+    type='groupchat'>
+  <body>
+    By the pricking of my thumbs,
+    Something wicked this way comes.
+    Open, locks,
+    Whoever knocks!
+  </body>
+  <delay xmlns='urn:xmpp:delay'
+     from='coven@macbeth.shakespeare.lit'
+     stamp='2002-09-10T23:05:37Z'/>
+</message>
+  ]]></example>
+</section1>
+<section1 topic='Implementation Notes' anchor='impl'>
+  <p>This protocol was designed in a way that makes migration from <cite>XEP-0091</cite> straightforward. All attributes present in the 'jabber:x:delay' namespace are present in the namespace defined herein. However, this document specifies a different format for the value of the &lt;stamp&gt; attribute (compliant with <cite>XEP-0082</cite>).</p>
+  <p>Implementations that support <cite>XEP-0091</cite> should support the protocol defined herein as soon as possible, but should continue to support the protocol defined in <cite>XEP-0091</cite> for backwards compatibility until the status of that specification is changed to Obsolete.</p>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>Delayed delivery data can expose information about the sender's presence on the network at some time in the past. However, this introduces no new vulnerabilities, since the same information would have been available in real time.</p>
+  <p>Absent cryptographic signing of stanzas and parts of stanzas, it is possible for delayed delivery notations to be forged. For example, the originator of a message (or the originator's server) could include a notation that makes it appear as if delivery of the message was delayed by the recipient's server. The same is true of delayed delivery notations putatively added by a Multi-User Chat room, which could be forged by the message originator, the originator's server, the recipient's server, or the server that hosts the chatroom service. Although the recipient's server SHOULD discard a delayed delivery notation whose 'from' attribute matches the server's JabberID (or return a &notacceptable; error to the originator), this policy does not guard against forging of notations putatively from other entities (such as a chatroom hosted at a different trust domain). Therefore, a recipient SHOULD NOT rely on delayed delivery notations to provide a completely accurate representation of the delivery path or timing of a stanza it has received.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p>
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <section2 topic='Protocol Namespace' anchor='ns'>
+    <p>The &REGISTRAR; includes 'urn:xmpp:delay' in its registry of protocol namespaces (see &NAMESPACES;).</p>
+  </section2>
+</section1>
+<section1 topic='XML Schema' anchor='schema'>
+  <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:delay'
+    xmlns='urn:xmpp:delay'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0203: http://www.xmpp.org/extensions/xep-0203.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='delay'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='from' type='xs:string' use='optional'/>
+          <xs:attribute name='stamp' type='xs:dateTime' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+  ]]></code>
+</section1>
+<section1 topic='Acknowledgements' anchor='ack'>
+  <p>Thanks to Sergei Golovan for his feedback regarding forged timestamps.</p>
+</section1>
+</xep>

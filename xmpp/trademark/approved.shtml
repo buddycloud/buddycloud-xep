@@ -1,0 +1,27 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Jabber Trademark Licensing Program</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2><a class='pagehead' href='index.shtml'>Jabber Trademark Licensing Program</a></h2>
+<h3>Approved Applications</h3>
+<p>This page lists licensed uses of the <a href="/trademark/">Jabber trademark</a> that have been approved by the XMPP Standards Foundation's <a href="contact.shtml">Trademark Committee</a>.</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Mark</th>
+    <th>Licensee</th>
+    <th>Type</th>
+    <th>Date Approved</th>
+  </tr>
+  <tr class='tablebody'><td align='center'>ejabberd</a></td><td align='center'>Alexey Shchepin</td><td align='center'>Open-Source Project</td><td align='center'>2004-06-24</td></tr>
+  <tr class='tablebody'><td align='center'>Jabber Africa Foundation</a></td><td align='center'>Jabber Africa Foundation</td><td align='center'>Non-Profit Organization</td><td align='center'>2004-03-09</td></tr>
+  <tr class='tablebody'><td align='center'>Jabber GG Transport</a></td><td align='center'>Jacek Konieczny</td><td align='center'>Open-Source Project</td><td align='center'>2006-01-13</td></tr>
+  <tr class='tablebody'><td align='center'>Jabber Mail Component</a></td><td align='center'>David Rousselie</td><td align='center'>Open-Source Project</td><td align='center'>2006-01-13</td></tr>
+  <tr class='tablebody'><td align='center'>Jabber Registration Tool</a></td><td align='center'>Rene Bartosh</td><td align='center'>Open-Source Project</td><td align='center'>2006-01-13</td></tr>
+  <tr class='tablebody'><td align='center'>jabberd</a></td><td align='center'>Rob Norris</td><td align='center'>Open-Source Project</td><td align='center'>2004-03-09</td></tr>
+  <tr class='tablebody'><td align='center'>JabberNuke</a></td><td align='center'>maketheweb.com</td><td align='center'>For-Profit Company</td><td align='center'>2006-01-13</td></tr>
+  <tr class='tablebody'><td align='center'>JabberStudio</a></td><td align='center'>Thomas Muldowney</td><td align='center'>Open-Source Project</td><td align='center'>2004-06-24</td></tr>
+  <tr class='tablebody'><td align='center'>JabberVP / Jabber Virtual Presence</a></td><td align='center'>Klaus H. Wolf</td><td align='center'>Open-Source Project</td><td align='center'>2004-06-24</td></tr>
+</table>
+<p>Return to <a href='/trademark/'>Jabber Trademark Licensing Program</a>.</p>
+<!--#include virtual="/includes/foot.txt" -->

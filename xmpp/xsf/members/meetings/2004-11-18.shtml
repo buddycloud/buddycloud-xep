@@ -1,0 +1,121 @@
+<html>
+<head>
+<title>JSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Member Meeting</h2>
+
+<p>This is the agenda for the 2004 Annual Meeting of the Members of the Jabber Software Foundation (JSF). Meeting participants may want to refer to the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+<ul>
+<li>Where: foundation at conference.jabber.org</li>
+<li>Time: Wednesday, 2004-11-18, 18:00 UTC</li>
+<li>When is 18:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+<ol>
+  <li>
+    <p><strong>Call for Quorum</strong></p>
+    <p>The following 39 JSF members voted via proxy:</p>
+    <pre>
+&lt; ahkitj at greta.electric.gen.nz &gt;
+&lt; al019409 at mi.uji.es &gt;
+&lt; aleksey at jabber.ru &gt;
+&lt; asiayeah at jabber.org &gt;
+&lt; cbas at jabber.org &gt;
+&lt; davidy at jabber.funkypenguin.co.za &gt;
+&lt; edrin at jabber.org &gt;
+&lt; faceprint at faceprint.com &gt;
+&lt; ginomi at tipic.com &gt;
+&lt; gnauck at myjabber.net &gt;
+&lt; hal at jabber.rocks.cc &gt;
+&lt; ian at zoofy.com &gt;
+&lt; intosi at ik.nu &gt;
+&lt; jabber at vanbragt.com &gt;
+&lt; jajcus at jabber.bnet.pl &gt;
+&lt; jasonatoffice at oracle.sweeney.ath.cx &gt;
+&lt; jfrankel at jabber.org &gt;
+&lt; julian at jabber.org &gt;
+&lt; linuxwolf at outer-planes.net &gt;
+&lt; mblsha at jabber.ru &gt;
+&lt; micressor at swissjabber.ch &gt;
+&lt; mrose at jabber.dbc.mtview.ca.us &gt;
+&lt; nickonov at jabber.com &gt;
+&lt; paperino at tipic.com &gt;
+&lt; pcurtis at www.terrapin.com &gt;
+&lt; peregrine at legend.net.uk &gt;
+&lt; pgmillard at jabber.org &gt;
+&lt; pluto at tipic.com &gt;
+&lt; ralphm at ik.nu &gt;
+&lt; reatmon at jabber.org &gt;
+&lt; richard_edward_dobson at jabber.org &gt;
+&lt; rynok at jabber.com &gt;
+&lt; siegle at jabber.org &gt;
+&lt; stpeter at jabber.org &gt;
+&lt; tbamonti at corp.jabber.com &gt;
+&lt; trejkaz at jabber.xaoza.net &gt;
+&lt; uls at jabber.org &gt;
+&lt; wolfspelz at jabber.bluehands.de &gt;
+&lt; zion at openaether.org &gt;
+    </pre>
+    <p>The JSF has 58 <a href="/members/memberlist.shtml">members</a> as of this date. Therefore quorum is achieved in accordance with section 3.8 of the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+  </li>
+  <li><strong>Items Subject to a Vote</strong>
+    <ol>
+      <li>
+        <p>JSF Membership Applications</p>
+        <p>Vote yes or no for the current applicants.</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Opportunity for JSF Members to Vote in the Meeting</strong></p>
+    <p>No JSF members voted during the meeting.</p>
+  </li>
+  <li>
+    <p><strong>Announcement of Voting Results</strong></p>
+<table>
+<tr><th>Person</th><th>Yes</tth><th>No</th></tr>
+<tr><td>Jonathan Ah Kit</td><td>23</td><td>16</td></tr>
+<tr><td>Rachel Blackman</td><td>39</td><td>0</td></tr>
+<tr><td>Jesus Cea</td><td>33</td><td>6</td></tr>
+<tr><td>Paul Curtis</td><td>35</td><td>4</td></tr>
+<tr><td>Nolan Eakins</td><td>33</td><td>6</td></tr>
+<tr><td>Lucan Nussbaum</td><td>31</td><td>8</td></tr>
+<tr><td>Luis Peralta</td><td>33</td><td>6</td></tr>
+<tr><td>Ulrich Staudinger</td><td>35</td><td>4</td></tr>
+<tr><td>Johannes Wagener</td><td>37</td><td>2</td></tr>
+<tr><td>Haohua Xu</td><td>10</td><td>29</td></tr>
+</table>
+    <p>The following individuals are accepted or renewed as JSF members:</p>
+    <ul>
+      <li>Jonathan Ah Kit</li>
+      <li>Rachel Blackman</li>
+      <li>Jesus Cea</li>
+      <li>Paul Curtis</li>
+      <li>Nolan Eakins</li>
+      <li>Lucas Nussbaum</li>
+      <li>Luis Peralta</li>
+      <li>Ulrich Staudinger</li>
+      <li>Johannes Wagener</li>
+    </ul>
+    <p>The following individual was not accepted but is welcome to apply in the future:</p>
+    <ul>
+      <li>Haohua Xu</li>
+    </ul>
+    <p>The following JSF members were eligible to re-apply but did not do so and therefore have forfeited their membership, but are welcome to apply in the future:</li>
+    <ul>
+      <li>Russell Davis</li>
+      <li>Lee Friedman</li>
+      <li>Justin Karneges</li>
+    </ul>
+    <!--
+    <p>The following individuals have missed the last three JSF votes and therefore will be removed from the membership:</p>
+    <ul>
+    </ul>
+    -->
+  <li>
+    <p><strong>Open Discussion</strong></p>
+  </li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

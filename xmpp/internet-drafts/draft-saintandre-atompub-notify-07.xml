@@ -1,0 +1,715 @@
+<?xml version='1.0'?>
+<!DOCTYPE rfc SYSTEM 'rfc2629.dtd'>
+<?rfc compact='yes'?>
+<?rfc strict='yes'?>
+<?rfc symrefs='yes'?>
+<?rfc toc='yes'?>
+<?rfc tocdepth='2'?>
+<rfc category='info' docName='draft-saintandre-atompub-notify-07' ipr='pre5378Trust200902'>
+
+  <front>
+    <title abbrev='ATOMSUB'>AtomSub: Transporting Atom Notifications over the Publish-Subscribe Extension to the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials='P.' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+      <organization>Cisco</organization>
+      <address>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+    <author initials='J.' surname='Hildebrand' fullname='Joe Hildebrand'>
+      <organization>Cisco</organization>
+      <address>
+        <email>jhildebr@cisco.com</email>
+      </address>
+    </author>
+    <author initials='B.' surname='Wyman' fullname='Bob Wyman'>
+      <organization>Google</organization>
+      <address>
+        <email>bob@wyman.us</email>
+      </address>
+    </author>
+    <date year='2008' month='May' day='7'/>
+    <area>Applications</area>
+    <keyword>Atom</keyword>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>XMPP</keyword>
+    <keyword>content syndication</keyword>
+    <keyword>publish-subscribe</keyword>
+    <keyword>event notification</keyword>
+    <abstract>
+      <t>This memo describes a method for notifying interested parties about changes in syndicated information encapsulated in the Atom feed format, where such notifications are delivered via an extension to the Extensible Messaging and Presence Protocol (XMPP) for publish-subscribe functionality.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title='Introduction' anchor='intro'>
+
+      <section title='Overview' anchor='intro-overview'>
+        <t>The Atom Publishing Format and Protocol Working Group has developed two technologies relevant to content syndication:</t>
+        <t><list style='numbers'>
+          <t>An XML data format for syndication of information about periodically-updated resources (such as weblog entries and news stories) available on the World Wide Web (see <xref target='ATOM-FORMAT'/>).</t>
+          <t>A protocol for publishing, editing, deleting, and otherwise managing such resources (see <xref target='ATOM-PROTOCOL'/>).</t>
+        </list></t>
+        <t>Content syndication follows a classic "observer" or "publish-subscribe" software design pattern: a person or application publishes information to a "channel", and an event notification (or the data itself) is broadcasted to all those who are interested in knowing when such information is published or modified.  On the Internet today, publication of periodically-updated resources is handled by means of standard technologies such as <xref target='HTTP'/>, and it is not envisioned that this will change since <xref target='ATOM-PROTOCOL'/> specifies the use of HTTP for publication.  However, existing methods for learning that a resource has been updated are currently limited to "polling" for changes via HTTP, which is inherently inefficient.  What is needed is a technology that can be relied on to "push" information only when a resource undergoes a state change, and only to those who are interested in learning about such state changes.</t>
+        <t>One possible technology for doing so is email, since <xref target='SMTP'/> provides a way to initiate the sending of information from "publishers" to "subscribers" (think, for example, of email lists such as those used to announce newly-published RFCs).  While email is one possible solution, it is not necessarily the best solution for Atom; in particular, <xref target='ATOM-FORMAT'/> defines an XML data format for content syndication, which implies that it might be beneficial to use a native XML delivery mechanism rather than to attach a special XML media type to email messages.  Thankfully, a specialized XML delivery protocol has been developed through the IETF: the Extensible Messaging and Presence Protocol (XMPP) as specified in <xref target='XMPP-CORE'/>.  XMPP has the added benefit of being optimized for near-real-time data delivery, which may be important in applications of Atom that require subscribers to be notified about syndicated content in a highly timely manner.</t>
+        <t>While the semantics of a normal XMPP &lt;message/&gt; element may be suitable for Atom content notifications, there also exists an XMPP extension that provides more structured communications in the context of information "channels" or "nodes" of the kind that are used in typical content syndication technologies, where an interested entity can subscribe to that channel or node and thus receive notifications related to the topic of interest.  This extension is specified in <xref target='XMPP-PUBSUB'/> and may be especially useful for delivering notifications related to changes in Atom resources.  Therefore, this memo describes a method for notifying interested parties about changes in syndicated information encapsulated in the Atom feed format, where such notifications are delivered via the XMPP publish-subscribe extension.</t>
+      </section>
+
+      <section title='Terminology' anchor='intro-terms'>
+        <t>This document inherits terminology from <xref target='ATOM-FORMAT'/>, <xref target='XMPP-CORE'/>, and <xref target='XMPP-PUBSUB'/>.</t>
+        <t>The capitalized key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target='TERMS'>RFC 2119</xref>.</t>
+      </section>
+
+    </section>
+
+    <section title='Process Flows' anchor='flows'>
+      <section title='Overview' anchor='flow-overview'>
+        <t>The following process flows demonstrate how Atom-formatted data (specifically, feed entries) can be delivered using the XMPP pubsub extension.  The actors in these process flows are an application and one or more XMPP users.  The application acts as a translator between HTTP and XMPP, since it generates XMPP pubsub requests when certain events occur at an Atom-aware HTTP service (e.g., an HTTP POST to create a new dynamic resource).  The XMPP pubsub service then translates those pubsub requests into notifications that are sent to a potentially large number of XMPP users who have subscribed to such events (e.g., who have asked to receive an XMPP notification whenever a new dynamic resource is created for a certain Atom "channel").  Of course, an XMPP user is not necessarily a human, and could represent another application on the XMPP network (e.g., a chatroom, a bot, or a content management system).</t>
+        <t>Note well that an HTTP user (e.g., a weblog author) would still publish information using the methods defined in <xref target='ATOM-PROTOCOL'/>; the process flows described herein enable the HTTP service with which an HTTP user interacts to generate notifications that are delivered via an XMPP pubsub service to a potentially large number of XMPP users who want to receive such information.</t>
+        <t>We can visualize the architecture as follows:</t>
+        <figure>
+          <artwork><![CDATA[
+         +-----------+
+         | HTTP User |
+         +-----------+
+               |
+               | [Atom API]
+               |
+        +--------------+
+        | HTTP Service |
+        +--------------+
+               |
+               | [XMPP Pubsub]
+               |
+    +---------------------+
+    | XMPP Pubsub Service |
+    +---------------------+
+               |
+               | [XMPP Pubsub]
+               |
+      +--------+-------+
+      |                |
++-----------+     +-----------+
+| XMPP User |     | XMPP User |
++-----------+     +-----------+
+          ]]></artwork>
+        </figure>
+        <t>In the examples shown below, we stipulate the following particulars:</t>
+        <t><list style='symbols'>
+          <t>The XMPP address of the HTTP Service is "atompub.example.org".</t>
+          <t>The XMPP address of the XMPP Pubsub Service is "pubsub.example.com".</t>
+          <t>The NodeID of the XMPP pubsub node to which the HTTP Service publishes and to which the XMPP Users subscribe is "an-atom-node".</t>
+          <t>The ItemID of the XMPP pubsub item published by the HTTP Service is "70b2a83be71dfca04df91133d953fb22b41b4267".</t>
+          <t>The XMPP addresses of the XMPP Users who are subscribed to the node are "alice@example.net" and "bob@example.com".</t>
+        </list></t>
+      </section>
+      <section title='Notification of Entry Creation' anchor='flow-create'>
+        <t>An implementation MUST support notifications related to creation of an entry.</t>
+        <t>When a content author publishes a new dynamic resource, many entities may be interested in learning that the resource is now available.  The process flow is as follows:</t>
+        <t><list style='symbols'>
+          <t>Author publishes a new entry to the HTTP service via the Atom API.</t>
+          <t>The HTTP service sends data for the new Atom entry in an XMPP pubsub "publish" request to a specific node at the XMPP pubsub service.  (Note: If the entry may be copied from one feed to another, e.g., in the generation of "synthetic" feeds, the entry SHOULD contain an atom:source element to ensure consistent metadata.) </t>
+          <t>The XMPP pubsub service sends an XMPP message notification to each XMPP entity that is subscribed to the pubsub node.</t>
+        </list></t>
+        <t>The result is that the XMPP subscribers will receive something close to real-time notification whenever a new feed entry has been published.</t>
+        <t>Obviously the first step is out of scope for this memo, since it is described in <xref target='ATOM-PROTOCOL'/>.  The XMPP protocols for the last two steps are shown below.</t>
+        <t>First the HTTP service sends an XMPP pubsub "publish" request to the XMPP pubsub service:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='atompub.example.org'
+    to='pubsub.example.com'
+    id='publish1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='an-atom-node'>
+      <item id='70b2a83be71dfca04df91133d953fb22b41b4267'>
+        <entry xmlns='http://www.w3.org/2005/Atom'>
+          <source>
+            <title>Example Feed</title>
+            <link href='http://example.org/'/>
+            <link rel='self' 
+                  type='application/atom+xml'
+                  href='http://example.org/atom.xml'/>
+            <id>tag:example.org,2003:home</id>
+            <updated>2003-12-13T18:30:02Z</updated>
+            <author>
+              <name>John Doe</name>
+            </author>
+          </source>
+          <title>Atom-Powered Robots Run Amuck</title>
+          <summary>Asimov's First Law horribly violated!</summary>
+          <link rel='alternate' 
+                type='text/html'
+                href='http://example.org/2003/12/13/atom03'/>
+          <id>tag:example.org,2003:entry-32397</id>
+          <published>2003-12-13T18:30:02Z</published>
+          <updated>2003-12-13T18:30:02Z</updated>
+        </entry>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>The XMPP pubsub service then sends a pubsub notification to each XMPP subscriber; depending on pubsub node configuration, the notification may or may not contain the Atom payload (we assume here that the payload will be included).</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='alice@example.net'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='an-atom-node'>
+      <item id='70b2a83be71dfca04df91133d953fb22b41b4267'>
+        <entry xmlns='http://www.w3.org/2005/Atom'>
+          <source>
+            <title>Example Feed</title>
+            <link href='http://example.org/'/>
+            <link rel='self' 
+                  type='application/atom+xml'
+                  href='http://example.org/atom.xml'/>
+            <id>tag:example.org,2003:home</id>
+            <updated>2003-12-13T18:30:02Z</updated>
+            <author>
+              <name>John Doe</name>
+            </author>
+          </source>
+          <title>Atom-Powered Robots Run Amuck</title>
+          <summary>Asimov's First Law horribly violated!</summary>
+          <link rel='alternate' 
+                type='text/html'
+                href='http://example.org/2003/12/13/atom03'/>
+          <id>tag:example.org,2003:entry-32397</id>
+          <published>2003-12-13T18:30:02Z</published>
+          <updated>2003-12-13T18:30:02Z</updated>
+        </entry>
+      </item>
+     </items>
+  </event>
+</message>
+
+<message from='pubsub.example.com'
+         to='bob@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='an-atom-node'>
+      <item id='70b2a83be71dfca04df91133d953fb22b41b4267'>
+        <entry xmlns='http://www.w3.org/2005/Atom'>
+          <source>
+            <title>Example Feed</title>
+            <link href='http://example.org/'/>
+            <link rel='self' 
+                  type='application/atom+xml'
+                  href='http://example.org/atom.xml'/>
+            <id>tag:example.org,2003:home</id>
+            <updated>2003-12-13T18:30:02Z</updated>
+            <author>
+              <name>John Doe</name>
+            </author>
+          </source>
+          <title>Atom-Powered Robots Run Amuck</title>
+          <summary>Asimov's First Law horribly violated!</summary>
+          <link rel='alternate' 
+                type='text/html'
+                href='http://example.org/2003/12/13/atom03'/>
+          <id>tag:example.org,2003:entry-32397</id>
+          <published>2003-12-13T18:30:02Z</published>
+          <updated>2003-12-13T18:30:02Z</updated>
+        </entry>
+      </item>
+     </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Notification of Entry Modification' anchor='flow-modify'>
+        <t>An implementation SHOULD support notifications related to modification of an entry.</t>
+        <t>When a content author updates an existing dynamic resource, many entities may be interested in learning that the resource has been modified.  The process flow is as follows:</t>
+        <t><list style='symbols'>
+          <t>Author updates an existing entry at the HTTP service via the Atom API.</t>
+          <t>The HTTP service sends data for the updated Atom entry in an XMPP pubsub "publish" request to a specific node at the XMPP pubsub service, specifying the same Item ID as previously supplied.  (Note: If the entry may be copied from one feed to another, e.g., in the generation of "synthetic" feeds, the entry SHOULD contain an atom:source element to ensure consistent metadata.) </t>
+          <t>The XMPP pubsub service sends an XMPP message notification to each XMPP entity that is subscribed to the pubsub node.</t>
+        </list></t>
+        <t>First the HTTP service sends an XMPP pubsub "publish" request to the XMPP pubsub service (note the modified title and time):</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='atompub.example.org'
+    to='pubsub.example.com'
+    id='publish2'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='an-atom-node'>
+      <item id='70b2a83be71dfca04df91133d953fb22b41b4267'>
+        <entry xmlns='http://www.w3.org/2005/Atom'>
+          <source>
+            <title>Example Feed</title>
+            <link href='http://example.org/'/>
+            <link rel='self' 
+                  type='application/atom+xml'
+                  href='http://example.org/atom.xml'/>
+            <id>tag:example.org,2003:home</id>
+            <updated>2003-12-13T18:30:02Z</updated>
+            <author>
+              <name>John Doe</name>
+            </author>
+          </source>
+          <title>Atom-Powered Robots Run Amok</title>
+          <summary>Asimov's First Law horribly violated!</summary>
+          <link rel='alternate' 
+                type='text/html'
+                href='http://example.org/2003/12/13/atom03'/>
+          <id>tag:example.org,2003:entry-32397</id>
+          <published>2003-12-13T18:30:02Z</published>
+          <updated>2003-12-13T18:31:03Z</updated>
+        </entry>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>Subject to node configuration and/or subscription options, each XMPP subscriber would then receive a pubsub notification, which may or may not contain the Atom payload.</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='alice@example.net'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='an-atom-node'>
+      <item id='70b2a83be71dfca04df91133d953fb22b41b4267'>
+        <entry xmlns='http://www.w3.org/2005/Atom'>
+          <source>
+            <title>Example Feed</title>
+            <link href='http://example.org/'/>
+            <link rel='self' 
+                  type='application/atom+xml'
+                  href='http://example.org/atom.xml'/>
+            <id>tag:example.org,2003:home</id>
+            <updated>2003-12-13T18:30:02Z</updated>
+            <author>
+              <name>John Doe</name>
+            </author>
+          </source>
+          <title>Atom-Powered Robots Run Amok</title>
+          <summary>Asimov's First Law horribly violated!</summary>
+          <link rel='alternate' 
+                type='text/html'
+                href='http://example.org/2003/12/13/atom03'/>
+          <id>tag:example.org,2003:entry-32397</id>
+          <published>2003-12-13T18:30:02Z</published>
+          <updated>2003-12-13T18:31:03Z</updated>
+        </entry>
+      </item>
+     </items>
+  </event>
+</message>
+
+<message from='pubsub.example.com'
+         to='bob@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='an-atom-node'>
+      <item id='70b2a83be71dfca04df91133d953fb22b41b4267'>
+        <entry xmlns='http://www.w3.org/2005/Atom'>
+          <source>
+            <title>Example Feed</title>
+            <link href='http://example.org/'/>
+            <link rel='self' 
+                  type='application/atom+xml'
+                  href='http://example.org/atom.xml'/>
+            <id>tag:example.org,2003:home</id>
+            <updated>2003-12-13T18:30:02Z</updated>
+            <author>
+              <name>John Doe</name>
+            </author>
+          </source>
+          <title>Atom-Powered Robots Run Amok</title>
+          <summary>Asimov's First Law horribly violated!</summary>
+          <link rel='alternate' 
+                type='text/html'
+                href='http://example.org/2003/12/13/atom03'/>
+          <id>tag:example.org,2003:entry-32397</id>
+          <published>2003-12-13T18:30:02Z</published>
+          <updated>2003-12-13T18:31:03Z</updated>
+        </entry>
+      </item>
+     </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Notification of Entry Deletion' anchor='flow-delete'>
+        <t>An implementation MAY support notifications related to deletion of an entry.</t>
+        <t>If a content author deletes an existing dynamic resource, many entities may be interested in learning that the resource is no longer available.  The process flow is as follows:</t>
+        <t><list style='symbols'>
+          <t>Author deletes an existing entry at the HTTP service via the Atom API.</t>
+          <t>The HTTP service sends an XMPP pubsub "retract" request to a specific node at the XMPP pubsub service, specifying the same Item ID as previously supplied.</t>
+          <t>The XMPP pubsub service sends an XMPP message notification to each XMPP entity that is subscribed to the pubsub node.</t>
+        </list></t>
+        <t>First the HTTP service sends an XMPP pubsub "retract" request to the XMPP pubsub service:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='atompub.example.org'
+    to='pubsub.example.com'
+    id='delete1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <retract node='an-atom-node'>
+      <item id='70b2a83be71dfca04df91133d953fb22b41b4267'/>
+    </retract>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>Subject to node configuration and/or subscription options, each XMPP subscriber would then receive a pubsub notification that the item was deleted.</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='alice@example.net'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='an-atom-node'>
+      <retract id='70b2a83be71dfca04df91133d953fb22b41b4267'/>
+     </items>
+  </event>
+</message>
+
+<message from='pubsub.example.com'
+         to='bob@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='an-atom-node'>
+      <retract id='70b2a83be71dfca04df91133d953fb22b41b4267'/>
+     </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section title='Implementation Notes' anchor='impl'>
+      <section title='Association Between User and Pubsub Node' anchor='impl-association'>
+        <t>As explained in <xref target='XMPP-PUBSUB'/>, a notification MAY include an XMPP SHIM Stanza Headers and Internet Metadata <xref target='XMPP-SHIM'/> header named "Reply-To" that specifies the JabberID of the publishing entity.  Alternatively, as described in <xref target='XMPP-PEP'/>, the XMPP server of the publishing entity MAY enable the publishing entity to associate a virtual pubsub service with the JabberID of its account, obviating the need for a separate pubsub service.</t>
+      </section>
+      <section title='Generation of ItemIDs' anchor='impl-itemid'>
+        <t>The pubsub ItemIDs MUST conform to the rules defined in <xref target="XMPP-PUBSUB"/>.  One possible method for generating a unique ItemID is to concatenate the XMPP address of the pubsub service, the pubsub node to which the item is published, and the atom:id of the feed entry, then hash the resulting string using the <xref target="SHA1"/> algorithm.</t>
+      </section>
+      <section title='Handling of Duplicate Entries' anchor='impl-dup'>
+        <t>It is the responsibility of the receiving application to remove or ignore duplicate entries that might be received from multiple feeds.</t>
+      </section>
+      <section title='Notifications Matching Multiple Subscriptions' anchor='impl-subid'>
+        <t>An XMPP entity may subscribe to a publish-subscribe node multiple times (e.g., once for each of several keywords), in which case a single notification may match one or more subscriptions.  In order to specify which of one or more subscriptions are matched, the notification message SHOULD specify the subscription IDs using the header syntax defined in <xref target="XMPP-SHIM"/> and the "pubsub#subid" header defined in <xref target="XMPP-PUBSUB"/>, as shown at the end of the following example.</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='alice@example.net'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='an-atom-node'>
+      <item id='70b2a83be71dfca04df91133d953fb22b41b4267'>
+        <entry xmlns='http://www.w3.org/2005/Atom'>
+          <source>
+            <title>Example Feed</title>
+            <link href='http://example.org/'/>
+            <link rel='self' 
+                  type='application/atom+xml'
+                  href='http://example.org/atom.xml'/>
+            <id>tag:example.org,2003:home</id>
+            <updated>2003-12-13T18:30:02Z</updated>
+            <author>
+              <name>John Doe</name>
+            </author>
+          </source>
+          <title>Atom-Powered Robots Run Amok</title>
+          <summary>Asimov's First Law horribly violated!</summary>
+          <link rel='alternate' 
+                type='text/html'
+                href='http://example.org/2003/12/13/atom03'/>
+          <id>tag:example.org,2003:entry-32397</id>
+          <published>2003-12-13T18:30:02Z</published>
+          <updated>2003-12-13T18:31:03Z</updated>
+        </entry>
+      </item>
+     </items>
+  </event>
+  <headers xmlns='http://jabber.org/protocol/shim'>
+    <header name='pubsub#subid'>123-abc</header>
+    <header name='pubsub#subid'>004-yyy</header>
+  </headers>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section title='Security Considerations' anchor='sec'>
+      <t>Detailed security considerations for the relevant protocols profiled in this memo are given in <xref target='ATOM-FORMAT'/>, <xref target='XMPP-CORE'/>, and <xref target='XMPP-PUBSUB'/>; this memo introduces no new security concerns above and beyond those described in the foregoing specifications.</t> 
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title='Normative References'>
+
+<reference anchor="ATOM-FORMAT">
+<front>
+<title>The Atom Syndication Format</title>
+<author initials='M.' surname='Nottingham' fullname='M. Nottingham'>
+<organization /></author>
+<author initials='R.' surname='Sayre' fullname='R. Sayre'>
+<organization /></author>
+<date year='2005' month='December' /></front>
+<seriesInfo name='RFC' value='4287' />
+<format type='TXT' octets='81922' target='ftp://ftp.isi.edu/in-notes/rfc4287.txt' />
+</reference>
+
+      <reference anchor='TERMS'>
+        <front>
+          <title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+          <author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+            <organization>Harvard University</organization>
+            <address>
+              <postal>
+                <street>1350 Mass. Ave.</street>
+                <street>Cambridge</street>
+                <street>MA 02138</street>
+              </postal>
+              <phone>- +1 617 495 3864</phone>
+              <email>-</email>
+            </address>
+          </author>
+          <date month='March' year='1997'></date>
+          <area>General</area>
+          <keyword>keyword</keyword>
+          <abstract>
+            <t>In many standards track documents several words are used to signify the requirements in the specification.  These words are often capitalized.  This document defines these words as they should be interpreted in IETF documents.  Authors who follow these guidelines should incorporate this phrase near the beginning of their document:
+              <list>
+                <t>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in RFC 2119.</t>
+              </list>
+            </t>
+            <t>Note that the force of these words is modified by the requirement level of the document in which they are used.</t>
+          </abstract>
+        </front>
+        <seriesInfo name='BCP' value='14' />
+        <seriesInfo name='RFC' value='2119' />
+      </reference>
+
+<reference anchor="XMPP-CORE">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3920' />
+  <format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+</reference>
+
+<reference anchor="XMPP-PUBSUB">
+  <front>
+    <title>Publish-Subscribe</title>
+    <author initials="P." surname="Millard" fullname="Peter Millard">
+      <organization/>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <author initials="R." surname="Meijer" fullname="Ralph Meijer">
+      <organization/>
+      <address>
+        <email>ralphm@ik.nu</email>
+      </address>
+    </author>
+    <date month="March" year="2008"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0060"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0060.html"/>
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor="ATOM-PROTOCOL">
+<front>
+<title>The Atom Publishing Protocol</title>
+<author initials='J.' surname='Gregorio' fullname='J. Gregorio'>
+<organization /></author>
+<author initials='B.' surname='de hOra' fullname='B. de hOra'>
+<organization /></author>
+<date year='2007' month='October' />
+<abstract>
+<t>The Atom Publishing Protocol (AtomPub) is an application-level protocol for publishing and editing Web resources.  The protocol is based on HTTP transfer of Atom-formatted representations.  The Atom format is documented in the Atom Syndication Format. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5023' />
+<format type='TXT' octets='102274' target='ftp://ftp.isi.edu/in-notes/rfc5023.txt' />
+</reference>
+
+<reference anchor='HTTP'>
+<front>
+<title abbrev='HTTP/1.1'>Hypertext Transfer Protocol -- HTTP/1.1</title>
+<author initials='R.' surname='Fielding' fullname='Roy T.  Fielding'>
+<organization abbrev='UC Irvine'>Department of Information and Computer Science</organization>
+<address>
+<postal>
+<street>University of California, Irvine</street>
+<city>Irvine</city>
+<region>CA</region>
+<code>92697-3425</code></postal>
+<facsimile>+1(949)824-1715</facsimile>
+<email>fielding@ics.uci.edu</email></address></author>
+<author initials='J.' surname='Gettys' fullname='James Gettys'>
+<organization abbrev='Compaq/W3C'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>jg@w3.org</email></address></author>
+<author initials='J.' surname='Mogul' fullname='Jeffrey C.  Mogul'>
+<organization abbrev='Compaq'>Compaq Computer Corporation</organization>
+<address>
+<postal>
+<street>Western Research Laboratory</street>
+<street>250 University Avenue</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94305</code></postal>
+<email>mogul@wrl.dec.com</email></address></author>
+<author initials='H.' surname='Frystyk' fullname='Henrik Frystyk Nielsen'>
+<organization abbrev='MIT/LCS'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>frystyk@w3.org</email></address></author>
+<author initials='L.' surname='Masinter' fullname='Larry Masinter'>
+<organization abbrev='Xerox'>Xerox Corporation</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>3333 Coyote Hill Road</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94034</code></postal>
+<email>masinter@parc.xerox.com</email></address></author>
+<author initials='P.' surname='Leach' fullname='Paul J.  Leach'>
+<organization abbrev='Microsoft'>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>1 Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code></postal>
+<email>paulle@microsoft.com</email></address></author>
+<author initials='T.' surname='Berners-Lee' fullname='Tim Berners-Lee'>
+<organization abbrev='MIT/LCS'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>timbl@w3.org</email></address></author>
+<date month='June' year='1999' />
+<abstract>
+<t>
+   The Hypertext Transfer Protocol (HTTP) is an application-level
+   protocol for distributed, collaborative, hypermedia information
+   systems.  It is a generic, stateless, protocol which can be used for
+   many tasks beyond its use for hypertext, such as name servers and
+   distributed object management systems, through extension of its
+   request methods, error codes and headers .  A feature of HTTP is
+   the typing and negotiation of data representation, allowing systems
+   to be built independently of the data being transferred.
+</t>
+<t>
+   HTTP has been in use by the World-Wide Web global information
+   initiative since 1990.  This specification defines the protocol
+   referred to as "HTTP/1.1", and is an update to RFC 2068 .
+</t></abstract></front>
+<seriesInfo name='RFC' value='2616' />
+<format type='TXT' octets='422317' target='ftp://ftp.isi.edu/in-notes/rfc2616.txt' />
+<format type='PS' octets='5529857' target='ftp://ftp.isi.edu/in-notes/rfc2616.ps' />
+<format type='PDF' octets='550558' target='ftp://ftp.isi.edu/in-notes/rfc2616.pdf' />
+<format type='HTML' octets='498891' target='http://xml.resource.org/public/rfc/html/rfc2616.html' />
+<format type='XML' octets='471630' target='http://xml.resource.org/public/rfc/xml/rfc2616.xml' />
+</reference>
+
+<reference anchor='SHA1'>
+<front>
+<title>US Secure Hash Algorithm 1 (SHA1)</title>
+<author initials='D.' surname='Eastlake' fullname='D. Eastlake'>
+<organization /></author>
+<author initials='P.' surname='Jones' fullname='P. Jones'>
+<organization /></author>
+<date year='2001' month='September' /></front>
+<seriesInfo name='RFC' value='3174' />
+<format type='TXT' octets='35525' target='ftp://ftp.isi.edu/in-notes/rfc3174.txt' />
+</reference>
+
+<reference anchor='SMTP'>
+<front>
+<title>Simple Mail Transfer Protocol</title>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<date month='April' year='2001' /></front>
+<seriesInfo name='RFC' value='2821' />
+<format type='TXT' octets='192504' target='ftp://ftp.isi.edu/in-notes/rfc2821.txt' />
+</reference>
+
+<reference anchor="XMPP-PEP">
+  <front>
+    <title>Personal Eventing via Pubsub</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="K." surname="Smith" fullname="Kevin Smith">
+      <organization/>
+      <address>
+        <email>kevin@kismith.co.uk</email>
+      </address>
+    </author>
+    <date day="26" month="September" year="2007"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0163"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0163.html"/>
+</reference>
+
+<reference anchor="XMPP-SHIM">
+  <front>
+    <title>Stanza Headers and Internet Metadata (SHIM)</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <author initials="J." surname="Hildebrand" fullname="Joe Hildebrand">
+      <organization/>
+      <address>
+        <email>jhildebrand@jabber.com</email>
+      </address>
+    </author>
+    <date month="July" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0131"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0131.html"/>
+</reference>
+
+    </references>
+
+  </back>
+
+</rfc>

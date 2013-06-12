@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP-SIMPLE Feature Comparison</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP-SIMPLE Feature Comparison</h2>
+
+<table>
+  <tr class='tablebody'>
+    <td>Author:</td>
+    <td><a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a></td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Version:</td>
+    <td>0.3</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Last Updated:</td>
+    <td>2006-10-04</td>
+  </tr>
+</table>
+
+<h4>Table of Contents</h4>
+<ol>
+  <li><a href='#intro'>Introduction</a></li>
+  <li><a href='#basic'>Basic Instant Messaging and Presence</a></li>
+  <li><a href='#security'>Privacy and Security</a></li>
+  <li><a href='#i18n'>Internationalization</a></li>
+  <li><a href='#intermediate'>Intermediate Instant Messaging</a></li>
+  <li><a href='#advanced'>Advanced Messaging</a></li>
+  <li><a href='#extendedpresence'>Extended Presence</a></li>
+  <li><a href='#multimedia'>Multimedia</a></li>
+</ol>
+
+<a name='intro'></a><h3>1.0 Introduction</h3></p>
+<p>This page compares the capabilities of Jabber/XMPP technologies with SIP/SIMPLE technologies. The Jabber/XMPP technologies are defined in the XMPP RFCs produced by the IETF's XMPP WG (closed in 2004) and in XMPP Extensions in the <a href="http://www.xmpp.org/extensions/">XEP Series</a> published by the XMPP Standards Foundation (XSF). The SIP/SIMPLE technologies are defined in RFCs and Internet-Drafts produced by the IETF's <a href="http://www.ietf.org/html.charters/sip-charter.html">SIP WG</a>, <a href="http://www.ietf.org/html.charters/simple-charter.html">SIMPLE WG</a>, <a href="http://www.ietf.org/html.charters/sipping-charter.html">SIPPING WG</a>, <a href="http://www.ietf.org/html.charters/geopriv-charter.html">GEOPRIV WG</a>, <a href="http://www.ietf.org/html.charters/xcon-charter.html">XCON WG</a>, and <a href="http://www.ietf.org/html.charters/mmusic-charter.html">MMUSIC WG</a>. See the <a href="#legend">Legend</a> for a description of the terms.</p>
+
+<a name='basic'></a><h3>2.0 Basic Instant Messaging and Presence</h3>
+<p>Instant messaging (IM) and presence are core functionality for XMPP. For SIP, IM and presence are made possible through specific SIP extensions, collectively known as "SIMPLE" after the name of the IETF's <a href="http://www.ietf.org/html.charters/simple-charter.html">SIP for Instant Messaging and Presence Leveraging Extensions Working Group</a>.</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Feature</th>
+    <th>Jabber/XMPP</th>
+    <th>SIP/SIMPLE</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>Presence</td>
+    <td>Standard (<a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC3921</a>)</td>
+    <td>Standard (<a href='http://www.ietf.org/rfc/rfc3856.txt'>RFC3856</a>)</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Single Messages</td>
+    <td>Standard (<a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC3921</a>)</td>
+    <td>Standard (<a href='http://www.ietf.org/rfc/rfc3428.txt'>RFC3428</a>)</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Service Discovery</td>
+    <td>Standard (<a href='http://www.jabber.org/extensions/xep-0030.html'>XEP-0030</a>)</td>
+    <td>Draft (<a href="http://www.ietf.org/rfc/rfc3840.txt">RFC3840</a>)</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Chat Messages</td>
+    <td>Standard (<a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC3921</a>)</td>
+    <td>Experimental (<a href="http://www.ietf.org/internet-drafts/draft-ietf-simple-message-sessions-12.txt">draft-ietf-simple-message-sessions-12</a>)</li>
+  </tr>
+  <tr class='tablebody'>
+    <td>Contact Lists</td>
+    <td>Standard (<a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC3921</a>)</td>
+    <td>Experimental (<a href="http://www.ietf.org/internet-drafts/draft-ietf-simple-xcap-list-usage-05.txt">draft-ietf-simple-xcap-list-usage-05</a>)</td>
+  </tr>
+</table>
+
+<a name='security'></a><h3>3.0 Privacy and Security</h3>
+<p>This section needs quite a bit of work. Please send suggestions and feedback to the author of this document.</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Feature</th>
+    <th>Jabber/XMPP</th>
+    <th>SIP/SIMPLE</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>Communications Blocking</td>
+    <td>Standard (<a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC3921</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+</table>
+
+<a name='i18n'></a><h3>4.0 Internationalization</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Feature</th>
+    <th>Jabber/XMPP</th>
+    <th>SIP/SIMPLE</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>Non-ASCII Addresses</td>
+    <td>Standard (<a href='http://www.ietf.org/rfc/rfc3920.txt'>RFC3920</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Multilingual Messages</td>
+    <td>Standard (<a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC3921</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+</table>
+
+<a name='intermediate'></a><h3>5.0 Intermediate Instant Messaging</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Feature</th>
+    <th>Jabber/XMPP</th>
+    <th>SIP/SIMPLE</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>Composing Indicators</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0085.html'>XEP-0085</a>)</td>
+    <td>Draft (<a href="http://www.ietf.org/rfc/rfc3994.txt">RFC3994</a>)</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Capabilities Advertisement</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0115.html'>XEP-0115</a>)</td>
+    <td>Experimental (<a href="http://www.ietf.org/internet-drafts/draft-ietf-simple-prescaps-ext-05.txt">draft-ietf-simple-prescaps-ext-05</a>)</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Service Registration</td>
+    <td>Standard (<a href='http://www.jabber.org/extensions/xep-0077.html'>XEP-0077</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Multi-User Chat</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0045.html'>XEP-0045</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Formatted Messages (XHTML)</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0071.html'>XEP-0071</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Offline Messages</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0160.html'>XEP-0160</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+</table>
+
+<a name='advanced'></a><h3>6.0 Advanced Messaging</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Feature</th>
+    <th>Jabber/XMPP</th>
+    <th>SIP/SIMPLE</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>Workflow Forms</td>
+    <td>Standard (<a href='http://www.jabber.org/extensions/xep-0004.html'>XEP-0004</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Multiple Recipients</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0033.html'>XEP-0033</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Reliable Delivery</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0079.html'>XEP-0079</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Publish-Subscribe</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0060.html'>XEP-0060</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>XML-RPC</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0009.html'>XEP-0009</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>SOAP Binding</td>
+    <td>Experimental (<a href='http://www.jabber.org/extensions/xep-0072.html'>XEP-0072</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+</table>
+
+<a name='extendedpresence'></a><h3>7.0 Extended Presence</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Feature</th>
+    <th>Jabber/XMPP</th>
+    <th>SIP/SIMPLE</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>Geolocation</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0080.html'>XEP-0080</a>)</td>
+    <td>Draft (<a href="http://www.ietf.org/rfc/rfc4119.txt">RFC 4119</a>)</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Mood</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0107.html'>XEP-0107</a>)</td>
+    <td>Draft (<a href="http://www.ietf.org/rfc/rfc4480.txt">RFC 4480</a>)</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Activity</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0108.html'>XEP-0108</a>)</td>
+    <td>Draft (<a href="http://www.ietf.org/rfc/rfc4480.txt">RFC 4480</a>)</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Tune</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0118.html'>XEP-0118</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+</table>
+
+<a name='multimedia'></a><h3>8.0 Multimedia</h3>
+<p>Multimedia functionality comprises things like voice, video, file transfer, and gaming. For XMPP, such functions are accomplished as extensions that use XMPP for negotiation and transfer the media data outside the XMPP band. For SIP, the signalling occurs using basic SIP methods and the media data is exchanged using dedicated data transport mechanisms such as RTP.</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Feature</th>
+    <th>Jabber/XMPP</th>
+    <th>SIP/SIMPLE</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>File Transfer</td>
+    <td>Draft (<a href='http://www.jabber.org/extensions/xep-0096.html'>XEP-0096</a>)</td>
+    <td>Unsupported</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Voice Sessions</td>
+    <td>Experimental (<a href='http://www.jabber.org/extensions/xep-0166.html'>XEP-0166</a> and <a href='http://www.jabber.org/extensions/xep-0167.html'>XEP-0167</a>)</td>
+    <td>Standard</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Video Sessions</td>
+    <td>Experimental (<a href='http://www.jabber.org/extensions/xep-0166.html'>XEP-0166</a> and <a href='http://www.jabber.org/extensions/xep-0180.html'>XEP-0180</a>)</td>
+    <td>Standard</td>
+  </tr>
+</table>
+
+<p><hr /></p>
+
+<a name='legend'></a><h4>Legend</h4>
+<table border='1' cellpadding='3' cellspacing='0' width='75%'>
+  <tr class='tablebody'>
+    <th>Term</th>
+    <th>Meaning</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>Standard</td>
+    <td>The feature is a stable, core technology defined in a protocol specification that has been approved by the relevant standards development organization.</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Draft</td>
+    <td>The feature is a semi-stable technology extension defined in a protocol specification that has advanced to a status of Proposed (IETF) or Draft (XSF) within the relevant standards process.</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Experimental</td>
+    <td>The feature is an unstable technology extension that is still being defined, either in an Internet-Draft or in an Experimental XEP.</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Unsupported</td>
+    <td>The feature is not supported in any way.</td>
+  </tr>
+</table>
+
+<!--#include virtual="/includes/foot.txt" -->

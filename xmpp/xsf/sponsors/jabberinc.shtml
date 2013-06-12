@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Sponsors :: Jabber Inc.</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Sponsors :: Jabber Inc.</h2>
+
+<p>
+<a href='http://www.jabber.com/'><img alt='Jabber Inc. Logo' style='float: right; border-width: 0px' src='/images/logo-jinc.png'/></a>
+<a href='http://www.jabber.com/'>Jabber, Inc.</a>, a Titanium Sponsor of the XMPP Standards Foundation (XSF), builds industrial-strength instant messaging servers as well as a generic software platform for a wide range of real-time, presence-enabled applications. Blue-chip enterprises, large service providers, and innovative software developers increasingly license Jabber, Inc.'s technology to provide not only secure IM but also custom applications such as workflow management, content syndication, financial processing, knowledge management, gaming, customer service portals, and location-based systems. The company's customers include many well-known companies in the financial sector as well as government agencies, and its commercial user base exceeds 10 million users.</p>
+<p>Jabber, Inc. is a founding sponsor and long-time contributor to the XMPP Standards Foundation. In addition to the company's financial and organizational support for the XSF, key individuals from the company provide much of the technical leadership for the broader Jabber/XMPP community through active participation in the <a href='/council/'>XMPP Council</a> and authorship of numerous <a href='/extensions/'>XMPP Extension Protocols</a>. In particular, since 2002 the company has employed XSF Executive Director <a href='/xsf/people.shtml'>Peter Saint-Andre</a> as a "sponsored employee" so that he can work full-time on development of XMPP standards and day-to-day management of the XSF.</p>
+<p>For more information about Jabber, Inc., visit &lt;<a href='http://www.jabber.com/'>www.jabber.com</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

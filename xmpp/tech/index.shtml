@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Technologies</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Technologies</h2>
+<p>The following pages provide an introduction to various XMPP technologies, including links to specifications, implementations, tutorials, and special-purpose discussion venues. You may want to read the <a href='overview.shtml'>technology overview</a> before diving into the details.</p>
+<ul>
+  <li><a href='core.shtml'>Core</a> -- information about the core XMPP technologies for XML streaming</li>
+  <li><a href='bosh.shtml'>BOSH</a> -- an HTTP binding for XMPP (and other) traffic</li>
+  <li><a href='jingle.shtml'>Jingle</a> -- SIP-compatible multimedia signalling for voice, video, file transfer, and other applications</li>
+  <li><a href='muc.shtml'>Multi-User Chat</a> -- flexible, multi-party communication</li>
+  <li><a href='pubsub.shtml'>PubSub</a> -- alerts and notifications for data syndication, rich presence, and more</li>
+</ul>
+<!--#include virtual="/includes/foot.txt" -->

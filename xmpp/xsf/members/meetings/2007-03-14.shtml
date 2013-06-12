@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html>
+<head>
+<title>XSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Member Meeting</h2>
+
+<ul>
+<li>Where: <a href="xmpp:foundation@conference.jabber.org?join">foundation@conference.jabber.org</a></li>
+<li>Time: Wednesday, 2007-03-14, 18:00 UTC</li>
+<li>When is 18:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+
+<h3>Agenda</h3>
+
+<ol>
+  <li>
+    <strong>Call for Quorum</strong><p>The following 42 XSF members voted via proxy:</p>
+    <pre> 
+Kevdadrum at jabber.ex.ac.uk
+brijesh.singh at jabber.org
+Micressor at swissjabber.ch
+Pluto at tipic.com
+artur.hefczyc at gmail.com
+Mogorman at astjab.org
+gato at jivesoftware.com
+tobiasfar at jabber.org
+aleksey at jabber.ru
+cmullins at jabber.org
+hal at jabber.rocks.cc
+daniel at noll.id.au
+lucas at nussbaum.fr
+rob at cataclysm.cx
+smoku at xiaoka.com
+hildjj at jabber.org
+wolfspelz at jabber.bluehands.de
+seanegan at google.com
+axelsena at jabber.uww.edu
+remko at el-tramo.be
+matt at jivesoftware.com
+ian at zoofy.com
+machekku at uaznia.net
+sneakin at semanticgap.com
+jlseguineau at gmail.com
+intosi at ik.nu
+mawis at amessage.info
+linuxwolf at outer-planes.net
+pcurtis at terrapin.com
+boyd.fletcher at xmpp.je.jfcom.mil
+siegle at jabber.org
+fh at jabber.ccc.de
+edrin at jabber.org
+daniel at jabber.vorpalcloud.org
+legoscia at jabber.cd.chalmers.se
+asiayeah at jabber.org
+richard_edward_dobson at jabber.org
+omega at im.apinc.org
+mremond at erlang-projects.org
+stpeter at jabber.org
+ralphm at ik.nu
+gnauck at myjabber.net    
+   </pre>
+    <p>The XSF has 53 members as of this date. Therefore quorum is achieved in accordance with Section 3.8 of the
+	<a href="/xsf/docs/bylaws.shtml">XSF Bylaws</a>.</p>
+  </li>
+  <li><p><strong>Items Subject to a Vote</strong></p>
+    <ol>
+      <li>
+        Clarifying the Purposes of the XSF 
+        <p>Vote yes or no on the
+		<a href="http://www.xmpp.org/xsf/proposals/purpose-proposal.shtml">proposal</a>.</p>
+      </li>
+    </ol>
+  </li>
+  <li><p>
+    <strong>Opportunity for XSF Members to Vote in the Meeting</strong></p></li>
+  <li><p>
+    <strong>Announcement of Voting Results</strong></p><table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th colspan="2">Clarifying the Purposes of the XSF </th>
+</tr>
+<tr>
+<td>yes</td>
+<td>42</td>
+</tr>
+<tr>
+<td>no</td>
+<td>0</td>
+</tr>
+</table>
+  	</li>
+  <li><p><strong>Any Other Business?</strong></p></li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

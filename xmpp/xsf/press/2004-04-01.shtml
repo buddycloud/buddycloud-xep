@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p><em>Note: This information was released on April 1st. Please treat it accordingly.</em></p>
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Jabber Software Foundation and XCP Consortium Team Up to Build the Real-Time Internet</h3>
+
+<p>Minneapolis, MN and Denver, CO -- After weeks of negotiation, the Jabber Software Foundation and the XCP Consortium have agreed to integrate their technologies and create the first 4th generation protocol stack for XML-based real-time communications.  This service combines the best-of-breed XML streaming technology developed by the Jabber Software Foundation (and recently approved by the IETF as the Extensible Messaging and Presence Protocol, or XMPP) with a dedicated XML-aware routing layer (the XML Control Protocol, or XCP), resulting in a robust, reliable, scalable foundation for building out the real-time Internet.  In a related announcement, the XCP Consortium made available sample Open Source implementations of its XCP protocol for use in other applications. </p>
+
+<p>"The XML Control Protocol is a clean, tight solution to the general problem of reliable, scalable, high-speed peer-to-peer communication, going beyond even XMPP by building XML awareness into the Internet's core routing layer.  The synergies between XCP and XMPP will enable us to provide a cohesive suite of XML protocols for real-time communications," said Peter Saint-Andre, Executive Director of the Jabber Software Foundation.  "Besides, it's about time we replaced TCP with an XML-aware protocol, and XCP fits the bill to perfection."</p>
+
+<p>Craig Wilson, Chief Technology Officer of the XCP Consortium, remarked: "The Jabber community's Extensible Messaging and Presence Protocol is an obvious candidate for direct transmission as pure XML over the Internet.  When carried via XCP, Jabber instant messages and other XMPP data will travel without the need to be encoded and decoded as lower-level transport protocol packets. The efficiencies achieved will be immense."</p>
+
+<p>The XCP Consortium &lt;<a href="http://www.x-cp.org/">www.x-cp.org</a>&gt; is a not-for-profit organization dedicated to evolving the Internet from its legacy UDP and TCP orientation to protocols based upon XML.  The Jabber Software Foundation (JSF) &lt;<a href="http://www.jabber.org/">www.jabber.org</a>&gt; is an independent, non-profit organization that builds open application protocols on top of the IETF's Extensible Messaging and Presence Protocol (XMPP).</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

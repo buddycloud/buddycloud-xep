@@ -1,0 +1,14 @@
+<manifest>
+  <title>User Tune</title>
+  <abstract>This specification defines a payload format for communicating information about music to which a user is listening, including the title, track number, collection, performer, composer, and length. The payload format is typically transported using the personal eventing profile of XMPP publish-subscribe as specified in XEP-0163.</abstract>
+  <specnum>XEP-0118</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0118.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/tune</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/tune.xsd</schema>
+  </schemas>
+</manifest>

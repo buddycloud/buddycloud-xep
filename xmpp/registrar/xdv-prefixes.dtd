@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DTD for x:data validation prefixes -->
+<!ELEMENT registry ( meta, datatype-prefix* ) >
+<!ELEMENT meta ( title, legal, overview, revision+ ) >
+<!ELEMENT title (#PCDATA)* >
+<!ELEMENT legal (#PCDATA)* >
+<!ELEMENT overview (#PCDATA)* >
+<!ELEMENT revision ( version, date, initials, remark ) >
+<!ELEMENT version (#PCDATA)* >
+<!ELEMENT date (#PCDATA)* >
+<!ELEMENT initials (#PCDATA)* >
+<!ELEMENT remark (#PCDATA)* >
+<!ELEMENT datatype-prefix ( prefix, desc, doc ) >
+<!ELEMENT prefix (#PCDATA)* >
+<!ELEMENT desc (#PCDATA)* >
+<!ELEMENT doc (#PCDATA)* >

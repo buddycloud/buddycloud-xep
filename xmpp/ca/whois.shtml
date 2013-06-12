@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP ICA: Whois Lookups</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP ICA: Whois Lookups</h2>
+<p>When you request a digital certificate from the <a href='/ca/'>XMPP ICA</a> as described in the <a href='issuance.shtml'>Certificate Issuance HOWTO</a>, our root CA (<a href='http://www.startssl.com/'>StartCom</a>) checks various domain information, including a native <a href='http://en.wikipedia.org/wiki/Whois'>Whois</a> lookup. Unfortunately, some top-level domains (TLDs) do not offer native (non-WWW) Whois services, so we cannot issue digital certificates for those domains.</p>
+<p>This policy affects many TLDs, including (but not limited to):</p>
+<ul>
+  <li><a href='http://www.iana.org/domains/root/db/by.html'>.by</a> (Belarus)</li>
+  <li><a href='http://www.iana.org/domains/root/db/es.html'>.es</a> (Spain)</li>
+  <li><a href='http://www.iana.org/domains/root/db/hr.html'>.hr</a> (Croatia)</li>
+  <li><a href='http://www.iana.org/domains/root/db/mk.html'>.mk</a> (Macedonia)</li>
+  <li><a href='http://www.iana.org/domains/root/db/za.html'>.za</a> (South Africa)</li>
+</ul>
+<p>To see if your TLD offers a Whois service, check the <a href='http://www.iana.org/domains/root/db/'>IANA Root Zone Database</a>. If your XMPP server is affected by this policy, please encourage your TLD registrar to offer a Whois service. We apologize for any inconvenience this policy may cause you.</p>
+
+<!--#include virtual="/includes/caboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

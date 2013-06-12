@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2005-09-27<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+</p>
+<ol>
+  <li>
+    <p>Call for Quorum</p>
+  </li>
+  <li>
+    <p>Brief report on JSF history, status, and financials</p>
+    <ul>
+      <li>Founded in 2001 to ensure open protocol documentation and development</li>
+      <li>Focus so far on standards development (<a href="http://www.jabber.org/jeps/">JEP series</a>)</li>
+      <li>JSF provides only a legal structure for standards work</li>
+      <li>Standards work is inexpensive (email lists, website, etc.)</li>
+      <li>No major effort yet to recruit sponsors</li>
+      <li>Current bank account balance: $7627.53 (note: $5500 forthcoming from Google Summer of Code involvement)</li>
+      <li>There has been discussion in the past about other efforts (compliance testing, official software projects, conferences, interop events, etc.) but no consensus / decision</li>
+    </ul>
+  </li>
+  <li>
+    <p>Board needs to select Chair for 2005-2006</p>
+  </li>
+  <li>
+    <p>Board needs to name <a href="http://www.jabber.org/jsf/execdir.shtml">Executive Director</a>, <a href="http://www.jabber.org/jsf/secretary.shtml">Secretary</a>, and <a href="http://www.jabber.org/jsf/treasurer.shtml">Treasurer</a></p>
+  </li>
+  <li>
+    <p>Setting priorities for 2005-2006; some possibilities:</p>
+    <ul>
+      <li>Interop event in first half of 2006 (resulting in interop reports that will smoothe the way to Draft status for XMPP RFCs)</li>
+      <li>Clarification of Jabber vs. XMPP "branding" (greater separation of functions by domain?)</li>
+      <li>Compliance testing software or services</li>
+    </ul>
+  </li>
+  <li>
+    <p>Schedule next meeting.</p>
+  </li>
+</ol>
+<p>END</p>
+
+<!--#include virtual="/includes/foot.txt" -->
+

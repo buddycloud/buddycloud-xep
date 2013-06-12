@@ -1,0 +1,14 @@
+<manifest>
+  <title>Stream Compression</title>
+  <abstract>defines an XMPP protocol extension for negotiating compression of XML streams, especially in situations where standard TLS compression cannot be negotiated. The protocol provides a modular framework that can accommodate a wide range of compression algorithms; the ZLIB compression algorithm is mandatory-to-implement, but implementations may support other algorithms in addition.</abstract>
+  <specnum>XEP-0138</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0138.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/compress</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/compress.xsd</schema>
+  </schemas>
+</manifest>

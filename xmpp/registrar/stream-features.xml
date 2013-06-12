@@ -1,0 +1,113 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'features.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='features.xsl'?>
+<registry>
+  <meta>
+    <title>XML Stream Features</title>
+    &LEGALNOTICE;
+    <overview>This is the official registry of XML stream features as maintained by the &REGISTRAR;. This registry contains only stream features that are defined in the <link url='/specs/'>XMPP RFCs</link> (published by the <link url='http://www.ietf.org/'>IETF</link>) or in <link url='/extensions/'>XMPP Extension Protocols</link> that have advanced to a status of Active, Draft, or Final within the standards process of the <link url='/xsf/'>XMPP Standards Foundation</link>. Other stream features may be in use within the Jabber/XMPP community, but are not added to this page until the relevant document meets the above criteria.</overview>
+    <revision>
+      <version>0.5</version>
+      <date>2009-06-17</date>
+      <initials>psa</initials>
+      <remark>Added stream management feature from XEP-0198.</remark>
+    </revision>
+    <revision>
+      <version>0.4</version>
+      <date>2007-01-17</date>
+      <initials>psa</initials>
+      <remark>Added dialback.</remark>
+    </revision>
+    <revision>
+      <version>0.3</version>
+      <date>2005-06-16</date>
+      <initials>psa</initials>
+      <remark>Added compress and (belatedly) amp.</remark>
+    </revision>
+    <revision>
+      <version>0.2</version>
+      <date>2004-02-18</date>
+      <initials>psa</initials>
+      <remark>Added iq-auth.</remark>
+    </revision>
+    <revision>
+      <version>0.1</version>
+      <date>2003-11-25</date>
+      <initials>psa</initials>
+      <remark>Initial version.</remark>
+    </revision>
+  </meta>
+  <feature>
+    <ns>http://jabber.org/features/amp</ns>
+    <desc>Support for Advanced Message Processing</desc>
+    <name>amp</name>
+    <element>amp</element>
+    <doc>&xep0079;</doc>
+  </feature>
+  <feature>
+    <ns>http://jabber.org/features/compress</ns>
+    <name>compress</name>
+    <element>compression</element>
+    <desc>Support for Stream Compression</desc>
+    <doc>&xep0138;</doc>
+  </feature>
+  <feature>
+    <ns>http://jabber.org/features/iq-auth</ns>
+    <name>iq-auth</name>
+    <element>auth</element>
+    <desc>Support for Non-SASL Authentication</desc>
+    <doc>&xep0078;</doc>
+  </feature>
+  <feature>
+    <ns>http://jabber.org/features/iq-register</ns>
+    <name>iq-register</name>
+    <element>register</element>
+    <desc>Support for In-Band Registration</desc>
+    <doc>&xep0077;</doc>
+  </feature>
+  <feature>
+    <ns>urn:ietf:params:xml:ns:xmpp-bind</ns>
+    <name>bind</name>
+    <element>bind</element>
+    <desc>Support for Resource Binding</desc>
+    <doc>&xmppcore;</doc>
+  </feature>
+  <feature>
+    <ns>urn:ietf:params:xml:ns:xmpp-sasl</ns>
+    <name>mechanisms</name>
+    <element>mechanisms</element>
+    <desc>Support for Simple Authentication and Security Layer (SASL)</desc>
+    <doc>&xmppcore;</doc>
+  </feature>
+  <feature>
+    <ns>urn:ietf:params:xml:ns:xmpp-session</ns>
+    <name>session</name>
+    <element>session</element>
+    <desc>Support for IM Session Establishment</desc>
+    <doc>&xmppim;</doc>
+  </feature>
+  <feature>
+    <ns>urn:ietf:params:xml:ns:xmpp-tls</ns>
+    <name>starttls</name>
+    <element>starttls</element>
+    <desc>Support for Transport Layer Security (TLS)</desc>
+    <doc>&xmppcore;</doc>
+  </feature>
+  <feature>
+    <ns>urn:xmpp:features:dialback</ns>
+    <name>dialback</name>
+    <element>dialback</element>
+    <desc>Support for Server Dialback</desc>
+    <doc>XEP-0220</doc>
+  </feature>
+  <feature>
+    <ns>urn:xmpp:sm:2</ns>
+    <desc>Support for Stream Management</desc>
+    <name>sm</name>
+    <element>sm</element>
+    <doc>&xep0198;</doc>
+  </feature>
+</registry>

@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Protocol Stack</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Protocol Stack</h2>
+
+<p>The <a href='http://www.xmpp.org/xsf/'>XMPP Standards Foundation</a> (XSF) recognizes the following protocols either as comprising the Extensible Messaging and Presence Protocol (XMPP) published by the <a href='http://www.ietf.org/'>Internet Engineering Task Force</a> (IETF) or as being official XMPP extensions published by the XSF.</p>
+
+<ol start='1'>
+  <li><a href='#base'>Base XMPP Protocols</a></li>
+  <li>
+    <a href='#ext'>XMPP Extensions</a>
+    <ol start='1'>
+      <li><a href='#ext-final'>Final XMPP Extensions</a></li>
+      <li><a href='#ext-draft'>Draft XMPP Extensions</a></li>
+    </ol>
+  </li>
+</ol>
+
+<a name='base'></a><h3>1.0 Base XMPP Protocols</h3>
+<p>The following are the base protocols that define the Extensible Messaging and Presence Protocol as specified in <a href='http://tools.ietf.org/html/rfc3920'>RFC 3920</a> and <a href='http://tools.ietf.org/html/rfc3921'>RFC 3921</a>. These protocols were originally developed within the Jabber developer community in 1999 ("XMPP 0.9") and subsequently formalized by the IETF's XMPP Working Group in 2003 and 2004, resulting in definition of XMPP 1.0.</p>
+<ul>
+  <li><a href='/protocols/jabber_client'>Jabber Client</a></li>
+  <li><a href='/protocols/jabber_server'>Jabber Server</a></li>
+  <li><a href='/protocols/urn_ietf_params_xml_ns_xmpp-session'>Presence and IM Session Establishment</a></li>
+  <li><a href='/protocols/urn_ietf_params_xml_ns_xmpp-bind'>Resource Binding</a></li>
+  <li><a href='/protocols/jabber_server_dialback'>Server Dialback</a></li>
+  <li><a href='/protocols/urn_ietf_params_xml_ns_xmpp-sasl'>Simple Authentication and Security Layer</a></li>
+  <li><a href='/protocols/urn_ietf_params_xml_ns_xmpp-e2e'>S/MIME Encryption</a></li>
+  <li><a href='/protocols/urn_ietf_params_xml_ns_xmpp-stanzas'>Stanza Errors</a></li>
+  <li><a href='/protocols/urn_ietf_params_xml_ns_xmpp-streams'>Stream Errors</a></li>
+  <li><a href='/protocols/urn_ietf_params_xml_ns_xmpp-tls'>Transport Layer Security</a></li>
+  <li><a href='/protocols/streams'>XML Streams</a></li>
+</ul>
+
+<a name='ext'></a><h3>2.0 XMPP Extensions</h3>
+<p>Since mid-2001, the XMPP Standards Foundation (formerly the Jabber Software Foundation) has documented and managed the Jabber/XMPP protocols through an <a href='http://www.xmpp.org/extensions/xep-0001.html'>open standards process</a> focused on the discussion and advancement of <a href='http://www.xmpp.org/extensions/'>XMPP Extension Protocols</a> (XEPs). Such specifications define XMPP extensions and must not be considered part of XMPP, which is all and only the core specifications produced by the IETF.</p>
+<p><em>Note: The following lists do not include standards-track XEPs that are Deferred, Deprecated, Experimental, Obsolete, Rejected, or Retracted, nor XEPs that are Historical or Informational.</em></p>
+
+<a name='ext-final'></a><h4>2.1 Final XMPP Extensions</h4>
+<p>The following XEPs have advanced to a status of Final within the XSF's standards process. The protocols defined in these specifications may be considered stable technologies for the purposes of implementation and deployment.</p>
+<ul>
+  <li><a href='/protocols/chatstates'>Chat State Notifications</a></li>
+  <li><a href='/protocols/jabber_x_data'>Data Forms</a></li>
+  <li><a href='/protocols/urn_xmpp_delay'>Delayed Delivery</a></li>
+  <li><a href='/protocols/urn_xmpp_time'>Entity Time</a></li>
+  <li><a href='/protocols/jabber_iq_register'>In-Band Registration</a></li>
+  <li><a href='/protocols/jabber_iq_rpc'>Jabber-RPC</a></li>
+  <li><a href='/protocols/jabber_iq_last'>Last Activity</a></li>
+  <li><a href='/protocols/linklocal'>Serverless Messaging</a></li>
+  <li><a href='/protocols/disco'>Service Discovery</a></li>
+  <li><a href='/protocols/compress'>Stream Compression</a></li>
+  <li><a href='/protocols/urn_xmpp_ping'>XMPP Ping</a></li>
+</ul>
+
+<a name='ext-draft'></a><h4>2.2 Draft XMPP Extensions</h4>
+<p>The following XEPs have advanced to a status of Draft within the XSF's standards process. Implementations are encouraged and the protocols are appropriate for deployment in production systems, but it is possible that some changes to the protocols will be made before they become Final Standards.</p>
+<ul>
+  <li><a href='/protocols/urn_xmpp_attention'>Attention</a></li>
+  <li><a href='/protocols/commands'>Ad-Hoc Commands</a></li>
+  <li><a href='/protocols/amp'>Advanced Message Processing</a></li>
+  <li><a href='/protocols/urn_xmpp_bob'>Bits of Binary</a></li>
+  <li><a href='/protocols/httpbind'>Bidirectional-streams Over Synchronous HTTP (BOSH)</a></li>
+  <li><a href='/protocols/bookmarks'>Bookmarks</a></li>
+  <li><a href='/protocols/urn_xmpp_captcha'>CAPTCHA Forms</a></li>
+  <li><a href='/protocols/xdata-layout'>Data Forms Layout</a></li>
+  <li><a href='/protocols/urn_xmpp_media-element'>Data Forms Media Element</a></li>
+  <li><a href='/protocols/xdata-validate'>Data Forms Validation</a></li>
+  <li><a href='/protocols/jabber_x_conference'>Direct MUC Invitations</a></li>
+  <li><a href='/protocols/caps'>Entity Capabilities</a></li>
+  <li><a href='/protocols/address'>Extended Stanza Addressing</a></li>
+  <li><a href='/protocols/feature-neg'>Feature Negotiation</a></li>
+  <li><a href='/protocols/file-transfer'>File Transfer</a></li>
+  <li><a href='/protocols/offline'>Flexible Offline Message Retrieval</a></li>
+  <li><a href='/protocols/ibb'>In-Band Bytestreams</a></li>
+  <li><a href='/protocols/jidescaping'>JID Escaping</a></li>
+  <li><a href='/protocols/urn_xmpp_jingle'>Jingle</a></li>
+  <li><a href='/protocols/urn_xmpp_jingle_transports_ice-udp'>Jingle ICE-UDP Transport Method</a></li>
+  <li><a href='/protocols/urn_xmpp_jingle_apps_rtp'>Jingle RTP Sessions</a></li>
+  <li><a href='/protocols/urn_xmpp_jingle_transports_raw-udp'>Jingle Raw UDP Transport Method</a></li>
+  <li><a href='/protocols/urn_xmpp_langtrans'>Language Translation</a></li>
+  <li><a href='/protocols/urn_xmpp_archive'>Message Archiving</a></li>
+  <li><a href='/protocols/urn_xmpp_receipts'>Message Receipts</a></li>
+  <li><a href='/protocols/muc'>Multi-User Chat</a></li>
+  <li><a href='/protocols/jabber_x_oob'>Out of Band Data</a></li>
+  <li><a href='/protocols/pep'>Personal Eventing via Pubsub</a></li>
+  <li><a href='/protocols/urn_xmpp_pie'>Portable Import/Export Format for XMPP-IM Servers</a></li>
+  <li><a href='/protocols/jabber_iq_privacy'>Privacy Lists</a></li>
+  <li><a href='/protocols/pubsub'>Publish-Subscribe</a></li>
+  <li><a href='/protocols/sipub'>Publishing Stream Initiation Requests</a></li>
+  <li><a href='/protocols/rsm'>Result Set Management</a></li>
+  <li><a href='/protocols/rosterx'>Roster Item Exchange</a></li>
+  <li><a href='/protocols/urn_xmpp_features_rosterver'>Roster Versioning</a></li>
+  <li><a href='/protocols/disco'>Service Discovery</a></li>
+  <li><a href='/protocols/shim'>Stanza Headers and Internet Metadata</a></li>
+  <li><a href='/protocols/soap'>SOAP Over XMPP</a></li>
+  <li><a href='/protocols/urn_xmpp_blocking'>Simple Communications Blocking</a></li>
+  <li><a href='/protocols/bytestreams'>SOCKS5 Bytestreams</a></li>
+  <li><a href='/protocols/jabber_iq_version'>Software Version</a></li>
+  <li><a href='/protocols/urn_xmpp_ssn'>Stanza Session Negotiation</a></li>
+  <li><a href='/protocols/si'>Stream Initiation</a></li>
+  <li><a href='/protocols/urn_xmpp_sm'>Stream Management</a></li>
+  <li><a href='/protocols/urn_xmpp_avatar'>User Avatar</a></li>
+  <li><a href='/protocols/activity'>User Activity</a></li>
+  <li><a href='/protocols/geoloc'>User Location</a></li>
+  <li><a href='/protocols/mood'>User Mood</a></li>
+  <li><a href='/protocols/nick'>User Nickname</a></li>
+  <li><a href='/protocols/tune'>User Tune</a></li>
+  <li><a href='/protocols/http-auth'>Verifying HTTP Requests via XMPP</a></li>
+  <li><a href='/protocols/xhtml-im'>XHTML-IM</a></li>
+  <li><a href='/protocols/urn_xmpp_xbosh'>XMPP Over BOSH</a></li>
+</ul>
+
+<p>In addition to the foregoing protocols, the XMPP Standards Foundation has informationally defined various best practices related to XMPP, has historically documented several protocols that are in wide use within the Jabber/XMPP community, and regularly considers numerous experimental technologies for advancement to Draft and then Final. However, such informational, historical, and experimental specifications are not officially recognized by the XSF as part of the XMPP protocol stack.</p>
+
+<p>This page is maintained by the <a href='http://www.xmpp.org/registrar/'>XMPP Registrar</a>.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,289 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Message Stanza Profiles</title>
+  <abstract>This document specifies best practices for generating and handling extended content in XMPP message stanzas.</abstract>
+  &LEGALNOTICE;
+  <number>0226</number>
+  <status>Deferred</status>
+  <type>Informational</type>
+  <sig>Standards</sig>
+  <approver>Council</approver>
+  <dependencies/>
+  <supersedes/>
+  <supersededby/>
+  <shortname>profiles</shortname>
+  &infiniti;
+  &stpeter;
+  <registry/>
+  <revision>
+    <version>0.3</version>
+    <date>2008-11-05</date>
+    <initials>psa</initials>
+    <remark><p>For consistency, defined Metadata Profile; specified that the registrar shall create a registry for message stanza profiles.</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2008-10-01</date>
+    <initials>jk</initials>
+    <remark><p>Revised/reordered text.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2007-08-08</date>
+    <initials>psa</initials>
+    <remark><p>Initial published version; specified more granular profiles; renamed transmission elements to metadata elements.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.2</version>
+    <date>2007-08-01</date>
+    <initials>psa</initials>
+    <remark><p>Clarified that message profiles apply to sending entities as well as receiving entities.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.1</version>
+    <date>2007-08-01</date>
+    <initials>jk/psa</initials>
+    <remark><p>First draft.</p></remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>The definition of XMPP stanzas in &xmppcore; and &xmppim; allows a &MESSAGE; stanza to include any number of child elements that define extended content. The fact that a message stanza may contain multiple instances of extended content can make it difficult for sending entities to know what is appropriate for inclusion in a message stanza and for receiving entities to know exactly how to process a message stanza.</p>
+  <p>Consider the following hypothetical example:</p>
+  <example caption='A confusing message'><![CDATA[
+<message from='romeo@montague.lit' to='juliet@capulet.com' id='msg_1'>
+  <body>Shall we meet?</body
+  <html xmlns='http://jabber.org/protocol/xhtml-im'>
+    <body xmlns='http://www.w3.org/1999/xhtml'>
+      <p style='font-weight:bold'>Shall we meet?</p>
+    </body>
+  </html>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='form'>
+      <field var='FORM_TYPE' type='hidden'>
+        <value>romantic_meetings</value>
+      </field>
+      <field type='list-single' var='places-to-meet'>
+         <option><value>Secret Grotto</value></option>
+         <option><value>Verona Park</value></option>
+      </field>
+      <field type='list-single' var='times-to-meet'>
+         <option><value>22:00</value></option>
+         <option><value>22:30</value></option>
+         <option><value>23:00</value></option>
+      </field>
+    </x>
+  </feature>
+  <headers xmlns='http://jabber.org/protocol/shim'>
+    <header name='Urgency'>high</header>
+  </headers>
+  <amp xmlns='http://jabber.org/protocol/amp' per-hop='true'>
+    <rule condition='expire-at'
+          action='drop'
+          value='2007-08-01T23:30:00Z'/>
+  </amp>
+  <geoloc xmlns='http://jabber.org/protocol/geoloc' xml:lang='en'>
+    <country>Italy</country>
+    <lat>45.44</lat>
+    <locality>Venice</locality>
+    <lon>12.33</lon>
+  </geoloc>
+  <mood xmlns='http://jabber.org/protocol/mood'>
+    <flirtatious/>
+  </mood>
+  <data xmlns='http://jabber.org/protocol/ibb' sid='ft_session_2' seq='84'>
+    qANQR1DBwU4DX7jmYZnncmUQB/9KuKBddzQH+tZ1ZywKK0yHKnq57kWq+RFtQdCJ
+    WpdWpR0uQsuJe7+vh3NWn59/gTc5MDlX8dS9p0ovStmNcyLhxVgmqS8ZKhsblVeu
+    IpQ0JgavABqibJolc3BKrVtVV1igKiX/N7Pi8RtY1K18toaMDhdEfhBRzO/XB0+P
+    AQhYlRjNacGcslkhXqNjK5Va4tuOAPy2n1Q8UUrHbUd0g+xJ9Bm0G0LZXyvCWyKH
+    kuNEHFQiLuCY6Iv0myq6iX6tjuHehZlFSh80b5BVV9tNLwNR5Eqz1klxMhoghJOA
+  </data>
+</message>
+  ]]></example>
+  <p>What to make of a message like this? The import seems to be that Romeo, being in a flirtatious mood (&xep0107;) and currently located near Juliet's abode (&xep0080;), would urgently (&xep0131;) like to meet with Juliet (message body) and proposes two convenient places (&xep0020;) for an evening tryst, but no later than midnight (&xep0079;), and for good measure would like to transport the 85th packet of a file transfer. But how is Juliet's client supposed to figure that out? That is, what should her client present to the user? And should Romeo's client even send a monstrosity such as this?</p>
+  <p>To clarify such matters, this document introduces the concept of "message stanza profiles". Each profile defines a set of elements that are allowed for use, and each message stanza must only be processed under the rules of a single profile. Therefore, at best, Juliet's client in the above example would process the message for just one of its many intended purposes. At worst, the message would be rejected by Juliet's client as invalid. Romeo's client should not be sending such a monstrosity.</p>
+</section1>
+<section1 topic='Elements' anchor='elements'>
+  <p>Elements used in a message stanza are either part of a standard profile (for example, &lt;body&gt; or &lt;data xmlns='http://jabber.org/protocol/ibb'&gt;) or the metadata profile (for example, &lt;error&gt; or &lt;amp xmlns='http://jabber.org/protocol/amp'&gt;). A message stanza SHOULD only contain profile elements that are part of the same profile. A message stanza MAY contain as many elements as necessary from the metadata profile.</p>
+  <p>A sender MAY mix elements of different profiles only for the purposes of fallback. For example, it may be useful to include a &lt;body&gt; element in a message that is not intended to be displayed as a text message, in case the recipient does not support the primary profile of the message.</p>
+    <example caption='Mixing profile elements'><![CDATA[
+<message from='romeo@montague.lit' to='juliet@capulet.com' id='msg_1'>
+  <body>If you read this message then you don't support IBB.</body
+  <data xmlns='http://jabber.org/protocol/ibb' sid='ft_session_2' seq='84'>
+    qANQR1DBwU4DX7jmYZnncmUQB/9KuKBddzQH+tZ1ZywKK0yHKnq57kWq+RFtQdCJ
+    WpdWpR0uQsuJe7+vh3NWn59/gTc5MDlX8dS9p0ovStmNcyLhxVgmqS8ZKhsblVeu
+    IpQ0JgavABqibJolc3BKrVtVV1igKiX/N7Pi8RtY1K18toaMDhdEfhBRzO/XB0+P
+    AQhYlRjNacGcslkhXqNjK5Va4tuOAPy2n1Q8UUrHbUd0g+xJ9Bm0G0LZXyvCWyKH
+    kuNEHFQiLuCY6Iv0myq6iX6tjuHehZlFSh80b5BVV9tNLwNR5Eqz1klxMhoghJOA
+  </data>
+</message>
+  ]]></example>
+  <p>A receiver MUST only process the message for a single profile. The above example message would be processed either as an IBB data packet or as an instant message, but never both.</p>
+</section1>
+<section1 topic='Rules' anchor='rules'>
+  <p>We stipulate the following rules:</p>
+  <ol>
+    <li>A single profile applies to each message stanza (i.e., a message is not in two or more profiles).</li>
+    <li>Each element is part of a defined profile.</li>
+    <li>Metadata elements have no effect on the profile-based handling of messages.</li>
+    <li>Unknown elements have no effect on determining the profile.</li>
+    <li>If a received message appears to conform to multiple profiles, the profile selected by the receiver is implementation-specific with one exception: the receiver MUST NOT select the IM profile unless that is the only profile it understands in the message.</li>
+  </ol>
+  <p>If a client receives a message stanza that combines multiple profiles, or the profile cannot be determined, the client MAY return a stanza error, which SHOULD be &notacceptable;.</p>
+  <example caption='Message not acceptable'><![CDATA[
+<message from='juliet@capulet.com'
+         id='msg_1'
+         to='romeo@montague.lit'
+         type='error'>
+  <error type='cancel'>
+    <not-acceptable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+  </error>
+</message>
+  ]]></example>
+  <p>A client might determine that a message cannot be assigned to any profile (e.g., a message stanza that is empty or that contains only whitespace <note>A message stanza SHOULD NOT be empty or contain only whitespace, but some clients are known to generate such stanzas.</note>, or that contains only unknown elements).</p>
+</section1>
+<section1 topic='Profiles' anchor='profiles'>
+  <p>Profiles can be defined in whichever specifications define elements or processing behavior related to message stanzas. All such profiles SHOULD be registered in the Message Profiles Registry as described in the <link url='#registrar'>XMPP Registrar Considerations</link>. However, a few profiles are defined here, and this specification might be kept up to date as further registrations are created.</p>
+  <section2 topic='IM' anchor='profiles-im'>
+    <p>The instant messaging (IM) profile is the "default" profile for message stanzas. For example, if a message stanza includes only elements that are defined for the 'jabber:client' namespace then it is in the IM profile. If a message stanza includes both IM profile elements and other elements, the IM elements should be considered a fallback and the profile should be determined based on the other elements if supported (e.g., a data form). A sending entity should limit the elements it includes to IM profile elements, unless the IM elements are a fallback.</p>
+    <p>The extended content defined in the following specifications is considered to be in the IM profile:</p>
+    <ul>
+      <li>&xmppim;</li>
+      <li>&xep0045; (e.g., invitations)</li>
+      <li>&xep0066;</li>
+      <li>&xep0071;</li>
+      <li>&xep0085;</li>
+      <li>&xep0144;</li>
+      <li>&xep0172;</li>
+    </ul>
+  </section2>
+  <section2 topic='Data Forms' anchor='profiles-dataforms'>
+    <p>Extended content elements defined in &xep0004; are considered to be in the Data Forms profile.</p>
+  </section2>
+  <section2 topic='RPC' anchor='profiles-rpc'>
+    <p>Extended content elements defined in &xep0009; are considered to be in the RPC profile.</p>
+  </section2>
+  <section2 topic='Feature Negotiation' anchor='profiles-featureneg'>
+    <p>Extended content elements defined in &xep0020; are considered to be in the Feature Negotiation profile.</p>
+  </section2>
+  <section2 topic='HTTP Authentication' anchor='profiles-httpauth'>
+    <p>Extended content elements defined in &xep0070; are considered to be in the HTTP Authentication profile.</p>
+  </section2>
+  <section2 topic='SOAP' anchor='profiles-soap'>
+    <p>Extended content elements defined in &xep0072; are considered to be in the SOAP profile.</p>
+  </section2>
+  <section2 topic='Stanza Session Negotiation' anchor='profiles-ssn'>
+    <p>Extended content elements defined in &xep0155; are considered to be in the Stanza Session Negotiation profile.</p>
+  </section2>
+  <section2 topic='Metadata' anchor='profiles-meta'>
+    <p>The metadata profile is handled differently than the other, "standard" profiles, but is defined as a profile for the purpose of consistency. Metadata elements are included to define how the message stanza shall be routed, delivered, or processed in transit or by the end recipient. Metadata elements shall not be used to determine which standard profile applies. If a message stanza includes only metadata elements, it can be considered to have no standard profile.</p>
+    <p>The extended content elements defined in the following specifications are considered to be metadata elements:</p>
+    <ul>
+      <li>&xep0033;</li>
+      <li>&xep0079;</li>
+      <li>&xep0131;</li>
+      <li>&xep0203;</li>
+    </ul>
+  </section2>
+</section1>
+<section1 topic='Implementation Notes' anchor='impl'>
+  <p>Since each message is unambiguously determined to be of a specific profile, implementations that use filtering to pass message stanzas to an appropriate handler (a very common XMPP implementation approach) need not be concerned with the filtering order.  This is because only one handler should ever match on the filter expression.</p>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>This document adds no security concerns or consideration above and beyond those specified in the specifications to which it refers.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p>
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <p>A future version of this specification may call for the &REGISTRAR; to establish a registry of message stanza profiles, so that each relevant specification shall define which profile applies to extended content qualified by the relevant namespace.</p>
+  <section2 topic='Message Profiles Registry' anchor='registrar-profiles'>
+    <p>The XMPP Registrar shall maintain a registry of message profiles.</p>
+    <section3 topic='Process' anchor='registrar-profiles-process'>
+      &REGPROCESS;
+      <code><![CDATA[
+<profile>
+  <name>the XML character data of the profile element</name>
+  <desc>a natural-language description of the message profile</desc>
+  <specs>
+    <spec>one "spec" element for each document that applies</spec>
+  </specs>
+</profile>
+      ]]></code>
+    </section3>
+    <section3 topic='Registration' anchor='registrar-methods-init'>
+      <code><![CDATA[
+<profile>
+  <name>Data Forms</name>
+  <specs>
+    <spec>XEP-0004</spec>
+  </specs>
+</profile>
+
+<profile>
+  <name>Feature Negotiation</name>
+  <specs>
+    <spec>XEP-0020</spec>
+  </specs>
+</profile>
+
+<profile>
+  <name>HTTP Authentication</name>
+  <specs>
+    <spec>XEP-0070</spec>
+  </specs>
+</profile>
+
+<profile>
+  <name>IM</name>
+  <specs>
+    <spec>XMPP core</spec>
+    <spec>XEP-0045</spec>
+    <spec>XEP-0066</spec>
+    <spec>XEP-0071</spec>
+    <spec>XEP-0085</spec>
+    <spec>XEP-0144</spec>
+    <spec>XEP-0172</spec>
+  </specs>
+</profile>
+
+<profile>
+  <name>Metadata</name>
+  <specs>
+    <spec>XEP-0033</spec>
+    <spec>XEP-0079</spec>
+    <spec>XEP-0131</spec>
+    <spec>XEP-0203</spec>
+  </specs>
+</profile>
+
+<profile>
+  <name>RPC</name>
+  <specs>
+    <spec>XEP-0009</spec>
+  </specs>
+</profile>
+
+<profile>
+  <name>SOAP</name>
+  <specs>
+    <spec>XEP-0072</spec>
+  </specs>
+</profile>
+
+<profile>
+  <name>Stanza Session Negotiation</name>
+  <specs>
+    <spec>XEP-0155</spec>
+  </specs>
+</profile>
+      ]]></code>
+    </section3>
+  </section2>
+</section1>
+</xep>

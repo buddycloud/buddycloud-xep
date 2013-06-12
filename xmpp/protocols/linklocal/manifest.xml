@@ -1,0 +1,8 @@
+<manifest>
+  <title>Link-Local Messaging</title>
+  <abstract>This specification defines how to establish XMPP-like communications over local networks based on zero-configuration networking. This method uses DNS-based Service Discovery and Multicast DNS to discover entities that support the protocol, including their IP addresses and preferred ports. Any two entities can then negotiate a serverless connection using standard XML streams in order to exchange XMPP message and IQ stanzas.</abstract>
+  <specnum>XEP-0174</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0174.html</specurl>
+  <status>Final</status>
+  <publisher>XMPP Standards Foundation</publisher>
+</manifest>

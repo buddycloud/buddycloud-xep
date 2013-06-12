@@ -1,0 +1,14 @@
+<manifest>
+  <title>Resource Binding</title>
+  <abstract>This specification defines the method by which a connected client can negotiate or specify a resource identifier for use by an XMPP server in routing XML stanzas to the client. The protocol includes a mechanism by which the client can request a random resource identifier from the server, and also enables a client to optionally bind multiple resources to one stream if needed.</abstract>
+  <specnum>RFC 3920</specnum>
+  <specurl>http://www.ietf.org/rfc/rfc3920.txt</specurl>
+  <status>Proposed</status>
+  <publisher>Internet Engineering Task Force</publisher>
+  <namespaces>
+    <name>urn:ietf:params:xml:ns:xmpp-bind</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/bind.xsd</schema>
+  </schemas>
+</manifest>

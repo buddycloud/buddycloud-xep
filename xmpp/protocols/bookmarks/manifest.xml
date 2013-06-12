@@ -1,0 +1,14 @@
+<manifest>
+  <title>Bookmarks</title>
+  <abstract>This specification defines an XML data format for use by XMPP clients in storing bookmarks to mult-user chatrooms and web pages. The chatroom bookmarking function includes the ability to auto-join rooms on login.</abstract>
+  <specnum>XEP-0048</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0048.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>storage:bookmarks</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/bookmarks.xsd</schema>
+  </schemas>
+</manifest>

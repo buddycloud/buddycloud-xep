@@ -1,0 +1,12 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Member Responsibilities</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Member Responsibilities</h2>
+
+<p>Because the XSF is a membership organization, our members provide the legal basis for our activities. In particular, once every twelve months the members of the XSF elect the <a href='/council/'>XMPP Council</a> and the <a href='/xsf/board/'>XSF Board of Directors</a>. The members also retain ultimate responsibility for the policies of the XSF as reflected in the <a href='/xsf/docs/bylaws.shtml'>XSF Bylaws</a>.</p>
+<p>Membership in the XMPP Standards Foundation is a privilege that is granted by existing members to active participants in the Jabber/XMPP community. Prospective members are expected to have made valuable contributions through writing code, deploying Jabber/XMPP services, creating documentation, authoring <a href='/extensions/'>XMPP Extension Protocols</a>, and so on. The best way to increase one's chances of election are to actively and visibly contribute to the Jabber/XMPP community.</p>
+<p>Once elected, XSF members are expected to continue contributing to the Jabber/XMPP community and the work of the XMPP Standards Foundation through participation on XSF's various <a href='/xsf/teams/'>work teams</a>. In particular, members must participate in the ongoing governance of the XSF by voting in the quarterly and annual meetings of the membership. In accordance with Section 2.6 of the <a href='/xsf/docs/bylaws.shtml'>XSF Bylaws</a>, any member who is inactive through three consecutive meetings is purged from the membership.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

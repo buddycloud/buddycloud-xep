@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2001-08-20<br />
+Location: Keystone, CO, USA<br />
+Scribe: Peter Saint-Andre
+</p>
+<p>Minutes taken by Peter Saint-Andre</p>
+<h2>In Attendance</h2>
+<ul>
+<li>Andre Durand (Chairman of the Board)</li>
+<li>Jeremie Miller (Board Member)</li>
+<li>James Barry (Board Member)</li>
+<li>Dan Powers (Board Member)</li>
+<li>Michael Bauer (Executive Director)</li>
+<li>Peter Saint-Andre (Secretary)</li>
+</ul>
+<h2>Actions Taken</h2>
+<ol>
+<li>Bylaws approved</li>
+<li>Formal incorporation approved</li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

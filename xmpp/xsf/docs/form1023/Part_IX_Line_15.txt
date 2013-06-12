@@ -1,0 +1,13 @@
+Organization: XMPP Standards Foundation
+EIN: 84-1611178
+Form: 1023
+Attachment: Part IX, Line 15
+
+In 2005, the XMPP Standards Foundation (XSF) participated in the "Google 
+Summer of Code" program, through which experienced individuals from the 
+XMPP technical community mentored students from universities in the USA 
+and other countries who worked on software projects selected by the XSF
+and approved by Google. Each mentor who worked on such a project was 
+provided with a grant of $500 for their participation, resulting in 
+total grants of $1,000 for 2005.
+

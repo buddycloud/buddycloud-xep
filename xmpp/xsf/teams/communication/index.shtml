@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Communication Team</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Communication Team</h2>
+
+<p>The mission of the Communication Team is to continuously improve the editorial quality of written, spoken, and visual materials produced by the XMPP Standards Foundation (XSF).</p>
+<p>The Team achieves its mission through several core activities, which include but are not limited to:</p>
+<ul>
+  <li>Editorial reviews of specifications in the XSF's <a href='/extensions/'>XEP series</a></li>
+  <li>Production of white papers, developer guides, HOWTOS, glossaries, slide presentations, tutorials, brochuers, and other information for use by those who develop, deploy, and use XMPP technologies</li>
+  <li>Timely publication of informal reports about XMPP, such as postings at the XSF's <a href='http://blog.xmpp.org/'>weblog</a></li>
+  <li>Maintenance of the xmpp.org website, including content, navigation, and "look and feel"</li>
+</ul>
+<p>The Team is limited to <a href='/xsf/members/'>elected members</a> of the XSF (and invited others at the discretion of the team). Participants are recruited from among the XSF membership by the team lead and approved by a simple majority of the existing team members.</p>
+<p>The team has two meeting venues (the <a href='xmpp:commteam@muc.xmpp.org?join'>commteam@muc.xmpp.org</a> chatroom and the <a href='http://mail.jabber.org/mailman/listinfo/commteam'>commteam@xmpp.org</a> email list) and uses a <a href='http://wiki.xmpp.org/web/CommTeam_targets'>wiki page</a> for coordination.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

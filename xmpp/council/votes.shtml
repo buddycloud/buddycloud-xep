@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Council Votes</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Council Votes</h2>
+<p>Tallies of votes by the <a href='/council/'>XMPP Council</a> are available for the following time periods:</p>
+<ol start='1'>
+<li><a href='/council/tallies_01.shtml'>First Council (2001-2002)</a></li>
+<li><a href='/council/tallies_02.shtml'>Second Council (2002-2003)</a></li>
+<li><a href='/council/tallies_03.shtml'>Third Council (2003-2004)</a></li>
+<li><a href='/council/tallies_04.shtml'>Fourth Council (2004-2005)</a></li>
+<li><a href='/council/tallies_05.shtml'>Fifth Council (2005-2006)</a></li>
+<li><a href='/council/tallies_06.shtml'>Sixth Council (2006-2007)</a></li>
+<li><a href='/council/tallies_07.shtml'>Seventh Council (2007-2008)</a></li>
+<li><a href='/council/tallies_08.shtml'>Eighth Council (2008-2009)</a></li>
+<li><a href='/council/tallies_09.shtml'>Ninth Council (2009-2010)</a></li>
+</ol>
+<!--#include virtual="/includes/foot.txt" -->

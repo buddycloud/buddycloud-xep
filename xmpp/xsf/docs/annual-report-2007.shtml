@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Annual Report of the XMPP Standards Foundation: 2007</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>Annual Report of the XMPP Standards Foundation: 2007</h2>
+<p>This is the 2007 Annual Report of the <a href='http://www.xmpp.org/'>XMPP Standards Foundation</a> (XSF), a non-profit membership organization dedicated to documentation and development of the Extensible Messaging and Presence Protocol (XMPP). The mission of the XSF to build an open, standardized, secure, feature-rich, widely-deployed, decentralized infrastructure for real-time communication and collaboration over the Internet. This report, produced by the XSF Board of Directors, describes the progress achieved toward that goal by the XSF and the broader Jabber/XMPP community in 2007.</p>
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#exec">1.0 Executive Summary</a></li>
+<li><a href="#xeps">2.0 XMPP Extension Protocols</a></li>
+<li><a href="#ietf">3.0 IETF Activities</a></li>
+<li><a href="#community">4.0 Developer Community</a></li>
+<li><a href="#interop">5.0 Interoperability and Compliance</a></li>
+<li><a href="#ica">6.0 Intermediate Certification Authority</a></li>
+<li><a href="#infrastructure">7.0 Infrastructure</a></li>
+<li><a href="#ipr">8.0 IPR Policy</a></li>
+<li><a href="#marketing">9.0 Marketing</a></li>
+<li><a href="#roadmap">10.0 Roadmap for 2008</a></li>
+<li><a href="#finance">11.0 Financial Status</a></li>
+<li><a href="#sponsors">12.0 Sponsors</a></li>
+<li><a href="#board">13.0 Board of Directors</a></li>
+<li><a href="#council">14.0 XMPP Council</a></li>
+<li><a href="#feedback">15.0 Providing Feedback</a></li>
+</ul>
+
+<a name="exec"></a><h3>1.0 Executive Summary</h3>
+<p>XMPP technologies continue to mature and expand. Significant accomplishments in 2007 included:</p>
+<ul>
+  <li>Adoption of XMPP technologies accelerated not only in the traditional instant messaging realm but also in non-IM applications such as machine-to-machine communication.</li>
+  <li>The XSF began the process of updating the XMPP RFCs (RFC 3920 and RFC 3921) to incorporate the results of widespread implementation and deployment experience gained since 2004.</li>
+  <li>Work continued on a wide range of XMPP extensions within the XSF's standards process, including the Jingle extensions for multimedia session negotiation and technologies for end-to-end encryption.</li>
+  <li>To clarify the focus of the community on its XML wire protocol, the name of our standards development organization was changed from the Jabber Software Foundation (JSF) to the XMPP Standards Foundation (XSF).</li>
+  <li>The XSF modified its Intellectual Property Rights policy to allow the inclusion of text, examples, and schemas from XMPP Extension Protocol specifications directly in free software programs.</li>
+  <li>The XSF achieved 501(c)(3) tax-exempt status with the U.S. Internal Revenue Service.</li>
+  <li>The XSF worked with a professional designer to produce a new logo for XMPP.</li>
+</ul>
+<p>Detailed information regarding these achievements and other aspects of progress for 2007 are described below.</p>
+
+<a name="xeps"></a><h3>2.0 XMPP Extension Protocols</h3>
+<p>The XSF's core competency is documentation of the Extensible Messaging and Presence Protocol (contributed in 2002 to the IETF; see the next section) and definition of new XMPP Extension Protocols (XEPs). Because the XSF has been publishing Jabber/XMPP protocols since August 2001, we now have a fairly comprehensive protocol stack with a large installed base of implementations. As a result, we now spend more time maintaining existing specifications than we did several years ago. This is both good (incorporating feedback to make our protocols more secure and easier to implement) and bad (producing fewer XMPP extensions that define new features or address new problem domains). However, the XSF strives to continue working on and advancing appropriate XMPP extensions. To highlight the differences, the following summary of activity within the XSF's standards process divides the work into maintenance of existing standards, advancement of new extensions, and promising experimental work.</p>
+<blockquote>
+<a name="xeps-maintenance"></a><h4>2.1 Maintenance of Existing Standards</h4>
+<p>In 2007 the XSF completed major revisions to two important building block specifications:</p>
+<ul>
+  <li><p><strong><a href='http://www.xmpp.org/extensions/xep-0060.html'>XEP-0060: Publish-Subscribe</a>.</strong> This large specification was completely overhauled to clarify a number of points. In addition, the specification now also defines integration with instant messaging and presence services so that a normal IM account can function as a virtual publish-subscribe service, thus enabling "personal eventing" features for rich presence and invidualized content syndication (for details, see <a href='http://www.xmpp.org/extensions/xep-0163.html'>XEP-0163: Personal Eventing via Pubsub</a>).</p></li>
+  <li><p><strong><a href='http://www.xmpp.org/extensions/xep-0115.html'>XEP-0115: Entity Capabilities</a>.</strong> The entity capabilities protocol is a real-time profile of <a href='http://www.xmpp.org/extensions/xep-0030.html'>XEP-0030: Service Discovery</a>. Developer feedback revealed that this protocol made it possible for malicious or merely incompetent entities to poison entity capabilities information, and this poisoning attack was observed in the wild. Therefore the protocol was hardened and improved to prevent information poisoning.</p></li>
+</ul>
+<p>In addition, smaller revisions and clarifications were made to protocols such as <a href='http://www.xmpp.org/extensions/xep-0004.html'>XEP-0004: Data Forms</a>, <a href='http://www.xmpp.org/extensions/xep-0012.html'>XEP-0012: Last Activity</a>, <a href='http://www.xmpp.org/extensions/xep-0045.html'>XEP-0045: Multi-User Chat</a>, <a href='http://www.xmpp.org/extensions/xep-0071.html'>XEP-0071: XHTML-IM</a>, and <a href='http://www.xmpp.org/extensions/xep-0080.html'>XEP-0080: User Location</a>.</p>
+
+<a name="xeps-advance"></a><h4>2.2 Advancement of New Extensions</h4>
+<p>In 2007 the XSF completed documentation of <a href='http://www.xmpp.org/extensions/xep-0174.html'>XEP-0174: Link-Local Messaging</a>. This specification defines an XMPP-based messaging technology for use on local networks, as pioneered by Apple Computer's iChat client in Bonjour mode and subsequently emulated by a number of open-source clients.</p>
+<p>The XSF also advanced to Draft status <a href='http://www.xmpp.org/extensions/xep-0155.html'>XEP-0155: Stanza Session Negotiation</a> (a protocol for formally negotiating the exchange of XMPP messages or stanzas between any two endpoints) and <a href='http://www.xmpp.org/extensions/xep-0084.html'>XEP-0084: User Avatars</a> (a modern replacement for the older vCard-based avatar technology).</p>
+
+<a name="xeps-experimental"></a><h4>2.3 Experimental Work</h4>
+<p>Work has continued, albeit more slowly than desired, on finalizing two important XMPP technologies:</p>
+<ul>
+  <li><p><strong><a href='http://www.xmpp.org/extensions/xep-0166.html'>XEP-0166: Jingle.</a></strong> The Jingle specifications formalize the multimedia session negotiation technology first defined by Google and deployed in its Google Talk service. Because there are relatively few implementations of the protocol as specified in the relevant XEPs, it has been difficult to obtain feedback on these specifications. However, the protocol is now implemented in the One Laptop Per Child (OLPC) project, several Nokia devices, the Asterisk open-source PBX project, the FreeSWITCH open-source softswitch, and several other emerging projects. Final feedback is being gathered as of the time of this report and the specifications should be advanced to Draft status during Q1 2008.</p></li>
+  <li><p><strong><a href='http://www.xmpp.org/extensions/xep-0116.html'>XEP-0116: Encrypted Sessions.</a></strong> XMPP has long included methods for channel encryption (since 2004 using Transport Layer Security, which superseded Secure Sockets Layer). However, existing technologies for end-to-end encryption have been implemented and deployed less broadly. These technologies include PGP via user keys and S/MIME via client certificates. The XSF has worked on a technology called Encrypted Sessions that is both more appropriate for streaming communication and less user-intensive; indeed, the XSF received a grant from NLnet to accelerate definition and implementation of this technology early in 2007. Unfortunately, despite completing the protocol work and mentoring a Google Summer of Code project implementing Encrypted Sessions in the Gajim client, the XSF was unable to obtain an affordable security review for the relevant specifications or to reach consensus on the desirability of Encrypted Sessions compared to an alternative proposal for an application profile of TLS (code-named "XTLS"). Rather than unduly extend the length of the NLnet project, the XSF Board decided to cancel project and return the initial funds in October 2007. However, the XSF will continue to explore both Encrypted Sessions and XTLS as go-forward technologies for end-to-end encryption of XMPP communications.</p></li>
+</ul>
+<p>In addition, members of the XMPP developer community have been working on a wide range of XMPP extensions, such as whiteboarding, collaborative editing, spam-prevention techniques, and methods for improving the reliability of communication over the XMPP network. The XSF will endeavor to advance several of these efforts to a status of Draft during 2008.</p>
+</blockquote>
+
+<a name="ietf"></a><h3>3.0 IETF Activities</h3>
+<p>Although the focus of the XMPP community's standardization efforts is the XEP series, the XSF continues to contribute to the Internet Standards Process run by the Internet Engineering Task Force (<a href='http://www.ietf.org/'>IETF</a>). These contributions generally fall into four categories:</p>
+<ol>
+  <li>Revising the core XMPP RFCs to incorporate the results of implementation and deployment experience.</li>
+  <li>Defining uses of XMPP by other IETF technologies.</li>
+  <li>Reviewing and commenting on IETF technologies upon which XMPP depends.</li>
+  <li>Defining techniques for interworking between XMPP and the Session Initiation Protocol (SIP).</li>
+</ol>
+<p>The following sections provide more detailed information about these activities.</p>
+<blockquote>
+<a name="ietf-rfcs"></a><h4>3.1 RFC Updates</h4>
+<p>In late 2006, the XSF began working on revisions to the core documentation of XMPP: <a href='http://www.ietf.org/rfc/rfc3920.txt'>RFC 3920</a> and <a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC 3921</a>. These revisions (<a href='/internet-drafts/'>rfc3920bis</a> and <a href='/internet-drafts/'>rfc3921bis</a>) are proceeding at a measured pace so that the XMPP developer community can express its consensus regarding modifications to the fundamental definition of our technology. In general the revisions are limited to corrections, clarifications, and incorporation of feedback from developers who have implemented XMPP since the RFCs were published in October 2004. The XSF plans to complete these revisions in 2008.</p>
+<a name="ietf-apps"></a><h4>3.2 XMPP Applications</h4>
+<p>Because XMPP is so widely implemented, other working groups within the IETF have expressed an interest in re-using XMPP within other applications. Currently the XSF is contributing to two such efforts:</p>
+<ul>
+  <li>XMPP notifications generated by the Sieve email filtering technology.</li>
+  <li>Use of the XMPP publish-subscribe extension as a transport for the Atom content syndication format.</li>
+</ul>
+<p>The Sieve effort is complete but not yet published and we expect the Atom effort to be completed in 2008.</p>
+<a name="ietf-dependencies"></a><h4>3.3 XMPP Dependencies</h4>
+<p>XMPP is dependent upon a number of technologies at lower layers in the protocol stack. Some of these technologies are stable and not liable to change, such as the Transmission Control Protocol (TCP) and the UTF-8 character encoding. Other such technologies have not yet been finalized in the Internet Standards Process; these include:</p>
+<ul>
+  <li>Transport Layer Security (TLS), for which version 1.1 was published in 2006 and version 1.2 is currently being finalized.</li>
+  <li>The Simple Authentication and Security Layer (SASL), which was last updated in 2006.</li>
+  <li>Internationalized Domain Names in Applications (IDNA), which is currently undergoing significant revisions.</li>
+</ul>
+<p>Because XMPP depends on these underlying technologies, the XSF closely monitors them, reviews changes to them, and where appropriate provides comments on the relevant IETF discussion lists.</p>
+<a name="ietf-sip"></a><h4>3.4 SIP Mappings</h4>
+<p>Since XMPP and the Session Initiation Protocol (SIP) are both open standards for signalling, messaging, and presence, it makes sense to clearly define how to map protocol syntax and semantics between them. Working with representatives from companies such as IBM and Ericsson, the XSF has published interworking specifications that cover the mapping of addresses, presence, single messages, one-to-one chat sessions, and media negotiation. Future specifications in this series will cover multi-user text chat, rich presence, device capabilities, geolocation, publish-subscribe, and other features common to both technologies.</p>
+</blockquote>
+
+<a name="community"></a><h3>4.0 Developer Community</h3>
+<p>The XMPP developer community is large and diverse, containing occasional shareware programmers, active open-source projects, commercial software companies, and everything in between. Although the XMPP Standards Foundation does not directly contribute to any particular codebase that implements XMPP functionality, it recognizes the importance of maintaining a healthy ecosystem of implementations. Toward that end, the XSF hosts twice-yearly developer conferences and also participates in the yearly Google Summer of Code program for students. The XSF may in the future pursue additional opportunities to encourage widespread implementation of XMPP-friendly software, such as core XMPP support in popular programming languages.</p>
+<blockquote>
+<a name="devcon"></a><h3>4.1 DevCon</h3>
+<p>In July 2006, the XSF held the first XMPP DevCon coincident with the O'Reilly Open Source Software Convention (OSCON) in Portland, Oregon. The second DevCon was held in February 2007 coincident with the Free and Open Source Software Developers' European Meeting (FOSDEM) and the third DevCon was held in August 2007 coincident with OSCON 2007. These meetings, which each time brought together 10-15 different core developers from Europe and North America, have resulted in interoperability testing, brainstorming of solutions to advanced problems, development of new features, and a stronger developer community. The XSF will continue to hold DevCons twice a year at FOSDEM (Europe) and OSCON (North America) for the foreseeable future.</p>
+<a name="devcon"></a><h3>4.2 Google Summer of Code</h3>
+<p>The XSF has participated in the Google Summer of Code since its inception in 2004. The 2007 Summer of Code was especially productive because the XSF reduced the number of projects it sponsored and devoted more attention to the projects. A full report is available at &lt;<a href='http://blog.xmpp.org/?p=30'>http://blog.xmpp.org/?p=30</a>&gt;.</p>
+</blockquote>
+
+<a name="interop"></a><h3>5.0 Interoperability and Compliance</h3>
+<p>In early 2007 the XSF initiated a private, online network for interoperability testing, as described at &lt;<a href='http://www.xmpp.org/interop/'>http://www.xmpp.org/interop/</a>&gt;. This network has seen little use so far. However, the processes and procedures for joining the network have been simplified recently, setting the stage for more intensive online testing in 2008.</p>
+<p>One trigger for interoperability testing will be the compliance suites approved by the XMPP Council in mid-2007, since software programs will be approved for advertising compliance with these protocol suites only if they participate in the testing network. The suites are as follows:</p>
+<ul>
+  <li><a href='http://www.xmpp.org/extensions/xep-0211.html'>XMPP Basic Client 2008</a></li>
+  <li><a href='http://www.xmpp.org/extensions/xep-0212.html'>XMPP Basic Server 2008</a></li>
+  <li><a href='http://www.xmpp.org/extensions/xep-0213.html'>XMPP Intermediate Client 2008</a></li>
+  <li><a href='http://www.xmpp.org/extensions/xep-0216.html'>XMPP Intermediate Server 2008</a></li>
+</ul>
+
+<a name="ica"></a><h3>6.0 Intermediate Certification Authority</h3>
+<p>In December 2006, the XSF formed an intermediate certification authority (ICA) as one aspect of efforts to improve the security profile of XMPP technologies. Under an agreement with the StartCom certification authority, the ICA issues free digital certificates to administrators of XMPP servers. Through the end of 2007, the ICA had issued over 500 certificates via its website at &lt;<a href='http://xmpp.org/ca/'>http://xmpp.org/ca/</a>&gt;. In December 2007, the XSF renewed its agreement with StartCom, indicating a continued to commitment to information security.</p>
+
+<a name="infrastructure"></a><h3>7.0 Infrastructure</h3>
+<p>The XSF maintains several server machines that are used to host various services for the Jabber/XMPP community, including the jabber.org and xmpp.org websites, numerous email discussion lists, and the flagship XMPP service that has been running at jabber.org since 1999. This infrastructure is co-located free of charge by <a href='http://usshc.com/'>United States Secure Hosting Center</a>, several of the machines have been donated by <a href='http://www.hp.com/'>HP</a>, and the xmpp service is supported by <a href='http://www.process-one.net/'>Process-one</a>.</p>
+
+<a name="ipr"></a><h3>8.0 IPR Policy</h3>
+<p>In 2002, the XSF worked with law professors Lawrence Lessig and Molly van Houweling to develop an intellectual property rights (IPR) policy that would appropriately reflect the XSF's role in the broader Jabber/XMPP community. In late 2007, members of the free software community notified the XSF that the existing licensing of XMPP Extension Protocol (XEP) specifications prevented text, examples, schemas, code, and pseudo-code in XEPs from being included in free software programs, in particular the Debian distribution of the Linux operating system. The XSF quickly worked to research potential modifications to its IPR policy. After discussion among the XSF Board of Directors, the membership of the XSF, and the Debian community, the XSF settled upon a modified MIT license as appropriate for application to the XEP series. This change was approved by the XSF Board of Directors in early 2008.</p>
+
+<a name="marketing"></a><h3>9.0 Marketing</h3>
+<p>As a standards development organization, the XSF does not engage in traditional marketing campaigns. In a way, our best marketing is the widespread deployment of XMPP technologies. However, the following activities are probably best categorized as marketing.</p>
+<blockquote>
+<a name="marketing-talks"></a><h3>9.1 Conference Presentations</h3>
+<p>Members of the XMPP Council and XSF Board of Directors have traditionally given talks, tutorials, and other presentations at industry conferences for the purpose of outreach to software developers and organizational decision makers. In 2007 these presentations included:</p>
+<ul>
+  <li>FOSDEM 2007 keynote on XMPP security (Peter Saint-Andre)</li>
+  <li>OSCON 2007 talk on XMPP security (Peter Saint-Andre)</li>
+</ul>
+<a name="marketing-website"></a><h3>9.2 Logo</h3>
+<p>Under the leadership of Matt Tucker, Chairman of the Board for 2006-2007, the XSF worked with designer Raja Sandhu on an official XMPP logo, which was delivered in late 2007:</p>
+<p><img src='http://www.xmpp.org/images/xmpp.png'/></p>
+<p>The XSF is currently working to incorporate this logo more widely into its website, compliance program, and collateral materials.</p>
+</blockquote>
+
+<a name="roadmap"></a><h3>10.0 Roadmap for 2008</h3>
+<p>The XSF continually updates a roadmap at &lt;<a href='http://www.xmpp.org/xsf/roadmap.shtml'>http://www.xmpp.org/xsf/roadmap.shtml</a>&gt;, usually on a quarterly basis. The high-priority goals for include:</p>
+<ul>
+  <li>Complete work on the Jingle extensions for multimedia negotiation.</li>
+  <li>Complete revisions to the core XMPP RFCs.</li>
+  <li>Launch an XMPP Operators Group to improve communication among organizations and service providers who deploy XMPP services.</li>
+  <li>Lay the groundwork for ubiquitous encryption of server-to-server XMPP traffic by January 4, 2009.</li>
+</ul>
+
+<a name="finance"></a><h3>11.0 Financial Status</h3>
+<blockquote>
+<a name="finance-earnings"></a><h3>11.1 Statement of Earnings</h3>
+<p>In 2007, the XSF had total revenues of $8,000, and total costs of $14,886.90, as follows:</p>
+<ul>
+  <li>Administrative Expenses -- $2,289.42</li>
+  <li>Infrastucture Costs -- $3,146.40</li>
+  <li>Conference Expenses -- $3,851.08</li>
+  <li>Code Bounties -- $4,000.00</li>
+  <li>Public Relations Fees -- $1,600.00</li>
+</ul>
+<p>For more detailed information about the XSF's financial status, please refer to &lt;<a href='http://www.xmpp.org/xsf/financialsummary.shtml'>http://www.xmpp.org/xsf/financialsummary.shtml</a>&gt;.</p>
+<a name="finance-position"></a><h3>11.2 Financial Position</h3>
+<p>As of 2007-12-31, the XSF had total assets of $30.938.26, with no liabilities.</p>
+<a name="finance-tax"></a><h3>11.3 Tax Status</h3>
+<p>In 2007, the XSF completed a Form 1023 application for tax-exempt status with the U.S. Internal Revenue Service. This application was approved in September 2007. As a result, contributions to the XSF are now tax-deductible.</p>
+</blockquote>
+
+<a name="sponsors"></a><h3>12.0 Sponsors</h3>
+<p>Although the XSF does not require significant funding in order to operate successfully, support from several sponsors enables the organization to maintain its server infrastructure and run several small conferences each year.
+
+<a name="board"></a><h3>13.0 Board of Directors</h3>
+<p>The membership of the XSF elects a new Board of Directors every year in September. The Board provides business and organizational leadership for the XSF. The following individuals volunteered their time to serve on the Board during the 2006-2007 and 2007-2008 terms.</p>
+<h4>2006-2007</h4>
+<ul>
+<li>Chair: Matt Tucker (Jive Software)</li>
+<li>Alexander Gnauck (AG Software)</li>
+<li>Micka&#235;l R&#233;mond (Process-one)</li>
+</ul>
+<h4>2007-2008</h4>
+<ul>
+<li>Chair: Alexander Gnauck (AG Software)</li>
+<li>Jack Moffitt (Chesspark)</li>
+<li>Micka&#235;l R&#233;mond (Process-one)</li>
+</ul>
+
+<a name="council"></a><h3>14.0 XMPP Council</h3>
+<p>The membership of the XSF elects a new XMPP Council every year in September. The Council provides technical leadership for the XSF, focusing especially on the review and advancement of XMPP Extension Protocols (XEPs). The following individuals volunteered their time to serve on the Board during the 2006-2007 and 2007-2008 terms.</p>
+<h4>2006-2007</h4>
+<ul>
+<li>Chair: Peter Saint-Andre (Jabber, Inc.)</li>
+<li>Ralph Meijer (Jaiku / Mediamatic Lab)</li>
+<li>Chris Mullins (Coversant)</li>
+<li>Ian Paterson (ClientSide)</li>
+<li>Kevin Smith (Psi Project)</li>
+</ul>
+<h4>2007-2008</h4>
+<ul>
+<li>Chair: Peter Saint-Andre (Jabber, Inc.)</li>
+<li>Dave Cridland (Isode Ltd.)</li>
+<li>Ralph Meijer (Mediamatic Lab)</li>
+<li>Ian Paterson (ClientSide)</li>
+<li>Kevin Smith (Psi Project)</li>
+</ul>
+
+<a name="feedback"></a><h3>15.0 Providing Feedback</h3>
+<p>If you have any feedback about this report or would like further information about the XMPP Standards Foundation, feel free to contact Executive Director Peter Saint-Andre via email or IM at &lt;&#115;&#116&#112;&#101;&#116;&#101;&#114;@&#106;&#97;&#98;&#98;&#101;&#114;.&#111;&#114;&#103;&gt;</p>
+
+<!--#include virtual="/includes/foot.txt" -->

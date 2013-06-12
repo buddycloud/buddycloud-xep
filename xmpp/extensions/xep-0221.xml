@@ -1,0 +1,171 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Data Forms Media Element</title>
+  <abstract>This specification defines an XMPP protocol extension for including media data in XEP-0004 data forms.</abstract>
+  &LEGALNOTICE;
+  <number>0221</number>
+  <status>Draft</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XEP-0004</spec>
+  </dependencies>
+  <supersedes>None</supersedes>
+  <supersededby>None</supersededby>
+  <shortname>media-element</shortname>
+  <schemaloc>
+    <url>http://www.xmpp.org/schemas/media-element.xsd</url>
+  </schemaloc>
+  &ianpaterson;
+  &stpeter;
+  <revision>
+    <version>1.0</version>
+    <date>2008-09-03</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, advanced status to Draft; concurrently, the XMPP Registrar issued the urn:xmpp:media-element namespace.</p></remark>
+  </revision>
+  <revision>
+    <version>0.6</version>
+    <date>2008-08-06</date>
+    <initials>psa</initials>
+    <remark><p>Further modified examples to track changes to XEP-0231.</p></remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2008-08-06</date>
+    <initials>psa</initials>
+    <remark><p>Modified examples to track changes to XEP-0231.</p></remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2008-07-27</date>
+    <initials>psa</initials>
+    <remark><p>Generalized text regarding inclusion of parameters in type attribute per RFC 2045.</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2008-06-18</date>
+    <initials>psa</initials>
+    <remark><p>Changed MUST to SHOULD regarding inclusion of uri element; allowed inclusion of codecs parameter in type attribute per RFC 4281; added Security Considerations section.</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2008-01-30</date>
+    <initials>psa</initials>
+    <remark><p>Modified to reuse data element from XEP-0231.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2007-07-11</date>
+    <initials>psa/ip</initials>
+    <remark><p>Initial version, split off from XEP-0158.</p></remark>
+  </revision>
+</header>
+
+<section1 topic='Introduction' anchor='intro'>
+  <p>In certain protocols that make use of &xep0004;, it can be helpful to include media data such as small images. One example of such a "using protocol" is &xep0158;. This document defines a method for including media data in a data form.</p>
+</section1>
+
+<section1 topic='Media Element' anchor='media'>
+  <p>The root element for media data is &lt;media/&gt;. This element MUST be qualified by the "urn:xmpp:media-element' namespace. The &lt;media/&gt; element MUST be contained within a &lt;field/&gt; element qualified by the 'jabber:x:data' namespace.</p>
+  <p>If the media is an image or video then the &lt;media/&gt; element SHOULD include 'height' and 'width' attributes specifying the recommended display size of the media in pixels.</p>
+  <p>The &lt;media/&gt; element SHOULD contain at least one &lt;uri/&gt; element to specify the out-of-band location of the media data. <note>Constrained execution environments prevent some clients (e.g., Web clients) from rendering media unless it has been received out-of-band.</note> If included, the &lt;uri/&gt; element MUST contain a URI that indicates the location and MUST include a 'type' attribute that specifies the MIME type of the media. If the URI scheme is cid: then the identifier MUST refer to a bit of binary data as described in &xep0231;.</p>
+  <p>The 'type' attribute of the &lt;uri/&gt; element is REQUIRED. The value of the 'type' attribute MUST match the syntax specified in &rfc2045;. That is, the value MUST include a top-level media type, the "/" character, and a subtype; in addition, it MAY include one or more optional parameters (e.g., the "audio/ogg" MIME type in the example shown below includes a "codecs" parameter as specified in &rfc4281;). The "type/subtype" string SHOULD be registered in the &ianamedia;, but MAY be an unregistered or yet-to-be-registered value.</p>
+  <example caption='Audio Media Element'><![CDATA[
+<media xmlns='urn:xmpp:media-element'>
+  <uri type='audio/x-wav'>
+    http://victim.example.com/challenges/speech.wav?F3A6292C
+  </uri>
+  <uri type='audio/ogg; codecs=speex'>
+    cid:sha1+a15a505e360702b79c75a5f67773072ed392f52a@bob.xmpp.org
+  </uri>
+  <uri type='audio/mpeg'>
+    http://victim.example.com/challenges/speech.mp3?F3A6292C
+  </uri>
+</media>
+  ]]></example>
+  <p>The cid: URI points to data that can be retrieved using the protocol described in &xep0231; and the data element would be included along with the XMPP stanza containing the data form.</p>
+  <p>The following example is provided only for the purpose of illustration; consult the specifications for using protocols (e.g., <cite>XEP-0158</cite>) to see canonical examples.</p>
+  <example caption='Inclusion in Data Form'><![CDATA[
+<x xmlns='jabber:x:data' type='form'>
+  [ ... ]
+  <field var='ocr'>
+    <media xmlns='urn:xmpp:media-element'
+           height='80'
+           width='290'>
+      <uri type='image/jpeg'>
+        http://www.victim.com/challenges/ocr.jpeg?F3A6292C
+      </uri>
+      <uri type='image/jpeg'>
+        cid:sha1+f24030b8d91d233bac14777be5ab531ca3b9f102@bob.xmpp.org
+      </uri>
+    </media>
+  </field>
+  [ ... ]
+</x>
+  ]]></example>
+</section1>
+
+<section1 topic='Security Considerations' anchor='security'>
+  <p>The ability to include arbitrary binary data implies that it is possible to send scripts, applets, images, and executable code, which may be potentially harmful. To reduce the risk of such exposure, an implementation MAY choose to not display or process such data but instead either completely ignore the data, show only the value of the 'alt' attribute (if included), or prompt a human user for approval (either explicitly via user action or implicitly via a list of approved entities from whom the user will accept binary data without per-event approval).</p>
+</section1>
+
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p> 
+</section1>
+
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <section2 topic='Protocol Namespaces' anchor='ns'>
+    <p>The &REGISTRAR; includes "urn:xmpp:media-element" in its registry of protocol namespaces (see &NAMESPACES;).</p>
+  </section2>
+</section1>
+
+<section1 topic='XML Schema' anchor='schema'>
+  <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:media-element'
+    xmlns='urn:xmpp:media-element'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0221: http://www.xmpp.org/extensions/xep-0221.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='media'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='uri' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='height' type='xs:unsignedShort' use='optional'/>
+      <xs:attribute name='width' type='xs:unsignedShort' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='uri'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:anyURI'>
+          <xs:attribute name='type' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+  ]]></code>
+</section1>
+
+</xep>

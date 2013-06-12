@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>An Intermediate Certification Authority for the Jabber/XMPP Network</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>An Intermediate Certification Authority for the Jabber/XMPP Network</h2>
+
+<table>
+  <tr class='tablebody'><td>Author:</td><td><a href='http://www.xmpp.org/xsf/people/stpeter.shtml'>Peter Saint-Andre</a></td></tr>
+  <tr class='tablebody'><td>Version:</td><td>1.0</td></tr>
+  <tr class='tablebody'><td>Date:</td><td>2006-11-28</td></tr>
+  <tr class='tablebody'><td>Status:</td><td>Approved</td></tr>
+</table>
+
+<p style='font-weight: bold'>Table of Contents</p>
+<ol>
+  <li><a href='#intro'>Introduction</a></li>
+  <li><a href='#background'>Background</a></li>
+  <li><a href='#provider'>Choice of Provider</a></li>
+  <li><a href='#proposal'>Proposal</a></li>
+  <li><a href='#costs'>Projected Costs</a></li>
+  <li><a href='#oversight'>Oversight and Reporting</a></li>
+</ol>
+
+<h3><a name='intro'></a>1.0 Introduction</h3>
+
+<p>The Jabber/XMPP community has always cared about privacy and security. In particular, when the XML wire protocols used by Jabber technologies were formalized within the IETF (under the name XMPP), they were subject to rigorous security review, resulting in the use of Transport Layer Security (TLS) for channel encryption. Unfortunately, it can be both difficult and expensive for administrators of XMPP servers to obtain proper X.509 certificates for use in securing communications with TLS. This proposal addresses that problem by establishing an intermediate certification authority (ICA) for the network of XMPP servers.</p>
+
+<h3><a name='background'></a>2.0 Background</h3>
+
+<p>Currently, server administrators who care about securing communications tend to create self-signed certificates. Unfortunately, self-signed certificates do not engender strong trust in the network, since anyone can create a self-signed certificate. The traditional approach to securing communication channels in a high-trust manner is to ensure that server certificates are issued by a certification authority (CA) that completes some level of due diligence regarding the identity of the server administrator before issuing the certificate. The resulting certificate can be issued by a root CA (which is at the "root" of the trust chain or "tree"), or by an intermediate CA (which depends on the root CA but administers a specialized branch of the trust chain).</p>
+
+<p>Eventually, we hope that all providers of X.509 certificates will issue certificates for XMPP servers. However, XMPP server certificates that conform to the format specified in Section 5.1 of RFC 3920 include information that is not yet standard in certificates for, say, HTTP servers. For this reason, CAs must complete some development work in order to issue fully conforming certificates for XMPP servers. Because major CAs such as Verisign and Thawte probably do not have an interest in completing such work without a demonstrated market need, it makes sense for XMPP server administrators to work on the necessary processes and procedures with some of the smaller, more flexible CAs first. (Another approach would be for XMPP server administrators to form their own certification authority, probably under the auspices of the Jabber Software Foundation (JSF); however, running a CA is far outside the core competency of the JSF.)</p>
+
+<p>Therefore, the initial goal of this proposal is for the Jabber Software Foundation to work with one or two CAs who already issue free or low-cost certificates while still adhering to industry standards regarding identity verification. Research into certification authorities indicates that the most likely candidates are <a href='http://www.cacert.org/'>CAcert</a> and <a href='http://cert.startcom.org/'>StartCom</a>. CAcert is a loosely-knit volunteer organization built on something akin to the open-source model, which issues server certificates based on acquisition of sufficient points in its web of trust. StartCom is a commercial entity whose main business is offering a Linux distribution, but which issues server certificates in the more traditional manner based on presentation and validation of individual credentials (e.g., government-issued identification) and association with the relevant domain (e.g., whois lookups).</p>
+
+<h3><a name='provider'></a>3.0 Choice of Provider</h3>
+
+<p>The author of this proposal has been involved with CAcert since late 2004 and with StartCom since early 2006. Both are well-intentioned organizations in which honest, hard-working, security-minded individuals are working to make the Internet a more high-trust environment.</p>
+
+<p>The JSF's choice of one CA with which to work initially should be driven by the JSF's requirements at this stage in the evolution of the Jabber/XMPP network. For the purposes of this proposal, the JSF's requirements regarding the choice of an initial CA are:</p>
+
+<ol>
+  <li>Must conform to industry practices regarding identity verification and certificate issuance.</li>
+  <li>Must already issue free or low-cost server certificates.</li>
+  <li>Must support the XMPP object identifier specified in Section 5.1 of RFC 3920, or be willing and able to add such support (including the ability to specify multiple XMPP OIDs, e.g., for virtual domains and XMPP server components).</li>
+  <li>Must be organizationally viable, such that the JSF can form a long-term relationship with the CA.</li>
+  <li>Should have its root certificate included in well-known operating systems (e.g., various Unices, MacOS, Windows) and certificate "bundles" (e.g., Mozilla), or be well on the way to such inclusion.</li>
+  <li>Should enable the JSF to function as an intermediate certification authority (ICA) for the Jabber/XMPP network.</li>
+</ol>
+
+<p>CAcert issues free server certificates (upon gaining sufficient points in its web of trust) and StartCom issues low-cost server certificates. Through work with the author of this proposal and several XMPP server administrators, CAcert supports the XMPP object identifer, and StartCom has stated that it is willing and able to add such support. Although CAcert offers "organizational assurance", it does not presently enable organizations to function as ICAs, whereas StartCom has an <a href='http://cert.startcom.org/?app=128'>ICA program</a> in place. Regarding organizational viability, commercial entities can go out of business and community projects can wither away, so there is no guarantee of continued viability in either case.</p>
+
+<p>The major differentiating factor between the two CAs is conformance with industry practices, in large measure as indicated by inclusion of the CA's root certificate in operating systems and certificate bundles (because the JSF has not performed an audit of either CA and is not in a position to do so, we must trust that other organizations have performed appropriate due diligence). To our knowledge, CAcert has not passed an independent audit and CAcert's root certificate has not gained inclusion in any operating system or certificate bundle. By contrast, StartCom has passed an independent audit (performed by WE Consulting Group of Israel, see <a href='http://cert.startcom.org/audit.pdf'>report</a>) and has been included <a href='http://cert.startcom.org/?app=140'>various web browsers</a>, in the <a href='http://www.hecker.org/mozilla/ca-certificate-list#startcom'>Mozilla</a> certificate bundle (including <a href='http://www.startcom.org/?lang=en&amp;app=14&amp;rel=22'>Firefox 2</a>), in KDE, in OpenSSL, and in Mac OS X 10.5 (Leopard).</p>
+
+<p>Because of the wider acceptance of the StartCom root certificate and the ability of the JSF to run an ICA under StartCom's auspices, it seems appropriate to choose StartCom as the initial provider of certificates for the Jabber/XMPP network, while continuing to monitor the progress of CAcert and other CAs with an eye to working with them in the future.</p> 
+
+<p>Note well that the JSF's choice of an initial CA is decidedly not exclusive. That is, the JSF could (and very well might) form relationships with other CAs. In part, the purpose of this proposal is to gain experience with the issuance of X.509 certificates to XMPP server administrators. That experience will help the JSF understand the requirements for discussions with other CAs in the future.</p>
+
+<h3><a name='proposal'></a>4.0 Proposal</h3>
+
+<p>The Jabber Software Foundation (JSF) proposes to engage with the StartCom Free SSL Certification Authority (SFSCA) in establishing an Intermediate Certification Authority (ICA) that shall issue digital certificates for use by XMPP server administrators (and potentially also by XMPP end users). The ICA will be operated at the "XMPP Federation" website controlled by the JSF (probably to be moved to &lt;https://certs.xmpp.org/&gt;), and will issue certificates only for use on the XMPP network (e.g., it will not issue certificates for HTTP servers). The issued certificates will be "Class 1" certificates that require only email verification via one of the canonical addresses listed in <a href='http://www.ietf.org/rfc/rfc2142.txt'>RFC 2142</a>.</p>
+
+<p>In accordance with StartCom's <a href='http://cert.startcom.org/policy.pdf'>CA Policy &amp; Practices</a> document along with its <a href='http://cert.startcom.org/intermediate.pdf'>ICA Policy Appendix</a>, the division of responsibilities shall be as described below.</p>
+
+<p>The SFSCA shall:</p>
+<ul>
+  <li>Issue an intermediate certification authority certificate to the JSF.</li>
+  <li>Provide a complete Internet-based online solution for the signing and management of XMPP Federation members and of certificates issued by the XMPP Federation.</li>
+  <li>Provides an additional Internet-based interface for straightforward and customized integration into the XMPP Federation website.</li>
+  <li>Respect and maintain the privacy of all JSF principals and XMPP Federation members, for example by keeping all gathered information strictly confidential.</li>
+  <li>Issue Class 1 server certificates (and potentially) Class 1 personal certificates on behalf of the XMPP Federation.</li>
+  <li>Notify XMPP Federation members of certificate issuance.</li>
+  <li>Accept revocation requests from the XMPP Federation.</li>
+  <li>Issue Certificate Revocation Lists (CRL) and publish the CRLs issued.</li>
+  <li>Provide an Online Certificate Status Protocol (OCSP) service.</li>
+  <li>Inform XMPP Federation members of certificate revocation.</li>
+  <li>Keep audit logs of the certificate issuance process.</li>
+  <li>Maintain the highest security standards possible.</li>
+</ul>
+
+<p>The JSF (through its XMPP Federation initiative) shall:</p>
+<ul>
+  <li>Authorize certificate issuance only to registered members of the XMPP Federation and provide details of issued certificates to the SFSCA.</li>
+  <li>Accept revocation requests only from registered members of the XMPP Federation and inform the SFSCA of all revocation requests.</li>
+  <li>Use only the website interface provided by the SFSCA for certificate issuance.</li>
+  <li>Protect private and individual all data obtained.</li>
+  <li>Maintain the highest security standards possible.</li>
+  <li>Accept the requirements and conform to the policies and practices of the SFSCA.</li>
+  <li>Defend, indemnify, save and hold StartCom Ltd. harmless from any demands, liabilities, losses, costs and claims.</li>
+</ul>
+
+<p>The foregoing description of responsibilities is descriptive; the ruling documents shall be the above-referenced policy documents as supplemented or amended by a formal agreement between the JSF and the SFSCA.</p>
+
+<h3><a name='costs'></a>5.0 Projected Costs</h3>
+
+<p>The JSF shall issue certificates free of charge to XMPP Federation members. That is, the JSF shall subsidize issuance of certificates to server administrators in order to secure the open network of XMPP servers.</p>
+
+<p>The exact costs of the ICA activity to the JSF are yet to be determined, since they will depend on the final agreement negotiated between the JSF and the SFSCA as well as the number of certificates issued.</p>
+
+<p>It is unknown how many certificates the XMPP Federation will be requested to issue. A reasonable number of certificates to expect in the first year of operation is probably 500. However, it is hoped that over time nearly all administrators of XMPP servers that communicate regularly over the open Internet will obtain server certificates. While that number too is unknown, it is probably at least 10,000 at present, and is expected to rise as XMPP technologies become more popular.</p>
+
+<p>Over the long haul, the per-certificate cost is expected to average perhaps as low as $1 if the ICA issues a large number of certificates (say, 5000 a year). The per-certificate cost would be higher if a smaller number of certificates is issued (to cover basic costs of the ICA program) but if the ICA issues a large number of certificates then the per-certificate costs would decline. Clearly, the absolute cost of offering free certificates could eventually become significant. However, if XMPP server certificates become that popular then it is also expected that the JSF would be able to raise the necessary monies in order to continue the ICA activity (since increased interest in XMPP technologies would likely result in an increased number of JSF sponsors as well as the potential for new and creative ways to raise the necessary monies). In short, issuing a large number of server certificates is a problem we would like to have.</p>
+
+<h3><a name='oversight'></a>6.0 Oversight and Reporting</h3>
+
+<p>Oversight of the ICA activity shall be the overall responsibility of the Executive Director of the JSF, but day-to-day management may be performed by a dedicated work team of the JSF as defined in the <a href='http://www.jabber.org/jsf/bylaws.shtml'>JSF Bylaws</a>. The Executive Director of the JSF (or the leader of the appropriate work team) shall provide a quarterly report of ICA activities to the JSF Board of Directors, including the number of certificates issued and revoked as well as a full accounting of all costs incurred.</p>
+
+<p>END</p>
+
+<!--#include virtual="/includes/foot.txt" -->

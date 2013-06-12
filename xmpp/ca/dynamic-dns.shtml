@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP ICA: Dynamic DNS</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP ICA: Dynamic DNS</h2>
+<p>The <a href='/ca/'>XMPP ICA</a> sometimes receives certificate requests from XMPP server administrators whose domains are hosted by "dynamic DNS" services such as dyndns.org, no-ip.com, and homeunix.com. Unfortunately, <a href='http://www.startssl.com/'>StartCom</a> (our root CA) cannot issue certificates to subdomain of such services. There are two reasons for this restriction:</p>
+<ol>
+  <li><p>Dynamic DNS subdomains (e.g., foo.dyndns.org) cannot be verified via <a href='whois.shtml'>Whois</a>.</p></li>
+  <li><p>The administrators of such subdomains do not have access to authorized email addresses for the root domain (e.g., dyndns.org), as described in the <a href='issuance.shtml'>Certificate Issuance HOWTO</a>.</p></li>
+</ol>
+<p>For detailed information about this policy, please see the forum thread at &lt;<a href='http://forum.startcom.org/viewtopic.php?t=118'>http://forum.startcom.org/viewtopic.php?t=118</a>&gt;. We apologize for any inconvenience this policy may cause you.</p>
+<!--#include virtual="/includes/caboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

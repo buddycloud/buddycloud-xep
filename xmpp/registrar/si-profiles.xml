@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'si-profiles.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='si-profiles.xsl'?>
+<registry>
+<meta>
+  <title>Stream Initiation Profiles</title>
+  &LEGALNOTICE;
+  <overview>This is the official registry of stream initiation profiles maintained by the &REGISTRAR;, as authorized by &xep0095;.</overview>
+  <revision>
+    <version>0.1</version>
+    <date>2004-04-13</date>
+    <initials>psa</initials>
+    <remark>Initial version (profile defined in XEP-0096).</remark>
+  </revision>
+</meta>
+<profile>
+  <name>http://jabber.org/protocol/si/profile/file-transfer</name>
+  <doc>&xep0096;</doc>
+  <desc>File transfer profile</desc>
+</profile>
+</registry>

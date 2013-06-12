@@ -1,0 +1,20 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DTD for Advanced Message Processing rule conditions registry submissions -->
+<!ELEMENT registry ( meta, condition* ) >
+<!ELEMENT meta ( title, legal, overview, revision+ ) >
+<!ELEMENT title (#PCDATA)* >
+<!ELEMENT legal (#PCDATA)* >
+<!ELEMENT overview (#PCDATA)* >
+<!ELEMENT revision ( version, date, initials, remark ) >
+<!ELEMENT version (#PCDATA)* >
+<!ELEMENT date (#PCDATA)* >
+<!ELEMENT initials (#PCDATA)* >
+<!ELEMENT remark (#PCDATA)* >
+
+<!ELEMENT condition ( name, ns, per-hop, value, processing, doc ) >
+<!ELEMENT name (#PCDATA)* >
+<!ELEMENT ns (#PCDATA)* >
+<!ELEMENT per-hop (#PCDATA)* >
+<!ELEMENT value (#PCDATA)* >
+<!ELEMENT processing (#PCDATA)* >
+<!ELEMENT doc (#PCDATA)* >

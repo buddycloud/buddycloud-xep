@@ -1,0 +1,658 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc compact="yes"?>
+<?rfc strict="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="3"?>
+<rfc category='info' docName='draft-saintandre-xmpp-presence-analysis-03' ipr='trust200902'>
+
+  <front>
+    <title abbrev="XMPP Presence Analysis">Interdomain Presence Scaling Analysis for the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>Cisco</organization>
+      <address>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+    <date year="2008" month="January" day="16"/>
+    <area>Applications</area>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>XMPP</keyword>
+    <keyword>Jabber</keyword>
+    <keyword>presence</keyword>
+    <keyword>scalability</keyword>
+    <abstract>
+      <t>This document analyzes the network impact of presence sharing between domains that federate using the Extensible Messaging and Presence Protocol (XMPP).</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <t>Presence is information about the network availability of an individual (or, more precisely, of a presence address of the kind that is often but not necessarily associated with an individual).  As typically designed and deployed, presence is shared only with authorized entities, where the authorization takes the form of a subscription.  (In this document, we employ the term "user" to signify an account that generates presence information and the term "contact" to signify an annount that is subscribed to the user's presence.)</t>
+      <t>The sharing of basic presence information can result in a large volume of traffic as users log on or off throughout the life of a presence session, especially for users with large numbers of contacts (e.g., the author of this document has over 1,700 contacts in his presence-enabled contact list).  The volume is increased by communication of information beyond basic on-off network availability, such as availability substates (e.g., "away" and "do not disturb").  The volume is further increased if the presence "transport" is used to communicate information such as device capabilities, geolocation, mood, activity, even the music to which a user is listening.</t>
+      <t>Such traffic may be a concern even in a standalone presence domain.  However, when presence is shared across domain boundaries through presence "federation", then such traffic may introduce a more significant impact on the functioning of the Internet as a whole.  Therefore it is important to analyze the traffic generated during interdomain communication of presence information.  This document provides such an analysis regarding the Extensible Messaging and Presence Protocol (XMPP) as defined in <xref target='XMPP-CORE'/> and <xref target='XMPP-IM'/>.</t>
+    </section>
+
+    <section title="Assumptions" anchor="assumptions">
+      <t>The XMPP presence model is based on the following assumptions:</t>
+      <t>
+        <list style='numbers'>
+          <t>A user shares presence only with a contact whom the user has explicitly authorized via a presence subscription.</t>
+          <t>Presence subscriptions are long-lived: they last across presence sessions and indeed as long as the user and contact maintain their XMPP accounts (until and unless the subscription is cancelled by one of the parties).</t>
+          <t>The typical subscription state is a bidirectional subscription from the contact to the user and from the user to the contact (so that both entities can view each other's presence).</t>
+          <t>Users have presence sessions, i.e., times in which they advertise their network availability to their contacts.</t>
+          <t>Not all registered users have an active presence session at any one time.  In typical usage patterns, the number of online users is some percentage of the number of registered users.  Within an organization, the precentage might be as high as 50%.  At a consumer-oriented provider of presence-enabled communication services, the percentage might be 10% or less.</t>
+          <t>A presence session is initiated when a user's client sends an initial presence notification to its server, expressing network availability.</t>
+          <t>Upon receiving the initial presence notification, a user's server broadcasts that presence notification to all of the user's contacts and also sends a presence probe to all of the user's contacts.</t>
+          <t>Upon receiving a presence probe, a contact's server checks the contact's authorization policies and, if the user is authorized and the contact is online, sends a presence notification to the probing user.</t>
+          <t>During the life of the user's presence session, any subsequent changes to the user's presence information are broadcasted via presence notifications sent by the user's server to the user's online contacts.</t>
+          <t>Presence notifications are not acknowledged by the recipient.</t>
+          <t>Presence notifications are generated by a user's client only to advertise on-off network availability, availability sub-states (e.g., "away" or "do not disturb") as defined in <xref target='XMPP-IM'/>, or information related to the communication capabilities of the user's XMPP client (see <xref target='CAPS'/>).  Any other real-time notifications (a user's activity or mood, the music to which a user is listening, the games a user is playing, etc.) are not sent via the XMPP presence "transport" but instead are published using non-presence technologies such as the XMPP Publish-Subscribe extension <xref target='PUBSUB'/>, in particular the Personal Eventing profile thereof (see <xref target='PEP'/>).</t>
+          <t>A presence session is terminated when a user's client sends an unavailable presence notification to its server or the server detects that the client is no longer online; in either case the user's server broadcasts an unavailable presence notification to all of the user's online contacts.</t>
+        </list>
+      </t>
+    </section>
+    <section title="Protocol Flows" anchor="flows">
+      <t>A user (in these examples romeo@example.net) initiates a presence session by sending an initial presence notification.  To provide a realistic example, this presence notification includes entity capabilities information as defined in <xref target='CAPS'/>.</t>
+      <figure>
+        <preamble>User sends initial presence notification (200 bytes):</preamble>
+        <artwork><![CDATA[
+<presence from='romeo@example.net/orchard'>
+  <priority>5</priority>
+  <c xmlns='http://jabber.org/protocol/caps' 
+     hash='sha-1'
+     node='http://www.chatopus.com'
+     ver='zHyEOgxTrkpSdGcQKH8EFPLsriY='/>
+</presence>
+        ]]></artwork>
+      </figure>
+      <t>Upon receiving the initial presence notification, the user's server sends an XMPP presence stanza of type "probe" to the contact (in these examples juliet@example.com).</t>
+      <figure>
+        <preamble>User's server sends presence probe to contact (82 bytes):</preamble>
+        <artwork><![CDATA[
+<presence
+    from='romeo@example.net/orchard'
+    to='juliet@example.com'
+    type='probe'/>
+        ]]></artwork>
+      </figure>
+      <t>If the contact's server determines that the user is authorized to see the contact's presence, the contact's server returns the contact's current presence state to the user.  Here again the presence notification includes entity capabilities information.</t>
+      <figure>
+        <preamble>Contact's server sends presence notification to user (311 bytes):</preamble>
+        <artwork><![CDATA[
+<presence
+    from='juliet@example.com/balcony'
+    to='romeo@example.net/orchard'
+    xml:lang='en'>
+  <show>away</show>
+  <status>be right back</status>
+  <priority>0</priority>
+  <c xmlns='http://jabber.org/protocol/caps' 
+     hash='sha-1'
+     node='http://code.google.com/p/exodus'
+     v='0.9.1'
+     ver='8RovUdtOmiAjzj+xI7SK5BCw3A8='/>
+</presence>
+        ]]></artwork>
+      </figure>
+      <t>If the contact subsequently changes her presence, the contact's server sends an updated presence notification to the user.</t>
+      <figure>
+        <preamble>Contact's server sends updated presence to user (301 bytes):</preamble>
+        <artwork><![CDATA[
+<presence
+    from='juliet@example.com/balcony'
+    to='romeo@example.net/orchard'
+    xml:lang='en'>
+  <show>xa</show>
+  <status>bbiab</status>
+  <priority>0</priority>
+  <c xmlns='http://jabber.org/protocol/caps' 
+     hash='sha-1'
+     node='http://code.google.com/p/exodus'
+     v='0.9.1'
+     ver='8RovUdtOmiAjzj+xI7SK5BCw3A8='/>
+</presence>
+        ]]></artwork>
+      </figure>
+      <t>A presence session can include any number of subsequent presence changes.</t>
+      <t>When the user goes offline, the user's server sends a presence stanza of type "unavailable" to the contact.</t>
+      <figure>
+        <preamble>User's server sends unavailable presence to contact (96 bytes):</preamble>
+        <artwork><![CDATA[
+<presence
+    from='romeo@example.net/orchard'
+    to='juliet@example.com/balcony'
+    type='unavailable'/>
+        ]]></artwork>
+      </figure>
+      <t>Naturally, similar protocol flows are generated by the contact during her presence session.</t>
+    </section>
+    <section title="Analysis" anchor="analysis">
+      <t>Traffic calculations are based on the following inputs and formulae.</t>
+      <section title="Constants" anchor="analysis-constants">
+        <t>
+          <list style='symbols'>
+            <t>(C1) Presence session lifetime in hours -- assumed to be 8 hours in all scenarios.</t>
+            <t>(C2) Presence state changes per hour -- assumed to be 3 times per hour in most scenarios.</t>
+            <t>(C3) Total federated contacts per user -- varies according to the scenario.</t>
+            <t>(C4) Number of online contacts -- varies according to the scenario.</t>
+            <t>(C5) Number of federated users -- varies according to the scenario.</t>
+            <t>(C6) Number of online users -- varies according to the scenario.</t>
+            <t>(C7) Size of presence probe sent by user's server upon receipt of initial outbound presence notification -- 100 bytes.</t>
+            <t>(C8) Size of presence notifications sent by users and contacts -- 300 bytes.</t>
+            <t>(C9) Size of unavailable presence notifications -- 100 bytes.</t>
+          </list>
+        </t>
+      </section>
+      <section title="Initial Stanzas" anchor="analysis-initial">
+        <t>When a user initiates a presence session, the following presence stanzas are exchanged.</t>
+        <t>
+          <list style='symbols'>
+            <t>(I1) Number of outbound presence notifications = 1 per federated contact (C3).</t>
+            <t>(I2) Size of outbound presence notifications = (C3*C8).</t>
+            <t>(I3) Number of presence probes = one per federated contact (C3).</t>
+            <t>(I4) Size of presence probes = (C3*C7).</t>
+            <t>(I5) Number of inbound presence notifications = 1 per online contact (C4).</t>
+            <t>(I6) Size of inbound presence notifications = (C4*C8).</t>
+            <t>(I7) Total number of initial stanzas = (I1+I3+I5).</t>
+            <t>(I8) Total size of initial stanzas = (I2+I4+I6).</t>
+          </list>
+        </t>
+      </section>
+      <section title="State-Change Stanzas" anchor="analysis-state">
+        <t>During the life of a user's presence session, the following presence stanzas are exchanged as a result of changes in the user's availability.</t>
+        <t>
+          <list style='symbols'>
+            <t>(S1) Number of presence state changes per user = (C1*C2)-2).</t>
+            <t>(S2) Number of outbound presence notifications = (S1*C4).</t>
+            <t>(S3) Size of presence notifications = (S2*C8).</t>
+          </list>
+        </t>
+      </section>
+      <section title="Termination Stanzas" anchor="analysis-termination">
+        <t>When a user terminates a presence session, the following presence stanzas are exchanged.</t>
+        <t>
+          <list style='symbols'>
+            <t>(T1) Number of unavailable presence notifications = 1 per online contact (C4).</t>
+            <t>(T2) Size of unavailable presence notifications = (C4*C9).</t>
+          </list>
+        </t>
+      </section>
+      <section title="Bottom Line" anchor="analysis-bottomline">
+        <t>The foregoing assumptions result in the following number and size of stanzas exchanged per user per presence session.</t>
+        <t>
+          <list style='symbols'>
+            <t>(B1) Number of stanzas exchanged per presence session = (I7+S2+T1).</t>
+            <t>(B2) Size of stanzas exchanged per presence session = (I8+S3+T2).</t>
+          </list>
+        </t>
+        <t>Therefore the total number and size of stanzas exchanged between two federated domains is as follows (i.e., summed for all online users).</t>
+        <t>
+          <list style='symbols'>
+            <t>(B3) Total number of stanzas exchanged = (B1*C6).</t>
+            <t>(B4) Total size of stanzas exchanged = (B2*C6).</t>
+            <t>(B5) Total stanzas exchanged per second = (B3/(C1*3600)).</t>
+            <t>(B6) Total bytes exchanged per second = (B4/(C1*3600)).</t>
+          </list>
+        </t>
+      </section>
+    </section>
+    <section title="Scenarios" anchor="scenarios">
+      <section title="Enterprises in Different Industries" anchor="scenarios-ent1">
+        <t>This scenario assumes two domains, each with 20,000 users, where each user has 4 contacts in the other domain, each user changes presence 3 times per hour during an 8-hour presence session, and 50% of the users are online at any one time.  Such a scenario might be applicable to presence federation between two medium-sized enterprises in different industries.</t>
+        <figure>
+          <artwork><![CDATA[
+CONSTANTS
+(C1) Presence session lifetime (hours) ....................... 8
+(C2) Presence state changes per hour ......................... 3
+(C3) Total federated contacts per user ....................... 4
+(C4) Number of online contacts per user ...................... 2
+(C5) Number of federated users .......................... 40,000
+(C6) Number of online users ............................. 20,000
+(C7) Size of presence probes ............................... 100
+(C8) Size of presence notifications ........................ 300
+(C9) Size of unavailable presence notification ............. 100
+
+INITIAL STANZAS
+(I1) Number of outbound presence notifications ............... 4
+(I2) Size of outbound presence notifications ............. 1,200
+(I3) Number of presence probes per user ...................... 4
+(I4) Size of presence probes per user ...................... 400
+(I5) Number of inbound presence notifications ................ 2
+(I6) Size of inbound presence notifications ................ 600
+(I7) Total number of initial stanzas ........................ 10
+(I8) Total size of initial stanzas ....................... 2,200
+
+STATE CHANGE STANZAS
+(S1) Number of state changes per user ....................... 22
+(S2) Number of outbound presence notifications .............. 44
+(S3) Size of outbound presence notifications ............ 13,200
+
+TERMINATION MESSAGES
+(T1) Number of unavailable presence notifications ............ 2
+(T2) Size of unavailable presence notifications ............ 200
+
+BOTTOM LINE
+(B1) Number of stanzas per presence session ................. 56
+(B2) Size of stanzas per presence session ............... 15,600
+(B3) Total number of stanzas exchanged ............... 1,120,000
+(B4) Total size of stanzas exchanged ............... 312,000,000
+(B5) Total stanzas exchanged per second ..................... 39
+(B6) Total bytes exchanged per second ................... 10,833
+          ]]></artwork>
+        </figure>
+        <t>With compression as described under <xref target='optimizations'/>, the bytes per second might be as low as 1,083.</t>
+      </section>
+      <section title="Enterprises in the Same Industry" anchor="scenarios-ent2">
+        <t>This scenario assumes two domains, each with 20,000 users, where each user has 20 contacts in the other domain, each user changes presence 3 times per hour during an 8-hour presence session, and 50% of the users are online at any one time.  Such a scenario might be applicable to presence federation between two medium-sized enterprises in the same industry.</t>
+        <figure>
+          <artwork><![CDATA[
+CONSTANTS
+(C1) Presence session lifetime (hours) ....................... 8
+(C2) Presence state changes per hour ......................... 3
+(C3) Total federated contacts per user ...................... 20
+(C4) Number of online contacts per user ..................... 10
+(C5) Number of federated users .......................... 40,000
+(C6) Number of online users ............................. 20,000
+(C7) Size of presence probes ............................... 100
+(C8) Size of presence notifications ........................ 300
+(C9) Size of unavailable presence notification ............. 100
+
+INITIAL STANZAS
+(I1) Number of outbound presence notifications .............. 20
+(I2) Size of outbound presence notifications ............. 6,000
+(I3) Number of presence probes per user ..................... 20
+(I4) Size of presence probes per user .................... 2,000
+(I5) Number of inbound presence notifications ............... 10
+(I6) Size of inbound presence notifications .............. 3,000
+(I7) Total number of initial stanzas ........................ 50
+(I8) Total size of initial stanzas ...................... 11,000
+
+STATE CHANGE STANZAS
+(S1) Number of state changes per user ....................... 22
+(S2) Number of outbound presence notifications ............. 220
+(S3) Size of outbound presence notifications ............ 66,000
+
+TERMINATION MESSAGES
+(T1) Number of unavailable presence notifications ........... 10
+(T2) Size of unavailable presence notifications .......... 1,000
+
+BOTTOM LINE
+(B1) Number of stanzas per presence session ................ 280
+(B2) Size of stanzas per presence session ............... 78,000
+(B3) Total number of stanzas exchanged ............... 5,600,000
+(B4) Total size of stanzas exchanged ............. 1,560,000,000
+(B5) Total stanzas exchanged per second .................... 194
+(B6) Total bytes exchanged per second ................... 54,167
+          ]]></artwork>
+        </figure>
+        <t>With compression as described under <xref target='optimizations'/>, the bytes per second might be as low as 5,417.</t>
+      </section>
+      <section title="Medium-Sized Service Providers" anchor="scenarios-sp1">
+        <t>This scenario assumes two domains, each with 60,000 users, where each user has 10 contacts in the other domain, each user changes presence 3 times per hour during an 8-hour presence session, and 10% of the users are online at any one time.  Such a scenario might be applicable to presence federation between two medium-sized service providers.</t>
+        <figure>
+          <artwork><![CDATA[
+CONSTANTS
+(C1) Presence session lifetime (hours) ....................... 8
+(C2) Presence state changes per hour ......................... 3
+(C3) Total federated contacts per user ...................... 10
+(C4) Number of online contacts per user ...................... 1
+(C5) Number of federated users ......................... 120,000
+(C6) Number of online users ............................. 60,000
+(C7) Size of presence probes ............................... 100
+(C8) Size of presence notifications ........................ 300
+(C9) Size of unavailable presence notification ............. 100
+
+INITIAL STANZAS
+(I1) Number of outbound presence notifications .............. 10
+(I2) Size of outbound presence notifications ............. 3,000
+(I3) Number of presence probes per user ..................... 10
+(I4) Size of presence probes per user .................... 1,000
+(I5) Number of inbound presence notifications ................ 1
+(I6) Size of inbound presence notifications ................ 300
+(I7) Total number of initial stanzas ........................ 21
+(I8) Total size of initial stanzas ....................... 4,300
+
+STATE CHANGE STANZAS
+(S1) Number of state changes per user ....................... 22
+(S2) Number of outbound presence notifications .............. 22
+(S3) Size of outbound presence notifications ............. 6,600
+
+TERMINATION MESSAGES
+(T1) Number of unavailable presence notifications ............ 1
+(T2) Size of unavailable presence notifications ............ 100
+
+BOTTOM LINE
+(B1) Number of stanzas per presence session ................. 44
+(B2) Size of stanzas per presence session ............... 11,000
+(B3) Total number of stanzas exchanged ............... 2,640,000
+(B4) Total size of stanzas exchanged ............... 660,000,000
+(B5) Total stanzas exchanged per second ..................... 92
+(B6) Total bytes exchanged per second ................... 22,917
+          ]]></artwork>
+        </figure>
+        <t>With compression as described under <xref target='optimizations'/>, the bytes per second might be as low as 2,292.</t>
+      </section>
+      <section title="Large Service Providers" anchor="scenarios-sp2">
+        <t>This scenario assumes two domains, each with 300,000 users, where each user has 20 contacts in the other domain, each user changes presence 3 times per hour during an 8-hour presence session, and 10% of the users are online at any one time.  Such a scenario might be applicable to presence federation between two large service providers.</t>
+        <figure>
+          <artwork><![CDATA[
+CONSTANTS
+(C1) Presence session lifetime (hours) ....................... 8
+(C2) Presence state changes per hour ......................... 3
+(C3) Total federated contacts per user ...................... 20
+(C4) Number of online contacts per user ...................... 2
+(C5) Number of federated users ......................... 600,000
+(C6) Number of online users ............................ 300,000
+(C7) Size of presence probes ............................... 100
+(C8) Size of presence notifications ........................ 300
+(C9) Size of unavailable presence notification ............. 100
+
+INITIAL STANZAS
+(I1) Number of outbound presence notifications .............. 20
+(I2) Size of outbound presence notifications ............. 6,000
+(I3) Number of presence probes per user ..................... 20
+(I4) Size of presence probes per user .................... 2,000
+(I5) Number of inbound presence notifications ................ 2
+(I6) Size of inbound presence notifications ................ 600
+(I7) Total number of initial stanzas ........................ 42
+(I8) Total size of initial stanzas ....................... 8,600
+
+STATE CHANGE STANZAS
+(S1) Number of state changes per user ....................... 22
+(S2) Number of outbound presence notifications .............. 44
+(S3) Size of outbound presence notifications ............ 13,200
+
+TERMINATION MESSAGES
+(T1) Number of unavailable presence notifications ............ 2
+(T2) Size of unavailable presence notifications ............ 200
+
+BOTTOM LINE
+(B1) Number of stanzas per presence session ................. 88
+(B2) Size of stanzas per presence session ............... 22,000
+(B3) Total number of stanzas exchanged .............. 26,400,000
+(B4) Total size of stanzas exchanged ............. 6,600,000,000
+(B5) Total stanzas exchanged per second .................... 917
+(B6) Total bytes exchanged per second .................. 229,167
+          ]]></artwork>
+        </figure>
+        <t>With compression as described under <xref target='optimizations'/>, the bytes per second might be as low as 22,917.</t>
+      </section>
+      <section title="Very Large Service Providers" anchor="scenarios-sp3">
+        <t>This scenario assumes two domains, each with 10,000,000 users, where each user has 100 contacts in the other domain, each user changes presence 6 times per hour during an 8-hour presence session, and 20% of the users are online at any one time.  Such a scenario might be applicable to presence federation between two very large service providers.</t>
+        <figure>
+          <artwork><![CDATA[
+CONSTANTS
+(C1) Presence session lifetime (hours) ....................... 8
+(C2) Presence state changes per hour ......................... 6
+(C3) Total federated contacts per user ..................... 100
+(C4) Number of online contacts per user ..................... 20
+(C5) Number of federated users ...................... 20,000,000
+(C6) Number of online users .......................... 4,000,000
+(C7) Size of presence probes ............................... 100
+(C8) Size of presence notifications ........................ 300
+(C9) Size of unavailable presence notification ............. 100
+
+INITIAL STANZAS
+(I1) Number of outbound presence notifications ............. 100
+(I2) Size of outbound presence notifications ............ 30,000
+(I3) Number of presence probes per user .................... 100
+(I4) Size of presence probes per user ................... 10,000
+(I5) Number of inbound presence notifications ............... 20
+(I6) Size of inbound presence notifications .............. 6,000
+(I7) Total number of initial stanzas ....................... 220
+(I8) Total size of initial stanzas ...................... 46,000
+
+STATE CHANGE STANZAS
+(S1) Number of state changes per user ....................... 46
+(S2) Number of outbound presence notifications ............. 920
+(S3) Size of outbound presence notifications ........... 276,000
+
+TERMINATION MESSAGES
+(T1) Number of unavailable presence notifications ........... 20
+(T2) Size of unavailable presence notifications .......... 2,000
+
+BOTTOM LINE
+(B1) Number of stanzas per presence session .............. 1,160
+(B2) Size of stanzas per presence session .............. 324,000
+(B3) Total number of stanzas exchanged ........... 4,640,000,000
+(B4) Total size of stanzas exchanged ......... 1,296,000,000,000
+(B5) Total stanzas exchanged per second ................ 161,111
+(B6) Total bytes exchanged per second ............... 45,000,000
+          ]]></artwork>
+        </figure>
+        <t>With compression as described under <xref target='optimizations'/>, the bytes per second might be as low as 4,500,000.</t>
+      </section>
+    </section>
+
+    <section title="Optimizations" anchor="optimizations">
+      <t>This document does not focus on optimizations that can be applied to XMPP traffic.  The main such optimization is compression of XML streams.  There are several reasons why stream compression can yield significant reductions in the network impact of XMPP traffic, especially in the case of interdomain federation:</t>
+      <t>
+        <list style='numbers'>
+          <t>XMPP uses long-lived TCP connections in which (typically) a single XML parser instance is used to parse the incoming and outgoing XML stanzas.</t>
+          <t>The fact that XMPP stanzas are XML means that the same strings are repeatedly communicated over the stream (e.g., the string "&lt;presence from='&gt;), resulting in effective use of compression dictionaries.</t>
+        </list>
+      </t>
+      <t>Compression of XML streams can be provided via native TLS compression at the transport layer (see <xref target='XMPP-CORE'/>) or via XMPP stream compression at the application layer (see <xref target='COMPRESS'/>).  Based on both testing and real-world experience, it appears that these compression methods can result in compressed traffic that is 10% the size of pre-compressed traffic.</t>
+    </section>
+
+    <section title="Comparison With Other Presence Technologies" anchor="comparison">
+      <t>This document does not provide a formal comparison of XMPP to other presence technologies.  A similar analysis for presence systems based on the Session Initiation Protocol <xref target='SIP'/> as defined in <xref target='SIP-PRES'/> is provided in <xref target='PROBLEM'/>.</t>
+    </section>
+
+    <section title="Security Considerations" anchor="security">
+      <t>This document introduces and addresses no security concerns above and beyond those already defined in <xref target='XMPP-CORE'/> and <xref target='XMPP-IM'/>.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Informative References">
+
+<reference anchor="CAPS">
+  <front>
+    <title>Entity Capabilities</title>
+    <author initials="J." surname="Hildebrand" fullname="Joe Hildebrand">
+      <organization/>
+      <address>
+        <email>jhildebrand@jabber.com</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <author initials="R." surname="Tron&#xE7;on" fullname="Remko Tron&#xE7;on">
+      <organization/>
+      <address>
+        <email>public@el-tramo.be</email>
+      </address>
+    </author>
+    <date day="13" month="August" year="2007"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0115"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0115.html"/>
+</reference>
+
+<reference anchor="COMPRESS">
+  <front>
+    <title>Stream Compression</title>
+    <author initials="J." surname="Hildebrand" fullname="Joe Hildebrand">
+      <organization/>
+      <address>
+        <email>jhildebrand@jabber.com</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <date day="26" month="September" year="2007"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0138"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0138.html"/>
+</reference>
+
+<reference anchor="PEP">
+  <front>
+    <title>Personal Eventing via Pubsub</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="K." surname="Smith" fullname="Kevin Smith">
+      <organization/>
+      <address>
+        <email>kevin@kismith.co.uk</email>
+      </address>
+    </author>
+    <date day="26" month="September" year="2007"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0163"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0163.html"/>
+</reference>
+
+<reference anchor='PROBLEM'>
+<front>
+<title>Presence Interdomain Scaling Analysis for SIP/SIMPLE</title>
+<author initials='A' surname='Houri' fullname='Avshalom Houri'>
+    <organization />
+</author>
+<author initials='E' surname='Aoki' fullname='Edwin  Aoki'>
+    <organization />
+</author>
+<author initials='S' surname='Parameswar' fullname='Sriram Parameswar'>
+    <organization />
+</author>
+<author initials='T' surname='Rang' fullname='Tim Rang'>
+    <organization />
+</author>
+<author initials='V' surname='Singh' fullname='Vishal Singh'>
+    <organization />
+</author>
+<author initials='H' surname='Schulzrinne' fullname='Henning Schulzrinne'>
+    <organization />
+</author>
+<date month='November' day='18' year='2007' />
+<abstract><t>The document analyzes the traffic that is generated due to presence subscriptions between domains. It is shown that the amount of traffic can be extremely big. In addition to the very large traffic the document also analyzes the affects of a large presence system on the memory footprint and the CPU load. Current approved and in work optimizations to the SIMPLE protocol are analyzed with the possible impact on the load. Separate documents contain the requirements for optimizations and suggestions for new optimizations.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-simple-interdomain-scaling-analysis-03' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-simple-interdomain-scaling-analysis-03.txt' />
+</reference>
+
+<reference anchor="PUBSUB">
+  <front>
+    <title>Publish-Subscribe</title>
+    <author initials="P." surname="Millard" fullname="Peter Millard">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="R." surname="Meijer" fullname="Ralph Meijer">
+      <organization/>
+      <address>
+        <email>ralphm@ik.nu</email>
+      </address>
+    </author>
+    <date day="26" month="September" year="2007"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0060"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0060.html"/>
+</reference>
+
+<reference anchor='SIP'>
+<front>
+<title>SIP: Session Initiation Protocol</title>
+<author initials='J.' surname='Rosenberg' fullname='J. Rosenberg'>
+<organization /></author>
+<author initials='H.' surname='Schulzrinne' fullname='H. Schulzrinne'>
+<organization /></author>
+<author initials='G.' surname='Camarillo' fullname='G. Camarillo'>
+<organization /></author>
+<author initials='A.' surname='Johnston' fullname='A. Johnston'>
+<organization /></author>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<author initials='R.' surname='Sparks' fullname='R. Sparks'>
+<organization /></author>
+<author initials='M.' surname='Handley' fullname='M. Handley'>
+<organization /></author>
+<author initials='E.' surname='Schooler' fullname='E. Schooler'>
+<organization /></author>
+<date year='2002' month='June' />
+<abstract>
+<t>This document describes Session Initiation Protocol (SIP), an application-layer control (signaling) protocol for creating, modifying, and terminating sessions with one or more participants. These sessions include Internet telephone calls, multimedia distribution, and multimedia conferences. [STANDARDS TRACK] </t></abstract></front>
+<seriesInfo name='RFC' value='3261' />
+<format type='TXT' octets='647976' target='ftp://ftp.isi.edu/in-notes/rfc3261.txt' />
+</reference>
+
+<reference anchor='SIP-PRES'>
+<front>
+<title>A Presence Event Package for the Session Initiation Protocol (SIP)</title>
+<author initials='J.' surname='Rosenberg' fullname='J. Rosenberg'>
+<organization /></author>
+<date year='2004' month='August' />
+<abstract>
+<t>This document describes the usage of the Session Initiation Protocol (SIP) for subscriptions and notifications of presence. Presence is defined as the willingness and ability of a user to communicate with other users on the network. Historically, presence has been limited to "on-line" and "off-line" indicators; the notion of presence here is broader. Subscriptions and notifications of presence are supported by defining an event package within the general SIP event notification framework. This protocol is also compliant with the Common Presence Profile (CPP) framework. [STANDARDS TRACK] </t></abstract></front>
+<seriesInfo name='RFC' value='3856' />
+<format type='TXT' octets='62956' target='ftp://ftp.isi.edu/in-notes/rfc3856.txt' />
+</reference>
+
+<reference anchor="XMPP-CORE">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3920' />
+  <format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+</reference>
+
+<reference anchor="XMPP-IM">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3921' />
+  <format type='TXT' octets='217527' target='ftp://ftp.isi.edu/in-notes/rfc3921.txt' />
+</reference>
+
+    </references>
+
+    <section title="Copying Conditions" anchor="copying">
+      <t>The Contributor grants third parties the irrevocable right to copy, use and distribute the Contribution, with or without modification, in any medium, without royalty, provided that, unless separate permission is granted, redistributed modified works:</t>
+      <t>
+        <list style='numbers'>
+          <t>do not contain misleading author, version, name of work, or endorsement information, and</t>
+          <t>do not claim endorsement of the modified work by the Contributor, or any organization the Contributor belongs to, the Internet Engineering Task Force (IETF), Internet Research Task Force (IRTF), Internet Engineering Steering Group (IESG), Internet Architecture Board (IAB), Internet Assigned Numbers Authority (IANA), Internet Society (ISOC), Request For Comments (RFC) Editor, or any combination or variation of such terms (including without limitation the IETF "4 diamonds" logo), or any terms that are confusingly similar thereto, and</t>
+          <t>remove any claims of status as an Internet Standard, including without limitation removing the RFC boilerplate.</t>
+        </list>
+      </t>
+      <t>The IETF suggests that any citation or excerpt of unmodified text reference the RFC or other document from which the text is derived.</t>
+    </section>
+
+  </back>
+
+</rfc>

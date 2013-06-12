@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DTD for XMPP URI/IRI querytypes registry -->
+<!ELEMENT registry ( meta, querytype* ) >
+<!ELEMENT meta ( title, legal, overview, revision+ ) >
+<!ELEMENT title (#PCDATA)* >
+<!ELEMENT legal (#PCDATA)* >
+<!ELEMENT overview (#PCDATA)* >
+<!ELEMENT revision ( version, date, initials, remark ) >
+<!ELEMENT version (#PCDATA)* >
+<!ELEMENT date (#PCDATA)* >
+<!ELEMENT initials (#PCDATA)* >
+<!ELEMENT remark (#PCDATA)* >
+<!ELEMENT querytype ( name, proto, desc, doc, keys* ) >
+<!ELEMENT name (#PCDATA)* >
+<!ELEMENT proto (#PCDATA)* >
+<!ELEMENT desc (#PCDATA)* >
+<!ELEMENT doc (#PCDATA)* >
+<!ELEMENT keys (key+) >
+<!ELEMENT key ( name, desc, values? ) >
+<!ELEMENT values (value+) >
+<!ELEMENT value ( name, desc ) >

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<reference anchor='RFC4622'>
+  <front>
+    <title>Internationalized Resource Identifiers (IRIs) and Uniform Resource  Identifiers (URIs) for the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2006' month='July' />
+  </front>
+  <seriesInfo name='RFC' value='4622' />
+  <format type='TXT' octets='49968' target='ftp://ftp.isi.edu/in-notes/rfc4622.txt' />
+</reference>

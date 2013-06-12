@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Intermediate IM Protocol Suite</title>
+  <abstract>This document defines a recommended suite of Jabber/XMPP protocols to be supported by intermediate instant messaging and presence applications. Note: This protocol suite has been obsoleted by XEP-0213 and XEP-0216.</abstract>
+  &LEGALNOTICE;
+  <number>0117</number>
+  <status>Obsolete</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XMPP IM</spec>
+    <spec>XEP-0045</spec>
+    <spec>XEP-0071</spec>
+    <spec>XEP-0073</spec>
+    <spec>XEP-0096</spec>
+    <spec>XEP-0115</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby>
+    <spec>XEP-0213</spec>
+    <spec>XEP-0216</spec>
+  </supersededby>
+  <shortname>N/A</shortname>
+  &stpeter;
+  <revision>
+    <version>1.1</version>
+    <date>2007-10-30</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, changed status to Obsolete and referred implementors to XEP-0213 and XEP-0216.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2005-07-21</date>
+    <initials>psa</initials>
+    <remark>Per a vote of the Jabber Council, advanced status to Draft.</remark>
+  </revision>
+  <revision>
+    <version>0.7</version>
+    <date>2005-06-08</date>
+    <initials>psa</initials>
+    <remark>Further clarified dependencies.</remark>
+  </revision>
+  <revision>
+    <version>0.6</version>
+    <date>2005-06-02</date>
+    <initials>psa</initials>
+    <remark>Per Council discussion, modified the XEP-0045 profile to require all MUC use cases.</remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2005-04-21</date>
+    <initials>psa</initials>
+    <remark>Modified the XEP-0045 profile to require occupant use cases and instant room creation only.</remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2004-08-18</date>
+    <initials>psa</initials>
+    <remark>Clarified several matters in the text; changed name from "advanced" to "intermediate".</remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2004-03-24</date>
+    <initials>psa</initials>
+    <remark>Updated to reflect approval of XMPP Core and XMPP IM.</remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2003-11-24</date>
+    <initials>psa</initials>
+    <remark>Changed status to Deferred.</remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2003-09-08</date>
+    <initials>psa</initials>
+    <remark>Initial version.</remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p><em>Note: This protocol suite is obsolete. For updated protocol suites, refer to &xep0213; and &xep0216;.</em></p>
+  <p>The &xep0073; introduced the concept of a "protocol suite". This document extends the basic support specified in <cite>XEP-0073</cite> by specifying an Intermediate IM Protocol Suite.</p>
+</section1>
+<section1 topic='Requirements and Approach' anchor='approach'>
+  <p>This document follows the same approach as <cite>XEP-0073</cite>. By design, the Basic IM Protocol Suite does not include more advanced instant messaging functionality; the present document fills the need for a protocol suite that addresses such functionality.</p>
+  <p>A protocol is deemed worthy of inclusion in this protocol suite if:</p>
+  <ul>
+    <li>It addresses common needs of instant messaging users that are addressed by virtually all other popular IM services or systems.</li>
+    <li>It is more advanced than basic IM and presence.</li>
+    <li>It has achieved a status of at least Draft within the XMPP Standards Foundation's standards process (as defined in &xep0001;).</li>
+  </ul>
+</section1>
+<section1 topic='Definition' anchor='def'>
+  <p>We define the Intermediate IM Protocol Suite as follows:</p>
+  <table caption='Required and Recommended Specifications'>
+    <tr>
+      <th>Specification</th>
+      <th>Requirement Level</th>
+    </tr>
+    <tr>
+      <td><strong>XEP-0073: Basic IM Protocol Suite</strong></td>
+      <td>REQUIRED</td>
+    </tr>
+    <tr>
+      <td>&xep0045;</td>
+      <td>REQUIRED</td>
+    </tr>
+    <tr>
+      <td>&xep0071;</td>
+      <td>REQUIRED</td>
+    </tr>
+    <tr>
+      <td>&xep0096;</td>
+      <td>REQUIRED</td>
+    </tr>
+    <tr>
+      <td>&xep0115;</td>
+      <td>REQUIRED</td>
+    </tr>
+  </table>
+  <p>Note well that the foregoing protocols apply to clients only (i.e., they do not introduce new requirements for servers). In addition, these protocols have their own dependencies, which include the following XEPs (as well as various IETF RFCs and W3C specifications):</p>
+  <ul>
+    <li>&xep0004;</li>
+    <li>&xep0020;</li>
+    <li>&xep0047;</li>
+    <li>&xep0065;</li>
+    <li>&xep0068;</li>
+    <li>&xep0082;</li>
+    <li>&xep0095;</li>
+  </ul>
+  <p>In addition, because the intermediate suite builds on the basic suite, by definition all protocols required by <cite>XEP-0073</cite> are also required by the intermediate suite (refer to <cite>XEP-0073</cite> for details).</p>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>This document introduces no additional security considerations above and beyond those defined in the documents on which it depends.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p> 
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <p>No namespaces or parameters need to be registered with the &REGISTRAR; as a result of this document.</p>
+</section1>
+</xep>

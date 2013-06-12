@@ -1,0 +1,698 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'shim.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='shim.xsl'?>
+<registry>
+  <meta>
+    <title>SHIM Headers</title>
+    &LEGALNOTICE;
+    <overview>This is the official registry of SHIM headers as authorized by &xep0131; and as maintained by the &REGISTRAR;.</overview>
+    <revision>
+      <version>0.5</version>
+      <date>2006-07-05</date>
+      <initials>psa</initials>
+      <remark>Added pubsub headers from XEP-0060.</remark>
+    </revision>
+    <revision>
+      <version>0.4</version>
+      <date>2006-01-24</date>
+      <initials>psa</initials>
+      <remark>Added Start and Stop headers from XEP-0149.</remark>
+    </revision>
+    <revision>
+      <version>0.3</version>
+      <date>2005-12-14</date>
+      <initials>psa</initials>
+      <remark>Added Urgency header.</remark>
+    </revision>
+    <revision>
+      <version>0.2</version>
+      <date>2005-08-19</date>
+      <initials>psa</initials>
+      <remark>Added base Dublin Core metadata from RFC 2413.</remark>
+    </revision>
+    <revision>
+      <version>0.1</version>
+      <date>2004-10-22</date>
+      <initials>psa</initials>
+      <remark>Initial version.</remark>
+    </revision>
+  </meta>
+
+<header>
+  <name>Accept</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Accept-Charset</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Accept-Encoding</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Accept-Language</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Accept-Ranges</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Age</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Alert-Info</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Allow</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Authentication-Info</name>
+  <desc>see RFC 2617</desc>
+  <doc>RFC 2617</doc>
+</header>
+
+<header>
+  <name>Cache-Control</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Call-ID</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Call-Info</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Classification</name>
+  <desc>a level within a classification scheme</desc>
+  <doc>XEP-0131</doc>
+</header>
+
+<header>
+  <name>Comments</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Connection</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Contact</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Content-Description</name>
+  <desc>see RFC 2045</desc>
+  <doc>RFC 2045</doc>
+</header>
+
+<header>
+  <name>Content-Disposition</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Content-Encoding</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Content-ID</name>
+  <desc>see RFC 2045</desc>
+  <doc>RFC 2045</doc>
+</header>
+
+<header>
+  <name>Content-Language</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Content-Length</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Content-Location</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Content-MD5</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Content-Range</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Content-Transfer-Encoding</name>
+  <desc>see RFC 2045</desc>
+  <doc>RFC 2045</doc>
+</header>
+
+<header>
+  <name>Content-Type</name>
+  <desc>see RFC 2045 or RFC 2616</desc>
+  <doc>RFC 2045 or RFC 2616</doc>
+</header>
+
+<header>
+  <name>Contributor</name>
+  <desc>an entity other than the primary Creator who helped to create a resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>Coverage</name>
+  <desc>the spatial or temporal characteristics of a resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>Created</name>
+  <desc>date and time of stanza creation in ISO 8601 format</desc>
+  <doc>XEP-0131</doc>
+</header>
+
+<header>
+  <name>Creator</name>
+  <desc>the person or organization responsible for creating the content of a resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>CSeq</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Date</name>
+  <desc>a string that conforms to the Date profile specified in XEP-0082</desc>
+  <doc>XEP-0131</doc>
+</header>
+
+<header>
+  <name>DateTime</name>
+  <desc>a string that conforms to the DateTime profile specified in XEP-0082</desc>
+  <doc>XEP-0131</doc>
+</header>
+
+<header>
+  <name>Description</name>
+  <desc>a textual description of the content of a resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>Distribute</name>
+  <desc>whether or not the stanza may be further distributed</desc>
+  <doc>XEP-0131</doc>
+</header>
+
+<header>
+  <name>Error-Info</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>ETag</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Expect</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Expires</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Format</name>
+  <desc>the data format of a resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>Host</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Identifier</name>
+  <desc>a string or number used to identity a resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>If-Match</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>If-Modified-Since</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>If-None-Match</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>If-Range</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>If-Unmodified-Since</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>In-Reply-To</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Keywords</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Language</name>
+  <desc>the language in expressing the content of a resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>Last-Modified</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Location</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Max-Forwards</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Message-ID</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>MIME-Version</name>
+  <desc>see RFC 2045</desc>
+  <doc>RFC 2045</doc>
+</header>
+
+<header>
+  <name>Organization</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Pragma</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Priority</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Proxy-Authenticate</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Proxy-Authorization</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Publisher</name>
+  <desc>the entity responsible for making a resource available</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>pubsub#collection</name>
+  <desc>The collection via which a notification was received from the originating node.</desc>
+  <doc>XEP-0060</doc>
+</header>
+
+<header>
+  <name>pubsub#expire</name>
+  <desc>The DateTime at which a pubsub leased subscription will end or has ended.</desc>
+  <doc>XEP-0060</doc>
+</header>
+
+<header>
+  <name>pubsub#subid</name>
+  <desc>A subscription identifer within the pubsub protocol.</desc>
+  <doc>XEP-0060</doc>
+</header>
+
+<header>
+  <name>Range</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Received</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Record-Route</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>References</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Referer</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Relation</name>
+  <desc>the identifier of a second resource related to a primary resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>Reply-To</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Require</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Resent-Bcc</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Resent-Cc</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Resent-Date</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Resent-From</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Resent-Message-Id</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Resent-Sender</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Resent-To</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Retry-After</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Return-Path</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>RFC2822Date</name>
+  <desc>the datetime associated with an email message, SIP exchange, or HTTP request</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Rights</name>
+  <desc>a rights management statement, identifier, or link</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>Route</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Sender</name>
+  <desc>see RFC 2822</desc>
+  <doc>RFC 2822</doc>
+</header>
+
+<header>
+  <name>Server</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Source</name>
+  <desc>information about the original source of the present resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>Start</name>
+  <desc>The dateTime at which a state, event, or activity starts</desc>
+  <doc>XEP-0149</doc>
+</header>
+
+<header>
+  <name>Stop</name>
+  <desc>The dateTime at which a state, event, or activity stops</desc>
+  <doc>XEP-0149</doc>
+</header>
+
+<header>
+  <name>Store</name>
+  <desc>whether or not the stanza may be stored or archived</desc>
+  <doc>XEP-0131</doc>
+</header>
+
+<header>
+  <name>Subject</name>
+  <desc>the human-readable topic of a message or resource</desc>
+  <doc>RFC 2822 or RFC 2413</doc>
+</header>
+
+<header>
+  <name>Supported</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>TE</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Time</name>
+  <desc>a string that conforms to the Time profile specified in XEP-0082</desc>
+  <doc>XEP-0131</doc>
+</header>
+
+<header>
+  <name>Timestamp</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Title</name>
+  <desc>the name given to a resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>Trailer</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Transfer-Encoding</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>TTL</name>
+  <desc>a time to live for the stanza, in seconds</desc>
+  <doc>XEP-0131</doc>
+</header>
+
+<header>
+  <name>Type</name>
+  <desc>the category of a resource</desc>
+  <doc>RFC 2413</doc>
+</header>
+
+<header>
+  <name>Unsupported</name>
+  <desc>see RFC 3261</desc>
+  <doc>RFC 3261</doc>
+</header>
+
+<header>
+  <name>Upgrade</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Urgency</name>
+  <desc>The degree to which a message requires immediate action or attention; consistent with existing messaging triage systems, the defined values are "high", "medium", and "low".</desc>
+  <doc>N/A</doc>
+</header>
+
+<header>
+  <name>User-Agent</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Vary</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Via</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>Warning</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+<header>
+  <name>WWW-Authenticate</name>
+  <desc>see RFC 2616</desc>
+  <doc>RFC 2616</doc>
+</header>
+
+</registry>

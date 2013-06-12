@@ -1,0 +1,1148 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+
+<?rfc rfcedstyle="yes"?>
+<?rfc subcompact="no"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="2"?>
+<?rfc symrefs="yes" ?>
+<?rfc sortrefs="yes" ?>
+<?rfc strict="yes"?>
+<rfc number="5122" category="std" obsoletes="4622">
+
+  <front>
+    <title abbrev='XMPP IRIs/URIs'>Internationalized Resource Identifiers (IRIs) and Uniform Resource Identifiers (URIs) for the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization abbrev="XSF">XMPP Standards Foundation</organization>
+      <address>
+        <email>stpeter@jabber.org</email>
+        <uri>xmpp:stpeter@jabber.org</uri>
+      </address>
+    </author>
+    <date year="2008" month="February"/>
+    <area>Applications</area>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>XMPP</keyword>
+    <keyword>Internationalized Resource Identifier</keyword>
+    <keyword>IRI</keyword>
+    <keyword>Uniform Resource Identifier</keyword>
+    <keyword>URI</keyword>
+    <keyword>I-D</keyword>
+    <keyword>Internet-Draft</keyword>
+    <abstract>
+      <t>This document defines the use of Internationalized Resource Identifiers (IRIs) and Uniform Resource Identifiers (URIs) in identifying or interacting with entities that can communicate via the Extensible Messaging and Presence Protocol (XMPP).</t>
+      <t>This document obsoletes RFC 4622.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <t>The Extensible Messaging and Presence Protocol (XMPP) is a streaming XML technology that enables any two entities on a network to exchange well-defined but extensible XML elements (called "XML stanzas") at a rate close to real time.</t>
+      <t>As specified in <xref target="XMPP-CORE"/>, entity addresses as used in communications over an XMPP network must not be prepended with a Uniform Resource Identifier (URI) scheme (as specified in <xref target="URI"/>).  However, applications external to an XMPP network may need to identify XMPP entities either as URIs or, in a more modern fashion, as Internationalized Resource Identifiers (IRIs; see <xref target="IRI"/>).  Examples of such external applications include databases that need to store XMPP addresses and non-native user agents such as web browsers and calendaring applications that provide interfaces to XMPP services.</t>
+      <t>The format for an XMPP address is defined in <xref target="XMPP-CORE"/>.  Such an address may contain nearly any Unicode character <xref target="UNICODE"/> and must adhere to various profiles of stringprep <xref target="STRINGPREP"/>.  The result is that an XMPP address is fully internationalizable and is very close to being an IRI without a scheme.  However, given that there is no freestanding registry of IRI schemes, it is necessary to define XMPP identifiers primarily as URIs rather than as IRIs, and to register an XMPP URI scheme instead of an IRI scheme.  Therefore, this document does the following:</t>
+      <t><list style='symbols'>
+        <t>Specifies how to identify XMPP entities as IRIs or URIs.</t>
+        <t>Specifies how to interact with XMPP entities as IRIs or URIs.</t>
+        <t>Formally defines the syntax for XMPP IRIs and URIs.</t>
+        <t>Specifies how to transform XMPP IRIs into URIs and vice-versa.</t>
+        <t>Registers the xmpp URI scheme.</t>
+      </list></t>
+
+      <section title="Terminology" anchor="intro-terms">
+        <t>This document inherits terminology from <xref target="IRI"/>, <xref target="URI"/>, and <xref target="XMPP-CORE"/>.</t>
+        <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="TERMS">RFC 2119</xref>.</t>
+      </section>
+    </section>
+
+    <section title="Use of XMPP IRIs and URIs" anchor="use">
+      <section title="Rationale" anchor="use-rationale">
+        <t>As described in <xref target="XMPP-IM"/>, instant messaging and presence applications of XMPP must handle im: and pres: URIs (as specified by <xref target="CPIM"/> and <xref target="CPP"/>).  However, there are many other applications of XMPP (including network management, workflow systems, generic publish-subscribe, remote procedure calls, content syndication, gaming, and middleware), and these applications do not implement instant messaging and presence semantics.  Neither does a generic XMPP entity implement the semantics of any existing URI scheme, such as the http:, ftp:, or mailto: scheme.  Therefore, it is appropriate to define a new URI scheme that makes it possible to identify or interact with any XMPP entity (not just instant messaging and presence entities) as an IRI or URI.</t>
+        <t>XMPP IRIs and URIs are defined for use by non-native interfaces and applications.  In order to ensure interoperability on XMPP networks, when data is routed to an XMPP entity (e.g., when an XMPP address is contained in the 'to' or 'from' attribute of an XML stanza) or an XMPP entity is otherwise identified in standard XMPP protocol elements, the entity MUST be addressed as &lt;[node@]domain[/resource]&gt; (i.e., without a prepended scheme), where the "node identifier", "domain identifier", and "resource identifier" portions of an XMPP address conform to the definitions provided in Section 3 of <xref target="XMPP-CORE"/>.</t>
+        <t>Note: For historical reasons, the term "resource identifier" is used in XMPP to refer to the optional portion of an XMPP address that follows the domain identifier and the "/" separator character (for details, refer to Section 3.4 of <xref target="XMPP-CORE"/>); this use of the term "resource identifier" is not to be confused with the meanings of "resource" and "identifier" provided in Section 1.1 of <xref target="URI"/>.</t>
+        <t>XMPP IRIs and URIs are defined primarily for the purpose of identification rather than of interaction (regarding this distinction, see Section 1.2.2 of <xref target="URI"/>).  The "Internet resource" identified by an XMPP IRI or URI is an entity that can communicate via XMPP over a network.  An XMPP IRI or URI can contain additional information above and beyond the identified resource; in particular, as described under <xref target='use-query'/> a query component can be included to specify suggested semantics for an interaction with the identified resource.  It is envisioned that when an XMPP application resolves an XMPP IRI or URI containing suggested interaction semantics, the application will generate an XMPP stanza and send it to the identified resource, where the generated stanza may include user or application inputs that are consistent with the suggested interaction semantics (for details, see <xref target='use-proc-method'/>).</t>
+      </section>
+      <section title="Form" anchor="use-form">
+        <t>As described in <xref target="XMPP-CORE"/>, an XMPP address used natively on an XMPP network is a string of Unicode characters that (1) conforms to a certain set of stringprep <xref target="STRINGPREP"/> profiles and IDNA restrictions <xref target="IDNA"/>, (2) follows a certain set of syntax rules, and (3) is encoded as UTF-8 <xref target="UTF-8"/>.  The form of such an address can be represented using Augmented Backus-Naur Form <xref target="ABNF"/> as:</t>
+        <figure>
+          <artwork><![CDATA[
+   [ node "@" ] domain [ "/" resource ]
+          ]]></artwork>
+        </figure>
+        <t>In this context, the "node" and "resource" rules rely on distinct profiles of stringprep <xref target="STRINGPREP"/>, and the "domain" rule relies on the concept of an internationalized domain name as described in <xref target="IDNA"/>.  (Note: There is no need to refer to punycode in the IRI syntax itself, since any punycode representation would occur only inside an XMPP application in order to represent internationalized domain names. However, it is the responsibility of the processing application to convert IRI syntax <xref target="IRI"/> into IDNA syntax <xref target="IDNA"/> before addressing XML stanzas to the specified entity on an XMPP network.)</t>
+        <t>Certain characters are allowed in XMPP node identifiers and XMPP resource identifiers but not in the relevant portion of an IRI or URI.  The characters are as follows:</t>
+        <t>
+          <list style="hanging">
+            <t hangText="In node identifiers:">[ \ ] ^ ` { | }</t>
+            <t hangText="In resource identifiers:">" &lt; &gt; [ \ ] ^ ` { | }</t>
+          </list>
+        </t>
+        <t>The node identifier characters are not allowed in userinfo by the sub-delims rule and the resource identifier characters are not allowed in segment by the pchar rule.  These characters MUST be percent-encoded when transforming an XMPP address into an XMPP IRI or URI.</t>
+        <t>Naturally, in order to be converted into an IRI or URI, an XMPP address must be prepended with a scheme (specifically, the xmpp scheme) and may also need to undergo transformations that adhere to the rules defined in <xref target="IRI"/> and <xref target="URI"/>.  Furthermore, in order to enable more advanced interaction with an XMPP entity rather than simple identification, it is desirable to take advantage of additional aspects of URI syntax and semantics, such as authority components, query components, and fragment identifier components.</t>
+        <t>Therefore, the ABNF syntax for an XMPP IRI is defined as shown below using Augmented Backus-Naur Form specified by <xref target="ABNF"/>, where the "ifragment", "ihost", and "iunreserved" rules are defined in <xref target="IRI"/>, the "pct-encoded" rule is defined in <xref target="URI"/>:</t>
+        <figure>
+          <artwork><![CDATA[
+  xmppiri    = "xmpp" ":" ihierxmpp 
+               [ "?" iquerycomp ] 
+               [ "#" ifragment ]
+  ihierxmpp  = iauthpath / ipathxmpp
+  iauthpath  = "//" iauthxmpp [ "/" ipathxmpp ]
+  iauthxmpp  = inodeid "@" ihost
+  ipathxmpp  = [ inodeid "@" ] ihost [ "/" iresid ]
+  inodeid    = *( iunreserved / pct-encoded / nodeallow )
+  nodeallow  = "!" / "$" / "(" / ")" / "*" / "+" / "," / ";" / "="
+  iresid     = *( iunreserved / pct-encoded / resallow )
+  resallow   = "!" / "$" / "&" / "'" / "(" / ")" / 
+               "*" / "+" / "," / ":" / ";" / "="
+  iquerycomp = iquerytype [ *ipair ]
+  iquerytype = *iunreserved
+  ipair      = ";" ikey "=" ivalue
+  ikey       = *iunreserved
+  ivalue     = *( iunreserved / pct-encoded )
+          ]]></artwork>
+        </figure>
+        <t>However, the foregoing syntax is not appropriate for inclusion in the registration of the xmpp URI scheme, since the IANA recognizes only URI schemes and not IRI schemes.  Therefore, the ABNF syntax for an XMPP URI rather than for IRI is defined as shown in <xref target="reg-syntax"/> of this document (see below under "IANA Registration").  If it is necessary to convert the IRI syntax into URI syntax, an application MUST adhere to the mapping procedure specified in Section 3.1 of <xref target="IRI"/>.</t>
+	<t>The following is an example of a basic XMPP IRI/URI used for purposes of identifying a node associated with an XMPP server:</t>
+        <figure>
+          <artwork><![CDATA[
+   xmpp:node@example.com
+          ]]></artwork>
+        </figure>
+	<t>Descriptions of the various components of an XMPP IRI/URI are provided in the following sections.</t>
+      </section>
+      <section title="Authority Component" anchor="use-authority">
+        <t>As explained in <xref target="use-proc"/> of this document, in the absence of an authority component, the processing application would authenticate as a configured user at a configured XMPP server.  That is, the authority component section is unnecessary and should be ignored if the processing application has been configured with a set of default credentials.</t>
+        <t>In accordance with Section 3.2 of RFC 3986, the authority component is preceded by a double slash ("//") and is terminated by the next slash ("/"), question mark ("?"), or number sign ("#") character, or by the end of the IRI/URI.  As explained more fully in <xref target="use-proc-method"/> of this document, the presence of an authority component signals the processing application to authenticate as the node@domain specified in the authority component rather than as a configured node@domain (see the Security Considerations section of this document regarding authentication).  (While it is unlikely that the authority component will be included in most XMPP IRIs or URIs, the scheme allows for its inclusion, if appropriate.)  Thus, the following XMPP IRI/URI indicates to authenticate as "guest@example.com":</t>
+        <figure>
+          <artwork><![CDATA[
+   xmpp://guest@example.com
+          ]]></artwork>
+        </figure>
+	<t>Note well that this is quite different from the following XMPP IRI/URI, which identifies a node "guest@example.com" but does not signal the processing application to authenticate as that node:</t>
+        <figure>
+          <artwork><![CDATA[
+   xmpp:guest@example.com
+          ]]></artwork>
+        </figure>
+	<t>Similarly, using a possible query component of "?message" to trigger an interface for sending a message, the following XMPP IRI/URI signals the processing application to authenticate as "guest@example.com" and to send a message to "support@example.com":</t>
+        <figure>
+          <artwork><![CDATA[
+   xmpp://guest@example.com/support@example.com?message
+          ]]></artwork>
+        </figure>
+	<t>By contrast, the following XMPP IRI/URI signals the processing application to authenticate as its configured default account and to send a message to "support@example.com":</t>
+        <figure>
+          <artwork><![CDATA[
+   xmpp:support@example.com?message
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title="Path Component" anchor="use-path">
+        <t>The path component of an XMPP IRI/URI identifies an XMPP address or specifies the XMPP address to which an XML stanza shall be directed at the end of IRI/URI processing.</t>
+	<t>For example, the following XMPP IRI/URI identifies a node associated with an XMPP server:</t>
+        <figure>
+          <artwork><![CDATA[
+   xmpp:example-node@example.com
+          ]]></artwork>
+        </figure>
+	<t>The following XMPP IRI/URI identifies a node associated with an XMPP server along with a particular XMPP resource identifier associated with that node:</t>
+        <figure>
+          <artwork><![CDATA[
+   xmpp:example-node@example.com/some-resource
+          ]]></artwork>
+        </figure>
+	<t>Inclusion of a node is optional in XMPP addresses, so the following XMPP IRI/URI simply identifies an XMPP server:</t>
+        <figure>
+          <artwork><![CDATA[
+   xmpp:example.com
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title="Query Component" anchor="use-query">
+        <t>There are many potential use cases for encapsulating information in the query component of an XMPP IRI/URI for the purpose of specifying suggested interaction semantics (see <xref target='use-rationale'/>); examples include, but are not limited to:</t>
+        <t><list style='symbols'>
+          <t>sending an XMPP message stanza (see <xref target="XMPP-IM"/>),</t>
+          <t>adding a roster item (see <xref target="XMPP-IM"/>),</t>
+          <t>sending a presence subscription (see <xref target="XMPP-IM"/>),</t>
+          <t>probing for current presence information (see <xref target="XMPP-IM"/>),</t>
+          <t>triggering a remote procedure call (see <xref target="XEP-0009"/>),</t>
+          <t>discovering the identity or capabilities of another entity (see <xref target="XEP-0030"/>),</t>
+          <t>joining an XMPP-based text chat room (see <xref target="XEP-0045"/>),</t>
+          <t>interacting with publish-subscribe channels (see <xref target="XEP-0060"/>),</t>
+          <t>providing a SOAP interface (see <xref target="XEP-0072"/>), and</t>
+          <t>registering with another entity (see <xref target="XEP-0077"/>).</t>
+        </list></t>
+        <t>Many of these potential use cases are application specific, and the full range of such applications cannot be foreseen in advance given the continued expansion in XMPP development; however, there is agreement within the Jabber/XMPP developer community that all the uses envisioned to date can be encapsulated via a "query type", optionally supplemented by one or more "key-value" pairs (this is similar to the "application/x-www-form-urlencoded" MIME type described in <xref target="HTML"/>).</t>
+        <t>As an example, an XMPP IRI/URI intended to launch an interface for sending a message to the XMPP entity "example-node@example.com" might be represented as follows:</t>
+        <figure>
+          <artwork><![CDATA[
+   xmpp:example-node@example.com?message
+          ]]></artwork>
+        </figure>
+        <t>Similarly, an XMPP IRI/URI intended to launch an interface for sending a message to the XMPP entity "example-node@example.com" with a particular subject might be represented as follows:</t>
+        <figure>
+          <artwork><![CDATA[
+   xmpp:example-node@example.com?message;subject=Hello%20World
+          ]]></artwork>
+        </figure>
+	<t>If the processing application does not understand query components or the specified query type, it MUST ignore the query component and treat the IRI/URI as consisting of, for example, &lt;xmpp:example-node@example.com&gt; rather than &lt;xmpp:example-node@example.com?query&gt;.  If the processing application does not understand a particular key within the query component, it MUST ignore that key and its associated value.</t>
+        <t>As noted, there exist many kinds of XMPP applications (both actual and potential), and such applications may define query types and keys for use in the query component portion of XMPP URIs.  The XMPP Registrar function (see <xref target="XEP-0053"/>) of the XMPP Standards Foundation maintains a registry of such query types and keys at &lt;http://www.xmpp.org/registrar/querytypes.html&gt;.  To help ensure interoperability, any application using the formats defined in this document SHOULD submit any associated query types and keys to that registry in accordance with the procedures specified in <xref target="XEP-0147"/>.</t>
+        <t>Note: The delimiter between key-value pairs is the ";" character instead of the "&amp;" character used in many other URI schemes.  This delimiter was chosen in order to avoid problems with escaping of the &amp; character in HTML and XML applications.</t>
+      </section>
+      <section title="Fragment Identifier Component" anchor="use-frag">
+        <t>As stated in Section 3.5 of <xref target="URI"/>, "The fragment identifier component of a URI allows indirect identification of a secondary resource by reference to a primary resource and additional identifying information."  Because the resource identified by an XMPP IRI/URI does not make available any media type (see <xref target="MIME"/>) and therefore (in the terminology of <xref target="URI"/>) no representation exists at an XMPP resource, the semantics of the fragment identifier component in XMPP IRIs/URIs are to be "considered unknown and, effectively, unconstrained" (ibid.).  Particular XMPP applications MAY make use of the fragment identifier component for their own purposes.  However, if a processing application does not understand fragment identifier components or the syntax of a particular fragment identifier component included in an XMPP IRI/URI, it MUST ignore the fragment identifier component.</t>
+      </section>
+      <section title="Generation of XMPP IRIs/URIs" anchor="use-gen">
+        <section title="Generation Method" anchor="use-gen-method">
+          <t>In order to form an XMPP IRI from an XMPP node identifier, domain identifier, and resource identifier, the generating application MUST first ensure that the XMPP address conforms to the rules specified in <xref target="XMPP-CORE"/>, including encoding as a UTF-8 <xref target="UTF-8"/> string and application of the relevant stringprep profiles <xref target="STRINGPREP"/>.  Because IRI syntax <xref target='IRI'/> specifies that the characters in an IRI are the original Unicode characters themselves <xref target='UNICODE'/>, when generating an XMPP IRI the generating application MUST then decode the UTF-8 <xref target='UTF-8'/> characters of a native XMPP address to their original Unicode form.  The generating application then MUST concatenate the following:</t>
+          <t><list style="numbers">
+            <t>The "xmpp" scheme and the ":" character</t>
+	    <t>Optionally (if an authority component is to be included before the node identifier), the characters "//", an authority component of the form node@domain, and the character "/".</t>
+            <t>Optionally (if the XMPP address contained an XMPP "node identifier"), a string of Unicode characters that conforms to the "inodeid" rule, followed by the "@" character.</t>
+            <t>A string of Unicode characters that conforms to the "ihost" rule.</t>
+            <t>Optionally (if the XMPP address contained an XMPP "resource identifier"), the character "/" and a string of Unicode characters that conforms to the "iresid" rule.</t>
+            <t>Optionally (if a query component is to be included), the "?" character and query component.</t>
+            <t>Optionally (if a fragment identifier component is to be included), the "#" character and fragment identifier component.</t>
+          </list></t>
+          <t>In order to form an XMPP URI from the resulting IRI, an application MUST adhere to the mapping procedure specified in Section 3.1 of <xref target="IRI"/>.</t>
+        </section>
+        <section title="Generation Notes" anchor="use-gen-notes">
+          <t>Certain characters are allowed in the node identifier, domain identifier, and resource identifier portions of a native XMPP address but prohibited by the "inodeid", "ihost", and "iresid" rules of an XMPP IRI.  Specifically, the "#" and "?" characters are allowed in node identifiers, and the "/", "?", "#", and "@" characters are allowed in resource identifiers, but these characters are used as delimiters in XMPP IRIs.  In addition, the " " (<xref target='US-ASCII'/> space) character is allowed in resource identifiers but prohibited in IRIs.  Therefore, all the foregoing characters MUST be percent-encoded when transforming an XMPP address into an XMPP IRI.</t>
+          <t>Consider the following nasty node in an XMPP address:</t>
+          <figure>
+            <artwork><![CDATA[
+   nasty!#$%()*+,-.;=?[\]^_`{|}~node@example.com
+            ]]></artwork>
+          </figure>
+          <t>That address would be transformed into the following XMPP IRI (split into two lines for layout purposes):</t>
+          <figure>
+            <artwork><![CDATA[
+   xmpp:nasty!%23$%25()*+,-.;=%3F%5B%5C%5D%5E_%60%7B%7C%7D~node
+   @example.com
+            ]]></artwork>
+          </figure>
+          <t>Consider the following repulsive resource in an XMPP address (split into two lines for layout purposes):</t>
+          <figure>
+            <artwork><![CDATA[
+   node@example.com
+   /repulsive !#"$%&'()*+,-./:;<=>?@[\]^_`{|}~resource
+            ]]></artwork>
+          </figure>
+          <t>That address would be transformed into the following XMPP IRI (split into three lines for layout purposes):</t>
+          <figure>
+            <artwork><![CDATA[
+   xmpp:node@example.com
+   /repulsive%20!%23%22$%25&'()*+,-.%2F:;%3C=
+   %3E%3F%40%5B%5C%5D%5E_%60%7B%7C%7D~resource
+            ]]></artwork>
+          </figure>
+          <t>Furthermore, virtually any character outside the US-ASCII range <xref target='US-ASCII'/> is allowed in an XMPP address and therefore also in an XMPP IRI, but URI syntax forbids such characters directly and specifies that such characters MUST be percent-encoded.  In order to determine the URI associated with an XMPP IRI, an application MUST adhere to the mapping procedure specified in Section 3.1 of <xref target="IRI"/>.</t>
+          <t>The following table may assist implementors in understanding the respective encodings and "carrier units" of the identifiers discussed in this documnent, namely: (1) native XMPP addresses, (2) IRIs, and (3) URIs.  For details, refer to <xref target='reg-encoding'/> of this document as well as Section 3 of <xref target='XMPP-CORE'/>, Section 6.4 of <xref target='IRI'/>, and Section 2 of <xref target='URI'/>.</t>
+          <figure>
+            <artwork><![CDATA[
++--------------+-----------+-----------+
+| Identifier   | Encoding  | Units     |
++--------------+-----------+-----------+
+| XMPP address | UTF-8     | Octets    |
++--------------+-----------+-----------+
+| IRI          | Unicode   | 16/32-bit |
+|              |           | values    |
++--------------+-----------+-----------+
+| URI          | Percent-  | US-ASCII  |
+|              | encoded   |           |
+|              | UTF-8     |           |
++--------------+-----------+-----------+
+            ]]></artwork>
+          </figure>
+        </section>
+        <section title="Generation Example" anchor="use-gen-example">
+          <t>Consider the following XMPP address:</t>
+          <figure>
+            <artwork><![CDATA[
+      <ji&#x159;i@&#x10D;echy.example/v Praze>
+            ]]></artwork>
+          </figure>
+          <t>Note: The string "&amp;#x159;" stands for the Unicode character LATIN SMALL LETTER R WITH CARON, and the string "&amp;#x10D;" stands for the Unicode character LATIN SMALL LETTER C WITH CARON.  The "&amp;#x..." form is used in this document as a notational device to represent Unicode characters, following the "XML Notation" used in <xref target="IRI"/> to represent characters that cannot be rendered in ASCII-only documents.  An XMPP IRI MUST contain the Unicode characters themselves, not the represetnation in XML Notation (in particular, note that the "#" character is forbidden in IRI syntax).  An XMPP URI MUST properly escape such characters, as described below.  The '&lt;' and '&gt;' characters are not part of the address itself but are provided to set off the address for legibility.  (For those who do not understand the Czech language, this example could be Anglicized as "george@czech-lands.example/In Prague".)</t>
+          <t>In accordance with the process specified above, the generating application would do the following to generate a valid XMPP IRI from this address:</t>
+          <t><list style='numbers'>
+            <t>Ensure that the XMPP address conforms to the rules specified in <xref target="XMPP-CORE"/>, including application of the relevant stringprep profiles <xref target="STRINGPREP"/> and encoding as a UTF-8 string <xref target="UTF-8"/>.</t>
+            <t>Concatenate the following:
+              <list style="numbers">
+                <t>The "xmpp" scheme and the ":" character.</t>
+                <t>An "authority component" if included (not shown in this example).</t>
+                <t>A string of Unicode characters that represents the XMPP address, transformed in accordance with the "inodeid", "ihost", and "iresid" rules.</t>
+                <t>The "?" character followed by a "query component" if appropriate to the application (not shown in this example).</t>
+                <t>The "#" character followed by a "fragment identifier component" if appropriate to the application (not shown in this example).</t>
+              </list>
+            </t>
+          </list></t>
+          <t>The result is the following XMPP IRI (note again that, in accordance with the "XML Notation" used in <xref target="IRI"/>, the string "&amp;#x159;" stands for the Unicode character LATIN SMALL LETTER R WITH CARON and the string "&amp;#x10D;" stands for the Unicode character LATIN SMALL LETTER C WITH CARON; an XMPP IRI would contain the Unicode characters themselves).</t>
+          <figure>
+            <artwork><![CDATA[
+    <xmpp:ji&#x159;i@&#x10D;echy.example/v%20Praze>
+            ]]></artwork>
+          </figure>
+          <t>In order to generate a valid XMPP URI from the foregoing IRI, the application MUST adhere to the procedure specified in Section 3.1 of <xref target="IRI"/>, resulting in the following URI:</t>
+          <figure>
+            <artwork><![CDATA[
+    <xmpp:ji%C5%99i@%C4%8Dechy.example/v%20Praze>
+            ]]></artwork>
+          </figure>
+        </section>
+      </section>
+      <section title="Processing of XMPP IRIs/URIs" anchor="use-proc">
+        <section title="Processing Method" anchor="use-proc-method">
+          <t>If a processing application is presented with an XMPP URI and not with an XMPP IRI, it MUST first convert the URI into an IRI by following the procedure specified in Section 3.2 of <xref target="IRI"/>.</t>
+          <t>In order to decompose an XMPP IRI for interaction with the entity it identifies, a processing application MUST separate:</t>
+          <t><list style="numbers">
+            <t>The "xmpp" scheme and the ":" character.</t>
+	    <t>The authority component, if included (the string of Unicode characters between the "//" characters and the next "/" character, the "?" character, the "#" character, or the end of the IRI).</t>
+            <t>A string of Unicode characters that represents an XMPP address as transformed in accordance with the "inodeid", "ihost", and "iresid" rules.</t>
+            <t>Optionally the query component, if included, using the "?" character as a separator.</t>
+            <t>Optionally the fragment identifier component, if included, using the "#" character as a separator.</t>
+          </list></t>
+          <t>At this point, the processing application MUST ensure that the resulting XMPP address conforms to the rules specified in <xref target="XMPP-CORE"/>, including application of the relevant stringprep profiles <xref target="STRINGPREP"/>.  The processing application then would either (1) complete further XMPP handling itself or (2) invoke a helper application to complete XMPP handling; such XMPP handling would most likely consist of the following steps:</t>
+          <t><list style='numbers'>
+            <t>If not already connected to an XMPP server, connect either as the user specified in the authority component or as the configured user at the configured XMPP server, normally by adhering to the XMPP connection procedures defined in <xref target="XMPP-CORE"/>.  (Note: The processing application SHOULD ignore the authority component if it has been configured with a set of default credentials.)</t>
+            <t>Optionally, determine the nature of the intended recipient (e.g., via <xref target="XEP-0030"/>).</t>
+            <t>Optionally, present an appropriate interface to a user based on the nature of the intended recipient and/or the contents of the query component.</t>
+            <t>Generate an XMPP stanza that translates any user or application inputs into their corresponding XMPP equivalents.</t>
+            <t>Send the XMPP stanza via the authenticated server connection for delivery to the intended recipient.</t>
+          </list></t>
+        </section>
+        <section title="Processing Notes" anchor="use-proc-notes">
+          <t>It may help implementors to note that the first two steps of "further XMPP handling", as described at the end of <xref target="use-proc-method"/>, are similar to HTTP authentication <xref target="HTTP-AUTH"/>, while the next three steps are similar to the handling of mailto: URIs <xref target="MAILTO"/>.</t>
+          <t>As noted in <xref target="use-gen-notes"/> of this document, certain characters are allowed in the node identifier, domain identifier, and resource identifier portions of a native XMPP address but prohibited by the "inodeid", "ihost", and "iresid" rules of an XMPP IRI.  The percent-encoded octets corresponding to these characters in XMPP IRIs MUST be transformed into the characters allowed in XMPP addresses when processing an XMPP IRI for interaction with the represented XMPP entity.</t>
+          <t>Consider the following nasty node in an XMPP IRI (split into two lines for layout purposes):</t>
+          <figure>
+            <artwork><![CDATA[
+   xmpp:nasty!%23$%25()*+,-.;=%3F%5B%5C%5D%5E_%60%7B%7C%7D~node
+   @example.com
+            ]]></artwork>
+          </figure>
+          <t>That IRI would be transformed into the following XMPP address:</t>
+          <figure>
+            <artwork><![CDATA[
+   nasty!#$%()*+,-.;=?[\]^_`{|}~node@example.com
+            ]]></artwork>
+          </figure>
+          <t>Consider the following repulsive resource in an XMPP IRI (split into three lines for layout purposes):</t>
+          <figure>
+            <artwork><![CDATA[
+   xmpp:node@example.com
+   /repulsive%20!%23%22$%25&'()*+,-.%2F:;%3C
+   =%3E%3F%40%5B%5C%5D%5E_%60%7B%7C%7D~resource
+            ]]></artwork>
+          </figure>
+          <t>That IRI would be transformed into the following XMPP address (split into two lines for layout purposes):</t>
+          <figure>
+            <artwork><![CDATA[
+   node@example.com
+   /repulsive !#"$%&'()*+,-./:;<=>?@[\]^_`{|}~resource
+            ]]></artwork>
+          </figure>
+        </section>
+        <section title="Processing Example" anchor="use-proc-example">
+          <t>Consider the XMPP URI that resulted from the previous example:</t>
+          <figure>
+            <artwork><![CDATA[
+    <xmpp:ji%C5%99i@%C4%8Dechy.example/v%20Praze>
+            ]]></artwork>
+          </figure>
+          <t>In order to generate a valid XMPP IRI from that URI, the application MUST adhere to the procedure specified in Section 3.2 of <xref target="IRI"/>, resulting in the following IRI:</t>
+          <figure>
+            <artwork><![CDATA[
+    <xmpp:ji&#x159;i@&#x10D;echy.example/v%20Praze>
+            ]]></artwork>
+          </figure>
+          <t>In accordance with the process specified above, the processing application would remove the "xmpp" scheme and ":" character to extract the XMPP address from this XMPP IRI, converting any percent-encoded octets from the "inodeid", "ihost", and "iresid" rules into their character equivalents (e.g., "%20" into the space character).</t>
+          <t>The result is this XMPP address:</t>
+          <figure>
+            <artwork><![CDATA[
+    <ji&#x159;i@&#x10D;echy.example/v Praze>
+            ]]></artwork>
+          </figure>
+        </section>
+      </section>
+      <section title="Internationalization" anchor="use-i18n">
+        <t>Because XMPP addresses are UTF-8 strings <xref target="UTF-8"/> and because octets outside the US-ASCII range <xref target='US-ASCII'/> within XMPP addresses can be easily converted to percent-encoded octets, XMPP addresses are designed to work well with Internationalized Resource Identifiers <xref target="IRI"/>.  In particular, with the exceptions of stringprep verification, the conversion of syntax-relevant US-ASCII characters (e.g., "?"), and the conversion of percent-encoded octets from the "inodeid", "ihost", and "iresid" rules into their character equivalents (e.g., "%20" into the US-ASCII space character), an XMPP IRI can be constructed directly by prepending the "xmpp" scheme and ":" character to an XMPP address.  Furthermore, an XMPP IRI can be converted into URI syntax by adhering to the procedure specified in Section 3.1 of <xref target="IRI"/>, and an XMPP URI can be converted into IRI syntax by adhering to the procedure specified in Section 3.2 of <xref target="IRI"/>, thus ensuring interoperability with applications that are able to process URIs but unable to process IRIs.</t>
+      </section>
+    </section>
+
+    <section title='IANA Registration of xmpp URI Scheme' anchor="reg">
+      <t>In accordance with <xref target='URI-SCHEMES'/>, this section provides the information required to register the xmpp URI scheme.</t>
+
+      <section title='URI Scheme Name' anchor="reg-name">
+        <t>xmpp</t>
+      </section>
+
+      <section title='Status' anchor="reg-status">
+        <t>permanent</t>
+      </section>
+
+      <section title='URI Scheme Syntax' anchor="reg-syntax">
+        <t>The syntax for an xmpp URI is defined below using Augmented Backus-Naur Form as specified by <xref target="ABNF"/>, where the "fragment", "host", "pct-encoded", and "unreserved" rules are defined in <xref target="URI"/>:</t>
+        <figure>
+          <artwork><![CDATA[
+  xmppuri   = "xmpp" ":" hierxmpp [ "?" querycomp ] [ "#" fragment ]
+  hierxmpp  = authpath / pathxmpp
+  authpath  = "//" authxmpp [ "/" pathxmpp ]
+  authxmpp  = nodeid "@" host
+  pathxmpp  = [ nodeid "@" ] host [ "/" resid ]
+  nodeid    = *( unreserved / pct-encoded / nodeallow )
+  nodeallow = "!" / "$" / "(" / ")" / "*" / "+" / "," / ";" / "="
+  resid     = *( unreserved / pct-encoded / resallow )
+  resallow  = "!" / "$" / "&" / "'" / "(" / ")" / 
+               "*" / "+" / "," / ":" / ";" / "="
+  querycomp = querytype [ *pair ]
+  querytype = *( unreserved / pct-encoded )
+  pair      = ";" key "=" value
+  key       = *( unreserved / pct-encoded )
+  value     = *( unreserved / pct-encoded )
+          ]]></artwork>
+        </figure>
+      </section>
+
+      <section title='URI Scheme Semantics' anchor="reg-semantics">
+        <t>The xmpp URI scheme identifies entities that natively communicate using the Extensible Messaging and Presence Protocol (XMPP), and is mainly used for identification rather than for resource location.  However, if an application that processes an xmpp URI enables interaction with the XMPP address identified by the URI, it MUST follow the methodology defined in Section 2 of this document, Use of XMPP IRIs and URIs, to reconstruct the encapsulated XMPP address, connect to an appropriate XMPP server, and send an appropriate XMPP "stanza" (XML fragment) to the XMPP address.  (Note: There is no MIME type associated with the xmpp URI scheme.)</t>
+      </section>
+
+      <section title='Encoding Considerations' anchor="reg-encoding">
+        <t>In addition to XMPP URIs, there will also be XMPP Internationalized Resource Identifiers (IRIs).  Prior to converting an Extensible Messaging and Presence Protocol (XMPP) address into an IRI (and in accordance with <xref target="XMPP-CORE"/>), the XMPP address must be represented as a string of UTF-8 characters <xref target="UTF-8"/> by the generating application (e.g., by transforming an application's internal representation of the address as a UTF-16 string into a UTF-8 string).  Because IRI syntax <xref target='IRI'/> specifies that the characters in an IRI are the original Unicode characters themselves <xref target='UNICODE'/>, when generating an XMPP IRI the generating application MUST decode the UTF-8 characters of a native XMPP address to their original Unicode form.  Because URI syntax <xref target='URI'/> specifices that the characters in a URI are US-ASCII characters <xref target='US-ASCII'/> only, when generating an XMPP URI the generating application MUST escape the Unicode characters of an XMPP IRI to US-ASCII characters by adhering to the procedure specified in RFC 3987.</t>
+      </section>
+
+      <section title='Applications/Protocols That Use This URI Scheme Name' anchor="reg-apps">
+        <t>The xmpp URI scheme is intended to be used by interfaces to an XMPP network from non-native user agents, such as web browsers, as well as by non-native applications that need to identify XMPP entities as full URIs or IRIs.</t>
+      </section>
+
+      <section title='Interoperability Considerations' anchor="reg-interop">
+        <t>There are no known interoperability concerns related to use of the xmpp URI scheme.  In order to help ensure interoperability, the XMPP Registrar function of the XMPP Standards Foundation maintains a registry of query types and keys that can be used in the query components of XMPP URIs and IRIs, located at &lt;http://www.xmpp.org/registrar/querytypes.html&gt;.</t>
+      </section>
+
+      <section title='Security Considerations' anchor="reg-sec">
+        <t>See Section 5 of this document, Security Considerations.</t>
+      </section>
+
+      <section title='Contact' anchor="reg-contact">
+        <t>Peter Saint-Andre [mailto:stpeter@jabber.org, xmpp:stpeter@jabber.org]</t>
+      </section>
+
+      <section title='Author/Change Controller' anchor="reg-control">
+        <t>This scheme is registered under the IETF tree.  As such, the IETF maintains change control.</t>
+      </section>
+
+      <section title='References' anchor="reg-refs">
+        <t><xref target="XMPP-CORE"/></t>
+      </section>
+
+    </section>
+
+    <section title="IANA Considerations" anchor="iana">
+      <t>This document updates the URI scheme registration created by RFC 4622.  The registration template can be found in <xref target="reg"/> of this document.  In order to help ensure interoperability, the XMPP Registrar function of the XMPP Standards Foundation maintains a registry of query types and keys that can be used in the query components of XMPP URIs and IRIs, located at &lt;http://www.xmpp.org/registrar/querytypes.html&gt;.</t>
+    </section>
+
+    <section title='Security Considerations' anchor="sec">
+      <t>Providing an interface to XMPP services from non-native applications introduces new security concerns.  The security considerations discussed in <xref target="IRI"/>, <xref target="URI"/>, and <xref target="XMPP-CORE"/> apply to XMPP IRIs, and the security considerations discussed in <xref target="URI"/> and <xref target="XMPP-CORE"/> apply to XMPP URIs.  In accordance with Section 2.7 of <xref target='URI-SCHEMES'/> and Section 7 of <xref target='URI'/>, particular security considerations are specified in the following sections.</t>
+      <section title='Reliability and Consistency' anchor="sec-reliable">
+        <t>Given that XMPP addresses of the form node@domain.tld are typically created via registration at an XMPP server or provisioned by an administrator of such a server, it is possible that such addresses may also be unregistered or deprovisioned.  Therefore, the XMPP IRI/URI that identifies such an XMPP address may not reliably and consistently be associated with the same principal, account owner, application, or device.</t>
+        <t>XMPP addresses of the form node@domain.tld/resource are typically even more ephemeral (since a given XMPP resource identifier is typically associated with a particular, temporary session of an XMPP client at an XMPP server).  Therefore, the XMPP IRI/URI that identifies such an XMPP address probably will not reliably and consistently be associated with the same session.  However, the procedures specified in Section 10 of <xref target='XMPP-CORE'/> effectively eliminate any potential confusion that might be introduced by the lack of reliability and consistency for the XMPP IRI/URI that identifies such an XMPP address.</t>
+        <t>XMPP addresses of the form domain.tld are typically long-lived XMPP servers or associated services; although naturally it is possible for server or service administrators to de-commission the server or service at any time, typically the IRIs/URIs that identify such servers or services are the most reliable and consistent of XMPP IRIs/URIs.</t>
+        <t>XMPP addresses of the form domain.tld/resource are not yet common on XMPP networks; however, the reliability and consistency of XMPP IRIs/URIs that identify such XMPP addresses would likely fall somewhere between those that identify XMPP addresses of the form domain.tld and those that identify XMPP addresses of the form node@domain.tld.</t>
+      </section>
+      <section title='Malicious Construction' anchor="sec-construction">
+        <t>Malicious construction of XMPP IRIs/URIs is made less likely by the prohibition on port numbers in XMPP IRIs/URIs (since port numbers are to be discovered using DNS SRV records <xref target='DNS-SRV'/>, as specified in <xref target='XMPP-CORE'/>).</t>
+      </section>
+      <section title='Back-End Transcoding' anchor="sec-transcoding">
+        <t>Because the base XMPP protocol is designed to implement the exchange of messages and presence information and not the retrieval of files or invocation of similar system functions, it is deemed unlikely that the use of XMPP IRIs/URIs would result in harmful dereferencing.  However, if an XMPP protocol extension defines methods for information retrieval, it MUST define appropriate controls over access to that information.  In addition, XMPP servers SHOULD NOT natively parse XMPP IRIs/URIs but instead SHOULD accept only the XML wire protocol specified in <xref target='XMPP-CORE'/> and any desired extensions thereto.</t>
+      </section>
+      <section title='Sensitive Information' anchor="sec-information">
+        <t>The ability to interact with XMPP entities via a web browser or other non-native application may expose sensitive information (such as support for particular XMPP application protocol extensions) and thereby make it possible to launch attacks that are not possible or that are unlikely on a native XMPP network.  Due care must be taken in deciding what information is appropriate for representation in XMPP IRIs or URIs.</t>
+        <t>In particular, advertising XMPP IRIs/URIs in publicly accessible locations (e.g., on websites) may make it easier for malicious users to harvest XMPP addresses from the authority and path components of XMPP IRIs/URIs and therefore to send unsolicited bulk communications to the users or applications represented by those addresses.  Due care should be taken in balancing the benefits of open information exchange against the potential costs of unwanted communications.</t>
+        <t>To help prevent leaking of sensitive information, passwords and other user credentials are forbidden in the authority component of XMPP IRIs/URIs; in fact they are not needed, since the fact that authentication in XMPP occurs via the Simple Authentication and Security Layer <xref target="SASL"/> makes it possible to use the SASL ANONYMOUS mechanism, if desired.</t>
+      </section>
+      <section title='Semantic Attacks' anchor="sec-semantic">
+        <t>Despite the existence of non-hierarchical URI schemes such as <xref target='MAILTO'/>, by association human users may expect all URIs to include the "//" characters after the scheme name and ":" character.  However, in XMPP IRIs/URIs, the "//" characters precede the authority component rather than the path component.  Thus, xmpp://guest@example.com indicates to authenticate as "guest@example.com", whereas xmpp:guest@example.com identifies the node "guest@example.com".  Processing applications MUST clearly differentiate between these forms, and user agents SHOULD discourage human users from including the "//" characters in XMPP IRIs/URIs since use of the authority component is envisioned to be helpful only in specialized scenarios, not more generally.</t>
+      </section>
+      <section title='Spoofing' anchor="sec-spoofing">
+        <t>The ability to include effectively the full range of Unicode characters in an XMPP IRI may make it easier to execute certain forms of address mimicking (also called "spoofing").  However, XMPP IRIs are no different from other IRIs in this regard, and applications that will present XMPP IRIs to human users must adhere to best practices regarding address mimicking in order to help prevent attacks that result from spoofed addresses (e.g., the phenomenon known as "phishing").  For details, refer to the Security Considerations of <xref target='IRI'/>.</t>
+      </section>
+    </section>
+
+    <section title="Acknowledgements" anchor="acknowledgements">
+      <t>Thanks to Martin Duerst, Lisa Dusseault, Frank Ellerman, Roy Fielding, Joe Hildebrand, and Ralph Meijer for their comments.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+<reference anchor='ABNF'>
+<front>
+<title>Augmented BNF for Syntax Specifications: ABNF</title>
+<author initials='D.' surname='Crocker' fullname='D. Crocker'>
+<organization /></author>
+<author initials='P.' surname='Overell' fullname='P. Overell'>
+<organization /></author>
+<date year='2005' month='October' /></front>
+<seriesInfo name='RFC' value='4234' />
+<format type='TXT' octets='26351' target='ftp://ftp.isi.edu/in-notes/rfc4234.txt' />
+</reference>
+
+<reference anchor="IRI">
+<front>
+<title>Internationalized Resource Identifiers (IRIs)</title>
+<author initials='M.' surname='Duerst' fullname='M. Duerst'>
+<organization /></author>
+<author initials='M.' surname='Suignard' fullname='M. Suignard'>
+<organization /></author>
+<date year='2005' month='January' /></front>
+<seriesInfo name='RFC' value='3987' />
+<format type='TXT' octets='111190' target='ftp://ftp.isi.edu/in-notes/rfc3987.txt' />
+</reference>
+
+      <reference anchor='TERMS'>
+        <front>
+          <title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+          <author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+            <organization>Harvard University</organization>
+            <address>
+              <postal>
+                <street>1350 Mass.  Ave.</street>
+                <street>Cambridge</street>
+                <street>MA 02138</street>
+              </postal>
+              <phone>- +1 617 495 3864</phone>
+              <email>-</email>
+            </address>
+          </author>
+          <date month='March' year='1997'></date>
+          <area>General</area>
+          <keyword>keyword</keyword>
+          <abstract>
+            <t>In many standards track documents several words are used to signify the requirements in the specification.  These words are often capitalized.  This document defines these words as they should be interpreted in IETF documents.  Authors who follow these guidelines should incorporate this phrase near the beginning of their document:
+              <list>
+                <t>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in RFC 2119.</t>
+              </list>
+            </t>
+            <t>Note that the force of these words is modified by the requirement level of the document in which they are used.</t>
+          </abstract>
+        </front>
+        <seriesInfo name='BCP' value='14' />
+        <seriesInfo name='RFC' value='2119' />
+      </reference>
+
+<reference anchor="URI">
+<front>
+<title>Uniform Resource Identifier (URI): Generic Syntax</title>
+<author initials='T.' surname='Berners-Lee' fullname='T. Berners-Lee'>
+<organization /></author>
+<author initials='R.' surname='Fielding' fullname='R. Fielding'>
+<organization /></author>
+<author initials='L.' surname='Masinter' fullname='L. Masinter'>
+<organization /></author>
+<date year='2005' month='January' /></front>
+<seriesInfo name='STD' value='66' />
+<seriesInfo name='RFC' value='3986' />
+<format type='TXT' octets='141811' target='ftp://ftp.isi.edu/in-notes/rfc3986.txt' />
+</reference>
+
+<reference anchor="XMPP-CORE">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P.  Saint-Andre'>
+      <organization>XMPP Standards Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3920' />
+  <format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor="CPIM">
+<front>
+<title>Common Profile for Instant Messaging (CPIM)</title>
+<author initials='J.' surname='Peterson' fullname='J.  Peterson'>
+<organization /></author>
+<date year='2004' month='August' /></front>
+<seriesInfo name='RFC' value='3860' />
+<format type='TXT' octets='26486' target='ftp://ftp.isi.edu/in-notes/rfc3860.txt' />
+</reference>
+
+<reference anchor="CPP">
+<front>
+<title>Common Profile for Presence (CPP)</title>
+<author initials='J.' surname='Peterson' fullname='J.  Peterson'>
+<organization /></author>
+<date year='2004' month='August' /></front>
+<seriesInfo name='RFC' value='3859' />
+<format type='TXT' octets='30537' target='ftp://ftp.isi.edu/in-notes/rfc3859.txt' />
+</reference>
+
+<reference anchor='DNS-SRV'>
+<front>
+<title abbrev='DNS SRV RR'>A DNS RR for specifying the location of services (DNS SRV)</title>
+<author initials='A.' surname='Gulbrandsen' fullname='Arnt Gulbrandsen'>
+<organization>Troll Tech</organization>
+<address>
+<postal>
+<street>Waldemar Thranes gate 98B</street>
+<city>Oslo</city>
+<region />
+<code>N-0175</code>
+<country>NO</country></postal>
+<phone>+47 22 806390</phone>
+<facsimile>+47 22 806380</facsimile>
+<email>arnt@troll.no</email></address></author>
+<author initials='P.' surname='Vixie' fullname='Paul Vixie'>
+<organization>Internet Software Consortium</organization>
+<address>
+<postal>
+<street>950 Charter Street</street>
+<city>Redwood City</city>
+<region>CA</region>
+<code>94063</code>
+<country>US</country></postal>
+<phone>+1 650 779 7001</phone></address></author>
+<author initials='L.' surname='Esibov' fullname='Levon Esibov'>
+<organization>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>One Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code>
+<country>US</country></postal>
+<email>levone@microsoft.com</email></address></author>
+<date month='February' year='2000' />
+<abstract>
+<t>This document describes a DNS RR which specifies the location of the
+   server(s) for a specific protocol and domain.</t></abstract></front>
+<seriesInfo name='RFC' value='2782' />
+<format type='TXT' octets='24013' target='ftp://ftp.isi.edu/in-notes/rfc2782.txt' />
+</reference>
+
+<reference anchor='HTML'>
+<front>
+<title>HTML 4.0 Specification</title>
+<author initials='D' surname='Raggett' fullname='David Raggett'>
+    <organization />
+</author>
+<date month='April' day='24' year='1998' />
+</front>
+<seriesInfo name='W3C REC' value='REC-html40-19980424' />
+<format type='HTML' target='http://www.w3.org/TR/1998/REC-html40-19980424' />
+</reference>
+
+<reference anchor='HTTP-AUTH'>
+<front>
+<title abbrev='HTTP Authentication'>HTTP Authentication: Basic and Digest Access Authentication</title>
+<author initials='J.' surname='Franks' fullname='John Franks'>
+<organization>Northwestern University, Department of Mathematics</organization>
+<address>
+<postal>
+<street>Northwestern University</street>
+<city>Evanston</city>
+<region>IL</region>
+<code>60208-2730</code>
+<country>USA</country></postal>
+<email>john@math.nwu.edu</email></address></author>
+<author initials='P.M.' surname='Hallam-Baker' fullname='Phillip M.  Hallam-Baker'>
+<organization>Verisign Inc.</organization>
+<address>
+<postal>
+<street>301 Edgewater Place</street>
+<street>Suite 210</street>
+<city>Wakefield</city>
+<region>MA</region>
+<code>01880</code>
+<country>USA</country></postal>
+<email>pbaker@verisign.com</email></address></author>
+<author initials='J.L.' surname='Hostetler' fullname='Jeffery L.  Hostetler'>
+<organization>AbiSource, Inc.</organization>
+<address>
+<postal>
+<street>6 Dunlap Court</street>
+<city>Savoy</city>
+<region>IL</region>
+<code>61874</code>
+<country>USA</country></postal>
+<email>jeff@AbiSource.com</email></address></author>
+<author initials='S.D.' surname='Lawrence' fullname='Scott D.  Lawrence'>
+<organization>Agranat Systems, Inc.</organization>
+<address>
+<postal>
+<street>5 Clocktower Place</street>
+<street>Suite 400</street>
+<city>Maynard</city>
+<region>MA</region>
+<code>01754</code>
+<country>USA</country></postal>
+<email>lawrence@agranat.com</email></address></author>
+<author initials='P.J.' surname='Leach' fullname='Paul J.  Leach'>
+<organization>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>1 Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code>
+<country>USA</country></postal>
+<email>paulle@microsoft.com</email></address></author>
+<author initials='A.' surname='Luotonen' fullname='Ari Luotonen'>
+<organization>Netscape Communications Corporation</organization>
+<address>
+<postal>
+<street>501 East Middlefield Road</street>
+<city>Mountain View</city>
+<region>CA</region>
+<code>94043</code>
+<country>USA</country></postal></address></author>
+<author initials='L.' surname='Stewart' fullname='Lawrence C.  Stewart'>
+<organization>Open Market, Inc.</organization>
+<address>
+<postal>
+<street>215 First Street</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02142</code>
+<country>USA</country></postal>
+<email>stewart@OpenMarket.com</email></address></author>
+<date year='1999' month='June' />
+<abstract>
+<t>
+   "HTTP/1.0", includes the specification for a Basic Access
+   Authentication scheme.  This scheme is not considered to be a secure
+   method of user authentication (unless used in conjunction with some
+   external secure system such as SSL ), as the user name and
+   password are passed over the network as cleartext.
+      </t>
+<t>
+   This document also provides the specification for HTTP's
+   authentication framework, the original Basic authentication scheme
+   and a scheme based on cryptographic hashes, referred to as "Digest
+   Access Authentication".  It is therefore also intended to serve as a
+   replacement for RFC 2069 .  Some optional elements specified by
+   RFC 2069 have been removed from this specification due to problems
+   found since its publication; other new elements have been added for
+   compatibility, those new elements have been made optional, but are
+   strongly recommended.
+      </t>
+<t>
+   Like Basic, Digest access authentication verifies that both parties
+   to a communication know a shared secret (a password); unlike Basic,
+   this verification can be done without sending the password in the
+   clear, which is Basic's biggest weakness.  As with most other
+   authentication protocols, the greatest sources of risks are usually
+   found not in the core protocol itself but in policies and procedures
+   surrounding its use.
+    </t></abstract></front>
+<seriesInfo name='RFC' value='2617' />
+<format type='TXT' octets='77638' target='ftp://ftp.isi.edu/in-notes/rfc2617.txt' />
+<format type='HTML' octets='100323' target='http://xml.resource.org/public/rfc/html/rfc2617.html' />
+<format type='XML' octets='85507' target='http://xml.resource.org/public/rfc/xml/rfc2617.xml' />
+</reference>
+
+<reference anchor='IDNA'>
+<front>
+<title>Internationalizing Domain Names in Applications (IDNA)</title>
+<author initials='P.' surname='Faltstrom' fullname='P.  Faltstrom'>
+<organization /></author>
+<author initials='P.' surname='Hoffman' fullname='P.  Hoffman'>
+<organization /></author>
+<author initials='A.' surname='Costello' fullname='A.  Costello'>
+<organization /></author>
+<date month='March' year='2003' /></front>
+<seriesInfo name='RFC' value='3490' />
+<format type='TXT' octets='51943' target='ftp://ftp.isi.edu/in-notes/rfc3490.txt' />
+</reference>
+
+<reference anchor="XEP-0009">
+  <front>
+    <title>Jabber-RPC</title>
+    <author initials="D." surname="Adams" fullname="DJ Adams">
+      <organization/>
+      <address>
+        <email>dj.adams@pobox.com</email>
+      </address>
+    </author>
+    <date day="09" month="February" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0009"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0009.html"/>
+</reference>
+
+<reference anchor="XEP-0030">
+  <front>
+    <title>Service Discovery</title>
+    <author initials="J." surname="Hildebrand" fullname="Joe Hildebrand">
+      <organization/>
+      <address>
+        <email>jhildebrand@jabber.com</email>
+      </address>
+    </author>
+    <author initials="P." surname="Millard" fullname="Peter Millard">
+      <organization/>
+      <address>
+        <email>pgmillard@jabber.org</email>
+      </address>
+    </author>
+    <author initials="R." surname="Eatmon" fullname="Ryan Eatmon">
+      <organization/>
+      <address>
+        <email>reatmon@jabber.org</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="15" month="February" year="2007"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0030"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0030.html"/>
+</reference>
+
+<reference anchor="XEP-0045">
+  <front>
+    <title>Multi-User Chat</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="13" month="April" year="2007"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0045"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0045.html"/>
+</reference>
+
+<reference anchor="XEP-0053">
+  <front>
+    <title>XMPP Registrar Function</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="7" month="December" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0053"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0053.html"/>
+</reference>
+
+<reference anchor="XEP-0060">
+  <front>
+    <title>Publish-Subscribe</title>
+    <author initials="P." surname="Millard" fullname="Peter Millard">
+      <organization/>
+      <address>
+        <email>pgmillard@jabber.org</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <author initials="R." surname="Meijer" fullname="Ralph Meijer">
+      <organization/>
+      <address>
+        <email>ralphm@ik.nu</email>
+      </address>
+    </author>
+    <date day="13" month="September" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0060"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0060.html"/>
+</reference>
+
+<reference anchor="XEP-0072">
+  <front>
+    <title>SOAP Over XMPP</title>
+    <author initials="F." surname="Forno" fullname="Fabio Forno">
+      <organization/>
+      <address>
+        <email>fabio.forno@polito.it</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="14" month="December" year="2005"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0072"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0072.html"/>
+</reference>
+
+<reference anchor="XEP-0077">
+  <front>
+    <title>In-Band Registration</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="24" month="January" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0077"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0077.html"/>
+</reference>
+
+<reference anchor="XEP-0147">
+  <front>
+    <title>XMPP URI Scheme Query Components</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="13" month="September" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0147"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0147.html"/>
+</reference>
+
+<reference anchor='MAILTO'>
+<front>
+<title>The mailto URL scheme</title>
+<author initials='P.E.' surname='Hoffman' fullname='Paul E.  Hoffman'>
+<organization>Internet Mail Consortium</organization>
+<address>
+<postal>
+<street>127 Segre Place</street>
+<street>Santa Cruz</street>
+<street>CA  95060</street>
+<country>USA</country></postal>
+<email>phoffman@imc.org</email></address></author>
+<author initials='L.' surname='Masinter' fullname='Larry Masinter'>
+<organization>Xerox Corporation</organization>
+<address>
+<postal>
+<street>3333 Coyote Hill Road</street>
+<street>Palo Alto</street>
+<street>CA 94304</street>
+<country>USA</country></postal>
+<email>masinter@parc.xerox.com</email></address></author>
+<author initials='J.' surname='Zawinski' fullname='Jamie Zawinski'>
+<organization>Netscape Communications Corp.</organization>
+<address>
+<postal>
+<street>501 East Middlefield Road</street>
+<street>Mountain View</street>
+<street>CA 94043</street>
+<country>USA</country></postal>
+<email>jwz@netscape.com</email></address></author>
+<date month='July' year='1998' />
+<area>Applications</area>
+<keyword>mailto</keyword>
+<keyword>mail</keyword>
+<keyword>uniform resource locator</keyword>
+<keyword>URL</keyword>
+<abstract>
+<t>
+   This document defines the format of Uniform Resource Locators (URL)
+   for designating electronic mail addresses.  It is one of a suite of
+   documents which replace RFC 1738, &apos;Uniform Resource Locators&apos;, and
+   RFC 1808, &apos;Relative Uniform Resource Locators&apos;.  The syntax of
+   &apos;mailto&apos; URLs from RFC 1738 is extended to allow creation of more RFC
+   822 messages by allowing the URL to express additional header and
+   body fields.
+</t></abstract></front>
+<seriesInfo name='RFC' value='2368' />
+<format type='TXT' octets='16502' target='ftp://ftp.isi.edu/in-notes/rfc2368.txt' />
+<format type='HTML' octets='30859' target='http://xml.resource.org/public/rfc/html/rfc2368.html' />
+<format type='XML' octets='17329' target='http://xml.resource.org/public/rfc/xml/rfc2368.xml' />
+</reference>
+
+<reference anchor='MIME'>
+<front>
+<title abbrev='Media Types'>Multipurpose Internet Mail Extensions (MIME) Part Two: Media Types</title>
+<author initials='N.' surname='Freed' fullname='Ned Freed'>
+<organization>Innosoft International, Inc.</organization>
+<address>
+<postal>
+<street>1050 East Garvey Avenue South</street>
+<city>West Covina</city>
+<region>CA</region>
+<code>91790</code>
+<country>US</country></postal>
+<phone>+1 818 919 3600</phone>
+<facsimile>+1 818 919 3614</facsimile>
+<email>ned@innosoft.com</email></address></author>
+<author initials='N.' surname='Borenstein' fullname='Nathaniel S.  Borenstein'>
+<organization>First Virtual Holdings</organization>
+<address>
+<postal>
+<street>25 Washington Avenue</street>
+<city>Morristown</city>
+<region>NJ</region>
+<code>07960</code>
+<country>US</country></postal>
+<phone>+1 201 540 8967</phone>
+<facsimile>+1 201 993 3032</facsimile>
+<email>nsb@nsb.fv.com</email></address></author>
+<date year='1996' month='November' />
+<abstract>
+<t>STD 11, RFC 822 defines a message representation protocol specifying considerable detail about US-ASCII message headers, but which leaves the message content, or message body, as flat US-ASCII text.  This set of documents, collectively called the Multipurpose Internet Mail Extensions, or MIME, redefines the format of messages to allow for</t>
+<t>(1)   textual message bodies in character sets other than US-ASCII,</t>
+<t>(2)   an extensible set of different formats for non-textual message bodies,</t>
+<t>(3)   multi-part message bodies, and</t>
+<t>(4)   textual header information in character sets other than US-ASCII.</t>
+<t>These documents are based on earlier work documented in RFC 934, STD 11 and RFC 1049, but extends and revises them.  Because RFC 822 said so little about message bodies, these documents are largely orthogonal to (rather than a revision of) RFC 822.</t>
+<t>The initial document in this set, RFC 2045, specifies the various headers used to describe the structure of MIME messages.  This second document defines the general structure of the MIME media typing sytem and defines an initial set of media types.  The third document, RFC 2047, describes extensions to RFC 822 to allow non-US-ASCII text data in Internet mail header fields.  The fourth document, RFC 2048, specifies various IANA registration procedures for MIME-related facilities.  The fifth and final document, RFC 2049, describes MIME
+   conformance criteria as well as providing some illustrative examples of MIME message formats, acknowledgements, and the bibliography.</t>
+<t>These documents are revisions of RFCs 1521 and 1522, which themselves were revisions of RFCs 1341 and 1342.  An appendix in RFC 2049 describes differences and changes from previous versions.</t></abstract></front>
+<seriesInfo name='RFC' value='2046' />
+<format type='TXT' octets='105854' target='ftp://ftp.isi.edu/in-notes/rfc2046.txt' />
+</reference>
+
+<reference anchor="SASL">
+<front>
+<title>Simple Authentication and Security Layer (SASL)</title>
+<author initials='A.' surname='Melnikov' fullname='A. Melnikov'>
+<organization /></author>
+<author initials='K.' surname='Zeilenga' fullname='K. Zeilenga'>
+<organization /></author>
+<date year='2006' month='June' />
+<abstract>
+<t>&lt;p>The Simple Authentication and Security Layer (SASL) is a framework for providing authentication and data security services in connection-oriented protocols via replaceable mechanisms. It provides a structured interface between protocols and mechanisms. The resulting framework allows new protocols to reuse existing mechanisms and allows old protocols to make use of new mechanisms. The framework also provides a protocol for securing subsequent protocol exchanges within a data security layer.&lt;/p>&lt;p> This document describes how a SASL mechanism is structured, describes how protocols include support for SASL, and defines the protocol for carrying a data security layer over a connection. In addition, this document defines one SASL mechanism, the EXTERNAL mechanism.&lt;/p>&lt;p> This document obsoletes RFC 2222. [STANDARDS TRACK]&lt;/p></t></abstract></front>
+<seriesInfo name='RFC' value='4422' />
+<format type='TXT' octets='73206' target='ftp://ftp.isi.edu/in-notes/rfc4422.txt' />
+</reference>
+
+<reference anchor="STRINGPREP">
+<front>
+<title>Preparation of Internationalized Strings ("STRINGPREP")</title>
+<author initials='P.' surname='Hoffman' fullname='P.  Hoffman'>
+<organization /></author>
+<author initials='M.' surname='Blanchet' fullname='M.  Blanchet'>
+<organization /></author>
+<date month='December' year='2002' /></front>
+<seriesInfo name='RFC' value='3454' />
+<format type='TXT' octets='138684' target='ftp://ftp.isi.edu/in-notes/rfc3454.txt' />
+</reference>
+
+<reference anchor="UNICODE">
+  <front>
+    <title>The Unicode Standard, Version 3.2.0</title>
+    <author>
+      <organization>The Unicode Consortium</organization>
+    </author>
+    <date year="2000" />
+  </front>
+  <annotation>
+    The Unicode Standard, Version 3.2.0 is defined by The Unicode Standard, Version 3.0 (Reading, MA, Addison-Wesley, 2000. ISBN 0-201-61633-5), as amended by the Unicode Standard Annex #27: Unicode 3.1 (http://www.unicode.org/reports/tr27/) and by the Unicode Standard Annex #28: Unicode 3.2 (http://www.unicode.org/reports/tr28/).
+  </annotation>
+</reference>
+
+<reference anchor='URI-SCHEMES'>
+<front>
+<title>Guidelines and Registration Procedures for New URI Schemes</title>
+<author initials='T.' surname='Hansen' fullname='Tony Hansen'>
+<organization>AT&amp;T Laboratories</organization>
+<address>
+<postal>
+<street>200 Laurel Ave.</street>
+<city>Middletown</city>
+<region>NJ</region>
+<code>07748</code>
+<country>US</country></postal>
+<email>tony+urireg@maillennium.att.com</email></address></author>
+<author initials='T.' surname='Hardie' fullname='Ted Hardie'>
+<organization>Qualcomm, Inc.</organization>
+<address>
+<postal>
+<street>675 Campbell Technology Parkway</street>
+<city>Campbell</city>
+<region>CA</region>
+<country>US</country></postal>
+<email>hardie@qualcomm.com</email></address></author>
+<author initials='L.' surname='Masinter' fullname='Larry Masinter'>
+<organization>Adobe Systems</organization>
+<address>
+<postal>
+<street>345 Park Ave</street>
+<city>San Jose</city>
+<region>CA</region>
+<code>95110</code>
+<country>US</country></postal>
+<email>LMM@acm.org</email></address></author>
+<date month='February' year='2006' />
+<abstract>
+<t>This document provides guidelines and recommendations for the definition of Uniform Resource Identifier (URI) schemes.  It also updates the process and IANA registry for URI schemes.  It obsoletes both RFC 2717 and RFC 2718.</t></abstract></front>
+<seriesInfo name='RFC' value='4395' />
+<format type='TXT' octets='31933' target='ftp://ftp.isi.edu/in-notes/rfc4395.txt' />
+</reference>
+
+<reference anchor="US-ASCII">
+<front>
+<title>Coded Character Set - 7-bit American Standard Code for Information Interchange</title>
+<author>
+<organization>American National Standards Institute</organization>
+</author>
+<date month="" year="1986" />
+</front>
+<seriesInfo name="ANSI" value="X3.4" />
+</reference>
+
+<reference anchor='UTF-8'>
+<front>
+<title>UTF-8, a transformation format of ISO 10646</title>
+<author initials='F.' surname='Yergeau' fullname='F.  Yergeau'>
+<organization /></author>
+<date month='November' year='2003' /></front>
+<seriesInfo name='STD' value='63' />
+<seriesInfo name='RFC' value='3629' />
+<format type='TXT' octets='33856' target='ftp://ftp.isi.edu/in-notes/rfc3629.txt' />
+</reference>
+
+<reference anchor="XMPP-IM">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P.  Saint-Andre'>
+      <organization>XMPP Standards Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3921' />
+  <format type='TXT' octets='217527' target='ftp://ftp.isi.edu/in-notes/rfc3921.txt' />
+</reference>
+
+    </references>
+
+    <section title="Differences From RFC 4622" anchor="diffs">
+      <t>Several errors were found in RFC 4622.  This document corrects those errors.  The resulting differences from RFC 4622 are as follows:</t>
+      <t>
+        <list style='symbols'>
+          <t>Specified that the characters "[", "\", "]", "^", "`", "{", "|", and "}" are allowed in XMPP node identifiers but not allowed in IRIs or URIs according to the sub-delims rule.</t>
+          <t>Specified that the characters '"', "&lt;", "&gt;", "[", "\", "]", "^", "`", "{", "|", and "}" are allowed in XMPP resource identifiers but not allowed in IRIs or URIs according to the pchar rule.</t>
+          <t>Specified that the foregoing characters must be percent-encoded when constructing an XMPP URI.</t>
+          <t>Corrected the ABNF accordingly.</t>
+          <t>Updated the examples accordingly.</t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Copying Conditions" anchor="copying">
+      <t>Regarding this entire document or any portion of it, the author makes no guarantees and is not responsible for any damage resulting from its use.  The author grants irrevocable permission to anyone to use, modify, and distribute it in any way that does not diminish the rights of anyone else to use, modify, and distribute it, provided that redistributed derivative works do not contain misleading author or version information.  Derivative works need not be licensed under similar terms.</t>
+    </section>
+
+  </back>
+
+</rfc>

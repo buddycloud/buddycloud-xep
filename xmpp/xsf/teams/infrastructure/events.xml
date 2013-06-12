@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<events>
+<event>
+  <date>2010-03-29T17:30:00</date>
+  <duration>30</duration>
+  <summary>1st iTeam meeting</summary>
+  <description>Agenda: repository, fisheye, etc.</description>
+  <alarm></alarm>
+</event>
+</events>

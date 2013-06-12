@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html>
+<head>
+<title>XSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Member Meeting</h2>
+
+<ul>
+<li>Where: <a href="xmpp:foundation@conference.jabber.org?join">foundation@conference.jabber.org</a></li>
+<li>Time: Wednesday, 2007-08-02, 17:00 UTC</li>
+<li>When is 17:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+
+<h3>Agenda</h3>
+
+<ol>
+  <li>
+    <strong>Call for Quorum</strong><p>The following 34 XSF members voted via proxy:</p>
+    <pre> 
+sneakin@semanticgap.com
+zion@openaether.org
+remko@el-tramo.be
+hal@jabber.rocks.cc
+boyd.fletcher@xmpp.je.jfcom.mil
+gnauck@jabber.org
+smoku@xiaoka.com
+jajcus@jajcus.net
+mremond@erlang-projects.org
+ian@zoofy.com
+stpeter@jabber.org
+hildjj@jabber.org
+mogorman@astjab.org
+artur.hefczyc@gmail.com
+asiayeah@jabber.org
+js@camaya.net
+jlseguineau@gmail.com
+edrin@jabber.org
+ralphm@ik.nu
+seanegan@google.com
+pcurtis@terrapin.com
+linuxwolf@outer-planes.net
+micressor@swissjabber.ch
+axelsena@jabber.uww.edu
+legoscia@jabber.cd.chalmers.se
+siegle@jabber.org
+kevdadrum@jabber.ex.ac.uk
+tobiasfar@jabber.org
+daniel@jabber.vorpalcloud.org
+omega@im.apinc.org
+mawis@amessage.info
+intosi@ik.nu
+cmullins@jabber.org
+gato@jivesoftware.com 
+   </pre>
+    <p>The XSF has 54 members as of this date. Therefore quorum is achieved in accordance with Section 3.8 of the
+	<a href="/xsf/docs/bylaws.shtml">XSF Bylaws</a>.</p>
+  </li>
+  <li><p><strong>Items Subject to a Vote</strong></p>
+    <ol>
+      <li>
+        New and Returning members<p>Vote yes or no for the Q3 2007
+		<a href="http://wiki.jabber.org/index.php/Membership_Applications_July_2007" target="_blank">
+		applicants</a>.</p>
+      </li>
+    </ol>
+  </li>
+  <li><p>
+    <strong>Opportunity for XSF Members to Vote in the Meeting</strong></p></li>
+  <li><p>
+    <strong>Announcement of Voting Results</strong></p>
+    <table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th>Applicant </th><th>Yes</th><th>No</th>
+</tr>
+<tr>
+<td>Nicolas Verite</td>
+<td>28</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Geof Lambert</td>
+<td>21</td>
+<td>13</td>
+</tr>
+<tr>
+<td>Florian Jensen</td>
+<td>20</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Andrzej Wojcik</td>
+<td>18</td>
+<td>16</td>
+</tr>
+<tr>
+<td>James Tomson</td>
+<td>33</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Bart van Bragt</td>
+<td>28</td>
+<td>6</td>
+</tr>
+</table>
+
+<br/><br/>
+<table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th>
+Reappliers 
+</th><th>Yes</th><th>No</th>
+</tr>
+<tr>
+<td>Artur Hefczyc</td>
+<td>34</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Edwin Mons</td>
+<td>31</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Tobias Markmann</td>
+<td>30</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Peter Saint-Andre</td>
+<td>33</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Remko Troncon</td>
+<td>34</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Aaron Axelsen</td>
+<td>22</td>
+<td>12</td>
+</tr>
+<tr>
+<td>Tomasz Sterna </td>
+<td>32</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Matthew Miller</td>
+<td>33</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Ian Paterson</td>
+<td>33</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Mickael Remond</td>
+<td>32</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Jonathan Siegle</td>
+<td>30</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Joe Hildebrand</td>
+<td>31</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Ralph Meijer</td>
+<td>34</td>
+<td>0</td>
+</tr>
+</table>
+  	</li>
+  <li><p><strong>Any Other Business?</strong></p></li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

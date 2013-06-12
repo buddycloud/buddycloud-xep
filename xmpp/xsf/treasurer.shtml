@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Treasurer</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Treasurer</h2>
+
+<p>As explained in the <a href='/xsf/docs/bylaws.shtml'>XSF Bylaws</a>, the Treasurer of the XMPP Standards Foundation is responsible for the following:</p>
+<ul>
+  <li>Maintaining custody of the XSF's monetary funds, including signing authority on the XSF's checking account</li>
+  <li>Maintaining custody of the XSF's financial records, including accurate accounts of all receipts and disbursements</li>
+  <li>Coordination and consultation with the <a href='/xsf/board/'>Board of Directors</a>, the Chair of the Board, and <a href='director.shtml'>Executive Director</a> on all appropriate issues</li>
+  <li>Reporting on the XSF's financial status to the Members and to the Board of Directors</li>
+</ul>
+<p>The founding Treasurer of the XSF was Stuart Lucko, who is also a financial officer of Jabber Inc. In 2003 he was replaced by <a href='/xsf/people/bauer.shtml'>Michael Bauer</a>, who served until September 2006. Christina Millard then served as Treasurer until the end of 2009. As decided by the <a href='/xsf/board/'>XSF Board of Directors</a> in its annual meeting on 2010-01-06, the current Treasurer is <a href='/xsf/people/jackm.shtml'/>Jack Moffitt</a>.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

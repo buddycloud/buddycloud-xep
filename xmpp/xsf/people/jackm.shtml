@@ -1,0 +1,10 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF People :: Jack Moffitt</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF People :: Jack Moffitt</h2>
+
+<p>Jack Moffit is CTO at <a href='http://collecta.com/'>Collecta</a> and a longtime contributor to the open-source community, both technically (<a href='http://www.icecast.org/'>Icecast</a>, <a href='http://www.vorbis.com/'>Ogg Vorbis</a>, <a href='http://www.debian.org/'>Debian</a>) and organizationally (as manager of the <a href='http://www.xiph.org/'>Xiph</a> project). He is an expert on the integration of XMPP and web technologies, the topic of his book <a href='http://professionalxmpp.com/'>Professional XMPP Programming with JavaScript and jQuery</a>. Jack is a member of the <a href='/xsf/board/'>XSF Board of Directors</a> for 2009-2010; he also previously served on the Board for 2007-2008 and on the <a href='/council/'>XMPP Council</a> for 2005-2006 and 2009-2009.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

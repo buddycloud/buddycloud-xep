@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>IETF Publishes XMPP RFCs</h3>
+<h4>Core Jabber Protocols Recognized As Internet-Grade Technologies</h4>
+
+<p>DENVER, CO, USA, OCTOBER 4, 2004 -- The Internet Engineering Task Force (<a href="http://www.ietf.org/">IETF</a>) today officially published the specifications for the Extensible Messaging and Presence Protocol (<a href="http://www.xmpp.org/">XMPP</a>) as RFCs within the Internet Standards Process. These documents, which formalize the XML streaming protocols first developed by the Jabber open-source community in 1999, are the result of two years of work by the IETF's Extensible Messaging and Presence Working Group and represent the state of the art in open instant messaging (IM) and presence technologies.</p>
+<p>The specifications published today are as follows:</p>
+<ul>
+  <li><p><strong>RFC 3920: Extensible Messaging and Presence Protocol (XMPP): Core</strong> -- The core XML streaming technology that powers Jabber applications, including advanced security and internationalization support. (<a href="http://www.ietf.org/rfc/rfc3920.txt">link</a>)</p></li>
+  <li><p><strong>RFC 3921: Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</strong> -- Basic IM and presence extensions, including contact lists, presence subscriptions, and whitelisting/blacklisting. (<a href="http://www.ietf.org/rfc/rfc3921.txt">link</a>)</p></li>
+  <li><p><strong>RFC 3922: Mapping the Extensible Messaging and Presence Protocol (XMPP) to Common Presence and Instant Messaging (CPIM)</strong> -- A mapping of XMPP to the IETF's abstract syntax for IM and presence. (<a href="http://www.ietf.org/rfc/rfc3922.txt">link</a>)</p></li>
+  <li><p><strong>RFC 3923: End-to-End Signing and Object Encryption for the Extensible Messaging and Presence Protocol (XMPP)</strong> -- An extension for interoperable, end-to-end security. (<a href="http://www.ietf.org/rfc/rfc3923.txt">link</a>)</p></li>
+</ul>
+<p>"Combined with XMPP development and integration by the likes of Apple, HP, Oracle, and Sun, publication of these RFCs is yet another vote of confidence in the power of Jabber technologies," said Peter Saint-Andre, Executive Director of the Jabber Software Foundation and editor of the XMPP specifications. "We now have a stable, secure foundation for developing a wide range of presence and messaging applications and for building out the real-time Internet."</p>
+<p>In contributing XMPP to the Internet Standards Process, the JSF ceded change control over its core technologies to the IETF. Now that the protocols have passed through the IETF's rigorous cross-area and security review, attention turns to the enormous base of Jabber servers, clients, and code libraries, which are currently being upgraded to comply with the XMPP specifications. In addition, the JSF continues to develop many popular XMPP extensions through its <a href="http://www.jabber.org/jeps/">JEP series</a>, covering everything from advanced IM and extended presence, to real-time content syndication, to bindings for SOAP and other application protocols.</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,818 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Stanza Session Negotiation</title>
+  <abstract>This specification defines a method for formally negotiating the exchange of XML stanzas between two XMPP entities. The method uses feature negotiation forms sent via XMPP message stanzas to enable session initiation between entities that do not share presence information or have knowledge of full JabberIDs and therefore is also suitable for use across gateways to SIP-based systems. A wide range of session parameters can be negotiated, including the use of end-to-end encryption, chat state notifications, XHTML-IM formatting, and message archiving.</abstract>
+  &LEGALNOTICE;
+  <number>0155</number>
+  <status>Draft</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <approver>Council</approver>
+  <dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XMPP IM</spec>
+    <spec>XEP-0020</spec>
+    <spec>XEP-0068</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby/>
+  <shortname>ssn</shortname>
+  &ianpaterson;
+  &stpeter;
+  <revision>
+    <version>1.2</version>
+    <date>2008-01-14</date>
+    <initials>psa</initials>
+    <remark><p>Specified that IM message bodies must not be included; added boolean multisession field to explicitly determine whether multiple concurrent sessions are allowed between the full JIDs of the parties.</p></remark>
+  </revision>
+  <revision>
+    <version>1.1</version>
+    <date>2007-03-15</date>
+    <initials>ip/psa</initials>
+    <remark><p>With XMPP Council approval, changed name from Chat Session Negotiation to Stanza Session Negotiation; also changed URN to urn:xmpp:ssn.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2007-01-17</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, advanced specification to Draft; XMPP Registrar assigned urn:xmpp:chatneg as associated namespace.</p></remark>
+  </revision>
+  <revision>
+    <version>0.14</version>
+    <date>2006-12-21</date>
+    <initials>psa/ip</initials>
+    <remark><p>Specified state chart; added optional presence sharing; renamed otr field to logging; harmonized treatment of renegotiation; per XEP-0053, specified use of provisional namespace until spec advances to Draft.</p></remark>
+  </revision>
+  <revision>
+    <version>0.13</version>
+    <date>2006-11-27</date>
+    <initials>ip</initials>
+    <remark><p>Added disclosure field; changed namespace</p></remark>
+  </revision>
+  <revision>
+    <version>0.12</version>
+    <date>2006-11-10</date>
+    <initials>ip</initials>
+    <remark><p>Removed accept field from renegotiation forms</p></remark>
+  </revision>
+  <revision>
+    <version>0.11</version>
+    <date>2006-11-03</date>
+    <initials>ip</initials>
+    <remark><p>Removed reason field; added new implementation notes; many clarifications including the handling of required fields</p></remark>
+  </revision>
+  <revision>
+    <version>0.10</version>
+    <date>2006-10-31</date>
+    <initials>ip</initials>
+    <remark><p>Defined handling of offline requests; specified localization of the title element and all labels; changed syntax of list of unacceptable fields; removed reason field from some examples; added confirmation message to initial negotiation; clarified the initial participating resources; removed id attributes.</p></remark>
+  </revision>
+  <revision>
+    <version>0.9</version>
+    <date>2006-10-08</date>
+    <initials>ip</initials>
+    <remark><p>Added language field; replaced secure field with security field; changed type of otr, XHTML and Chat State fields from boolean to list-single; added not-acceptable error; several clarifications.</p></remark>
+  </revision>
+  <revision>
+    <version>0.8</version>
+    <date>2006-10-02</date>
+    <initials>ip</initials>
+    <remark><p>Added continue field and optional terminate acknowledgement; specified renegotiation failure proceedure; added context to Introduction; changed unavailable presence handling; renamed logging field to otr.</p></remark>
+  </revision>
+  <revision>
+    <version>0.7</version>
+    <date>2006-07-14</date>
+    <initials>psa</initials>
+    <remark><p>Added secure field from XEP-0116.</p></remark>
+  </revision>
+  <revision>
+    <version>0.6</version>
+    <date>2006-07-13</date>
+    <initials>psa</initials>
+    <remark><p>Specified that a client must re-initiate if it receives presence unavailable; changed document type to Standards Track.</p></remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2006-01-24</date>
+    <initials>psa</initials>
+    <remark><p>Added renegotiate use case.</p></remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2006-01-03</date>
+    <initials>psa</initials>
+    <remark><p>Added terminate use case; further specified mapping to SIP.</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2005-12-30</date>
+    <initials>psa</initials>
+    <remark><p>Further specified use of id attribute and thread element.</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2005-07-15</date>
+    <initials>psa</initials>
+    <remark><p>Further described contexts in which stanza session negotiation could be useful; added more examples; added reference to SIP RFC and explained basic mapping to SIP INVITE method; added XMPP Registrar considerations.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2005-07-14</date>
+    <initials>psa</initials>
+    <remark><p>Initial version.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.1</version>
+    <date>2005-07-12</date>
+    <initials>psa</initials>
+    <remark><p>First draft.</p></remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>The traditional model for one-to-one chat "sessions" in Jabber/XMPP is for a user to simply send a message to a contact with a thread ID but without any formal negotiation of session parameters (see &xep0201;). This informal approach to initiation of a session is perfectly acceptable in many contexts, environments, and cultures. However, it may be desirable to formally request a chat session (or any other type of XMPP stanza session) and negotiate its parameters before beginning the session in some circumstances, such as:</p>
+  <ul>
+    <li>Whenever parameters specific to a stanza session must be agreed. e.g., security and privacy parameters (see &xep0116; and &xep0136;).</li>
+    <li>The parties are unknown to each other, have not exchanged presence, or have not discovered their respective capabilities via &xep0030; or &xep0115;.</li>
+    <li>When an XMPP-based system interfaces with a SIP-based system built on top of &rfc3261;. <note>In essence, a stanza session negotiation request as specified herein is functionally equivalent to a SIP INVITE request, and acceptance of such a request is functionally equivalent to sending a SIP 200 OK response; see Section 17 of <cite>RFC 3261</cite>.</note></li>
+    <li>Within an organization or culture in which one would not simply begin interacting with another person (e.g., a superior) without first receiving permission to do so.</li>
+  </ul>
+  <p>This proposal defines best practices for such a negotiation, re-using the protocol defined in &xep0020;.</p>
+</section1>
+<section1 topic='Requirements' anchor='req'>
+  <p>The specification addresses the following use cases:</p>
+  <ul>
+    <li>Negotiating a new stanza session</li>
+    <li>Moving an existing stanza session from one resource to another</li>
+    <li>Renegotiating an existing stanza session</li>
+    <li>Terminating an existing stanza session</li>
+  </ul>
+</section1>
+<section1 topic='State Chart' anchor='statechart'>
+  <p>The following figure attempts to capture the state transitions in visual form.</p>
+  <code>
+         o
+         |
+        [1]
+         |
+PENDING  o---------------+
+         |               |
+         |              [3]
+         |               |
+        [2]-----[5]------|
+         |               |
+        [4]              |
+         |               |
+         |               |
+ ACTIVE  o               |
+         |               |
+         +------+        |
+         |      |        |
+         |     [6]       |
+         |      |        |
+         | [7] or [8]    |
+         |      |        |
+         +------+        |
+         |               |
+         +-----[9]-------+
+                         |
+                         o ENDED
+  </code>
+  <p>[1] A stanza session negotiation is initiated when the user sends a message containing a data form of type "form" with an "accept" field.</p>
+  <p>[2] A stanza session negotiation is accepted when the contact sends a message containing a data form of type "submit" with an "accept" field whose value is "1" or "true".</p>
+  <p>[3] A stanza session negotiation is rejected when the contact sends a message containing a data form of type "submit" with an "accept" field whose value is "0" or "false".</p>
+  <p>[4] A stanza session negotiation is completed when the user sends a message containing a data form of type "result" with an "accept" field whose value is "1" or "true".</p>
+  <p>[5] A stanza session negotiation is canceled when the user sends a message containing a data form of type "result" with an "accept" field whose value is "0" or "false".</p>
+  <p>[6] An existing session is re-negotiated when either party sends a message containing a data form of type "form" with a "renegotiate" field whose value is "1" or "true".</p>
+  <p>[7] A session re-negotiation is accepted when the other party sends a message containing a data form of type "submit" with a "renegotiate" field whose value is "1" or "true".</p>
+  <p>[8] A session re-negotiation is rejected when the other party sends a message containing a data form of type "submit" with a "renegotiate" field whose value is "0" or "false"; however, the session remains in the active state with the previously-negotiated parameters in force.</p>
+  <p>[9] A session is terminated when either party sends a message containing a data form of type "submit" with a "terminate" field whose value is "1" or "true".</p>
+</section1>
+<section1 topic='Negotiating a New Session' anchor='new'>
+  <section2 topic='Initiating a Session' anchor='new-initiate'>
+    <p>In order to initiate a negotiated session, the initiating party ("user") sends a &MESSAGE; <note>The &MESSAGE; stanza is used because the user does not necessarily know which of the contact's resources is most available (or indeed if the contact is online).</note> stanza to the receiving party ("contact") containing a &lt;feature/&gt; child qualified by the 'http://jabber.org/protocol/feature-neg' namespace. The &MESSAGE; stanza MUST NOT contain a &BODY; child element (as specified in &rfc3921;). The &MESSAGE; stanza type SHOULD be "normal" (either explicitly or by non-inclusion of the 'type' attribute). The stanza MUST contain a &THREAD; element for tracking purposes (where the newly-generated ThreadID is unique to the proposed session). The data form MUST contain a hidden FORM_TYPE field whose value is "urn:xmpp:ssn" and MUST contain a boolean field named "accept". &BOOLEANNOTE; The inclusion of "logging", "disclosure" and "security" fields is also RECOMMENDED. Note: The options within any 'list-single' fields SHOULD appear in order of preference.</p>
+    <p>Note: Sessions may be conducted between entities who are never online at the same time. However, if the user is interested only in an <em>immediate</em> session then the user SHOULD instruct the contact's server not to store the message for later delivery (see &xep0160;) using the &xep0079; protocol.</p>
+    <p>In the following example of a negotiation request, Romeo requests a chat with Juliet and also queries her regarding whether she is able to disallow all message logging (see &xep0136;) <note>A client MUST NOT set the 'logging' field to 'mustnot' unless it has confirmed that its server will allow it to switch off Automated Archiving (see <cite>Message Archiving</cite>).</note>, whether she wants to temporarily share presence for this session (see the <link url='#impl-presence'>Sharing Presence</link> section of this document), and whether she wants to support the &xep0071; and &xep0085; extensions during this session. He asks Juliet's client if it is prepared to make a (legally binding) guarantee that it does not intentionally implement any feature (not even a disabled feature) that might disclose the content of the session, any associated (decryption) keys, or his identity to any third-party (see <cite>Encrypted Session Negotiation</cite>). He also requires that they are both connected securely to their servers, and asks which language she prefers amongst those he can write.</p>
+    <p>Note: These fields are examples only. For definitions of these fields, refer to the <link url='#parameters'>Defined Parameters</link> section of this document.</p>
+    <example caption="User requests session"><![CDATA[
+<message type='normal'
+         from='romeo@montague.net/orchard'
+         to='juliet@capulet.com'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='form'>
+      <title>Open chat with Romeo?</title>
+      <field var='FORM_TYPE' type='hidden'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field label='Accept this session?' type='boolean' var='accept'>
+        <value>true</value>
+        <required/>
+      </field>
+      <field label='Message logging' type='list-single' var='logging'>
+        <value>mustnot</value>
+        <option label='Allow message logging'>
+          <value>may</value>
+        </option>
+        <option label='Disallow all message logging'>
+          <value>mustnot</value>
+        </option>
+        <required/>
+      </field>
+      <field label="Disclosure" type="list-single" var="disclosure">
+        <value>never</value>
+        <option label="Guarantee disclosure not implemented">
+          <value>never</value>
+        </option>
+        <option label="Disable all disclosures">
+          <value>disabled</value>
+        </option>
+        <option label="Allow disclosures">
+          <value>enabled</value>
+        </option>
+        <required/>
+      </field>
+      <field label='Allow multiple sessions?' type='boolean' var='multisession'>
+        <value>false</value>
+      </field>
+      <field label='XHTML formatting'
+             type='list-single'
+             var='http://jabber.org/protocol/xhtml-im'>
+        <value>may</value>
+        <option label='Allow XHTML formatting'><value>may</value></option>
+        <option label='Disallow XHTML formatting'><value>mustnot</value></option>
+      </field>
+      <field label='Temporarily share presence?'
+             type='list-single'
+             var='presence'>
+        <value>may</value>
+        <option label='Allow temporary presence sharing'><value>may</value></option>
+        <option label='Disallow temporary presence sharing'><value>mustnot</value></option>
+      </field>
+      <field label='Chat State Notifications'
+             type='list-single'
+             var='http://jabber.org/protocol/chatstates'>
+        <value>may</value>
+        <option label='Allow Chat State Notifications'><value>may</value></option>
+        <option label='Disallow Chat State Notifications'><value>mustnot</value></option>
+      </field>
+      <field label='Minimum security level'
+             type='list-single'
+             var='security'>
+        <value>c2s</value>
+        <option label='Both parties must be securely connected to their servers'>
+          <value>c2s</value>
+        </option>
+        <required/>
+      </field>
+      <field label='Primary written language of the chat'
+             type='list-single'
+             var='language'>
+        <value>en</value>
+        <option label='English'><value>en</value></option>
+        <option label='Italiano'><value>it</value></option>
+      </field>
+    </x>
+  </feature>
+  <amp xmlns='http://jabber.org/protocol/amp'>
+    <rule action='drop' condition='deliver' value='stored'/>
+  </amp>
+</message>
+    ]]></example>
+    <p>The user MAY request a session with a specific resource of the contact. However, if the user specifies no resource (or if the specified resource is not available), then the contact's server delivers the request to the contact's most available resource (which in the examples below happens to be "balcony"). If no resource is available (and no <cite>Advanced Message Processing</cite> rule included in the request specifies otherwise) then the server MAY store the request for later delivery.</p>
+  </section2>
+  <section2 topic='Accepting a Session' anchor='new-accept'>
+    <p>If, upon reception of a user's session request, a contact finds that the request had been stored for later delivery, and if the contact is interested only in an <em>immediate</em> session, then it SHOULD initiate a new stanza session negotiation (including a newly-generated ThreadID) instead of responding to the user's request. Note: Sending any response to the user's original request would leak presence information since it would divulge the fact that the contact had been offline rather than just ignoring the user.</p>
+    <p>In any response to the user's request, the contact's client MUST mirror the &THREAD; value so that the user's client can correctly track the response. The &MESSAGE; stanza MUST NOT contain a &BODY; child element.</p>
+    <p>If the request is accepted then the contact's client MUST include in its response values for all the fields that the request indicated are required. If the contact's client does not support one of the default values or if the contact has disabled its support (as for Chat State Notifications and XHTML formatting in the example below), and the client can still accept the request, then it MUST set that field to a value that it can support.</p>
+    <p>In the example below we assume that Juliet accepts the session and specifies that she prefers to speak Italian with Romeo:</p>
+    <example caption="Contact accepts session and specifies parameters"><![CDATA[
+<message type='normal'
+         from='juliet@capulet.com/balcony'
+         to='romeo@montague.net/orchard'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='submit'>
+      <field var='FORM_TYPE'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field var='accept'><value>true</value></field>
+      <field var='logging'><value>mustnot</value></field>
+      <field var='disclosure'><value>never</value></field>
+      <field var='http://jabber.org/protocol/xhtml-im'>
+        <value>may</value>
+      </field>
+      <field var='http://jabber.org/protocol/chatstates'>
+        <value>may</value>
+      </field>
+      <field var='security'><value>c2s</value></field>
+      <field var='language'><value>it</value></field>
+    </x>
+  </feature>
+</message>
+    ]]></example>
+    <p>Note: Both entities MUST assume the session is being established with the resource of the contact that sends the reply, even if the user sent its request to a different resource of the contact.</p>
+  </section2>
+  <section2 topic='Rejecting a Session' anchor='new-reject'>
+    <p>If the contact does not want to reveal presence to the user for whatever reason then the contact's client SHOULD return no response or error (see <link url='#secure-leak'>Presence Leaks</link>). Also, if the contact is using a legacy client then it MAY not support returning any response or error. In both these cases the user MAY proceed to send stanzas to the contact outside the context of a negotiated session.</p>
+    <p>However, if the contact simply prefers not to start a session then the client SHOULD decline the invitation. The data form MUST contain the FORM_TYPE field and the "accept" field set to "0" or "false". It is RECOMMENDED that the form does not contain any other fields even if the request indicated they are required. The client MAY include a reason via the "reason" field (which is of type "text-single"). The &MESSAGE; stanza MUST NOT contain a &BODY; child element.</p>
+    <example caption="Contact declines offer and specifies reason"><![CDATA[
+<message type='normal'
+         from='juliet@capulet.com/balcony'
+         to='romeo@montague.net/orchard'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='submit'>
+      <field var='FORM_TYPE'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field var='accept'><value>0</value></field>
+      <field var='reason'>
+        <value>Sorry, can't chat now! How about tonight?</value>
+      </field>
+    </x>
+  </feature>
+</message>
+    ]]></example>
+    <p>If the contact's client does not support feature negotiation or does not support the "urn:xmpp:ssn" FORM_TYPE, it SHOULD return a &unavailable; error:</p>
+    <example caption="Contact returns service unavailable error"><![CDATA[
+<message type='error'
+         from='juliet@capulet.com/balcony'
+         to='romeo@montague.net/orchard'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='form'>
+      <field var='FORM_TYPE' type='hidden'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      ...
+    </x>
+  </feature>
+  <error code='503' type='cancel'>
+    <service-unavailable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+  </error>
+</message>
+    ]]></example>
+    <p>If the contact's client does not support one or more of the <em>required</em> features, it SHOULD return a &feature; error, specifying the field(s) not implemented using the 'var' attribute of one or more &lt;field/&gt; child elements of a &lt;feature/&gt; child element of the &lt;error/&gt; scoped by the 'http://jabber.org/protocol/feature-neg' namespace:</p>
+    <example caption="Contact returns feature not implemented error"><![CDATA[
+<message type='error'
+         from='juliet@capulet.com/balcony'
+         to='romeo@montague.net/orchard'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='form'>
+      <field var='FORM_TYPE' type='hidden'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      ...
+    </x>
+  </feature>
+  <error code='501' type='cancel'>
+    <feature-not-implemented xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    <feature xmlns='http://jabber.org/protocol/feature-neg'>
+      <field var='logging'/>
+    </feature>
+  </error>
+</message>
+    ]]></example>
+    <p>If the contact's client supports <em>none</em> of the options for one or more <em>required</em> fields, it SHOULD return a &notacceptable; error, specifying the field(s) with unsupported options using the 'var' attribute of one or more &lt;field/&gt; child elements of a &lt;feature/&gt; child element of the &lt;error/&gt; scoped by the 'http://jabber.org/protocol/feature-neg' namespace:</p>
+    <example caption="Contact returns options not acceptable error"><![CDATA[
+<message type='error'
+         from='juliet@capulet.com/balcony'
+         to='romeo@montague.net/orchard'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='form'>
+      <field var='FORM_TYPE' type='hidden'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      ...
+    </x>
+  </feature>
+  <error code='406' type='modify'>
+    <not-acceptable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    <feature xmlns='http://jabber.org/protocol/feature-neg'>
+      <field var='security'/>
+    </feature>
+  </error>
+</message>
+    ]]></example>
+  </section2>
+  <section2 topic='Completing or Canceling the Negotiation' anchor='new-complete'>
+    <p>If the contact accepted the session (see <link url='#new-accept'>Accepting a Session</link>) then the user MUST either complete or cancel the stanza session negotiation. If the contact chose an option other than the default (prefered) value for one or more of the fields, then instead of having the client accept the session automatically the user may prefer to review the values that the contact selected before confirming that the session is open. <note>See <cite>Encrypted Session Negotiation</cite> for example of other instances where the user might find the values submitted by the contact unacceptable.</note> In any case the user's client SHOULD verify that the selected values are acceptable before completing the stanza session negotiation -- and confirming that the session is open -- by replying with a form with the form 'type' attribute set to 'result'. The form MUST contain the FORM_TYPE field and the "accept" field set to "1" or "true". The user MAY include an explanation or reason via the "reason" field (which is of type "text-single"). The &MESSAGE; stanza MUST NOT contain a &BODY; child element.</p>
+    <example caption="User completes negotiation and confirms session is open"><![CDATA[
+<message type='normal'
+         from='romeo@montague.net/orchard'
+         to='juliet@capulet.com/balcony'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='result'>
+      <field var='FORM_TYPE'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field var='accept'><value>true</value></field>
+      <field var='reason'>
+        <value>I forgot what I wanted to say!</value>
+      </field>
+    </x>
+  </feature>
+</message>
+    ]]></example>
+    <p>Alternatively, if the user decides to cancel the stanza session negotiation then the client MUST reply with a data form containing the FORM_TYPE field and the "accept" field set to "0" or "false":</p>
+    <example caption="User cancels stanza session negotiation"><![CDATA[
+<message type='normal'
+         from='romeo@montague.net/orchard'
+         to='juliet@capulet.com/balcony'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='result'>
+      <field var='FORM_TYPE'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field var='accept'><value>0</value></field>
+    </x>
+  </feature>
+</message>
+    ]]></example>
+  </section2>
+</section1>
+<section1 topic='Moving A Session to a Different Resource' anchor='move'>
+  <p>Either party MAY ask to continue the session using another of its resources. The requesting party does this by submitting a form with a "continue" field containing the value of the new resource:</p>
+  <example caption="One party asks to switch session to another of its resources"><![CDATA[
+<message type='normal'
+         from='juliet@capulet.com/balcony'
+         to='romeo@montague.net/orchard'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='submit'>
+      <field var='FORM_TYPE'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field var='continue'><value>PDA</value></field>
+    </x>
+  </feature>
+</message>
+  ]]></example>
+  <p>The requesting party SHOULD NOT send stanzas within the session from either resource until the other party has accepted the switch to the new resource.</p>
+  <p>The other client SHOULD accept the switch automatically since the requesting party might otherwise be unable to continue the session:</p>
+  <example caption="Other client accepts switch"><![CDATA[
+<message type='normal'
+         from='romeo@montague.net/orchard'
+         to='juliet@capulet.com/balcony'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='result'>
+      <field var='FORM_TYPE'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field var='continue'><value>PDA</value></field>
+    </x>
+  </feature>
+</message>
+  ]]></example>
+  <p>Once the other party has accepted the switch then all stanzas sent within the session MUST be to or from the new resource. Note: Both parties MUST ensure that they comply with all the other stanza session negotiation parameters that were previously agreed for this session.</p>
+</section1>
+<section1 topic='Renegotiating a Session' anchor='renegotiate'>
+  <p>At any time during an existing session, either party MAY attempt to renegotiate the parameters of the session using the protocol described in <link url='#new'>Negotiating a New Session</link>. The requesting party does this by sending a new &MESSAGE; stanza containing a feature negotiation form and a &THREAD; element with the <em>same</em> value as that of the existing session. Note: The "accept" field MUST NOT be included in a renegotiation form and the &MESSAGE; stanza MUST NOT contain a &BODY; child element. The other fields MAY be different from the set of fields included in the initial stanza session negotiation form.</p>
+  <example caption="One party requests renegotiation"><![CDATA[
+<message type='normal'
+         from='juliet@capulet.com/balcony'
+         to='romeo@montague.net/orchard'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='form'>
+      <field var='FORM_TYPE' type='hidden'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field label='Renegotiate?' type='boolean' var='renegotiate'>
+        <value>1</value>
+        <required/>
+      </field>
+      <field label='Message logging' type='list-single' var='logging'>
+        <value>mustnot</value>
+        <option label='Disallow all message logging'>
+          <value>may</value>
+        </option>
+        <required/>
+      </field>
+    </x>
+  </feature>
+</message>
+  ]]></example>
+  <p>The requesting party MAY continue to send stanzas within the session while it is waiting for the other party to either accept the parameters or report an error.</p>
+  <p>In order to accept the renegotiation, the other party shall send a message containing a data form of type "submit" with the 'renegotiate' field set to a value of "1" or "true".</p>
+  <example caption="Other party accepts renegotiation and specifies parameters"><![CDATA[
+<message type='normal'
+         from='romeo@montague.net/orchard'
+         to='juliet@capulet.com/balcony'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='submit'>
+      <field var='FORM_TYPE'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field var='renegotiate'><value>1</value></field>
+      <field var='logging'><value>may</value></field>
+    </x>
+  </feature>
+</message>
+  ]]></example>
+  <p>Note: Both parties MUST consider the renegotiation to be complete as soon as the parameter acceptance message has been sent (or received).</p>
+  <p>Note: The requesting party SHOULD NOT send a renegotiation completion or cancelation message (see <link url='#new-complete'>Completing or Canceling the Negotiation</link>).</p>
+  <p>Note: Both parties MUST ensure that they continue to comply with all the stanza session negotiation parameters that were not renegotiated but had previously been agreed for this session.</p>
+  <p>In order to reject the renegotiation, the other party shall send a message containing a data form of type "submit" with the 'renegotiate' field set to a value of "0" or "false".</p>
+  <example caption="Other party rejects renegotiation"><![CDATA[
+<message type='normal'
+         from='romeo@montague.net/orchard'
+         to='juliet@capulet.com/balcony'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='submit'>
+      <field var='FORM_TYPE'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field var='renegotiate'><value>0</value></field>
+      <field var='logging'><value>may</value></field>
+    </x>
+  </feature>
+</message>
+  ]]></example>
+  <p>If the other party's client does not support one or more of the <em>required</em> features, it SHOULD return a &feature; error. If the other party's client supports <em>none</em> of the options for one or more <em>required</em> fields, it SHOULD return a &notacceptable; error (see <link url='#new-reject'>Rejecting a Session</link>). Note: In any of these cases the existing negotiated session parameters are maintained. Either party MAY choose to terminate the session only as specified in the section <link url='#terminate'>Terminating a Session</link>.</p>
+</section1>
+<section1 topic='Terminating a Session' anchor='terminate'>
+  <p>In order to explicitly terminate a negotiated session, the party that wishes to end the session MUST do so by sending a &MESSAGE; containing a data form of type "submit". The &MESSAGE; stanza MUST contain a &THREAD; element with the same XML character data as the original initiation request. The &MESSAGE; stanza MUST NOT contain a &BODY; child element. The data form containing a boolean field named "terminate" set to a value of "1" or "true".</p>
+  <example caption="One party terminates session"><![CDATA[
+<message type='normal'
+         from='juliet@capulet.com/balcony'
+         to='romeo@montague.net/orchard'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='submit'>
+      <field var='FORM_TYPE'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field var='terminate'><value>1</value></field>
+    </x>
+  </feature>
+</message>
+  ]]></example>
+  <p>Both parties MUST then consider the session to be ended.</p>
+  <p>The other party's client MAY explicitly acknowledge the termination of the session by sending a &MESSAGE; containing a data form of type "result", and the value of the "terminate" field set to "1" or "true" (see <cite>Encrypted Session Negotiation</cite> for a practical example). The client MUST mirror the &THREAD; value it received.</p>
+  <example caption="Other party acknowledges session termination"><![CDATA[
+<message type='normal'
+         from='romeo@montague.net/orchard'
+         to='juliet@capulet.com/balcony'>
+  <thread>ffd7076498744578d10edabfe7f4a866</thread>
+  <feature xmlns='http://jabber.org/protocol/feature-neg'>
+    <x xmlns='jabber:x:data' type='result'>
+      <field var='FORM_TYPE'>
+        <value>urn:xmpp:ssn</value>
+      </field>
+      <field var='terminate'><value>1</value></field>
+    </x>
+  </feature>
+</message>
+  ]]></example>
+</section1>
+<section1 topic='Defined Parameters' anchor='parameters'>
+  <p>This section defines the parameters for stanza session negotiation parameters and whether they must, should, or may be included in the initial negotiation form. Additional parameters may be registered as described in the <link url='#registrar'>XMPP Registrar Considerations</link> section of this document.</p>
+  <table caption='Form Fields'>
+    <tr>
+      <th>Name</th>
+      <th>Definition</th>
+      <th>Inclusion</th>
+    </tr>
+    <tr>
+      <td>accept</td>
+      <td>Whether the receiving party wishes to accept the invitation</td>
+      <td>MUST</td>
+    </tr>
+    <tr>
+      <td>continue</td>
+      <td>Another resource with which to continue the session</td>
+      <td>N/A (used to move a session)</td>
+    </tr>
+    <tr>
+      <td>disclosure</td>
+      <td>Whether and to what extent the content, keys, and identities can be disclosed to third parties; the options are "never" (disclosure must never occur), "disabled" (only disclosure required by law shall occur), and "enabled" (disclosure may occur)</td>
+      <td>SHOULD</td>
+    </tr>
+    <tr>
+      <td>http://jabber.org/protocol/chatstates</td>
+      <td>Whether the parties may exchange Chat State Notifications per XEP-0085; the options are "may" and "mustnot"</td>
+      <td>OPTIONAL</td>
+    </tr>
+    <tr>
+      <td>http://jabber.org/protocol/xhtml-im</td>
+      <td>Whether the parties may exchange XHTML formatting per XEP-0071; the options are "may" and "must not"</td>
+      <td>OPTIONAL</td>
+    </tr>
+    <tr>
+      <td>language</td>
+      <td>The preferred natural language(s) for information exchange, using language codes defined in accordance with &rfc4646;</td>
+      <td>SHOULD</td>
+    </tr>
+    <tr>
+      <td>logging</td>
+      <td>Whether the parties may log messages; the options are "may" and "mustnot"</td>
+      <td>SHOULD</td>
+    </tr>
+    <tr>
+      <td>multisession</td>
+      <td>Whether to allow multiple concurrent sessions between the full JIDs of the parties; this is a boolean variable that defaults to false</td>
+      <td>SHOULD</td>
+    </tr>
+    <tr>
+      <td>renegotiate</td>
+      <td>Whether the receiving party wishes to renegotiate the session</td>
+      <td>N/A (used to renegotiate a session)</td>
+    </tr>
+    <tr>
+      <td>security</td>
+      <td>The minimum security level for secure connections between the parties; the options are "none" (a secure connection is not required), "c2s" (both parties must be securely connected to their servers), and "e2e" (both parties must be securely connected to each other, for example via Encrypted Sessions)</td>
+      <td>SHOULD</td>
+    </tr>
+    <tr>
+      <td>terminate</td>
+      <td>Whether the receiving party wishes to terminate the session</td>
+      <td>N/A (used to terminate a session)</td>
+    </tr>
+  </table>
+</section1>
+<section1 topic='Implementation Notes' anchor='impl'>
+  <section2 topic='Auto Accept or Reject' anchor='impl-auto'>
+    <p>A client MAY require a human user to approve each stanza session negotiation request, however it is RECOMMENDED that it accepts or rejects automatically as many requests as possible, based on a set of user-configurable policies (see <link url='#secure-leak'>Presence Leaks</link>).</p>
+  </section2>
+  <section2 topic='Persisting Sessions' anchor='impl-close'>
+    <p>Stanza session negotiation sometimes requires the involvement of either or both human users, and if human input is required but the user is away then session establishment may be delayed indefinitely. So, in order to minimise the number of user interruptions and delays, clients SHOULD reuse existing sessions whenever possible. For example, a client SHOULD NOT terminate sessions unless the user is going offline, even if its user closes a window associated with the session.</p>
+  </section2>
+  <section2 topic='Sharing Presence' anchor='impl-presence'>
+    <p>If so negotiated via the 'presence' field, two parties who do not have subscriptions to each other's presence (as specified in <cite>XMPP-IM</cite>) may share presence by sending directed presence after the session is negotiated.</p>
+    <example caption="User sends directed presence to contact"><![CDATA[
+<presence from='romeo@montague.net/orchard' to='juliet@capulet.com/balcony'/>
+    ]]></example>
+    <example caption="Contact sends directed presence to user"><![CDATA[
+<presence from='juliet@capulet.com/balcony' to='romeo@montague.net/orchard'/>
+    ]]></example>
+    <p>In accordance with the rules specified in <cite>XMPP-IM</cite>, sharing presence enables one party's server to send unavailable presence to the other party if the sending party goes offline for any reason.</p>
+  </section2>
+  <section2 topic='Unavailable Presence' anchor='impl-unavail'>
+    <p>If a party receives an XMPP presence stanza of type "unavailable" from the full JID &LOCALFULL; of the other party (i.e., the resource with which it has had an active session) during a session, the receiving party SHOULD assume that the other client will still be able to continue the session (perhaps it simply became "invisible", or it is persisting the state of the negotiated session until it reconnects and receives "offline" messages).</p>
+    <p>However, the receiving party MAY assume that the other client will <em>not</em> be able to continue the session. <note>In general, if a party is not subscribing to the other party's presence then it will never assume the other party is is unable to continue a session.</note> In that case it MUST explicitly terminate the session (see <link url='#terminate'>Terminating a Session</link>) -- since its assumption could be incorrect. If after terminating the session the receiving party later receives available presence (i.e., a &PRESENCE; stanza with no 'type' attribute) from that same resource or another resource associated with the other party and the receiving party desires to restart the session, then it MUST initiate a new session (including a newly-generated ThreadID) with the other party. It MUST NOT renegotiate parameters for the terminated session. (Note: This is consistent with the handling of chat states as specified in <cite>XEP-0085</cite>.)</p>
+  </section2>
+  <section2 topic='Mapping to SIP' anchor='impl-sip'>
+    <p>When mapping instant messaging flows to SIP, implementations SHOULD adhere to &xmppsipim;.</p>
+    <p>In addition, the following mappings apply to chat session negotiation:</p>
+    <ul>
+      <li>Initiation of a negotiated chat session maps to the semantics of the SIP INVITE method.</li>
+      <li>Renegotiation of a negotiated chat session also maps to the semantics of the SIP INVITE method.</li>
+      <li>Termination of a negotiated chat session maps to the semantics of the SIP BYE method.</li>
+      <li>The XMPP &THREAD; value maps to the semantics of the SIP Call-ID attribute.</li>
+    </ul>
+  </section2>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <section2 topic='Presence Leaks' anchor='secure-leak'>
+    <p>If a contact does not share its presence information with a user through a presence subscription (see <cite>RFC 3921</cite>) or if it blocks outbound presence notifications to the user (see &xep0016;), then it will effectively expose its presence if it accepts the user's stanza session negotiation request or returns an error to the user. Therefore, due care must be exercised in determining whether to accept the request or return an error. The contact's client SHOULD NOT automatically (i.e. without first asking the contact) either accept the user's request or return an error to the user unless the user is subscribed to the contact's presence and the contact is not blocking outbound presence notifications to the user. Note: There should be no need for the contact's client to consult the contact's block list (see &xep0191;), since if the user is on the block list then the contact would not receive the request from the user in the first place.</p>
+  </section2>
+  <section2 topic='Localization' anchor='secure-local'>
+    <p>If a client is configured to show a request &lt;form/&gt; to a human user instead of responding automatically, it SHOULD replace the content of the &lt;title/&gt; element and of all label attributes of the known and registered &lt;field/&gt; and &lt;option/&gt; elements with its own localised versions before showing the form to the user -- even if the form already appears to be in the correct language.</p>
+    <p>Note: If a client fails to localize the form, a malicious contact might, for example, either switch the labels on the 'security' and 'logging' fields, or use the &lt;title/&gt; to mislead the user regarding the identity of the contact.</p>
+  </section2>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p>
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <section2 topic='Protocol Namespaces' anchor='ns'>
+    <p>The &REGISTRAR; includes 'urn:xmpp:ssn' in its registry of protocol namespaces (see &NAMESPACES;).</p>
+  </section2>
+  <section2 topic='Service Discovery Features' anchor='registrar-features'>
+    <p>The XMPP Registrar includes 'urn:xmpp:ssn' in its registry of Service Discovery features (see &DISCOFEATURES;).</p>
+    <code caption='Registry Submission'><![CDATA[
+<var>
+  <name>urn:xmpp:ssn</name>
+  <desc>Support for Stanza Session Negotiation and its FORM_TYPE</desc>
+  <doc>XEP-0155</doc>
+</var>
+    ]]></code>
+  </section2>
+  <section2 topic='Field Standardization' anchor='registrar-formtype'>
+    <p>&xep0068; defines a process for standardizing the fields used within Data Forms qualified by a particular namespace. The following fields are registered for use in Stanza Session Negotiation (see &FORMTYPES;):</p>
+    <code caption='Registry Submission'><![CDATA[
+<form_type>
+  <name>urn:xmpp:ssn</name>
+  <doc>XEP-0155</doc>
+  <desc>
+    Forms enabling negotation of a one-to-one
+    session between two entities.
+  </desc>
+  <field
+      var='accept'
+      type='boolean'
+      label='Whether to accept the invitation'/>
+  <field
+      var='continue'
+      type='text-single'
+      label='Another resource with which to continue the session'/>
+  <field
+      var="disclosure"
+      type="list-single"
+      label="Disclosure of content, decryption keys or identities">
+    <option label="Entities guarantee no disclosure features
+                   exist (not even disabled features)">
+      <value>never</value>
+    </option>
+    <option label="Entities MUST NOT disclose (except for those
+                   disclosures that are required by law)">
+      <value>disabled</value>
+    </option>
+    <option label="Entities MAY disclose">
+      <value>enabled</value>
+    </option>
+  </field>
+  <field
+      var='http://jabber.org/protocol/chatstates'
+      type='list-single'
+      label='Whether may send Chat State Notifications per XEP-0085'>
+    <option label='May Send'>
+      <value>may</value>
+    </option>
+    <option label='Must Not Send'>
+      <value>mustnot</value>
+    </option>
+  </field>
+  <field
+      var='http://jabber.org/protocol/xhtml-im'
+      type='list-single'
+      label='Whether allowed to use XHTML-IM formatting per XEP-0071'>
+    <option label='May Send'>
+      <value>may</value>
+    </option>
+    <option label='Must Not Send'>
+      <value>mustnot</value>
+    </option>
+  </field>
+  <field
+      var='language'
+      type='list-single'
+      label='Primary written language of the chat (each
+             value appears in order of preference and
+             conforms to RFC 4646 and the IANA registry)'/>
+  <field
+      var='logging'
+      type='list-single'
+      label='Whether allowed to log messages (i.e.,
+             whether Off-The-Record mode is required)'>
+    <option label='Allow Message Logging'>
+      <value>may</value>
+    </option>
+    <option label='Disallow All Message Logging (i.e., must
+                   disable absolutely all message
+                   logging including automatic archiving
+                   -- see XEP-0136'>
+      <value>mustnot</value>
+    </option>
+  </field>
+  <field
+      var='multisession'
+      type='boolean'
+      label='Whether to allow multiple concurrent sessions between the parties'/>
+  <field
+      var='renegotiate'
+      type='boolean'
+      label='Whether to renegotiate the session'/>
+  <field
+      var='security'
+      type='list-single'
+      label='Minimum security level'>
+    <option label='Secure connections not required'>
+      <value>none</value>
+    </option>
+    <option label='Both parties must be securely connected to their servers'>
+      <value>c2s</value>
+    </option>
+    <option label='Both parties must be securely connected to each other'>
+      <value>e2e</value>
+    </option>
+  </field>
+  <field
+      var='terminate'
+      type='boolean'
+      label='Whether to terminate the session'/>
+</form_type>
+      ]]></code>
+  </section2>
+</section1>
+<section1 topic='XML Schema' anchor='schema'>
+  <p>This proposal re-uses the format defined in XEP-0020 and therefore does not require a dedicated schema.</p>
+</section1>
+<section1 topic='Acknowledgements' anchor='ack'>
+  <p>Thanks to Thomas Charron and Jean-Louis Seguineau for their feedback.</p>
+</section1>
+</xep>

@@ -1,0 +1,10 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF People :: Joe Hildebrand</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF People :: Joe Hildebrand</h2>
+
+<p>Joe Hildebrand was a member of the 2003-2003 <a href='/council/'>XMPP Council</a>. He has many years of experience with messaging systems, which he applies enthusiastically to the Jabber world. In addition to creating <a href='http://code.google.com/p/jabber-net/'>Jabber-NET</a> and helping out with <a href='http://code.google.com/p/exodus/'>Exodus</a>, Joe is Chief Technology Officer at <a href='http://www.jabber.com/'>Jabber, Inc.</a> and has co-authored a number of <a href='/extensions/'>XMPP Extension Protocols</a>.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

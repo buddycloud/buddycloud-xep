@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Interop :: Servers</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Interop :: Servers</h2>
+
+<p>The core of the <a href='/interop/'>XMPP interop network</a> consists of one server deployment for each XMPP server implementation. So far the following servers are online, with more to come:</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr>
+    <th>Address</th>
+    <th>Implementation</th>
+    <th>Host</th>
+    <th>Contact Person</th>
+  </tr>
+  <tr>
+    <td>coversant.interop.xmpp.org</td>
+    <td><a href='http://www.jabber.org/software/SoapBoxServer.shtml'>SoapBox Server</a></td>
+    <td><a href='http://www.coversant.net/'>Coversant</a></td>
+    <td><a href='mailto:chris.mullins@coversant.com'>Chris Mullins</a></td>
+  </tr>
+  <tr>
+    <td>djabberd.interop.xmpp.org</td>
+    <td><a href='http://www.danga.com/djabberd/'>djabberd</a></td>
+    <td><a href='http://www.sixapart.com/'>Six Apart</a></td>
+    <td><a href='xmpp:brad@danga.com'>Brad Fitzpatrick</a></td>
+  </tr>
+  <tr>
+    <td>djabberd-trunk.interop.xmpp.org</td>
+    <td><a href='http://www.danga.com/djabberd/'>djabberd</a></td>
+    <td><a href='http://www.sixapart.com/'>Six Apart</a></td>
+    <td><a href='xmpp:brad@danga.com'>Brad Fitzpatrick</a></td>
+  </tr>
+  <tr>
+    <td>ejabberd.interop.xmpp.org</td>
+    <td><a href='http://www.jabber.org/software/ejabberd.shtml'>ejabberd</a></td>
+    <td><a href='http://www.process-one.net/'>Process-one</a></td>
+    <td><a href='mailto:jsautret@process-one.net'>J&#233;r&#244;me Sautret</a></td>
+  </tr>
+  <tr>
+    <td>openfire.interop.xmpp.org</td>
+    <td><a href='http://www.jabber.org/software/Openfire.shtml'>Openfire</a></td>
+    <td><a href='http://www.jivesoftware.com/'>Jive Software</a></td>
+    <td><a href='xmpp:gato@jivesoftware.com'>Gaston Dombiak</a></td>
+  </tr>
+</table>
+<p>To obtain an account on one of these servers, ask the contact person for the server, who will verify that you are an <a href='participants.shtml'>authorized participant</a> and then give you a username and password.</p>
+<p>To add a server to this list, contact <a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a>, who will point the appropriate DNS entry at your IP address.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

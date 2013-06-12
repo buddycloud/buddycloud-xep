@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>XSF Board Meetings</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Board Meetings</h2>
+
+<p>This page contains information about offical meetings of the <a href='/xsf/board/'>Board of Directors</a> of the <a href='/xsf/'>XMPP Standards Foundation</a> (formerly the Jabber Software Foundation).</p>
+<p><em>Note: Minutes for more recent meetings are posted to the <a href='http://mail.jabber.org/pipermail/members/'>discussion list</a> for XSF members.</em></p>
+<ul>
+  <li>2001-08-20 - <a href="minutes-2001-08-20.shtml">Minutes</a></li>
+  <li>2002-09-24 - <a href="minutes-2002-09-24.shtml">Minutes</a></li>
+  <li>2002-10-29 - <a href="minutes-2002-10-29.shtml">Minutes</a></li>
+  <li>2002-12-03 - <a href="minutes-2002-12-03.shtml">Minutes</a></li>
+  <li>2003-01-21 - <a href="minutes-2003-01-21.shtml">Minutes</a></li>
+  <li>2003-03-11 - <a href="minutes-2003-03-11.shtml">Minutes</a></li>
+  <li>2003-04-29 - <a href="minutes-2003-04-29.shtml">Minutes</a></li>
+  <li>2003-06-17 - <a href="minutes-2003-06-17.shtml">Minutes</a></li>
+  <li>2003-07-29 - no minutes</li>
+  <li>2003-09-30 - <a href="minutes-2003-09-30.shtml">Minutes</a></li>
+  <li>2003-10-13 - <a href="minutes-2003-10-13.shtml">Minutes</a></li>
+  <li>2003-10-28 - <a href="minutes-2003-10-28.shtml">Minutes</a></li>
+  <li>2003-12-09 - <a href="minutes-2003-12-09.shtml">Minutes</a></li>
+  <li>2004-01-13 - <a href="minutes-2004-01-13.shtml">Minutes</a></li>
+  <li>2004-10-21 - no minutes</li>
+  <li>2005-09-27 - <a href="minutes-2005-09-27.shtml">Minutes</a></li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

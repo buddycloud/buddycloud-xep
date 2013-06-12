@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM "xep.ent">
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Compliance SIG</title>
+  <abstract>A proposal to form a SIG devoted to issues related to protocol compliance.</abstract>
+  &LEGALNOTICE;
+  <number>0069</number>
+  <status>Deferred</status>
+  <type>SIG Formation</type>
+  <sig>None</sig>
+  &stpeter;
+  <revision>
+    <version>0.1</version>
+    <date>2003-01-29</date>
+    <initials>psa</initials>
+    <remark>Initial release</remark>
+  </revision>
+</header>
+<section1 topic='Introduction'>
+  <p>The XMPP Standards Foundation has an initiative underway to define and implement compliance testing of software that is based on XMPP and XSF-approved protocols. To date, participation in this compliance program has been limited to elected members of the XSF. However, not all matters related to the compliance program need to be limited to XSF members. In particular, it would be valuable to receive community feedback and input regarding test plans, testing software, and the like. In order to broaden participation, we propose that the XSF form a standing Jabber Interest Group devoted to compliance.</p>
+</section1>
+<section1 topic='Scope and Role'>
+  <p>The Compliance SIG shall provide a public forum for discussion and development of systems for testing compliance with the protocols defined and accepted by the XSF. It shall not have ultimate accountability for the XSF compliance program; rather, that accountability shall rest with the members-only Compliance Team. The Compliance SIG shall act in an advisory capacity in relation to the Compliance Team. In essence, the relationship between the Compliance SIG and the Compliance Team is analagous to the relationship between the Standards SIG and the Jabber Council.</p>
+  <p>In particular, the Compliance SIG shall work with the Compliance Team to define the processes, standards, test cases, and testing software required by the compliance program. However, the Compliance SIG shall not be privy to actual testing results, which shall be available only to the Compliance Team.</p>
+</section1>
+<section1 topic='Membership'>
+  <p>The Compliance SIG shall be open to the public and shall not be limited to elected members of the XMPP Standards Foundation. Compliance SIG discussions shall be conducted on a dedicated mailing list &lt;compliance-jig@jabber.org&gt; as well as in the &lt;foundation@conference.jabber.org&gt; chatroom.</p>
+</section1>
+<section1 topic='Lifetime'>
+  <p>The Compliance SIG shall be a standing SIG, and shall exist as long as the XSF compliance program is in operation.</p>
+</section1>
+<section1 topic='Deliverables'>
+  <p>The Compliance SIG shall produce at least the following deliverables:</p>
+  <ul>
+    <li>Documentation of the testing process</li>
+    <li>Compliance test plans</li>
+    <li>Compliance testing software</li>
+    <li>Logo requirements</li>
+  </ul>
+</section1>
+</xep>

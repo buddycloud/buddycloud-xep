@@ -1,0 +1,13 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Sponsors :: DreamHost</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Sponsors :: DreamHost</h2>
+
+<p>
+<img alt='DreamHost Logo' style='float: right; border-width: 0px' src='/images/logo-dreamhost.png' />
+<a href='http://www.dreamhost.com/'>DreamHost</a>, a Silver Sponsor of the XMPP Standards Foundation (XSF), is a hosting company that provides web and Jabber hosting to over 700,000 domains in both shared and dedicated environments. Raising the bar of the hosting industry in June of 2002, DreamHost became the first web host in the world to offer personalized Jabber servers for any domain hosted on its servers. DreamHost is proud to support the Jabber Software Foundation, and to help bring Jabber to the masses at the lowest cost possible.</p>
+<p>For more information about DreamHost, visit &lt;<a href='http://www.dreamhost.com/'>www.dreamhost.com</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

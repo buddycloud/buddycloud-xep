@@ -1,0 +1,101 @@
+Organization: XMPP Standards Foundation                                 Page 1 of 2
+EIN: 84-1611178
+Form: 1023
+Attachment: Part IV
+
+The XMPP Standards Foundation ("XSF") is a standards development organization
+quite similar in function to other Internet standards development organizations, 
+such as the Internet Engineering Task Force (IETF). The XSF focuses on a 
+particular domain of standards development (real-time communication) based on a
+particular underlying technology known as the Extensible Messaging and Presence 
+Protocol (XMPP), which was invented by Jeremie Miller in 1998, further
+developed by the Jabber open-source software development community in 1999 and 
+2000, and formalized by the IETF in 2002 and 2003, resulting in publication of
+IETF RFCs 3920 and 3921 in 2004. Continuing development of XMPP technologies is 
+of inherent interest to researchers and technologists in the fields of information 
+science and computer networking, but also helps to facilitate open communication 
+over the Internet though implementation and deployment of XMPP technologies.
+
+The primary activity of the XSF is the standardization and publication of open 
+extensions to XMPP for instant messaging, presence, and other forms of real-time 
+communication over the Internet. These documents are called XMPP Extension 
+Protocols (XEPs), and the XSF's standards process is defined in XEP-0001:
+
+  http://www.xmpp.org/extensions/xep-0001.html
+
+The standards development activity of the XSF is conducted mainly over the 
+Internet itself through ongoing work, discussion, and publication. 
+
+In particular, the XSF:
+
+- Publishes a specification series that is provided free of charge on the 
+  Internet at http://www.xmpp.org/extensions/
+
+- Manages the process of defining, publishing, and discussing such
+  specifications
+
+- Works with potential authors of such specifications to define particular 
+  technologies of interest
+
+- Maintains open forums for discussion of XMPP technologies, including
+  websites, electronic mail discussion lists, and real-time chat rooms
+
+- Each quarter, elects new members of the XSF and re-affirms existing members
+  from among those who apply for membership, based on technical contributions
+  to XMPP technologies
+
+- Once a year, elects via the membership both a technical steering committee
+  (the "XMPP Council") and an organizational steering committee (the XSF 
+  Board of Directors)
+
+- Works with other standards development organizations (such as the Internet
+  Engineering Task Force and the World Wide Web Consortium) on technologies of
+  mutual interest
+
+                                                                        Page 2 of 2
+
+In addition to its primary activity of standards development, the XSF also pursues 
+several secondary activities that support the implementation and application of
+XMPP technologies to open, real-time communication. In particular, the XSF:
+
+- Maintains a certification authority that issues free digital certificates for
+  use by administrators of XMPP servers on the Internet
+
+- Sends XSF representatives to select industry conferences when they are invited
+  to speak about XMPP technologies
+
+- Two or more times a year, holds in-person meetings among individuals who are 
+  active in defining and applying XMPP technologies; these meetings are typically
+  co-located with an industry conference in North America or Europe and are held
+  for purposes such as interoperability testing and the exchange of research
+  results
+
+While the XSF is a membership organization whose members are individuals who 
+are elected based on technical merit, participation in its standards development 
+activity is open to any interested individual and is not limited to elected 
+members of the organization. One hundred percent of the organization's activities 
+are directed to standards development and related supporting activities. 
+
+The standards developed by the XSF are implemented in a wide variety of software
+applications and hardware devices. Implementations include open-source servers
+and clients as well as commercial software and devices sold by vendors such as 
+Apple, Nokia, and Sun Microsystems. XMPP technologies are also widely deployed
+within the U.S. Government, at financial organizations, and by service providers
+such as Bell South, Google, and Portugal Telecom. Individuals and organizations
+that implement, deploy, and use XMPP technologies benefit indirectly from the
+fact that open standards have been developed by the XSF, but do not benefit
+directly financially or otherwise from the work of the XSF.
+
+Because they are pursued mainly over the Internet, the activities of the XMPP 
+Standards Foundation are inherently inexpensive to perform. Much of the work is
+performed on a volunteer basis by individuals who are interested in the field
+of real-time communication. The XSF has been funded through unsolicitied donations 
+received from companies that are also active in this field or who use XMPP 
+technologies to deploy real-time communication services. The XSF may also seek 
+grants from grant-making foundations for work on specific applications of XMPP, 
+such as voice communications over the Internet and high-security text communication.
+
+Note: From its founding in August 2001 until December 2006, the XMPP Standards
+Foundation functioned under the name "Jabber Software Foundation"; the name of
+the organization was changed by a vote of the membership in December 2006.
+

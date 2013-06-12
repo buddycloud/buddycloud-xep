@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Technologies: Overview</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Technologies: Overview</h2>
+
+<p>XMPP is the Extensible Messaging and Presence Protocol, a set of open <a href='/tech/'>technologies</a> for instant messaging, presence, multi-party chat, voice and video calls, collaboration, lightweight middleware, content syndication, and generalized routing of XML data.</p> 
+<p>XMPP was originally developed in the <a href='/about/jabber.shtml'>Jabber</a> open-source community to provide an open, secure, spam-free, decentralized alternative to the closed instant messaging services at that time. XMPP offers several key advantages over such services:</p>
+<ul>
+<li><strong>Open</strong> -- the XMPP protocols are free, open, public, and easily understandable; in addition, multiple implementations exist in the form clients, servers, server components, and code libraries.</li>
+<li><strong>Standard</strong> -- the <a href="http://ietf.org/">Internet Engineering Task Force (IETF)</a> has formalized the core XML streaming protocols as an approved instant messaging and presence technology. The XMPP specifications were published as <a href="/rfcs/rfc3920.html">RFC 3920</a> and <a href="/rfcs/rfc3921.html">RFC 3921</a> in 2004, and the <a href="/xsf/">XMPP Standards Foundation</a> continues to publish many <a href="/extensions/">XEP series</a>.</li>
+<li><strong>Proven</strong> -- the first Jabber/XMPP technologies were developed by Jeremie Miller in 1998 and are now quite stable; hundreds of developers are working on these technologies, there are tens of thousands of Jabber servers running on the Internet today, and millions of people use XMPP for instant messaging through public services such as <a href='http://www.google.com/talk'>Google Talk</a> and XMPP deployments at organizations worldwide.</li>
+<li><strong>Decentralized</strong> -- the architecture of the XMPP network is similar to email; as a result, anyone can run their own XMPP server, enabling individuals and organizations to take control of their communications experience.</li>
+<li><strong>Secure</strong> -- any XMPP server may be isolated from the public network (e.g., on a company intranet), robust security using SASL and TLS has been built into the core <a href="/rfcs/">XMPP specifications</a>, and the XMPP network is virtually spam-free. In addition, the XMPP developer is actively working on end-to-end encryption to raise the security bar even further.</li>
+<li><strong>Extensible</strong> -- using the power of XML, anyone can build custom functionality on top of the core protocols; to maintain interoperability, common extensions are published in the <a href="/extensions/">XEP series</a>, but such publication is not required and organizations can maintain their own private extensions if so desired.</li>
+<li><strong>Flexible</strong> -- XMPP applications beyond IM include network management, content syndication, collaboration tools, file sharing, gaming, remote systems monitoring, web services, lightweight middleware, cloud computing, and much more.</li>
+<li><strong>Diverse</strong> -- a wide range of companies and open-source projects use XMPP to build and deploy real-time applications and services; you will never get "locked in" when you use XMPP technologies.</li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

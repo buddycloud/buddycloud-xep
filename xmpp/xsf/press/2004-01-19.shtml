@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>JabberAfrica Goes Live</h3>
+<h4>Africa's "Digital Liberation Movement" Picks Up Speed</h4>
+
+<p>JOHANNESBURG, SOUTH AFRICA AND DENVER, COLORADO, USA, JANUARY 19, 2004 -- The Jabber Africa Foundation, a new non-profit organisation serving the African continent, today announced that the Open Source software movement in South Africa has received a further boost with the launch of a Jabber server for Africa.</p>
+
+<p>The Jabber server, hosted at jabberafrica.org, provides a comprehensive real-time/instant messaging (IM) service. South African users will now be able to register a jabberafrica ID and network with other Jabber users worldwide.</p>
+
+<p>In addition to supporting real-time messaging between PCs, the JabberAfrica platform supports mobile instant messaging over GPRS, allowing users to send messages from PC to mobile, and mobile to mobile at a fraction of the cost of sending SMSs.</p>
+
+<p>Jabber is one of the fastest growing instant messaging platforms in the world with many millions of users. Unlike IM services provided by Microsoft, AOL and others, the Jabber messaging protocol, called XMPP, is freely available and allows developers to enhance and customise the platform. </p>
+
+<p>The JabberAfrica service has been established by the Jabber Africa Foundation, a non-profit organisation dedicated to promoting Open Source services in Africa.</p>
+
+<p>The foundation's Executive Director, Bruce Cohen, says the Open Source movement is gaining irresistible momentum and is being spurred on by a growing global network of developers and organisations  -- including the South African Government -- determined to democratise the software environment, reduce access and operational costs, and unshackle users from companies like Microsoft.</p>
+
+<p>Says Cohen: "The Open Source model has a powerful role to play in developing countries, and can be equated to a "digital liberation movement", empowering people to gain low-cost access to world-class programmes and take control of their software future by participating in the development process and networking with other programmers in the North and South."</p>
+
+<p>He says XMPP, Jabber's set of streaming XML and presence-detection protocols, is a key building block of an Open Source world. The protocol has been submitted to the IETF, the Internet standards body, and is likely to power many of the emerging always-on/real-time Internet services such as whiteboarding and collaborative editing.</p>
+
+<p>"XMPP is a powerful bearer of real-time, multi-platform messaging and multimedia services, and we will be demoing these on an ongoing basis, along with some of the best Open Source tools in other areas such as e-mail, blogging and community services."</p>
+
+<p>Cohen says the Jabber Africa Foundation will also reach out to the South African software community with awards for creative projects using XMPP. "We want to help South African developers contribute to the Open Source movement in a meaningful way, and fuel innovation in this arena." Further announcements in this regard will be made shortly. The Foundation will also provide advice and support to organisations wishing to introduce XMPP and other Open Source services.</p>
+
+<p>News of the launch of jabberafrica.org has been welcomed by the Jabber Software Foundation in the USA, which acts as a global custodian of the XMPP protocol. Says Peter Saint-Andre, Executive Director of the Jabber Software Foundation, based in Denver, Colorado: "There are active Jabber communities in many parts of the world, and it's wonderful to see the Jabber Africa Foundation extend that reach to southern Africa." Saint-Andre is joining the Jabber Africa Foundation as a trustee.</p>
+ 
+<p>For further information, contact Bruce Cohen, Executive Director of the Jabber Africa Foundation, at &lt;bruce@jabberafrica.org&gt; or 083 440 0658.</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+
+<h4>About the Jabber Africa Foundation</h4>
+<p>The Jabber Africa Foundation has been established to promote the Jabber protocol (XMPP) and Jabber services in Africa. The Foundation is currently being set up as an independent Section 21 (non-profit) company in South Africa. For details, visit &lt;<a href="http://www.jabberafrica.org/">http://www.jabberafrica.org/</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

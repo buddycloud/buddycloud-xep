@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Software: Clients</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Software: Clients</h2>
+<p>An XMPP client is any software or application that enables you to connect to an XMPP for instant messaging with other people over the Internet. There are many free clients you can use to do this, for many different devices and operating systems.</p>
+<p><em>Note: The following software was not developed by the XMPP Standards Foundation and has not been formally tested for standards compliance, usability, reliability, or performance.</em></p>
+<p>Software developers: to have your code project added to these pages, file a feature request with the XSF Communication Team at the <a href='http://athena.jabber.org:18081/browse/COMM'>issue tracker</a>.</p>
+
+<ul>
+<li><a href="#apple">Apple MacOS</a></li>
+<li><a href="#console">Console / Text-Mode</a></li>
+<li><a href="#crossplatform">Cross-Platform (Linux/Mac/Windows)</a></li>
+<li><a href="#linux">Linux/Unix</a></li>
+<li><a href="#microsoft">Microsoft Windows</a></li>
+<li><a href="#mobile">Mobile Phone / PDA</a></li>
+<li><a href="#web">Web Browser</a></li>
+</ul>
+
+<a name="apple"></a><h3>Apple MacOS</h3>
+<ul>
+<li><a href="http://adium.im/">Adium</a></li>
+<li><a href="http://www.apple.com/macosx/features/ichat.html">iChat</a></li>
+</ul>
+
+<a name="console"></a><h3>Console / Text-Mode</h3>
+<ul>
+<li><a href="http://www.climm.org/">climm</a></li>
+<li><a href="http://developer.pidgin.im/wiki/Using%20Finch">Finch</a></li>
+<li><a href="http://www.gnu.org/software/freetalk/">GNU Freetalk</a></li>
+<li><a href="http://cybione.org/~irssi-xmpp/">irssi-xmpp</a></li>
+<li><a href="http://mcabber.com/">MCabber</a></li>
+<li><a href="http://poezio.eu/">Poezio</a></li>
+</ul>
+
+<a name="crossplatform"></a><h3>Cross-Platform (Linux/Mac/Windows)</h3>
+<ul>
+<li><a href="http://coccinella.im/">Coccinella</a></li>
+<li><a href="http://www.jabbim.com/">Jabbim</a></li>
+<li><a href="http://www.zionsoftware.com/products/messenger/">JBuddy Messenger</a></li>
+<li><a href="http://jeti-im.org/">Jeti</a></li>
+<li><a href="http://www.bristowsoftware.co.uk/">Oyo</a></li>
+<li><a href="http://pidgin.im/">Pidgin</a></li>
+<li><a href="http://psi-im.org">Psi</a></li>
+<li><a href="http://qutim.org/">qutIM</a></li>
+<li><a href="http://code.google.com/p/saje/">saje</a></li>
+<li><a href="http://sip-communicator.org/">SIP Communicator</a></li>
+<li><a href="http://www.igniterealtime.org/projects/spark/index.jsp">Spark</a></li>
+<li><a href="http://tkabber.jabber.ru/">Tkabber</a></li>
+<li><a href="http://www.tlen.pl/">Tlen</a></li>
+<li><a href="http://code.google.com/p/vacuum-im/">Vacuum</a></li>
+</ul>
+
+<a name="linux"></a><h3>Linux/Unix</h3>
+<ul>
+<li><a href="http://ayttm.sourceforge.net/">Ayttm</a></li>
+<li><a href="http://www.bitlbee.org/">BitlBee</a></li>
+<li><a href="http://live.gnome.org/Empathy">Empathy</a></li>
+<li><a href="http://gajim.org/">Gajim</a> (also Windows) </li>
+<li><a href="http://code.google.com/p/galaxium/">Galaxium</a></li>
+<li><a href="http://developer.imendio.com/projects/gossip/">Gossip</a></li>
+<li><a href="http://emacs-jabber.sourceforge.net/">jabber.el</a></li>
+<li><a href="http://kopete.kde.org/">Kopete</a></li>
+<li><a href="http://sim-im.org/wiki/Main_Page">Sim-IM</a></li>
+<li><a href="http://synapse.im/">Synapse</a></li>
+</ul>
+
+<a name="microsoft"></a><h3>Microsoft Windows</h3>
+<ul>
+<li><a href="http://www.aqq.eu/">AQQ</a></li>
+<li><a href="http://www.citron-im.com/">Citron</a></li>
+<li><a href="http://www.emclient.com/">eM Client</a></li>
+<li><a href="http://code.google.com/p/exodus/">Exodus</a></li>
+<li><a href="http://xeus-messenger.blogspot.com/">glu</a></li>
+<li><a href="http://www.jabbear.com/en/">Jabbear</a></li>
+<li><a href="http://jajc.jrudevels.org/">JAJC</a></li>
+<li><a href="http://www.miranda-im.org/">Miranda IM</a></li>
+<li><a href="http://pandion.im/">Pandion</a></li>
+<li><a href="http://forum.qip.ru/forumdisplay.php?f=62">Quiet Internet Pager (QIP)</a></li>
+<li><a href="http://www.coversant.net/product/communicator-overview.aspx">SoapBox Communicator</a></li>
+<li><a href="http://www.trillian.im/">Trillian Pro</a></li>
+<li><a href="http://www.altertech.net/products/vv-messenger">V&amp;V Messenger</a></li>
+<li><a href="http://k2t.eu/wtw/">WTW</a></li>
+<li><a href="http://www.yambi.com/">Yambi</a></li>
+</ul>
+
+<a name="mobile"></a><h3>Mobile Phone / PDA</h3>
+<ul>
+<li><a href="http://www.agilemobile.com/">Agile Messenger</a></li>
+<li><a href="http://www.beejive.com/">beejive</a></li>
+<li><a href="http://bombus-im.org/wiki/bombus/help_english">Bombus</a></li>
+<li><a href="http://www.buddymob.com/">BuddyMob</a></li>
+<li><a href="http://www.chatopus.com/">Chatopus</a></li>
+<li><a href="http://www.shapeservices.com/en/products/details.php?product=im">IM+</a></li>
+<li><a href="http://www.movsoftware.com/products/imov/imov.htm">imov Messenger</a></li>
+<li><a href="http://jabbermixclient.sourceforge.net/">Jabber Mix Client</a></li>
+<li><a href="http://www.jabbim.com/android/">Jabbim for Android</a></li>
+<li><a href="http://jabiru.mzet.net/">Jabiru</a></li>
+<li><a href="http://lampiro.bluendo.com/">Lampiro</a></li>
+<li><a href="http://code.google.com/p/m-im/">m-im</a></li>
+<li><a href="http://sworim.blogspot.com/">Monal for iPhone/iPod</a></li>
+<li><a href="http://smape.com/smaper/wm">mChat</a></li>
+<li><a href="http://www.octro.com/">OctroTalk</a></li>
+<li><a href="http://www.process-one.net/en/solutions/oneteam_iphone/">OneTeam for iPhone</a></li>
+<li><a href="http://www.talkonaut.com/">Talkonaut</a></li>
+<li><a href="http://www.vayusphere.com/vayuxmpp.htm">Vayusphere</a></li>
+<li><a href="http://slideme.org/application/yaxim">Yaxim</a></li>
+</ul>
+
+<a name="web"></a><h3>Web Browser</h3>
+<ul>
+<li><a href="http://afflux-project.org/">Afflux</a></li>
+<li><a href="http://www.claros.org/web/showProduct.do?id=2">Claros Chat</a></li>
+<li><a href="http://code.google.com/p/emite/">emite</a></li>
+<li><a href="http://code.google.com/p/ijab/">iJab</a></li>
+<li><a href="http://www.jabbear.com/en/">Jabbear</a></li>
+<li><a href="http://www.jappix.com/">Jappix</a></li>
+<li><a href="http://jwchat.sourceforge.net/">JWChat</a></li>
+<li><a href="http://www.sameplace.cc/">SamePlace</a></li>
+<li><a href="http://slimster.org/">Slimster</a></li>
+<li><a href="http://www.igniterealtime.org/projects/sparkweb/index.jsp">SparkWeb</a></li>
+<li><a href='http://www.tigase.org/en/project/messenger'>Tigase Messenger</a></li>
+<li><a href='http://www.tigase.org/en/project/minichat'>Tigase Minichat</a></li>
+<li><a href='http://code.google.com/p/trophyim/'>TrophyIM</a></li>
+<li><a href='http://cgit.babelmonkeys.de/cgit.cgi/xmppchat/'>xmppchat</a></li>
+</ul>
+
+<p>See something missing? Join the <a href='xmpp:jabber@conference.jabber.org?join'>jabber@conference.jabber.org</a> chat room or ping <a href='https://stpeter.im/?page_id=1968'>Peter Saint-Andre</a>.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

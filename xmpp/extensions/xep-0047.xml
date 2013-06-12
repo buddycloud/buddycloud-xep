@@ -1,0 +1,367 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>In-Band Bytestreams</title>
+  <abstract>This specification defines an XMPP protocol extension that enables any two entities to establish a one-to-one bytestream between themselves, where the data is broken down into smaller chunks and transported in-band over XMPP.</abstract>
+  &LEGALNOTICE;
+  <number>0047</number>
+  <status>Draft</status>
+  <interim/>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <dependencies>
+    <spec>XMPP Core</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby/>
+  <schemaloc>
+    <url>http://www.xmpp.org/schemas/ibb.xsd</url>
+  </schemaloc>
+  <shortname>ibb</shortname>
+  &infiniti;
+  &stpeter;
+  <revision>
+    <version>1.3rc2</version>
+    <date>in progress, last updated 2010-03-10</date>
+    <initials>psa</initials>
+    <remark><p>Clarified error handling and block construction.</p></remark>
+  </revision>
+  <revision>
+    <version>1.2</version>
+    <date>2009-03-17</date>
+    <initials>psa/jk</initials>
+    <remark><p>Encouraged use of IQ stanzas rather than message stanzas for sending data; clarified bidirectional nature of IBB; more clearly specified data handling, error conditions, XML syntax, and attribute datatypes; added optional stanza attribute as in XEP-0261.</p></remark>
+  </revision>
+  <revision>
+    <version>1.1</version>
+    <date>2006-11-21</date>
+    <initials>jk</initials>
+    <remark><p>Allowed IQ for delivery.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2003-12-10</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the Jabber Council, advanced status to Draft.</p></remark>
+  </revision>
+  <revision>
+    <version>0.8</version>
+    <date>2003-12-04</date>
+    <initials>jk</initials>
+    <remark><p>Add 'block-size' attribute and usage guidelines</p></remark>
+  </revision>
+  <revision>
+    <version>0.7</version>
+    <date>2003-05-23</date>
+    <initials>jk</initials>
+    <remark><p>Use IQ for shutdown, remove XEP-0022 dependency, loop the counter</p></remark>
+  </revision>
+  <revision>
+    <version>0.6</version>
+    <date>2003-05-14</date>
+    <initials>jk</initials>
+    <remark><p>Use message for delivery</p></remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2003-04-06</date>
+    <initials>jk</initials>
+    <remark><p>Changed newseq to prevseq, added acks, changed seq size to 32-bit</p></remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2003-03-22</date>
+    <initials>jk</initials>
+    <remark><p>Changed protocol, added sequence id</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2002-12-10</date>
+    <initials>jk</initials>
+    <remark><p>Removed the 'comment' block, changed namespace</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2002-10-10</date>
+    <initials>jk</initials>
+    <remark><p>Revised the text</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2002-09-29</date>
+    <initials>jk</initials>
+    <remark><p>Initial version.</p></remark>
+  </revision>
+</header>
+
+<section1 topic='Introduction' anchor='intro'>
+  <p>This document describes In-Band Bytestreams (IBB), an XMPP protocol extension that enables two entities to establish a virtual bytestream over which they can exchange Base64-encoded chunks of data over XMPP itself. Because IBB provides a generic bytestream, its usage is open-ended. To date it has been used as a fallback method for sending files when out-of-band methods such as &xep0065; are not available. However, IBB could also be useful for any kind of relatively low-bandwidth activity, such as games, shell sessions, or encrypted text.</p>
+</section1>
+
+<section1 topic='Protocol' anchor='protocol'>
+  <p>IBB as specified in this document defines two protocol aspects:</p>
+  <ol>
+    <li>How to set up and tear down an IBB session using &lt;open/&gt; and &lt;close/&gt; elements sent within IQ stanzas.</li>
+    <li>How to send chunks of IBB data using IQ (or message) stanzas containing &lt;data/&gt; elements.</li>
+  </ol>
+  <p>Other methods can be used for setup and teardown, such as &xep0166; as specified in &xep0261;.</p>
+  <section2 topic='Creating a Bytestream' anchor='create'>
+    <p>In order to set up an in-band bytestream, the initiator sends an IQ stanza of type "set" containing an &lt;open/&gt; element qualified by the 'http://jabber.org/protocol/ibb' namespace. This element possesses three attributes:</p>
+    <ul>
+      <li>The REQUIRED 'block-size' attribute defines the maximum size in bytes of each data chunk (which MUST NOT be greater than 65535).</li>
+      <li>The REQUIRED 'sid' attribute defines a unique session ID for this IBB session (which MUST match the NMTOKEN datatype).</li>
+      <li>The OPTIONAL 'stanza' attribute defines whether the data will be sent using IQ stanzas or message stanzas (the default value is "iq")</li>
+    </ul>
+    <p>Note: It is RECOMMENDED to send IBB data using IQ stanzas instead of message stanzas because IQ stanzas provide feedback to the sender regarding delivery to the recipient).</p>
+    <example caption='Initiator requests session'><![CDATA[
+<iq from='romeo@montague.net/orchard'
+    id='jn3h8g65'
+    to='juliet@capulet.com/balcony'
+    type='set'>
+  <open xmlns='http://jabber.org/protocol/ibb'
+        block-size='4096'
+        sid='i781hf64'
+        stanza='iq'/>
+</iq>
+    ]]></example>
+    <p>If the responder wishes to proceed with the IBB session, it returns an IQ-result to the initiator.</p>
+    <example caption='Responder accepts session'><![CDATA[
+<iq from='juliet@capulet.com/balcony'
+    id='jn3h8g65'
+    to='romeo@montague.net/orchard'
+    type='result'/>
+    ]]></example>
+    <p>If the responder does not support IBB, it returns a &unavailable; or &feature; error.</p>
+    <example caption='Responder does not support IBB'><![CDATA[
+<iq from='juliet@capulet.com/balcony'
+    id='jn3h8g65'
+    to='romeo@montague.net/orchard'
+    type='error'>
+  <error type='cancel'>
+    <service-unavailable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+  </error>
+</iq>
+    ]]></example>
+    <p>If the responder supports IBB but would prefer a smaller block-size, it returns a &constraint; error.</p>
+    <example caption='Responder prefers smaller chunks'><![CDATA[
+<iq from='juliet@capulet.com/balcony'
+    id='jn3h8g65'
+    to='romeo@montague.net/orchard'
+    type='error'>
+  <error type='modify'>
+    <resource-constraint xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+  </error>
+</iq>
+    ]]></example>
+    <p>If the responder supports IBB but does not wish to proceed with the session, it returns a &notacceptable; error.</p>
+    <example caption='Responder does not wish to proceed'><![CDATA[
+<iq from='juliet@capulet.com/balcony'
+    id='jn3h8g65'
+    to='romeo@montague.net/orchard'
+    type='error'>
+  <error type='cancel'>
+    <not-acceptable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+  </error>
+</iq>
+    ]]></example>
+  </section2>
+
+  <section2 topic='Sending Data' anchor='send'>
+    <p>If the responder informs the initiator that it wishes to proceed with the session, the initiator can begin to send data over the bytestream (in addition, because the bytestream is bidirectional, the responder can also send data; see the <link url='#bidi'>Bidirectionality</link> section of this document for details).</p>
+    <p>Each chunk of data is contained in a &lt;data/&gt; element qualified by the 'http://jabber.org/protocol/ibb' namespace. The data element SHOULD be sent in an IQ stanza to enable proper tracking and throttling, but instead MAY be sent in a message stanza. The base64-encoded data to be sent, prior to any wrapping in the &lt;data/&gt; element and IQ or message stanza, MUST NOT be larger than the 'block-size' determined in the bytestream negotiation.</p>
+    <example caption='Sending data in an IQ stanza'><![CDATA[
+<iq from='romeo@montague.net/orchard' 
+    id='kr91n475'
+    to='juliet@capulet.com/balcony'
+    type='set'>
+  <data xmlns='http://jabber.org/protocol/ibb' seq='0' sid='i781hf64'>
+    qANQR1DBwU4DX7jmYZnncmUQB/9KuKBddzQH+tZ1ZywKK0yHKnq57kWq+RFtQdCJ
+    WpdWpR0uQsuJe7+vh3NWn59/gTc5MDlX8dS9p0ovStmNcyLhxVgmqS8ZKhsblVeu
+    IpQ0JgavABqibJolc3BKrVtVV1igKiX/N7Pi8RtY1K18toaMDhdEfhBRzO/XB0+P
+    AQhYlRjNacGcslkhXqNjK5Va4tuOAPy2n1Q8UUrHbUd0g+xJ9Bm0G0LZXyvCWyKH
+    kuNEHFQiLuCY6Iv0myq6iX6tjuHehZlFSh80b5BVV9tNLwNR5Eqz1klxMhoghJOA
+  </data>
+</iq>
+    ]]></example>
+    <p>Each chunk of data is included as the XML character data of the &lt;data/&gt; element after being encoded as Base64 as specified in Section 4 of &rfc4648;. Each block MUST be a valid base64 block with padding at the end if needed.</p>
+    <p>The &lt;data/&gt; element MUST possess a 'seq' attribute; this is a 16-bit unsigned integer that acts as a counter for data chunks sent in a particular direction within this session. The 'seq' value starts at 0 (zero) for each sender and MUST be incremented for each packet sent by that entity. Thus, the second chunk sent has a 'seq' value of 1, the third chunk has a 'seq' value of 2, and so on. The counter loops at maximum, so that after value 65535 (2<span class='super'>15</span> - 1) the 'seq' MUST start again at 0.</p>
+    <p>The &lt;data/&gt; element MUST also possess a 'sid' attribute that ties the data chunk to this particular IBB session.</p>
+    <p>In the case of IQ stanzas, if the packet can be processed then the recipient MUST reply with an IQ stanza of type "result".</p>
+    <example caption='Acknowledging data received via IQ'><![CDATA[
+<iq from='juliet@capulet.com/balcony'
+    id='kr91n475'
+    to='romeo@montague.net/orchard'
+    type='result'/>
+    ]]></example>
+    <p>The sender of a data chunk need not wait for these acknowledgements before sending further stanzas. However, it is RECOMMENDED that the sender does wait in order to minimize the potential for rate-limiting penalties or throttling.</p>
+    <p>It is possible that delivery of the stanza might fail, in which case the sender's or recipient's server shall return an appropriate error:</p>
+    <ol>
+      <li>Because the recipient has gone offline, the recipient's server returns a &recipient; error with a type of 'wait'.</li>
+      <li>Because a server-to-server link has gone down, the sender's server returns a &timeout; error with a type of 'wait'.</li>
+    </ol>
+    <p>Upon receiving an error related to delivery of a &MESSAGE; or &IQ; stanza, the sender SHOULD temporarily suspend the stream but either (1) retry sending at a later time or (2) renegotiate the higher-level session (if any) such as a session controlled via &xep0234;.</p>
+    <p>It is also possible that there is a problem with the data packet itself, in which case the recipient shall return an appropriate error:</p>
+    <ol>
+      <li>Because the session ID is unknown, the recipient returns an &notfound; error with a type of 'cancel'.</li>
+      <li>Because the sequence number has already been used, the recipient returns an &unexpected; error with a type of 'cancel'.</li>
+      <li>Because the data is not formatted in accordance with Section 4 of <cite>RFC 4648</cite>, the recipient returns a &badrequest; error with a type of 'cancel'.</li>
+    </ol>
+    <p>Upon receiving an error related to the data packet, the sender MUST close the bytestream as described under <link rel='#close'>Closing the Bytestream</link>.</p>
+    <p>Data packets MUST be processed in the order they are received. If an out-of-sequence packet is received for a particular direction within a bytestream (determined by checking the 'seq' attribute), then this indicates that a packet has been lost. The recipient MUST NOT process the data of such an out-of-sequence packet, nor any that follow it within the same bytestream; instead, the recipient MUST close the bytestream as described in the next section.</p>
+  </section2>
+
+  <section2 topic='Closing the Bytestream' anchor='close'>
+    <p>To close the bytestream, either party sends an IQ-set containing a &lt;close/&gt; element.</p>
+    <example caption='Closing the bytestream'><![CDATA[
+<iq from='romeo@montague.net/orchard'
+    id='us71g45j'
+    to='juliet@capulet.com/balcony'
+    type='set'>
+  <close xmlns='http://jabber.org/protocol/ibb' sid='i781hf64'/>
+</iq>
+    ]]></example>
+    <p>The receiving party then acknowledges that the bytestream has been closed by returning an IQ-result.</p>
+    <example caption='Success response'><![CDATA[
+<iq from='juliet@capulet.com/balcony'
+    id='us71g45j'
+    to='romeo@montague.net/orchard'
+    type='result'/> 
+    ]]></example>
+    <p>It is possible that the recipient of the close notification does not know about the bytestream, in which case it would return an &notfound; error.</p>
+    <example caption='Recipient does not know about the IBB session'><![CDATA[
+<iq type='error' 
+    from='juliet@capulet.com/balcony'
+    to='romeo@montague.net/orchard'
+    id='us71g45j'>
+  <error type='cancel'>
+    <item-not-found xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+  </error>
+</iq>
+    ]]></example>
+    <p>In either case, both parties MUST consider the bytestream to be closed.</p>
+  </section2>
+
+</section1>
+
+<section1 topic='Bidirectionality' anchor='bidi'>
+  <p>An in-band bytestream is bidirectional. Therefore, either party to the bytestream is allowed to send data. Each sender MUST initialize the 'seq' attribute to zero and increment the 'seq' value by one with each chunk of data it sends. Each recipient MUST track chunks based on the 'seq' values it receives. The 'seq' values in each direction are independent of the values in the other direction. Thus there are two data sequences for each Session ID.</p>
+</section1>
+
+<section1 topic='Use of Message Stanzas' anchor='message'>
+  <p>It is RECOMMENDED to use IQ stanzas when sending data packets. However, an application MAY use message stanzas instead. If message stanzas are used when sending data packets, the sender SHOULD also use &xep0079; or some other stanza flow-control method. For proper tracking of delivery and processing errors related to data packets, the 'id' attribute SHOULD be used with message stanzas.</p>
+  <example caption='Sending data in a message stanza'><![CDATA[
+<message from='romeo@montague.net/orchard' 
+         id='dsw71gj3'
+         to='juliet@capulet.com/balcony'>
+  <data xmlns='http://jabber.org/protocol/ibb' seq='0' sid='i781hf64'>
+    qANQR1DBwU4DX7jmYZnncmUQB/9KuKBddzQH+tZ1ZywKK0yHKnq57kWq+RFtQdCJ
+    WpdWpR0uQsuJe7+vh3NWn59/gTc5MDlX8dS9p0ovStmNcyLhxVgmqS8ZKhsblVeu
+    IpQ0JgavABqibJolc3BKrVtVV1igKiX/N7Pi8RtY1K18toaMDhdEfhBRzO/XB0+P
+    AQhYlRjNacGcslkhXqNjK5Va4tuOAPy2n1Q8UUrHbUd0g+xJ9Bm0G0LZXyvCWyKH
+    kuNEHFQiLuCY6Iv0myq6iX6tjuHehZlFSh80b5BVV9tNLwNR5Eqz1klxMhoghJOA
+  </data>
+</message>
+    ]]></example>
+</section1>
+
+<section1 topic='Usage Guidelines' anchor='usage'>
+  <ul>
+    <li>Generally, in-band bytestreams SHOULD be used only as a last resort. <strong>SOCKS5 Bytestreams</strong> will almost always be preferable.</li>
+    <li>A server MAY rate limit a connection, depending on the size and frequency of data packets.</li>
+    <li>A server MAY disconnect a connection that sends overly large packets as defined by its local service policy.</li>
+    <li>It is RECOMMENDED to use a 'block-size' of 4096.</li>
+  </ul>
+</section1>
+
+<section1 topic='Security Considerations' anchor='sec'>
+  <p>The In-Band Bytestreams protocol is as secure as the underlying XMPP transport. The application that uses IBB could have its own security layer, but this is outside of the scope of IBB.</p>
+  <p>An entity MUST verify any Base64 data received. An implementation MUST reject (not ignore) any characters that are not explicitly allowed by the Base64 alphabet; this helps to guard against creation of a covert channel that could be used to "leak" information. An implementation MUST NOT break on invalid input and MUST reject any sequence of Base64 characters containing the pad ('=') character if that character is included as something other than the last character of the data (e.g., "=AAA" or "BBBB=CCC"); this helps to guard against buffer overflow attacks and other attacks on the implementation. Base64 encoding visually hides otherwise easily recognized information, such as passwords, but does not provide any computational confidentiality. Base64 encoding MUST follow the definition in Section 4 of RFC 4648.</p>
+</section1>
+
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p>
+</section1>
+
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <section2 topic='Protocol Namespaces' anchor='registrar-ns'>
+    <p>The &REGISTRAR; includes 'http://jabber.org/protocol/ibb' in its registry of XML namespaces at &NAMESPACES;.</p> 
+  </section2>
+</section1>
+
+<section1 topic='XML Schema' anchor='schema'>
+  <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/ibb'
+    xmlns='http://jabber.org/protocol/ibb'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0047: http://www.xmpp.org/extensions/xep-0047.html
+    </xs:documentation>
+  </xs:annotation>
+
+   <xs:element name='open'>
+     <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='block-size' type='xs:unsignedShort' use='required'/>
+          <xs:attribute name='sid' type='xs:NMTOKEN' use='required'/>
+          <xs:attribute name='stanza' use='optional' default='iq'>
+            <xs:simpleType>
+              <xs:restriction base='xs:NCName'>
+                <xs:enumeration value='iq'/>
+                <xs:enumeration value='message'/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:attribute>
+        </xs:extension>
+      </xs:simpleContent>
+     </xs:complexType>
+   </xs:element>
+
+   <xs:element name='close'>
+     <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='sid' type='xs:NMTOKEN' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+     </xs:complexType>
+   </xs:element>
+
+   <xs:element name='data'>
+     <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='seq' type='xs:unsignedShort' use='required'/>
+          <xs:attribute name='sid' type='xs:NMTOKEN' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+     </xs:complexType>
+   </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  ]]></code>
+</section1>
+
+<section1 topic='Acknowledgements' anchor='ack'>
+  <p>Thanks to Fabio Forno for his feedback.</p>
+</section1>
+
+</xep>

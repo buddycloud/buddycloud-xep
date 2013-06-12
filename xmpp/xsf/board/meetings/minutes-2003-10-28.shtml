@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2003-10-28 @ 17:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 17:10 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Russell Davis</li>
+<li>Ryan Eatmon</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>All three Board members were in attendance. Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Trademark Transfer Status</p>
+    <p>The content for the trademark program web pages and license agreement was substantially borrowed from the Linux Mark Institute (LMI). Tony has been working with legal counsel to communicate with the LMI; they are fine with the borrowing in principle but need to review and approve the final copy. Also the license agreement has been modified to address the particulars of Jabber and the JSF, so a final review of that is needed. Both items should be completed in the next week or so. After definition of the program structure, the JSF needs to define processes and procedures for trademark administration. This may involve a dedicated Trademark Team at some point, but may be addressed by the Board in the interim. Further discussion required to determine process and procedures.</p>
+  </li>
+  <li>
+    <p>Future of Compliance and Marketing Teams</p>
+    <p>Both the Compliance Team and Marketing Team chairs have resigned. Only two JSF members have replied to Russell's call for participation in the Compliance Team. Consensus that compliance will become a bigger priority once the XMPP specifications advance to RFC. Renewed focus on compliance will be a priority in 2004. The focus of the Marketing Team is somewhat more nebulous; further discussion is required, but broad consensus that the focus needs to include promoting the JSF as a standards body and raising the acceptance of JSF protocols in the business world. In effect, we will attempt to "restart" both teams after the new year.</p>
+  </li>
+  <li>
+    <p>Infrastructure Team</p>
+    <p>Report from Ryan that the team is coming along, with several volunteers. No formal activities yet (still organizing).</p>
+  </li>
+  <li>
+    <p>XMPP.ORG Team</p>
+    <p>Consensus that it makes sense to launch the website soon after the XMPP specs advance to RFC. Some Jabber services are already in place (in particular, the ietf.xmpp.org chatrooms for use by IETF Working Groups, thanks to David Sutton and Peter Millard). Peter to put out call for contributors.</p>
+  </li>
+  <li>
+    <p>Michael Bauer's Resignation</p>
+    <p>Not official yet (per the Bylaws) since not received in writing. Peter to follow up in person.</p>
+  </li>
+  <li>
+    <p>JINC CCM License</p>
+    <p>No license text yet. Tony to follow up. Peter to follow up with server admins about quality of service.</p>
+  </li>
+</ol>
+<h2>Team Reports</h2>
+<ol>
+  <li>
+    <p>Team Reports</p>
+    <p>No formal reports presented.</p>
+    <p>Peter reported that the new Council is making good progress. One outcome of the discussions is the h2o structured discussion site being hosted by Paul Curtis. Board members encouraged to participate.</p>
+  </li>
+</ol>
+<h2>Action and Consent Items</h2>
+<p>None.</p>
+<!--
+<ol>
+  <li>
+    <p></p>
+  </li>
+</ol>
+-->
+<h2>New Business</h2>
+<ol>
+  <li>
+    <p>The next Board meeting is tentatively scheduled for December 2, 2003.</p> 
+  </li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 18:17 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

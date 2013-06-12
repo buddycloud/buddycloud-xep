@@ -1,0 +1,16 @@
+<manifest>
+  <title>Advanced Message Processing</title>
+  <abstract>This specification defines an XMPP protocol extension that enables entities to request, and servers to perform, advanced processing of XMPP message stanzas, including reliable data transport, time-sensitive delivery, and expiration of transient messages.</abstract>
+  <specnum>XEP-0079</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0079.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/amp</name>
+    <name>http://jabber.org/protocol/amp#errors</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/amp.xsd</schema>
+    <schema>http://www.xmpp.org/schemas/amp-errors.xsd</schema>
+  </schemas>
+</manifest>

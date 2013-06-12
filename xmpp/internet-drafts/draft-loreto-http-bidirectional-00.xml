@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc sortrefs="yes"?>
+<?rfc symrefs="yes" ?>
+<?rfc linkmailto="yes"?>
+<?rfc strict="yes"?>
+<?rfc subcompact="no"?>
+<rfc category="info" docName="draft-loreto-http-bidirectional-00" ipr="trust200902">
+
+  <front>
+    <title abbrev="Bidirectional HTTP">Best Practices for the Use of Long Polling and Streaming in Bidirectional HTTP</title>
+
+    <author initials="S." surname="Loreto" fullname="Salvatore Loreto">
+      <organization>Ericsson</organization>
+      <address>
+        <postal>
+          <street>Hirsalantie 11</street>
+          <code>02420</code> 
+          <city>Jorvas</city> 
+          <country>Finland</country>
+
+        </postal>
+        <email>salvatore.loreto@ericsson.com</email>
+      </address>
+    </author>
+
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>Cisco</organization>
+      <address>
+
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+
+    <author initials="G." surname="Wilkins" fullname="Greg Wilkins">
+      <organization>Webtide</organization>
+      <address>
+        <email>gregw@webtide.com</email>
+
+      </address>
+    </author> 
+
+    <author initials="S." surname="Salsano" fullname="Stefano Salsano">
+
+      <organization>Univ. of Rome "Tor Vergata"</organization>
+      <address>
+        <postal>
+          <street>Via del Politecnico, 1</street>
+          <code>00133</code> 
+          <city>Rome</city> 
+          <country>Italy</country>
+
+        </postal>
+        <email>stefano.salsano@uniroma2.it</email>
+      </address>
+    </author>
+
+    <date day="11" month="June" year="2009"/>
+    <area>Applications</area>
+    <keyword>I-D</keyword>
+
+    <keyword>Internet-Draft</keyword>
+    <keyword/>
+    <keyword/>
+    <keyword/>
+    <abstract>
+      <t>There is widespread interest in using the Hypertext Transfer Protocol (HTTP) to enable asynchronous or server-initiated communication from a server to a client as well as from a client to a server.  This document describes how to better use HTTP, as it exists today, to enable such "bidirectional HTTP" using "long polling" and "HTTP streaming" mechanisms.</t>
+    </abstract>
+  </front>
+
+  <middle>
+    <section anchor="intro" title="Introduction" toc="default">
+      <t>The Hypertext Transfer Protocol <xref target="HTTP-1.1"/> is a request/response protocol.  HTTP defines the following entities: clients, proxies, and servers.  A client establishes connections to a server for the purpose of sending HTTP requests.  A server accepts connections from clients in order to service HTTP requests by sending back responses.  Proxies are intermediate entities that can be involved in the delivery of requests and responses from the client to the server and vice versa.</t>
+
+      <t>In the standard HTTP model, a server cannot initiate a connection with a client nor send an unrequested HTTP response to the client; thus the server cannot push asynchronous events to clients.  Therefore, in order to receive asynchronous events as soon as possible, the client needs to poll the server periodically for new content.  However, continual polling can consume significant bandwidth by forcing a request/response round trip when no data is available.  It can also be inefficient because it reduces the responsiveness of the application since data is queued until the server receives the next poll request from the client.</t>
+
+      <t>To improve this situation, several server push programming mechanisms have been implemented in recent years.  These mechanisms, which are often grouped under the common label "Comet" <xref target="COMET"/>, enable a web server to send updates to clients without waiting for a poll request from the client.  Such mechanisms can deliver updates to clients in a more timely manner while avoiding the latency experienced by client applications due to the frequent open and close connections necessary to periodically poll for data.</t>
+
+      <t>The two most common server push mechanisms are "Long Polling" and "HTTP Streaming":</t>
+
+      <t>
+        <list style="hanging">
+          <t hangText="Long Polling:"> The server attempts to "hold open" (not immediately reply to) each HTTP request, responding only when there are events to deliver.  In this way, there is always a pending request available to use for delivering events as they occur, thereby minimizing the latency in message delivery.</t>
+          <t hangText="HTTP Streaming:"> The server keeps a request open indefinitely; that is, it never terminates the request or closes the connection, even after it pushes data to the client.</t>
+
+        </list>
+      </t>
+
+      <t>It is possible to define other technologies for bidirectional HTTP, however such technologies typically require changes to HTTP itself (e.g., the definition of new HTTP methods).  This document focuses only on bidirectional HTTP technologies that work within the current scope of HTTP as defined in <xref target="HTTP-1.1"/> and <xref target="HTTP-1.0"/>.</t>
+
+      <t>The remainder of this document is organized as follows.  <xref target="polling"/> analyzes the "long polling" technique.  <xref target="streaming"/> analyzes the "HTTP streaming" technique.  <xref target="tech"/> provides an overview of the specific technologies that use server-push technique.  <xref target="practices"/> lists best practices for bidirectional HTTP using existing technologies.</t>
+
+      <t>The preferred venue for discussion of this document is the hybi@ietf.org mailing list; visit <eref target="https://www.ietf.org/mailman/listinfo/hybi"/> for further information.</t>
+
+    </section>
+
+    <section anchor="polling" title="Long Polling">
+      <section anchor="polling-definition" title="Definition">
+        <t>With the traditional or "short" polling technique, a client sends regular requests to the server and each request attempts to "pull" any available events or data.  If there are no events or data available, the server returns an empty response and the client waits for a period before sending another poll request.  The frequency depends on the latency which can be tolerated in retrieving updated information from the server.  This mechanism has the drawback that the consumed resources (server processing and network) strongly depend on the acceptable latency in the delivery of updates from server to client.  If the acceptable latency is low (e.g., on the order of seconds) then the frequency of the poll request can cause an unacceptable burden on the server and/or the network.</t>
+
+        <t>By contrast with such "short polling", "long polling" attempts to minimize both latency in server-client message delivery and the processing/network resource as compared to the normal polling techniques.  The server achieves these efficiencies by responding to a request only when a particular event, status, or timeout has occurred.  Once the server sends a long poll response, typically the client immediately sends a new long poll request.  Effectively this means that at any given time the server will be holding open a long poll request, to which it reply when new information is available for the client.  As a result, the server is able to asynchronously "initiate" communication.</t>
+        <t>The basic life cycle of an application using "long polling" is as follows:</t>
+        <t>
+          <list style="numbers">
+            <t>The client makes an initial request and then waits for a response.</t>
+            <t>The server defers its response until an update is available, or a particular status or timeout has occurred.</t>
+            <t>When an update is available, the server sends a complete response to the client.</t>
+
+            <t>The client typically sends a new long poll request, either immediately or after a pause to allow an acceptable latency period.</t>
+           </list>
+         </t>
+         <t>The long polling mechanism can be applied to either persistent or non-persistent HTTP connections.  Persistent HTTP connection will avoid the additional overhead of establishing a TCP/IP connection for every long poll.</t>
+       </section>
+
+       <section anchor="polling-issues" title="Long Polling Issues">
+         <t>The long polling mechanism introduces the following issues.</t>
+
+         <t>
+           <list style="hanging">
+             <t hangText="Header Overhead:">With the long polling technique, every long poll request and long poll response is a complete HTTP message and thus contains a full set of HTTP headers in the message framing.  For small infrequent messages, the headers can represent a large percentage of the data transmitted.  This does not introduce a significant technical issue, as long as the network MTU allows all the information, including the HTTP header, to fit within a single IP packet.  On the other hand it can be an issue for data cost, as the amount of transferred data can be significantly larger than the real payload carried by HTTP.</t>
+             <t hangText="Maximal Latency:">After a long polling response is sent to a client, the server must wait for the next long polling request before another message can be sent to the client.  This means that while the average latency of long polling is close to one network transit, the maximal latency is over three network transits (long poll response, next long poll request, long poll response).  However, because HTTP is carried on TCP/IP, packet loss and retransmission can occur, so maximal latency for any TCP/IP protocol will be more than three network transits (lost packet, next packet, negative ack, retransmit).</t>
+             <t hangText="Connection Establishment:">A common criticism of both short polling and long polling is that these mechanisms frequently open TCP/IP connections and then close them.  However, both polling mechanisms work well with persistent HTTP connections that can be reused for many poll requests.  Specifically, the short duration of the pause between a long poll response and the next long poll request avoids the closing of idle connections.</t>
+             <t hangText="Allocated Resources:">Operating systems and network appliances will allocate resources to TCP/IP connections and to HTTP requests outstanding on those requests. The long polling mechanism requires that for each client, both a TCP/IP connection and an HTTP request are long held. Thus it is important that the resources to each of these are considered when sizing a long polling application.  Typically the resource used per TCP/IP connection are minimal and can scale reasonably.  Frequently the resources allocated to HTTP requests can be significant and scaling the total number of requests outstanding can be limited on some gateways, proxies, and servers.</t>
+             <t hangText="Graceful Degradation:">A long polling client or server that is under load has a natural tendency to gracefully degrade in performance at a cost of message latency.  If load causes either a client or server to run slowly, then events to be pushed to clients will queue (waiting either for a long poll request or for available CPU to use a held long poll request).  If multiple messages are queued for a client, then they may be delivered in a batch within a single long poll response.  This can significantly reduces the per-message overhead and thus ease the work load of the client/server for the given message load.</t>
+           </list>
+         </t>
+       </section>
+     </section>
+
+     <section anchor="streaming" title="HTTP Streaming">
+       <section anchor="streaming-definition" title="Definition">
+         <t>The "HTTP streaming" mechanism keeps a request open indefinitely. It never terminates the request or closes the connection, even after the server pushes data to the client. This mechanism significantly reduces the network latency because the client and the server do not need to open and close the connection.</t>
+
+         <t>The basic life cycle of an application using "HTTP streaming" is as follows:</t>
+         <t>
+           <list style="numbers">
+             <t>The client makes an initial request and then waits for a response.</t>
+             <t>The server defers the response to a poll request until an update is available, or a particular status or timeout has occurred.</t>
+             <t>Whenever an update is available, the server sends it back to the client as a part of the response.</t>
+             <t>The data sent by the server does not terminate the request or the connection.  The server returns to step 3.</t>
+
+           </list>
+         </t>
+         <t>The HTTP streaming mechanism is based on the capability of the server to send several pieces of information on the same response, without terminating the request or the connection.  This result can be achieved by both HTTP/1.1 and HTTP/1.0 servers.</t>
+         <t>An HTTP/1.1 server will use the chunked Transfer-Encoding mechanism.  It will include the header "Transfer-Encoding: chunked" at the beginning of the response, and will send the following parts of the response in different "chunks" over the same connection.  Each chunk starts with the hexadecimal expression of the length of its data, followed by CR/LF (the end of the response is indicated with a chunk of size 0).</t>
+         <figure anchor="notifier" title="Transfer-Encoding response">
+           <artwork xml:space="preserve" name="" type="" align="left" alt="" width="" height=""><![CDATA[
+        HTTP/1.1 200 OK
+        Content-Type: text/plain
+        Transfer-Encoding: chunked
+
+        25
+        This is the data in the first chunk
+
+        1C
+        and this is the second one
+
+        0
+           ]]></artwork>
+         </figure>
+
+         <t>A HTTP/1.0 server will omit the Content-Length header in the response to achieve the same result, so it will be able to send the following parts of the response on the same connection (in this case the different parts of the response are not explicitly separated by HTTP protocol, and the end of the response is achieved by closing the connection).</t>
+       </section>
+        
+       <section anchor="streaming-issues" title="HTTP Streaming Issues">
+         <t>The HTTP streaming mechanism introduces the following issues.</t>
+         <t>
+           <list style="hanging">
+             <t hangText="Network Intermediaries:">The HTTP protocol allows for intermediaries (proxies, transparent proxies, gateways, etc.) to be involved in the transmission of a response from server to the client.  There is no requirement for an intermediary to immediately forward a partial response and it is legal for it to buffer the entire response before sending any data to the client (e.g., caching transparent proxies).  HTTP streaming will not work with such intermediaries.</t>
+             <t hangText="Maximal Latency:">Theoretically, on a perfect network, an HTTP streaming protocol's average and maximal latency is one network transit.  However, in practice the maximal latency is higher due to network and browser limitations.  The browser techniques used to terminate HTTP streaming connections are often associated with JavaScript and/or DOM elements that will grow in size for every message received.  Thus in order to avoid unlimited memory growth in the client, an HTTP streaming implementation must occasionally terminate the streaming response and send a request to initiate a new streaming response (which is essentially equivalent to a long poll).  Thus the maximal latency is at least three network transits.  Also, as HTTP is carried on TCP/IP, packet loss and retransmission can occur, so maximal latency for any TCP/IP protocol will be more than three network transits (lost packet, next packet, negative ack, retransmit).</t>
+             <t hangText="Client Buffering:">There is no requirement in existing HTTP specifications for a client library to make the data from a partial HTTP response available to the client application.  For example, if each response chunk contains a statement of JavaScript, there is no requirement in the browser to execute that JavaScript before the entire response is received.   However, in practice most browsers do execute JavaScript received in partial responses, but some require a buffer overflow to trigger execution, so  blocks of white space can be sent to achieve buffer overflow.</t>
+             <t hangText="Framing Techniques:">Using HTTP streaming, several application messages can be sent within a single http response. The separation of the response stream into application messages needs to be perfomed at application level and not at HTTP level. In particular it is not possible to use the HTTP chunks as application message delimiters, since intermediate proxies might "re-chunk" the message stream (for example by combining different chunks into a longer one). This issue does not affect the long polling technique, which provides a canonical framing technique: each application message can be sent into a different HTTP response.</t>
+             </list>
+         </t>
+       </section>
+     </section>
+
+    <section anchor="tech" title="Overview of Technologies">
+      <t>This section provides an overview of how the specific technologies that implement server-push mechanisms use HTTP to asynchronously deliver messages from the server to the client.</t>
+
+      <section anchor="bayeux" title="Bayeux">
+        <t>The Bayeux protocol <xref target="BAYEUX"/> was developed in 2006-2007 by the Dojo Foundation. Bayeux can use both the long polling and HTTP streaming mechanisms.</t> 
+        <t>In order to achieve bidirectional communications, a Bayeux client will use two HTTP connections to a Bayeux server so that both server-to-client and client-to-server messaging can occur asynchronously.</t>
+        <t>The Bayeux specification requires that implementations control pipeling of HTTP requests, so that requests are not pipelined inappropriately (e.g., a client-to-server message pipelined behind a long poll request).</t>
+        <t>In practice, for JavaScript clients, such control over pipelining is not possible in current browsers.  Therefore JavaScript implementations of Bayeux attempt to meet this requirement by limiting themselves to a maximum of two outstanding HTTP requests at any one time, so that browser connection limits will not be applied and the requests will not be queued or pipelined.  While broadly effective, this mechanism can be disrupted by non-Bayeux JavaScript simultaneously issuing requests to the same host.</t>
+        <t>Bayeux connections are negotiated between client and server with handshake messages that allow the connection type, authentication method, and other parameters to be agreed upon between the client and the server. Furthermore during the handshake phase the client and the server reveal to each other their acceptable bidirectional techniques and the client selects one from the intersection of those sets.</t>
+        <t>For non-browser or same-domain Bayeux, clients use HTTP POST requests to the server for both the long poll request and the request to send messages to the server.  The Bayeux protocol packets are sent as the body of the HTTP messages using the "text/json; charset=utf-8" MIME content type.</t>
+        <t>For browsers that are operating in cross-domain mode, Bayeux clients use the script src Ajax mechanism, a.k.a. AJAST as described at &lt;http://en.wikipedia.org/wiki/AJAST_(programming)&gt;.</t>
+        <t>Client-to-server messages are sent as encoded JSON on the URL query parameters.</t>
+        <t>Server-to-client messages are sent as a JavaScript program that wraps the message JSON with a JavaScript function call to the already loaded Bayeux implementation.</t>
+
+      </section>
+
+      <section anchor="bosh" title="BOSH" toc="bosh">
+         <t>BOSH, which stands for Bidirectional-streams Over Synchronous HTTP <xref target="BOSH"/>, was developed by the XMPP Standards Foundation in 2003-2004.  The purpose of BOSH is to emulate normal TCP connections over HTTP (TCP is the standard connection mechanism used in the Extensible Messaging and Presence Protocol as described in <xref target='XMPP'/>).  BOSH employs the long polling mechanism by allowing the server (called a "BOSH connection manager") not to respond to a request until it actually has data to send to the client from the application server itself (typically an XMPP server).  As soon as the client receives a response from the connection manager, it sends another request to the connection manager, thereby ensuring that the connection manager is (almost) always holding a request that it can use to "push" data to the client.</t>
+         <t>In some situations, the client needs to send data to the server while it is waiting for data to be pushed from the connection manager.  To prevent data from being pipelined behind the long poll request that is on hold, the client can send its outbound data in a second HTTP request.  BOSH forces the server to respond to the request it has been holding on the first connection as soon as it receives a new request from the client, even if it has no data to send to the client.  It does so to make sure that the client can send more data immediately if necessary even in the case where the client is not able to pipeline the requests, respecting at the same time the two-connection limit discussed under <xref target="connectionlimit"/>.</t>
+         <t>The number of long polling request-response pairs is negotiated during the first request sent from the client to the connection manager.  Typically BOSH clients and connection managers will negotiate the use of two pairs, although it is possible to use only one pair or to use more than two pairs.</t>
+         <t>The roles of the two response-response pairs typically switch whenever the client sends data to the connection manager.  This means that when the client issues a new request, the connection manager immediately answers to the blocked request on the other TCP connection, thus freeing it; in this way, in a scenario where only the client sends data, all the even requests are sent over one connection and the odd ones are sent over the other connection.</t>
+
+         <t>BOSH is able to work reliably both when network conditions force every HTTP request to be made over a different TCP connection and when it is possible to use HTTP/1.1 and then relay on two persistent TCP connections.</t>
+         <t>If the connection manager has no data to send to the client for an agreed amount of time (also negotiated during the first request), then the connection manager will respond to the request it has been holding with no data, and that response immediately triggers a fresh client request.  The connection manager does so to ensure that if a network connection is broken then both parties will realise that within a reasonable amount of time.</t>
+        <t>Moreover BOSH defines the negotiation of an "inactivity period" value that specifies the longest allowable inactivity period (in seconds).  This enables the client to ensure that the periods with no requests pending are never too long.</t>
+        <t>BOSH allows data to be pushed immediately when HTTP Pipelining is available.  However if HTTP Pipelining is not available and one of the endpoints has just pushed some data, BOSH will usually need to wait for a network round trip time until it is able to push again.</t>
+        <t>BOSH uses standard HTTP POST request and response bodies to encode all information.</t>
+        <t>BOSH normally uses HTTP Pipelining over a persistent HTTP/1.1 connection.  However, a client can deliver its POST requests in any way permitted by <xref target="HTTP-1.0"/> or <xref target="HTTP-1.1"/>.</t>
+
+        <t>BOSH clients and connection managers are not allowed to use Chunked Transfer Coding, since intermediaries might buffer each partial HTTP request or response and only forward the full request or response once it is available.</t>
+        <t>BOSH allows the usage of the Accept-Encoding and Content-Encoding headers respectively in the request and in the response, and then compresses the response body accordingly.</t>
+        <t>Each BOSH session can share the HTTP connection(s) it uses with other HTTP traffic, including other BOSH sessions and HTTP requests and responses completely unrelated to the BOSH protocol (e.g., web page downloads).</t>
+      </section>
+    </section>
+
+    <section anchor="practices" title="HTTP Best Practices">
+      <section anchor="connectionlimit" title="Two Connection Limit">
+
+        <t>HTTP <xref target="HTTP-1.1"/> section 8.1.4 recommends that a single user client should not maintain more than two connections to any server or proxy, to prevent the server from being overloaded.</t> 
+        <t>Web applications need to limit the number of long poll requests initiated, ideally to a single long poll that is shared between frames, tabs, or windows of the same browser. However the security constraints of the browsers make such sharing difficult.</t>
+        <t>A possible best practice is for a server to use cookies to detect multiple long poll requests from the same browser and to avoid deferring both requests this may possible cause connection starvation and/or pipeline issues.</t>
+      </section>
+      <section anchor="pipelining" title="Pipelined Connections">
+        <t>HTTP <xref target="HTTP-1.1"/> permits optional request pipelining over persistent connections.  Multiple requests can be enqueued before the responses arrive.</t> 
+        <t>There is a possible open issue regarding the inability to control "pipelining".  Normal requests can be pipelined behind a long poll, and are thus delayed until the long poll completes.</t>
+
+      </section>
+      <section anchor="proxies" title="Proxies">
+        <t>Most proxies work well with long polling, because a complete HTTP response must be sent either on an event or a timeout.  Proxies should return that response immediately to the user-agent, which immediately acts on it.</t>
+        <t>The HTTP streaming mechanism uses partial responses and sends some JavaScript in an HTTP/1.1 chunk as described under <xref target="streaming"/>.  This mechanism can face problems caused by two factors: (1) it relies on the proxies forwarding each chunk (even though there is no requirement to do so, and some caching proxies do not), and (2) it relies on the user-agent executing the chunk of JavaScript as it arrives (even though there is also no requirement for them to do so).</t>
+        <t>A "reverse proxy" basically is a proxy that pretends to be the actual server (as far as any client or client proxy is concerned), but it passes on the request to the actual server that is usually sitting behind another layer of firewalls.  Any short polling or long polling Comet solution should work fine with this, as will most streaming Comet connections.  The main downside is performance, since most proxies are not designed to hold many open connections like a dedicated Comet server is.</t>
+        <t>Reverse proxies can come to grief when they try to share connections to the servers between multiple clients.  As an example, Apache with mod_jk shares a small set of connections (often 8 or 16) between all clients.  If long polls are sent on those shared connections, then the proxy can be starved of connections, which means that other requests (either long poll or normal) can be held up.  Thus Comet mechanisms currently need to avoid any connection sharing -- either in the browser or in any intermediary -- because the HTTP assumption is that each request will complete as fast as possible.</t>
+        <t>Much of the "badness" of both long polling and HTTP streaming for servers and proxies results from using a synchronous programming model for handling requests, since the resources allocated to each request are held for the duration of the request.  Asynchronous proxies and servers can handle Comet long polls with few resources above that of normal HTTP traffic.  Unfortunately some synchronous proxies do exist (e.g., apache mod_jk) and many HTTP application servers also have a blocking model for their request handling (e.g., the Java servlet 2.5 specification).</t>
+      </section>
+      <section anchor="responses" title="HTTP Responses">
+        <t>The server responds to a request successfully received by sending a 200 OK answer, only when a particular event, status, or timeout has occurred. The 200 OK body section contains the actual event, status, or timeout that occurred.</t>
+      </section>
+      <section anchor="timeouts" title="Timeouts">
+        <t>The long polling mechanism allows the server to respond to a request only when a particular event, status, or timeout has occurred.  In order to minimize as much as possible both latency in server-client message delivery and the processing/network resources needed, the value for the long polling request timeout should be set to a high value.</t>
+        <t>However the value timeout value has to be chosen carefully, indeed there can be problem if this value is set too high (e.g., the client might receive a 408 Request Timeout answer from the server or a 504 Gateway Timeout answer from a proxy). The default timeout value in a browser is 300 seconds, but most network infrastructures have proxies and server that do not have such a long timeout.</t>
+        <t>Several experiments have shown success with timeouts as high as 120 seconds, but generally 30 seconds is a safer value.  Therefore it is recommended that all network equipment that wishes to be compatible with the long polling mechanism should implement a timeout substantially greater than 30 seconds (where "substantially" means several times more than the medium network transit time).</t>
+      </section>
+      <section anchor="network" title="Network Impact">
+        <t>To follow.</t>
+      </section>
+    </section>
+
+    <section title="Future Work" anchor="future">
+      <t>This document focuses on best practices for bidirectional HTTP in the context of HTTP as it exists today.  Future documents might define additions to HTTP that could enable improved mechanisms for bidirectional HTTP.  Examples include:</t>
+      <t>
+        <list style="symbols">
+          <t>An HTTP extension for long polling, including request tracking, duplication, and retry methods.</t>
+          <t>A method for monitoring the state of multiple resources.</t>
+          <t>A request header to determine timeouts.</t>
+
+          <t>A request header to determine the longest acceptable polling interval.</t>
+          <t>Improved rendezvous logic between the user agent, a proxy / connection manager, and the backend application server.</t>
+          <t>Improved addressing for the entities involved in bidirectional HTTP, possibly including the use of URI templates.</t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Acknowledgments">
+      <t>Thanks to Joe Hildebrand, Mark Nottingham, and Martin Tyler for their feedback.</t>
+    </section>
+
+    <section title="IANA Considerations" anchor="iana">
+      <t>This document does not require any actions by the IANA.</t>
+    </section>
+
+    <section title="Security Considerations" anchor="security">
+      <t>To follow.</t>
+
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Informative References">
+
+<reference anchor="BOSH">
+  <front>
+    <title>Bidirectional-streams Over Synchronous HTTP (BOSH)</title>
+
+    <author initials="I." surname="Paterson" fullname="Ian Paterson">
+      <organization/>
+      <address>
+        <email>ian.paterson@clientside.co.uk</email>
+      </address>
+    </author>
+    <author initials="D." surname="Smith" fullname="Dave Smith">
+      <organization/>
+
+      <address>
+        <email>dizzyd@jabber.org</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+
+      </address>
+    </author>
+    <date day="21" month="February" year="2007"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0124"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0124.html"/>
+</reference>
+
+<reference anchor="BAYEUX">
+  <front>
+
+    <title>Bidirectional-streams Over Synchronous HTTP (BOSH)</title>
+    <author initials="A." surname="Russell" fullname="Alex Russel">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="G." surname="Wilkins" fullname="Greg Wilins">
+
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="D." surname="Davis" fullname="David Davis">
+      <organization/>
+      <address>
+        <email/>
+
+      </address>
+    </author>
+   <author initials="M." surname="Nesbitt" fullname="Mark Nesbitt">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <date day="" month="" year="2007"/>
+
+  </front>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0124.html"/>
+</reference>
+
+<reference anchor="COMET">
+  <front>
+    <title>Comet: Low Latency Data for the Browser</title>
+    <author initials="A." surname="Russell" fullname="Alex Russell">
+      <organization/>
+      <address>
+
+        <email/>
+      </address>
+    </author>
+    <date day="3" month="March" year="2006"/>
+  </front>
+  <format type="HTML" target="http://alex.dojotoolkit.org/?p=545"/>
+</reference>
+
+<reference anchor="HTTP-1.0">
+<front>
+<title abbrev="HTTP/1.0">Hypertext Transfer Protocol -- HTTP/1.0</title>
+
+<author initials="T." surname="Berners-Lee" fullname="Tim Berners-Lee">
+<organization>MIT, Laboratory for Computer Science</organization>
+<address>
+<postal>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code>
+<country>US</country></postal>
+<facsimile>+1 617 258 8682</facsimile>
+
+<email>timbl@w3.org</email></address></author>
+<author initials="R.T." surname="Fielding" fullname="Roy T.  Fielding">
+<organization>University of California, Irvine, Department of Information and Computer Science</organization>
+<address>
+<postal>
+<street/>
+<city>Irvine</city>
+<region>CA</region>
+<code>92717-3425</code>
+<country>US</country></postal>
+<facsimile>+1 714 824 4056</facsimile>
+
+<email>fielding@ics.uci.edu</email></address></author>
+<author initials="H.F." surname="Nielsen" fullname="Henrik Frystyk Nielsen">
+<organization>W3 Consortium, MIT Laboratory for Computer Science</organization>
+<address>
+<postal>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code>
+<country>US</country></postal>
+
+<facsimile>+1 617 258 8682</facsimile>
+<email>frystyk@w3.org</email></address></author>
+<date year="1996" month="May"/>
+<abstract>
+<t>The Hypertext Transfer Protocol (HTTP) is an application-level protocol with the lightness and speed necessary for distributed, collaborative, hypermedia information systems.  It is a generic, stateless, object-oriented protocol which can be used for many tasks, such as name servers and distributed object management systems, through extension of its request methods (commands).  A feature of HTTP is the typing of data representation, allowing systems to be built independently of the data being transferred.</t>
+<t>HTTP has been in use by the World-Wide Web global information initiative since 1990.  This specification reflects common usage of the protocol referred to as "HTTP/1.0".</t></abstract></front>
+<seriesInfo name="RFC" value="1945"/>
+<format type="TXT" octets="137582" target="ftp://ftp.isi.edu/in-notes/rfc1945.txt"/>
+</reference>
+
+<reference anchor="HTTP-1.1">
+<front>
+<title abbrev="HTTP/1.1">Hypertext Transfer Protocol -- HTTP/1.1</title>
+
+<author initials="R." surname="Fielding" fullname="Roy T.  Fielding">
+<organization abbrev="UC Irvine">Department of Information and Computer Science</organization>
+<address>
+<postal>
+<street>University of California, Irvine</street>
+<city>Irvine</city>
+<region>CA</region>
+<code>92697-3425</code></postal>
+<facsimile>+1(949)824-1715</facsimile>
+<email>fielding@ics.uci.edu</email></address></author>
+
+<author initials="J." surname="Gettys" fullname="James Gettys">
+<organization abbrev="Compaq/W3C">World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+
+<email>jg@w3.org</email></address></author>
+<author initials="J." surname="Mogul" fullname="Jeffrey C.  Mogul">
+<organization abbrev="Compaq">Compaq Computer Corporation</organization>
+<address>
+<postal>
+<street>Western Research Laboratory</street>
+<street>250 University Avenue</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94305</code></postal>
+
+<email>mogul@wrl.dec.com</email></address></author>
+<author initials="H." surname="Frystyk" fullname="Henrik Frystyk Nielsen">
+<organization abbrev="W3C/MIT">World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+
+<facsimile>+1(617)258-8682</facsimile>
+<email>frystyk@w3.org</email></address></author>
+<author initials="L." surname="Masinter" fullname="Larry Masinter">
+<organization abbrev="Xerox">Xerox Corporation</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>3333 Coyote Hill Road</street>
+<city>Palo Alto</city>
+<region>CA</region>
+
+<code>94034</code></postal>
+<email>masinter@parc.xerox.com</email></address></author>
+<author initials="P." surname="Leach" fullname="Paul J.  Leach">
+<organization abbrev="Microsoft">Microsoft Corporation</organization>
+<address>
+<postal>
+<street>1 Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code></postal>
+
+<email>paulle@microsoft.com</email></address></author>
+<author initials="T." surname="Berners-Lee" fullname="Tim Berners-Lee">
+<organization abbrev="W3C/MIT">World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+
+<facsimile>+1(617)258-8682</facsimile>
+<email>timbl@w3.org</email></address></author>
+<date year="1999" month="June"/>
+<abstract>
+<t>
+   The Hypertext Transfer Protocol (HTTP) is an application-level
+   protocol for distributed, collaborative, hypermedia information
+   systems.  It is a generic, stateless, protocol which can be used for
+   many tasks beyond its use for hypertext, such as name servers and
+   distributed object management systems, through extension of its
+   request methods, error codes and headers .  A feature of HTTP is
+   the typing and negotiation of data representation, allowing systems
+   to be built independently of the data being transferred.
+</t>
+<t>
+   HTTP has been in use by the World-Wide Web global information
+   initiative since 1990.  This specification defines the protocol
+   referred to as "HTTP/1.1", and is an update to RFC 2068 .
+</t></abstract></front>
+<seriesInfo name="RFC" value="2616"/>
+<format type="TXT" octets="422317" target="ftp://ftp.isi.edu/in-notes/rfc2616.txt"/>
+<format type="PS" octets="5529857" target="ftp://ftp.isi.edu/in-notes/rfc2616.ps"/>
+
+<format type="PDF" octets="550558" target="ftp://ftp.isi.edu/in-notes/rfc2616.pdf"/>
+<format type="HTML" octets="636125" target="http://xml.resource.org/public/rfc/html/rfc2616.html"/>
+<format type="XML" octets="493420" target="http://xml.resource.org/public/rfc/xml/rfc2616.xml"/>
+</reference>
+
+<reference anchor='XMPP'>
+<front>
+<title abbrev='XMPP Core'>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P.' surname='Saint-Andre' fullname='Peter Saint-Andre' role='editor'>
+<organization>Jabber Software Foundation</organization>
+<address>
+<email>stpeter@jabber.org</email></address></author>
+<date year='2004' month='October' />
+<area>Applications</area>
+<workgroup>XMPP Working Group</workgroup>
+<keyword>RFC</keyword>
+<keyword>Request for Comments</keyword>
+<keyword>I-D</keyword>
+<keyword>Internet-Draft</keyword>
+<keyword>XMPP</keyword>
+<keyword>Extensible Messaging and Presence Protocol</keyword>
+<keyword>Jabber</keyword>
+<keyword>IM</keyword>
+<keyword>Instant Messaging</keyword>
+<keyword>Presence</keyword>
+<keyword>XML</keyword>
+<keyword>Extensible Markup Language</keyword>
+<abstract>
+<t>This memo defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a protocol for streaming Extensible Markup Language (XML) elements in order to exchange structured information in close to real time between any two network endpoints.  While XMPP provides a generalized, extensible framework for exchanging XML data, it is used mainly for the purpose of building instant messaging and presence applications that meet the requirements of RFC 2779.</t></abstract></front>
+<seriesInfo name='RFC' value='3920' />
+<format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+<format type='HTML' octets='237435' target='http://xml.resource.org/public/rfc/html/rfc3920.html' />
+<format type='XML' octets='234474' target='http://xml.resource.org/public/rfc/xml/rfc3920.xml' />
+</reference>
+
+    </references>
+  </back>
+</rfc>

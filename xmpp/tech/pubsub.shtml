@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Technologies: PubSub</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Technologies: PubSub</h2>
+
+<h3>Table of Contents</h3>
+<ol>
+  <li><a href='#overview'>Overview</a></li>
+  <li><a href='#specs'>Specifications</a></li>
+  <li>
+    <a href='#impl'>Implementations</a>
+    <ol>
+      <li><a href='#impl-server'>Servers</a></li>
+      <li><a href='#impl-component'>Server Components</a></li>
+      <li><a href='#impl-client'>Clients</a></li>
+      <li><a href='#impl-library'>Libraries</a></li>
+    </ol>
+  </li>
+  <li><a href='#discuss'>Discussion Venues</a></li>
+</ol>
+
+<a name='overview'></a><h3>1. Overview</h3>
+<p>XMPP PubSub is a protocol extension for generic publish-subscribe functionality, specified in XEP-0060. The protocol enables XMPP entities to create nodes (topics) at a pubsub service and publish information at those nodes; an event notification (with or without payload) is then broadcasted to all entities that have subscribed to the node. Pubsub therefore adheres to the classic Observer design pattern and can serve as the foundation for a wide variety of applications, including news feeds, content syndication, rich presence, geolocation, workflow systems, network management systems, and any other application that requires event notifications. The personal eventing protocol (PEP), specified in XEP-0163, provides a presence-aware profile of PubSub that enables every user's JabberID to function as a virtual pubsub service for rich presence, microblogging, social networking, and real-time interactions.</p>
+
+<a name='specs'></a><h3>2. Specifications</h3>
+<p>PubSub is defined in several specifications:</p>
+<ul>
+  <li><a href='http://www.xmpp.org/extensions/xep-0060.html'>XEP-0060: Publish-Subscribe</a></li>
+  <li><a href='http://www.xmpp.org/extensions/xep-0163.html'>XEP-0163: Personal Eventing Protocol</a></li>
+  <li><a href='http://www.xmpp.org/extensions/xep-0248.html'>XEP-0248: PubSub Collection Nodes</a></li>
+</ul>
+<a name='specs-payloads'></a><h4>2.1 Payloads</h4>
+<p>PubSub and PEP are "payload-agnostic" -- you can use them as neutral transports for a wide variety of data formats. Some of the more popular payloads are listed below, especially for rich presence related to IM users:</p>
+<ul>
+  <li><a href='http://xmpp.org/extensions/xep-0108.html'>Activities</a></li>
+  <li><a href='http://xmpp.org/internet-drafts/draft-saintandre-atompub-notify-07.html'>Atom / RSS Notifications</li>
+  <li><a href='http://xmpp.org/extensions/xep-0084.html'>Avatars</a></li>
+  <li><a href='http://xmpp.org/extensions/xep-0194.html'>Chatroom Visits</a></li>
+  <li><a href='http://xmpp.org/extensions/xep-0196.html'>Gaming Activities</a></li>
+  <li><a href='http://xmpp.org/extensions/xep-0080.html'>Geolocation</a></li>
+  <li><a href='http://xmpp.org/extensions/xep-0107.html'>Moods</a></li>
+  <li><a href='http://xmpp.org/extensions/xep-0118.html'>Music Tunes</a></li>
+  <li><a href='http://xmpp.org/extensions/xep-0197.html'>TV/Video Activities</a></li>
+  <li><a href='http://xmpp.org/extensions/xep-0195.html'>Website Visits</a></li>
+</ul>
+
+<a name='impl'></a><h3>3. Implementations</h3>
+<a name='impl-server'></a><h4>3.1 Servers</h4>
+<p>The following XMPP servers include built-in support for PubSub or PEP:</p>
+<ul>
+  <li><a href='http://www.ejabberd.im/'>ejabberd</a></li>
+  <li><a href='http://www.jabber.com/'>Jabber XCP</a></li>
+  <li><a href='http://www.igniterealtime.org/projects/openfire/index.jsp'>Openfire</a></li>
+  <li><a href='http://www.tigase.org/'>Tigase</a></li>
+</ul>
+
+<a name='impl-component'></a><h4>3.2 Server Components</h4>
+<ul>
+  <li><a href='http://idavoll.ik.nu/'>Idavoll</a></li>
+</ul>
+
+<a name='impl-client'></a><h4>3.3 Clients</h4>
+<ul>
+  <li><a href='http://gajim.org/'>Gajim</a></li>
+  <li><a href='http://psi-im.org/'>Psi</a></li>
+</ul>
+
+<a name='impl-library'></a><h4>3.4 Libraries</h4>
+<ul>
+  <li><a href='http://code.stanziq.com/strophe/'>strophe</a> (C or JavaScript)</li>
+  <li><a href='http://home.gna.org/xmpp4r/'>XMPP4R</a> (Ruby)</li>
+</ul>
+
+<a name='discuss'></a><h3>4. Discussion Venues</h3>
+<p>The XMPP Standards Foundation maintains a dedicated email list ("pubsub@xmpp.org") about PubSub, intended as a low-volume venue for discussion of PubSub implementation and protocol issues. As with all XSF technology lists, the pubsub@xmpp.org list is open to all interested individuals.</p>
+<ul>
+  <li><a href='http://mail.jabber.org/mailman/listinfo/pubsub'>Info page and subscription information</a></li>
+  <li><a href='mailto:pubsub-subscribe@xmpp.org'>Subscribe via email</a></li>
+  <li><a href='http://mail.jabber.org/pipermail/pubsub/'>Discussion archives</a></li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,11 @@
+<div class='box'>
+<p><strong>Your certificate is free to you but is paid for by the <a href='/xsf/'>XMPP Standards Foundation</a> because we are committed to building a more secure Internet. Typical CAs charge hundreds of dollars a year for digital certificates, but we provide them for free. To help support this work, please consider contributing to the XSF via PayPal. Our suggested donations are only $10 for personal servers and $50 for corporate servers!</strong></p>
+<form style='text-align: center' name="_xclick" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+<input type="hidden" name="cmd" value="_xclick">
+<input type="hidden" name="business" value="paypal@xmpp.org">
+<input type="hidden" name="item_name" value="XMPP ICA">
+<input type="hidden" name="currency_code" value="USD">
+<input type="hidden" name="amount" value="10.00">
+<input type="image" src="http://www.paypal.com/en_US/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+</form>
+</div>

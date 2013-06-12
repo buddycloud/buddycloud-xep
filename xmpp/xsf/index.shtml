@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Standards Foundation</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Standards Foundation</h2>
+
+<p>The XMPP Standards Foundation (formerly the Jabber Software Foundation) is an independent, nonprofit standards development organization whose primary <a href='mission.shtml'>mission</a> is to define open protocols for presence, instant messaging, and real-time communication and collaboration on top of the IETF's Extensible Messaging and Presence Protocol (XMPP). The XSF also provides information and infrastructure to the worldwide community of Jabber/XMPP developers, service providers, and end users. Although our elected <a href='/xsf/members/'>members</a> and self-selected <a href='/sponsors/'>sponsors</a> provide a legal and financial basis for the organization, the XSF <em>not</em> a closed industry consortium but instead is a completely open and transparent standards development organization in which any interested individual may <a href='/about/discuss.shtml'>freely participate</a>. Furthermore, our developer-friendly <a href='/extensions/'>standards process</a> avoids design by committee and places a premium on the values that built the Internet in the first place: rough consensus and running code.</p>
+<p>For further information about the organization of the XSF, visit any of the following:</p>
+<ul>
+<li><a href='mission.shtml'>Mission</a></li>
+<li><a href='roadmap.shtml'>Roadmap</a></li>
+<li><a href='/summit/'>XMPP Summit</a> (biannual technology conference)</li>
+<li><a href='/council/'>XMPP Council</a> (technical leadership)</li>
+<li><a href='/xsf/board/'>Board of Directors</a> (business leadership)</li>
+<li><a href='/xsf/teams/'>XSF Work Teams</a></li>
+<li><a href='/xsf/members/'>Individual Members</a></li>
+<li><a href='/xsf/sponsors/'>Organizational Sponsors</a></li>
+<li><a href='voting.shtml'>Voting Procedure</a></li>
+<li><a href='http://blog.xmpp.org/'>Extended Conversation</a> (official XSF weblog)</li>
+<li><a href='/xsf/press/'>Press Releases</a></li>
+<li><a href='/extensions/ipr-policy.shtml'>IPR Policy</a></li>
+<li><a href='financialsummary.shtml'>Financial Summary</a></li>
+<li><a href='/xsf/XSF.ics'>Calendar file</a> (.ics)</li>
+<li><a href='/xsf/proposals/'>Organizational Proposals</a></li>
+<li><a href='/xsf/docs/'>Organizational Documents</a> (bylaws, articles of incorporation, etc.)</li>
+</ul>
+<p>If you have any questions about the XMPP Standards Foundation, visit the <a href='contact.shtml'>contact page</a> or get in touch with Executive Director <a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a> directly.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

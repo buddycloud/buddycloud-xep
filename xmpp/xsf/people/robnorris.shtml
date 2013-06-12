@@ -1,0 +1,10 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF People :: Rob Norris</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF People :: Rob Norris</h2>
+
+<p>Rob Norris works at <a href='http://www.monash.edu.au/'>Monash University</a> in Australia and was the lead developer of the <a href='http://jabberd.jabberstudio.org/'>jabberd2</a> server. He authored several <a href='/extensions/'>XMPP Extension Protocols</a> and was a member of the <a href='/council/'>XMPP Council</a> for 2002-2003 and 2003-2004.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

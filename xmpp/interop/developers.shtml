@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Interop :: Developers</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Interop :: Developers</h2>
+
+<p>The following individuals have been accepted as official participants in the XMPP Interoperability Testing Network, based on their association with one or more of the <a href='producers.shtml'>approved projects or companies</a>:</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr>
+    <th>Name</th>
+    <th>Project or Company</th>
+  </tr>
+  <tr>
+    <td><a href='mailto:matsben@gmail.com'>Mats Bengtsson</a></td>
+    <td><a href='http://www.thecoccinella.org/'>Coccinella</a></td>
+  </tr>
+  <tr>
+    <td><a href='xmpp:brad@danga.com'>Brad Fitzpatrick</a></td>
+    <td><a href='http://www.danga.com/djabberd/'>djabberd</a></td>
+  </tr>
+  <tr>
+    <td><a href='mailto:gnauck@ag-software.de'>Alexander Gnauck</a></td>
+    <td><a href='http://ag-software.de/'>AG Software</a></td>
+  </tr>
+  <tr>
+    <td><a href='xmpp:dallasgutauckis@jabber.org'>Dallas Gutauckis</a></td>
+    <td><a href='http://area51.myyearbook.com/trac.cgi/wiki/Lightr'>Lightr</a></td>
+  </tr>
+  <tr>
+    <td><a href='xmpp:legoscia@jabber.cd.chalmers.se'>Magnus Henoch</a></td>
+    <td><a href='http://emacs-jabber.sourceforge.net/'>jabber.el</a></td>
+  </tr>
+  <tr>
+    <td><a href='xmpp:elmex@jabber.org'>Robin Redeker</a></td>
+    <td><a href='http://www.ta-sa.org/net_xmpp2'>Net::XMPP2</a></td>
+  </tr>
+  <tr>
+    <td><a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a></td>
+    <td><a href='/xsf/'>XMPP Standards Foundation</a></td>
+  </tr>
+</table>
+
+<!--#include virtual="/includes/foot.txt" -->

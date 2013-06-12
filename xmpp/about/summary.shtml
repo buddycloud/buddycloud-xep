@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Summary of XMPP</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>Summary of XMPP</h2>
+<p>The Extensible Messaging and Presence Protocol (XMPP) is the IETF's formalization of the base XML streaming protocols for instant messaging and presence developed within the <a href='jabber.shtml'>Jabber</a> open-source community in 1999. (See the <a href='/tech/'>technology pages</a> for details.)</p>
+<p>As specified in <a href='http://www.ietf.org/rfc/rfc3920.txt'>RFC 3920</a>, the core "transport" layer for XMPP is an XML streaming protocol that makes it possible to exchange fragments of XML between any two network endpoints. Authentication and channel encryption happen at the XML streaming layer using the IETF-standard protocols for Simple Authentication and Security Layer (<a href='http://www.ietf.org/rfc/rfc2222.txt'>RFC 2222</a>) and Transport Layer Security (<a href='http://www.ietf.org/rfc/rfc2246.txt'>RFC 2246</a>). The normal architecture of XMPP is a pure client-server model, wherein clients connect to servers and (optionally) servers connect to each other for interdomain communications. XMPP addresses are fully internationalized, and are of the form &lt;node@domain&gt; for clients (similar to email).</p>
+<p>A wide variety of applications can be built on top of the core XML streaming layer. The first such application is instant messaging (IM) and presence. The basic IM and presence extensions specified in <a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC 3921</a> address the requirements of <a href='http://www.ietf.org/rfc/rfc2779.txt'>RFC 2779</a>, as well as the contact list functionality expected IM and presence systems. RFC 3921 also makes it possible to separate the messaging and presence functionality if desired (although most deployments offer both).</p>
+<p>The <a href='history.shtml'>history</a> of XMPP is that the protocols were initially developed within the Jabber open-source community. After several years of implementation and deployment experience, the base protocols were submitted to the Internet standards process by the Jabber Software Foundation (now XMPP Standards Foundation) in 2002. After appropriate formalization in the areas of security and internationalization, the base protocols were approved as IETF-appproved instant messaging and presence technologies in October 2004.</p>
+<p>In addition to the base protocols specified in <a href='http://www.ietf.org/rfc/rfc3920.txt'>RFC 3920</a> and <a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC 3921</a>, there exist many XMPP extensions for functionality that was not required by <a href='http://www.ietf.org/rfc/rfc2779.txt'>RFC 2779</a>. These extensions are generally specified in the <a href='/extensions/'>XEP series</a> published by the XMPP Standards Foundation.</p>
+<p>The following list describes the main XMPP protocol specifications and XMPP extensions that are in wide use today:</p>
+<ul>
+  <li><p><a href='http://www.ietf.org/rfc/rfc3920.txt'>RFC 3920</a> -- Extensible Messaging and Presence Protocol (XMPP): Core -- the core protocols for XML streaming, including strong authentication, channel encryption, and internationalized addressing.</p></li>
+  <li><p><a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC 3921</a> -- Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence -- base XMPP extensions for instant messaging, contact lists, presence, and privacy blocking.</p></li>
+  <li><p><a href='http://www.ietf.org/rfc/rfc3923.txt'>RFC 3923</a> -- End-to-End Signing and Object Encryption for the Extensible Messaging and Presence Protocol (XMPP) -- an XMPP extension for end-to-end signing and encryption.</p></li>
+  <li><p><a href='/extensions/xep-0030.html'>XEP-0030</a> -- Service Discovery -- a robust protocol for determining the features supported by other entities on an XMPP network.</p></li>
+  <li><p><a href='/extensions/xep-0115.html'>XEP-0115</a> -- Entity Capabilities -- a real-time profile of XEP-0030 for advertising capability changes via presence.</p></li>
+  <li><p><a href='/extensions/xep-0004.html'>XEP-0004</a> -- Data Forms -- a flexible protocol for forms-handling via XMPP, mainly used in workflow applications and for dynamic configuration.</p></li>
+  <li><p><a href='/extensions/xep-0045.html'>XEP-0045</a> -- Multi-User Chat -- a set of protocols for participating in and administering multi-user chat rooms, similar to Internet Relay  Chat but with stronger security.</p></li>
+  <li><p><a href='/extensions/xep-0096.html'>XEP-0096</a> -- File Transfer -- a protocol for transferring files from one XMPP entity to another.</p></li>
+  <li><p><a href='/extensions/xep-0071.html'>XEP-0071</a> -- XHTML-IM -- a W3C-reviewed protocol for exchanging XHTML-formatted messages between XMPP entities.</p></li>
+  <li><p><a href='/extensions/xep-0124.html'>XEP-0124</a> -- HTTP Binding -- a binding of XMPP to HTTP rather than TCP, mainly used for devices that cannot maintain persistent TCP connections to a server.</p></li>
+  <li><p><a href='/extensions/xep-0060.html'>XEP-0060</a> -- Publish-Subscribe -- a generalized framework for publish-subscribe functionality, mainly used to deploy content syndication, extended presence, and event notification services.</p></li>
+</ul>
+<p>The <a href='/extensions/'>XEP series</a> also defines XMPP extensions for a wide range of additional features, including XML-RPC and SOAP bindings, in-band registration, extended presence, geolocation, and reliable message delivery.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

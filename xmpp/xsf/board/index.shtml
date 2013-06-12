@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Board</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Board</h2>
+
+<p>The Board of Directors of the <a href='/xsf/'>XMPP Standards Foundation</a> oversees the business affairs of the organization. As elected by the <a href='/xsf/members/'>XSF membership</a>, the Board of Directors for 2009-2010 consists of the following individuals:</p>
+<ul>
+<li><a href='/xsf/people/florian.shtml'>Florian Jensen</a></li>
+<li><a href='/xsf/people/jackm.shtml'>Jack Moffitt</a> (Chair)</li>
+<li><a href='/xsf/people/wsheward.shtml'>Will Sheward</a></li>
+<li><a href='/xsf/people/nyco.shtml'>Nicolas V&#233;rit&#233;</a></li>
+</ul>
+<p>Information about official <a href='/xsf/board/meetings/'>Board meetings</a> is also available on this website.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

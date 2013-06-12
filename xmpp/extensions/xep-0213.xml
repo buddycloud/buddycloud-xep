@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>XMPP Intermediate IM Client 2008</title>
+  <abstract>This document defines the XMPP Intermediate IM Client 2008 compliance level.</abstract>
+  &LEGALNOTICE;
+  <number>0213</number>
+  <status>Obsolete</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <dependencies>
+    <spec>XEP-0211</spec>
+    <spec>XEP-0016</spec>
+    <spec>XEP-0045</spec>
+    <spec>XEP-0054</spec>
+    <spec>XEP-0085</spec>
+    <spec>XEP-0155</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby>
+    <spec>XEP-0242</spec>
+  </supersededby>
+  <shortname>N/A</shortname>
+  &stpeter;
+  <revision>
+    <version>1.0</version>
+    <date>2007-07-11</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, advanced to Draft.</p></remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2007-07-11</date>
+    <initials>psa</initials>
+    <remark><p>Added XEP-0155 as recommended.</p></remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2007-06-11</date>
+    <initials>psa</initials>
+    <remark><p>Added implementation notes.</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2007-05-30</date>
+    <initials>psa</initials>
+    <remark><p>Per list discussion, removed XHTML-IM.</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2007-05-11</date>
+    <initials>psa</initials>
+    <remark><p>Per list discussion, modified MUC support, added privacy lists, and added vCard support.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2007-04-20</date>
+    <initials>psa</initials>
+    <remark><p>Initial published version.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.1</version>
+    <date>2007-03-30</date>
+    <initials>psa</initials>
+    <remark>First draft, split from XEP-0117.</remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>The &XSF; defines protocol suites for the purpose of compliance testing and software certification. This document specifies the XMPP Intermediate IM Client 2008 certification level.</p>
+</section1>
+<section1 topic='Definition' anchor='def'>
+  <p>The XMPP Intermediate IM Client 2008 certification level is defined as follows:</p>
+  <table caption='Required and Recommended Specifications'>
+    <tr>
+      <th>Specification</th>
+      <th>Requirement Level</th>
+    </tr>
+    <tr>
+      <td>&xep0211;</td>
+      <td>REQUIRED</td>
+    </tr>
+    <tr>
+      <td><strong>&xep0016;</strong></td>
+      <td>RECOMMENDED</td>
+    </tr>
+    <tr>
+      <td>&xep0045;, Entity Use Cases and Occupant Use Cases</td>
+      <td>REQUIRED</td>
+    </tr>
+    <tr>
+      <td>&xep0054;</td>
+      <td>RECOMMENDED</td>
+    </tr>
+    <tr>
+      <td>&xep0085;</td>
+      <td>REQUIRED</td>
+    </tr>
+    <tr>
+      <td>&xep0155;</td>
+      <td>RECOMMENDED</td>
+    </tr>
+  </table>
+</section1>
+<section1 topic='Implementation Notes' anchor='impl'>
+  <p>Some of the protocol specifications referenced herein have their own dependencies; developers must refer to the relevant specifications for further information.</p>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>This document introduces no additional security considerations above and beyond those defined in the documents on which it depends.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p> 
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <p>This document requires no interaction with the &REGISTRAR;.</p> 
+</section1>
+</xep>

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Standards Foundation Proposal</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Standards Foundation Proposal</h2>
+
+<table>
+  <tr class='tablebody'><td>Author:</td><td><a href='http://www.xmpp.org/xsf/people/stpeter.shtml'>Peter Saint-Andre</a></td></tr>
+  <tr class='tablebody'><td>Version:</td><td>1.0</td></tr>
+  <tr class='tablebody'><td>Date:</td><td>2006-12-14</td></tr>
+  <tr class='tablebody'><td>Status:</td><td>Approved</td></tr>
+</table>
+
+<h3>1.0 Preamble</h3>
+<p>In September 2006, the Jabber Software Foundation changed the name of its protocol specifications from "Jabber Enhancement Proposals" to "XMPP Extension Protocols". This document describes the next step: changing the name of our organization from the "Jabber Software Foundation" to the "XMPP Standards Foundation". The change is desirable for several reasons:</p>
+<ol>
+  <li>Our organization does not produce software; instead, it produces protocol standards.</li>
+  <li>The standards produced by our organization are in general best described as extensions to the Extensible Messaging and Presence Protocol (XMPP).</li>
+</ol>
+
+
+<h3>2.0 Proposal</h3>
+<p>The Jabber Software Foundation shall rename itself to the "XMPP Standards Foundation". This shall involve the following changes.</p>
+
+<h4>2.1 Business Changes</h4>
+<ol>
+  <li>Change the business name with the State of Colorado and the State of Delaware.</li> 
+  <li>Update our "employer" information with the IRS.</li>
+  <li>Update our bank account information with Wells Fargo.</li>
+</ol>
+
+<h4>2.2 Bylaw Changes</h4>
+<ol>
+  <li>Throughout, change "Jabber Software Foundation" to "XMPP Standards Foundation" and "JSF" to "XSF".</li>
+  <li>In Section 8.2, change "Jabber Interest Group" to "Special Interest Group" and "JIG" to "SIG".</li>
+</ol>
+
+<h4>2.3 Infrastructure Changes</h4>
+<ol>
+  <li>Move the JSF and Board of Director web pages from www.jabber.org to www.xmpp.org.</li>
+  <li>Move the relevant discussion lists (Council, Board, Members, Standards-JIG) from jabber.org to xmpp.org.</li>
+</ol>
+
+<p>END</p>
+<!--#include virtual="/includes/foot.txt" -->

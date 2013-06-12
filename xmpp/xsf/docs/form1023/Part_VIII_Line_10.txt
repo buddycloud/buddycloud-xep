@@ -1,0 +1,22 @@
+Organization: XMPP Standards Foundation
+EIN: 84-1611178
+Form: 1023
+Attachment: Part VIII, Line 10
+
+The primary activity of the XMPP Standards Foundation (XSF) is publication of a
+document series entitled XMPP Extension Protocols (XEPs). Each XEP specifies a
+protocol extension to, or technical best practice related to, the Extensible 
+Messaging and Presence Protocol (XMPP) for real-time communication over the
+Internet. Copyright in all such documents is held by the XSF. All protocols 
+developed by the XSF are provided free of charge with no restrictions on
+implementation thereof, in accordance with the XSF's Intellectual Property 
+Rights policy:
+
+  http://www.xmpp.org/extensions/ipr-policy.shtml
+ 
+The XSF defines protocols and publishes relevant documentation, but does not
+implement the protocols in software or hardware or deploy such software or
+hardware. However, such implementation and deployment can be completed by any 
+individual or organization, and the XSF does not assert any intellectual property 
+rights over such implementations and deployments.
+

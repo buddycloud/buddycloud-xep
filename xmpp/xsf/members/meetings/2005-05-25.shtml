@@ -1,0 +1,244 @@
+<html>
+<head>
+<title>JSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Member Meeting</h2>
+
+<ul>
+<li>Where: foundation at conference.jabber.org</li>
+<li>Time: Wednesday, 2005-05-25, 17:00 UTC</li>
+<li>When is 17:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+<ol>
+  <li>
+    <p><strong>Call for Quorum</strong></p>
+    <p>The following 39 JSF members voted via proxy:</p>
+    <pre>
+&lt; ahkitj at greta.electric.gen.nz &gt;
+&lt; aleksey at jabber.ru &gt;
+&lt; asiayeah at jabber.org &gt;
+&lt; cbas at pandion.be &gt;
+&lt; cmullins at jabber.org &gt;
+&lt; davidy at jabber.funkypenguin.co.za &gt;
+&lt; dizzyd at jabber.org &gt;
+&lt; edrin at jabber.org &gt;
+&lt; ginomi at tipic.com &gt;
+&lt; gnauck at myjabber.net &gt;
+&lt; hal at jabber.rocks.cc &gt;
+&lt; hildjj at jabber.org &gt;
+&lt; ian at zoofy.com &gt;
+&lt; intosi at ik.nu &gt;
+&lt; jabber at vanbragt.com &gt;
+&lt; jajcus at jabber.bnet.pl &gt;
+&lt; jcea at jabber.org &gt;
+&lt; jer at jabber.org &gt;
+&lt; julian at jabber.org &gt;
+&lt; linuxwolf at outer-planes.net &gt;
+&lt; lucas at nussbaum.fr &gt;
+&lt; mawis at amessage.info &gt;
+&lt; micressor at swissjabber.ch &gt;
+&lt; paperino at tipic.com &gt;
+&lt; pcurtis at www.terrapin.com &gt;
+&lt; peralta at jabberes.org &gt;
+&lt; pgmillard at jabber.org &gt;
+&lt; pluto at tipic.com &gt;
+&lt; ralphm at ik.nu &gt;
+&lt; richard_edward_dobson at jabber.org &gt;
+&lt; rob at cataclysm.cx &gt;
+&lt; rynok at jabber.com &gt;
+&lt; siegle at jabber.org &gt;
+&lt; sneakin at semanticgap.com &gt;
+&lt; stpeter at jabber.org &gt;
+&lt; temas at jabber.org &gt;
+&lt; trejkaz at jabber.zim.net.au &gt;
+&lt; wolfspelz at jabber.bluehands.de &gt;
+&lt; zion at openaether.org &gt;
+    </pre>
+    <p>The JSF has 59 <a href="/members/memberlist.shtml">members</a> as of this date. Therefore quorum is achieved in accordance with Section 3.8 of the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+  </li>
+  <li><strong>Items Subject to a Vote</strong>
+    <ol>
+      <li>
+        <p>JSF Membership Applications</p>
+        <p>Vote yes or no for the current applicants.</p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Opportunity for JSF Members to Vote in the Meeting</strong></p>
+    <p>No JSF members voted during the meeting.</p>
+  </li>
+  <li>
+    <p><strong>Announcement of Voting Results</strong></p>
+    <p>In accordance with Section 2.1 of the of the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>, members are admitted based on a simple majority of the current members voting.</p>
+    <p>The results are as follows:</p>
+<table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th>Applicant</th>
+<th>Yes</th>
+<th>No</th>
+</tr>
+<tr>
+<td>Alexander Gnauck</td>
+<td>35</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Alexey Shchepin</td>
+<td>36</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Boyd Fletcher</td>
+<td>34</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Brisesh Singh</td>
+<td>25</td>
+<td>14</td>
+</tr>
+<tr>
+<td>Chris Mullins</td>
+<td>35</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Ciro D'Elia</td>
+<td>19</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Daniel Noll</td>
+<td>30</td>
+<td>9</td>
+</tr>
+<tr>
+<td>Edmin Mons</td>
+<td>21</td>
+<td>18</td>
+</tr>
+<tr>
+<td>Florian Holzhauer</td>
+<td>31</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Francesco Delfino</td>
+<td>27</td>
+<td>12</td>
+</tr>
+<tr>
+<td>Fritz Kron</td>
+<td>7</td>
+<td>32</td>
+</tr>
+<tr>
+<td>Gino Micacchi</td>
+<td>29</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Gustavo Felisberto</td>
+<td>20</td>
+<td>19</td>
+</tr>
+<tr>
+<td>Hal Rottenberg</td>
+<td>35</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Jason Frankel</td>
+<td>32</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Karthik Dathathri</td>
+<td>13</td>
+<td>26</td>
+</tr>
+<tr>
+<td>Kevin Smith</td>
+<td>34</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Lachelle Thomas</td>
+<td>17</td>
+<td>22</td>
+</tr>
+<tr>
+<td>Marco Ballmer</td>
+<td>31</td>
+<td>8</td>
+</tr>
+<tr>
+<td>Marshall Rose</td>
+<td>24</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Matthias Wimmer</td>
+<td>37</td>
+<td>2</td>
+</tr>
+<tr>
+<td>MC Chandrashekar</td>
+<td>15</td>
+<td>24</td>
+</tr>
+<tr>
+<td>Mohamed Agamy</td>
+<td>1</td>
+<td>38</td>
+</tr>
+<tr>
+<td>Sebastaan Deckers</td>
+<td>36</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Stephan Hermann</td>
+<td>13</td>
+<td>26</td>
+</tr>
+<tr>
+<td>Stephen Marquard</td>
+<td>37</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Tony Cheung</td>
+<td>34</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Vipul Kumar</td>
+<td>18</td>
+<td>21</td>
+</tr>
+</table>
+    <p>In addition to the foregoing voting results, the following JSF members were eligible to re-apply but did not do so and therefore have forfeited their membership, but are welcome to apply in the future:</li>
+    <ul>
+      <li>Tony Bamonti</li>
+      <li>JD Conley</li>
+      <li>David Corvoysier</li>
+      <li>Marc Derricut</li>
+      <li>Constantin Nickonov</li>
+      <li>Ben Schumacher</li>
+      <li>David Sutton</li>
+      <li>Nathan Walp</li>
+    </ul>
+    <p>The following individuals have missed the last three JSF votes and therefore will be removed from the membership:</p>
+    <ul>
+      <li>Jean-Louis Seguineau</li>
+    </ul>
+  <li>
+    <p><strong>Open Discussion</strong></p>
+  </li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

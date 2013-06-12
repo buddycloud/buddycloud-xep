@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<events>
+	<event>
+		<date>2010-02-05T8:30:00</date>
+		<duration>420</duration>
+		<summary>Hackfest</summary>
+		<description></description>
+	</event>
+	<event>
+		<date>2010-02-06T12:00:00</date>
+		<duration>360</duration>
+		<summary>Devroom @ FOSDEM</summary>
+		<description>Tutorials, presentations, demos, and lightning talks at FOSDEM 2010.</description>
+	</event>
+	<event>
+		<date>2010-02-08T08:30:00</date>
+		<duration>420</duration>
+		<summary>XMPP Summit</summary>
+		<description>The official "XMPP Summit" itself: Intensive discussions among core XMPP developers to solve pressing problems in the XMPP protocol stack.</description>
+	</event>
+</events>

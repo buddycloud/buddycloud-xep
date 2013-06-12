@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP ICA: Information for Developers</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP ICA: Information for Developers</h2>
+<p>This page provides information for developers of XMPP clients and servers who wish to provide support for certificates issued by the <a href='/ca/'>XMPP ICA</a>.</p>
+<h3>StartCom Root Certificate</h3>
+<p>To support server certificates issued by the XMPP ICA, you need to include the certificate for our root CA (<a href='http://www.startssl.com/'>StartCom</a>) in your codebase, either directly or via a certificate bundle (the StartCom root certificate is already supported in bundles such as Mozilla and Mac OS X).</p>
+<p>In fact there are two root certificates, the older one (under which the XMPP ICA currently issues certificates) and the new one (which the XMPP ICA will switch to before 2010). It is strongly encouraged to support both certificates for a smooth transition to the new root when that happens. You can obtain the certificates at the following URLs:</p>
+<ul>
+  <li>OLD: <a href='https://cert.startcom.org/ca.crt'>https://cert.startcom.org/ca.crt</a></li>
+  <li>NEW: <a href='https://www.startssl.com/certs/ca.crt'>https://www.startssl.com/certs/ca.crt</a></li>
+</ul>
+<h3>CRLs and OSCP</h3>
+<p>Certificates don't do you much good unless you know if a given certificate is still valid (revoked, expired, etc.). That's why XMPP developers need to know two key URLs:</p>
+<ul>
+  <li><a href='http://crl.startcom.org/xmpp-crl.crl'>http://crl.startcom.org/xmpp-crl.crl</a> (the certificate revocation list)</li>
+  <li><a href='http://ocsp.startcom.org/sub/class1/xmpp/ca'>http://ocsp.startcom.org/sub/class1/xmpp/ca</a> (the <a href='http://en.wikipedia.org/wiki/Online_Certificate_Status_Protocol'>OCSP</a> URL)</li>
+</ul>
+<h3>XMPP Operators Group</h3>
+<p>The XMPP Standards Foundation runs an <a href='http://mail.jabber.org/mailman/listinfo/operators'>XMPP Operators Group</a> for administrators of XMPP servers and developers of XMPP software. Use of digital certificates is one of the discussion topics, so if you are interested in joining the conversation send email to &lt;<a href='mailto:operators-subscribe@xmpp.org'>operators-subscribe@xmpp.org</a>&gt;.</p>
+<!--#include virtual="/includes/caboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

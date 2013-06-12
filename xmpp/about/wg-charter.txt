@@ -1,0 +1,79 @@
+Extensible Messaging and Presence Protocol (xmpp)
+-------------------------------------------------
+
+Chair(s):
+Pete Resnick <presnick at qualcomm.com>
+
+Applications Area Director(s):
+Ned Freed <ned.freed at mrochek.com>
+Patrik Faltstrom <paf at cisco.com>
+
+Applications Area Advisor:
+Patrik Faltstrom <paf at cisco.com>
+
+Mailing Lists:
+General Discussion:xmppwg at jabber.org
+To Subscribe: xmppwg-request at jabber.org
+In Body: subscribe
+Archive:
+http://www.jabber.org/cgi-bin/mailman/listinfo/xmppwg
+
+Description of Working Group:
+
+XMPP is an open, XML-based protocol for near real-time extensible 
+messaging and presence. It is the core protocol of the Jabber Instant 
+Messaging and Presence technology which is currently deployed on 
+thousands of servers across the Internet and is used by millions of 
+people worldwide. The XMPP working group shall adapt the XMPP for use 
+as an IETF Instant Messaging and Presence technology.
+
+The working group will use XMPP (as described in draft-miller-xmpp-*) 
+as the basis of its work. The final specifications will be consistent 
+as much as practical with both the requirements given in RFC2779 and 
+the interoperability details in the final version of the CPIM 
+specification (draft-ietf-impp-cpim). Note: If a requirement of 
+RFC2779 or the final CPIM specification cannot be met, the working 
+group will document why this requirement cannot be met.
+
+A major goal of the working group will be to extend the current XMPP 
+protocols to provide finished support for RFC 2779-compliant security 
+mechanisms, including authentication, privacy, access control and 
+end-to-end as well as hop-by-hop message security. 
+Mandatory-to-implement security mechanisms will be specified as 
+needed in order to guarantee secure protocol interoperability.
+
+The working group shall also add support for internationalization and 
+localization to XMPP.
+
+Instant messaging differs from email primarily by requiring 
+relatively short delivery latency guarantees and, typically, less 
+robust transport service. In addition, instant messaging includes the 
+notion of presence information so authorized users can determine if 
+their correspondents are available.
+
+BCP 41 will be the basis for working group consideration of the 
+transport implications of the XMPP design with respect to network 
+congestion.
+
+Although not encouraged, non-backwards-compatible changes to the 
+basis specifications will be acceptable if the working group 
+determines that the changes are required to meet the group's 
+technical objectives and the group clearly documents the reasons for 
+making them.
+
+There are facilities, such as chat rooms, shared white-boards and 
+similar services that are not currently discussed in RFC2778 and 
+RFC2779. When designing security mechanisms, the working group will 
+keep in mind that we expect XMPP to be extended or adapted to 
+facilitate these additional services, so that design decisions can be 
+made that will not preclude providing these services in the future.
+
+Goals and Milestones:
+
+OCT 02       Prepare revised specifications reflecting issues and 
+solutions identified by the working group
+
+NOV 02       Meet at the 55th IETF to discuss current drafts
+
+DEC 02       Submit revised specifications to the IESG for 
+consideration as standards-track publications

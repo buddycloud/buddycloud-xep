@@ -1,0 +1,13 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Sponsors :: IBM</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Sponsors :: IBM</h2>
+
+<p>
+<a href="http://www.ibm.com/"><img alt='IBM Logo' style='float: right; border-width: 0px' src='/images/logo-ibm.jpg'/></a>
+<a href="http://www.ibm.com/">IBM</a> is one of the world's leading information technology companies. In 2001, IBM was a founding sponsor of the XMPP Standards Foundation at the Platinum level. IBM has pursued research and development based on Jabber/XMPP (including the <a href="http://sash.alphaworks.ibm.com/download/sashjab/">SashJab</a> client and work on middleware for its service component architecture), has also implemented Jabber-based solutions for its customers, such as the <a href="http://www.capwin.org/">CapWIN</a> emergency network in the Washington, D.C. area.</p>
+<p>For more information about IBM, visit &lt;<a href="http://www.ibm.com/">www.ibm.com</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

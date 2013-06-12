@@ -1,0 +1,368 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Simple Communications Blocking</title>
+  <abstract>This document specifies an XMPP protocol extension for simple communications blocking.</abstract>
+  &LEGALNOTICE;
+  <number>0191</number>
+  <status>Draft</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XMPP IM</spec>
+    <spec>XEP-0030</spec>
+  </dependencies>
+  <supersedes>None</supersedes>
+  <supersededby>None</supersededby>
+  <shortname>blocking</shortname>
+  &stpeter;
+  <revision>
+    <version>1.1</version>
+    <date>2007-02-15</date>
+    <initials>psa</initials>
+    <remark><p>Further clarified relationship to privacy lists.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2006-11-21</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, advanced status to Draft; also modified namespace to use XMPP URN.</p></remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2006-11-06</date>
+    <initials>psa</initials>
+    <remark><p>Modified message handling to recommend returning service-unavailable error.</p></remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2006-11-06</date>
+    <initials>psa</initials>
+    <remark><p>Added push notifications (a la roster pushes).</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2006-10-16</date>
+    <initials>psa</initials>
+    <remark><p>Specified relationship to privacy lists, JID matching rules, server handling of outbound presence on block and unblock, handling of directed presence, syntax of block element.</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2006-08-30</date>
+    <initials>psa</initials>
+    <remark><p>Added implementation notes regarding polite blocking and filtering of search results; recommended retrieval of block list after authentication; defined protocol flow for unblocking all contacts.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2006-08-16</date>
+    <initials>psa</initials>
+    <remark><p>Initial version.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.2</version>
+    <date>2006-08-10</date>
+    <initials>psa</initials>
+    <remark><p>Added block list retrieval use case; modified block and unblock syntax to use item child element.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.1</version>
+    <date>2006-08-09</date>
+    <initials>psa</initials>
+    <remark><p>First draft.</p></remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>&rfc3921; includes an XMPP protocol extension for communications blocking, which has since been moved to &xep0016;. Unfortunately, because the privacy lists extension is quite complex, it has not been widely implemented in servers and has been implemented virtually not at all in clients. This is problematic, since the ability to block communications with selected users is an important feature for an instant messaging system (and is required by &rfc2779;). However, the full power of privacy lists is not needed in order to block communications, so this document proposes a much simpler blocking protocol that meets the requirement specified in <cite>RFC 2779</cite> and can be implemented much more easily in Jabber/XMPP clients and servers.</p>
+</section1>
+<section1 topic='Requirements' anchor='reqs'>
+  <p>The requirements for simple communications blocking are straightforward:</p>
+  <ol start='1'>
+    <li>A user must be able to block communications with a specific contact.</li>
+    <li>A user should be able to determine which contacts are blocked.</li>
+    <li>A user should be able to unblock communications with a specific contact.</li>
+  </ol>
+</section1>
+<section1 topic='Relationship to Privacy Lists' anchor='privacy'>
+  <p>The simple communications blocking protocol specified herein is intended to be a user-friendly "front end" to a subset of the functionality defined by the privacy lists protocol (<cite>XEP-0016</cite>). If a service deploys both privacy lists and simple communications blocking, the service MUST use the same back-end data store for both protocols. (Note: Wherever possible, this document attempts to define a protocol that is fully consistent with <cite>XEP-0016</cite>; if a particular aspect of functionality is not specified herein, the relevant text in <cite>XEP-0016</cite> shall be taken to apply.)</p>
+  <p>A service SHOULD map the blocklist to the default privacy list, where each blocked JID is represented as a privacy list item of type "jid" and action "deny". <note>An implementation MUST NOT block communications from one of a user's resources to another, even if the user happens to define a rule that would otherwise result in that behavior.</note> If this is done and none of the user's clients ever use the privacy lists protocol, then the blocklist will always apply. This mapping has the following implications:</p>
+  <ol start='1'>
+    <li><p>If all of a user's clients always use simple communications blocking, then the default privacy list will be equivalent to the blocklist and the default privacy list will be a kind of "virtual list" (in the sense that it is never modified directly by any of the clients).</p></li>
+    <li><p>If one of a user's clients uses privacy lists instead of blocklists and modifies the default privacy list by removing a blocked JID or blocking a new JID, then that change will be reflected in the blocklist.</p></li>
+    <li><p>If one of a user's clients uses privacy lists and does anything but block or unblock a JID, then that change will not be reflected in the blocklist (since blocklists cannot represent anything except blocked JIDs).</p></li>
+    <li><p>If one of a user's clients removes the default privacy list and substitutes a new list for the old list, the blocked JIDs in the new default privacy list (if any) will become the new blocklist.</p></li>
+    <li><p>If one of a user's clients makes active something other than the default privacy list, the user may receive communications from contacts who are blocked in the default list.</p></li>
+  </ol>
+  <p>Because of the potential for confusion between block lists and privacy lists, it is NOT RECOMMENDED for a client to request both the block list and privacy lists in the same session.</p>
+  <p>The priority of blocked (jid+deny) items in the privacy list SHOULD be such that they come first in the privacy list.</p>
+</section1>
+<section1 topic='JID Matching' anchor='matching'>
+  <p>Matching of JIDs as specified in the 'jid' attribute of the &lt;item/&gt; element SHOULD proceed in the following order (this is consistent with <cite>XEP-0016</cite>):</p>
+  <ol>
+    <li>&lt;user@domain/resource&gt; (only that resource matches)</li>
+    <li>&lt;user@domain&gt; (any resource matches)</li>
+    <li>&lt;domain/resource&gt; (only that resource matches)</li>
+    <li>&lt;domain&gt; (the domain itself matches, as does any user@domain or domain/resource)</li>
+  </ol>
+</section1>
+<section1 topic='Use Cases' anchor='usecases'>
+  <section2 topic='User Discovers Support' anchor='disco'>
+    <p>In order for a client to discover whether its server supports the protocol defined herein, it MUST send a &xep0030; information request to the server:</p>
+    <example caption='Service discovery request'><![CDATA[
+<iq from='juliet@capulet.com/chamber' to='capulet.com' type='get' id='disco1'>
+  <query xmlns='http://jabber.org/protocol/disco#info'/>
+</iq>
+    ]]></example>
+    <p>If the server supports the protocol defined herein, it MUST return a feature of "urn:xmpp:blocking":</p>
+    <example caption='Service discovery response'><![CDATA[
+<iq from='capulet.com' to='juliet@capulet.com/chamber' type='result' id='disco1'>
+  <query xmlns='http://jabber.org/protocol/disco#info'>
+    ...
+    <feature var='urn:xmpp:blocking'/>
+    ...
+  </query>
+</iq>
+    ]]></example>
+  </section2>
+  <section2 topic='User Retrieves Block List' anchor='blocklist'>
+    <p>In order for a client to request a user's list of blocked contacts (e.g., in order to determine whether to unblock a contact), it shall send an IQ-get with no 'to' address (thus handled by the user's server) containing a &lt;blocklist/&gt; element qualified by the 'urn:xmpp:blocking' namespace:</p>
+    <example caption='Client requests blocklist'><![CDATA[
+<iq type='get' id='blocklist1'>
+  <blocklist xmlns='urn:xmpp:blocking'/>
+</iq>
+    ]]></example>
+    <p>If the user has any contacts in its blocklist, the server MUST return an IQ-result containing a &lt;blocklist/&gt; element that in turn contains one child &lt;item/&gt; element for each blocked contact:</p>
+    <example caption='Server returns blocklist with items'><![CDATA[
+<iq type='result' id='blocklist1'>
+  <blocklist xmlns='urn:xmpp:blocking'>
+    <item jid='romeo@montague.net'/>
+    <item jid='iago@shakespeare.lit'/>
+  </blocklist>
+</iq>
+    ]]></example>
+    <p>If the user has no contacts in its blocklist, the server MUST return an IQ-result containing an empty &lt;blocklist/&gt; element:</p>
+    <example caption='Server returns empty blocklist'><![CDATA[
+<iq type='result' id='blocklist1'>
+  <blocklist xmlns='urn:xmpp:blocking'/>
+</iq>
+    ]]></example>
+    <p>A client SHOULD retrieve the block list after authenticating with its server and before completing any blocking or unblocking operations.</p>
+  </section2>
+  <section2 topic='User Blocks Contact' anchor='block'>
+    <p>In order for a user to block communications with a contact, the user's client shall send an IQ-set with no 'to' address (thus handled by the user's server) containing a &lt;block/&gt; element qualified by the 'urn:xmpp:blocking' namespace, where the JID to be blocked is encapsulated as the 'jid' attribute of the &lt;item/&gt; child element:</p>
+    <example caption='Block command'><![CDATA[
+<iq from='juliet@capulet.com/chamber' type='set' id='block1'>
+  <block xmlns='urn:xmpp:blocking'>
+    <item jid='romeo@montague.net'/>
+  </block>
+</iq>
+    ]]></example>
+    <p>If the server can successfully process the block command, it MUST return an IQ-result:</p>
+    <example caption='Block command is successful'><![CDATA[
+<iq type='result' id='block1'/>
+    ]]></example>
+    <p>The server MUST also send an IQ-set to all of the user's resources that have requested the blocklist, containing the blocked item(s):</p>
+    <example caption='Block &quot;push&quot;'><![CDATA[
+<iq to='juliet@capulet.com/chamber' type='set' id='push1'>
+  <block xmlns='urn:xmpp:blocking'>
+    <item jid='romeo@montague.net'/>
+  </block>
+</iq>
+
+<iq to='juliet@capulet.com/balcony' type='set' id='push2'>
+  <block xmlns='urn:xmpp:blocking'>
+    <item jid='romeo@montague.net'/>
+  </block>
+</iq>
+    ]]></example>
+    <p>If the &lt;block/&gt; element does not contain at least one &lt;item/&gt; child element, the server MUST return a &badrequest; error. The &lt;block/&gt; element MAY contain more than one &lt;item/&gt; child. Other standard XMPP stanza errors also apply; see &xmppcore; and &xep0086;.</p>
+    <p>When the user blocks communications with the contact, the user's server MUST send unavailable presence information to the contact (but only if the contact is allowed to receive presence notifications from the user in accordance with the rules defined in <cite>RFC 3921</cite>).</p>
+    <p>Once the user has blocked communications with the contact, the user's server MUST NOT deliver any XML stanzas from the contact to the user. The block remains in force until the user subsequently unblocks commmunications with the contact (i.e., the duration of the block is potentially unlimited and applies across sessions).</p>
+    <p>If the contact attempts to send a stanza to the user (i.e., an inbound stanza from the user's perspective), the user's server shall handle the stanza according to the following rules:</p>
+    <ul>
+      <li>For presence stanzas (including notifications, subscriptions, and probes), the server MUST NOT respond and MUST NOT return an error.</li>
+      <li>For message stanzas, the server SHOULD return an error, which SHOULD be &unavailable;.</li>
+      <li>For IQ stanzas of type "get" or "set", the server MUST return an error, which SHOULD be &unavailable;. IQ stanzas of other types MUST be silently dropped by the server.</li>
+    </ul>
+    <p>If the foregoing suggestions are followed, the user will appear offline to the contact.</p>
+    <p>If the user attempts to send an outbound stanza to the contact, the user's server MUST NOT route the stanza to the contact but instead MUST return a &notacceptable; error containing an application-specific error condition of &lt;blocked/&gt; qualified by the 'urn:xmpp:blocking:errors' namespace:</p>
+    <example caption='Error: contact is blocked'><![CDATA[
+<message type='error' from='romeo@montague.net' to='juliet@capulet.com'>
+  <body>Can you hear me now?</body>
+  <error type='cancel'>
+    <not-acceptable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    <blocked xmlns='urn:xmpp:blocking:errors'/>
+  </error>
+</message>
+    ]]></example>
+  </section2>
+  <section2 topic='User Unblocks Contact' anchor='unblock'>
+    <p>In order for a user to unblock communications with a contact, the user's client shall send an IQ-set with no 'to' address (thus handled by the user's server) containing an &lt;unblock/&gt; element qualified by the 'urn:xmpp:blocking' namespace, where the JID to be unblocked is encapsulated as the 'jid' attribute of the &lt;item/&gt; child element:</p>
+    <example caption='Unblock contact command'><![CDATA[
+<iq type='set' id='unblock1'>
+  <unblock xmlns='urn:xmpp:blocking'>
+    <item jid='romeo@montague.net'/>
+  </unblock>
+</iq>
+    ]]></example>
+    <p>If the server can successfully process the unblock command, it MUST return an IQ-result:</p>
+    <example caption='Unblock contact command is successful'><![CDATA[
+<iq type='result' id='unblock1'/>
+    ]]></example>
+    <p>The server MUST also send an IQ-set to all of the user's resources that have requested the blocklist, containing the unblocked item(s):</p>
+    <example caption='Unblock &quot;push&quot;'><![CDATA[
+<iq to='juliet@capulet.com/chamber' type='set' id='push3'>
+  <unblock xmlns='urn:xmpp:blocking'>
+    <item jid='romeo@montague.net'/>
+  </unblock>
+</iq>
+
+<iq to='juliet@capulet.com/balcony' type='set' id='push4'>
+  <unblock xmlns='urn:xmpp:blocking'>
+    <item jid='romeo@montague.net'/>
+  </unblock>
+</iq>
+    ]]></example>
+    <p>When the user unblocks communications with the contact, the user's server MUST send the user's current presence information to the contact (but only if the contact is allowed to receive presence notifications from the user in accordance with the rules defined in <cite>RFC 3921</cite>).</p>
+    <p>After the user has unblocked communications with the contact, the user's server MUST deliver any subsequent XML stanzas from the contact to the user.</p>
+  </section2>
+  <section2 topic='User Unblocks All Contacts' anchor='unblockall'>
+    <p>In order for a user to unblock communications with all contacts, the user's client shall send an IQ-set with no 'to' address (thus handled by the user's server) containing an empty &lt;unblock/&gt; element qualified by the 'urn:xmpp:blocking' namespace:</p>
+    <example caption='Unblock all command'><![CDATA[
+<iq type='set' id='unblock2'>
+  <unblock xmlns='urn:xmpp:blocking'/>
+</iq>
+    ]]></example>
+    <p>If the server can successfully process the unblock command, it MUST return an IQ-result:</p>
+    <example caption='Unblock all command is successful'><![CDATA[
+<iq type='result' id='unblock2'/>
+    ]]></example>
+    <p>The server MUST also send an IQ-set to all of the user's resources that have requested the blocklist, containing notification of global unblocking:</p>
+    <example caption='Unblock all &quot;push&quot;'><![CDATA[
+<iq to='juliet@capulet.com/chamber' type='set' id='push5'>
+  <unblock xmlns='urn:xmpp:blocking'/>
+</iq>
+
+<iq to='juliet@capulet.com/balcony' type='set' id='push6'>
+  <unblock xmlns='urn:xmpp:blocking'/>
+</iq>
+    ]]></example>
+    <p>Once the user has unblocked communications with all contacts, the user's server MUST deliver any XML stanzas from those contacts to the user.</p>
+  </section2>
+</section1>
+<section1 topic='Implementation Notes' anchor='impl'>
+  <p>When a server receives a block command from a user, it MAY cancel any existing presence subscriptions between the user and the blocked user and MAY send a message to the blocked user; however, it is RECOMMENDED to deploy so-called "polite blocking" instead (i.e., to not cancel the presence subscriptions or send a notification). Which approach to follow is a matter of local service policy.</p>
+  <p>A service MAY also filter blocking users out of searches performed on user directories (see, for example, &xep0055;); however, that functionality is out of scope for this specification.</p>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>If properly implemented, this protocol extension does not introduce any new security concerns above and beyond those defined in <cite>RFC 3920</cite> and <cite>RFC 3921</cite>.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>No interaction with &IANA; is required as a result of this specification.</p>
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <section2 topic='Protocol Namespaces' anchor='registrar-ns'>
+    <p>The &REGISTRAR; includes 'urn:xmpp:blocking' and 'urn:xmpp:blocking:errors' in its registry of protocol namespaces (see &NAMESPACES;).</p>
+  </section2>
+</section1>
+<section1 topic='XML Schema' anchor='schema'>
+  <section2 topic='blocking' anchor='schema-blocking'>
+    <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:blocking'
+    xmlns='urn:xmpp:blocking'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0191: http://www.xmpp.org/extensions/xep-0191.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='block'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='item' minOccurs='1' maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name='unblock'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='item' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+
+  <xs:element name='blocklist'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='item' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='item'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='jid' type='xs:string' use='required'/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+    ]]></code>
+  </section2>
+  <section2 topic='blocking:errors' anchor='schema-blocking-errors'>
+    <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:blocking:errors'
+    xmlns='urn:xmpp:blocking:errors'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0191: http://www.xmpp.org/extensions/xep-0191.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='blocked' type='empty'/>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+    ]]></code>
+  </section2>
+</section1>
+<section1 topic='Acknowledgements' anchor='ack'>
+  <p>Thanks to Valerie Mercier, Maciek Niedzielski, Kevin Smith, and Remko Tron&#231;on for their feedback.</p>
+</section1>
+</xep>

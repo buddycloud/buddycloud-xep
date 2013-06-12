@@ -1,0 +1,481 @@
+<?xml version='1.0'?>
+<!DOCTYPE rfc SYSTEM 'rfc2629.dtd'>
+<?rfc compact='yes'?>
+<?rfc strict='yes'?>
+<?rfc symrefs='yes'?>
+<?rfc toc='yes'?>
+<?rfc tocdepth='2'?>
+<rfc category='info' docName='draft-saintandre-sip-xmpp-caps-00' ipr='trust200902'>
+
+  <front>
+    <title abbrev="SIP-XMPP Interworking: Capabilities">Interworking between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP): Capabilities</title>
+    <author initials='P.' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+      <organization>Cisco</organization>
+      <address>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+    <author initials='J.' surname='Hildebrand' fullname='Joe Hildebrand'>
+      <organization>Cisco</organization>
+      <address>
+        <email>jhildebr@cisco.com</email>
+      </address>
+    </author>
+    <date year='2009' month='March' day='2'/>
+    <area>Applications</area>
+    <area>RAI</area>
+    <abstract>
+      <t>This document defines a bi-directional protocol mapping for the exchange of information about device capabilities between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP).  In particular it describes a shorthand notation for device capabilities that is consistent with the notation used in the XMPP community, a SIP header field to enable seamless exchange of capabilities information between XMPP and SIP, a method for transforming any existing SIP capability or feature into a Uniform Resource Name (URN) for input to the shorthand notation, and a branch of the IETF URN tree to be used for registration of SIP capabilities or features.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title='Introduction' anchor='intro'>
+      <t>Entities that implement either the Session Initiation Protocol <xref target="SIP"/> or the Extensible Messaging and Presence Protocol <xref target='XMPP'/> can provide information about their capabilities.  To ensure interworking between these technologies, it is important to define bi-directional protocol mappings.</t>
+      <t>The architectural assumptions underlying such protocol mappings are provided in <xref target='SIP-XMPP'/> (including mapping of addresses and error conditions), and mappings for presence information, single instant messages, one-to-one text chat sessions, and multi-party chat sessions are provided by other documents in this unofficial series.</t>
+      <t>Both SIP and XMPP include methods for discovering the capabilities of another entity: <xref target='RFC3840'/> for SIP and <xref target='XEP-0030'/> for XMPP.  Because full capabilities information can become verbose, the XMPP community has defined a "shorthand" notation for XMPP capabilities, as specified in <xref target='XEP-0115'/>.  To encourage interoperability, this document defines a SIP header for encapsulating a similar shorthand notation.</t>
+      <t>Note: The capitalized key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="TERMS">RFC 2119</xref>.</t>
+    </section>
+
+    <section title='Approach' anchor='approach'>
+      <t>The general approach pursued in this document is as follows:</t>
+      <t>
+        <list style='symbols'>
+          <t>Re-use the shorthand notation defined for XMPP, specifically the algorithm for generation of a "verification string" from an ordered series of Uniform Resource Names <xref target='URN'/> that identify capabilities.</t> 
+          <t>Define a transformation of existing SIP capabilities into URNs so that they can serve as input to the algorithm.</t>
+          <t>Define a SIP header that can contain the shorthand notation.</t>
+        </list>
+      </t>
+    </section>
+
+    <section title='Algorithm' anchor='algorithm'>
+      <t>The value of the verification string MUST be generated according to the following method.</t>
+      <t>Note: All sorting operations MUST be performed using "i;octet" collation as specified in Section 9.3 of <xref target='RFC4790'/>.</t>
+      <t>
+        <list style='numbers'>
+          <t>Initialize an empty string S.</t>
+          <t>Generate one or more "identities" for the entity, where each identity formed of a string CATEGORY '/' [TYPE] '/' [LANG] '/' [NAME]. The CATEGORY shall be "client", the TYPE shall be "sip", the LANG shall be the value of the Accept-Language SIP header <xref target='RFC3261'/> if typically included by the entity, and the NAME shall be the value of the User Agent SIP header <xref target='RFC3261'/> if typically provided by the entity.</t>
+          <t>For each identity, append the 'category/type/lang/name' to S, followed by the '&lt;' character.</t>
+          <t>Sort the supported capabilities (where each capability is formed using the transformation method described in the next section).</t>
+          <t>For each capability, append the feature to S, followed by the '&lt;' character.</t>
+          <t>Ensure that S is encoded according to the UTF-8 encoding as specified in <xref target='RFC3269'/>.</t>
+          <t>Compute the verification string by hashing S using the desired hashing algorithm (e.g., SHA-1 as defined in <xref target='RFC3174'/>. The hashed data MUST be generated with binary output and encoded using Base64 as specified in Section 4 of <xref target='RFC4648'/> (note: the Base64 output MUST NOT include whitespace and MUST set padding bits to zero).  For example, the OpenSSL command for producing such output with SHA-1 is "echo -n 'S' | openssl dgst -binary -sha1 | openssl enc -nopad -base64".</t>
+        </list>
+      </t>
+      
+    </section>
+
+    <section title='URN Transformation' anchor='transform'>
+      <t>The caps-generation algorithm requires consistent input formats, preferably Uniform Resource Names (URNs) or Uniform Resource Identifiers (URIs).  We propose a new branch of the IETF URN tree for input to the caps-generation algorithm, where each SIP feature shall be of the following form:</t>
+      <figure>
+        <artwork><![CDATA[
+urn:ietf:params:sip:feature:[tag]:[value]
+        ]]></artwork>
+      </figure>
+      <t>Each feature tag shall be constructed according to the rules in <xref target='RFC3840'/>.</t>
+      <t>Each feature value shall be constructed according to the rules in <xref target='RFC3840'/>, with the following exceptions:</t>
+      <t>
+        <list style='numbers'>
+          <t>If the term of the conjunction is a disjunction, the value of the contact parameter is a quoted string, where the quoted string is a comma separated list of strings, each one derived from one of the terms in the disjunction.  However, instead of converting the quote characters containing quoted strings to the less-than sign "&lt;" and greater-than sign "&gt" as in <xref target='RFC3840'/>, each entity from the comma-separated string shall be encapsulated as a separate URN.  For example, the feature value sip.description="PC, MyClient" shall be transformed into two URNs: "urn:ietf:params:sip:feature:description:PC" and "urn:ietf:params:sip:feature:description:MyClient".</t>
+          <t>Filters shall not be converted, since a conversion algorithm for filters has not yet been defined in this specification.  (A future version of this specification could define such a transformation.)</t>
+        </list>
+      </t>
+      <t>As an example, consider the feature predicate shown in <xref target='RFC3840'/>:</t>
+      <figure>
+        <artwork><![CDATA[
+(& (sip.mobility=fixed)
+   (| (! (sip.events=presence)) (sip.events=message-summary))
+   (| (language=en) (language=de))
+   (sip.description="PC")
+   (sip.newparam=TRUE)
+   (rangeparam=-4..5125/1000))
+        ]]></artwork>
+      </figure>
+      <t>That feature predicate would be converted to the following URNs:</t>
+      <figure>
+        <artwork><![CDATA[
+urn:ietf:params:sip:feature:mobility:fixed
+urn:ietf:params:sip:feature:events:presence
+urn:ietf:params:sip:feature:events:message-summary
+urn:ietf:params:sip:feature:language:en
+urn:ietf:params:sip:feature:language:de
+urn:ietf:params:sip:feature:description:PC
+urn:ietf:params:sip:feature:+sip.newparam
+urn:ietf:params:sip:feature:+rangeparam:-4:+5.125
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title='Definition of the Caps Header Field' anchor='header'>
+      <t>The following is the augmented Backus-Naur Form (BNF) <xref target='RFC5234'/> syntax of the Caps header field.  The hash-func element is defined in <xref target='RFC4572'/>.</t>
+      <figure>
+        <artwork><![CDATA[
+   caps      = hash-func ":" ver
+   ver       = 1*(hash-out)
+   hash-out  = ALPHA / DIGIT / "/" / "+" / "="
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title='IANA Considerations' anchor='iana'>
+      <t>IANA shall add the following new SIP header field to the Header Fields subregistry under the SIP Parameters registry.</t>
+      <t>
+        <list style='hanging'>
+          <t hangText='Header Name:'>Caps</t>
+          <t hangText='Compact Form:'>(none)</t>
+          <t hangText='Reference:'>&rfc.number;</t>
+        </list>
+      </t>
+    </section>
+
+    <section title='Security Considerations' anchor='security'>
+      <t>To follow.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title='Normative References'>
+
+<reference anchor='RFC3174'>
+<front>
+<title>US Secure Hash Algorithm 1 (SHA1)</title>
+<author initials='D.' surname='Eastlake' fullname='D. Eastlake'>
+<organization /></author>
+<author initials='P.' surname='Jones' fullname='P. Jones'>
+<organization /></author>
+<date year='2001' month='September' />
+<abstract>
+<t>The purpose of this document is to make the SHA-1 (Secure Hash Algorithm 1) hash algorithm conveniently available to the Internet community.  This memo provides information for the Internet community.</t></abstract></front>
+<seriesInfo name='RFC' value='3174' />
+<format type='TXT' octets='35525' target='ftp://ftp.isi.edu/in-notes/rfc3174.txt' />
+</reference>
+
+<reference anchor='RFC3269'>
+<front>
+<title>Author Guidelines for Reliable Multicast Transport (RMT) Building Blocks and Protocol Instantiation documents</title>
+<author initials='R.' surname='Kermode' fullname='R. Kermode'>
+<organization /></author>
+<author initials='L.' surname='Vicisano' fullname='L. Vicisano'>
+<organization /></author>
+<date year='2002' month='April' />
+<abstract>
+<t>This document provides general guidelines to assist the authors of Reliable Multicast Transport (RMT) building block and protocol instantiation definitions.  The purpose of these guidelines is to ensure that any building block and protocol instantiation definitions produced contain sufficient information to fully explain their operation and use.  In addition these guidelines provide directions to specify modular and clearly defined RMT building blocks and protocol instantiations that can be refined and augmented to safely create new protocols for use in new scenarios for which any existing protocols were not designed.  This memo provides information for the Internet community.</t></abstract></front>
+<seriesInfo name='RFC' value='3269' />
+<format type='TXT' octets='25258' target='ftp://ftp.isi.edu/in-notes/rfc3269.txt' />
+</reference>
+
+<reference anchor='RFC3261'>
+<front>
+<title>SIP: Session Initiation Protocol</title>
+<author initials='J.' surname='Rosenberg' fullname='J. Rosenberg'>
+<organization /></author>
+<author initials='H.' surname='Schulzrinne' fullname='H. Schulzrinne'>
+<organization /></author>
+<author initials='G.' surname='Camarillo' fullname='G. Camarillo'>
+<organization /></author>
+<author initials='A.' surname='Johnston' fullname='A. Johnston'>
+<organization /></author>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<author initials='R.' surname='Sparks' fullname='R. Sparks'>
+<organization /></author>
+<author initials='M.' surname='Handley' fullname='M. Handley'>
+<organization /></author>
+<author initials='E.' surname='Schooler' fullname='E. Schooler'>
+<organization /></author>
+<date year='2002' month='June' />
+<abstract>
+<t>This document describes Session Initiation Protocol (SIP), an application-layer control (signaling) protocol for creating, modifying, and terminating sessions with one or more participants.  These sessions include Internet telephone calls, multimedia distribution, and multimedia conferences. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='3261' />
+<format type='TXT' octets='647976' target='ftp://ftp.isi.edu/in-notes/rfc3261.txt' />
+</reference>
+
+<reference anchor='RFC3840'>
+<front>
+<title>Indicating User Agent Capabilities in the Session Initiation Protocol (SIP)</title>
+<author initials='J.' surname='Rosenberg' fullname='J. Rosenberg'>
+<organization /></author>
+<author initials='H.' surname='Schulzrinne' fullname='H. Schulzrinne'>
+<organization /></author>
+<author initials='P.' surname='Kyzivat' fullname='P. Kyzivat'>
+<organization /></author>
+<date year='2004' month='August' />
+<abstract>
+<t>This specification defines mechanisms by which a Session Initiation Protocol (SIP) user agent can convey its capabilities and characteristics to other user agents and to the registrar for its domain.  This information is conveyed as parameters of the Contact header field. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='3840' />
+<format type='TXT' octets='81360' target='ftp://ftp.isi.edu/in-notes/rfc3840.txt' />
+</reference>
+
+<reference anchor='RFC4572'>
+<front>
+<title>Connection-Oriented Media Transport over the Transport Layer Security (TLS) Protocol in the Session Description Protocol (SDP)</title>
+<author initials='J.' surname='Lennox' fullname='J. Lennox'>
+<organization /></author>
+<date year='2006' month='July' />
+<abstract>
+<t>This document specifies how to establish secure connection-oriented media transport sessions over the Transport Layer Security (TLS) protocol using the Session Description Protocol (SDP). It defines a new SDP protocol identifier, 'TCP/TLS'. It also defines the syntax and semantics for an SDP 'fingerprint' attribute that identifies the certificate that will be presented for the TLS session. This mechanism allows media transport over TLS connections to be established securely, so long as the integrity of session descriptions is assured.&lt;/t>&lt;t> This document extends and updates RFC 4145. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4572' />
+<format type='TXT' octets='38658' target='ftp://ftp.isi.edu/in-notes/rfc4572.txt' />
+</reference>
+
+<reference anchor='RFC4648'>
+<front>
+<title>The Base16, Base32, and Base64 Data Encodings</title>
+<author initials='S.' surname='Josefsson' fullname='S. Josefsson'>
+<organization /></author>
+<date year='2006' month='October' />
+<abstract>
+<t>This document describes the commonly used base 64, base 32, and base 16 encoding schemes.  It also discusses the use of line-feeds in encoded data, use of padding in encoded data, use of non-alphabet characters in encoded data, use of different encoding alphabets, and canonical encodings. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4648' />
+<format type='TXT' octets='35491' target='ftp://ftp.isi.edu/in-notes/rfc4648.txt' />
+</reference>
+
+<reference anchor='RFC4790'>
+<front>
+<title>Internet Application Protocol Collation Registry</title>
+<author initials='C.' surname='Newman' fullname='C. Newman'>
+<organization /></author>
+<author initials='M.' surname='Duerst' fullname='M. Duerst'>
+<organization /></author>
+<author initials='A.' surname='Gulbrandsen' fullname='A. Gulbrandsen'>
+<organization /></author>
+<date year='2007' month='March' />
+<abstract>
+<t>Many Internet application protocols include string-based lookup, searching, or sorting operations.  However, the problem space for searching and sorting international strings is large, not fully explored, and is outside the area of expertise for the Internet Engineering Task Force (IETF).  Rather than attempt to solve such a large problem, this specification creates an abstraction framework so that application protocols can precisely identify a comparison function, and the repertoire of comparison functions can be extended in the future. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4790' />
+<format type='TXT' octets='55591' target='ftp://ftp.isi.edu/in-notes/rfc4790.txt' />
+</reference>
+
+<reference anchor='RFC5234'>
+<front>
+<title>Augmented BNF for Syntax Specifications: ABNF</title>
+<author initials='D.' surname='Crocker' fullname='D. Crocker'>
+<organization /></author>
+<author initials='P.' surname='Overell' fullname='P. Overell'>
+<organization /></author>
+<date year='2008' month='January' />
+<abstract>
+<t>Internet technical specifications often need to define a formal syntax.  Over the years, a modified version of Backus-Naur Form (BNF), called Augmented BNF (ABNF), has been popular among many Internet specifications.  The current specification documents ABNF.  It balances compactness and simplicity with reasonable representational power.  The differences between standard BNF and ABNF involve naming rules, repetition, alternatives, order-independence, and value ranges.  This specification also supplies additional rule definitions and encoding for a core lexical analyzer of the type common to several Internet specifications. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='STD' value='68' />
+<seriesInfo name='RFC' value='5234' />
+<format type='TXT' octets='26359' target='ftp://ftp.isi.edu/in-notes/rfc5234.txt' />
+</reference>
+
+<reference anchor='SIP'>
+<front>
+<title>SIP: Session Initiation Protocol</title>
+<author initials='J.' surname='Rosenberg' fullname='J.  Rosenberg'>
+<organization /></author>
+<author initials='H.' surname='Schulzrinne' fullname='H.  Schulzrinne'>
+<organization /></author>
+<author initials='G.' surname='Camarillo' fullname='G.  Camarillo'>
+<organization /></author>
+<author initials='A.' surname='Johnston' fullname='A.  Johnston'>
+<organization /></author>
+<author initials='J.' surname='Peterson' fullname='J.  Peterson'>
+<organization /></author>
+<author initials='R.' surname='Sparks' fullname='R.  Sparks'>
+<organization /></author>
+<author initials='M.' surname='Handley' fullname='M.  Handley'>
+<organization /></author>
+<author initials='E.' surname='Schooler' fullname='E.  Schooler'>
+<organization /></author>
+<date year='2002' month='June' />
+<abstract>
+<t>This document describes Session Initiation Protocol (SIP), an application-layer control (signaling) protocol for creating, modifying, and terminating sessions with one or more participants.  These sessions include Internet telephone calls, multimedia distribution, and multimedia conferences.  [STANDARDS TRACK] </t></abstract></front>
+<seriesInfo name='RFC' value='3261' />
+<format type='TXT' octets='647976' target='ftp://ftp.isi.edu/in-notes/rfc3261.txt' />
+</reference>
+
+<reference anchor='TERMS'>
+  <front>
+    <title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+    <author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+      <organization>Harvard University</organization>
+      <address>
+        <postal>
+          <street>1350 Mass. Ave.</street>
+          <street>Cambridge</street>
+          <street>MA 02138</street>
+        </postal>
+        <phone>- +1 617 495 3864</phone>
+        <email>-</email>
+      </address>
+    </author>
+    <date month='March' year='1997'></date>
+    <area>General</area>
+    <keyword>keyword</keyword>
+    <abstract>
+      <t>In many standards track documents several words are used to signify the requirements in the specification.  These words are often capitalized.  This document defines these words as they should be interpreted in IETF documents.  Authors who follow these guidelines should incorporate this phrase near the beginning of their document:
+        <list>
+          <t>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in RFC 2119.</t>
+        </list>
+      </t>
+      <t>Note that the force of these words is modified by the requirement level of the document in which they are used.</t>
+    </abstract>
+  </front>
+  <seriesInfo name='BCP' value='14' />
+  <seriesInfo name='RFC' value='2119' />
+</reference>
+
+<reference anchor='URN'>
+<front>
+<title>URN Syntax</title>
+<author initials='R.' surname='Moats' fullname='Ryan Moats'>
+<organization>AT&amp;T</organization>
+<address>
+<postal>
+<street>15621 Drexel Circle</street>
+<street>Omaha</street>
+<street>NE 68135-2358</street>
+<country>USA</country></postal>
+<phone>+1 402 894-9456</phone>
+<email>jayhawk@ds.internic.net</email></address></author>
+<date year='1997' month='May' />
+<area>Applications</area>
+<keyword>URN</keyword>
+<keyword>uniform resource</keyword>
+<abstract>
+<t>
+   Uniform Resource Names (URNs) are intended to serve as persistent,
+   location-independent, resource identifiers. This document sets
+   forward the canonical syntax for URNs.  A discussion of both existing
+   legacy and new namespaces and requirements for URN presentation and
+   transmission are presented.  Finally, there is a discussion of URN
+   equivalence and how to determine it.
+</t></abstract></front>
+<seriesInfo name='RFC' value='2141' />
+<format type='TXT' octets='14077' target='ftp://ftp.isi.edu/in-notes/rfc2141.txt' />
+<format type='HTML' octets='30670' target='http://xml.resource.org/public/rfc/html/rfc2141.html' />
+<format type='XML' octets='17551' target='http://xml.resource.org/public/rfc/xml/rfc2141.xml' />
+</reference>
+
+<reference anchor="XEP-0030">
+  <front>
+    <title>Service Discovery</title>
+    <author initials="J." surname="Hildebrand" fullname="Joe Hildebrand">
+      <organization/>
+      <address>
+        <email>jhildebrand@jabber.com</email>
+      </address>
+    </author>
+    <author initials="P." surname="Millard" fullname="Peter Millard">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="R." surname="Eatmon" fullname="Ryan Eatmon">
+      <organization/>
+      <address>
+        <email>reatmon@jabber.org</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <date day="06" month="June" year="2008"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0030"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0030.html"/>
+</reference>
+
+<reference anchor="XEP-0115">
+  <front>
+    <title>Entity Capabilities</title>
+    <author initials="J." surname="Hildebrand" fullname="Joe Hildebrand">
+      <organization/>
+      <address>
+        <email>jhildebrand@jabber.com</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="R." surname="Tron&#xE7;on" fullname="Remko Tron&#xE7;on">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="J." surname="Konieczny" fullname="Jacek Konieczny">
+      <organization/>
+      <address>
+        <email>jajcus@jajcus.net</email>
+      </address>
+    </author>
+    <date day="26" month="February" year="2008"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0115"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0115.html"/>
+</reference>
+
+<reference anchor='XMPP'>
+<front>
+<title abbrev='XMPP Core'>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P.' surname='Saint-Andre' fullname='Peter Saint-Andre' role='editor'>
+<organization>Jabber Software Foundation</organization>
+<address>
+<email>stpeter@jabber.org</email></address></author>
+<date year='2004' month='October' />
+<area>Applications</area>
+<workgroup>XMPP Working Group</workgroup>
+<keyword>RFC</keyword>
+<keyword>Request for Comments</keyword>
+<keyword>I-D</keyword>
+<keyword>Internet-Draft</keyword>
+<keyword>XMPP</keyword>
+<keyword>Extensible Messaging and Presence Protocol</keyword>
+<keyword>Jabber</keyword>
+<keyword>IM</keyword>
+<keyword>Instant Messaging</keyword>
+<keyword>Presence</keyword>
+<keyword>XML</keyword>
+<keyword>Extensible Markup Language</keyword>
+<abstract>
+<t>This memo defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a protocol for streaming Extensible Markup Language (XML) elements in order to exchange structured information in close to real time between any two network endpoints.  While XMPP provides a generalized, extensible framework for exchanging XML data, it is used mainly for the purpose of building instant messaging and presence applications that meet the requirements of RFC 2779.</t></abstract></front>
+<seriesInfo name='RFC' value='3920' />
+<format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+<format type='HTML' octets='279912' target='http://xml.resource.org/public/rfc/html/rfc3920.html' />
+<format type='XML' octets='234610' target='http://xml.resource.org/public/rfc/xml/rfc3920.xml' />
+</reference>
+
+    </references>
+
+    <references title='Informative References'>
+
+<reference anchor='SIP-XMPP'>
+<front>
+<title>Interworking between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<author initials='A' surname='Houri' fullname='Avshalom Houri'>
+    <organization />
+</author>
+<author initials='J' surname='Hildebrand' fullname='Joe Hildebrand'>
+    <organization />
+</author>
+<date month='January' day='4' year='2008' />
+<abstract><t>As a foundation for the definition of application-specific, bi-directional protocol mappings between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP), this document specifies the architectural assumptions underlying such mappings as well as the mapping of addresses and error conditions.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-sip-xmpp-core-00' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-saintandre-sip-xmpp-core-00.txt' />
+</reference>
+
+
+    </references>
+
+  </back>
+
+</rfc>

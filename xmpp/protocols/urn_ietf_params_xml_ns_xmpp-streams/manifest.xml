@@ -1,0 +1,14 @@
+<manifest>
+  <title>Stream Errors</title>
+  <abstract>This specification defines the syntax and semantics of XMPP errors related to XML streams, as well as a comprehensive list of error conditions.</abstract>
+  <specnum>RFC 3920</specnum>
+  <specurl>http://www.ietf.org/rfc/rfc3920.txt</specurl>
+  <status>Proposed</status>
+  <publisher>Internet Engineering Task Force</publisher>
+  <namespaces>
+    <name>urn:ietf:params:xml:ns:xmpp-streams</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/streams.xsd</schema>
+  </schemas>
+</manifest>

@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2003-06-17 @ 16:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 16:05 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Michael Bauer</li>
+<li>Ryan Eatmon</li>
+<li>Jeremie Miller</li>
+<li>Marco Palombi</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>All five Board members were in attendance. Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Naming and Direction</p>
+    <p>Discussed at length the recent ferment in the Jabber community regarding proposals to change the name of the foundation, as well as the broader implications of efforts to standardize the Jabber protocol through the IETF under the name of XMPP. The Board has worked to address the status of the Jabber trademark through agreements to transfer enforcement and ownership of the trademark to the JSF; however, the Board recognizes that this is perceived as insufficient by some members of the community. The Board welcomes those members to follow the democratic processes defined in the foundation's Bylaws to bring their proposal to a vote of the membership. Further discussion of these issues will occur on the Board mailing list in an effort to seek consensus and resolution.</p>
+  </li>
+  <li>
+    <p>JabberStudio</p>
+    <p>Discussed status of the JabberStudio website. The site is not actually run by the JSF, although it is currently hosted on the JSF servers. Need to clarify this in communications with sponsors and the general public. Consensus that it may be desirable to create a "JSF affiliates program" for such sites.</p>
+  </li>
+  <li>
+    <p>End-User Portal</p>
+    <p>Discussed the conversation occurring in the Jabber community regarding the desirability of an end-user-oriented portal website and IM server. Consensus that this is not within the JSF's mission. Another candidate for an affiliates program.</p>
+  </li>
+  <li>
+    <p>Sponsorship</p>
+    <p>One major in-kind sponsorship is actively being negotiated. Tony has contacted a number of other large sponsorship prospects, none of whom said no; discussions continue with these prospective sponsors.</p>
+  </li>
+  <li>
+    <p>Team Reports</p>
+    <p>Jason Frankel's written Marketing Team Report discussed. Appreciation for the good work being completed by the Marketing Team. Verbal approval for small expenditure to support Jabber community presence at LinuxTag.</p>
+    <p>Compliance Team report presented verbally by Peter Saint-Andre on behalf of Iain Shigeoka; recognition that work continues "behind the scenes" despite the lack of public progress.</p>
+    <p>Council report presented verbally by Ryan Eatmon. Consensus that Council needs to set priorities for the remainder of its term, and that top priorities are pubsub and file transfer.</p>
+  </li>
+</ol>
+<h2>Resolutions</h2>
+<ol>
+  <li>
+    <p>Resolved: to investigate the feasibility of creating an "affiliates program" to align associated websites (e.g., JabberStudio) with the Jabber Software Foundation; Tony Bamonti to present a proposal to the Board.</p>
+    <p>Action: Approved</li>
+  </li>
+</ol>
+<h2>New Business</h2>
+<ol>
+  <li>
+    <p>The next Board meeting will be held on July 22, 2003.</p> 
+  </li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 17:52 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

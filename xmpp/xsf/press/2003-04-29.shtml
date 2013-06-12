@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Antepo Sponsors Jabber Software Foundation</h3>
+<h4>Partnership to Promote XMPP Standard and IM Interoperability</h4>
+
+<p>Denver, CO and New York, NY - April 29, 2003 - The Jabber Software Foundation (&lt;<a href="http://www.jabber.org/">www.jabber.org</a>&gt;), the non-profit organization that manages open application protocols built on top of the IETF's Extensible Messaging and Presence Protocol (XMPP), and Antepo, Inc. (&lt;<a href="http://www.antepo.com/">www.antepo.com</a>&gt;), a leading provider of Instant Messaging and presence software, today announced Antepo's sponsorship of the Foundation to promote XMPP and Jabber as standard protocols for instant messaging (IM), and to foster interoperability between XMPP/Jabber and other emerging IM standards.</p>
+
+<p>As part of this partnership, Antepo will provide financial and marketing support to help the Jabber Software Foundation create and demonstrate interoperability between XMPP and systems based on protocols such as SIP/SIMPLE.  This will help the Foundation achieve its goals of gaining widest implementation of the XMPP protocols and interfacing to the broadest range of messaging environments.</p>
+
+<p>"Antepo has a history as one of the first developers of commercial XMPP-based products, and has been a pioneer in developing XMPP interoperability in fixed and mobile environments," noted Peter Saint-Andre, Executive Director of the Jabber Software Foundation. "Antepo's intimate knowledge of other messaging protocols will help us further improve interoperability and promote the strengths of XMPP as an extensible standard for near-real-time messaging."</p>
+
+<p>"We have a strong commitment to XMPP and to the work of the JSF in establishing it as an open standard for messaging and presence-enabled applications", said Maxime Seguineau, CEO of Antepo. "The popularity of XMPP is rising explosively, and working with the JSF we can establish it as a major foundation of commercial, interoperable, messaging infrastructure".</p>
+
+<p>Antepo joins existing sponsors such as IBM and Hitachi in supporting the JSF's work on XMPP/Jabber. To learn more about the benefits of sponsorship, visit &lt;<a href="http://www.jabber.org/sponsors/">www.jabber.org/sponsors/</a>&gt;.</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+
+<h3>About Antepo</h3>
+<p>Antepo is the leader in multi-protocol Instant Messaging and Presence platforms. Antepo's flagship products, ACCEPT[tm] Messaging Server and PresenceWare[tm], help developers create applications that improve end-user choice, enhance productivity and increase revenues through Presence-aware products and services. Antepo is a global company headquartered in New York, NY with business development and support offices in Paris, France and Rio de Janeiro, Brazil. For more information, please visit &lt;<a href="http://www.antepo.com/">www.antepo.com</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

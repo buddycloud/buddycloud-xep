@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<meta name="microid" content="1cde6d7f868660f4b383ae51a5708b03431146ae" />
+<meta name='microid' content='mailto+http:sha1:1cde6d7f868660f4b383ae51a5708b03431146ae'/>
+<title>XSF People :: Peter Saint-Andre</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF People :: Peter Saint-Andre</h2>
+
+<p>Peter Saint-Andre is a technical leader at <a href='http://www.cisco.com/'>Cisco Systems, Inc.</a> and has served as executive director of the <a href='/xsf/'>XMPP Standards Foundation</a> since 2002. He has been contributing to the Jabber/XMPP developer community since late 1999, where he has focused on documentation and standardization as author of the <a href='/rfcs/'>XMPP RFCs</a>, numerous <a href='/extensions/'>XMPP extension protocols</a>, and <a href='http://oreilly.com/catalog/9780596521264/index.html'>XMPP: The Definitive Guide</a> (O'Reilly, 2009).</p>
+
+<p>Peter's weblog is published at <a href='https://stpeter.im/'>stpeter.im</a> and syndicated at <a href='http://planet.jabber.org/'>Planet Jabber</a>. You can reach him via email or IM at stpeter@jabber.org (additional contact information is available at &lt;<a href='https://stpeter.im/index.php/contact/'>https://stpeter.im/index.php/contact/</a>&gt;).</p>
+
+<!--#include virtual="/includes/foot.txt" -->

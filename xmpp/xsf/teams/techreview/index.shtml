@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Technical Review Team</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Technical Review Team</h2>
+
+<p>The mission of the Technical Review Team is to continuously improve the technical quality of specifications produced by the XMPP Standards Foundation (XSF).</p>
+
+<p>The team achieves its mission primarily by reviewing <a href='/extensions/'>XMPP Extension Protocols</a> (XEPs) at all stages in the XSF's <a href='http://xmpp.org/extensions/xep-0001.html'>standards process</a>:</p>
+<ul>
+  <li>Before a "ProtoXEP" is accepted for publication by the XMPP Council</li>
+  <li>While a XEP is in the Experimental state</li>
+  <li>During a Last Call related to advancement of a specification from Experimental to Draft (or Active)</li>
+  <li>While a XEP is in the Draft state</li>
+  <li>During a Call for Experience related to advancement of a specification from Draft to Final</li>
+  <li>While a XEP is in the Final state</li>
+</ul>
+<p>The team is empowered to review XEPs on its own initiative. However, the <a href='/council/'>XMPP Council</a> may also ask the team to complete reviews to assist in its work. However, the team's reviews are purely advisory and do not have any official weight in the XSF's standards process. Reviews of XEPs are sent to <a href='http://mail.jabber.org/mailman/listinfo/standards'>standards@xmpp.org</a> mailing list so that they form part of the public record of comment on XEPs. (The team may also complete reviews of documents outside the XEP series, such as XSF white papers and relevant Internet-Drafts produced by the IETF.)</p>
+<p>The team is limited to <a href='/xsf/members/'>elected members</a> of the XSF (and invited others at the discretion of the team). Participants are recruited from among the XSF membership by the team lead and approved by a simple majority of the existing team members.</p>
+<p>The team has two meeting venues (the <a href='xmpp:techreview@muc.xmpp.org?join'>techreview@muc.xmpp.org</a> chatroom and the <a href='http://mail.jabber.org/mailman/listinfo/techreview'>techreview@xmpp.org</a> email list) and uses a <a href='http://wiki.xmpp.org/web/Review_team'>wiki page</a> for coordination.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

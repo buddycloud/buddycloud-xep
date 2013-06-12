@@ -1,0 +1,14 @@
+<manifest>
+  <title>Attention</title>
+  <abstract>This specification defines an XMPP protocol extension for getting the attention of another user.</abstract>
+  <specnum>XEP-0224</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0224.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:attention:0</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/attention.xsd</schema>
+  </schemas>
+</manifest>

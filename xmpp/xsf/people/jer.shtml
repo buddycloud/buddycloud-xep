@@ -1,0 +1,10 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF People :: Jeremie Miller</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF People :: Jeremie Miller</h2>
+
+<p>Jeremie Miller invented Jabber/XMPP technologies in 1998, released the original Jabber server (<a href='http://jabberd.org/'>jabberd</a>) in January 1999, led the technical direction of the Jabber/XMPP community through the release of jabberd 1.4 in February 2001, helped found the Jabber Software Foundation (now the <a href='/xsf/'>XMPP Standards Foundation</a>) in 2001, and contributed to formalization of the core Jabber protocols through participation of the IETF's XMPP WG in 2002-2004. Although Jeremie is no longer actively involved in the technical evolution of XMPP, he is generally recognized as "Benevolent Dictator for Life" within the Jabber/XMPP community. Jeremie was a member of the <a href='/xsf/board/'>XSF Board of Directors</a> and the <a href='/council/'>XMPP Council</a> for 2001-2003.</p> 
+
+<!--#include virtual="/includes/foot.txt" -->

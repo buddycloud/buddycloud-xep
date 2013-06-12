@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc strict="yes"?>
+<rfc category="info" docName="draft-saintandre-header-im-00" ipr="trust200902">
+
+  <front>
+    <title abbrev='IM-ID'>The IM-ID Header Field</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>XMPP Standards Foundation</organization>
+      <address>
+        <email>stpeter@jabber.org</email>
+        <uri>https://stpeter.im/</uri>
+      </address>
+    </author>
+    <date year="2007" month="November" day="5"/>
+    <area>Applications</area>
+    <keyword>Electronic Mail</keyword>
+    <keyword>Email</keyword>
+    <keyword>Instant Messaging</keyword>
+    <abstract>
+      <t>This document defines a header field that enables the author of an email message to include an Instant Messaging (IM) URI in the message header block for the purpose of associating the author with an instant messaging address.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <t>Several technologies enable entities to exchange messages in close to real time, also known as "instant messaging" or IM <xref target='IMP-REQS'/>.  Such technologies include the Extensible Messaging and Presence Protocol <xref target='XMPP-IM'/> and the Session Initiation Protocol <xref target='SIP-IM'/>.  To facilitate the exchange of instant messages, a URI scheme for IM is defined in <xref target='CPIM'/>.</t>
+      <t>Because almost all human users of instant messaging systems are users of email systems, it can be helpful for such users to specify their IM URIs in the email messages they author.  The IM-ID header field provides a standard location for such information.  This document documents the syntax and implementation of the IM-ID header field, including the information necessary to register it in the Permanent Message Header Field Registry maintained by the IANA.</t>
+    </section>
+
+    <section title="Syntax" anchor="syntax">
+      <t>The syntax of the IM-ID header field is defined below using Augmented Backus-Naur Form (as specified by <xref target="ABNF"/>), where the "IM-URI" rule is defined in <xref target='CPIM'/> and the remaining rules are defined in <xref target='MESSAGE'/>:</t>
+      <figure>
+        <artwork><![CDATA[
+"IM-ID:" [FWS] IM-URI *WSP CRLF
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title="Implementation" anchor="impl">
+      <section title="Inclusion" anchor="impl-inclusion">
+        <t>The IM-ID header field is associated with the author of the message; see <xref target='MESSAGE'/>.  If the "From:" header field contains more than one mailbox, the IM-ID header field should not be added to the message.  There should be no more than one instance of the IM-ID header field.</t>
+      </section>
+      <section title="Generation" anchor="impl-generation">
+        <t>For a user whose instant messaging URI is "juliet@example.com", the corresponding IM-ID header field would be:</t>
+        <figure>
+          <artwork><![CDATA[
+IM-ID: im:juliet@example.com
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title="Processing" anchor="impl-processing">
+        <t>Upon receiving an email message containing an IM-ID header field, a mail user agent (MUA) that supports the field should process the field by resolving the instant messaging URI in accordance with the procedures specified in <xref target='CPIM'/>.</t>
+      </section>
+      <section title="Disposition" anchor="impl-disposition">
+        <t>A mail user agent (MUA) that has processed an IM-ID header field may provide appropriate interface elements if it has independent information linking the author of the email message with the specified instant messaging URI (e.g., via a user-controlled address book or automated directory lookup).  Such interface elements might include an element that enables the user to initiate a text chat with the author.</t>
+      </section>
+    </section>
+
+    <section title='IANA Considerations' anchor="iana">
+      <t>In accordance with <xref target="REG"/>, the IANA registers the "IM-ID" header field in the Permanent Message Header Field Registry.  The registration template is as follows:</t>
+      <t><list style='hanging'>
+        <t hangText='Header field name:'>IM-ID</t>
+        <t hangText='Applicable protocol:'>mail</t>
+        <t hangText='Status:'>permanent</t>
+        <t hangText='Author/Change controller:'>Peter Saint-Andre &lt;mailto:stpeter@jabber.org&gt;</t>
+        <t hangText='Specification document(s):'>draft-saintandre-header-im-00 [Note to IANA and RFC Editor: Replace I-D name with RFC XXXX, where "XXXX" is the number of the RFC that results from this specification, if any]</t>
+        <t hangText='Related information:'>For detail information regarding instant messaging URIs, refer to RFC 3860.</t>
+      </list></t>
+    </section>
+
+    <section title='Security Considerations' anchor="sec">
+      <t>Message headers are an existing standard and are designed to easily accommodate new types.  Although the IM-ID header field may be forged, this problem is inherent in Internet email; however, because a forged IM-ID header field may break automated processing, applications should not depend on the IM-ID header field to indicate the authenticity of an email message or the identity of its author or sender.  Including the IM-ID header field among the signer header fields in DomainKeys Identified Mail (DKIM) can help to mitigate against forging of the header (see <xref target='DKIMSIG'/>).</t>
+      <t>Advertising instant messaging URIs in email headers may make it easier for malicious users to harvest such URIs addresses and therefore to send unsolicited bulk communications to the users or applications represented by those addresses.  Care should be taken in balancing the benefits of open information exchange against the potential costs of unwanted communication.  An email user agent that is capable of including the IM-ID header field in outgoing email messages should provide an option for its user to disable inclusion of the IM-ID header field generally, on a per-recipient basis, and on a per-message basis.</t>
+      <t>The security considerations discussed in <xref target="URI"/> and <xref target='CPIM'/> may also apply to the IM-ID message header.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+<reference anchor='ABNF'>
+<front>
+<title>Augmented BNF for Syntax Specifications: ABNF</title>
+<author initials='D.' surname='Crocker' fullname='D. Crocker'>
+<organization /></author>
+<author initials='P.' surname='Overell' fullname='P. Overell'>
+<organization /></author>
+<date year='2005' month='October' /></front>
+<seriesInfo name='RFC' value='4234' />
+<format type='TXT' octets='26351' target='ftp://ftp.isi.edu/in-notes/rfc4234.txt' />
+</reference>
+
+<reference anchor="CPIM">
+<front>
+<title>Common Profile for Instant Messaging (CPIM)</title>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<date year='2004' month='August' /></front>
+<seriesInfo name='RFC' value='3860' />
+<format type='TXT' octets='26486' target='ftp://ftp.isi.edu/in-notes/rfc3860.txt' />
+</reference>
+
+<reference anchor='MESSAGE'>
+<front>
+<title>Internet Message Format</title>
+<author initials='P.' surname='Resnick' fullname='P. Resnick'>
+<organization /></author>
+<date year='2001' month='April' /></front>
+<seriesInfo name='RFC' value='2822' />
+<format type='TXT' octets='110695' target='ftp://ftp.isi.edu/in-notes/rfc2822.txt' />
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor='DKIMSIG'>
+<front>
+<title>DomainKeys Identified Mail (DKIM) Signatures</title>
+<author initials='E.' surname='Allman' fullname='E. Allman'>
+<organization /></author>
+<author initials='J.' surname='Callas' fullname='J. Callas'>
+<organization /></author>
+<author initials='M.' surname='Delany' fullname='M. Delany'>
+<organization /></author>
+<author initials='M.' surname='Libbey' fullname='M. Libbey'>
+<organization /></author>
+<author initials='J.' surname='Fenton' fullname='J. Fenton'>
+<organization /></author>
+<author initials='M.' surname='Thomas' fullname='M. Thomas'>
+<organization /></author>
+<date year='2007' month='May' />
+<abstract>
+<t>DomainKeys Identified Mail (DKIM) defines a domain-level authentication framework for email using public-key cryptography and key server technology to permit verification of the source and contents of messages by either Mail Transfer Agents (MTAs) or Mail User Agents (MUAs). The ultimate goal of this framework is to permit a signing domain to assert responsibility for a message, thus protecting message signer identity and the integrity of the messages they convey while retaining the functionality of Internet email as it is known today. Protection of email identity may assist in the global control of "spam" and "phishing". [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4871' />
+<format type='TXT' octets='166054' target='ftp://ftp.isi.edu/in-notes/rfc4871.txt' />
+</reference>
+
+<reference anchor="IMP-REQS">
+<front>
+<title abbrev='Instant Messaging/Presence Protocol'>Instant Messaging / Presence Protocol Requirements</title>
+<author initials='M.' surname='Day' fullname='Mark Day'>
+<organization>SightPath, Inc.</organization>
+<address>
+<postal>
+<street>135 Beaver Street</street>
+<city>Waltham</city>
+<region>MA</region>
+<code>02452</code>
+<country>US</country></postal>
+<email>mday@alum.mit.edu</email></address></author>
+<author initials='S.' surname='Aggarwal' fullname='Sonu Aggarwal'>
+<organization>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>One Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code>
+<country>US</country></postal>
+<email>sonuag@microsoft.com</email></address></author>
+<author initials='J.' surname='Vincent' fullname='Jesse Vincent'>
+<organization>Into Networks, Inc.</organization>
+<address>
+<postal>
+<street>150 Cambridgepark Drive</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02140</code>
+<country>US</country></postal>
+<email>jesse@intonet.com</email></address></author>
+<date month='February' year='2000' />
+<abstract>
+<t>Presence and Instant Messaging have recently emerged as a new medium of communications over the Internet.  Presence is a means for finding, retrieving, and subscribing to changes in the presence information (e.g.  "online" or "offline") of other users.  Instant messaging is a means for sending small, simple messages that are delivered immediately to online users.</t>
+<t>Applications of presence and instant messaging currently use independent, non-standard and non-interoperable protocols developed by various vendors.  The goal of the Instant Messaging and Presence Protocol (IMPP) Working Group is to define a standard protocol so that independently developed applications of instant messaging and/or   presence can interoperate across the Internet.  This document defines a minimal set of requirements that IMPP must meet.</t></abstract></front>
+<seriesInfo name='RFC' value='2779' />
+<format type='TXT' octets='47420' target='ftp://ftp.isi.edu/in-notes/rfc2779.txt' />
+</reference>
+
+<reference anchor='REG'>
+<front>
+<title>Registration Procedures for Message Header Fields</title>
+<author initials='G.' surname='Klyne' fullname='G. Klyne'>
+<organization /></author>
+<author initials='M.' surname='Nottingham' fullname='M. Nottingham'>
+<organization /></author>
+<author initials='J.' surname='Mogul' fullname='J. Mogul'>
+<organization /></author>
+<date year='2004' month='September' />
+<abstract>
+<t>&lt;p>This specification defines registration procedures for the message header fields used by Internet mail, HTTP, Netnews and other applications. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements. &lt;/p></t></abstract></front>
+<seriesInfo name='BCP' value='90' />
+<seriesInfo name='RFC' value='3864' />
+<format type='TXT' octets='36231' target='ftp://ftp.isi.edu/in-notes/rfc3864.txt' />
+</reference>
+
+<reference anchor="SIP-IM">
+<front>
+<title>Session Initiation Protocol (SIP) Extension for Instant Messaging</title>
+<author initials='B.' surname='Campbell' fullname='B. Campbell'>
+<organization /></author>
+<author initials='J.' surname='Rosenberg' fullname='J. Rosenberg'>
+<organization /></author>
+<author initials='H.' surname='Schulzrinne' fullname='H. Schulzrinne'>
+<organization /></author>
+<author initials='C.' surname='Huitema' fullname='C. Huitema'>
+<organization /></author>
+<author initials='D.' surname='Gurle' fullname='D. Gurle'>
+<organization /></author>
+<date month='December' year='2002' /></front>
+<seriesInfo name='RFC' value='3428' />
+<format type='TXT' octets='41475' target='ftp://ftp.isi.edu/in-notes/rfc3428.txt' />
+</reference>
+
+<reference anchor="URI">
+<front>
+<title>Uniform Resource Identifier (URI): Generic Syntax</title>
+<author initials='T.' surname='Berners-Lee' fullname='T. Berners-Lee'>
+<organization /></author>
+<author initials='R.' surname='Fielding' fullname='R. Fielding'>
+<organization /></author>
+<author initials='L.' surname='Masinter' fullname='L. Masinter'>
+<organization /></author>
+<date year='2005' month='January' /></front>
+<seriesInfo name='STD' value='66' />
+<seriesInfo name='RFC' value='3986' />
+<format type='TXT' octets='141811' target='ftp://ftp.isi.edu/in-notes/rfc3986.txt' />
+</reference>
+
+<reference anchor="XMPP-IM">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3921' />
+  <format type='TXT' octets='217527' target='ftp://ftp.isi.edu/in-notes/rfc3921.txt' />
+</reference>
+
+    </references>
+
+  </back>
+
+</rfc>

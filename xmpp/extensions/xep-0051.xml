@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM "xep.ent">
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+<title>Connection Transfer</title>
+  <abstract>This specification defines an XMPP protocol extension that enables a server to redirect connections from one connection manager or server node to another.</abstract>
+  &LEGALNOTICE;
+  <number>0051</number>
+  <status>Deferred</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <author>
+    <firstname>Klaus</firstname>
+    <surname>Wolf</surname>
+    <email>wolf@bluehands.de</email>
+    <jid>klaus@jabber.bluehands.de</jid>
+  </author>
+  <author>
+    <firstname>Richard</firstname>
+    <surname>Dobson</surname>
+    <email>richard@dobson-i.net</email>
+    <jid>richard@dobson-i.net</jid>
+  </author>
+  <author>
+    <firstname>Florian</firstname>
+    <surname>Jensen</surname>
+    <email>florian@florianjensen.com</email>
+    <jid>admin@im.flosoft.biz</jid>
+  </author>
+  <revision>
+    <version>0.2</version>
+    <date>2009-07-07</date>
+    <initials>fj</initials>
+    <remark><p>Rewritten to focus on the connection transfer use case only.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2002-10-08</date>
+    <initials>psa</initials>
+    <remark><p>Initial version.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.2</version>
+    <date>2002-09-14</date>
+    <initials>rd</initials>
+    <remark><p>Added the server transfer section.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.1</version>
+    <date>2002-07-31</date>
+    <initials>hw</initials>
+    <remark>Initial version.</remark>
+  </revision>
+</header>
+
+<section1 topic='Introduction' anchor='intro'>
+  <p>Large XMPP deployments are often clustered. To enable more effective management of client connections to servers in the cluster, it would be useful if the server administrator could redirect XMPP traffic to another node of the cluster. This document describes a connection transfer mechanism for telling clients (or others) to reconnect to a different address.</p>
+  <p>The following scenarios seem likely:</p>
+  <ol start='1'>
+    <li><p>A server needs to be shutdown for maintenance by an administrator but there are other servers available in the cluster and the administrator wants to cause the least disruption possible by having the users automatically reconnect to one of the other available servers.</p></li>
+    <li><p>Users of an XMPP cluster are hosted on particular servers but the server the user has connected to is not the appropriate server in the cluster, so the server redirects the user to connect to the correct server.</p></li>
+    <li><p>A new server is brought online in the cluster. To reduce the load on the other servers and to balance out the load, the other servers direct some of their users to connect to the new server.</p></li>
+  </ol>
+</section1>
+
+<section1 topic='Connection Transfer Protocol' anchor='protocol'>
+  <p>The transfer packet is addressed to the user from the domain they are logged into, it contains the server address to connect to which can be domain name or ip address, it can also contain an optional port number. There is also the domain specified just in case they have to use a different domain name when they log in or to maintain the original domain.</p>
+  <example caption='Server tells client to connect to a different server in the cluster (by ip address)'><![CDATA[
+<iq type='set' from='jabber.org' to='user@jabber.org'> 
+  <query xmlns='urn:xmpp:cxfr'>
+    <domain>jabber.org</domain>
+    <server>123.123.123.122</server>
+  </query>
+</iq>
+  ]]></example>
+  <example caption='Server tells client to connect to a different server in the cluster (by domain name)'><![CDATA[
+<iq type='set' from='jabber.org' to='user@jabber.org'> 
+  <query xmlns='urn:xmpp:cxfr'>
+    <domain>jabber.org</domain>
+    <server>server2.jabber.org</server>
+  </query>
+</iq>
+  ]]></example>
+  <example caption='Server tells client to connect to a different server in the cluster (using a different port number)'><![CDATA[
+<iq type='set' from='jabber.org' to='user@jabber.org'> 
+  <query xmlns='urn:xmpp:cxfr'>
+    <domain>jabber.org</domain>
+    <server>server3.jabber.org:6222</server>
+  </query>
+</iq>
+  ]]></example>
+  <example caption='Server tells client to simply reconnect'><![CDATA[
+<iq type='set' from='jabber.org' to='user@jabber.org'> 
+  <query xmlns='urn:xmpp:cxfr'>
+    <domain>jabber.org</domain>
+    <server>jabber.org</server>
+  </query>
+</iq>
+  ]]></example>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>To follow.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no action by the IANA.</p>
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <p>To follow.</p>
+</section1>
+<section1 topic='XML Schema' anchor='schema'>
+  <p>To follow.</p>
+</section1>
+</xep>

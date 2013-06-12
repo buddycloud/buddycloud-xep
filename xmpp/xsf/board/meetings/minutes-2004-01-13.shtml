@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2004-01-13 @ 17:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 17:02 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Michael Bauer</li>
+<li>Russell Davis</li>
+<li>Ryan Eatmon</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Infrastructure Team</p>
+    <p>This team has been quiet (holidays etc.). Has been looking at how to mirror DNS (may be difficult given existing setup at our hosting service). Peter continues to research certificates (the JSF may be able to become a CA by enrolling in the upcoming Internet2-related certificate effort).</p>
+  </li>
+  <li>
+    <p>IETF Report</p>
+    <p>Getting very close on the Core document (no speculation on timing). IM may move more slowly given that it has more dependencies. Need to prepare an xmpp.org website -- Peter to work up a prototype in the next week. The membership needs to discuss whether to bring any other protocols to the IETF.</p>
+  </li>
+  <li>
+    <p>Other Protocol Efforts</p>
+    <p>Peter has been working with several other organizations regarding protocol efforts: (1) the W3C regarding XHTML; (2) Internet2 regarding Security Assertion Markup Language (SAML) and server federation -- there may be a connection here to the Financial Instant Messaging Association (FIMA); (3) Liberty Alliance (Peter to participate in their new Presence Team, which is chartered with defining how Liberty Alliance will integrate and re-use existing presence protocols); (4) DoD efforts on whiteboarding, application casting, application sharing.</p>
+  </li>
+  <li>
+    <p>Trademark Transfer Status</p>
+    <p>The trademark program is ready to go; Peter and Russell to work on announcement email. For now, all applications to be sent to the Board.</p>
+  </li>
+  <li>
+    <p>Member Communication</p>
+    <p>Russell wondered whether we need to open up the Board list again (read-only); consensus that having Board members communicate more on the Foundation (members@jabber.org) list would be helpful. Michael mentioned that last year the JSF published an annual report; Russell and Peter to work on one for 2003.</p>
+  </li>
+  <li>
+    <p>Finances</p>
+    <p>Peter to source new bookkeeping and accounting service this week. The JSF needs a new Treasurer to replace Stuart Lucko, who is comptroller of Jabber, Inc. Consensus that it would be valuable to choose someone who is in Denver but not affiliated with Jabber, Inc. Michael Bauer was volunteered for the position and he accepted.</p>
+  </li>
+  <li>
+    <p>Marketing</p>
+    <p>Consensus to restart the Marketing Team (Russell and Peter to work on recruiting email), with focus on raising the credibility of the JSF as a viable standards organization. A press release on IETF approval will be an opportunity to kick this off (emphasizing both software/network upgrades in progress by the Jabber community as well as the JSF's ongoing work on protocol extensions). Also, Peter has been talking with JSF member Ralph Meijer about participation at FOSDEM (European open-source community meeting in February); Ralph has arranged for a table there and the JSF shall provide materials and a table-front banner.</p>
+  </li>
+  <li>
+    <p>Compliance</p>
+    <p>Consensus not to restart the Compliance Team at this time, but to wait several months and gauge interest and market need then.</p>
+  </li>
+</ol>
+<h2>Action and Consent Items</h2>
+<ol>
+  <li>
+    <p>Resolved: To accept the licensing agreement for free use of the Jabber, Inc. client connection manager at the jabber.org Jabber service.</p>
+    <p>Action: Approved</li>
+  </li>
+  <li>
+    <p>Resolved: To accept Michael Bauer as Treasurer of the JSF.</p>
+    <p>Action: Approved</li>
+  </li>
+</ol>
+<h2>New Business</h2>
+<ol>
+  <li>
+    <p>The next Board meeting is tentatively scheduled for March 2, 2004.</p> 
+  </li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 18:26 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

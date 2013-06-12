@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Interoperability Testing Network</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Interoperability Testing Network</h2>
+
+<p>The <a href='/xsf/'>XMPP Standards Foundation</a> coordinates a private network of XMPP servers that developers can access in order to test their code against a wide range of client and server implementations. This "real-time testing lab" helps the XMPP developer community ensure interoperability among implementations. The following pages contain detailed information.</p>
+<ul>
+  <li><a href='join.shtml'>How to Join</a></li>
+  <li><a href='producers.shtml'>Approved Projects and Companies</a></li>
+  <li><a href='developers.shtml'>Authorized Developers</a></li>
+  <li><a href='servers.shtml'>Server Deployments</a></li>
+</ul>
+<p>If you have any questions about the XMPP Interoperability Testing Network, please contact <a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a>.</p>
+
+<p><em>Special thanks to Eddy Nigg of the <a href='https://www.startssl.net/'>StartSSL DNS Network</a> for his help with DNS setup.</em></p>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Internet2 Focuses Instant Messaging Research on XMPP</h3>
+<h4>Consortium of More Than 200 Universities and Corporations Forms Working Group to Consider Using XMPP as National and International Standard For Federated Instant Messaging</h4>
+
+<p>Denver, CO - September 29, 2003 - The Jabber Software Foundation (JSF), the non-profit organization that builds open application protocols on top of the IETF's Extensible Messaging and Presence Protocol (XMPP), today confirmed that Internet2's I2IM working group is focusing its efforts on XMPP. As described on the I2IM web site (&lt;<a href="http://middleware.internet2.edu/i2im">http://middleware.internet2.edu/i2im</a>&gt;), XMPP "has benefited from an open process, open-source implementations, and, recently, IETF-led protocol standardization."</p>
+
+<p>XMPP is the XML protocol for instant messaging that grew out of the Jabber open-source project and that is now in Last Call within the Internet Engineering Task Force (IETF). XMPP has been widely considered the lingua franca of instant messaging, used as a protocol for connecting open source and proprietary IM applications.</p>
+
+<p>I2IM, also known as the Integrated Infrastructure for Instant Messaging Working Group, reports that "services like IRC and AOL Instant Messenger have been widely used by university people for university-related work, raising issues of authentication, authorization, privacy, and legal compliance.  As IM becomes an increasingly popular alternative to email, users look to campus IT services for the same level of support and integration traditionally provided for central email services."</p>
+
+<p>"Jabber and XMPP have had significant presence within academic circles for years," said Peter Saint-Andre, executive director of the JSF.  "Through I2IM, we are working to make XMPP the federated standard for IM and perhaps other middleware functions across the academic landscape, centralizing IM communication on individual campuses and securely enabling them between different institutions."</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

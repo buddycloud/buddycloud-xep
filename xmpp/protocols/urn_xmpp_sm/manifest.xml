@@ -1,0 +1,14 @@
+<manifest>
+  <title>Stream Management</title>
+  <abstract>This specification defines an XMPP protocol extension for active management of an XML stream between two XMPP entities, including features for stanza acknowledgements, stream resumption, and throttling notifications.</abstract>
+  <specnum>XEP-0198</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0198.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:sm:2</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/sm.xsd</schema>
+  </schemas>
+</manifest>

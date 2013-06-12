@@ -1,0 +1,16 @@
+<manifest>
+  <title>Service Discovery</title>
+  <abstract>This specification defines an XMPP protocol extension for discovering information about other XMPP entities. Two kinds of information can be discovered: (1) the identity and capabilities of an entity, including the protocols and features it supports; and (2) the items associated with an entity, such as the list of rooms hosted at a multi-user chat service.</abstract>
+  <specnum>XEP-0030</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0030.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/disco#info</name>
+    <name>http://jabber.org/protocol/disco#items</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/disco-info.xsd</schema>
+    <schema>http://www.xmpp.org/schemas/disco-items.xsd</schema>
+  </schemas>
+</manifest>

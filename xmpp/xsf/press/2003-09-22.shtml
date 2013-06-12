@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Jabber Instant Messaging User Base Surpasses ICQ</h3>
+<h4>Fast-Growing Open Network Overtakes IM Originator</h4>
+
+<p>Denver, CO - September 22, 2003 - According to ComScore Media Metrix, ICQ -- the original instant messaging (IM) service to gain mass popularity -- claimed a declining user base of 6 million in June of 2003. In this same time period, the Jabber Software Foundation (JSF) estimated that there were nearly 10 million end users of software based on the open Jabber/XMPP protocol. While it is difficult to count distinct Jabber users because the network is growing so fast and includes many servers on large corporate intranets, the JSF's estimate includes more than 4 million paying customers of Jabber, Inc.'s commercial software as well as an estimated 6 million users of open source and other commercial implementations of the Jabber/XMPP protocol.</p>
+<p>"This is a fascinating and somewhat ironic development given that the Jabber open source movement was originally designed to connect the users of disparate IM systems," said Peter Saint-Andre, executive director of the Jabber Software Foundation.  "It is fascinating because ICQ was the 800 pound gorilla when the Jabber community got started in 1998, and ironic because up until earlier this year, Jabber was the only way of connecting AIM with ICQ.  Perhaps we are simply relearning the lesson of email, which is that open protocols and distributed networks ultimately triumph over the closed systems offered by legacy service providers."</p>
+<p>ICQ which is owned by America Online, was acquired in 1998 from Mirabalis, Ltd. for $287 million.</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

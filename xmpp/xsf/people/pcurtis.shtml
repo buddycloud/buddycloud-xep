@@ -1,0 +1,10 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF People :: Paul Curtis</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF People :: Paul Curtis</h2>
+
+<p>Paul Curtis is the author and maintainer of the <a href='http://yahoo-transport-2.jabberstudio.org/'>Yahoo Transport</a>, as well as a Java-based chatbot (jhatbot) and the <a href='http://jabber.terrapin.com/JCR'>Jabber Component Runtime</a>. He served as a member of the <a href='/council/'>XMPP Council</a> for 2003-2004.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

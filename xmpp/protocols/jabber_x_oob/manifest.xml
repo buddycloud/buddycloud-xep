@@ -1,0 +1,14 @@
+<manifest>
+  <title>Out of Band Data</title>
+  <abstract>This specification defines two XMPP protocol extensions for communicating URIs, one for use in XMPP message stanzas and the other for use in a structured request-response interaction via XMPP IQ stanzas. Among other things, this enables one entity to inform another entity about a file that is available at an HTTP URL.</abstract>
+  <specnum>XEP-0066</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0066.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>jabber:x:oob</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/x-oob.xsd</schema>
+  </schemas>
+</manifest>

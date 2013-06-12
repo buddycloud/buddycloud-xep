@@ -1,0 +1,11 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>About XMPP</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>About XMPP</h2>
+<p>The Extensible Messaging and Presence Protocol (XMPP) is an open technology for real-time communication, which powers a wide range of applications including instant messaging, presence, multi-party chat, voice and video calls, collaboration, lightweight middleware, content syndication, and generalized routing of XML data. The <a href='/tech/'>technology pages</a> provide more information about the various XMPP "building blocks". Several <a href='books.shtml'>books</a> about Jabber/XMPP technologies are available, as well.</p>
+<p>The core technology behind XMPP was invented by <a href='http://www.xmpp.org/xsf/people/jer.shtml'>Jeremie Miller</a> in 1998, refined in the <a href='jabber.shtml'>Jabber</a> open-source community in 1999 and 2000, and formalized by the <a href='http://www.ietf.org/'>IETF</a> in 2002 and 2003, resulting in publication of the <a href='/rfcs/'>XMPP RFCs</a> in 2004 (see the <a href='history.shtml'>history page</a> for more details).</p>
+<p>Although the core technology is stable, the XMPP community continues to define various <a href='/extensions/'>XMPP extensions</a> through an open standards process run by the <a href='/xsf/'>XMPP Standards Foundation</a>. There is also an active community of open-source and commercial developers, who produce a wide variety of XMPP-based <a href='/software/'>software</a>.</p>
+<p>If you have any questions about the use or development of XMPP technologies, feel free to participate in one of the open <a href='discuss.shtml'>discussion venues</a> hosted by the XMPP Standards Foundation.</p>
+<!--#include virtual="/includes/foot.txt" -->

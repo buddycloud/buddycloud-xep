@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>History of XMPP</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>History of XMPP</h2>
+
+<p><em>Last Updated: 2008-01-06</em></p>
+
+<p>The Extensible Messaging and Presence Protocol (XMPP) is the IETF's formalization of the base XML streaming protocols for instant messaging and presence developed within the <a href='jabber.shtml'>Jabber</a> community starting in 1999. This page provides a brief chronology of Jabber/XMPP technologies from the perspective of standardization.</p>
+
+<h3><a name='1999'></a>1999</h3>
+<p>In January 1999, Jeremie Miller announced the existence of Jabber, an open technology for instant messaging and presence. Throughout 1999, development proceeded rapidly on an open-source server (jabberd), several open-source clients and code libraries, and open wire protocols for real-time XML streaming as well as basic instant messaging and presence extensions. These same base protocols have been in use (with various improvements and extensions) since 1999.</p>
+<p>In August 1999, Jeremie submitted a <a href='ietf-1999.shtml'>statement</a> pledging the Jabber community's support for the IETF standards process. This statement was consistent with the founding mission of the Jabber project: to foster freedom of conversation and support open standards and interoperability in the real-time communications.</p>
+
+<h3><a name='2000'></a>2000</h3>
+<p>In February 2000, the IETF published the results of work by the Instant Messaging and Presence Protocol (IMPP) Working Group: a model for instant messaging and presence systems (<a href='http://www.ietf.org/rfc/rfc2778.txt'>RFC 2778</a>) and a set of requirements for such systems (<a href='http://www.ietf.org/rfc/rfc2779.txt'>RFC 2779</a>). However, because of a lack of consensus, the IMPP WG never produced any protocols, instead deferring to other working groups that might develop protocols to meet the requirements defined in RFC 2779.</p>
+<p>In May 2000, version 1.0 of the jabberd server was released and the base Jabber protocols (XML streaming, messaging, presence, contact lists, etc.) were stabilized.</p>
+<p>In June 2000, Jeremie and other members of the Jabber project submitted an Internet-Draft (<a href='/internet-drafts/attic/draft-jabber-00.txt'>text</a> | <a href='/internet-drafts/attic/draft-jabber-00.html'>HTML</a>) to the Instant Messaging and Presence Protocol (IMPP) Working Group documenting the base Jabber protocols. Unfortunately, the Jabber community was not well organized at that time nor was it strongly focused on protocol development per se. Thus the initial Internet-Draft expired without the Jabber community following up or working closely with the IMPP WG.</p>
+<p>In October 2000, jabberd 1.2 was released and the server dialback protocol was introduced to prevent address spoofing on the growing network of Jabber servers.</p>
+
+<h3><a name='2001'></a>2001</h3>
+<p>In August 2001, the Jabber Software Foundation (JSF) was formed to coordinate among the growing number of open-source projects and commercial entities building or using Jabber technologies. (Note: As <a href='#2007'>described below</a>, in January 2007 the Jabber Software Foundation changed its name to the XMPP Standards Foundation or XSF.) The primary mandate of the Foundation is to manage the XML protocols used within the Jabber/XMPP community by documenting existing protocols and developing protocol extensions through an open standards process (see <a href='/extensions/xep-0001.html'>XEP-0001</a>).</p>
+
+<h3><a name='2002'></a>2002</h3>
+<p>In late 2001 and early 2002, prominent members of the Jabber community decided to once again submit the base Jabber protocols to the IETF, this time as an official submission by the JSF. The first submission was made in February 2002 as an informational Internet-Draft (<a href='/internet-drafts/attic/draft-miller-jabber-00.txt'>text</a> | <a href='/internet-drafts/attic/draft-miller-jabber-00.html'>HTML</a>). Following on the success of this submission, it was decided to explore the possibility of forming an IETF Working Group devoted to formalization of the base Jabber protocols, under the neutral name of Extensible Messaging and Presence Protocol (XMPP). As a result, three interrelated Internet-Drafts were submitted on 2002-06-21.</p>
+<p>On 2002-07-15, an XMPP Birds of a Feather session (BOF) was held at the 54th IETF meeting in Yokohama, Japan. Given the overall favorable reaction (captured in the <a href='bof-minutes.txt'>minutes</a>), it was decided to proceed further by submitting a proposed working group <a href='wg-charter.txt'>charter</a> to the IESG.</p>
+<p>On 2002-10-31, the formation of the XMPP Working Group was approved bythe Internet Engineering Steering Group (IESG). As a result, the Foundation formally contributed the base Jabber protocols to the Internet Standards Process (see <a href='http://www.ietf.org/rfc/rfc2026.txt'>RFC 2026</a>) and ceded change control over those protocols to the IETF under the name Extensible Messaging and Presence Protocol (XMPP). On 2002-11-03, updated Internet-Drafts were submitted for "XMPP Core" and "XMPP IM". On 2002-11-19, the first meeting of the XMPP WG was held at IETF 55 including <a href='http://www.jabber.org/ietf/55/'>presentations</a> by Jeremie Miller, Joe Hildebrand, and Peter Saint-Andre.</p> 
+
+<h3><a name='2003'></a>2003</h3>
+<p>In 2003, the XMPP WG essentially completed its work on formalizing the base Jabber protocols for adaptation as IETF-approved instant messaging and presence protocols that would fully meet the requirements of <a href='http://www.ietf.org/rfc/rfc2779.txt'>RFC 2779</a>. Meetings of the XMPP WG were held on 2003-03-17 at IETF 56 (see <a href='http://www.jabber.org/ietf/56/'>presentations</a>) and on 2003-07-18 at IETF 57 (with one <a href='http://www.jabber.org/ietf/57/psa/'>presentation</a>).</p>
+<p>The revisions made to the base protocols mainly centered on improved security and internationalization. In the area of security, the XMPP Core document specifies:</p>
+<ul>
+<li>The use of standard Simple Authentication and Security Layer (<a href='http://www.ietf.org/rfc/rfc4422.txt'>RFC 4422</a>) for authentication (as earlier proposed in <a href='/extensions/xep-0034.html'>XEP-0034</a>) rather than the old protocol of hashed passwords (as described informationally in <a href='/extensions/xep-0078.html'>XEP-0078</a>).</li>
+<li>The use of standard Transport Layer Security (<a href='http://www.ietf.org/rfc/rfc4346.txt'>RFC 4346</a>) for channel encryption (as earlier proposed in <a href='/extensions/xep-0035.html'>XEP-0035</a>) rather than the older method of using SSL on separate ports.</li>
+</ul>
+<p>(In addition, the XMPP WG defined as an XMPP extension a protocol for end-to-end encryption using S/MIME and CPIM.)</p>
+<p>In the area of internationalization, the XMPP Core document specifies profiles of stringprep (<a href='http://www.ietf.org/rfc/rfc3454.txt'>RFC 3454</a>) for XMPP addresses (a.k.a. JIDs). In particular, XMPP uses Internationalized Domain Names (<a href='http://www.ietf.org/rfc/rfc3490.txt'>RFC 3490</a>) for the domain portion of a JID and the XMPP-specific nodeprep and resourceprep profiles for the remaining portions of a JID. In addition, the XMPP Core document specifies the use of the 'xml:lang' attribute for proper localization of XMPP communications (as earlier proposed in <a href='/extensions/xep-0026.html'>XEP-0026</a>).</p>
+<p>In the area of user privacy, a protocol extension for block and allow lists was added to the XMPP IM specification, following up on the earlier proposal documented in <a href='/extensions/xep-0016.html'>XEP-0016</a>.</p>
+<p>The XMPP WG also defined a mapping of XMPP to the Common Profile for Instant Messaging (<a href='http://www.ietf.org/rfc/rfc3860.txt'>RFC 3860</a>) and Common Profile for Presence (<a href='http://www.ietf.org/rfc/rfc3859.txt'>RFC 3859</a>) produced by the IMPP WG for gateway interoperability.</p>
+<p>Finally, the Foundation and <a href='http://www.jabber.com/'>Jabber, Inc.</a> jointly submitted an <a href='ipr-notice.txt'>IPR Notice</a> to the IETF regarding the <a href='/trademark/'>JABBER trademark</a>.</p>
+
+<h3><a name='2004'></a>2004</h3>
+<p>The IESG approved the XMPP Core and XMPP IM specifications as Proposed Standards on 2004-01-29 and 2004-02-05, respectively, thus accepting XMPP 1.0 as an IETF Instant Messaging and Presence technology in conformance with the requirements of <a href='http://www.ietf.org/rfc/rfc2779.txt'>RFC 2779</a>. The XMPP-CPIM Mapping specification was approved on 2004-05-19. The XMPP-E2E specification was approved on 2004-07-26.</p>
+<p>In October 2004, these documents were published as the following RFCs:</p>
+<ul>
+  <li><a href='http://www.ietf.org/rfc/rfc3920.txt'>RFC 3920: Extensible Messaging and Presence Protocol (XMPP): Core</a></li>
+  <li><a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC 3921: Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</a></li>
+  <li><a href='http://www.ietf.org/rfc/rfc3922.txt'>RFC 3922: Mapping the Extensible Messaging and Presence Protocol (XMPP) to Common Presence and Instant Messaging (CPIM)</a></li>
+  <li><a href='http://www.ietf.org/rfc/rfc3923.txt'>RFC 3923: End-to-End Signing and Object Encryption for the Extensible Messaging and Presence Protocol (XMPP)</a></li>
+</ul>
+<p>Upon publication of the <a href='/rfcs/'>XMPP RFCs</a>, the IETF <a href='http://www1.ietf.org/mail-archive/web/ietf-announce/current/msg00582.html'>announced</a> the conclusion of the XMPP Working Group. However, development of further <a href='/extensions/'>XMPP extensions</a> continues.</p>
+
+<h3><a name='2005'></a>2005</h3>
+
+<p>Other than continued publication and advancement of various <a href='/extensions/'>XMPP extensions</a>, no major standardization efforts were undertaken in 2005. However, implementation and deployment of large-scale XMPP-based services continued, highlighted by the launch of <a href='http://talk.google.com/'>Google Talk</a> in August 2005.</p>
+
+<h3><a name='2006'></a>2006</h3>
+
+<p>In July 2006, the IETF published <a href='http://www.ietf.org/rfc/rfc4622.txt'>RFC 4622</a> defining the XMPP URI scheme.</p>
+<p>In July 2006, the <a href='http://xmpp.org/summit/summit1.shtml'>first XMPP Summit</a> was held in Portland, Oregon, USA.</p>
+<p>In October 2006, the JSF renamed its "Jabber Enhancement Proposals" (JEP) specification series to "XMPP Extension Protocols" (XEPs) and moved them to the xmpp.org website.</p>
+<p>In October 2006, work began on revisions to RFC 3920 and RFC 3921 in order to incorporate experience gained through several years of widespread implementation and deployment of XMPP technologies. It is envisioned that these revisions will be completed in 2008. See the <a href='/internet-drafts/'>Internet-Drafts page</a> for details.</p>
+<p>In December 2006, the JSF entered into a partnership with <a href='http://www.startssl.com/'>StartCom</a> to offer free digital certificates to administrators of Jabber/XMPP servers through the <a href='http://xmpp.org/ca/'>XMPP Intermediate Certification Authority</a>.</p>
+
+<h3><a name='2007'></a>2007</h3>
+
+<p>In January 2007, the Jabber Software Foundation renamed itself to the XMPP Standards Foundation in order to more accurately describe its focus on developing open protocol extensions to the IETF's base XMPP specifications (rather than open-source software).</p>
+<p>In February 2007, the XSF held the <a href='http://xmpp.org/summit/summit2.shtml'>second XMPP Summit</a> in Brussels, Belgium.</p>
+<p>In April 2007, the IETF published <a href='http://www.ietf.org/rfc/rfc4854.txt'>RFC 4854</a> defining URN namespace for use by the <a href='/registrar/'>XMPP Registrar</a> in generating XML namespace names for XMPP extensions.</p>
+<p>In June 2007, the XSF approved <a href='/extensions/xep-0174.html'>XEP-0174: Link-Local Messaging</a>, which formalizes the zero-configuration, serverless mode of XMPP communications pioneered in Apple's Bonjour technology.</p>
+<p>In July 2007, the XSF published the first of its yearly protocol suites for compliance testing related to XMPP implementations: <a href='/extensions/xep-0211.html'>XEP-0211</a>, <a href='/extensions/xep-0212.html'>XEP-0212</a>, <a href='/extensions/xep-0213.html'>XEP-0213</a>, and <a href='/extensions/xep-0216.html'>XEP-0216</a>.</p>
+<p>In July 2007, the XSF held the <a href='http://xmpp.org/summit/summit3.shtml'>third XMPP Summit</a> in Portland, Oregon, USA.</p>
+
+<h3><a name='2008'></a>2008</h3>
+
+<p>In February 2008, the XSF held the <a href='http://xmpp.org/summit/summit4.shtml'>fourth XMPP Summit</a> in Brussels, Belgium.</p>
+<p>In May 2008, the XSF advanced <a href='http://xmpp.org/extensions/xep-0171.html'>XEP-0171: Language Translation</a> to a status of <a href='http://xmpp.org/extensions/xep-0001.html#states-Draft'>Draft</a>.</p>
+<p>In July 2008, the XSF advanced <a href='http://xmpp.org/extensions/xep-0136.html'>XEP-0136: Message Archiving</a> to a status of <a href='http://xmpp.org/extensions/xep-0001.html#states-Draft'>Draft</a>. It also held the <a href='http://xmpp.org/summit/summit5.shtml'>fifth XMPP Summit</a> in Portland, Oregon, USA.</p>
+<p>In September 2008, the XSF advanced <a href='http://xmpp.org/extensions/xep-0231.html'>XEP-0231: Bits of Binary</a> and <a href='http://xmpp.org/extensions/xep-0158.html'>XEP-0158: CAPTCHA Forms</a> to a status of <a href='http://xmpp.org/extensions/xep-0001.html#states-Draft'>Draft</a>. It also completed significant revisions to <a href='http://xmpp.org/extensions/xep-0060.html'>XEP-0060: Publish-Subscribe</a> and related specifications, plus published its second series of compliance specifications (<a href='http://xmpp.org/extensions/xep-0242.html'>XEP-0242: XMPP Client Compliance 2009</a> and <a href='http://xmpp.org/extensions/xep-0243.html'>XEP-0243: XMPP Server Compliance 2009</a>).</p>
+<p>In November 2008, the XSF advanced <a href='http://xmpp.org/extensions/xep-0012.html'>XEP-0012: Last Activity</a>, <a href='http://xmpp.org/extensions/xep-0085.html'>XEP-0085: Chat State Notifications</a>, and <a href='http://xmpp.org/extensions/xep-0174.html'>XEP-0174: Serverless Messaging</a> to a status of <a href='http://xmpp.org/extensions/xep-0001.html#states-Final'>Final</a>. 
+
+<h3><a name='2009'></a>2009</h3>
+
+<p>In January 2009, the XSF approved <a href='http://xmpp.org/extensions/xep-0205.html'>XEP-0205: Best Practices to Discourage Denial of Service Attacks</a> as an Informational specification.</p>
+<p>In February 2009, the XSF held the <a href='http://xmpp.org/summit/summit6.shtml'>sixth XMPP Summit</a> in Brussels, Belgium.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

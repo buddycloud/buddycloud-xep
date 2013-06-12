@@ -1,0 +1,823 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>XMPP Extension Protocols</title>
+  <abstract>This document defines the standards process followed by the XMPP Standards Foundation.</abstract>
+  &LEGALNOTICE;
+  <number>0001</number>
+  <status>Active</status>
+  <type>Procedural</type>
+  <sig>None</sig>
+  <approver>Board</approver>
+  <dependencies/>
+  <supersedes/>
+  <supersededby/>
+  <shortname>N/A</shortname>
+  &stpeter;
+  <revision>
+    <version>1.20</version>
+    <date>2010-03-10</date>
+    <initials>psa</initials>
+    <remark>
+      <ul>
+        <li>Changed the period for Council objections to submitted proposals (ProtoXEPs) from 7 days to 14 days.</li>
+        <li>Changed the period for Last Calls from 10 days to 14 days.</li>
+        <li>Changed the period for automatic deferral of an Experimental XEP from 6 months to 12 months.</li>
+        <li>Changed the holding period for advancement from Draft to Final from 60 days to 6 months.</li>
+        <li>Clarified that the Editor is the canonical target for all submissions, not necessarily all questions related to the XSF's standards process.</li>
+        <li>Clarified that only changes in Draft and Final XEPs that could reasonably be construed as material must be reviewed and voted on by the XMPP Council, thus exempting correction of typographical errors, minor clarifications, and other such errata.</li>
+        <li>Clarified that the Council has ultimate authority over Draft, Final, and Active XEPs, and can demand the reversal of any changes made to XEPs in those states by the XMPP Extensions Editor or the XEP author.</li>
+        <li>Clarified that Council review is mandatory (not just recommended) regarding IANA registrations initiated by the XMPP Registrar.</li>
+        <li>Updated some references and added some links.</li>
+      </ul>
+    </remark>
+  </revision>
+  <revision>
+    <version>1.19</version>
+    <date>2008-01-23</date>
+    <initials>psa</initials>
+    <remark><p>Updated to reflect version 1.4 of the XSF IPR Policy.</p></remark>
+  </revision>
+  <revision>
+    <version>1.18</version>
+    <date>2006-12-07</date>
+    <initials>psa</initials>
+    <remark><p>Clarified meaning of Experimental, Draft, and Final states.</p></remark>
+  </revision>
+  <revision>
+    <version>1.17</version>
+    <date>2006-10-04</date>
+    <initials>psa</initials>
+    <remark><p>As approved by the members of the XMPP Standards Foundation, changed Jabber Enhancement Proposal to XMPP Extension Protocol.</p></remark>
+  </revision>
+  <revision>
+    <version>1.16</version>
+    <date>2006-06-23</date>
+    <initials>psa</initials>
+    <remark><p>Clarified and simplified the state charts based on implementation experience; summarized state definitions.</p></remark>
+  </revision>
+  <revision>
+    <version>1.15</version>
+    <date>2004-11-02</date>
+    <initials>psa</initials>
+    <remark><p>Specified that a Standards Track specification defines either (1) a wire protocol or (2) a protocol suite.</p></remark>
+  </revision>
+  <revision>
+    <version>1.14</version>
+    <date>2004-09-28</date>
+    <initials>psa</initials>
+    <remark><p>Defined Procedural type as the union of SIG Formation type and certain Informational specifications in order to clarify the categories; added Modifications to Approved Specifications section in order to make explicit existing Council practices regarding Active and Final specifications; specified that documents on which voting was not complete at the end of a Council term shall undergo a second Last Call and subsequent vote by the new Council; modified Proposal Process to specify that the Jabber Council shall issue Last Calls on documents for which it is the approving body, with all discussion to occur on the Standards list; updated the schema.</p></remark>
+  </revision>
+  <revision>
+    <version>1.13</version>
+    <date>2004-08-24</date>
+    <initials>psa</initials>
+    <remark><p>Further specified the goals of the standards process; mentioned Board-approved specifications.</p></remark>
+  </revision>
+  <revision>
+    <version>1.11</version>
+    <date>2004-07-14</date>
+    <initials>psa</initials>
+    <remark><p>Specified the procedure for changing a XEP from Historical to Standards Track.</p></remark>
+  </revision>
+  <revision>
+    <version>1.10</version>
+    <date>2004-03-24</date>
+    <initials>psa</initials>
+    <remark><p>Specified the procedure for acceptance of a proposal as a XEP; clarified the XEP types; completed editorial review.</p></remark>
+  </revision>
+  <revision>
+    <version>1.9</version>
+    <date>2003-12-22</date>
+    <initials>psa</initials>
+    <remark><p>Added rule about automatic deferral of inactive specifications.</p></remark>
+  </revision>
+  <revision>
+    <version>1.8</version>
+    <date>2003-10-06</date>
+    <initials>psa</initials>
+    <remark><p>Clarified the definition of informational specification.</p></remark>
+  </revision>
+  <revision>
+    <version>1.7</version>
+    <date>2003-04-11</date>
+    <initials>psa</initials>
+    <remark><p>Added status of Retracted; corrected several errors related to the XMPP Registrar.</p></remark>
+  </revision>
+  <revision>
+    <version>1.6</version>
+    <date>2003-01-08</date>
+    <initials>psa</initials>
+    <remark><p>Further clarified the proposal process per discussion on the members list.</p></remark>
+  </revision>
+  <revision>
+    <version>1.5</version>
+    <date>2002-10-29</date>
+    <initials>psa</initials>
+    <remark><p>Major revision based on experience. In addition to a reorganization of the content to improve the clarity of the presentation, changes include: (1) no anonymous authors; (2) proposal must be seconded by at least 5% of XSF members before being proposed for a Council vote; (3) clarification that the Council votes only on a particular revision of a specification (e.g., version 1.3 when proceeding from Draft to Final); (4) added information about the "Call for Experience" phase before proceeding from Draft to Final; (5) added reference to RFC 2119; (6) added sections for security considerations, IANA considerations, and XMPP Registrar considerations. Approved by the XSF Board and Jabber Council on 2002-11-20.</p></remark>
+  </revision>
+  <revision>
+    <version>1.4</version>
+    <date>2002-01-16</date>
+    <initials>psa</initials>
+    <remark><p>Added information about the new "Experimental" state for Standards Track specifications and made appropriate changes to the standards process.</p></remark>
+  </revision>
+  <revision>
+    <version>1.3.1</version>
+    <date>2002-01-11</date>
+    <initials>psa</initials>
+    <remark><p>Added link to DTD.</p></remark>
+  </revision>
+  <revision>
+    <version>1.3</version>
+    <date>2001-10-23</date>
+    <initials>psa</initials>
+    <remark><p>(1) Added information about the "cooling off" period before a Standards Track specification may be advanced from Draft to Final; (2) Added a link to the template file; (3) Performed several minor fixes.</p></remark>
+  </revision>
+  <revision>
+    <version>1.2</version>
+    <date>2001-09-27</date>
+    <initials>psa</initials>
+    <remark><p>(1) Added information about expiration dates; (2) Added a status of Deprecated to Standards Track specifications.</p></remark>
+  </revision>
+  <revision>
+    <version>1.1</version>
+    <date>2001-09-09</date>
+    <initials>psa</initials>
+    <remark><p>(1) Changed "Jabber Foundation" to "XMPP Standards Foundation"; (2) Changed "SIG Proposal" to "SIG Formation"; (3) Removed reference to the Secretary of the XMPP Standards Foundation in connection with the role of Editor; (4) Clarified the possible states of acceptance of each kind of specification and described in greater detail the criteria for advancement from one state to another.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2001-07-09</date>
+    <initials>psa</initials>
+    <remark><p>Changed status to Active.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2001-06-28</date>
+    <initials>psa</initials>
+    <remark><p>Initial release -- a simplified and updated version of Rahul Dave's Jabberization of the process and format for Python Enhancement Proposals</p></remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>The &XSF; adheres to an open standards process that enables interested parties to document existing protocols used within the Jabber/XMPP developer community and to submit proposals that define new protocols; with a few exceptions, <note>Effectively the only such exceptions are protocols that were superseded by <cite>RFC 3920</cite> and <cite>RFC 3921</cite>.</note> such protocols can be considered extensions to the Extensible Messaging and Presence Protocol (XMPP) approved by the &IETF; in &xmppcore; and &xmppim;. The focal point of the process is a series of protocol specifications called XMPP Extension Protocols or XEPs. <note>The JEP (now XEP) concept as exemplified in version 1.0 of this document (approved in July of 2001) was borrowed from the Python community (see <link url="http://python.sourceforge.net/peps/pep-0001.html">PEP-1</link>). Subsequent revisions have been based on the Jabber/XMPP developer community's experience with this standards process, as well as insights gleaned from the standards processes followed by the IETF (&rfc2026;), the &W3C; (&w3process;), and other standards development organizations. (Note: The term "XEP" is normally pronounced "zepp".)</note></p>
+  <p>Advancement of a XEP through the XSF's standards process is contingent on three factors:</p>
+  <ul>
+    <li>Rough consensus on the XSF's public discussion lists.</li>
+    <li>Running code in XMPP clients, servers, and libraries.</li>
+    <li>Formal approval by the &COUNCIL;.</li>
+  </ul>
+  <p>The XSF's standards process can be outlined informally as follows:</p>
+  <ol start='1'>
+    <li>A developer in the XMPP community defines a new XMPP extension that solves an existing problem or enables an innovative feature that is not addressed in the current XMPP protocol stack.</li>
+    <li>The developer submits a specification to the &EDITOR; and agrees to transfer ownership over the protocol (but not implementations thereof) to the XSF.</li>
+    <li>If the specification is accepted by the XMPP Council, it is published as an Experimental XEP.</li>
+    <li>The XEP undergoes extensive community review on the XSF's open discussion lists and is implemented experimentally in XMPP clients, servers, and libraries.</li>
+    <li>If the protocol fills an important need, meets with rough consensus, and is (preferably) implemented in running code, the XMPP Council will formally review it and vote on advancing it to a status of Draft.</li>
+    <li>While the XEP is in the Draft state, the protocol may be refined based on further discussion and implementation experience.</li>
+    <li>If the protocol is deemed stable after at least six months (and normally more) of further implementation and deployment experience, the XSF then consider advancement of the XEP to a status of Final.</li>
+  </ol>
+  <p>The remainder of this document formally defines the nature of XMPP Extension Protocols and the mechanisms for managing and advancing them within the XSF's standards process.</p>
+</section1>
+<section1 topic='Objectives' anchor='objectives'>
+  <p>The XMPP Standards Foundation was founded in the year 2001 to openly document, safeguard, manage, and extend the wire protocols used within the XMPP developer community. The work of the XMPP Standards Foundation has several objectives:</p>
+  <ol start='1'>
+    <li>To produce practical, technically excellent solutions to important problems of real-time communication based on the set of streaming XML technologies known as XMPP.</li>
+    <li>To document XMPP extensions in a clear, concise manner so that the task of implementing the protocols is straightforward.</li>
+    <li>To ensure interoperability among the disparate technologies used on XMPP networks.</li> 
+    <li>To guarantee that any person or entity can implement the protocols without encumbrance.</li>
+    <li>To work in an fair, open, objective manner.</li>
+  </ol>
+  <p>The standards process specified herein has been developed and refined in order to meet these objectives.</p>
+</section1>
+<section1 topic='XEP Types' anchor='types'>
+  <p>The five XEP types are described in the following sections.</p>
+  <p>The approving body for all Standards Track, Informational, Historical, and Humorous XEPs is the XMPP Council; the approving body for Procedural XEPs may be either the &BOARD; or the XMPP Council.</p>
+  <p>This document focuses primarily on Standards Track XEPs since they are the vehicle for defining new protocols, but also discusses the other XEP types.</p>
+  <section2 topic='Standards Track' anchor='types-Standards-Track'>
+    <p>A <span class='ref'>Standards Track XEP</span> defines one of the following:</p>
+    <ol>
+      <li>A wire protocol intended to be used as a standard part of XMPP technologies.
+        <note>A protocol defined in a Standards Track XEP is not considered a full standard of the XMPP Standards Foundation until it achieves a status of Final within the standards process defined herein (a Standards Track XEP that has achieved a status of Draft may be referred to as a Draft Standard; a Standards Track XEP that has a status of Experimental must not be referred to as a standard, but instead should be referred to as a work in progress).</note>
+      </li>
+      <li>A protocol suite that determines conformance requirements (e.g., &xep0270;).</li>
+    </ol>
+  </section2>
+  <section2 topic='Informational' anchor='types-Informational'>
+    <p>An <span class='ref'>Informational XEP</span> typically defines best practices for implementation or deployment of an existing protocol (e.g., &xep0128; and &xep0175;).</p>
+  </section2>
+  <section2 topic='Historical' anchor='types-Historical'>
+    <p>An <span class='ref'>Historical XEP</span> documents a protocol that was developed before the XSF's standards process was instituted, but that is still in use within the XMPP developer community; such a XEP may or may not be obsoleted by a Standards Track XEP, or upgraded to Standards Track.</p>
+  </section2>
+  <section2 topic='Humorous' anchor='types-Humorous'>
+    <p>A <span class='ref'>Humorous XEP</span> attempts to be funny by defining a protocol that would never be used in the real world; such XEPs are usually published on April 1 and automatically have a status of Active.</p>
+  </section2>
+  <section2 topic='Procedural' anchor='types-Procedural'>
+    <p>A <span class='ref'>Procedural XEP</span> defines a process or activity to be followed by the XSF (e.g., &xep0053;), including SIG charters as specified by &xep0002;.</p>
+  </section2>
+</section1>
+<section1 topic='Submission Process' anchor='submission'>
+  <p>The XSF welcomes and encourages the submission of protocols to the XSF's standards process. <note>It is important to understand that private extensions to XMPP are also allowed. The XSF does not, and cannot, require such private extensions to be added to the public, official set of protocols recognized by the XSF. The processes and procedures in this document apply only to protocols that are submitted to the XSF, not to private protocol extensions used for custom functionality in particular applications. However, such private extensions must not be considered part of the protocols recognized by the XSF.</note> Any individual or group of individuals may author a proposal and submit it to the XSF for consideration as a XEP, and there is no requirement that a XEP author shall be an elected member of the XSF. <a name='states-ProtoXEP'></a> Proposals to define official XSF protocols must be presented in the XEP format and must follow the rules defined herein (after a proposal has been submitted but before it has been accepted as a XEP, it is known informally as a "ProtoXEP"). The authoring and submission process is defined in &xep0143; (see also &lt;<link url="http://www.xmpp.org/extensions/submit.shtml">http://www.xmpp.org/extensions/submit.shtml</link>&gt;). All submissions to the XSF's standards process should be directed to the XMPP Extensions Editor.</p> 
+  <p>Note well that XEP authors must transfer ownership of their protocols (but not implementations thereof) to the XSF. Refer to the &XSFIPR; for details. XEP authors must make sure that they have read, understood, and agreed to the XSF IPR Policy before submitting a proposal to the XMPP Extensions Editor!</p>
+  <p>All proposals submitted to the XSF for consideration as XEPs must contain the following information:</p>
+  <ol start='1'>
+    <li><p>Legal Notices -- the legal notices must be exactly those specified in the XSF IPR Policy</p></li>
+    <li><p>Author Information -- first name, last name, email address, and Jabber ID are all required and must be provided for all authors (to simplify the text we use singular "author" in the remainder of this document, with the understanding that there can be multiple authors)</p></li>
+  </ol>
+  <p>Finally, Standards Track, Informational, and Historical XEPs must conform to &rfc2119; in the use of terminology regarding requirements levels.</p>
+</section1>
+<section1 topic='Publication Process' anchor='publication'>
+  <p>The approving body for almost all XEPs is the XMPP Council; therefore, in order to be published as a XEP, a proposal must first be accepted by the XMPP Council (the only exceptions are certain kinds of Procedural XEPs, for which the approving body may be the XSF Board of Directors and which may be accepted for publication by the XMPP Extensions Editor in consultation with the Board). Upon receiving a proposal, the XMPP Extensions Editor shall do the following:</p>
+  <ul>
+    <li>ensure that its format is correct</li>
+    <li>publish it to &lt;<link url='http://www.xmpp.org/extensions/inbox/'>http://www.xmpp.org/extensions/inbox/</link>&gt;</li>
+    <li>publicly announce its existence by sending a message to the discussion list of the &SSIG;</li>
+    <li>request acceptance of the proposal as a XEP by the XMPP Council</li>
+  </ul>
+  <p>If no member of the XMPP Council objects to publication of the proposal within fourteen (14) days or at the next meeting of the Council, the XMPP Extensions Editor shall accept it as a XEP. If objections are raised by the Council on the Standards list or in its meeting, the XEP author is encouraged to address the feedback of the Council and to submit a revised version of the proposal and/or confer with the XMPP Extensions Editor or objecting Council member(s) regarding how to proceed.</p>
+  <p>If the proposal is accepted as a XEP, the XMPP Extensions Editor shall do the following:</p>
+  <ul>
+    <li>assign it a number</li>
+    <li>specify an appropriate type</li>
+    <li>specify a status of Experimental</li>
+    <li>add it to source control <note>XEPs are kept under source control in the 'xmpp' module and 'extensions' directory of the XSF Subversion repository; instructions for accessing these files can be found at &lt;<link url='http://www.xmpp.org/xsf/sourcecontrol.shtml'>http://www.xmpp.org/xsf/sourcecontrol.shtml</link>&gt;.</note></li>
+    <li>add tracking information to the XEPs database</li>
+    <li>publish version 0.1 of the XEP to the xmpp.org website <note>The canonical URL for accessing XMPP Extensions is &lt;<link url='http://www.xmpp.org/extensions/'>http://www.xmpp.org/extensions/</link>&gt;.</note></li>
+    <li>publicly announce the existence of the XEP by sending a message to the Standards list</li>
+  </ul>
+  <p>Note well that no special criteria (other than acceptance by the XMPP Council and minimal formatting compliance) need to be met in order for a XEP to be granted a status of Experimental. The granting of Experimental status must not be construed as indicating any level of approval by the XSF, the XMPP Council, or the XMPP developer community. Implementation of Experimental XEPs is encouraged in an exploratory fashion (e.g., in a proof of concept) in order to gain experience with and iteratively improve the protocol defined therein, but such implementations might not be appropriate for deployment in production systems.</p>
+</section1>
+<section1 topic='Discussion Process' anchor='discussion'>
+  <p>Once a XEP is published, it becomes available for public discussion within the Standards SIG and the broader XMPP developer community. The XEP author is responsible for collecting feedback from the XMPP developer community during the life of the XEP and for incorporating such feedback into the proposal. In order to fully participate in discussion of the proposal, the XEP author should be subscribed to the Standards list, which is the primary venue for discussion of XMPP Extension Protocols. Changes made based on feedback received by the XEP author shall be captured in updated versions of the XEP (e.g., 0.2 after 0.1), each of which must be put under source control and subsequently published and announced by the XMPP Extensions Editor.</p>
+  <p>If an Experimental XEP is inactive (i.e., no updated versions are published) for a period of twelve (12) months, the XMPP Extensions Editor shall automatically change the status of the XEP to Deferred unless it is in the queue of XEPs under active consideration for advancement by the XMPP Council; upon submission of an updated version, the XMPP Extensions Editor shall change the status back to Experimental.</p>
+</section1>
+<section1 topic='Proposal Process' anchor='proposal'>
+  <p>Before an Experimental XEP may be proposed to the XMPP Council for advancement to Draft (Standards Track XEPs) or Active (Historical, Informational, and Procedural XEPs), the XMPP Council must agree that the XEP is ready to be considered for advancement. Once the Council so agrees, it shall instruct the XMPP Extensions Editor to (1) change the status of the XEP from Experimental to Proposed and (2) issue a Last Call for open discussion on the Standards list. The Last Call shall expire not less than fourteen (14) days after the date of issue.</p>
+  <p>Once the consensus of the Standards SIG has been incorporated into the XEP and all issues of substance raised during the Last Call have been addressed by the XEP author, the XMPP Extensions Editor shall formally propose a specific revision of the XEP to the XMPP Council for its vote. If necessary, the XMPP Extensions Editor may, at his discretion and in consultation with the XMPP Council, extend the Last Call or issue a new Last Call if the XEP requires further discussion.</p>
+  <p>Last Calls regarding Procedural XEPs for which the approving body is the XSF Board of Directors may be issued directly by the XMPP Extensions Editor once instructed by the Board.</p>
+</section1>
+<section1 topic='Approval Process' anchor='approval'>
+  <p>After a XEP has been proposed to the XMPP Council, any change in its status shall be determined by a vote of the XMPP Council. All members of the Council must vote, with the possible values being +1 (approve), 0 (neutral), or -1 (disapprove, with reasons). A XEP shall not be advanced to the next stage in the approval process so long as any Council Member continues to vote -1; that Council Member's written concerns must be addressed in order for the XEP to advance. A majority of Council members must vote +1 in order for a XEP to advance. (Additional voting policies, such as voting periods and defaults if a member does not vote, may be set by the XMPP Council.) A vote of the XMPP Council is final and binding, although a XEP author is free to address the concerns of the Council and to resubmit the XEP for future consideration.</p>
+  <p>If the XMPP Council does not complete voting on a XEP before the end of its term, the XMPP Extensions Editor shall issue a new Last Call on the Standards list and the newly-elected Council shall vote anew on the XEP after completion of the Last Call. This provides an opportunity for any member of the previous Council who had voted -1 to voice his or her concerns in a public forum before the new Council votes on the XEP.</p>
+  <p>A vote of the XMPP Council applies only to the specific revision of the XEP that has been presented to it. Further revisions may need to be re-submitted for approval.</p>
+  <p>Any change in the status of a XEP must be announced on the Standards list by the XMPP Extensions Editor. If a XEP advances to a status of Final, it shall be so announced and also published as one of the official XSF protocols of the XMPP Standards Foundation at &lt;<link url='http://xmpp.org/protocols/'>http://xmpp.org/protocols/</link>&gt;.</p>
+  <p>Approval of Procedural XEPs for which the approving body is the XSF Board of Directors shall occur upon approval by the Board in accordance with the rules defined in the &BYLAWS;.</p>
+  <p>More detailed information about the approval process is provided below, including criteria for Standards Track XEPs and for Historical, Informational, and Procedural XEPs.</p>
+  <section2 topic='Standards Track XEPs' anchor='approval-std'>
+    <p>The possible states for a Standards Track XEP are as follows:</p>
+    <code>
+
+     +--> Retracted
+     |
+     |
+     +--> Deferred    +--> Rejected
+     |                |
+     |                |
+Experimental ----> Proposed ----> Draft ----> Final
+                                    |           |
+                                    |           |
+                                    +-----------+---> Deprecated
+                                                          |
+                                                          +--> Obsolete
+    </code>
+    <p>After an XMPP Extension Protocol has been accepted for publication by the XMPP Council and before it is proposed for advancement to a status of Draft (or retracted or deferred), it shall have a status of Experimental. Publication as an Experimental XEP does not indicate approval of the protocol by the XMPP Council or the broader XMPP community.</p>
+    <p><em>Note: An Experimental specification is a work in progress and may undergo significant modification before advancing to a status of Draft. While implementation of an Experimental protocol is encouraged in order to determine the feasibility of the proposed solution, it is not recommended for such implementations to be included in the primary release for a software product (as opposed to an experimental branch).</em></p>
+    <p>The ideal path is for a Standards Track XEP is to be advanced by the XMPP Council from Proposed to Draft to Final (the criteria for this advancement are described in the following paragraphs). However, an Experimental XEP shall be assigned a status of Deferred if it has not been updated in twelve (12) months (e.g., because of a lack of interest or because it depends on other specifications that have yet to move forward). In addition, rather than being advanced from Proposed to Draft, a Standards Track XEP may be voted to a status of Rejected if the XMPP Council deems it unacceptable. (Note that if a XEP is Deferred, the XMPP Extensions Editor may at some point re-assign it to Experimental status, and that, even if a XEP is Rejected, it is retained in source control and on the XMPP Standards Foundation website for future reference.) Finally, a XEP author may voluntarily remove an Experimental XEP from further consideration, resulting in a status of Retracted.</p>
+    <p>In order for a Standards Track XEP to advance from Proposed to Draft, it must:</p>
+    <ol>
+      <li>fill known gaps in XMPP technologies or deficiencies with existing protocols</li>
+      <li>be clearly described and accurately documented so that it can be understood and implemented by interested and knowledgeable members of the XMPP developer community</li>
+      <li>document any known security considerations with the proposed technology</li>
+      <li>be generally stable and appropriate for further field experience</li>
+      <li>have achieved rough consensus (though not necessarily unanimity) within the Standards SIG</li>
+      <li>be formally defined by an XML schema</li>
+      <li>receive the requisite votes from the XMPP Council</li>
+    </ol>
+    <p>Elevation to Draft status (version 1.0) is a major advancement for the XEP, indicating a strong sense on the part of the XMPP Council and XMPP developer community that the specification will be of lasting value.</p>
+    <p><em>Note: Once an XMPP Extension Protocol has been advanced to a status of Draft, it is expected that the specification will be the basis for widespread implementation and for deployment in production environments. As a result of such implementation and deployment experience, the protocol may be subject to modification, including changes that are backwards-incompatible. Although such backwards-incompatible modifications shall be avoided if at all possible, deployment of a Draft protocol in mission-critical application may not be advisable.</em></p>
+    <p>Any changes to a Draft XEP that could reasonably be construed as material must be provisionally published at &lt;<link url='http://www.xmpp.org/extensions/tmp/'>http://www.xmpp.org/extensions/tmp/</link>&gt;, announced and discussed on the Standards mailing list, and formally approved by the XMPP Council before being officially published at the canonical URL for the XEP. Ultimate authority for Draft XEPs rests with the XMPP Council, which can at its discretion demand the reversal of any changes made by the XMPP Extensions Editor or the XEP author while the XEP is in the Draft state.</p>
+    <p>In order for a XEP to advance from Draft status to Final status (version 2.0), it must be shown to be stable and well-received by the XMPP developer community. Before presenting a Draft standard to the XMPP Council for consideration as a Final standard, the XMPP Extensions Editor shall issue a Call for Experience on the Standards list so that feedback can be gathered from those who have implemented the Draft standard (the Call for Experience shall expire not less than fourteen (14) days after the date of issue, and shall not be issued until at least six (6) months have passed since advancement to Draft). In addition, at least two implementations of the XEP must exist, at least one of which must be free software (in accordance with the &GPL; or &LGPL;) or open-source software (in accordance with the definition provided by &OSI;). Until two implementations are produced, a Standards Track XEP shall retain a status of Draft. Once (1) two implementations have been presented to the XMPP Council, (2) feedback provided during the Call for Experience has been incorporated into the XEP, and (3) the XEP has been fully checked for accuracy, the status of the XEP may be changed to Final upon a vote of the Council.</p>
+    <p><em>Note: Once an XMPP Extension Protocol has been advanced to a status of Final, every effort shall be made to limit the scope of modifications; in particular, backwards-incompatible changes shall not be made. However, limited modifications may be made as long as they are optional, backwards-compatible extensions rather than modifications to the core protocol itself. Therefore, a Final protocol is safe for deployment in mission-critical applications.</em></p>
+    <p>A Standards Track XEP that has been advanced to a status of Final may be superseded by a future XEP approved by the XMPP Council. In such cases, the status of the earlier XEP shall be changed to Deprecated, possibly with an expiration date assigned by the XMPP Council (see the <link url='#expiration'>Expiration Dates</link> section below). After a reasonable period of time or upon the passing of the expiration date, the status of the XEP shall be changed to Obsolete.</p>
+  </section2>
+  <section2 topic='Historical, Informational, and Procedural XEPs' anchor='approval-info'>
+    <p>The possible states for a Historical, Informational, or Procedural XEP are as follows:</p>
+    <code>
+
+     +--> Retracted
+     |
+     |
+     +--> Deferred    +--> Rejected
+     |                |
+     |                |
+Experimental ----> Proposed ----> Active
+                                    |
+                                    |
+                                    +--> Deprecated
+                                             |
+                                             +--> Obsolete
+    </code>
+    <p>Because such XEPs do not seek to define standard protocols, in general they are less controversial and tend to proceed from Proposed to Active without controversy on a vote of the XMPP Council. However, some of these XEPs may be remanded from the Council to the XEP author and/or XMPP Extensions Editor for revision in order to be suitable for advancement from Proposed to Active (e.g., documentation of protocols in use must be accurate and describe any existing security concerns). As with Standards Track XEPs, the XEP author may retract such a XEP when it is Experimental, and the Council may reject such a XEP when it is Proposed.</p> 
+    <p>Once approved, Historical, Informational, and Procedural XEPs will have a status of Active. Such a XEP may be replaced by a new XEP on the same or a similar topic, thus rendering the earlier XEP out of date; in such cases, the earlier XEP shall be assigned a status of Deprecated (and eventually Obsolete) with a note specifying the superseding XEP.</p> 
+    <p>The XMPP Council may, at its discretion, decide to convert an Historical XEP into a Standards Track XEP if the protocol defined in the XEP has been in long use, is deemed stable and uncontroversial, and is unlikely to be superseded by a newer protocol. The Historical XEP shall be treated in the same way as a Standards Track XEP that has a status of Experimental, beginning with the <link url="#proposal">Proposal Process</link>. If after the Last Call and voting by the XMPP Council the XEP is approved for advancement on the standards track, its type shall be changed to Standards Track and its status shall be changed to Draft.</p>
+  </section2>
+</section1>
+<section1 topic='Summary of XEP States' anchor='states'>
+  <p>The possible states for a XEP are summarized in the following sections.</p>
+  <section2 topic='Experimental' anchor='states-Experimental'>
+    <p>A XEP of any type is in the Experimental state after it has been accepted by the XMPP Council and published by the XMPP Standards Foundation but before it has advanced within the standards process to a state of Active or Draft.</p>
+    <p><em>Note: An Experimental specification is a work in progress and may undergo significant modification before advancing to a status of Draft. While implementation of an Experimental protocol is encouraged in order to determine the feasibility of the proposed solution, it is not recommended for such implementations to be included in the primary release for a software product (as opposed to an experimental branch).</em></p>
+  </section2>
+  <section2 topic='Proposed' anchor='states-Proposed'>
+    <p>A XEP of any type is in the Proposed state while it is in Last Call or under consideration by the XMPP Council for advancement from Experimental to Draft or Active.</p>
+  </section2>
+  <section2 topic='Draft' anchor='states-Draft'>
+    <p>A Standards Track XEP is in the Draft state after it has undergone extensive discussion and technical review on the Standards list and has been voted forward on the standards track by the XMPP Council.</p>
+    <p><em>Note: Once an XMPP Extension Protocol has been advanced to a status of Draft, it is expected that the specification will be basis for widespread implementation and for deployment in production environments. As a result of such implementation and deployment experience, the protocol may be subject to modification, including changes that are backwards-incompatible. Although such backwards-incompatible modifications shall be avoided if at all possible, deployment of a Draft protocol in mission-critical application may not be advisable.</em></p>
+  </section2>
+  <section2 topic='Final' anchor='states-Final'>
+    <p>A Standards Track XEP is in the Final state after it has been in the Draft state for at least six (6) months, has been implemented in at least two separate codebases, and has been voted forward on the standards track by the XMPP Council.</p>
+    <p><em>Note: Once an XMPP Extension Protocol has been advanced to a status of Final, every effort shall be made to limit the scope of modifications; in particular, backwards-incompatible changes shall not be made. However, limited modifications may be made as long as they are optional, backwards-compatible extensions rather than modifications to the core protocol itself. Therefore, a Final protocol is safe for deployment in mission-critical applications.</em></p> 
+  </section2>
+  <section2 topic='Active' anchor='states-Active'>
+    <p>A XEP of any type other than Standards Track is advanced to a status of Active after it has been voted forward from Experimental by the XMPP Council.</p>
+  </section2>
+  <section2 topic='Deferred' anchor='states-Deferred'>
+    <p>An Experimental XEP of any type is changed to the Deferred state if it has not been updated in twelve (12) months.</p>
+  </section2>
+  <section2 topic='Retracted' anchor='states-Retracted'>
+    <p>A XEP of any type is in the Retracted state if the author has asked the XMPP Extensions Editor to remove the XEP from further consideration in the XSF's standards process.</p>
+  </section2>
+  <section2 topic='Rejected' anchor='states-Rejected'>
+    <p>A XEP of any type is in the Rejected state if the XMPP Council has deemed it unacceptable and has voted to not move it forward within the standards process.</p>
+  </section2>
+  <section2 topic='Deprecated' anchor='states-Deprecated'>
+    <p>A XEP of any type is in the Deprecated state if the XMPP Council has determined that the protocol defined therein is out of date and that new implementations are no longer encouraged (e.g., because it has been superseded by a more modern protocol).</p>
+  </section2>
+  <section2 topic='Obsolete' anchor='states-Obsolete'>
+    <p>A XEP of any type is changed from Deprecated to Obsolete if the XMPP Council has determined that the protocol defined therein should no longer be implemented or deployed.</p>
+  </section2>
+</section1>
+<section1 topic='Modification of Final and Active XEPs' anchor='mods'>
+  <p>Sometimes it is necessary to modify XEPs that have received final approval by the XMPP Council or XSF Board of Directors (e.g., to correct errors, incorporate the lessons of experience, or document new security concerns). This section describes the process for doing so with regard to Standards Track XEPs that have achieved a status of Final and Historical, Informational, and Procedural XEPs that have achieved a status of Active.</p>
+  <p>With regard to Standards Track XEPs, the XMPP Standards Foundation (in particular, the XMPP Council) strives to ensure that such XEPs are accurate, complete, and stable before advancing them to a status of Final (corresponding to document version 2.0 of the XEP). The Call for Experience and discussion within the Standards SIG help to ensure this result, but final responsibility rests with the XMPP Council. Despite the best efforts of all concerned, errors are sometimes discovered in Final XEPs (the individual who discovers such an error should inform the Council via the Standards mailing list or communicate directly with the XMPP Extensions Editor). Whereas other standards development organizations may issue errata while leaving the specification itself unchanged, the XSF makes changes to the Final XEP "in place", where any changes that could reasonably be construed as material are subject to review by the XMPP Council and result in publication of a revised document version (e.g., version 2.1). In general, any such changes are made by the XMPP Extensions Editor or XEP author in consultation with the XMPP Council, discussed within the Standards SIG if appropriate, and agreed upon by the full XMPP Council. Upon agreement regarding the exact changes, the XMPP Council shall instruct the XMPP Extensions Editor to publish a revised version of the XEP and announce the existence of the revised version through the normal channels (e.g., on the XSF website and to the Standards list). Naturally, if members of the XMPP developer community have concerns regarding the changes made, they are free to discuss the matter in the relevant forum (usually the Standards list) before or after the revised version has been published. Ultimate authority for Final and Active XEPs rests with the XMPP Council, which can at its discretion demand the reversal of any changes made by the XMPP Extensions Editor or the XEP author while the XEP is in the Final or Active state.</p>
+  <p>The process is similar with regard to Historical and Informational XEPs that have achieved a status of Active (corresponding to document version 1.0 of the XEP): the XMPP Council agrees on the exact changes to be made and instructs the XMPP Extensions Editor to publish and announce a revised version (e.g., version 1.1). Here again the XMPP Council bears responsibility for any changes and public discussion is welcome.</p>
+  <p>Procedural XEPs may be modified more frequently as the XMPP Standards Foundation gains experience with the processes defined therein. For example, XEP-0001 is modified periodically in order to document processes previously not made explicit or to modify existing processes based on experience with the XSF's standards process; similar changes are sometimes made to the &xep0053; XEP and to various SIG-related XEPs. Changes to these XEPs are discussed by the XMPP Council, XSF Board of Directors, XSF membership, and Standards SIG as appropriate, and exact changes are agreed to by the relevant approving body (XMPP Council or XSF Board of Directors). The approving body then instructs the XMPP Extensions Editor to publish and announce the revised version as described above.</p>
+</section1>
+<section1 topic='Expiration Dates' anchor='expiration'>
+  <p>In rare cases, a protocol enhancement may be accepted as an interim solution, especially when it is recognized that expected future improvements in technology or the underlying XMPP protocols will make possible a much better solution to the problem at hand (e.g., a better protocol for user avatars may be contingent upon the development of a robust protocol for publish/subscribe functionality). In such cases, a XEP may be approved provisionally and be assigned an expiration date.</p>
+  <p>The exact form of such an expiration date shall be left up to the discretion of the XMPP Council. However, the preferred form is to assign an expiration date of six (6) months in the future, at which time the XMPP Council must re-affirm the status of the XEP and, if desired, extend the expiration date for another six (6) months. Although this process may continue indefinitely (although that is unlikely), it has the virtue of forcing the XMPP Council and XMPP developer community to re-examine the provisional protocol on a fairly regular basis in the light of technological changes. Alternatively, a XEP may be assigned a "soft" expiration date: that is, the XEP will expire when an expected future protocol comes into existence, whenever that may be. In either case, the status of the XEP shall be changed to Deprecated when it expires.</p>
+  <p>In addition, an expiration date may be assigned when the status of a XEP is changed from Final (or, potentially, Draft) to Deprecated. In this case, the expiration date applies to the date when the XEP is expected to change from Deprecated to Obsolete. These dates may be flexible; however it is expected that they will follow the same six-month rule as provisional protocol enhancements.</p>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>Every XMPP Extension Protocol specification must contain a section entitled "Security Considerations", detailing security concerns or features related to the proposal; in particular, a Standards Track XEP should list the security threats that the protocol addresses and does not address, as well as security issues related to implementation of the protocol and deployment of such implementations. XEP authors should refer to &rfc3552; for helpful information about documenting security considerations and should also confer with the XMPP Extensions Editor and/or XMPP Council regarding this important task.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>Some XMPP Extension Protocols may require interaction with &IANA;. The IANA acts as a clearinghouse to assign and coordinate the use of numerous Internet protocol parameters, such as MIME types and port numbers (e.g., the TCP ports 5222, 5269, and 5280 used by the XMPP developer community are registered with the IANA). Whether or not a XEP requires registration of parameters with the IANA, that fact must be noted and explained in a distinct section of the XEP entitled "IANA Considerations". Registration with the IANA must not occur until the registration has been approbved by the XMPP Council (e.g., by advancement of a XEP to a status of Draft or Active), and must be initiated by the XMPP Registrar in consultation with the XEP author, not by the XEP author directly with the IANA.</p>
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <p>The &REGISTRAR; performs a function similar to the IANA, although limited to the XMPP developer community. It does so by reserving protocol namespaces and by uniquely assigning parameters for use in the context of XMPP protocols (for example, the categories and types used in &xep0030;).</p>
+  <p>Whether or not a XEP requires registration of protocol namespaces or parameters with the XMPP Registrar, that fact must be noted and explained in a distinct section of the XEP entitled "XMPP Registrar Considerations". Such registration should not occur until a XEP advances to a status of Draft (Standards Track XEPs) or Active (Informational and Historical XEPs). Registration of protocol namespaces is initiated by the XMPP Extensions Editor when a XEP advances to Draft or Active. Registration of particular parameters used within a specification may be initiated by a XEP author within the text of the XEP, or by an implementor of the XEP after it has advanced to Draft or Active. For details regarding the XMPP Registrar and its processes, refer to <cite>XEP-0053</cite>.</p>
+  <p>A XEP may also request that a new registry is to be created by the XMPP Registrar. The XEP author must clearly define the nature of the new registry as well as the process for submitting data to the registry, and should do so in collaboration with the Registrar.</p>
+</section1>
+<section1 topic='XML Schema' anchor='schema'>
+  <p>XMPP Extension Protocol specifications that define official XSF protocols must include a schema that conforms to &w3xmlschema1; and &w3xmlschema2;.</p>
+  <p>The schema for the XEP format itself is as follows:</p>
+  <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!--
+
+Copyright (c) 1999 - 2010 XMPP Standards Foundation
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+-->
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://www.xmpp.org/extensions'
+    xmlns='http://www.xmpp.org/extensions'
+    elementFormDefault='qualified'>
+
+  <xs:element name='xep'>
+    <xs:annotation>
+      <xs:documentation>
+
+        This schema defines the document format for XMPP Extension 
+        Protocols (XEPs). For further information about XEPs, visit:
+
+           http://www.xmpp.org/extensions/ 
+        
+        The canonical URL for this schema is:
+        
+           http://www.xmpp.org/extensions/xep.xsd
+
+      </xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='header'/>
+        <xs:element ref='section1' maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='header'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='title' type='xs:string'/>
+        <xs:element name='abstract' type='xs:string'/>
+        <xs:element ref='legal'/>
+        <xs:element name='number' type='xs:byte'/>
+        <xs:element ref='status'/>
+        <xs:element name='lastcall' minOccurs='0' type='xs:string'/>
+        <xs:element name='interim' minOccurs='0' type='empty'/> 
+        <xs:element ref='type'/> 
+        <xs:element name='sig' type='xs:string'/>
+        <xs:element name='approver' type='xs:string'/>
+        <xs:element ref='dependencies'/>
+        <xs:element ref='supersedes'/>
+        <xs:element ref='supersededby'/>
+        <xs:element name='shortname' type='xs:NCName'/>
+        <xs:element ref='schemaloc' minOccurs='0' maxOccurs='unbounded'/> 
+        <xs:element name='registry' minOccurs='0' type='empty'/> 
+        <xs:element name='discuss' minOccurs='0' type='xs:string'/>
+        <xs:element name='expires' minOccurs='0' type='xs:string'/>
+        <xs:element ref='author' minOccurs='1' maxOccurs='unbounded'/> 
+        <xs:element ref='revision' minOccurs='1' maxOccurs='unbounded'/> 
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='legal'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='copyright' type='markup'/>
+        <xs:element name='permissions' type='markup'/>
+        <xs:element name='warranty' type='markup'/>
+        <xs:element name='liability' type='markup'/>
+        <xs:element name='conformance' type='markup'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='status'>
+    <xs:simpleType>
+      <xs:restriction base='xs:NCName'>
+        <xs:enumeration value='Active'/>
+        <xs:enumeration value='Deferred'/>
+        <xs:enumeration value='Deprecated'/>
+        <xs:enumeration value='Draft'/>
+        <xs:enumeration value='Experimental'/>
+        <xs:enumeration value='Final'/>
+        <xs:enumeration value='Obsolete'/>
+        <xs:enumeration value='Proposed'/>
+        <xs:enumeration value='ProtoXEP'/>
+        <xs:enumeration value='Rejected'/>
+        <xs:enumeration value='Retracted'/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <xs:element name='type'>
+    <xs:simpleType>
+      <xs:restriction base='xs:string'>
+        <xs:enumeration value='Historical'/>
+        <xs:enumeration value='Humorous'/>
+        <xs:enumeration value='Informational'/>
+        <xs:enumeration value='Organizational'/>
+        <xs:enumeration value='Standards Track'/>
+      </xs:restriction>
+    </xs:simpleType>
+  </xs:element>
+
+  <xs:element name='dependencies'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0' maxOccurs='unbounded'>
+        <xs:element name='spec' type='xs:string'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='supersedes'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='spec' type='xs:string'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='supersededby'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='spec' type='xs:string'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='schemaloc'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='ns' type='xs:string' minOccurs='0'/>
+        <xs:element name='url' type='xs:string'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='author'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='firstname' type='xs:string'/>
+        <xs:element name='surname' type='xs:string'/>
+        <xs:element name='authornote' type='empty' minOccurs='0'/>
+        <xs:element name='org' type='xs:string' minOccurs='0'/>
+        <xs:element name='email' type='xs:string' minOccurs='0'/>
+        <xs:element name='jid' type='xs:string' minOccurs='0'/>
+        <xs:element name='uri' type='xs:string' minOccurs='0'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='revision'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='version' type='xs:string'/>
+        <xs:element name='date' type='xs:dateTime'/>
+        <xs:element name='initials' type='xs:NCName'/>
+        <xs:element ref='remark'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='remark'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref='p' minOccurs='0' maxOccurs='1'/>
+        <xs:element ref='ul' minOccurs='0' maxOccurs='1'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='section1'>
+    <xs:complexType>
+      <xs:choice maxOccurs='unbounded'>
+        <xs:element ref='code' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='div' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='dl' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='example' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='ol' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='p' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='section2' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='table' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='ul' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:choice>
+      <xs:attribute name='topic' type='xs:string' use='required'/>
+      <xs:attribute name='anchor' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='section2'>
+    <xs:complexType>
+      <xs:choice maxOccurs='unbounded'>
+        <xs:element ref='code' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='div' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='dl' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='example' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='ol' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='p' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='section3' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='table' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='ul' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:choice>
+      <xs:attribute name='topic' type='xs:string' use='required'/>
+      <xs:attribute name='anchor' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='section3'>
+    <xs:complexType>
+      <xs:choice maxOccurs='unbounded'>
+        <xs:element ref='code' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='div' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='dl' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='example' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='ol' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='p' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='section4' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='table' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='ul' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:choice>
+      <xs:attribute name='topic' type='xs:string' use='required'/>
+      <xs:attribute name='anchor' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='section4'>
+    <xs:complexType>
+      <xs:choice maxOccurs='unbounded'>
+        <xs:element ref='code' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='div' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='dl' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='example' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='ol' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='p' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='table' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='ul' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:choice>
+      <xs:attribute name='topic' type='xs:string' use='required'/>
+      <xs:attribute name='anchor' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='div'>
+    <xs:complexType>
+      <xs:choice maxOccurs='unbounded'>
+        <xs:element ref='div' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='p' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='example' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='code' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='ul' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='ol' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:choice>
+      <xs:attribute name='class' type='xs:string' use='optional'/>
+      <xs:attribute name='style' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='p' type='markup'/>
+
+  <xs:element name='ul'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='li' minOccurs='1' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='class' type='xs:string' use='optional'/>
+      <xs:attribute name='style' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='ol'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='li' minOccurs='1' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='class' type='xs:string' use='optional'/>
+      <xs:attribute name='start' type='xs:byte' use='optional'/>
+      <xs:attribute name='style' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='li' type='markup'/>
+
+  <xs:element name='dl'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='di' minOccurs='1' maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='di'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='dt' minOccurs='1' maxOccurs='1'/>
+        <xs:element ref='dd' minOccurs='1' maxOccurs='1'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='dt' type='xs:string'/>
+
+  <xs:element name='dd' type='markup'/>
+
+  <xs:element name='img'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='empty'>
+          <xs:attribute name='source' use='required'/> 
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='link'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='url' use='required'/> 
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='note' type='markup'/>
+
+  <xs:element name='example'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='caption' use='optional'/> 
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='code'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='caption' use='optional'/> 
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='table'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='tr' minOccurs='1' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='caption' type='xs:string' use='optional'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='tr'>
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref='th' minOccurs='0' maxOccurs='unbounded'/>
+        <xs:element ref='td' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='th'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='colspan' use='optional'/> 
+          <xs:attribute name='rowspan' use='optional'/> 
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='td'>
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='colspan' use='optional'/> 
+          <xs:attribute name='rowspan' use='optional'/> 
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name='markup' mixed='true'>
+    <xs:choice minOccurs='0' maxOccurs='unbounded'>
+      <xs:element name='br' type='empty'/>
+      <xs:element name='cite' type='xs:token'/>
+      <xs:element name='dfn' type='xs:token'/>
+      <xs:element name='em' type='xs:token'/>
+      <xs:element ref='img'/>
+      <xs:element ref='link'/>
+      <xs:element ref='note'/>
+      <xs:element name='span' type='xs:token'/>
+      <xs:element name='strong' type='xs:token'/>
+      <xs:element name='tt' type='xs:token'/>
+    </xs:choice>
+    <xs:attribute name='class' type='xs:string' use='optional'/>
+    <xs:attribute name='style' type='xs:string' use='optional'/>
+  </xs:complexType>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  ]]></code>
+</section1>
+</xep>

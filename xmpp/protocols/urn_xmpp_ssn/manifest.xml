@@ -1,0 +1,11 @@
+<manifest>
+  <title>Stanza Session Negotiation</title>
+  <abstract>This specification defines a method for formally negotiating the exchange of XML stanzas between two XMPP entities. The method uses feature negotiation forms sent via XMPP message stanzas to enable session initiation between entities that do not share presence information or have knowledge of full JabberIDs and therefore is also suitable for use across gateways to SIP-based systems. A wide range of session parameters can be negotiated, including the use of end-to-end encryption, chat state notifications, XHTML-IM formatting, and message archiving.</abstract>
+  <specnum>XEP-0155</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0155.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:ssn</name>
+  </namespaces>
+</manifest>

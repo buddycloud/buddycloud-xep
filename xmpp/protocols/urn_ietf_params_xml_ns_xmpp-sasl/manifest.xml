@@ -1,0 +1,14 @@
+<manifest>
+  <title>Simple Authentication and Security Layer</title>
+  <abstract>This specification defines the core authentication method for XMPP: an application profile of the Simple Authentication and Security Layer (SASL) protocol that enables a client to authenticate with a server or for one server to authenticate with a peer server. By its nature as a SASL profile, XMPP authentication enables a server to offer a wide range of SASL mechanisms, including encrypted passwords, mutual authentication using certificates or other means, and anonymous user sessions.</abstract>
+  <specnum>RFC 3920</specnum>
+  <specurl>http://www.ietf.org/rfc/rfc3920.txt</specurl>
+  <status>Proposed</status>
+  <publisher>Internet Engineering Task Force</publisher>
+  <namespaces>
+    <name>urn:ietf:params:xml:ns:xmpp-sasl</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/sasl.xsd</schema>
+  </schemas>
+</manifest>

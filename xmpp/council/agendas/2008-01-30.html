@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-loose.dtd'>
+<html>
+<head>
+<title>XMPP Council Meeting Agenda, 2008-01-30</title>
+<link rel='stylesheet' href='/xmpp.css'/>
+</head>
+<body>
+<h1>XMPP Council Meeting Agenda, 2008-01-30</h1>
+<table>
+  <tr>
+    <td>Date:</td>
+    <td>2008-01-30</td>
+  </tr>
+  <tr>
+    <td>Time:</td>
+    <td>19:00 UTC</td>
+  </tr>
+  <tr>
+    <td>Place:</td>
+    <td><a href='xmpp:council@conference.jabber.org?join'>council@conference.jabber.org</a></td>
+  </tr>
+</table>
+<ol start='0'>
+  <li><p>Roll call.</p></li>
+  <li><p>Agenda bashing.</p></li>
+  <li>
+    <p>Next meeting.</p>
+    <p>February 25 in Brussels?</p>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/xep-0115.html'>XEP-0115: Entity Capabilities</a></p>
+    <p>Approve version <a href='http://www.xmpp.org/extensions/tmp/xep-0115-1.5.html'>1.5pre18</a>?</p>
+    <p>Changelog:</p>
+    <ul>
+      <li>Defined SHA-1 as mandatory to implement</li>
+      <li>Specified that inclusion of hash attribute is required</li>
+      <li>Defined the nature of possible preimage attacks</li>
+      <li>More clearly specified security considerations</li>
+      <li>More clearly specified implementation notes</li>
+      <li>Modified generation method to incorporate service discovery extensions</li>
+      <li>More clearly specified processing method</li>
+      <li>Clarified meaning and construction of caps node attribute and disco node attribute</li>
+      <li>Specified that node attribute shall be included in disco#info request for backwards-compatibility</li>
+      <li>Clarified handling of the legacy format to assist developers</li>
+      <li>Added service discovery feature for caps optimization to prevent confusion regarding server support of caps vs. caps optimization</li>
+    </ul>
+    <p><a href='http://svn.xmpp.org:18080/browse/XMPP/trunk/extensions/xep-0115.xml?r1=1145&r2=1613'>Diff</a></p>
+    <p>Votes needed from all Council members.</p>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/xep-0174.html'>XEP-0174: Link-Local Messsaging</a></p>
+    <p>Approve version <a href='http://www.xmpp.org/extensions/tmp/xep-0174-1.1.html'>1.1pre3</a>?</p>
+    <p>Changelog: Clarified order of publishing and querying DNS records; corrected several DNS errors in the text and examples; added friendly How It Works section; added implementation note about port choice; updated TXT records to reflect version 1.5 of XEP-0115; updated registry.</p>
+    <p><a href='http://svn.xmpp.org:18080/browse/XMPP/trunk/extensions/xep-0174.xml?r1=948&r2=1588'>Diff</a></p>
+    <p>Votes needed from all Council members.</p>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/xep-0080.html'>XEP-0080: User Geolocation</a></p>
+    <p>Approve version <a href='http://www.xmpp.org/extensions/tmp/xep-0080-1.5.html'>1.5pre1</a>?</p>
+    <p>Changelog: Added velocity element.</p>
+    <p><a href='http://svn.xmpp.org:18080/browse/XMPP/trunk/extensions/xep-0080.xml?r1=1071&r2=1597'>Diff</a></p>
+    <p>Votes needed from all Council members.</p>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/xep-0078.html'>XEP-0078: Non-SASL Authentication</a></p>
+    <p>Approve version <a href='http://www.xmpp.org/extensions/tmp/xep-0078-2.4.html'>2.4pre1</a>?</p>
+    <p>Changelog: Clarified the reasoning behind adoption of SASL and corrected the security considerations accordingly.</p>
+    <p><a href='http://svn.xmpp.org:18080/browse/XMPP/trunk/extensions/xep-0078.xml?r1=753&r2=1603'>Diff</a></p>
+    <p>Votes needed from all Council members.</p>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/xep-0118.html'>XEP-0118: User Tune</a></p>
+    <p>Approve version <a href='http://www.xmpp.org/extensions/tmp/xep-0118-1.2.html'>1.2pre1</a>?</p>
+    <p>Changelog: Added rating element.</p>
+    <p><a href='http://svn.xmpp.org:18080/browse/XMPP/trunk/extensions/xep-0118.xml?r1=912&r2=1596'>Diff</a></p>
+    <p>Votes needed from all Council members.</p>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/inbox/data-element.html'>ProtoXEP: Data Element</a></p>
+    <p>Accept version 0.0.4 as a XEP?</li>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/inbox/domain-based-names.html'>ProtoXEP: Use of Domain-Based Service Names in XMPP SASL Negotiation</a></p>
+    <p>Accept version 0.0.2 as a XEP?</li>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/inbox/disco-notifications.html'>ProtoXEP: Service Discovery Notifications</a></p>
+    <p>Accept version 0.0.1 as a XEP?</li>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/inbox/softwareinfo.html'>ProtoXEP: Software Information</a></p>
+    <p>Accept version 0.0.3 as a XEP?</li>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/inbox/bleg.html'>ProtoXEP: User Bleg</a></p>
+    <p>Accept version 0.0.1 as a XEP?</li>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/inbox/federation.html'>ProtoXEP: XMPP Protocol Flows for Inter-Domain Federation</a></p>
+    <p>Accept version 0.0.1 as a XEP?</li>
+  </li>
+  <li>
+    <p><a href='http://www.xmpp.org/extensions/inbox/jingle-file-transfer.html'>ProtoXEP: Jingle File Transfer</a></p>
+    <p>Accept version 0.0.1 as a XEP?</li>
+  </li>
+  <li>
+    <p>Any objections to using urn:xmpp:tmp:* for namespaces in Experimental XEPs?</p>
+  </li>
+  <li>
+    <p>Any other business?</p>
+  </li>
+</ol>
+<p>END</p>
+<p><a href='http://www.jabber.org/muc-logs/council@conference.jabber.org/2008-01-30.html'>LOG</a></p>
+</body>
+</html>

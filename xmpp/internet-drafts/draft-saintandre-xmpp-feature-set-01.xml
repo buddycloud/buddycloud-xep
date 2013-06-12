@@ -1,0 +1,506 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc symrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc strict="yes"?>
+<rfc category='info' docName='draft-saintandre-xmpp-feature-set-01' ipr='trust200902'>
+
+  <front>
+    <title abbrev="XMPP Feature Set">A Feature Set for the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>Cisco</organization>
+      <address>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+    <date year="2009" month="March" day="9"/>
+    <area>Applications</area>
+    <keyword>XMPP</keyword>
+    <keyword>Jabber</keyword>
+    <keyword>Instant Messaging</keyword>
+    <keyword>Presence</keyword>
+    <keyword>Interoperability Report</keyword>
+    <abstract>
+      <t>This document defines a protocol feature set for the Extensible Messaging and Presence Protocol (XMPP), in accordance with the concepts and formats proposed by Larry Masinter within the NEWTRK Working Group.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <t>The Extensible Messaging and Presence Protocol (XMPP) is an application profile of the Extensible Markup Language <xref target="XML"/> for streaming XML data in close to real time between any two (or more) network-aware entities.  XMPP is typically used to exchange messages, share presence information, and engage in structured request-response interactions.  The basic syntax and semantics of XMPP were developed originally within the Jabber open-source community, mainly in 1999.  In late 2002, the XMPP Working Group was chartered with developing an adaptation of the core Jabber protocol that would be suitable as an IETF instant messaging (IM) and presence technology.  As a result of work by the XMPP WG, <xref target='RFC3920'/> and <xref target='RFC3921'/> were published in October 2004, representing the most complete definition of XMPP at that time.</t>
+      <t>The XMPP developer community has garnered extensive implementation and deployment experience with XMPP since 2004.  In addition, formal interoperability testing has been carried out under the auspices of the XMPP Standards Foundation (XSF).  As a result, <xref target='rfc3920bis'/> and <xref target='rfc3921bis'/> are currently being refined to capture the consensus of the XMPP developer community regarding the features of XMPP.</t>
+      <t>This document defines a protocol feature set for XMPP.  The feature set attempts to adhere to the concepts and formats proposed by Larry Masinter within the IETF's NEWTRK Working Group in 2005 (see <xref target='INTEROP'/>).  Therefore this document describes the set of specifications and the features defined therein that constitute the Extensible Messaging and Presence Protocol for the purpose of interoperability testing.</t>
+      <t>The specifications considered to define XMPP are rfc3920bis and rfc3921bis.  Although the core XML streaming layer specified in rfc3920bis is not necessarily tied to the instant messaging and presence semantics specified in rfc3921bis, this interoperability report treats them as a single protocol, since to date they usually have been implemented and deployed as such.  Where appropriate, this interoperability report discusses the relevant feature as specified in RFC3920 or RFC3921, experience and testing results related to that feature, and modifications to the feature as specified in rfc3920bis or rfc3921bis.</t>
+      <t>The remaining sections of this document specify the particular features of XMPP.  Because XMPP uses a client-server architecture, each feature is labelled as applying to the client role, the server role, or both.  In addition, each feature is labelled as REQUIRED, RECOMMENDED, or OPTIONAL, where those terms are to be understood as described in <xref target='RFC2119'/>.</t>
+      <t>Note:  This document contains brief descriptions of XMPP features.  Exact definitions of these features are contained in the relevant specifications.  In case the brief description for any feature as provided in this document is inconsistent with the exact definition as provided in the relevant specification, the exact definition shall rule.  This document does not specify the features of XMPP, it only refers to them.</t>
+    </section>
+
+    <section title="Addresses" anchor="features-addresses">
+      <t>XMPP addresses are of the form [node@]domain[/resource].  Rules for each portion of the address are specified in Section 3 of rfc3920bis.  The following features apply.</t>
+      <section title="Domain Identifier" anchor="features-addresses-domain">
+        <t>As specified in Section 3.2 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>The domain identifier portion of an XMPP address must conform to the Nameprep profile of Stringprep.  Conformance with this feature is REQUIRED for servers and RECOMMENDED for clients.</t>
+            <t>The domain identifier portion of an XMPP address must not be more than 1023 bytes in length.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          </list>
+        </t>
+      </section>
+      <section title="Node Identifier" anchor="features-addresses-node">
+        <t>As specified in Section 3.3 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>The node identifier portion of an XMPP address must conform to the Nodeprep profile of Stringprep.  Conformance with this feature is REQUIRED for servers and RECOMMENDED for clients.</t>
+            <t>The node identifier portion of an XMPP address must not be more than 1023 bytes in length.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          </list>
+        </t>
+      </section>
+      <section title="Resource Identifier" anchor="features-addresses-resource">
+        <t>As specified in Section 3.4 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>The resource identifier portion of an XMPP address must conform to the Resourceprep profile of Stringprep.  Conformance with this feature is REQUIRED for servers and RECOMMENDED for clients.</t>
+            <t>The resource identifier portion of an XMPP address must not be more than 1023 bytes in length.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          </list>
+        </t>
+      </section>
+    </section>
+    <section title="XML Streams" anchor="features-streams">
+      <t>At root, XMPP is a technology for streaming XML data between a client and a server or between two servers.  Thus the management of XML streams is a core aspect of XMPP.  The following features apply.</t>
+      <section title="TCP Binding" anchor="features-streams-tcp">
+        <t>As specified in Section 4 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>XML streams are communicated over a TCP connection.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>Before opening a TCP connection and XML stream to an XMPP server, an entity must resolve the hostname of the server.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>If an existing connection is unexpectedly terminated (e.g., because of a software or hardware failure), an entity should follow the guidelines in section 5.7 of rfc3920bis regarding hostname resolution and the time between reconnection attempts.   Conformance with this feature is RECOMMENDED for clients and for servers.</t>
+          </list>
+        </t>
+      </section>
+      <section title="Namespaces" anchor="features-streams-namespaces">
+        <t>As specified in Section 5.4 and Section 12.2 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>An XML stream must be qualified by a streams namespace of 'http://etherx.jabber.org/streams'.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>All elements within the streams namespace must be prefixed with a namespace prefix.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>The streams namespace prefix should be "stream:".  Conformance with this feature is RECOMMENDED for clients and for servers.</t>
+            <t>An XML stream must have a default namespace other than the streams namespace.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>An implementation must support 'jabber:client' as a default namespace.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>An implementation must support 'jabber:server' as a default namespace.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+          </list>
+        </t>
+      </section>
+      <section title="Attributes" anchor="features-streams-attributes">
+        <section title="Initial Stream" anchor="features-streams-attributes-initial">
+          <t>As specified in Section 5.3 of rfc3920bis:</t>
+          <t>
+            <list style='numbers'>
+              <t>An initiating entity should include a 'from' attribute in the initial stream header it sends to a receiving entity.  Conformance with this feature is RECOMMENDED for clients and for servers.  (Note: This feature was modified in rfc3920bis as compared to RFC3920, since implementation and deployment experience has shown that including the 'from' attribute makes stream establishment more efficient.)</t>
+              <t>An initiating entity should include a 'to' attribute in the initial stream header it sends to a receiving entity.  Conformance with this feature is RECOMMENDED for clients and for servers.</t>
+              <t>An initiating entity should include an 'xml:lang' attribute in the initial stream headers that it generates.  Conformance with this feature is RECOMMENDED for clients and for servers.</t>
+              <t>An initiating entity must include a 'version' attribute whose value is "1.0" (for XMPP 1.0 support) in the initial stream headers it generates.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            </list>
+          </t>
+        </section>
+        <section title="Response Stream" anchor="features-streams-attributes-response">
+          <t>As specified in Section 5.3 of rfc3920bis:</t>
+          <t>
+            <list style='numbers'>
+              <t>A receiving entity must include a 'from' attribute in the response stream header it sends to an initiating entity.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+              <t>A receiving entity should include a 'to' attribute in the response stream header it sends to an initiating entity.  Conformance with this feature is RECOMMENDED for servers (the feature does not apply to clients).  (Note: This feature was modified in rfc3920bis as compared to RFC3920, since implementation and deployment experience has shown that including the 'to' attribute makes stream establishment more efficient.)</t>
+              <t>A receiving entity must include an 'id' attribute in the response stream header it sends to an initiating entity.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+              <t>The value of the 'id' attribute included in the response stream header must be unique within the receiving entity.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+              <t>If the stream header that a receiving entity receives from an initiating entity includes a 'version' attribute whose value is "1.0", the receiving entity must include a 'version' attribute whose value is "1.0" in the response stream headers it generates.  Conformance with this feature is REQUIRED for servers.</t>
+            </list>
+          </t>
+        </section>
+      </section>
+      <section title="Stream Features" anchor="features-streams-features">
+        <t>As specified in Section 5.5 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>A receiving entity must advertise the stream-related features it supports after sending a response stream header.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+            <t>A receiving entity should include an empty &lt;required/&gt; element if a feature must be negotiated in order to successfully complete stream negotiation or other subsequent tasks before XML stanzas may be sent (e.g., resource binding for client-to-server streams).</t>
+          </list>
+        </t>
+      </section>
+      <section title="Closing Streams" anchor="features-streams-close">
+        <t>As specified in Section 5.5 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>A stream is closed by sending a closing stream tag &lt;/stream:stream&gt; to the other party.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>The entity that sends a closing stream tag should wait for the other party to also send a closing stream tag before terminating the underlying TCP connection; however, the entity MAY consider both streams to be void if the other entity does not send its closing stream tag within a reasonable amount of time.  Conformance with this feature is RECOMMENDED for clients and for servers.</t>
+            <t>After an entity sends a closing stream tag, it MUST NOT send further data over that stream.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>After the entity that sent the first closing stream tag receives a reciprocal closing stream tag from the other party (or if it considers the stream to be void after a reasonable amount of time), it MUST terminate the underlying TCP connection or connections.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          </list>
+        </t>
+      </section>
+      <section title="Stream Errors" anchor="features-streams-errors">
+        <t>As specified in Section 5.8 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>An entity must generate a stream error (followed by a closing stream tag and termination of the TCP connection) when it detects a stream-related error condition.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>The syntax for stream errors must follow the definition in Section 4.7.2 of rfc3920bis.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          </list>
+        </t>
+      </section>
+    </section>
+    <section title="STARTTLS Negotiation" anchor="features-starttls">
+      <t>As specified in Section 6 of rfc3920bis:</t>
+      <t>
+        <list style='numbers'>
+          <t>An implementation must support Transport Layer Security (TLS) for channel encryption of XML streams.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          <t>There must be no whitespace between XML elements sent during TLS negotiation.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          <t>Certificate validation must follow the rules in Section 14.2 of rfc3920bis.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          <t>Upon successful TLS negotiation, the initiating entity must send a new initial stream header to the receiving entity.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+        </list>
+      </t>
+    </section>
+    <section title="SASL Negotiation" anchor="features-sasl">
+      <t>As specified in Section 7 of rfc3920bis:</t>
+      <t>
+        <list style='numbers'>
+          <t>An implementation must support the Simple Authentication and Security Layer (SASL) for authentication of XML streams.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          <t>There must be no whitespace between XML elements sent during SASL negotiation.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          <t>Upon successful SASL negotiation, the initiating entity must send a new initial stream header to the receiving entity.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          <t>An implementation must support the SASL error conditions specified in Section 6.4 of rfc3920bis.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+        </list>
+      </t>
+    </section>
+    <section title="Mandatory TLS and SASL Technologies" anchor="features-mandatory">
+      <t>As specified in Section 15.7 of rfc3920bis:</t>
+      <t>
+        <list style='numbers'>
+          <t>An implementation must support the TLS_RSA_WITH_3DES_EDE_CBC_SHA cipher.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          <t>An implementation must support TLS plus SASL PLAIN for for password-based authentication.  Conformance with this feature is REQUIRED for clients and for servers.  (Note: This feature was added in rfc3920bis as compared to RFC3920, since implementation of SASL EXTERNAL is uncommon in XMPP clients, in part because underlying security features such as X.509 certificates are not yet widely deployed.)</t>
+          <t>An implementation must support TLS plus SASL EXTERNAL for non-password-based authentication.  Conformance with this feature is REQUIRED for servers and RECOMMENDED for clients.</t>
+          <t>For backward-compatibility, an implementation should support SASL DIGEST-MD5 for server-to-server connections.  Conformance with this feature is RECOMMENDED for servers and clients.</t>
+        </list>
+      </t>
+    </section>
+    <section title="Resource Binding" anchor="features-bind">
+      <t>As specified in Section 8 of rfc3920bis:</t>
+      <t>
+        <list style='numbers'>
+          <t>An implementation must support resource binding for client-to-server connections.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          <t>A client implementation must be able to request generation of a resource (rather than providing it).  Conformance with this feature is RECOMMENDED for clients (the feature does not apply to servers).</t>
+          <t>A server implementation must be able to generate a resource on request.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+          <t>An implementation should be able to bind multiple resources to an XML stream as specified in Section 8.5 of rfc3920bis.  Conformance with this feature is RECOMMENDED for servers and OPTIONAL for clients.</t>
+        </list>
+      </t>
+    </section>
+    <section title="Server Dialback" anchor="features-dialback">
+      <t>For backward-compatiblity, an implementation should support server dialback for server-to-server connections.  Conformance with this feature is RECOMMENDED for servers (the feature does not apply to clients).  Server dialback was specified in Section 8 of RFC 3920 and is now canonically documented in <xref target='XEP-0220'/>.</t>
+    </section>
+    <section title="XML Usage" anchor="features-xml">
+      <t>
+        <list style='numbers'>
+          <t>As specified in Section 12 of rfc3920bis, an implementation must not inject XML comments, processing instructions, internal or external DTD subsets, internal or external entity references other than the predefined XML entities, or XML character data or attribute values containing unescaped characters that map to the predefined entities.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          <t>As specified in Section 12.1 of rfc3920bis, an implementation must return a &lt;restricted-xml/&gt; stream error if it receives XML comments, processing instructions, internal or external DTD subsets, internal or external entity references other than the predefined XML entities, or XML character data or attribute values containing unescaped characters that map to the predefined entities.  Conformance with this feature is REQUIRED for clients and for servers.  (Note: This feature was modified in rfc3920bis as compared to RFC3920, since ignoring such data rather than returning an error is inconsistent with the stream error handling recommendations in Section 5.8 of rfc3920bis.)</t>
+        </list>
+      </t>
+    </section>
+    <section title="XML Stanzas" anchor="features-stanzas">
+      <t>An implementation must handle the &lt;presence/&gt;, &lt;message/&gt;, and &lt;iq/&gt; stanza types.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+      <section title="Attributes" anchor="features-stanzas-attributes">
+        <t>As specified in Section 9.1 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>An implementation must support the 'to' attribute on all stanza types to encapsulate the intended recipient's address, as specified in Section 9.1.1 of rfc3920bis.  Conformance with this feature is REQUIRED for clients and servers.</t>
+            <t>An implementation must support the 'from' attribute on all stanza types to encapsulate the sender's address, as specified in Section 9.1.2 of rfc3920bis.  Conformance with this feature is REQUIRED for clients and servers.</t>
+            <t>In streams qualified by the 'jabber:client' namespace, the receiving entity must validate the address of the sender by verifying that it is that of a connected resource for the sending entity or by stamping the 'from' value itself, as specified in Section 9.1.2 of rfc3920bis.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+            <t>In streams qualified by the 'jabber:server' namespace, the sending entity must ensure that every stanza it sends possesses a 'from' attribute and that the domain identifier portion of the encapsulated JID value matches a hostname of the server, as specified in Section 9.1.2 of rfc3920bis.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+            <t>In streams qualified by the 'jabber:server' namespace, the receiving entity must ensure that every stanza it receives possesses a 'from' attribute and that the domain identifier portion of the encapsulated JID value matches a hostname of the sending entity, as specified in Section 9.1.2 of rfc3920bis.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+            <t>An XML stanza should possess an 'xml:lang' attribute, as specified in section 9.1.5 of rfc3920bis.  Conformance with this feature is RECOMMENDED for clients and for servers.</t>
+          </list>
+        </t>
+      </section>
+      <section title="Message Stanzas" anchor="features-stanzas-message">
+        <t>As specified in Section 5 of rfc3921bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>An implementation must differentiate between messages of type "normal", "chat", "groupchat", "headline", and "error".  Conformance with this feature is REQUIRED for clients (the feature does not apply to servers).</t>
+            <t>An implementation must support the &lt;body/&gt; child element of the &lt;message/&gt; stanza.  Conformance with this feature is REQUIRED for clients (the feature does not apply to servers).</t>
+            <t>An implementation should support the &lt;subject/&gt; and &lt;thread/&gt; child elements of the &lt;message/&gt; stanza.  Conformance with this feature is RECOMMENDED for clients (the feature does not apply to servers).</t>
+          </list>
+        </t>
+      </section>
+      <section title="Presence Stanzas" anchor="features-stanzas-presence">
+        <t>As specified in Section 6 of rfc3921bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>An implementation must support &lt;presence/&gt; stanzas with no 'type' attribute to signal availability and of type "unavailable" to signal lack of availability.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>An implementation must support &lt;presence/&gt; stanzas of type "subscribe", "unsubscribe", "subscribed", and "unsubscribed" to manage presence subscriptions.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>An implementation must support &lt;presence/&gt; stanzas of type "probe" to discover the presence of subscribed entities.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+          </list>
+        </t>
+      </section>
+      <section title="IQ Stanzas" anchor="features-stanzas-iq">
+        <t>As specified in Section 9.2.3 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>An &lt;iq/&gt; stanza must possess an 'id' attribute.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>The 'type' attribute of an &lt;iq/&gt; stanza must be present and it must have a value of "get", "set", "result", or "error".  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>The response to an &lt;iq/&gt; stanza of type "get" or "set" must be an &lt;iq/&gt; stanza of type "result" or "error".  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>An &lt;iq/&gt; stanza of type "get" or "set" must contain only one child element.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>An &lt;iq/&gt; stanza of type "result" must contain zero child elements or one child element.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>An &lt;iq/&gt; stanza of type "error" should contain the child element received in the corresponding &lt;iq/&gt; stanza of type "get" or "set".  Conformance with this feature is RECOMMENDED for clients and for servers.</t>
+          </list>
+        </t>
+      </section>
+      <section title="Stanza Errors" anchor="features-stanzas-error">
+        <t>As specified in Section 9.3 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>A &lt;message/&gt;, &lt;presence/&gt;, or &lt;iq/&gt; stanza whose type is "error" must contain an &lt;error/&gt; child element whose syntax adheres to the definition specified in Section 9.3.2 of rfc3920bis.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>An implementation must not return an error stanza in response to a &lt;message/&gt;, &lt;presence/&gt;, or &lt;iq/&gt; stanza whose type is "error".  Conformance with this feature is REQUIRED for clients and for servers.</t>
+            <t>An implementation must support the stanza error conditions specified in Section 9.3.3 of rfc3920bis.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          </list>
+        </t>
+      </section>
+      <section title="Extended Content" anchor="features-stanzas-extensions">
+        <t>As specified in Section 9.4 of rfc3920bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>An implementation must not process XML data qualified by XML namespaces it does not understand.  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          </list>
+        </t>
+      </section>
+      <section title="Stanza Handling" anchor="features-stanzas-handling">
+        <t>As specified in Section 11 of rfc3920bis and Section 8 of rfc3921bis:</t>
+        <t>
+          <list style='numbers'>
+            <t>A server must properly handle an XML stanza with no 'to' address, as specified in Section 11.1 of rfc3920bis.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+            <t>A server must properly handle an XML stanza with a 'to' address whose domain identifier does not match one of the configured hostnames of the server, as specified in Section 11.3 of rfc3920bis and Section 8.4 of rfc3921bis.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+            <t>A server must properly handle an XML stanza with a 'to' address whose domain identifier exactly matches one of the configured hostnames of the server (or such a hostname appended by an XMPP resource identifier, as specified in Section 11.2 of rfc3920bis.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+            <t>A server must properly handle an XML stanza with a 'to' address of the form &lt;node@domain&gt; or &lt;node@domain/resource&gt; whose domain identifier matches one of the configured hostnames of the server, as specified in Section 11.2.3 of rfc3920bis and Sections 8.1, 8.2, and 8.3 of rfc3921bis.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+          </list>
+        </t>
+      </section>
+    </section>
+
+    <section title="Rosters" anchor="features-rosters">
+      <t>As specified in Section 2 of rfc3921bis:</t>
+      <t>
+        <list style='numbers'>
+          <t>An implementation must use &lt;iq/&gt; stanzas containing &lt;query/&gt; elements qualified by the 'jabber:iq:roster' namespace in order to manage contact lists (in XMPP, "rosters").  Conformance with this feature is REQUIRED for clients and for servers.</t>
+          <t>A client implementation should retrieve its roster before sending initial presence.  Conformance with this feature is RECOMMENDED for clients (the feature does not apply to servers).</t>
+          <t>A server implementation must send a roster push to each interested resource whenever one of the client's resources adds, updates, or deletes a roster item.  Conformance with this feature is REQUIRED for severs (the feature does not apply to clients).</t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Presence Subscriptions" anchor="features-sub">
+      <t>As specified in Section 3 of rfc3921bis:</t>
+      <t>
+        <list style='numbers'>
+          <t>In order to request a subscription to another entity's presence, a client implementation must send a presence stanza of type "subscribe".  Conformance with this feature is REQUIRED for clients (the feature does not apply to servers).</t>
+          <t>In order to approve a subscription request received from another entity, a client implementation must send a presence stanza of type "subscribed".  Conformance with this feature is REQUIRED for clients (the feature does not apply to servers).</t>
+          <t>In order to deny a subscription request received from another entity, a client implementation must send a presence stanza of type "unsubscribed".  Conformance with this feature is REQUIRED for clients (the feature does not apply to servers).</t>
+          <t>In order to cancel a previously-requested subscription to another entity's presence, a client implementation must send a presence stanza of type "unsubscribe".  Conformance with this feature is REQUIRED for clients (the feature does not apply to servers).</t>
+          <t>A server implementation must not auto-approve subscription requests it receives on behalf of a local account.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+          <t>A server implementation that receives a subscription request for a local account must deliver the request to the account's interested resources until the account owner either approves or denies the subscription request.  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Presence Exchange" anchor="features-pres">
+      <t>As specified in Section 4 of rfc3921bis:</t>
+      <t>
+        <list style='numbers'>
+          <t>In order to advertise its network availability (presence), a client implementation shall send a presence stanza with no 'to' attribute and no 'type' attribute.  Conformance with this feature is REQUIRED for clients (the feature does not apply to servers).</t>
+          <t>In order to advertise the fact that it is not available for communication over the network, a client implementation shall send a presence stanza with no 'to' attribute and a 'type' attribute whose value is "unavailable".  Conformance with this feature is REQUIRED for clients (the feature does not apply to servers).</t>
+          <t>When it receives a presence stanza with no 'to' attribute and either no 'type' attribute or a 'type' attribute whose value is "unavailable", a server implementation shall broadcast that presence information to all subscribed entities (as fully explained and qualified in Sections 4.2, 4.4, and 4.5 of rfc3921bis).  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients)</t>
+          <t>When it receives a presence stanza with a 'to' attribute and either no 'type' attribute or a 'type' attribute whose value is "unavailable", a server implementation shall route or deliver that directed presence information to the intended recipient only (as fully explained and qualified in Section 4.6 of rfc3921bis).  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients)</t>
+          <t>When it receives an initial presence stanza from a connected client, a server implementation should send presence probes to all of the entities to which the local account is subscribed (as fully explained and qualified in Section 4.3 of rfc3921bis).  Conformance with this feature is REQUIRED for servers (the feature does not apply to clients).</t>
+        </list>
+      </t>
+    </section>
+
+    <section title="IANA Considerations" anchor="iana">
+      <t>This document has no actions for the IANA.</t>
+    </section>
+
+    <section title="Security Considerations" anchor="security">
+      <t>This document does not directly discuss security issues, since they are discussed in the relevant sections of RFC3920, RFC3921, rfc3920bis, and rfc3921bis.</t>
+      <t>RFC3921 requires client implementations to use the technology specified in <xref target='RFC3923'/> for end-to-end signing and object encryption of XML stanzas in the context of instant messaging and presence applications.  Unfortunately, there exist no implementations of the protocol specified in RFC 3923; as a result, no implementation and deployment experience exists and no interoperability testing could be performed.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Informative References">
+
+<reference anchor='INTEROP'>
+<front>
+<title>Formalizing IETF Interoperability Reporting</title>
+<author initials='L' surname='Masinter' fullname='Larry Masinter'>
+    <organization />
+</author>
+<date month='October' day='12' year='2005' />
+<abstract><t>This document suggests another way of reforming IETF standards process by formalizing the mechanism for interoperability reporting, as a way of facilitating standards development. It establishes two kinds of reports: a 'Protocol Feature Set', which lays out the set of features from IETF specifications that constitute a protocol, and a 'Protocol Implementation Report', which is submitted by an individual or group to report on implementation and interoperability testing.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-newtrk-interop-reports-00' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-newtrk-interop-reports-00.txt' />
+</reference>
+
+<reference anchor='RFC2119'>
+<front>
+<title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+<author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+<organization>Harvard University</organization>
+<address>
+<postal>
+<street>1350 Mass. Ave.</street>
+<street>Cambridge</street>
+<street>MA 02138</street></postal>
+<phone>- +1 617 495 3864</phone>
+<email>sob@harvard.edu</email></address></author>
+<date year='1997' month='March' />
+<area>General</area>
+<keyword>keyword</keyword>
+<abstract>
+<t>
+   In many standards track documents several words are used to signify
+   the requirements in the specification.  These words are often
+   capitalized.  This document defines these words as they should be
+   interpreted in IETF documents.  Authors who follow these guidelines
+   should incorporate this phrase near the beginning of their document:
+
+<list>
+<t>
+      The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in
+      RFC 2119.
+</t></list></t>
+<t>
+   Note that the force of these words is modified by the requirement
+   level of the document in which they are used.
+</t></abstract></front>
+<seriesInfo name='BCP' value='14' />
+<seriesInfo name='RFC' value='2119' />
+<format type='TXT' octets='4723' target='ftp://ftp.isi.edu/in-notes/rfc2119.txt' />
+<format type='HTML' octets='16553' target='http://xml.resource.org/public/rfc/html/rfc2119.html' />
+<format type='XML' octets='5703' target='http://xml.resource.org/public/rfc/xml/rfc2119.xml' />
+</reference>
+
+<reference anchor="RFC3920">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3920' />
+  <format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+</reference>
+
+<reference anchor='rfc3920bis'>
+<front>
+<title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='March' day='8' year='2009' />
+<abstract><t>This document defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a technology for streaming Extensible Markup Language (XML) elements in order to exchange structured information in close to real time between any two or more network- aware entities. XMPP provides a generalized, extensible framework for incrementally exchanging XML data, upon which a variety of applications can be built. The framework includes methods for stream setup and teardown, channel encryption, authentication of a client to a server and of one server to another server, and primitives for push-style messages, publication of network availability information ("presence"), and request-response interactions between any two XMPP entities. This document also specifies the format for XMPP addresses, which are fully internationalizable. This document obsoletes RFC 3920.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-rfc3920bis-09' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-saintandre-rfc3920bis-09.txt' />
+</reference>
+
+<reference anchor="RFC3921">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3921' />
+  <format type='TXT' octets='217527' target='ftp://ftp.isi.edu/in-notes/rfc3921.txt' />
+</reference>
+
+<reference anchor='rfc3921bis'>
+<front>
+<title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and  Presence</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='March' day='8' year='2009' />
+<abstract><t>This document describes extensions to core features of the Extensible Messaging and Presence Protocol (XMPP) that provide basic instant messaging (IM) and presence functionality in conformance with RFC 2779. This document obsoletes RFC 3921.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-rfc3921bis-08' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-saintandre-rfc3921bis-08.txt' />
+</reference>
+
+<reference anchor="RFC3923">
+  <front>
+    <title>End-to-End Signing and Object Encryption for the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3923' />
+  <format type='TXT' octets='51828' target='ftp://ftp.isi.edu/in-notes/rfc3923.txt' />
+</reference>
+
+<reference anchor="XEP-0220">
+  <front>
+    <title>Server Dialback</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <author initials="J." surname="Miller" fullname="Jeremie Miller">
+      <organization/>
+      <address>
+        <email>jeremie@jabber.org</email>
+      </address>
+    </author>
+    <date day="11" month="July" year="2007"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0220"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0220.html"/>
+</reference>
+
+<reference anchor='XML' target='http://www.w3.org/TR/2006/REC-xml-20060816'>
+<front>
+<title>Extensible Markup Language (XML) 1.0 (Fourth Edition)</title>
+<author initials='J.' surname='Paoli' fullname='Jean Paoli'>
+    <organization />
+</author>
+<author initials='E.' surname='Maler' fullname='Eve Maler'>
+    <organization />
+</author>
+<author initials='C.' surname='Sperberg-McQueen' fullname='C. M. Sperberg-McQueen'>
+    <organization />
+</author>
+<author initials='F.' surname='Yergeau' fullname='François Yergeau'>
+    <organization />
+</author>
+<author initials='T.' surname='Bray' fullname='Tim Bray'>
+    <organization />
+</author>
+<date month='August' day='16' year='2006' />
+</front>
+<seriesInfo name='World Wide Web Consortium Recommendation' value='REC-xml-20060816' />
+<format type='HTML' target='http://www.w3.org/TR/2006/REC-xml-20060816' />
+</reference>
+
+    </references>
+
+  </back>
+
+</rfc>

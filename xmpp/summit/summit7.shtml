@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Summit 7</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Summit 7</h2>
+
+<p>The <a href='/xsf/'>XMPP Standards Foundation</a> will hold its seventh "XMPP Summit" meeting on July 20 and 21, 2009, in San Jose, California, USA. Thanks to the generosity of <a href='http://oreilly.com/'>O'Reilly</a>, the Summit will be held on the premises of <a href='http://en.oreilly.com/oscon2009'>OSCON 2009</a>.</p>
+
+<ul>
+  <li><a href='#monday'>Monday, July 20: Interop &amp; Hackfest</a></li>
+  <li><a href='#dinner'>Monday Evening: Developer Dinner</a></li>
+  <li><a href='#tuesday'>Tuesday, July 21: Technology Brainstorming</a></li>
+  <li><a href='#participants'>Participants</a></li>
+  <li><a href='#logistics'>Logistics</a></li>
+  <li><a href='#cost'>Cost</a></li>
+  <li><a href='#contact'>Contact</a></li>
+</ul>
+
+<a name='monday'></a><h3>Monday, July 20: Interop &amp; Hackfest</h3>
+
+<p>Here we will focus on interoperability testing and software hacking, including work on automated testing tools. Bring your laptop and your code! Some impromptu technology discussions are likely, as well.</p>
+
+<a name='dinner'></a><h3>Monday Evening: Developer Dinner</h3>
+
+<p>On the evening of Monday the 20th we will hold our traditional "developer dinner" so that people can get to each other in a more casual atmosphere. Location yet to be determined.</p>
+
+<p>As at <a href='summit6.shtml'>Summit #6</a>, we are looking for donations to help fund the festivities. Depending on how many people donate, the cost per person might be quite minimal. The following companies and individuals have volunteered to donate to the cause:</p>
+
+<h4>Donations</h4>
+<ul>
+  <li><a href='http://www.collecta.com/'>Collecta</a> ($100)</li>
+  <li><a href='http://www.isode.com/'>Isode Ltd.</a> ($500)</li>
+  <li><a href='http://www.good.com/'>Good Technology</a> ($100)</li>
+  <li><a href='http://www.intridea.com/'>Intridea</a>/<a href='http://www.presentlyapp.com/'>Present.ly</a> ($150)</li>
+  <li>Jonas Lindberg ($100)</li>
+  <li><a href='http://www.process-one.net/'>Process-One</a> ($200)</li>
+  <li><a href='https://stpeter.im/'>Peter Saint-Andre</a> ($100)</li>
+  <li><a href='http://www.vayusphere.com/'>Vayusphere</a> ($100)</li>
+</ul>
+
+<p>Unless you tell us otherwise, we will assume that you want to join us for dinner if you are participating in the Summit.</p>
+
+<a name='tuesday'></a><h3>Tuesday, July 21: Technology Brainstorming</h3>
+
+<p>We will devote Tuesday to high-bandwidth discussions about gaps in the XMPP protocol stack, operational challenges, and other hot topics. However, software hacking will probably continue in the background.</p>
+
+<a name='participants'></a><h3>Participants</h3>
+
+<p>The following people have indicated that they are likely to participate. If you would like to attend, please post a message to the <a href='http://mail.jabber.org/mailman/listinfo/summit'>summit@xmpp.org</a> discussion list and tell us whether you want to join us for dinner on Monday evening, including your dietary restrictions (if any).</p>
+
+<ol>
+  <li>Diana Cionoiu (<a href='http://yate.null.ro/'>Yate</a>)</li>
+  <li>Dave Cridland (<a href='http://www.isode.com/'>Isode</a>)</li>
+  <li>Pradeep Elankumaran (<a href='http://www.intridea.com/'>Intridea</a>/<a href='http://www.presentlyapp.com/'>Present.ly</a>)</li>
+  <li>Nathan Fritz (Northscale)</li>
+  <li>Julien Genestoux (<a href='http://superfeedr.com/'>Superfeedr.com</a>)</li>
+  <li>Joe Hildebrand (<a href='http://www.cisco.com/'>Cisco</a>)</li>
+  <li>Adam Kalsey (<a href='http://www.voxeo.com/'>Voxeo</a>)</li>
+  <li>Jonas Lindberg (<a href='http://www.google.com/'>Google</a>)</li>
+  <li>Justin Karneges (<a href='http://psi-im.org/'>Psi</a> / <a href='http://www.barracudanetworks.com/'>Barracuda Networks</a>)</li>
+  <li>Ralph Meijer (<a href='http://www.mediamatic.nl/'>Mediamatic Lab</a>)</li>
+  <li>Jack Moffitt (<a href='http://www.collecta.com/'>Collecta</a>)</li>
+  <li>Pushpendra Mohta (<a href='http://www.vayusphere.com/'>Vayusphere</a>)</li>
+  <li>Michael Ossareh (<a href='http://www.heysan.com/'>Heysan</a> / <a href='http://www.good.com/'>Good Technology</a>)</li>
+  <li>Mickaël Rémond (<a href='http://www.process-one.net/'>ProcessOne</a>)</li>
+  <li>Peter Saint-Andre (<a href='http://xmpp.org/'>XSF</a> / <a href='http://www.cisco.com/'>Cisco</a>)</li>
+  <li>Mick Thompson (<a href='http://www.flarify.com/'>Flarify</a>)</li>
+  <li>Kurt Zeilenga (<a href='http://www.isode.com/'>Isode</a>)</li>
+  <li>Christopher Zorn (<a href='http://www.collecta.com/'>Collecta</a>)</li>
+</ol>
+
+<a name='logistics'></a><h3>Logistics</h3>
+
+<p>The XMPP Summit will take place in room B3 at the <a href='http://www.sanjose.org/meetings/facilities/convention.php'>San Jose McEnery Convention Center</a>, 150 West San Carlos Street, San Jose, California. We typically begin the day at 10:00 and finish around 17:00. Hotel information can be found on the <a href='http://en.oreilly.com/oscon2009/public/content/hotel'>OSCON site</a>.</p>
+
+<p>You <em>do not</em> need to register for OSCON in order to participate in the XMPP Summit. OSCON is a great conference and we encourage you to attend! However, if you want to participate only in the XMPP Summit, you MUST sign in for a free "floor pass" with O'Reilly when you arrive at the convention center.</p>
+
+<a name='cost'></a><h3>Cost</h3>
+
+<p>The XMPP Summit is free. However, we reserve the right to ask for donations to help pay for food. You do want to eat, don't you?</p>
+
+<a name='contact'></a><h3>Contact</h3>
+
+<p>Join the <a href='http://mail.jabber.org/mailman/listinfo/summit'>summit@xmpp.org</a> list to discuss. If you have any questions, ping <a href='https://stpeter.im/index.php/contact/'>Peter Saint-Andre</a>.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

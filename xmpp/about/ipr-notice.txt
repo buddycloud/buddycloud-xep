@@ -1,0 +1,55 @@
+In accordance with Section 10 of RFC 2026, Jabber, Inc. and the
+Jabber Software Foundation (JSF) wish to make the following joint
+statement regarding the JABBER trademark.
+
+Parts of the specifications produced by the Extensible Messaging and 
+Presence Protocol (XMPP) Working Group use the term "jabber" for the
+purpose of identifying namespaces and other protocol syntax in XMPP.  
+These documents currently consist of the following:
+
+- draft-ietf-xmpp-core
+- draft-ietf-xmpp-cpim
+- draft-ietf-xmpp-e2e
+- draft-ietf-xmpp-im
+
+Future IETF specifications, not limited to those produced by the XMPP
+Working Group, may use the term "jabber" in a similar fashion, and 
+this statement is not restricted to the documents cited above.
+
+JABBER(R) is a registered trademark of Jabber, Inc., and was acquired
+from the previous trademark holder in order to safeguard use of the 
+term in reference to XML streaming technologies, especially as applied 
+to instant messaging and presence.  
+
+Licensing of the JABBER trademark is administered by the JSF, to which
+Jabber, Inc. has granted a perpetual, worldwide, royalty-free license 
+for sub-licensing of the trademark. The JSF recognizes a number of 
+uses of the term "jabber" that fall under descriptive use or fair use,
+including protocol names, general technology references, and domain 
+names; such usage does not require a license. However, use of the term 
+"jabber" in software titles and company or organization names does 
+require licensing of that use by the JSF. Detailed information 
+regarding licensing of the JABBER trademark may be found here:
+
+http://xmpp.org/trademark/
+
+Any questions related to this statement may be directed to either or
+both of the following:
+
+For Jabber, Inc.:
+
+   Lindley Branson
+   General Counsel
+   Jabber, Inc.
+   1899 Wynkoop Street, Suite 600
+   Denver, CO 80202-1086
+
+For the Jabber Software Foundation:
+
+   Peter Saint-Andre
+   Executive Director
+   Jabber Software Foundation
+   P.O. Box 1641
+   Denver, CO 80201-1641
+   <trademark@jabber.org>
+

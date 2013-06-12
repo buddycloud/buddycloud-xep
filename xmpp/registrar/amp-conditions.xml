@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'amp-conditions.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='amp-conditions.xsl'?>
+<registry>
+<meta>
+  <title>Advanced Message Processing Rule Conditions</title>
+  &LEGALNOTICE;
+  <overview>This is the official registry of Advanced Message Processing rule conditions maintained by the &REGISTRAR;, as authorized by &xep0079;.</overview>
+  <revision>
+    <version>0.1</version>
+    <date>2004-10-11</date>
+    <initials>psa</initials>
+    <remark>Initial version (conditions defined in version 1.0 of XEP-0079).</remark>
+  </revision>
+</meta>
+
+<condition>
+  <name>deliver</name>
+  <ns>http://jabber.org/protocol/amp?condition=deliver</ns>
+  <per-hop>true</per-hop>
+  <value>[direct|forward|gateway|none|stored]</value>
+  <processing>The condition is met if (1) the value is "direct" and the message can be immediately delivered or further dispatched, or (2) the value is "stored" and offline storage is enabled.</processing>
+  <doc>&xep0079;</doc>
+</condition>
+
+<condition>
+  <name>expire-at</name>
+  <ns>http://jabber.org/protocol/amp?condition=expire-at</ns>
+  <per-hop>true</per-hop>
+  <value>DateTime per XEP-0082</value>
+  <processing>The condition is met if the message cannot be delivered before the specified DateTime.</processing>
+  <doc>&xep0079;</doc>
+</condition>
+
+<condition>
+  <name>match-resource</name>
+  <ns>http://jabber.org/protocol/amp?condition=match-resource</ns>
+  <per-hop>false</per-hop>
+  <value>[any|exact|other]</value>
+  <processing>The condition is met if (1) the value is "any" and the intended recipient has at least one available resource (as defined in the XMPP IM specification); (2) the value "exact" and the intended recipient has an available resource that exactly matches the JID specified in the 'to' address; (3) the value is "other" and the intended recipient has an available resource whose full JID is other than that specified in the 'to' address.</processing>
+  <doc>&xep0079;</doc>
+</condition>
+
+</registry>

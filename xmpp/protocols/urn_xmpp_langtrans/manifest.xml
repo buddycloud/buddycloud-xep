@@ -1,0 +1,16 @@
+<manifest>
+  <title>Language Translation</title>
+  <abstract>This specification defines an XMPP protocol extension for providing language translation facilities over XMPP. It supports human, machine, client-based, and server-based translations.</abstract>
+  <specnum>XEP-0171</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0171.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:langtrans</name>
+    <name>urn:xmpp:langtrans#items</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/langtrans.xsd</schema>
+    <schema>http://xmpp.org/schemas/langtrans-items.xsd</schema>
+  </schemas>
+</manifest>

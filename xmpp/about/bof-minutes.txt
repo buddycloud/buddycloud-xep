@@ -1,0 +1,248 @@
+Minutes of the Jabber BOF (jabber)
+    
+   Time: Monday, 2002-07-15, 1930-2200, room 501
+  Chair: Pete Resnick
+Minutes: Marshall Rose
+
+    
+1.  Agenda Bashing:
+    
+The chair introduced the agenda, and asked for some to take
+minutes. A volunteer was indentured.
+
+It was agreed to revise the agenda to allow for questions both during
+and in between the presentations. In particular, much discussion was
+expected after the first two technical presentations.
+
+    
+2.  Introduction:
+
+The chair introduced the bof by noting that Jabber is a lot of different
+things, but that the bof was limited to the XMPP protocol that Jabber
+uses. In particular, the question to answer is whether its a good idea
+to bring xmpp into to the IETF.
+    
+An initial question was whether the owners of XMPP understood what that
+entails. (Much discussion along this line was held later on, cf.,
+Section 6, below).
+
+    
+3.  XMPP Overview, by Joe Hildebrand, Chief Architect, Jabber, Inc.
+
+The speaker's basic points:
+    
+    - XMPP is an XML-based protocol that delivers asynchronous XML content,
+      of which IM is a one kind of traffic
+    
+    - Three are 3 I-Ds that document the existing XMPP
+    
+    - XMPP's model is similar in concept to the SMTP model, the major
+      addition being the notion of resources (multiple mailboxes for the
+      same recipient) and services (a standardized way of extending a
+      server)
+
+    - Each direction of an XMPP connection is a single XML document
+      containing zero or more "packets"
+    
+    - There are three types of packets: message, presence, and info/query    
+    
+The speaker gave some examples of XMPP packets and usage and then
+indicated areas in which the IETF could add value:
+    
+    - Separation of presence from IM
+    - Security standardization
+    - Transport independence (e.g., SMS)
+
+    
+4.  Questions
+    
+    Do XMPP entities trust the "From" element? Not really. Servers
+    require that clients authenticate themselves, and server/server
+    authentication occurs with a dialback mechanism, but neither are
+    inherently secure.
+    
+    Does XMPP support anonymous messages? Although there are
+    anonymizers, in general, the answer is no.
+    
+    Are subscriptions bi-directional? No, there are for kinds: to, from,
+    both, or none.
+    
+    Why did you crate a new URL scheme ("jabber:") for a few new
+    datatypes. This was a historical decision.
+    
+    How do you handle downgrade attacks? Clients may be configurable as
+    to the minimum level of acceptable security. (It was subsequently
+    noted that, in the absence of TLS, that an attacker could hijack a
+    TCP connection regardless of the method of authentication.)
+
+    
+5.  XMPP and the IETF, by Jeremie Miller, Founder, Jabber Software Foundation
+    
+    The speaker recounted the early history of Jabber, starting back in
+    1998, along with his initial interactions with the IMPP working
+    group.
+    
+    The speaker then explained Jabber's growth, both in terms of users
+    and applications. As a result, there are presently over 100K
+    deployments with over 1M users. This growth is leading to new
+    pressures on the Jabber Software Foundation (JSF) which current
+    manages XMPP development. Rather than start diverging activities,
+    the JSF would prefer that XMPP move to the IETF to get:
+    
+        - a "better" standards-process
+        - help with security
+        - help with internationalization
+
+    In terms of comparing XMPP with IMPP, the speaker noted two
+    differences:
+    
+    1. XMPP is XML-based whilst IMPP is MIME-based, and that you could
+       encapsulate XML in MIME and vice-versa. However, when building a
+       CPIM gateway, if end-to-end encryption were used, then translation
+       could not occur.
+    
+    2. XMPP achieves presence using broadcast, not transient
+       subscriptions.  However, a CPIM gateway could easily translate
+       between the two.
+
+    
+6.  More Questions:
+
+    There were several questions concerning change control. The second
+    speaker explained the current process used by the JSF. Briefly,
+    Jabber Enhancement Proposals (JEPs) are submitted, discussed in a
+    group, and a vote is taken by the JSF's council.
+    
+    If the IETF starts work on XMPP, with the JEP process be discarded?
+    For the parts that deal with XMPP, yes. (Jabber is more than XMPP.)
+    
+    Are you comfortable with the notion of giving up control of the
+    technology in your flagship project? Yes, this has sign-off at the
+    highest levels of management in Jabber, Inc.
+    
+    Will you support the resulting specification?  Yes, this has
+    sign-off at the highest levels of management in Jabber, Inc.
+    
+    It was noted that the IETF process isn't as fast as the way XMPP has
+    developed.
+    
+    There were several questions on backwards-compatibility. The first
+    speaker explained that XMPP was very "upgrade friendly" and that two
+    large protocol upgrades had already been made to XMPP since 1998.
+
+    What is special in XMPP that we need to standardize something else
+    that does presence? Jabber is a simple, easy to configure and use
+    system that asynchronously transports XML content.
+    
+    What would prevent other companies with IM technology and coming to
+    the IETF and making the same offer? Nothing, and that's a good thing.
+
+    There was some discussion as to whether CPIM was still needed if
+    SIMPLE were to be the only IM technology used by the IETF.
+
+    
+7.  User experiences (part one), by Dale Malik, Bellsouth
+   
+    The speaker briefly discussed a commercial offering provisioned for
+    1.5M users. Under test, the system has supported 200K simultaneous
+    users with 100K simultaneous sessions.
+    
+    The speaker indicate the kinds of things he'd like to see in moving
+    foward with XMPP:
+    
+        - more security
+        - more carrier class
+        - easier application integration
+
+8.  User experiences (part two), by Alexandre Noell, France Telecom
+    
+    The speaker briefly described a commercial offering for an ISP
+    having 7M users. After developing an internal protocol, the ISP
+    adopted XMPP instead because:
+
+        - it was XML-based, so it was easy to understand, implement, and
+          integrate
+    
+        - it supported interoperability with other IM systems, including
+  	  server/server queries
+
+        - it is connection-oriented, which is good for server-push
+    
+        - it is extensible, making it easy to extend exsting features
+    	  and add new protocol functions.
+    
+    The ISP subsequently added about 10 new services to XMPP, e.g.,
+    blacklisting.
+    
+    In terms of technology choices, the ISP deployed the service using
+    both Sun/Oracle and PCs. The front-ends are each able to handle 10K
+    simultaneous sessions and upto 400 messages/second, and the servers
+    are each able to handle 100K simultaneous sessions and 2000
+    messages/second (i.e., a user sending a message every 50
+    seconds). The offering launched in April, 2002 and is currently
+    running with 300K users.
+    
+    The speaker indicate the kinds of things he'd like to see in moving
+    foward with XMPP:
+    
+        - presence packets should be per domain instead of per contact
+        - presence should be better seperated from subscription
+
+    
+9.  Still More Questions:    
+    
+    There were several questions/comments (well, mostly comments)
+    regarding whether (or not) introducing XMPP was destructive of the
+    IETF process, e.g.,
+
+        - should the IETF be standardizing technologies or picking
+       	  winners?
+
+        - doesn't SIMPLE have mind share? the IETF shouldn't do
+          overlapping protocols (oh, wait there's already CPIM)
+    
+        - we're setting the bar too high by requiring that a new effort
+	  not compete with an existing effort, the only questions should
+	  be: is it tecnically credible, are people willing to work on
+	  it, are people willing to use it?
+    
+        - we should be deciding things based on the number of folks who
+	  want to do things, not the number opposed.
+
+        - what exactly is the scope of xmpp? asynchronously transport of
+          XML content
+    
+        - do we have the resources to split up our efforts?
+
+    It was noted that SIMPLE wasn't the only thing in the IETF, that
+    APEX was being published as RFCs.
+    
+    What are the advantages of XMPP over SIMPLE? traverses firewalls,
+    has congestion control, a lot easier to implement and integrate with.
+    
+    Will XMPP implementors (other than Jabber, Inc.) synchronize their
+    work with the IETF product? If there's functionality there, sure.
+    
+    It was noted that a generic XML delivery system, or even an IM
+    transfer protocol, such as XMPP would be an interesting work item
+    for the IETF.
+    
+    And, finally: is any of the XMPP technology encumbered by IPR
+    issues? No, portions of the Jabber, Inc., implementation have IPR
+    protection, but there are at least two commercial XMPP
+    implementations from other companies, and the Jabber, Inc. lawyers
+    aren't suing them.
+    
+    
+10. Wrap-up
+    
+The chair asked for humming for the following three activites: How many
+folks would are willing to work on XMPP for:
+    
+        - for async messaging
+        - for im
+        - for presence
+
+after receive various hums, the meeting was adjoured.
+    
+				  #######

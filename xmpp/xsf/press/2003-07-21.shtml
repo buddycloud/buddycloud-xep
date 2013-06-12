@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Mono Embraced by XMPP Instant Messaging Vendors</h3>
+<h4>XMPP-Based Instant Messaging Vendors Continue to Choose Mono to Provide Cross Platform .NET Collaboration</h4>
+
+<p>Denver, CO - July 21, 2003 - The Jabber Software Foundation (JSF), the organization that builds open application protocols on top of the IETF's extensible messaging and presence protocol (XMPP), today announced continued vendor adoption of Mono to provide cross platform .NET collaboration.</p>
+<p>Recently, vendors Winfessor (&lt;<a href="http://www.winfessor.com">http://www.winfessor.com</a>&gt;) and Tipic (&lt;<a href="http://www.tipic.com">http://www.tipic.com</a>&gt;), have both announced their support for the Mono platform. Winfessor announced a new version of its instant messaging products that allows enterprises to create custom XMPP instant messaging solutions and Tipic announced the intent to build their next generation of instant messaging software for use with Mono.</p>
+<p>"The Mono Project offers a great opportunity for companies such as Winfessor and Tipic to deploy Jabber compliant applications to other platforms quickly and easily," said Peter Saint-Andre of the Jabber Software Foundation. "It also helps the adoption of XMPP as a cost effective standard for messaging and presence across operating environments."</p>
+<p>Mono is an open source project that allows developers to build and deploy .NET applications across Linux, UNIX, and Windows.</p>
+<p>"Even in its early state, developers are quick to understand that Mono can help them to capitalize on the strengths of the .NET development environment without sacrificing functionality in the applications they want to develop -- and without sacrificing the advantages of UNIX and Linux,"said Miguel de Icaza, CTO of Ximian and founder of the Mono Project. "It is very exciting for me to see XMPP developers embrace the Mono Project as a way to provide more flexibility for their solutions. At the end of the day, the developers will be able to build better applications -- and that is what Mono is all about." </p>
+
+<h4>About the Mono Project</h4>
+<p>Ximian initiated the Mono Project, named the Best Open Source Project at LinuxWorld in January 2003, with the intent to provide developers with a set of open source tools for building .NET applications that run on Windows or any Mono-supported platform, including Linux and UNIX. Mono incorporates key .NET-compliant components, including a C# compiler, a Common Language Runtime just-in-time compiler and a growing set of class libraries, including ASP.NET and ADO.NET. More than 150 developers from around the world contribute to the Mono Project.</p>
+<p>For more information about Mono, visit the Ximian web site at &lt;<a href="http://www.ximian.com/mono">http://www.ximian.com/mono</a>&gt; or the Mono Project web site at &lt;<a href="http://www.go-mono.org/">http://www.go-mono.org/</a>&gt;.</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

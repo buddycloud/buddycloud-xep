@@ -1,0 +1,14 @@
+<manifest>
+  <title>User Geolocation</title>
+  <abstract>This specification defines an XMPP protocol extension for communicating information about the current geographical or physical location of an entity.</abstract>
+  <specnum>XEP-0080</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0080.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/geoloc</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/geoloc.xsd</schema>
+  </schemas>
+</manifest>

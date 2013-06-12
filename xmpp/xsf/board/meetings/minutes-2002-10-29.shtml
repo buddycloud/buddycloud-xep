@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2002-10-29 @ 17:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 17:07 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Michael Bauer</li>
+<li>Ryan Eatmon</li>
+<li>Jeremie Miller</li>
+<li>Marco Palombi</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>All Board members were in attendance. Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Vision / Mission / Goals</p>
+    <p>Discussed the need for a vision statement, mission statement, and specific goals, based on a strawman provided by Michael Bauer. Clarity on these items will help various committees with their work and will provide measurable objectives for the JSF as a whole, thus improving accountability. Michael Bauer will revise his strawman and post it to the Board mailing list.</p>
+  </li>
+  <li>
+    <p>Jabber Trademark</p>
+    <p>Discussed the document written by Tony Bamonti regarding a possible solution to the trademark impasse. The approach would result in two license agreements between the JSF and Jabber, Inc.: (1) a perpetual, irrevocable, royalty-free license of the trademark to the JSF; (2) a license for the JSF to act as a sublicensor of the trademark. Agreement in principle that this is a good approach. Need to determine any potential risks and liabilities in order to protect the JSF (e.g., liability resulting from acting as a sublicensor).</p>
+  </li>
+  <li>
+    <p>Budget Overview</p>
+    <p>Discussed the <a href="http://www.jabber.org/pipermail/board/2002-October/000165.html">budget strawman</a> posted by Michael Bauer. General agreement that the $30k number is a good goal. The challenge will be to reach that goal. Further discussion will occur on the list.</p>
+  </li>
+  <li>
+    <p>Marketing Committee Review</p>
+    <p>Discussed progress made within the Marketing Committee. The Board expressed its desire to focus on corporate sponsorships as the highest priority for fundraising, since that will help the JSF improve its financial situation most quickly.</p>
+  </li>
+  <li>
+    <p>IETF Activities</p>
+    <p>Tony Bamonti reported on progress related to the proposed XMPP Working Group. The hope is that it will be approved soon. Discussed the importance of a common understanding among members of the Jabber community regarding the purpose of the Working Group (i.e., not to redesign the protocol but to seek input from the IETF regarding well-defined aspects such as security and i18n). Peter Saint-Andre will publish an announcement to the Jabber community regarding the Working Group when it is approved, explaining the objectives and benefits of working with the IETF.</p>
+  </li>
+  <li>
+    <p>Compliance Committee Review</p>
+    <p>Jeremie Miller reported on the Compliance Committee. A draft charter is under development. The initial focus will be on determining the compliance of Jabber clients. Compliance of servers and other components will be addressed after clients. Michael Bauer noted the need for interaction or a "handoff" between the Compliance Committee and the Marketing Committee regarding the service mark used to indicate compliance (e.g., Jabber Compliant, XMPP Compliant, JSF Certified).</p>
+  </li>
+  <li>
+    <p>Intellectual Property Rights Policy</p>
+    <p>Agreement that the IPR policy drafted by Peter Saint-Andre will meet our needs with regard to JEPs, but that we may need to address other possible issues or threats with separate policies (e.g., the possibility of someone taking the protocol and marketing or attempting to patent it under a different name).</p>
+  </li>
+  <li>
+    <p>JEP Process</p>
+    <p>Agreement that the revisions to JEP-0001 drafted by Peter Saint-Andre are acceptable and meet the needs of the Jabber community.</p>
+  </li>
+</ol>
+<h2>Resolutions</h2>
+<ol>
+  <li>
+    <p>Resolved: that the Board of the JSF approve the JEP process used by the Council to enact protocol changes as described in version 1.5 of JEP-0001.</p>
+    <p>Action: Approved</li>
+  </li>
+  <li>
+    <p>Resolved: that the Board of the JSF approve the IPR Policy regarding intellectual property rights (IPR) as they pertain to Jabber Enhancement Proposals.</p>
+    <p>Action: Approved</li>
+  </li>
+  <li>
+    <p>Resolved: that the Board of the JSF shall enter into a Letter of Intent with Jabber, INc. in order to negotiate (1) an irrevocable license of the Jabber trademark to the JSF and (2) an agreement for the JSF to become a sublicensor of the Jabber trademark; such negotiation shall follow the process outlined in the trademark approach document written by Tony Bamonti.</p>
+    <p>Action: Approved</li>
+  </li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 18:57 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

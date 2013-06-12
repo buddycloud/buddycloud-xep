@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'linklocal.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='linklocal.xsl'?>
+<registry>
+
+<meta>
+  <title>Jingle Application Formats</title>
+  &LEGALNOTICE;
+  <overview>This is the official registry of Jingle Application Formats as maintained by the &REGISTRAR; and authorized by &xep0166;.</overview>
+  <revision>
+    <version>0.1</version>
+    <date>2009-06-10</date>
+    <initials>psa</initials>
+    <remark>Initial version, populated with "rtp" application format from XEP-0167.</remark>
+  </revision>
+</meta>
+
+<application>
+  <name>rtp</name>
+  <desc>
+    Jingle sessions that support media exchange 
+    via the Real-time Transport Protocol.
+  </desc>
+  <transport>datagram</transport>
+  <doc>XEP-0167</doc>
+</application>
+
+</registry>

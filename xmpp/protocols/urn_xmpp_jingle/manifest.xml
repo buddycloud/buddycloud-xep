@@ -1,0 +1,16 @@
+<manifest>
+  <title>Jingle</title>
+  <abstract>This specification defines an XMPP protocol extension for initiating and managing peer-to-peer media sessions between two XMPP entities in a way that is interoperable with existing Internet standards. The protocol provides a pluggable model that enables the core session management semantics (compatible with SIP) to be used for a wide variety of application types (e.g., voice chat, video chat, file transfer) and with a wide variety of transport methods (e.g., TCP, UDP, ICE, application-specific transports).</abstract>
+  <specnum>XEP-0166</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0166.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:jingle:1</name>
+    <name>urn:xmpp:jingle:errors:1</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/jingle.xsd</schema>
+    <schema>http://xmpp.org/schemas/jingle-errors.xsd</schema>
+  </schemas>
+</manifest>

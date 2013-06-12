@@ -1,0 +1,14 @@
+<manifest>
+  <title>CAPTCHA Forms</title>
+  <abstract>This specification defines an XMPP protocol extension that entities may use to discover whether the sender of an XML stanza is a human user or a robot.</abstract>
+  <specnum>XEP-0158</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0158.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:captcha</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/captcha.xsd</schema>
+  </schemas>
+</manifest>

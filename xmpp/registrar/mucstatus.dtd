@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DTD for MUC status codes registry -->
+<!ELEMENT registry ( meta, statuscode* ) >
+<!ELEMENT meta ( title, legal, overview, revision+ ) >
+<!ELEMENT title (#PCDATA)* >
+<!ELEMENT legal (#PCDATA)* >
+<!ELEMENT overview (#PCDATA)* >
+<!ELEMENT revision ( version, date, initials, remark ) >
+<!ELEMENT version (#PCDATA)* >
+<!ELEMENT date (#PCDATA)* >
+<!ELEMENT initials (#PCDATA)* >
+<!ELEMENT remark (#PCDATA)* >
+<!ELEMENT statuscode ( number, stanza, context, purpose, child ) >
+<!ELEMENT number (#PCDATA)* >
+<!ELEMENT stanza (#PCDATA)* >
+<!ELEMENT context (#PCDATA)* >
+<!ELEMENT purpose (#PCDATA)* >
+<!ELEMENT child (#PCDATA)* >

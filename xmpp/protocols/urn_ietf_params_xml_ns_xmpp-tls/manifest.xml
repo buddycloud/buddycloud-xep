@@ -1,0 +1,14 @@
+<manifest>
+  <title>Transport Layer Security</title>
+  <abstract>This specification defines the core channel encryption method for XMPP: an application profile of Transport Layer Security (TLS) that enables a client to encrypt its XML streams with a server or for one server to encrypt its XML streams with a peer server. By its nature as a TLS profile, XMPP channel encryption also includes the ability to compress XML streams.</abstract>
+  <specnum>RFC 3920</specnum>
+  <specurl>http://www.ietf.org/rfc/rfc3920.txt</specurl>
+  <status>Proposed</status>
+  <publisher>Internet Engineering Task Force</publisher>
+  <namespaces>
+    <name>urn:ietf:params:xml:ns:xmpp-tls</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/tls.xsd</schema>
+  </schemas>
+</manifest>

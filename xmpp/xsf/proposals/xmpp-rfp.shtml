@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Request for Proposals: Jabber.org XMPP Service</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>Request for Proposals: Jabber.org XMPP Service</h2>
+
+<table>
+  <tr class='tablebody'><td>Author:</td>
+  <td><a href='http://xmpp.org/xsf/people/stpeter.shtml'>Peter Saint-Andre</a>, Florian Jensen</td>
+  </tr>
+  <tr class='tablebody'><td>Version:</td>
+  <td>0.1.2</td>
+  </tr>
+  <tr class='tablebody'><td>Date:</td>
+  <td>2008-12-02</td>
+  </tr>
+  <tr class='tablebody'><td>Status:</td><td><span style='color: red'>Working Draft</span></td></tr>
+</table>
+
+<p><em>Note: This is a working draft and the RFP has <strong>not yet been issued</strong>; if and when the RFP is completed, it will be prominently announced on the <a href='http://mail.jabber.org/mailman/listinfo/jdev'>jdev@jabber.org</a> discussion list and <a href='http://blog.xmpp.org/'>blog.xmpp.org</a>.</em>
+
+<p style='font-weight: bold'>Table of Contents</p>
+<ol>
+  <li><a href='#background'>Background</a></li>
+  <li><a href='#objectives'>Objectives</a></li>
+  <li><a href='#deliver'>Deliverables</a></li>
+  <li><a href='#length'>Length of Contract</a></li>
+  <li><a href='#functional'>Functional Requirements</a></li>
+  <li><a href='#performance'>Performance Requirements</a></li>
+  <li><a href='#integration'>Integration Requirements</a></li>
+  <li><a href='#support'>Support Requirements</a></li>
+  <li><a href='#compensation'>Compensation</a></li>
+  <li><a href='#process'>Proposal Process</a></li>
+</ol>
+
+<h3><a name='background'></a>1. Background</h3>
+<p>The XMPP service offered at jabber.org is the original and longest-running XMPP service on the Internet. In the beginning, the jabber.org service served as the development testbed for the <a href='http://jabberd.org/'>jabberd</a> server project. After the release of jabberd 1.0 in May 2000, the jabber.org service became more stable and thus more popular with end users. The userbase has continued to grow, from perhaps 500 users in late 1999 to over 400,000 users in late 2008. Clearly the service is no longer experimental, and considerable attention is needed to maintain an acceptable level of functionality and performance.</p>
+<p>Currently the service runs the ejabberd 2.x server software and is administered by a group of volunteers from the XMPP developer community. Because the service is hosted on machines owned by the <a href='http://xmpp.org/xsf/'>XMPP Standards Foundation</a> (XSF), the XSF has over time assumed responsibility for more aspects of the service. However, the XSF still leaves day-to-day operation to an informal group of volunteers (the "infrastructure team") loosely coordinated by XSF Executive Director Peter Saint-Andre.</p>
+
+<h3><a name='objectives'></a>2. Objectives</h3>
+<p>The XSF values running code. Therefore it wishes to continue offering a robust XMPP service at the jabber.org domain. Our objectives in offering this service include the following:</p>
+<ol>
+  <li>Provide a stable, accessible service to the Internet community for instant messaging, groupchat, alerts and notifications, file transfer, voice and video chat, and other forms of real-time communication.</li>
+  <li>Gain operational experience with a live service to validate our work on XMPP technologies.</li>
+  <li>Deploy not only implementations of the core XMPP RFCs but also important extensions developed by the XSF.</li>
+  <li>Deploy our services in the most secure fashion possible to us.</li>
+  <li>Where possible, encourage the development and use of free or open-source software (FOSS) solutions.</li>
+</ol>
+
+<h3><a name='deliver'></a>3. Deliverables</h3>
+<p>Because the XSF does not produce software, it needs to obtain the software for its services from other parties. This Request for Proposals (RFP) defines the XSF's needs regarding XMPP server software for the jabber.org IM service. The XSF shall run such software on hardware it owns, hosted in a data center located in Iowa, USA. Software packages related to ancillary functions such as STUN/TURN servers for NAT traversal and databases for information storage are out of scope for this RFP.</p>
+
+<h3><a name='length'></a>4. Length of Contract</h3>
+<p>The XSF expects the negotiated contract for services to last for two (2) years beginning in January 2009.</p>
+
+<h3><a name='functional'></a>5. Functional Requirements</h3>
+<p>The jabber.org IM service is in many ways the flagship XMPP server on the Internet. Therefore it is expected that its software shall comply fully with <a href='http://xmpp.org/rfcs/rfc3920.html'>RFC 3920</a> and <a href='http://xmpp.org/rfcs/rfc3921.html'>RFC 3921</a>, to track the modifications to those core protocols in the form of <a href='http://xmpp.org/internet-drafts/'>rfc3920bis</a> and <a href='http://xmpp.org/internet-drafts/'>rfc3921bis</a>, and to implement the "core server" protocols defined in the yearly compliance levels published by the XSF (most recently, <a href='http://xmpp.org/extensions/xep-0243.html'>XEP-0243</a>).</p>
+<p>In addition to these core features, the jabber.org IM service has long hosted a popular multi-user chat service at conference.jabber.org, which implements the protocol defined in <a href='http://xmpp.org/extensions/xep-0045.html'>XEP-0045</a>. This XSF must continue to offer this service, including archiving of logged conversations for appropriate chatrooms at &lt;<a href='http://logs.jabber.org/'>http://logs.jabber.org/</a>&gt;.</p>
+<p>The XSF continues to define extensions to XMPP for enhanced functionality. To prove these extensions in the form of running code, the XSF would strongly prefer to host software that supports certain extensions. At present the preferred extensions are:</p>
+<ul>
+  <li>The HTTP binding for XMPP defined in <a href='http://xmpp.org/extensions/xep-0124.html'>XEP-0124</a> and <a href='http://xmpp.org/extensions/xep-0206.html'>XEP-0206</a>.</li>
+  <li>The publish-subscribe extension, including the "personal eventing protocol" profile thereof, defined in <a href='http://xmpp.org/extensions/xep-0060.html'>XEP-0060</a> and <a href='http://xmpp.org/extensions/xep-0163.html'>XEP-0163</a>.</li>
+</ul>
+
+<h3><a name='performance'></a>6. Performance Requirements</h3>
+<p>As mentioned, the jabber.org IM service has over 400,000 users, with typically 15,000 online at any one time. To service this userbase, the XSF has in the past solicited in-kind donations of appropriate hardware. The machine that currently hosts the jabber.org IM service ("hermes") was donated by HP in early 2008; the machine is an HP ProLiant D385 G2 with dual 2.8 GHz Opteron CPUs and 16GB of RAM. The infrastructure team is of the opinion that this machine should be sufficient to meet its needs for the duration of the contract. However, the XSF is open to clustering the XMPP service across other machines under its control, or offloading non-core XMPP services (e.g., multi-user chatrooms) onto other machines in the future. However, the server software should be able to handle atleast 1 million registrations and 30.000 concurrent connections on the above mentioned hardware configuration (single server).</p>
+<p>Because the jabber.org domain is a significant node on the XMPP network, it federates with a large number of other domains. Typically the jabber.org IM service has open 3,500 or more server-to-server connections with other domain at any one time. This number is only expected to grow.</p>
+<p>The jabber.org IM service has traditionally been the preferred target for abusive and excessive traffic, the first place where inexperienced developers test their alpha-quality code, and the witness to various strange phenomena not normally seen at other XMPP services. Any solution deployed at the jabber.org IM service needs to be flexible, stable, secure, and hardened against intentional or inadvertent denial of service attacks.</p>
+<h3><a name='integration'></a>7. Integration Requirements</h3>
+<p>The jabber.org IM service has long used PostgreSQL for storage of user account information, including offline messages and vCards. The infrastructure team would strongly prefer not to migrate to a new database or modify its existing schema if at all possible.</p>
+<p>For security reasons, the machine that hosts the jabber.org IM service is kept clean of extraneous services that might open unnecessary vulnerabilities, including web and email servers. It is strongly preferred that such extraneous services will not be required in order to offer complete XMPP functionality.</p>
+<p>All of the XSF's server machines, including the machine that hosts the jabber.org IM service, run the Debian GNU/Linux operating system (currently 4.0.1 stable). The infrastructure team would strongly prefer to continue Debian on it's machines. This includes the current 4.0.1 stable version and future stable releases. All software provided by the Vendor should be tested and confirmed to run on Debian.</p>
+<p>The transition to the new software should be handled by the XSF Infrastructure Team. The vendor should provide comprehensive documentation in English on the migration and configuration process of the user database and the setup of the different modules such as MUC.</p>
+<h3><a name='support'></a>8. Support Requirements</h3>
+<p>For privacy and security reasons, the XSF prefers not to allow access to its production machines except to members of the infrastructure team. Access may be allowed in order to migrate the jabber.org IM service to a new software solution (if necessary), but ongoing support should be handled using standard industry practices such as issue reporting, feature requests, and normal communication mechanisms (e.g., phone, email, or IM support). Relevant support parameters should be clearly agreed upon by both the XSF and the supporting organization, including expected response times, issue tracking software used, and preferred communication methods.</p>
+
+<h3><a name='compensation'></a>9. Compensation</h3>
+<p>At this time the XSF's budget does not allow it to pay for commercial software or for support contracts related to the deployment of open-source software. In lieu of financial compensation, the XSF can offer in-kind sponsorship of the XSF's ongoing operations, including appropriate publicity on the XSF's weblog at &lt;<a href='http://blog.xmpp.org/'>http://blog.xmpp.org/</a>&gt; (press releases have not been issued since January 2007) and listing among the sponsors of the XSF at &lt;<a href='http://xmpp.org/xsf/sponsors'>http://xmpp.org/xsf/sponsors/</a>&gt; and on various marketing materials.</p>
+
+<h3><a name='process'></a>10. Proposal Process</h3>
+<p>Proposals shall be submitted to Peter Saint-Andre &lt;<a href='mailto:stpeter@jabber.org'>stpeter@jabber.org</a>&gt;, preferably in PDF format. Please ensure that your submission describes your organization and its proposed solution, addresses all functional, performance, integration, and support requirements, and describes the prices associated with your solution (to be used as input to decisions about in-kind sponsorship). Please submit your proposal no later than [DATE TO BE DETERMINED]. The Board of Directors of the XSF, or an ad-hoc team appointed by the Board, shall make its decision by the close of business on [DATE TO BE DETERMINED]. The engagement shall begin in [DATE TO BE DETERMINED].</p>
+
+<p>END</p>
+<!--#include virtual="/includes/foot.txt" -->

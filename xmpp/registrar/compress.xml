@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'compress.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='compress.xsl'?>
+<registry>
+  <meta>
+    <title>Stream Compression Methods</title>
+    &LEGALNOTICE;
+    <overview>This is the official registry of stream compression methods as maintained by the &REGISTRAR; and authorized by &xep0138;.</overview>
+    <revision>
+      <version>0.2</version>
+      <date>2005-12-14</date>
+      <initials>psa</initials>
+      <remark>Added LZW (DCLZ) method.</remark>
+    </revision>
+    <revision>
+      <version>0.1</version>
+      <date>2005-06-16</date>
+      <initials>psa</initials>
+      <remark>Initial version (ZLIB method).</remark>
+    </revision>
+  </meta>
+  <method>
+    <name>lzw</name>
+    <desc>the LZW (DCLZ) compression method</desc>
+    <doc>&ecma151;</doc>
+  </method>
+  <method>
+    <name>zlib</name>
+    <desc>the ZLIB compression method</desc>
+    <doc>&rfc1950;</doc>
+  </method>
+</registry>
