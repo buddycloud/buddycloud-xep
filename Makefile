@@ -1,2 +1,2 @@
-buddycloud-protocol.html: buddycloud-protocol.xml
-	xsltproc xmpp/extensions/xep.xsl $< > $@
+buddycloud.html: buddycloud.xml
+	xsltproc xep.xsl $< > $@

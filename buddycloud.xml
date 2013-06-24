@@ -1,0 +1,998 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+	<header>
+		<title>Channels for Social Networking</title>
+		<abstract>This document describes a profile and conventions for usage
+			of the PubSub protocol in the context of Social Networking.</abstract>
+		<legal>
+			<copyright>This XMPP Extension Protocol is copyright (c) 1999 - 2010
+				by the XMPP Standards Foundation (XSF).
+			</copyright>
+			<permissions>Permission is hereby granted, free of charge, to any
+				person obtaining a copy of this specification (the
+				&quot;Specification&quot;), to make use of the Specification without
+				restriction, including without limitation the rights to implement
+				the Specification in a software program, deploy the Specification in
+				a network service, and copy, modify, merge, publish, translate,
+				distribute, sublicense, or sell copies of the Specification, and to
+				permit persons to whom the Specification is furnished to do so,
+				subject to the condition that the foregoing copyright notice and
+				this permission notice shall be included in all copies or
+				substantial portions of the Specification. Unless separate
+				permission is granted, modified works that are redistributed shall
+				not contain misleading information regarding the authors, title,
+				number, or publisher of the Specification, and shall not claim
+				endorsement of the modified works by the authors, any organization
+				or project to which the authors belong, or the XMPP Standards
+				Foundation.
+			</permissions>
+			<warranty>## NOTE WELL: This Specification is provided on an &quot;AS
+				IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+				express or implied, including, without limitation, any warranties or
+				conditions of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS
+				FOR A PARTICULAR PURPOSE. In no event shall the XMPP Standards
+				Foundation or the authors of this Specification be liable for any
+				claim, damages, or other liability, whether in an action of
+				contract, tort, or otherwise, arising from, out of, or in connection
+				with the Specification or the implementation, deployment, or other
+				use of the Specification. ##
+			</warranty>
+			<liability>In no event and under no legal theory, whether in tort
+				(including negligence), contract, or otherwise, unless required by
+				applicable law (such as deliberate and grossly negligent acts) or
+				agreed to in writing, shall the XMPP Standards Foundation or any
+				author of this Specification be liable for damages, including any
+				direct, indirect, special, incidental, or consequential damages of
+				any character arising out of the use or inability to use the
+				Specification (including but not limited to damages for loss of
+				goodwill, work stoppage, computer failure or malfunction, or any and
+				all other commercial damages or losses), even if the XMPP Standards
+				Foundation or such author has been advised of the possibility of
+				such damages.
+			</liability>
+			<conformance>This
+				XMPP Extension Protocol has been contributed in full conformance
+				with the XSF's Intellectual Property Rights Policy (a copy of which
+				may be found at &lt;
+				<link url='http://www.xmpp.org/extensions/ipr-policy.shtml'>http://www.xmpp.org/extensions/ipr-policy.shtml</link>
+				&gt; or obtained by writing to XSF, P.O. Box 1641, Denver, CO 80201
+				USA).
+			</conformance>
+		</legal>
+		<number>xxxx</number>
+		<status>ProtoXEP</status>
+		<type>Standards Track</type>
+		<sig>Standards</sig>
+		<approver>Council</approver>
+		<dependencies>
+			<spec>XMPP Core</spec>
+			<spec>XEP-0059</spec>
+			<spec>XEP-0060</spec>
+			<spec>XEP-0313</spec>
+			<spec>XEP-0255</spec>
+			<spec>XEP-0107</spec>
+		</dependencies>
+		<supersedes />
+		<supersededby />
+		<shortname>NOT_YET_ASSIGNED</shortname>
+		<author>
+			<firstname>Simon</firstname>
+			<surname>Tennant</surname>
+			<email>simon@buddycloud.com</email>
+			<jid>simon@buddycloud.com</jid>
+		</author>
+		<revision>
+			<version>0.0.1</version>
+			<date>2001-09-14</date>
+			<initials>psa</initials>
+			<remark>
+				<p>First draft.</p>
+			</remark>
+		</revision>
+	</header>
+	<section1 topic='Introduction' anchor='intro'>
+		<p>
+			buddycloud attempts to design a decentralised social product that
+			solves users needs in a beautiful and efficient way.
+		</p>
+		<p>
+			buddycloud builds on XMPP's native federation and asynchronous
+			messaging to provide a decentralised sharing and communication
+			network. The buddycloud ecosystem contains multiple [XMPP] components
+			(for example: location butler, media server and directory) that work
+			together form a cohesive product and enable developers to build great
+			products for their users.
+		</p>
+	</section1>
+	<section1 topic='Requirements' anchor='reqs'>
+	</section1>
+	<section1 topic='Glossary' anchor='glossary'>
+		<dl>
+			<di>
+				<dt>buddycloud channel
+				</dt>
+				<dd>set of content-specific pubsub nodes per user (posts, geoloc,
+					mood)
+				</dd>
+			</di>
+			<di>
+				<dt>Home Server
+				</dt>
+				<dd>hosts your channel nodes and is your inbox. The home server can
+					do things on a behalf of user (like subscribing to a whitelisted
+					channel))
+				</dd>
+			</di>
+
+			<di>
+				<dt>Remote Server
+				</dt>
+				<dd>hosts channels nodes of another user
+				</dd>
+			</di>
+			<di>
+				<dt>Follower
+				</dt>
+				<dd>a channel subscriber
+				</dd>
+			</di>
+			<di>
+				<dt>Moderator
+				</dt>
+				<dd>a channel follower with capabilities to also approve followers
+					to
+					topic channels and retract posts
+				</dd>
+			</di>
+			<di>
+				<dt>Producer
+				</dt>
+				<dd>the owner of a channel with the ability to add and remove
+					moderators
+				</dd>
+			</di>
+			<di>
+				<dt>personal channel
+				</dt>
+				<dd>a channel about a user and named after their jid (e.g.
+					hag66@shakespeare.lit)
+				</dd>
+			</di>
+			<di>
+				<dt>topic channel
+				</dt>
+				<dd>a channel based on a topic and carrying slightly different
+					business logic (e.g. cauldron-recipes@topics.shakespeare.lit)
+				</dd>
+			</di>
+
+		</dl>
+	</section1>
+	<section1 topic='Preliminaries' anchor='preliminaries'>
+		<section2 topic='Business Logic' anchor='preliminaries-businesslogic'>
+			<p>By prescribing sensible behavior that a server can enforce we
+				avoid
+				support issues on clients. "I've lost publishing rights to my
+				own
+				channel" or "I can't view a friends channel even though I am a
+				moderator in that channel". Pub-sub is a great backend. A good user
+				service built on it will prescribe sensible business logic that fits
+				with a users mental model of what channels provide. We do that by
+				adding a bit of business logic to the buddycloud server:
+			</p>
+			<ul>
+				<li>
+					channels nodes are owned by their jid. For example
+					channeluser@example.com
+					owns channel.example.com, node
+					/user/channeluser@example.com/posts
+				</li>
+				<li>the buddycloud server should maintain similar affiliations
+					across
+					.../posts, .../geo/current, .../geo/previous, .../geo/future
+					and
+					.../mood ie, if you follow a user, you also get to see their
+					status.
+				</li>
+				<li>only moderators and producers should be able to see channel
+					outcasts (don't glorify bad behavior)
+				</li>
+				<li>use predictable channel addresses for web users.
+				</li>
+				<li>
+					overview of channel services:
+					<link url='http://example.com'>http://example.com</link>
+				</li>
+				<li>
+					individual user channels
+					<link url='http://example.com/user@example.com'>http://example.com/user@example.com</link>
+				</li>
+			</ul>
+			<p>Required nodes:
+			</p>
+			<p>
+				Topic channel
+			</p>
+			<ul>
+				<li>
+					posts
+				</li>
+			</ul>
+			<p>
+				Personal channel
+			</p>
+			<ul>
+				<li>
+					posts
+				</li>
+				<li>geo/current
+				</li>
+				<li>geo/previous
+				</li>
+				<li>geo/future
+				</li>
+				<li>mood
+				</li>
+				<li>subsciptions
+				</li>
+			</ul>
+		</section2>
+		<section2 topic='The buddycloud Inbox'>
+
+			<p>The inbox is an auxiliary service that can be discovered similar
+				to
+				the content-hosting service by pubsub/inbox. It takes care of
+				receiving all notifications and synchronization while providing a
+				one-shot MAM protocol for replaying them to clients. Therefore,
+				users
+				need only one presence authorization to that inbox.
+			</p>
+
+			<section3 topic='Inbox Discovery'>
+
+				<p>Inbox components MUST advertise their type in order to be used by
+					users:
+				</p>
+				<example>
+    <![CDATA[
+      <identity category="pubsub" type="inbox"/>
+    ]]>
+				</example>
+			</section3>
+
+			<section3 topic='Authorization'>
+
+				<p>Any stanza except subscribe/unsubscribe do not convey identity of
+					the end-user.
+				</p>
+				<p>
+					The remote server has to check authority of the inbox/local
+					server
+					for
+					the domain/user. It also has to check that at least one
+					user of
+					the
+					inbox has permission to access the node.
+				</p>
+				<p>
+					The inbox/local server has to synchronize
+					subscriptions/affiliations to
+					decide permissioning for its local
+					users.
+				</p>
+
+			</section3>
+
+			<section3 topic='Partition Detection'>
+
+				<p>Channel services MUST also advertize all supported XMPP
+					extensions
+					in Service Discovery feature elements.
+				</p>
+				<p>
+					Network partition detection has been designed for the
+					notification-sending
+					side. A service does not need to track delivery
+					status of each
+					message, but keeps track of remote services that were
+					unreachable.
+				</p>
+				<p>
+					When an inbox comes online after downtime, it has to retrieve all
+					metadata and posts from user-subscribed nodes.
+				</p>
+
+				<p>In case of a network partition, it is the notification sender
+					that
+					detects unavailability of an inbox. It keeps track of the
+					services
+					that were offline, and periodically sends:
+				</p>
+				<example>
+    <![CDATA[
+      <iq type="set" from="channels.denmark.lit" to="channels.shakespeare.lit">
+        <you-missed-something xmlns="http://buddycloud.org/v1"/>
+      </iq>
+    ]]>
+				</example>
+			</section3>
+
+		</section2>
+		<section2 topic='Content normalization' anchor='preliminaries-normalization'>
+			<p>
+				When posting to a channel a server MUST apply the following rules
+				to the
+				ATOM payload:
+			</p>
+			<ul>
+				<li>The entry/author/uri MUST be set to the acct: account of the
+					entity that is actually posting to the channel. This should be the
+					bare jid.
+				</li>
+				<li>Upon a new entry the entry/published timestamp MUST be set to
+					the current server time (often more accurate than client clock)
+				</li>
+				<li>Upon overwriting an existing entry, the entry/published SHOULD
+					be copied from the old version and entry/updated SHOULD be set to
+					the current server time
+				</li>
+				<li>The entry/id element SHOULD be updated to reflect the PubSub
+					content model
+				</li>
+				<li>Any conversation thread information MAY be checked for existing
+					references, and possibly deny posting with missing context
+				</li>
+				<li>The entry/content MAY be used for spam filtering, especially for
+					posts from non-channel-owners
+				</li>
+				<li>Missing Activity Streams constructs may be replaced by verb post
+					or comment (depending on presence of thr:in-reply-to)
+				</li>
+			</ul>
+			<p>
+				Clients (especially in Web browsers) SHOULD NOT display rich
+				content of
+				entry/content[@type='html' or @type='xhtml'] without
+				sanitizing
+				markup and scrubbing JavaScript
+			</p>
+			<ul>
+				<li>If a server provides channel data via HTTP, it MAY add
+					entry/link[@rel='alternate'] pointers to these representations
+				</li>
+			</ul>
+			<p>
+				Note: Add something about post size restrictions
+			</p>
+			<p>
+				Note: in a decentralized system not only content-hosting servers
+				may
+				validate content.
+			</p>
+
+		</section2>
+
+		<section2 topic="Channel Nodes" anchor='preliminaries-channelnodes'>
+			<p>A Channel consists of a number of PubSub Nodes with well-known ids
+			</p>
+			<section3 topic="Channel Node IDs" anchor='preliminaries-channelnodes-ids'>
+				<p>
+					Node IDs are constructed as
+					<strong>"user/&lt;channel@domain.tld&gt;/&lt;node
+						type&gt;"</strong>
+				</p>
+				<dl>
+					<di>
+						<dt>JID</dt>
+						<dd>This is the Bare JID of the channel</dd>
+					</di>
+					<di>
+						<dt>Node Type</dt>
+						<dd></dd>
+					</di>
+				</dl>
+			</section3>
+			<section3 topic="Node Types" anchor=''>
+				<p>A channel is split into various nodes, each of which contains a
+					different set of data relating to the channel. The following
+					table
+					describes the currently defined node types.
+				</p>
+				<table caption="Node Types">
+					<tr>
+						<th rowspan="2">Node Type</th>
+						<th colspan="2">Required</th>
+						<th rowspan="2">Description</th>
+					</tr>
+					<tr>
+						<th>Personal Channels</th>
+						<th>Topic Channels</th>
+					</tr>
+					<tr>
+						<td>posts</td>
+						<td>Yes</td>
+						<td>Yes</td>
+						<td>The main node for the channel, containing the primary activity
+							stream</td>
+					</tr>
+					<tr>
+						<td>geo/current</td>
+						<td>Yes</td>
+						<td>No</td>
+						<td>A XEP-0255 compliant feed of the User's current location</td>
+					</tr>
+					<tr>
+						<td>geo/previous</td>
+						<td>Yes</td>
+						<td>No</td>
+						<td>A XEP-0255 compliant feed of the User's previous location</td>
+					</tr>
+					<tr>
+						<td>geo/future</td>
+						<td>Yes</td>
+						<td>No</td>
+						<td>A XEP-0255 compliant feed of the User's future location</td>
+					</tr>
+					<tr>
+						<td>subscriptions</td>
+						<td>Yes</td>
+						<td>No</td>
+						<td>A list of the user's public subscriptions</td>
+					</tr>
+				</table>
+			</section3>
+		</section2>
+	</section1>
+	<section1 topic='Entity Use Cases' anchor='entityusecases'>
+		<section2 topic='Service Discovery' anchor='entityusecases-servicediscovery'>
+			<p>Server discovery happens per domain (the part of a JID that comes
+				after the @ and before the /). Once a client has found its home
+				buddycloud server, additional protocols are planned to leverage
+				better connections and fuller caches of servers to find further
+				remote buddycloud servers.
+			</p>
+			<p>
+				This is also used to check authority of a server for a user.
+			</p>
+		</section2>
+		<section2 topic='Register with the Service' anchor='entityusecases-register'>
+			<p>If the user doesn't already have a channel, one can be created.
+				The buddycloud server will then also setup the associated geoloc and
+				mood nodes and ensure that the nodes have the correct permissions.
+			</p>
+			<example caption="The Service Advertises the Registration Feature">
+    <![CDATA[
+      <feature var='jabber:iq:register'/>
+    ]]>
+			</example>
+			<example caption="An Entity Registers with the Service">
+    <![CDATA[
+      <iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="set">
+        <query xmlns="jabber:iq:register"/>
+      </iq>
+    ]]>
+			</example>
+		</section2>
+	</section1>
+	<section1 topic='Publisher Use Cases' anchor='publisherusecases'>
+		<section2 topic='Post to a Channel' anchor='publisherusecases-post'>
+			<p>Posting to a channel implies a role of "follower+post, moderator
+				or producer"
+			</p>
+			<example caption="A Publisher Posts to a Channel">
+  <![CDATA[
+    <iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="set" id="publish:20"> 
+      <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+       <publish node="/user/koski@buddycloud.com/posts"> 
+        <item> 
+         <entry xmlns="http://www.w3.org/2005/Atom" xmlns:activity="http://activitystrea.ms/spec/1.0/"> 
+          <published>2010-01-06T21:41:32Z</published> 
+          <author> 
+           <name>koski@buddycloud.com</name> 
+           <jid xmlns="http://buddycloud.com/atom-elements-0">koski@buddycloud.com</jid> 
+         </author> 
+         <content type="text">Test</content> 
+         <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
+           <text>Paris, France</text> 
+           <locality>Paris</locality> 
+           <country>France</country> 
+         </geoloc> 
+         
+         <activity:verb>post</activity:verb>
+         <activity:object>
+          <activity:object-type>note</activity:object-type>
+        </activity:object>
+      </entry> 
+    </item> 
+  </publish> 
+</pubsub> 
+</iq>
+]]>
+</example>
+			<p>
+				The activity:object-type should be comment if the entry is a reply
+				to
+				another post.
+			</p>
+			<p>
+				The inbox server will relay the stanza to the hosting component
+				along with
+				&lt;actor/&gt;
+				information.
+			</p>
+		</section2>
+		<section2 topic='Reply to a Post' anchor='publisherusecases-replytopost'>
+		</section2>
+		<section2 topic='Delete a Post' anchor='publisherusecases-deletepost'>
+			<p>The client sends
+			</p>
+			<example caption="The Client sends a Delete Post request">
+  <![CDATA[
+    <iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="set" id="retractitem:32"> 
+      <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+        <retract node="/user/channeluser@example.com/posts" notify="1"> 
+          <item id="1291048772456"/> 
+        </retract> 
+      </pubsub> 
+    </iq>
+  ]]>
+</example>
+			<p>Server replies
+			</p>
+			<example caption="The Server replies to a Delete Post request">
+  <![CDATA[
+    <iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="result" id="retractitem:32"/>
+  ]]>
+			</example>
+			<p>A retraction message is sent to all online clients, along with an
+				Atom tombstone to replace the deleted post
+			</p>
+			<example
+				caption="The Server send a Retraction Notification to all Subscribers to the Channel">
+  <![CDATA[
+    <message from="channelserver.example.com" id="bc:MGV3B" to="imranraza@example.com"> 
+      <event xmlns="http://jabber.org/protocol/pubsub#event"> 
+        <items node="/user/channeluser@example.com/posts"> 
+          <retract id="1291048772456"/> 
+          <item id="1291048772456">
+            <deleted-entry xmlns="http://purl.org/atompub/tombstones/1.0" ref="xmpp:channels.example.com?pubsub;action=retrieve;node=/user/channeluser@example.com/posts;item=1291048772456" when="2012-07-01T15:08:32.950Z">
+              <updated>2012-07-01T15:08:32.950Z</updated>
+              <id xmlns="http://www.w3.org/2005/Atom">1291048772456</id>
+              <link xmlns="http://www.w3.org/2005/Atom" href="xmpp:channels.example.com?pubsub;action=retrieve;node=/user/channeluser@example.com/posts;item=1291048772456" rel="self"/>
+              <published xmlns="http://www.w3.org/2005/Atom">2012-07-01T15:08:30.922Z</published>
+              <object xmlns="http://activitystrea.ms/spec/1.0/">
+                <object-type>comment</object-type>
+              </object>
+              <verb xmlns="http://activitystrea.ms/spec/1.0/">post</verb>
+            </deleted-entry>
+          </item>
+        </items> 
+      </event> 
+    </message>
+  ]]>
+			</example>
+		</section2>
+	</section1>
+	<section1 topic='Subscriber Use Cases' anchor='subscriberusecases'>
+		<section2 topic='Subscribe to a Channel' anchor='subscriberusecases-subscribe'>
+
+
+			<p>The Subscriber sends a Subscription Request to their Local Inbox,
+				even for remote channels.
+			</p>
+			<example caption="Client sends Subscription Request to their Local Inbox">
+      <![CDATA[
+        <iq type="set"
+          from="francisco@denmark.lit/barracks"
+          to="channels.denmark.lit"
+          id="sub1">
+          <pubsub xmlns="http://jabber.org/protocol/pubsub">
+            <subscribe node="/users/henry@shakespeare.lit/posts"
+             jid="francisco@denmark.lit"/>
+           </pubsub>
+         </iq>
+       ]]>
+</example>
+			<p>The Local Inbox then Subscribes to the Remote Nodes on the
+				Subscriber's behalf.
+			</p>
+			<example caption="The Local Inbox Subscribes to the Remote Server">
+       <![CDATA[
+        <iq type="set"
+          from="channels.denmark.lit"
+          to="channels.shakespeare.lit"
+          id="sub1">
+          <pubsub xmlns="http://jabber.org/protocol/pubsub">
+            <subscribe node="/users/henry@shakespeare.lit/posts"
+             jid="francisco@denmark.lit"/>
+             <actor xmlns="http://buddycloud.org/v1">francisco@denmark.lit</actor>
+           </pubsub>
+         </iq>
+       ]]>
+			</example>
+			<p>The remote service checks the actor for permission.</p>
+			<p>
+				The
+				<em>@jid</em>
+				attribute is purely decorative to comply with XEP-0060. It is not
+				the actual notification listener (in that case the inbox instead of
+				the user himself), but the user that wishes to subscribe. Use of the
+				<em>&lt;actor/&gt;</em>
+				element is more generic and applies to a variety of other requests
+				that require authorization.
+			</p>
+			<p>Upon successful subscription/unsubscription, the inbox must keep
+				track if there's at least one subscription to the node with the
+				inbox itself as listener, allowing it to answer read queries from
+				only its cache.
+			</p>
+			<p>Inbox then receives acknowledgement for subscription request, and
+				relays it to the client:
+			</p>
+
+
+			<example caption="The Remote Inbox acknowledges the Subscription Request">
+ <![CDATA[
+  <iq type="result"
+    from="channels.denmark.lit"
+    to="francisco@denmark.lit/barracks"
+    id="sub1">
+    <pubsub xmlns="http://jabber.org/protocol/pubsub">
+      <subscription
+        node="/users/henry@shakespeare.lit/posts"
+        jid="francisco@denmark.lit"
+        subscription="subscribed"/>
+      </pubsub>
+    </iq>
+  ]]>
+</example>
+			<p>Subscribed inboxes and clients are also notified:
+			</p>
+
+			<example caption="The Remote Inbox notifies Channel Subscribers">
+  <![CDATA[
+    <message
+      from="channels.shakespeare.lit"
+      to="horatio@denmark.lit">
+      <event xmlns="http://jabber.org/protocol/pubsub#event">
+        <subscription node="/users/henry@shakespeare.lit" jid="francisco@denmark.lit" subscription="subscribed"/>
+      </event>
+    </message>
+  ]]>
+			</example>
+		</section2>
+		<section2 topic='Retrieve recent Posts from all Subscribed Channels'
+			anchor='subscriberusecases-retrieverecentposts'>
+		</section2>
+		<section2 topic='Receive a New Post Notification' anchor='subscriberusecases-newpostnotification'>
+			<p>
+				Subscribed inboxes are always notified. Online clients
+				automatically receive
+				new posts from the inbox
+			</p>
+			<example caption="New Post Notification">
+  <![CDATA[
+    <message type="headline" id="bc:GfLwH" from="channelserver.example.com" to="31941515521289471453412508@anon.buddycloud.com/2906694851289471453813745"> 
+      <event xmlns="http://jabber.org/protocol/pubsub#event"> 
+        <items node="/user/channeluser@example.com/posts"> 
+          <item id="1291048810046"> 
+            <entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0"> 
+              <author> 
+                <name>Dirk</name> 
+                <jid xmlns="http://buddycloud.com/atom-elements-0">fahrertuer@example.com</jid> 
+                <affiliation xmlns="http://buddycloud.com/atom-elements-0">moderator</affiliation> 
+              </author> 
+              <content type="text">A comment, wondering what all this testing does</content> 
+              <published>2010-11-29T16:40:10Z</published> 
+              <updated>2010-11-29T16:40:10Z</updated> 
+              <id>/user/channeluser@example.com/posts:1291048810046</id> 
+              <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
+                <text>Bremen, Germany</text> 
+                <locality>Bremen</locality> 
+                <country>Germany</country> 
+              </geoloc> 
+              <thr:in-reply-to ref="1291048772456"/> 
+            </entry> 
+          </item> 
+        </items> 
+      </event> 
+    </message>
+  ]]>
+			</example>
+		</section2>
+		<section2 topic='Retrieve a single Post' anchor='subscriberusecases-singlepost'>
+			<p>
+				Node items are ordered newest first. The Result Set Management
+				elements
+				after and before are not related to timestamps but this
+				ordering!
+			</p>
+			<p>
+				Client sends:
+			</p>
+			<example caption="Client requests a single Post">
+  <![CDATA[
+    <iq type="get"
+      from="channeluser@example.com/KillerApp"
+      to="channelserver.example.com"
+      id="items1">
+      <pubsub xmlns="http://jabber.org/protocol/pubsub">
+        <items node="/user/kitteh@example.com/posts"/>
+      </pubsub>
+    </iq>
+  ]]>
+			</example>
+			<p>
+				Server responds:
+			</p>
+			<example caption="The Server responds with the Post">
+  <![CDATA[
+    <iq type="result"
+      from="channelserver.example.com"
+      to="channeluser@example.com/KillerApp"
+      id="items1">
+      <pubsub xmlns="http://jabber.org/protocol/pubsub">
+        <items node="/user/kitteh@example.com/posts">
+          <item id="1291048810046"> 
+            <entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0"> 
+              <author> 
+                <name>Dirk</name> 
+                <jid xmlns="http://buddycloud.com/atom-elements-0">fahrertuer@example.com</jid> 
+                <affiliation xmlns="http://buddycloud.com/atom-elements-0">moderator</affiliation> 
+              </author> 
+              <content type="text">A comment, wondering what all this testing does</content> 
+              <published>2010-11-29T16:40:10Z</published> 
+              <updated>2010-11-29T16:40:10Z</updated> 
+              <id>/user/channeluser@example.com/posts:1291048810046</id> 
+              <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
+                <text>Bremen, Germany</text> 
+                <locality>Bremen</locality> 
+                <country>Germany</country> 
+              </geoloc> 
+              <thr:in-reply-to ref="1291048772456"/> 
+            </entry> 
+          </item>
+          <!-- [more items...] -->
+          <item id="1131048810046"> 
+            <entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0"> 
+              <author> 
+                <name>Kittycat</name> 
+                <jid xmlns="http://buddycloud.com/atom-elements-0">kitteh@example.com</jid> 
+                <affiliation xmlns="http://buddycloud.com/atom-elements-0">owner</affiliation> 
+              </author> 
+              <content type="text">I"m in ur channel, meowing federatedly</content> 
+              <published>2009-08-12T16:40:10Z</published> 
+              <id>/user/channeluser@example.com/posts:1131048810046</id> 
+              <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
+                <text>Home basket</text> 
+                <locality>Munich</locality> 
+                <country>Germany</country> 
+              </geoloc> 
+            </entry> 
+          </item>
+        </items>
+        <set xmlns="http://jabber.org/protocol/rsm">
+          <first>1291048810046</first>
+          <last>1131048810046</last>
+          <count>19827</count>
+        </set>
+      </pubsub>
+    </iq>
+  ]]>
+</example>
+			<p>
+				Client can then request older items for pagination or filling its
+				cache:
+			</p>
+			<example caption="Client retrieves further Posts">
+  <![CDATA[
+    <iq type="get"
+      from="channeluser@example.com/KillerApp"
+      to="channelserver.example.com"
+      id="items2">
+      <pubsub xmlns="http://jabber.org/protocol/pubsub">
+        <items node="/user/kitteh@example.com/posts"/>
+        <set xmlns="http://jabber.org/protocol/rsm">
+          <max>1200</max>
+          <after>1131048810046</after>
+        </set>
+      </pubsub>
+    </iq>
+  ]]>
+			</example>
+			<p>
+				Result Set Management is strongly needed for chunkifying
+				information. Even
+				if a user is requesting 10000 items, a buddycloud
+				server should
+				never send stanzas exceeding 64KB, or else XMPP servers
+				will kill
+				the (component or s2s) connection.
+			</p>
+
+		</section2>
+		<section2 topic='Retrieve recent posts from all subscribed channels'>
+			<p>Clients that need to access recent posts in all the followed
+				channels may use the quick synchronization mechanism. This can only
+				be used by authenticated users.
+			</p>
+			<p>
+				Client sends:
+			</p>
+			<example caption="An Entity requests Recent Posts">
+  <![CDATA[
+    <iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="get" id="ri1">
+      <pubsub xmlns="http://jabber.org/protocol/pubsub">
+        <recent-items xmlns="http://buddycloud.org/v1"
+          since="2012-12-04T23:36:51.123Z"
+          max="50"/>
+        </pubsub>
+      </iq>
+    ]]>
+</example>
+			<p>
+				The servers responds with items from the subscribed channels:
+			</p>
+			<ul>
+				<li>items from the /posts nodes only
+				</li>
+				<li>updated after since, newest items first, required
+				</li>
+				<li>at most max per channel, required
+				</li>
+				<li>RSM must be used to page through results
+				</li>
+			</ul>
+
+		</section2>
+		<section2 topic='Retrieve all replies to a single post'>
+			<p>
+				This stanza retrieve all replies from a single post. It is useful
+				in
+				cases the user has new replies in old posts, so that he does not
+				need to look down the node stream to fetch old replies. This can
+				only be used by authenticated users. The attrs node and item_id are
+				mandatory.
+			</p>
+
+			<p>
+				Client sends:
+			</p>
+
+			<example caption="Client requests all Replies to a Post">
+  <![CDATA[
+    <iq type="get" from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" id="ri1">
+      <pubsub xmlns="http://jabber.org/protocol/pubsub">
+        <replies xmlns="http://buddycloud.org/v1" node="/user/channeluser@example.com/posts" item_id="38efced3-5462-49af-ba83-9f1d0a753a93"/>
+      </pubsub>
+    </iq>
+  ]]>
+			</example>
+			<p>
+				The servers responds with replies to that item
+			</p>
+			<ul>
+				<li>
+					RSM must be used to page through results
+				</li>
+			</ul>
+
+			<example
+				caption="Server responds with all Replies to a Post, paged as required">
+  <![CDATA[
+    <iq type="result"
+      from="channelserver.example.com"
+      to="channeluser@example.com/ChannelCompatibleClient"
+      id="ri1">
+      <pubsub xmlns="http://jabber.org/protocol/pubsub">
+        <items>
+          <item id="1291048810046">
+            <entry>...</entry>
+          </item>
+          <item id="1287390194809">
+            <entry>...</entry>
+          </item>
+          ...
+        </items>
+        <set xmlns="http://jabber.org/protocol/rsm">
+          <first>/user/kitteh@example.com/posts;1291048810046</first>
+          <last>/user/tut@example.com/posts;1131048810046</last>
+          <count>19827</count>
+        </set>
+      </pubsub>
+    </iq>
+  ]]>
+			</example>
+
+		</section2>
+	</section1>
+	<section1 topic='Owner Use Cases' anchor='ownerusecases'>
+	</section1>
+	<section1 topic='Business Rules' anchor='rules'>
+	</section1>
+	<section1 topic='Implementation Notes' anchor='impl'>
+
+		<section2 topic='Timestamp Preservation' anchor='impl-timestamp'>
+			<p>Server-to-server syncing should always preserve items, config,
+				subscription, and affiliation timestamps. Otherwise a resync would
+				cause MAM to send too much to clients.
+			</p>
+		</section2>
+
+	</section1>
+	<section1 topic='Accessibility Considerations' anchor='access'>
+		<p>OPTIONAL.</p>
+	</section1>
+	<section1 topic='Internationalization Considerations' anchor='i18n'>
+		<p>OPTIONAL.</p>
+	</section1>
+	<section1 topic='Security Considerations' anchor='security'>
+		<section2 topic='Cross Site Scripting (XSS)' anchor='security-xss'>
+			<p>
+				Clients (especially in Web browsers) SHOULD NOT display rich
+				content of
+				entry/content[@type='html' or @type='xhtml'] without
+				sanitizing
+				markup and scrubbing JavaScript
+			</p>
+		</section2>
+	</section1>
+	<section1 topic='IANA Considerations' anchor='iana'>
+		<p>REQUIRED.</p>
+	</section1>
+	<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+		<p>REQUIRED.</p>
+	</section1>
+	<section1 topic='XML Schema' anchor='schema'>
+		<code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
+	targetNamespace='http://buddycloud.org/v1' elementFormDefault='qualified'>
+
+	<xs:annotation>
+		<xs:documentation>
+			The protocol documented by this schema is defined in
+			XEP-xxxx: http://xmpp.org/extensions/xep-xxxx.html
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:element name="you-missed-something">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:restriction base="xs:anyType"></xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="actor" type="xs:string"></xs:element>
+
+	<xs:element name="recent-items">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:restriction base="xs:anyType">
+					<xs:attribute name="since" type="xs:dateTime">
+					</xs:attribute>
+					<xs:attribute name="max" type="xs:int">
+					</xs:attribute>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="replies">
+		<xs:complexType>
+			<xs:attribute name="node" type="xs:string"></xs:attribute>
+			<xs:attribute name="item_id" type="xs:string"></xs:attribute>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
+]]>
+		</code>
+	</section1>
+</xep>
