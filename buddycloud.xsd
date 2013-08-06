@@ -24,10 +24,8 @@
 		<xs:complexType>
 			<xs:complexContent>
 				<xs:restriction base="xs:anyType">
-					<xs:attribute name="since" type="xs:dateTime">
-					</xs:attribute>
-					<xs:attribute name="max" type="xs:int">
-					</xs:attribute>
+					<xs:attribute name="since" type="xs:dateTime"/>
+					<xs:attribute name="max" type="xs:int"/>
 				</xs:restriction>
 			</xs:complexContent>
 		</xs:complexType>
@@ -35,8 +33,8 @@
 
 	<xs:element name="replies">
 		<xs:complexType>
-			<xs:attribute name="node" type="xs:string"></xs:attribute>
-			<xs:attribute name="item_id" type="xs:string"></xs:attribute>
+			<xs:attribute name="node" type="xs:string"/>
+			<xs:attribute name="item_id" type="xs:string"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
