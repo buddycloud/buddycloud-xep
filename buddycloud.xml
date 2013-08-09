@@ -169,10 +169,11 @@
 				<dt>Inbox
 				</dt>
 				<dd>Service
-					on the Entity's Home Server which subscribes to nodes on the
+					on the Entity's Home Server which subscribes to nodes on
+					the
 					Entity's behalf
-					and caches node data, and providing a &xep0313;
-					service to access recent notifications.
+					and caches node data, and providing an ability to
+					replay recent messages.
 				</dd>
 			</di>
 			<di>
@@ -307,59 +308,6 @@
     ]]>
 				</example>
 			</section3>
-
-		</section2>
-		<section2 topic='Content normalization' anchor='preliminaries-normalization'>
-			<p>
-				When posting to a channel a server MUST apply the following rules
-				to the
-				ATOM payload:
-			</p>
-			<ul>
-				<li>The entry/author/uri MUST be set to the acct: account of the
-					entity that is actually posting to the channel. This should be the
-					bare jid.
-				</li>
-				<li>Upon a new entry the entry/published timestamp MUST be set to
-					the current server time (often more accurate than client clock)
-				</li>
-				<li>Upon overwriting an existing entry, the entry/published SHOULD
-					be copied from the old version and entry/updated SHOULD be set to
-					the current server time
-				</li>
-				<li>The entry/id element SHOULD be updated to reflect the PubSub
-					content model
-				</li>
-				<li>Any conversation thread information MAY be checked for existing
-					references, and possibly deny posting with missing context
-				</li>
-				<li>The entry/content MAY be used for spam filtering, especially for
-					posts from non-channel-owners
-				</li>
-				<li>Missing Activity Streams constructs may be replaced by verb post
-					or comment (depending on presence of thr:in-reply-to)
-				</li>
-			</ul>
-			<p>
-				Clients (especially in Web browsers) SHOULD NOT display rich
-				content of
-				entry/content[@type='html' or @type='xhtml'] without
-				sanitizing
-				markup and scrubbing JavaScript
-			</p>
-			<ul>
-				<li>If a server provides channel data via HTTP, it MAY add
-					entry/link[@rel='alternate'] pointers to these representations
-				</li>
-			</ul>
-			<p>
-				Note: Add something about post size restrictions
-			</p>
-			<p>
-				Note: in a decentralized system not only content-hosting servers
-				may
-				validate content.
-			</p>
 
 		</section2>
 
@@ -601,7 +549,7 @@
 <![CDATA[
 <iq type='get'
     from='romeo@montague.net/orchard'
-    to='shakespeare.lit'
+    to='montague.net'
     id='items1'>
   <query xmlns='http://jabber.org/protocol/disco#items'/>
 </iq>
@@ -613,16 +561,16 @@
 			<example caption="The server replies with a list of available components.">
 <![CDATA[
 <iq type='result'
-    from='shakespeare.lit'
+    from='montague.net'
     to='romeo@montague.net/orchard'
     id='items1'>
   <query xmlns='http://jabber.org/protocol/disco#items'>
-    <item jid='people.shakespeare.lit'
+    <item jid='people.montague.net'
           name='Directory of Characters'/>
-    <item jid='plays.shakespeare.lit'
-          name='Play-Specific Chatrooms'/>
-    <item jid='channels.shakespeare.lit'
-          name='Buddycloud Channels'/>
+    <item jid='muc.montague.net'
+          name='Chatrooms for the Montague Family'/>
+    <item jid='channels.montague.net'
+          name='Montague Family Channels'/>
   </query>
 </iq>
 ]]>
@@ -634,18 +582,34 @@
 <![CDATA[
 <iq type='get'
     from='romeo@montague.net/orchard'
-    to='channels.shakespeare.lit'
+    to='channels.montague.net'
     id='info1'>
   <query xmlns='http://jabber.org/protocol/disco#info'/>
 </iq>
 ]]>
 			</example>
 			<p>Each component replies with its identity. The channels component
-				has an identity of type 'channels'.
+				has an identity of category 'pubsub' and type 'channels'.
 			</p>
-			<p>A domain MUST only host one component with an identity of type
+			<p>A domain MUST only host one component with an identity of category
+				'pubsub' and type
 				'channels'.
 			</p>
+			<example caption="The Channels component replies with its identity">
+<![CDATA[
+<iq type='result'
+    from='channels.montague.net'
+    to='romeo@montague.net/orchard'
+    id='info2'>
+  <query xmlns='http://jabber.org/protocol/disco#info'>
+    <identity category='pubsub' type='channels'/>
+    <identity category='pubsub' type='inbox'/>
+    <feature var='jabber:iq:register'/>
+    <feature var='http://jabber.org/protocol/disco#info'/>
+  </query>
+</iq>
+]]>
+			</example>
 		</section2>
 		<section2 topic='Register with the Service' anchor='entityusecases-register'>
 			<p>If the Entity doesn't already have a Personal Channel on the
@@ -676,48 +640,200 @@
 				or producer"
 			</p>
 			<example caption="A Publisher Posts to a Channel">
-  <![CDATA[
-    <iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="set" id="publish:20"> 
-      <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
-       <publish node="/user/koski@buddycloud.com/posts"> 
-        <item> 
-         <entry xmlns="http://www.w3.org/2005/Atom" xmlns:activity="http://activitystrea.ms/spec/1.0/"> 
+<![CDATA[
+<iq from="juliet@capulet.lit/balcony" to="channels.capulet.lit" type="set" id="publish:20"> 
+  <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+    <publish node="/user/romeo@montague.lit/posts">
+      <item> 
+        <entry xmlns="http://www.w3.org/2005/Atom" xmlns:activity="http://activitystrea.ms/spec/1.0/"> 
           <published>2010-01-06T21:41:32Z</published> 
           <author> 
-           <name>koski@buddycloud.com</name> 
-           <jid xmlns="http://buddycloud.com/atom-elements-0">koski@buddycloud.com</jid> 
-         </author> 
-         <content type="text">Test</content> 
-         <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
-           <text>Paris, France</text> 
-           <locality>Paris</locality> 
-           <country>France</country> 
-         </geoloc> 
+            <name>juliet@capulet.lit</name> 
+            <jid xmlns="http://buddycloud.com/atom-elements-0">juliet@capulet.lit</jid> 
+          </author> 
+          <content type="text">Wherefore art thou?</content> 
+          <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
+            <text>Verona, Italy</text> 
+            <locality>Verona</locality> 
+            <country>Italy</country> 
+          </geoloc> 
          
-         <activity:verb>post</activity:verb>
-         <activity:object>
-          <activity:object-type>note</activity:object-type>
-        </activity:object>
-      </entry> 
-    </item> 
-  </publish> 
-</pubsub> 
+          <activity:verb>post</activity:verb>
+          <activity:object>
+            <activity:object-type>note</activity:object-type>
+          </activity:object>
+        </entry> 
+      </item> 
+    </publish> 
+  </pubsub> 
 </iq>
 ]]>
 </example>
-			<p>
-				The activity:object-type should be comment if the entry is a reply
-				to
-				another post.
-			</p>
-			<p>
-				The inbox server will relay the stanza to the hosting component
-				along with
-				&lt;actor/&gt;
-				information.
-			</p>
+			<p>The Local Server relays the &lt;publish/&gt; request to the Remote Server, along with &lt;actor/&gt; information.</p>
+			<example caption="The Local Server relays the request to the Remote Server">
+<![CDATA[
+<iq from="channels.capulet.lit" to="channels.montague.lit" type="set" id="publish:21"> 
+  <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+    <publish node="/user/romeo@montague.lit/posts">
+      <item> 
+        <entry xmlns="http://www.w3.org/2005/Atom" xmlns:activity="http://activitystrea.ms/spec/1.0/"> 
+          <published>2010-01-06T21:41:32Z</published> 
+          <author> 
+            <name>juliet@capulet.lit</name> 
+            <jid xmlns="http://buddycloud.com/atom-elements-0">juliet@capulet.lit</jid> 
+          </author> 
+          <content type="text">Wherefore art thou?</content> 
+          <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
+            <text>Verona, Italy</text> 
+            <locality>Verona</locality> 
+            <country>Italy</country> 
+          </geoloc> 
+         
+          <activity:verb>post</activity:verb>
+          <activity:object>
+            <activity:object-type>note</activity:object-type>
+          </activity:object>
+        </entry> 
+      </item> 
+    </publish>
+    <actor xmlns='http://buddycloud.org/v1'>juliet@capulet.lit</actor>
+  </pubsub> 
+</iq>
+]]>
+			</example>
+			<p>The Remote Server then checks that the &lt;actor/&gt; is authorised to post to the Node, stores the Post against the Node, and responds.</p>
+			<example caption="The Remote Server responds to the Post request">
+<![CDATA[
+<iq from="channels.montague.lit" to="channels.capulet.lit" type="result" id="publish:21"> 
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='/user/romeo@capulet.lit/posts'>
+      <item id='123-456-789'/>
+    </publish>
+  </pubsub>
+</iq>
+]]>
+			</example>
+			<example caption="The Local Server relays the Response back to the Client">
+<![CDATA[
+<iq from="channels.capulet.lit" to="juliet@capulet.lit/balcony" type="result" id="publish:20"> 
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='/user/romeo@montague.lit/posts'>
+      <item id='123-456-789'/>
+    </publish>
+  </pubsub>
+</iq>
+]]>
+			</example>
+			<section3 topic='Content normalization' anchor='publisherusecases-post-normalization'>
+				<p>
+					When posting to a Channel the Server MUST apply the following
+					rules to the ATOM payload:
+				</p>
+				<ul>
+					<li>The entry/author/uri MUST be set to the acct: account of the
+						entity that is actually posting to the channel. This should be the
+						bare jid.
+					</li>
+					<li>Upon a new entry the entry/published timestamp MUST be set to
+						the current server time (often more accurate than client clock)
+					</li>
+					<li>Upon overwriting an existing entry, the entry/published SHOULD
+						be copied from the old version and entry/updated SHOULD be set to
+						the current server time
+					</li>
+					<li>The entry/id element SHOULD be updated to reflect the PubSub
+						content model
+					</li>
+					<li>Any conversation thread information MAY be checked for existing
+						references, and possibly deny posting with missing context
+					</li>
+					<li>The entry/content MAY be used for spam filtering, especially
+						for
+						posts from non-channel-owners
+					</li>
+					<li>Missing Activity Streams constructs may be replaced by verb
+						post
+						or comment (depending on presence of thr:in-reply-to)
+					</li>
+				</ul>
+				<p>
+					Note: Add something about post size restrictions
+				</p>
+				<p>
+					Note: in a decentralized system not only content-hosting servers
+					may
+					validate content.
+				</p>
+
+			</section3>
 		</section2>
 		<section2 topic='Reply to a Post' anchor='publisherusecases-replytopost'>
+			<p>Replying to a Post is similar to creating a new Post with the
+				following exceptions:
+			</p>
+			<ul>
+				<li>The &lt;activity:object-type/&gt; MUST be comment</li>
+				<li>The &lt;entry/&gt; element MUST contain an &lt;in-reply-to/&gt;
+					element, qualified by the 'http://purl.org/syndication/thread/1.0'
+					namespace containing the ItemID of the primary Post
+				</li>
+			</ul>
+			<example caption="A Publisher Replies to a Post">
+  <![CDATA[
+<iq from="romeo@montague.lit/mobile" to="channels.montague.lit" type="set" id="publish:22"> 
+  <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+    <publish node="/user/romeo@montague.lit/posts"> 
+      <item> 
+        <entry xmlns="http://www.w3.org/2005/Atom" xmlns:activity="http://activitystrea.ms/spec/1.0/"> 
+          <published>2010-01-06T21:41:32Z</published> 
+          <author> 
+            <name>koski@buddycloud.com</name> 
+            <jid xmlns="http://buddycloud.com/atom-elements-0">koski@buddycloud.com</jid> 
+          </author> 
+          <content type="text">Test</content> 
+          <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
+            <text>Paris, France</text> 
+            <locality>Paris</locality> 
+            <country>France</country> 
+          </geoloc> 
+         
+          <activity:verb>post</activity:verb>
+          <activity:object>
+            <activity:object-type>comment</activity:object-type>
+          </activity:object>
+          
+          <in-reply-to xmlns='http://purl.org/syndication/thread/1.0' ref='123-456-789'/>
+        </entry> 
+      </item> 
+    </publish> 
+  </pubsub> 
+</iq>
+]]>
+			</example>
+			<section3 topic='Error Conditions' anchor='publisherusecases-replytopost-errors'>
+				<section4 topic='The client attempts to post a Reply to a Reply' anchor='publisherusecases-replytopost-errors-replytoreply'>
+					<p>Buddycloud
+						allows a single level of replies to posts, so if a request is
+						received to post a reply to a reply then the server MUST respond
+						with a &badrequest;
+						error, which SHOULD include a pub-sub specific
+						&lt;invalid-payload/&gt; error.
+					</p>
+					<example caption='The server rejects a reply to a reply'>
+<![CDATA[
+<iq type='error'
+    from='pubsub.montague.lit'
+    to='romeo@montague.lit/hillock'
+    id='publish1'>
+  <error type='modify'>
+    <bad-request xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    <invalid-payload xmlns='http://jabber.org/protocol/pubsub#errors'/>
+  </error>
+</iq>
+]]>
+					</example>
+				</section4>
+			</section3>
 		</section2>
 		<section2 topic='Delete a Post' anchor='publisherusecases-deletepost'>
 			<p>The client sends
@@ -1146,7 +1262,8 @@
 				impact the user experience.
 			</p>
 			<p>The logic behind cache management and purging of cached data is
-				up to the specific implementation.
+				up
+				to the specific implementation.
 			</p>
 		</section2>
 	</section1>
