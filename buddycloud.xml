@@ -168,24 +168,26 @@
 			<di>
 				<dt>Inbox
 				</dt>
-				<dd>The &xep0313;
-					service on your Home Server which collects notifications from your
-					subscribed
-					nodes
+				<dd>Service
+					on the Entity's Home Server which subscribes to nodes on the
+					Entity's behalf
+					and caches node data, and providing a &xep0313;
+					service to access recent notifications.
 				</dd>
 			</di>
 			<di>
-				<dt>personal channel
+				<dt>Personal Channel
 				</dt>
-				<dd>a channel about a user and named after their jid (e.g.
+				<dd>A Channel about an Entity and named after their jid (e.g.
 					hag66@shakespeare.lit)
 				</dd>
 			</di>
 			<di>
-				<dt>topic channel
+				<dt>Topic Channel
 				</dt>
-				<dd>a channel based on a topic and carrying slightly different
-					business logic (e.g. cauldron-recipes@topics.shakespeare.lit)
+				<dd>A Channel based on an arbitrary topic and carrying slightly
+					different
+					business logic (e.g. cauldron-recipes@shakespeare.lit)
 				</dd>
 			</di>
 
@@ -205,10 +207,13 @@
 			</p>
 			<ul>
 				<li>
-					Personal Channel nodes are owned by their jid. For example
-					channeluser@example.com
-					owns channel.example.com, node
-					/user/channeluser@example.com/posts
+					Personal Channel Nodes are always owned by their JID. The server
+					MUST NOT allow the ownership to be altered. For example:
+					<em>channeluser@example.com</em>
+					owns
+					<em>channel.example.com</em>
+					, node
+					<em>/user/channeluser@example.com/posts</em>
 				</li>
 				<li>The buddycloud server should maintain similar affiliations
 					across
@@ -217,7 +222,8 @@
 					.../mood ie, if you follow a user, you also get to see their
 					status.
 				</li>
-				<li>Only owners, moderators and producers should be able to see channel
+				<li>Only owners, moderators and producers should be able to see
+					channel
 					outcasts (don't glorify bad behavior)
 				</li>
 			</ul>
@@ -360,7 +366,7 @@
 		<section2 topic="Channel Nodes" anchor='preliminaries-channelnodes'>
 			<p>A Channel consists of a number of PubSub Nodes with well-known ids
 			</p>
-			<section3 topic="Channel Node IDs" anchor='preliminaries-channelnodes-ids'>
+			<section3 topic="Channel NodeIDs" anchor='preliminaries-channelnodes-ids'>
 				<p>
 					Node IDs are constructed as
 					<strong>"user/&lt;channel@domain.tld&gt;/&lt;node
@@ -577,25 +583,77 @@
 					</tr>
 
 				</table>
+				<section4 topic="Default Affiliations"
+					anchor="preliminaries-channelmetadata-affiliations-default">
+				</section4>
 			</section3>
 		</section2>
 	</section1>
 	<section1 topic='Entity Use Cases' anchor='entityusecases'>
 		<section2 topic='Service Discovery' anchor='entityusecases-servicediscovery'>
-			<p>Server discovery happens per domain (the part of a JID that comes
-				after the @ and before the /). Once a client has found its home
-				buddycloud server, additional protocols are planned to leverage
-				better connections and fuller caches of servers to find further
-				remote buddycloud servers.
+			<p>Service discovery happens per domain, and is a multi step process.
 			</p>
-			<p>
-				This is also used to check authority of a server for a user.
+			<p>To discover the channels component for a domain, the entity first
+				sends an items discovery request to the domain to discover all the
+				available components
+			</p>
+			<example caption="The Entity sends a disco#items request to the domain">
+<![CDATA[
+<iq type='get'
+    from='romeo@montague.net/orchard'
+    to='shakespeare.lit'
+    id='items1'>
+  <query xmlns='http://jabber.org/protocol/disco#items'/>
+</iq>
+]]>
+			</example>
+			<p>The server replies with the list of available components, along
+				with their associated JIDs.
+			</p>
+			<example caption="The server replies with a list of available components.">
+<![CDATA[
+<iq type='result'
+    from='shakespeare.lit'
+    to='romeo@montague.net/orchard'
+    id='items1'>
+  <query xmlns='http://jabber.org/protocol/disco#items'>
+    <item jid='people.shakespeare.lit'
+          name='Directory of Characters'/>
+    <item jid='plays.shakespeare.lit'
+          name='Play-Specific Chatrooms'/>
+    <item jid='channels.shakespeare.lit'
+          name='Buddycloud Channels'/>
+  </query>
+</iq>
+]]>
+			</example>
+			<p>The entity then iterates through the &lt;item/&gt; elements,
+				sending an info discovery request to each jid.
+			</p>
+			<example caption="The Entity sends a disco#info request to each component">
+<![CDATA[
+<iq type='get'
+    from='romeo@montague.net/orchard'
+    to='channels.shakespeare.lit'
+    id='info1'>
+  <query xmlns='http://jabber.org/protocol/disco#info'/>
+</iq>
+]]>
+			</example>
+			<p>Each component replies with its identity. The channels component
+				has an identity of type 'channels'.
+			</p>
+			<p>A domain MUST only host one component with an identity of type
+				'channels'.
 			</p>
 		</section2>
 		<section2 topic='Register with the Service' anchor='entityusecases-register'>
-			<p>If the user doesn't already have a personal channel, one can be
-				created. The buddycloud server will then also setup the associated
-				geoloc and mood nodes and ensure that the nodes have the correct
+			<p>If the Entity doesn't already have a Personal Channel on the
+				service, one can be
+				created. The buddycloud server will then also
+				setup the associated
+				geoloc and mood nodes and ensure that the nodes
+				have the correct
 				permissions.
 			</p>
 			<example caption="The Service Advertises the Registration Feature">
@@ -739,7 +797,7 @@
         <iq type="set"
           from="channels.denmark.lit"
           to="channels.shakespeare.lit"
-          id="sub1">
+          id="sub2">
           <pubsub xmlns="http://jabber.org/protocol/pubsub">
             <subscribe node="/users/henry@shakespeare.lit/posts"
              jid="francisco@denmark.lit"/>
@@ -759,7 +817,7 @@
 				element is more generic and applies to a variety of other requests
 				that require authorization.
 			</p>
-			<p>Upon successful subscription/unsubscription, the inbox must keep
+			<p>Upon successful subscription/unsubscription, the inbox SHOULD keep
 				track if there's at least one subscription to the node with the
 				inbox itself as listener, allowing it to answer read queries from
 				only its cache.
@@ -770,6 +828,23 @@
 
 
 			<example caption="The Remote Inbox acknowledges the Subscription Request">
+ <![CDATA[
+  <iq type="result"
+    from="channels.shakespeare.lit"
+    to="channels.denmark.lit"
+    id="sub2">
+    <pubsub xmlns="http://jabber.org/protocol/pubsub">
+      <subscription
+        node="/users/henry@shakespeare.lit/posts"
+        jid="francisco@denmark.lit"
+        subscription="subscribed"/>
+      </pubsub>
+    </iq>
+  ]]>
+</example>
+
+			<example
+				caption="The Local Inbox replays the Subscription Request acknowledgement to the Client">
  <![CDATA[
   <iq type="result"
     from="channels.denmark.lit"
@@ -791,9 +866,10 @@
   <![CDATA[
     <message
       from="channels.shakespeare.lit"
-      to="horatio@denmark.lit">
+      to="horatio@denmark.lit"
+      type="headline">
       <event xmlns="http://jabber.org/protocol/pubsub#event">
-        <subscription node="/users/henry@shakespeare.lit" jid="francisco@denmark.lit" subscription="subscribed"/>
+        <subscription node="/users/henry@shakespeare.lit/posts" jid="francisco@denmark.lit" subscription="subscribed"/>
       </event>
     </message>
   ]]>
@@ -1057,6 +1133,22 @@
 			</p>
 		</section2>
 
+		<section2 topic='Inbox Caching' anchor='impl-caching'>
+			<p>It is generally desirable for an Inbox to maintain a local cache
+				of all Node and Item data for any Remote Nodes to which its Local
+				Entities are subscribed. This is to help improve the response times
+				for users.
+			</p>
+			<p>However, some servers may be required to operate in a constrained
+				environment where it is not practical to cache some or all of this
+				data. Any remote data which is not cached will therefore need to be
+				fetched from the Remote Servers each time it is requested which will
+				impact the user experience.
+			</p>
+			<p>The logic behind cache management and purging of cached data is
+				up to the specific implementation.
+			</p>
+		</section2>
 	</section1>
 	<section1 topic='Accessibility Considerations' anchor='access'>
 		<p>OPTIONAL.</p>
