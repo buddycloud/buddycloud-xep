@@ -2,6 +2,7 @@
 <!DOCTYPE xep SYSTEM 'xep.dtd' [
   <!ENTITY % ents SYSTEM 'xep.ent'>
 %ents;
+  <!ENTITY actor "&lt;actor/&gt;">
 ]>
 <?xml-stylesheet type='text/xsl' href='xep.xsl'?>
 <xep>
@@ -645,23 +646,14 @@
   <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
     <publish node="/user/romeo@montague.lit/posts">
       <item> 
-        <entry xmlns="http://www.w3.org/2005/Atom" xmlns:activity="http://activitystrea.ms/spec/1.0/"> 
+        <entry xmlns="http://www.w3.org/2005/Atom"> 
           <published>2010-01-06T21:41:32Z</published> 
-          <author> 
-            <name>juliet@capulet.lit</name> 
-            <jid xmlns="http://buddycloud.com/atom-elements-0">juliet@capulet.lit</jid> 
-          </author> 
           <content type="text">Wherefore art thou?</content> 
           <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
             <text>Verona, Italy</text> 
             <locality>Verona</locality> 
             <country>Italy</country> 
           </geoloc> 
-         
-          <activity:verb>post</activity:verb>
-          <activity:object>
-            <activity:object-type>note</activity:object-type>
-          </activity:object>
         </entry> 
       </item> 
     </publish> 
@@ -669,7 +661,8 @@
 </iq>
 ]]>
 </example>
-			<p>The Local Server relays the &lt;publish/&gt; request to the Remote Server, along with &lt;actor/&gt; information.</p>
+			<p>The Local Server relays the &lt;publish/&gt; request to the Remote
+				Server, along with &lt;actor/&gt; information.</p>
 			<example caption="The Local Server relays the request to the Remote Server">
 <![CDATA[
 <iq from="channels.capulet.lit" to="channels.montague.lit" type="set" id="publish:21"> 
@@ -678,21 +671,12 @@
       <item> 
         <entry xmlns="http://www.w3.org/2005/Atom" xmlns:activity="http://activitystrea.ms/spec/1.0/"> 
           <published>2010-01-06T21:41:32Z</published> 
-          <author> 
-            <name>juliet@capulet.lit</name> 
-            <jid xmlns="http://buddycloud.com/atom-elements-0">juliet@capulet.lit</jid> 
-          </author> 
           <content type="text">Wherefore art thou?</content> 
           <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
             <text>Verona, Italy</text> 
             <locality>Verona</locality> 
             <country>Italy</country> 
           </geoloc> 
-         
-          <activity:verb>post</activity:verb>
-          <activity:object>
-            <activity:object-type>note</activity:object-type>
-          </activity:object>
         </entry> 
       </item> 
     </publish>
@@ -701,7 +685,10 @@
 </iq>
 ]]>
 			</example>
-			<p>The Remote Server then checks that the &lt;actor/&gt; is authorised to post to the Node, stores the Post against the Node, and responds.</p>
+			<p>The Remote Server then checks that the &lt;actor/&gt; is
+				authorised to post to the Node, stores the Post against the Node,
+				and responds.
+			</p>
 			<example caption="The Remote Server responds to the Post request">
 <![CDATA[
 <iq from="channels.montague.lit" to="channels.capulet.lit" type="result" id="publish:21"> 
@@ -784,25 +771,19 @@
   <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
     <publish node="/user/romeo@montague.lit/posts"> 
       <item> 
-        <entry xmlns="http://www.w3.org/2005/Atom" xmlns:activity="http://activitystrea.ms/spec/1.0/"> 
+        <entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0"> 
           <published>2010-01-06T21:41:32Z</published> 
           <author> 
-            <name>koski@buddycloud.com</name> 
-            <jid xmlns="http://buddycloud.com/atom-elements-0">koski@buddycloud.com</jid> 
+            <name>romeo@montague.lit</name> 
+            <jid xmlns="http://buddycloud.com/atom-elements-0">romeo@montague.lit</jid> 
           </author> 
           <content type="text">Test</content> 
           <geoloc xmlns="http://jabber.org/protocol/geoloc"> 
-            <text>Paris, France</text> 
-            <locality>Paris</locality> 
-            <country>France</country> 
+            <text>Verona, Italy</text> 
+            <locality>Verona</locality> 
+            <country>Italy</country> 
           </geoloc> 
-         
-          <activity:verb>post</activity:verb>
-          <activity:object>
-            <activity:object-type>comment</activity:object-type>
-          </activity:object>
-          
-          <in-reply-to xmlns='http://purl.org/syndication/thread/1.0' ref='123-456-789'/>
+          <thr:in-reply-to ref='123-456-789'/>
         </entry> 
       </item> 
     </publish> 
@@ -811,7 +792,8 @@
 ]]>
 			</example>
 			<section3 topic='Error Conditions' anchor='publisherusecases-replytopost-errors'>
-				<section4 topic='The client attempts to post a Reply to a Reply' anchor='publisherusecases-replytopost-errors-replytoreply'>
+				<section4 topic='The client attempts to post a Reply to a Reply'
+					anchor='publisherusecases-replytopost-errors-replytoreply'>
 					<p>Buddycloud
 						allows a single level of replies to posts, so if a request is
 						received to post a reply to a reply then the server MUST respond
@@ -836,14 +818,31 @@
 			</section3>
 		</section2>
 		<section2 topic='Delete a Post' anchor='publisherusecases-deletepost'>
-			<p>The client sends
+			<p>The client sends a &lt;retract/&gt; request to the Local Inbox
 			</p>
-			<example caption="The Client sends a Delete Post request">
+			<example
+				caption="The Client sends a Delete Post request to their Local Server">
   <![CDATA[
-    <iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="set" id="retractitem:32"> 
+    <iq from="juliet@capulet.lit/mobile" to="channelserver.capulet.lit" type="set" id="retractitem:32"> 
       <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
-        <retract node="/user/channeluser@example.com/posts" notify="1"> 
-          <item id="1291048772456"/> 
+        <retract node="/user/romeo@montague.lit/posts" notify="1"> 
+          <item id="123-456-790"/> 
+        </retract> 
+      </pubsub> 
+    </iq>
+  ]]>
+</example>
+			<p>The
+				Local Server relays the request to the Remote Server, attaching &actor;
+				information.
+			</p>
+			<example
+				caption="The Client sends a Delete Post request to their Local Server">
+  <![CDATA[
+    <iq from="juliet@capulet.lit/mobile" to="channelserver.capulet.lit" type="set" id="retractitem:32"> 
+      <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+        <retract node="/user/romeo@montague.lit/posts" notify="1"> 
+          <item id="123-456-790"/> 
         </retract> 
       </pubsub> 
     </iq>
@@ -993,6 +992,37 @@
 		</section2>
 		<section2 topic='Retrieve recent Posts from all Subscribed Channels'
 			anchor='subscriberusecases-retrieverecentposts'>
+			<p>Clients that need to access recent posts in all the followed
+				channels may use the quick synchronization mechanism. This can only
+				be used by authenticated users.
+			</p>
+			<p>
+				Client sends:
+			</p>
+			<example caption="An Entity requests Recent Posts">
+  <![CDATA[
+    <iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="get" id="ri1">
+      <pubsub xmlns="http://jabber.org/protocol/pubsub">
+        <recent-items xmlns="http://buddycloud.org/v1"
+          since="2012-12-04T23:36:51.123Z"
+          max="50"/>
+        </pubsub>
+      </iq>
+    ]]>
+</example>
+			<p>
+				The servers responds with items from the subscribed channels:
+			</p>
+			<ul>
+				<li>items from the /posts nodes only
+				</li>
+				<li>updated after since, newest items first, required
+				</li>
+				<li>at most max per channel, required
+				</li>
+				<li>RSM must be used to page through results
+				</li>
+			</ul>
 		</section2>
 		<section2 topic='Receive a New Post Notification' anchor='subscriberusecases-newpostnotification'>
 			<p>
@@ -1030,7 +1060,7 @@
   ]]>
 			</example>
 		</section2>
-		<section2 topic='Retrieve a single Post' anchor='subscriberusecases-singlepost'>
+		<section2 topic='Retrieve all Posts for a Node' anchor='subscriberusecases-allposts'>
 			<p>
 				Node items are ordered newest first. The Result Set Management
 				elements
@@ -1040,7 +1070,7 @@
 			<p>
 				Client sends:
 			</p>
-			<example caption="Client requests a single Post">
+			<example caption="Client requests all Posts">
   <![CDATA[
     <iq type="get"
       from="channeluser@example.com/KillerApp"
@@ -1055,7 +1085,7 @@
 			<p>
 				Server responds:
 			</p>
-			<example caption="The Server responds with the Post">
+			<example caption="The Server responds with all Posts">
   <![CDATA[
     <iq type="result"
       from="channelserver.example.com"
@@ -1141,40 +1171,6 @@
 			</p>
 
 		</section2>
-		<section2 topic='Retrieve recent posts from all subscribed channels'>
-			<p>Clients that need to access recent posts in all the followed
-				channels may use the quick synchronization mechanism. This can only
-				be used by authenticated users.
-			</p>
-			<p>
-				Client sends:
-			</p>
-			<example caption="An Entity requests Recent Posts">
-  <![CDATA[
-    <iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="get" id="ri1">
-      <pubsub xmlns="http://jabber.org/protocol/pubsub">
-        <recent-items xmlns="http://buddycloud.org/v1"
-          since="2012-12-04T23:36:51.123Z"
-          max="50"/>
-        </pubsub>
-      </iq>
-    ]]>
-</example>
-			<p>
-				The servers responds with items from the subscribed channels:
-			</p>
-			<ul>
-				<li>items from the /posts nodes only
-				</li>
-				<li>updated after since, newest items first, required
-				</li>
-				<li>at most max per channel, required
-				</li>
-				<li>RSM must be used to page through results
-				</li>
-			</ul>
-
-		</section2>
 		<section2 topic='Retrieve all replies to a single post'>
 			<p>
 				This stanza retrieve all replies from a single post. It is useful
@@ -1228,6 +1224,76 @@
           <first>/user/kitteh@example.com/posts;1291048810046</first>
           <last>/user/tut@example.com/posts;1131048810046</last>
           <count>19827</count>
+        </set>
+      </pubsub>
+    </iq>
+  ]]>
+			</example>
+
+		</section2>
+		<section2 topic='Retrieve entire Thread from a single Post'>
+			<p>
+				This stanza retrieves the entire Thread for a post. It is useful for
+				filling in all the threads from the
+				<link url="subscriberusecases-retrieverecentposts">Recent Posts</link>
+				feed which returns recent replies without the original post (or
+				other replies).
+			</p>
+
+			<p>
+				Client sends the request to their Local Server, giving the ItemID
+				of either the Primary Post or any Reply within the Thread:
+			</p>
+
+			<example caption="Client requests entire Thread from a Post">
+  <![CDATA[
+    <iq type="get" from="juliet@capulet.lit/mobile" to="channels.capulet.lit" id="thread1">
+      <pubsub xmlns="http://jabber.org/protocol/pubsub">
+        <thread xmlns="http://buddycloud.org/v1" node="/user/romeo@montague.lit/posts" item_id="1234567891"/>
+      </pubsub>
+    </iq>
+  ]]>
+			</example>
+			<p>
+				The servers responds with all Posts from the entire Thread,
+				including the Primary Post and all Replies to that Post.
+			</p>
+			<p>
+				The Server MUST order the posts in reverse-chronological order, with the
+				newest post first.
+			</p>
+			<example
+				caption="Server responds with all Replies to a Post including full Payloads, paged as required">
+  <![CDATA[
+    <iq type="result"
+      from="channels.montague.lit"
+      to="romeo@montague.lit/mobile"
+      id="thread1">
+      <pubsub xmlns="http://jabber.org/protocol/pubsub">
+        <items>
+          <item id="/user/romeo@montague.lit/posts;1234567892">
+            <entry>
+              ...
+              <thr:in-reply-to ref='1234567890'/>
+            </entry>
+          </item>
+          <item id="/user/romeo@montague.lit/posts;1234567891">
+            <entry>
+              ...
+              <thr:in-reply-to ref='1234567890'/>
+            </entry>
+          </item>
+          <item id="/user/romeo@montague.lit/posts;1234567890">
+            <entry>
+              ...
+            </entry>
+          </item>
+          ...
+        </items>
+        <set xmlns="http://jabber.org/protocol/rsm">
+          <first>/user/romeo@montague.lit/posts;1234567892</first>
+          <last>/user/romeo@montague.lit/posts;1234567890</last>
+          <count>186</count>
         </set>
       </pubsub>
     </iq>
