@@ -18,7 +18,7 @@
 		</xs:complexType>
 	</xs:element>
 
-	<xs:element name="actor" type="xs:string"></xs:element>
+	<xs:element name="actor" type="xs:token"></xs:element>
 
 	<xs:element name="recent-items">
 		<xs:complexType>
@@ -32,6 +32,13 @@
 	</xs:element>
 
 	<xs:element name="replies">
+		<xs:complexType>
+			<xs:attribute name="node" type="xs:string"/>
+			<xs:attribute name="item_id" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="thread">
 		<xs:complexType>
 			<xs:attribute name="node" type="xs:string"/>
 			<xs:attribute name="item_id" type="xs:string"/>
