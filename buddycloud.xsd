@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
+	targetNamespace='http://buddycloud.org/v1' elementFormDefault='qualified'>
+
+	<xs:annotation>
+		<xs:documentation>
+			The protocol documented by this schema is defined in
+			XEP-xxxx: http://xmpp.org/extensions/xep-xxxx.html
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:element name="you-missed-something">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:restriction base="xs:anyType"></xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="actor" type="xs:token"></xs:element>
+
+	<xs:element name="recent-items">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:restriction base="xs:anyType">
+					<xs:attribute name="since" type="xs:dateTime"/>
+					<xs:attribute name="max" type="xs:int"/>
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="replies">
+		<xs:complexType>
+			<xs:attribute name="node" type="xs:string"/>
+			<xs:attribute name="item_id" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="thread">
+		<xs:complexType>
+			<xs:attribute name="node" type="xs:string"/>
+			<xs:attribute name="item_id" type="xs:string"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
