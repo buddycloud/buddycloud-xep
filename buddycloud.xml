@@ -105,13 +105,13 @@
 		</revision>
 	</header>
 	<section1 topic='Introduction' anchor='intro'>
-		<p>buddycloud channels is a decentralised communication protocol that
+		<p>Buddycloud channels is a decentralised communication protocol that
 			enables synchronised communication in the form of channels between
-			buddycloud-enabled domains.
+			Buddycloud-enabled domains.
 		</p>
-		<p>buddycloud channels build on XMPP's native federation and
+		<p>Buddycloud channels build on XMPP's native federation and
 			asynchronous messaging to provide a decentralised sharing and
-			communication network. The buddycloud ecosystem contains multiple
+			communication network. The Buddycloud ecosystem contains multiple
 			[XMPP] components (for example: location-butler, media-server and
 			channel-directory) that work together and enable developers to build
 			new communication products.
@@ -187,7 +187,7 @@
 				moderator in that channel". Pub-sub is a great backend. A good user
 				service built on it will prescribe sensible business logic that fits
 				with a users mental model of what channels provide. We do that by
-				adding a bit of business logic to the buddycloud server:
+				adding a bit of business logic to the Buddycloud server:
 			</p>
 			<ul>
 				<li>
@@ -200,7 +200,7 @@
 					<em>/user/channeluser@example.com/posts</em>
 				</li>
 				<li>
-					The buddycloud server must maintain similar affiliations across
+					The Buddycloud server must maintain similar affiliations across
 					<em>.../posts</em>
 					,
 					<em>.../geo/current</em>
@@ -217,7 +217,7 @@
 				</li>
 			</ul>
 		</section2>
-		<section2 topic='The buddycloud Inbox'>
+		<section2 topic='The Buddycloud Inbox'>
 			<p>The inbox is an auxiliary service that can be discovered similar
 				to the content-hosting service by pubsub/inbox. It takes care of
 				receiving all notifications and synchronization while providing a
@@ -362,7 +362,7 @@
 					<td>pubsub#title</td>
 					<td>"Juliet's musings"</td>
 					<td>Should be a brief single sentence</td>
-					<td>"user@example.com's buddycloud channel"</td>
+					<td>"user@example.com's Buddycloud channel"</td>
 				</tr>
 				<tr>
 					<td>Channel Description</td>
@@ -380,14 +380,14 @@
 				</tr>
 				<tr>
 					<td>Default Affiliation</td>
-					<td>buddycloud#default_affiliation</td>
+					<td>Buddycloud#default_affiliation</td>
 					<td>"publisher"</td>
 					<td>The role given to new channel followers</td>
 					<td>Dependent on Channel Type</td>
 				</tr>
 				<tr>
 					<td>Channel Type</td>
-					<td>buddycloud#channel_type</td>
+					<td>Buddycloud#channel_type</td>
 					<td>"personal"</td>
 					<td>The type of this channel</td>
 					<td>N/A</td>
@@ -576,7 +576,7 @@ name='Montague Family Channels'/>
 		</section2>
 		<section2 topic='Register with the Service' anchor='entityusecases-register'>
 			<p>If the jid doesn't already have a Personal Channel on the service,
-				one can be created. The buddycloud server will then also setup the
+				one can be created. The Buddycloud server will then also setup the
 				associated geoloc and mood nodes and ensure that the nodes have the
 				correct default permissions.
 			</p>
@@ -1094,7 +1094,7 @@ type="headline">
 ]]>
 </example>
 			<p>Result Set Management is strongly needed for chunking information.
-				Even if a user is requesting 10000 items, a buddycloud server should
+				Even if a user is requesting 10000 items, a Buddycloud server should
 				never send stanzas exceeding 64KB, or else XMPP servers will kill
 				the (component or s2s) connection.
 			</p>
