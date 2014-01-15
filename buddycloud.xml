@@ -9,7 +9,7 @@
 <?xml-stylesheet type='text/xsl' href='xep.xsl'?>
 <xep>
 	<header>
-		<title>Buddycloud channels</title>
+		<title>Buddycloud Channels</title>
 		<abstract>This document describes a profile and conventions for usage
 			of the PubSub protocol in the context of a new type of communication.</abstract>
 		<legal>
@@ -97,14 +97,14 @@
 		</author>
 		<revision>
 			<version>0.0.1</version>
-			<date>2013-08-xx</date>
-			<initials>asw</initials>
+			<date>2014-01-xx</date>
+			<initials>sdt</initials>
 			<remark>
 				<p>First draft.</p>
 			</remark>
 		</revision>
 	</header>
-	<section1 topic='Introduction' anchor='intro'>
+	<section1 topic='Buddycloud Introduction' anchor='intro'>
 		<p>Buddycloud channels is a decentralised communication protocol that
 			enables synchronised communication in the form of channels between
 			Buddycloud-enabled domains.
@@ -122,7 +122,7 @@
 	<section1 topic='Glossary' anchor='glossary'>
 		<dl>
 			<di>
-				<dt>Channel </dt>
+				<dt>Channel</dt>
 				<dd>A
 					collection of content-specific &xep0060;
 					Nodes (posts, geoloc, public-key) 
@@ -136,45 +136,45 @@
 				</dd>
 			</di>
 			<di>
-				<dt>Home Server </dt>
+				<dt>Home Server</dt>
 				<dd>The channel server which hosts a user's personal channel nodes
 					and contains their Inbox. The home server operates on behalf of
 					users (for example subscribing to a whitelisted channel))
 				</dd>
 			</di>
 			<di>
-				<dt>Follower </dt>
+				<dt>Follower</dt>
 				<dd>A Channel subscriber</dd>
 			</di>
 			<di>
-				<dt>Moderator </dt>
+				<dt>Moderator</dt>
 				<dd>A channel follower with capabilities to also approve followers
 					to topic channels and retract posts
 				</dd>
 			</di>
 			<di>
-				<dt>Producer </dt>
+				<dt>Producer</dt>
 				<dd>the owner of a channel with the ability to add and remove
 					moderators
 				</dd>
 			</di>
 			<di>
-				<dt>Inbox </dt>
+				<dt>Inbox</dt>
 				<dd> Service on the Entity's Home Server which subscribes to nodes
 					on the Entity's behalf, and may cache node data and provide an
 					ability to replay recent messages.
 				</dd>
 			</di>
 			<di>
-				<dt>Personal Channel </dt>
+				<dt>Personal Channel</dt>
 				<dd> A Channel about an Entity and named after their jid (e.g.
-					hag66@shakespeare.lit)
+					film-girl@example.com)
 				</dd>
 			</di>
 			<di>
-				<dt> Topic Channel </dt>
+				<dt>Topic Channel</dt>
 				<dd> A Channel based on an arbitrary topic and carrying slightly
-					different business logic (e.g. cauldron-recipes@shakespeare.lit)
+					different business logic (e.g. film-lovers@example.org)
 				</dd>
 			</di>
 		</dl>
@@ -193,11 +193,11 @@
 				<li>
 					Personal Channel Nodes are always owned by their JID. The server
 					MUST NOT allow the ownership to be altered. For example:
-					<em>channeluser@example.com</em>
+					<em>user@example.org</em>
 					owns
-					<em>channel.example.com</em>
+					<em>channel.example.org</em>
 					, node
-					<em>/user/channeluser@example.com/posts</em>
+					<em>/user/user@example.org/posts</em>
 				</li>
 				<li>
 					The Buddycloud server must maintain similar affiliations across
@@ -262,7 +262,7 @@
 				</p>
 				<example>
 <![CDATA[
-<iq type="set" from="channels.denmark.lit" to="channels.shakespeare.lit">
+<iq type="set" from="buddycloud.example.com" to="buddycloud.example.org">
 <you-missed-something xmlns="http://buddycloud.org/v1"/>
 		</iq>
 		]]> </example>
@@ -274,7 +274,7 @@
 			<section3 topic="Channel NodeIDs" anchor='preliminaries-channelnodes-ids'>
 				<p>
 					Node IDs are constructed as
-					<strong>"user/&lt;JID&gt;/&lt;node type&gt;"</strong>
+					<strong>"/user/&lt;JID&gt;/&lt;node type&gt;"</strong>
 				</p>
 				<dl>
 					<di>
@@ -362,7 +362,7 @@
 					<td>pubsub#title</td>
 					<td>"Juliet's musings"</td>
 					<td>Should be a brief single sentence</td>
-					<td>"user@example.com's Buddycloud channel"</td>
+					<td>"user@example.org's Buddycloud channel"</td>
 				</tr>
 				<tr>
 					<td>Channel Description</td>
@@ -489,8 +489,8 @@
 			<example caption="The Entity sends a disco#items request to the domain">
 	<![CDATA[
 	<iq type='get'
-		from='romeo@montague.net/orchard'
-		to='montague.net'
+		from='user@example.org/client'
+		to='example.org'
 		id='items1'>
 		<query xmlns='http://jabber.org/protocol/disco#items'/>
 	</iq>
@@ -501,17 +501,11 @@
 			</p>
 			<example caption="The server replies with a list of available components.">
 	<![CDATA[
-	<iq type='result'
-		from='montague.net'
-		to='romeo@montague.net/orchard'
+	<iq type='result' from='example.org' to='user@example.org/BuddycloudApp'
 		id='items1'>
 		<query xmlns='http://jabber.org/protocol/disco#items'>
-<item jid='people.montague.net'
-	name='Directory of Characters'/>
-	<item jid='muc.montague.net'
-		name='Chatrooms for the Montague Family'/>
-		<item jid='channels.montague.net'
-name='Montague Family Channels'/>
+			<item jid='muc.example.org' name='Chatrooms' />
+			<item jid='buddycloud.example.com' name='Buddycloud Server' />
 		</query>
 	</iq>
 	]]>
@@ -522,8 +516,8 @@ name='Montague Family Channels'/>
 			<example caption="The Entity sends a disco#info request to each component">
 	<![CDATA[
 	<iq type='get'
-		from='romeo@montague.net/orchard'
-		to='channels.montague.net'
+		from='user@example.org/BuddycloudApp'
+		to='channels.example.org'
 		id='info1'>
 		<query xmlns='http://jabber.org/protocol/disco#info'/>
 	</iq>
@@ -536,20 +530,17 @@ name='Montague Family Channels'/>
 				A domain MUST only host one component with an identity of category
 				'pubsub' and type 'channels'. <!-- Really? - just one? -->
 			</p>
-			<example caption="The Channels component replies with its identity"> <!-- is this response really correct? - would we get register back? -->
+			<example caption="The Buddycloud component replies with its identity"> <!-- is this response really correct? - would we get register back? -->
 	<![CDATA[
-	<iq type='result'
-		from='channels.montague.net'
-		to='romeo@montague.net/orchard'
-		id='info2'>
-
-		<query xmlns='http://jabber.org/protocol/disco#info'>
-<identity category='pubsub' type='channels'/>
-<identity category='pubsub' type='inbox'/>
-<feature var='jabber:iq:register'/>
-<feature var='http://jabber.org/protocol/disco#info'/>
-		</query>
-	</iq>
+<iq type='result' from='buddycloud.example.org' to='user@example.org/BuddycloudApp'
+	id='info2'>
+	<query xmlns='http://jabber.org/protocol/disco#info'>
+		<identity category='pubsub' type='channels' />
+		<identity category='pubsub' type='inbox' />
+		<feature var='jabber:iq:register' />
+		<feature var='http://jabber.org/protocol/disco#info' />
+	</query>
+</iq>
 	]]>
 </example>
 		</section2>
@@ -557,8 +548,8 @@ name='Montague Family Channels'/>
 			anchor='entityusecases-verifyserver'>
 			<p>It is necessary to verify that a given Channel Server is a
 				channel's home server for a given JID. For example, an Entity may
-				wish to verify that the JID 'buddycloud.montague.lit' is the
-				authoritative Home Server for the JID 'romeo@montague.lit'.
+				wish to verify that the JID 'buddycloud.example.org' is the
+				authoritative Home Server for the JID 'user@example.org'.
 			</p>
 			<p>
 				The Channel Server SHOULD do this by discovering the Channel Server
@@ -587,7 +578,7 @@ name='Montague Family Channels'/>
 </example>
 			<example caption="An Entity Registers with the Service">
 	<![CDATA[
-	<iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="set">
+	<iq from="user@example.org/BuddycloudApp" to="buddycloudserver.example.org" type="set">
 		<query xmlns="jabber:iq:register"/>
 	</iq>
 	]]>
@@ -601,47 +592,48 @@ name='Montague Family Channels'/>
 			</p>
 			<example caption="A Publisher Posts to a Channel">
 	<![CDATA[
-	<iq from="juliet@capulet.lit/balcony" to="buddycloud.capulet.lit" type="set" id="publish:20">
-		<pubsub xmlns="http://jabber.org/protocol/pubsub">
-<publish node="/user/romeo@montague.lit/posts">
-	<item>
-		<entry xmlns="http://www.w3.org/2005/Atom">
-<published>2010-01-06T21:41:32Z</published>
-<content type="text">Wherefore art thou?</content>
-<geoloc xmlns="http://jabber.org/protocol/geoloc">
-	<text>Verona, Italy</text>
-	<locality>Verona</locality>
-	<country>Italy</country>
-</geoloc>
-		</entry>
-	</item>
-</publish>
-		</pubsub>
-	</iq>
+<iq from="user@example.com/BuddycloudApp" to="buddycloud.example.com"
+	type="set" id="publish:20">
+	<pubsub xmlns="http://jabber.org/protocol/pubsub">
+		<publish node="/user/user@example.org/posts">
+			<item>
+				<entry xmlns="http://www.w3.org/2005/Atom">
+					<published>2010-01-06T21:41:32Z</published>
+					<content type="text">Wherefore art thou?</content>
+					<geoloc xmlns="http://jabber.org/protocol/geoloc">
+						<text>Verona, Italy</text>
+						<locality>Verona</locality>
+						<country>Italy</country>
+					</geoloc>
+				</entry>
+			</item>
+		</publish>
+	</pubsub>
+</iq>
 	]]>
 </example>
 			<p>The Local Server relays the &lt;publish/&gt; request to the Remote
 				Server, along with &lt;actor/&gt; information.</p>
 			<example caption="The Local Server relays the request to the Remote Server">
 		<![CDATA[
-		<iq from="buddycloud.capulet.lit" to="buddycloud.montague.lit" type="set" id="publish:21">
-<pubsub xmlns="http://jabber.org/protocol/pubsub">
-	<publish node="/user/romeo@montague.lit/posts">
-		<item>
-<entry xmlns="http://www.w3.org/2005/Atom">
-	<published>2010-01-06T21:41:32Z</published>
-	<content type="text">Wherefore art thou?</content>
-	<geoloc xmlns="http://jabber.org/protocol/geoloc">
-		<text>Verona, Italy</text>
-		<locality>Verona</locality>
-		<country>Italy</country>
-	</geoloc>
-</entry>
-		</item>
-	</publish>
-	<actor xmlns='http://buddycloud.org/v1'>juliet@capulet.lit</actor>
-</pubsub>
-		</iq>
+<iq from="buddycloud.example.com" to="buddycloud.example.org" type="set"	id="publish:21">
+	<pubsub xmlns="http://jabber.org/protocol/pubsub">
+		<publish node="/user/user@example.org/posts">
+			<item>
+				<entry xmlns="http://www.w3.org/2005/Atom">
+					<published>2010-01-06T21:41:32Z</published>
+					<content type="text">Wherefore art thou?</content>
+					<geoloc xmlns="http://jabber.org/protocol/geoloc">
+						<text>Verona, Italy</text>
+						<locality>Verona</locality>
+						<country>Italy</country>
+					</geoloc>
+				</entry>
+			</item>
+		</publish>
+		<actor xmlns='http://buddycloud.org/v1'>user@example.com</actor>
+	</pubsub>
+</iq>
 		]]>
 </example>
 			<p>The Remote Server then checks that:</p>
@@ -655,24 +647,26 @@ name='Montague Family Channels'/>
 			</p>
 			<example caption="The Remote Server responds to the Post request">
 		<![CDATA[
-		<iq from="buddycloud.montague.lit" to="buddycloud.capulet.lit" type="result" id="publish:21">
-<pubsub xmlns='http://jabber.org/protocol/pubsub'>
-	<publish node='/user/romeo@capulet.lit/posts'>
-		<item id='123-456-789'/>
-	</publish>
-</pubsub>
-		</iq>
+<iq from="buddycloud.example.org" to="buddycloud.example.com" type="result"
+	id="publish:21">
+	<pubsub xmlns='http://jabber.org/protocol/pubsub'>
+		<publish node='/user/user@example.com/posts'>
+			<item id='123-456-789' />
+		</publish>
+	</pubsub>
+</iq>
 		]]>
 </example>
 			<example caption="The Local Server relays the Response back to the Client">
 		<![CDATA[
-		<iq from="buddycloud.capulet.lit" to="juliet@capulet.lit/balcony" type="result" id="publish:20">
-<pubsub xmlns='http://jabber.org/protocol/pubsub'>
-	<publish node='/user/romeo@montague.lit/posts'>
-		<item id='123-456-789'/>
-	</publish>
-</pubsub>
-		</iq>
+<iq from="buddycloud.example.com" to="user@example.com/BuddycloudApp"
+	type="result" id="publish:20">
+	<pubsub xmlns='http://jabber.org/protocol/pubsub'>
+		<publish node='/user/user@example.org/posts'>
+			<item id='123-456-789' />
+		</publish>
+	</pubsub>
+</iq>
 		]]>
 </example>
 			<section3 topic='Content normalization' anchor='publisherusecases-post-normalization'>
@@ -723,28 +717,29 @@ name='Montague Family Channels'/>
 			</ul>
 			<example caption="A Publisher Replies to a Post">
 		<![CDATA[
-		<iq from="romeo@montague.lit/mobile" to="buddycloud.montague.lit" type="set" id="publish:22">
-<pubsub xmlns="http://jabber.org/protocol/pubsub">
-	<publish node="/user/romeo@montague.lit/posts">
-		<item>
-<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0">
-	<published>2010-01-06T21:41:32Z</published>
-	<author>
-		<name>romeo@montague.lit</name>
-		<jid xmlns="http://buddycloud.com/atom-elements-0">romeo@montague.lit</jid>
-	</author>
-	<content type="text">Test</content>
-	<geoloc xmlns="http://jabber.org/protocol/geoloc">
-		<text>Verona, Italy</text>
-		<locality>Verona</locality>
-		<country>Italy</country>
-	</geoloc>
-	<thr:in-reply-to ref='123-456-789'/>
-</entry>
-		</item>
-	</publish>
-</pubsub>
-		</iq>
+<iq from="user@example.org/mobile" to="buddycloud.example.org"
+	type="set" id="publish:22">
+	<pubsub xmlns="http://jabber.org/protocol/pubsub">
+		<publish node="/user/user@example.org/posts">
+			<item>
+				<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0">
+					<published>2010-01-06T21:41:32Z</published>
+					<author>
+						<name>user@example.org</name>
+						<jid xmlns="http://buddycloud.com/atom-elements-0">user@example.org</jid>
+					</author>
+					<content type="text">Test</content>
+					<geoloc xmlns="http://jabber.org/protocol/geoloc">
+						<text>Verona, Italy</text>
+						<locality>Verona</locality>
+						<country>Italy</country>
+					</geoloc>
+					<thr:in-reply-to ref='123-456-789' />
+				</entry>
+			</item>
+		</publish>
+	</pubsub>
+</iq>
 		]]>
 </example>
 			<section3 topic='Error Conditions' anchor='publisherusecases-replytopost-errors'>
@@ -759,15 +754,13 @@ name='Montague Family Channels'/>
 					</p>
 					<example caption='The server rejects a reply to a reply'>
 	<![CDATA[
-	<iq type='error'
-		from='pubsub.montague.lit'
-		to='romeo@montague.lit/hillock'
-		id='publish1'>
-		<error type='modify'>
-<bad-request xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
-<invalid-payload xmlns='http://jabber.org/protocol/pubsub#errors'/>
-		</error>
-	</iq>
+<iq type='error' from='buddycloud.example.org' to='user@example.org/BuddycloudApp'
+	id='publish1'>
+	<error type='modify'>
+		<bad-request xmlns='urn:ietf:params:xml:ns:xmpp-stanzas' />
+		<invalid-payload xmlns='http://jabber.org/protocol/pubsub#errors' />
+	</error>
+</iq>
 	]]> </example>
 				</section4>
 			</section3>
@@ -778,13 +771,14 @@ name='Montague Family Channels'/>
 			<example
 				caption="The Client sends a Delete Post request to their Local Server">
 		<![CDATA[
-		<iq from="juliet@capulet.lit/mobile" to="channelserver.capulet.lit" type="set" id="retractitem:32">
-<pubsub xmlns="http://jabber.org/protocol/pubsub">
-	<retract node="/user/romeo@montague.lit/posts" notify="1">
-		<item id="123-456-790"/>
-	</retract>
-</pubsub>
-		</iq>
+<iq from="user@example.com/mobile" to="buddycloud.example.com"
+	type="set" id="retractitem:32">
+	<pubsub xmlns="http://jabber.org/protocol/pubsub">
+		<retract node="/user/user@example.org/posts" notify="1">
+			<item id="123-456-790" />
+		</retract>
+	</pubsub>
+</iq>
 		]]>
 </example>
 			<p>The
@@ -794,19 +788,20 @@ name='Montague Family Channels'/>
 			<example
 				caption="The Client sends a Delete Post request to their Local Server">
 		<![CDATA[
-		<iq from="juliet@capulet.lit/mobile" to="channelserver.capulet.lit" type="set" id="retractitem:32">
-<pubsub xmlns="http://jabber.org/protocol/pubsub">
-	<retract node="/user/romeo@montague.lit/posts" notify="1">
-		<item id="123-456-790"/>
-	</retract>
-</pubsub>
-		</iq>
+<iq from="user@example.com/mobile" to="buddycloud.example.com"
+	type="set" id="retractitem:32">
+	<pubsub xmlns="http://jabber.org/protocol/pubsub">
+		<retract node="/user/user@example.org/posts" notify="1">
+			<item id="123-456-790" />
+		</retract>
+	</pubsub>
+</iq>
 		]]>
 </example>
 			<p>Server replies</p>
 			<example caption="The Server replies to a Delete Post request">
 		<![CDATA[
-		<iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="result" id="retractitem:32"/>
+		<iq from="user@example.org/BuddycloudApp" to="buddycloudserver.example.org" type="result" id="retractitem:32"/>
 		]]>
 </example>
 			<p>A retraction message is sent to all online clients, along with an
@@ -815,25 +810,35 @@ name='Montague Family Channels'/>
 			<example
 				caption="The Server send a Retraction Notification to all Subscribers to the Channel">
 		<![CDATA[
-		<message from="channelserver.example.com" id="bc:MGV3B" to="imranraza@example.com">
-<event xmlns="http://jabber.org/protocol/pubsub#event">
-	<items node="/user/channeluser@example.com/posts">
-		<retract id="1291048772456"/>
-		<item id="1291048772456">
-<deleted-entry xmlns="http://purl.org/atompub/tombstones/1.0" ref="xmpp:channels.example.com?pubsub;action=retrieve;node=/user/channeluser@example.com/posts;item=1291048772456" when="2012-07-01T15:08:32.950Z">
-	<updated>2012-07-01T15:08:32.950Z</updated>
-	<id xmlns="http://www.w3.org/2005/Atom">1291048772456</id>
-	<link xmlns="http://www.w3.org/2005/Atom" href="xmpp:channels.example.com?pubsub;action=retrieve;node=/user/channeluser@example.com/posts;item=1291048772456" rel="self"/>
-	<published xmlns="http://www.w3.org/2005/Atom">2012-07-01T15:08:30.922Z</published>
-	<object xmlns="http://activitystrea.ms/spec/1.0/">
-		<object-type>comment</object-type>
-		.</object>
-		<verb xmlns="http://activitystrea.ms/spec/1.0/">post</verb>
-		.</deleted-entry>
-		.</item>
-		.</items>
-		.</event>
-	</message>
+<message from="buddycloudserver.example.org" id="bc:MGV3B"
+	to="imranraza@example.org">
+	<event xmlns="http://jabber.org/protocol/pubsub#event">
+		<items node="/user/user@example.org/posts">
+			<retract id="1291048772456" />
+			<item id="1291048772456">
+				<deleted-entry xmlns="http://purl.org/atompub/tombstones/1.0"
+					ref="xmpp:channels.example.org?pubsub;action=retrieve;node=/user/user@example.org/posts;item=1291048772456"
+					when="2012-07-01T15:08:32.950Z">
+					<updated>2012-07-01T15:08:32.950Z</updated>
+					<id xmlns="http://www.w3.org/2005/Atom">1291048772456</id>
+					<link xmlns="http://www.w3.org/2005/Atom"
+						href="xmpp:channels.example.org?pubsub;action=retrieve;node=/user/user@example.org/posts;item=1291048772456"
+						rel="self" />
+					<published xmlns="http://www.w3.org/2005/Atom">2012-07-01T15:08:30.922Z</published>
+					<object xmlns="http://activitystrea.ms/spec/1.0/">
+						<object-type>comment</object-type>
+						.
+					</object>
+					<verb xmlns="http://activitystrea.ms/spec/1.0/">post</verb>
+					.
+				</deleted-entry>
+				.
+			</item>
+			.
+		</items>
+		.
+	</event>
+</message>
 	]]>
 </example>
 		</section2>
@@ -845,15 +850,12 @@ name='Montague Family Channels'/>
 			</p>
 			<example caption="Client sends Subscription Request to their Local Inbox">
 	<![CDATA[
-	<iq type="set"
-		from="francisco@denmark.lit/barracks"
-		to="channels.denmark.lit"
-		id="sub1">
-		<pubsub xmlns="http://jabber.org/protocol/pubsub">
-<subscribe node="/users/henry@shakespeare.lit/posts"
-jid="francisco@denmark.lit"/>
-</pubsub>
-		</iq>
+<iq type="set" from="user@example.com/client" to="buddycloud.example.com"
+	id="sub1">
+	<pubsub xmlns="http://jabber.org/protocol/pubsub">
+		<subscribe node="/users/user@example.org/posts" jid="user@example.com" />
+	</pubsub>
+</iq>
 		]]>
 </example>
 			<p>The Local Inbox then Subscribes to the Remote Nodes on the
@@ -861,15 +863,12 @@ jid="francisco@denmark.lit"/>
 			</p>
 			<example caption="The Local Inbox Subscribes to the Remote Server">
 		<![CDATA[
-		<iq type="set"
-from="channels.denmark.lit"
-to="channels.shakespeare.lit"
-id="sub2">
-<pubsub xmlns="http://jabber.org/protocol/pubsub">
-<subscribe node="/users/henry@shakespeare.lit/posts"
-	jid="francisco@denmark.lit"/>
-	<actor xmlns="http://buddycloud.org/v1">francisco@denmark.lit</actor>
-</pubsub>
+<iq type="set" from="buddycloud.example.com" to="buddycloud.example.org"
+	id="sub2">
+	<pubsub xmlns="http://jabber.org/protocol/pubsub">
+		<subscribe node="/users/user@example.org/posts" jid="user@example.com" />
+		<actor xmlns="http://buddycloud.org/v1">user@example.com</actor>
+	</pubsub>
 </iq>
 ]]>
 </example>
@@ -895,14 +894,11 @@ id="sub2">
 			<example caption="The Remote Inbox acknowledges the Subscription Request">
 <![CDATA[
 <iq type="result"
-	from="channels.shakespeare.lit"
-	to="channels.denmark.lit"
+	from="buddycloud.example.org"
+	to="buddycloud.example.org"
 	id="sub2">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
-		<subscription
-node="/users/henry@shakespeare.lit/posts"
-jid="francisco@denmark.lit"
-subscription="subscribed"/>
+		<subscription node="/users/user@example.org/posts" jid="user@example.com" subscription="subscribed"/>
 		</pubsub>
 	</iq>
 	]]>
@@ -910,34 +906,30 @@ subscription="subscribed"/>
 			<example
 				caption="The Local Inbox replays the Subscription Request acknowledgement to the Client">
 	<![CDATA[
-	<iq type="result"
-		from="channels.denmark.lit"
-		to="francisco@denmark.lit/barracks"
-		id="sub1">
-		<pubsub xmlns="http://jabber.org/protocol/pubsub">
-<subscription
-	node="/users/henry@shakespeare.lit/posts"
-	jid="francisco@denmark.lit"
-	subscription="subscribed"/>
-</pubsub>
-		</iq>
+<iq type="result"
+	from="buddycloud.example.org"
+	to="user@example.com/client"
+	id="sub1">
+	<pubsub xmlns="http://jabber.org/protocol/pubsub">
+    <subscription node="/users/user@example.org/posts" jid="user@example.com" subscription="subscribed"/>
+  </pubsub>
+</iq>
 		]]>
 </example>
 			<p>Subscribed inboxes and clients are also notified:</p>
 			<example caption="The Remote Inbox notifies Channel Subscribers">
 		<![CDATA[
-		<message
-from="channels.shakespeare.lit"
-to="horatio@denmark.lit"
-type="headline">
-<event xmlns="http://jabber.org/protocol/pubsub#event">
-	<subscription node="/users/henry@shakespeare.lit/posts" jid="francisco@denmark.lit" subscription="subscribed"/>
-</event>
-		</message>
+<message from="buddycloud.example.org" to="user@example.com"
+	type="headline">
+	<event xmlns="http://jabber.org/protocol/pubsub#event">
+		<subscription node="/users/user@example.org/posts"
+			jid="user@example.com" subscription="subscribed" />
+	</event>
+</message>
 		]]>
 </example>
 		</section2>
-		<section2 topic='Retrieve recent Posts from all Subscribed Channels'
+		<section2 topic='Retrieve Recent Posts from all Subscribed Channels'
 			anchor='subscriberusecases-retrieverecentposts'>
 			<p>
 				Clients that need to access recent posts in all the followed
@@ -948,11 +940,11 @@ type="headline">
 			<p>Client sends:</p>
 			<example caption="An Entity requests Recent Posts">
 		<![CDATA[
-		<iq from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" type="get" id="ri1">
-<pubsub xmlns="http://jabber.org/protocol/pubsub">
-	<recent-items xmlns="http://buddycloud.org/v1"
-		since="2012-12-04T23:36:51.123Z"
-		max="50"/>
+<iq from="user@example.org/BuddycloudApp" to="buddycloudserver.example.org" type="get" id="ri1">
+  <pubsub xmlns="http://jabber.org/protocol/pubsub">
+	  <recent-items xmlns="http://buddycloud.org/v1"
+		  since="2012-12-04T23:36:51.123Z"
+		  max="50"/>
 	</pubsub>
 </iq>
 ]]>
@@ -972,28 +964,30 @@ type="headline">
 			</p>
 			<example caption="New Post Notification">
 <![CDATA[
-<message type="headline" id="bc:GfLwH" from="channelserver.example.com" to="31941515521289471453412508@anon.buddycloud.com/2906694851289471453813745">
+<message type="headline" id="bc:GfLwH" from="buddycloudserver.example.org"
+	to="31941515521289471453412508@anon.buddycloud.com/2906694851289471453813745">
 	<event xmlns="http://jabber.org/protocol/pubsub#event">
-		<items node="/user/channeluser@example.com/posts">
-<item id="1291048810046">
-	<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0">
-		<author>
-<name>Dirk</name>
-<jid xmlns="http://buddycloud.com/atom-elements-0">fahrertuer@example.com</jid>
-<affiliation xmlns="http://buddycloud.com/atom-elements-0">moderator</affiliation>
-		</author>
-		<content type="text">A comment, wondering what all this testing does</content>
-		<published>2010-11-29T16:40:10Z</published>
-		<updated>2010-11-29T16:40:10Z</updated>
-		<id>/user/channeluser@example.com/posts:1291048810046</id>
-		<geoloc xmlns="http://jabber.org/protocol/geoloc">
-<text>Bremen, Germany</text>
-<locality>Bremen</locality>
-<country>Germany</country>
-		</geoloc>
-		<thr:in-reply-to ref="1291048772456"/>
-	</entry>
-</item>
+		<items node="/user/user@example.org/posts">
+			<item id="1291048810046">
+				<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0">
+					<author>
+						<name>Dirk</name>
+						<jid xmlns="http://buddycloud.com/atom-elements-0">fahrertuer@example.org</jid>
+						<affiliation xmlns="http://buddycloud.com/atom-elements-0">moderator</affiliation>
+					</author>
+					<content type="text">A comment, wondering what all this testing
+						does</content>
+					<published>2010-11-29T16:40:10Z</published>
+					<updated>2010-11-29T16:40:10Z</updated>
+					<id>/user/user@example.org/posts:1291048810046</id>
+					<geoloc xmlns="http://jabber.org/protocol/geoloc">
+						<text>Bremen, Germany</text>
+						<locality>Bremen</locality>
+						<country>Germany</country>
+					</geoloc>
+					<thr:in-reply-to ref="1291048772456" />
+				</entry>
+			</item>
 		</items>
 	</event>
 </message>
@@ -1009,11 +1003,11 @@ type="headline">
 			<example caption="Client requests all Posts">
 <![CDATA[
 <iq type="get"
-	from="channeluser@example.com/KillerApp"
-	to="channelserver.example.com"
+	from="user@example.org/KillerApp"
+	to="buddycloudserver.example.org"
 	id="items1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
-		<items node="/user/kitteh@example.com/posts"/>
+		<items node="/user/kitteh@example.org/posts"/>
 	</pubsub>
 </iq>
 ]]>
@@ -1021,54 +1015,55 @@ type="headline">
 			<p>Server responds:</p>
 			<example caption="The Server responds with all Posts">
 <![CDATA[
-<iq type="result"
-	from="channelserver.example.com"
-	to="channeluser@example.com/KillerApp"
+
+<iq type="result" from="buddycloudserver.example.org" to="user@example.org/KillerApp"
 	id="items1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
-		<items node="/user/kitteh@example.com/posts">
-<item id="1291048810046">
-	<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0">
-		<author>
-<name>Dirk</name>
-<jid xmlns="http://buddycloud.com/atom-elements-0">fahrertuer@example.com</jid>
-<affiliation xmlns="http://buddycloud.com/atom-elements-0">moderator</affiliation>
-		</author>
-		<content type="text">A comment, wondering what all this testing does</content>
-		<published>2010-11-29T16:40:10Z</published>
-		<updated>2010-11-29T16:40:10Z</updated>
-		<id>/user/channeluser@example.com/posts:1291048810046</id>
-		<geoloc xmlns="http://jabber.org/protocol/geoloc">
-<text>Bremen, Germany</text>
-<locality>Bremen</locality>
-<country>Germany</country>
-		</geoloc>
-		<thr:in-reply-to ref="1291048772456"/>
-	</entry>
-</item>
-<!-- [more items...] -->
-<item id="1131048810046">
-	<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0">
-		<author>
-<name>Kittycat</name>
-<jid xmlns="http://buddycloud.com/atom-elements-0">kitteh@example.com</jid>
-<affiliation xmlns="http://buddycloud.com/atom-elements-0">owner</affiliation>
-		</author>
-		<content type="text">I"m in ur channel, meowing federatedly</content>
-		<published>2009-08-12T16:40:10Z</published>
-		<id>/user/channeluser@example.com/posts:1131048810046</id>
-		<geoloc xmlns="http://jabber.org/protocol/geoloc">
-<text>Home basket</text>
-<locality>Munich</locality>
-<country>Germany</country>
-		</geoloc>
-	</entry>
-</item>
+		<items node="/user/kitteh@example.org/posts">
+			<item id="1291048810046">
+				<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0">
+					<author>
+						<name>Dirk</name>
+						<jid xmlns="http://buddycloud.com/atom-elements-0">fahrertuer@example.org</jid>
+						<affiliation xmlns="http://buddycloud.com/atom-elements-0">moderator</affiliation>
+					</author>
+					<content type="text">A comment, wondering what all this testing
+						does</content>
+					<published>2010-11-29T16:40:10Z</published>
+					<updated>2010-11-29T16:40:10Z</updated>
+					<id>/user/user@example.org/posts:1291048810046</id>
+					<geoloc xmlns="http://jabber.org/protocol/geoloc">
+						<text>Bremen, Germany</text>
+						<locality>Bremen</locality>
+						<country>Germany</country>
+					</geoloc>
+					<thr:in-reply-to ref="1291048772456" />
+				</entry>
+			</item>
+			<!-- [more items...] -->
+			<item id="1131048810046">
+				<entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0">
+					<author>
+						<name>Kittycat</name>
+						<jid xmlns="http://buddycloud.com/atom-elements-0">kitteh@example.org</jid>
+						<affiliation xmlns="http://buddycloud.com/atom-elements-0">owner</affiliation>
+					</author>
+					<content type="text">I"m in ur channel, meowing federatedly
+					</content>
+					<published>2009-08-12T16:40:10Z</published>
+					<id>/user/user@example.org/posts:1131048810046</id>
+					<geoloc xmlns="http://jabber.org/protocol/geoloc">
+						<text>Home basket</text>
+						<locality>Munich</locality>
+						<country>Germany</country>
+					</geoloc>
+				</entry>
+			</item>
 		</items>
 		<set xmlns="http://jabber.org/protocol/rsm">
-<first>1291048810046</first>
-<last>1131048810046</last>
-<count>19827</count>
+			<first>1291048810046</first>
+			<last>1131048810046</last>
+			<count>19827</count>
 		</set>
 	</pubsub>
 </iq>
@@ -1080,14 +1075,14 @@ type="headline">
 			<example caption="Client retrieves further Posts">
 <![CDATA[
 <iq type="get"
-	from="channeluser@example.com/KillerApp"
-	to="channelserver.example.com"
+	from="user@example.org/KillerApp"
+	to="buddycloudserver.example.org"
 	id="items2">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
-		<items node="/user/kitteh@example.com/posts"/>
+		<items node="/user/kitteh@example.org/posts"/>
 		<set xmlns="http://jabber.org/protocol/rsm">
-<max>1200</max>
-<after>1131048810046</after>
+      <max>1200</max>
+      <after>1131048810046</after>
 		</set>
 	</pubsub>
 </iq>
@@ -1099,7 +1094,7 @@ type="headline">
 				the (component or s2s) connection.
 			</p>
 		</section2>
-		<section2 topic='Retrieve all replies to a single post'>
+		<section2 topic="Retrieve All Replies to a Single Post">
 			<p>This stanza retrieve all replies from a single post. It is useful
 				in cases the user has new replies in old posts, so that he does not
 				need to look down the node stream to fetch old replies. This can
@@ -1109,9 +1104,9 @@ type="headline">
 			<p>Client sends:</p>
 			<example caption="Client requests all Replies to a Post">
 <![CDATA[
-<iq type="get" from="channeluser@example.com/ChannelCompatibleClient" to="channelserver.example.com" id="ri1">
+<iq type="get" from="user@example.org/BuddycloudApp" to="buddycloudserver.example.org" id="ri1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
-		<replies xmlns="http://buddycloud.org/v1" node="/user/channeluser@example.com/posts" item_id="38efced3-5462-49af-ba83-9f1d0a753a93"/>
+		<replies xmlns="http://buddycloud.org/v1" node="/user/user@example.org/posts" item_id="38efced3-5462-49af-ba83-9f1d0a753a93"/>
 	</pubsub>
 </iq>
 ]]>
@@ -1123,31 +1118,29 @@ type="headline">
 			<example
 				caption="Server responds with all Replies to a Post, paged as required">
 <![CDATA[
-<iq type="result"
-	from="channelserver.example.com"
-	to="channeluser@example.com/ChannelCompatibleClient"
-	id="ri1">
+<iq type="result" from="buddycloudserver.example.org"
+	to="user@example.org/BuddycloudApp" id="ri1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<items>
-<item id="1291048810046">
-	<entry>...</entry>
-</item>
-<item id="1287390194809">
-	<entry>...</entry>
-</item>
-...
+			<item id="1291048810046">
+				<entry>...</entry>
+			</item>
+			<item id="1287390194809">
+				<entry>...</entry>
+			</item>
+			...
 		</items>
 		<set xmlns="http://jabber.org/protocol/rsm">
-<first>/user/kitteh@example.com/posts;1291048810046</first>
-<last>/user/tut@example.com/posts;1131048810046</last>
-<count>19827</count>
+			<first>/user/kitteh@example.org/posts;1291048810046</first>
+			<last>/user/tut@example.org/posts;1131048810046</last>
+			<count>19827</count>
 		</set>
 	</pubsub>
 </iq>
 ]]>
 </example>
 		</section2>
-		<section2 topic='Retrieve entire Thread from a single Post'>
+		<section2 topic='Retrieve Entire Thread From a Single Post'>
 			<p>
 				This stanza retrieves the entire Thread for a post. It is useful for
 				filling in all the threads from the
@@ -1160,9 +1153,9 @@ type="headline">
 			</p>
 			<example caption="Client requests entire Thread from a Post">
 <![CDATA[
-<iq type="get" from="juliet@capulet.lit/mobile" to="buddycloud.capulet.lit" id="thread1">
+<iq type="get" from="user@example.com/BuddycloudApp" to="buddycloud.example.com" id="thread1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
-		<thread xmlns="http://buddycloud.org/v1" node="/user/romeo@montague.lit/posts" item_id="1234567891"/>
+		<thread xmlns="http://buddycloud.org/v1" node="/user/user@example.org/posts" item_id="1234567891"/>
 	</pubsub>
 </iq>
 ]]>
@@ -1176,38 +1169,34 @@ type="headline">
 			<example
 				caption="Server responds with all Replies to a Post including full Payloads, paged as required">
 		<![CDATA[
-		<iq type="result"
-from="buddycloud.montague.lit"
-to="romeo@montague.lit/mobile"
-id="thread1">
-<pubsub xmlns="http://jabber.org/protocol/pubsub">
-	<items>
-		<item id="/user/romeo@montague.lit/posts;1234567892">
-<entry>
-	...
-	<thr:in-reply-to ref='1234567890'/>
-</entry>
-		</item>
-		<item id="/user/romeo@montague.lit/posts;1234567891">
-<entry>
-	...
-	<thr:in-reply-to ref='1234567890'/>
-</entry>
-		</item>
-		<item id="/user/romeo@montague.lit/posts;1234567890">
-<entry>
-	...
-</entry>
-		</item>
-		...
-	</items>
-	<set xmlns="http://jabber.org/protocol/rsm">
-		<first>/user/romeo@montague.lit/posts;1234567892</first>
-		<last>/user/romeo@montague.lit/posts;1234567890</last>
-		<count>186</count>
-	</set>
-</pubsub>
-		</iq>
+<iq type="result" from="buddycloud.example.org" to="user@example.org/BuddycloudApp" id="thread1">
+	<pubsub xmlns="http://jabber.org/protocol/pubsub">
+		<items>
+			<item id="/user/user@example.org/posts;1234567892">
+				<entry>
+					...
+					<thr:in-reply-to ref='1234567890' />
+				</entry>
+			</item>
+			<item id="/user/user@example.org/posts;1234567891">
+				<entry>
+					...
+					<thr:in-reply-to ref='1234567890' />
+				</entry>
+			</item>
+			<item id="/user/user@example.org/posts;1234567890">
+				<entry> ...
+				</entry>
+			</item>
+			...
+		</items>
+		<set xmlns="http://jabber.org/protocol/rsm">
+			<first>/user/user@example.org/posts;1234567892</first>
+			<last>/user/user@example.org/posts;1234567890</last>
+			<count>186</count>
+		</set>
+	</pubsub>
+</iq>
 		]]>
 </example>
 		</section2>
@@ -1338,14 +1327,12 @@ id="thread1">
 				</p>
 				<example caption='The from address is not authoritative for the actor'>
 <![CDATA[
-<iq type='error'
-from='pubsub.shakespeare.lit'
-to='francisco@denmark.lit/barracks'
-id='items1'>
-<error type='cancel'>
-	<policy-violation xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
-	<invalid-actor xmlns='http://buddycloud.org/v1#errors'/>
-</error>
+<iq type='error' from='buddycloud.example.org' to='user@example.org/client'
+	id='items1'>
+	<error type='cancel'>
+		<policy-violation xmlns='urn:ietf:params:xml:ns:xmpp-stanzas' />
+		<invalid-actor xmlns='http://buddycloud.org/v1#errors' />
+	</error>
 </iq>
 ]]> </example>
 			</section3>
@@ -1370,8 +1357,8 @@ id='items1'>
 					caption='The &quot;from&quot; address is not authoritative for the Node'>
 <![CDATA[
 <iq type='error'
-	from='pubsub.shakespeare.lit'
-	to='francisco@denmark.lit/barracks'
+	from='buddycloud.example.org'
+	to='francisco@example.org/client'
 	id='items1'>
 	<error type='cancel'>
 		<policy-violation xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
@@ -1399,37 +1386,36 @@ id='items1'>
 			<code><![CDATA[
 <?xml version='1.0' encoding='UTF-8'?>
 <xs:schema xmlns:xs='http://www.w3.org/2001/XMLSchema'
-targetNamespace='http://buddycloud.org/v1' elementFormDefault='qualified'>
-<xs:annotation>
-	<xs:documentation>
-		The protocol documented by this schema is defined in
-		XEP-xxxx: http://xmpp.org/extensions/xep-xxxx.html
-	</xs:documentation>
-</xs:annotation>
-<xs:element name="you-missed-something">
-	<xs:complexType>
-		<xs:complexContent>
-<xs:restriction base="xs:anyType"></xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-</xs:element>
-<xs:element name="actor" type="xs:string"></xs:element>
-<xs:element name="recent-items">
-	<xs:complexType>
-		<xs:complexContent>
-<xs:restriction base="xs:anyType">
-	<xs:attribute name="since" type="xs:dateTime"/>
-	<xs:attribute name="max" type="xs:int"/>
-</xs:restriction>
-		</xs:complexContent>
-	</xs:complexType>
-</xs:element>
-<xs:element name="replies">
-	<xs:complexType>
-		<xs:attribute name="node" type="xs:string"/>
-		<xs:attribute name="item_id" type="xs:string"/>
-	</xs:complexType>
-</xs:element>
+	targetNamespace='http://buddycloud.org/v1' elementFormDefault='qualified'>
+	<xs:annotation>
+		<xs:documentation> The protocol documented by this schema is defined
+			in XEP-xxxx: http://xmpp.org/extensions/xep-xxxx.html 
+		</xs:documentation>
+	</xs:annotation>
+	<xs:element name="you-missed-something">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:restriction base="xs:anyType"></xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="actor" type="xs:string"></xs:element>
+	<xs:element name="recent-items">
+		<xs:complexType>
+			<xs:complexContent>
+				<xs:restriction base="xs:anyType">
+					<xs:attribute name="since" type="xs:dateTime" />
+					<xs:attribute name="max" type="xs:int" />
+				</xs:restriction>
+			</xs:complexContent>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="replies">
+		<xs:complexType>
+			<xs:attribute name="node" type="xs:string" />
+			<xs:attribute name="item_id" type="xs:string" />
+		</xs:complexType>
+	</xs:element>
 </xs:schema>
 ]]>
 </code>
