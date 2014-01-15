@@ -1003,7 +1003,7 @@
 			<example caption="Client requests all Posts">
 <![CDATA[
 <iq type="get"
-	from="user@example.org/KillerApp"
+	from="user@example.org/BuddycloudApp"
 	to="buddycloudserver.example.org"
 	id="items1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
@@ -1016,7 +1016,7 @@
 			<example caption="The Server responds with all Posts">
 <![CDATA[
 
-<iq type="result" from="buddycloudserver.example.org" to="user@example.org/KillerApp"
+<iq type="result" from="buddycloudserver.example.org" to="user@example.org/BuddycloudApp"
 	id="items1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<items node="/user/kitteh@example.org/posts">
@@ -1075,7 +1075,7 @@
 			<example caption="Client retrieves further Posts">
 <![CDATA[
 <iq type="get"
-	from="user@example.org/KillerApp"
+	from="user@example.org/BuddycloudApp"
 	to="buddycloudserver.example.org"
 	id="items2">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
