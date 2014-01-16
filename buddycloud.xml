@@ -262,7 +262,7 @@
 				</p>
 				<example>
 <![CDATA[
-<iq type="set" from="buddycloud.montague.lit" to="buddycloud.capulet.lit">
+<iq type="set" from="channels.montague.lit" to="buddycloud.capulet.lit">
 <you-missed-something xmlns="http://buddycloud.org/v1"/>
 		</iq>
 		]]> </example>
@@ -592,7 +592,7 @@
 			</p>
 			<example caption="A Publisher Posts to a Channel">
 	<![CDATA[
-<iq from="romeo@montague.lit/BuddycloudApp" to="buddycloud.montague.lit"
+<iq from="romeo@montague.lit/BuddycloudApp" to="channels.montague.lit"
 	type="set" id="publish:20">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<publish node="/user/juliet@capulet.lit/posts">
@@ -616,7 +616,7 @@
 				Server, along with &lt;actor/&gt; information.</p>
 			<example caption="The Local Server relays the request to the Remote Server">
 		<![CDATA[
-<iq from="buddycloud.montague.lit" to="buddycloud.capulet.lit" type="set"	id="publish:21">
+<iq from="channels.montague.lit" to="buddycloud.capulet.lit" type="set"	id="publish:21">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<publish node="/user/juliet@capulet.lit/posts">
 			<item>
@@ -647,7 +647,7 @@
 			</p>
 			<example caption="The Remote Server responds to the Post request">
 		<![CDATA[
-<iq from="buddycloud.capulet.lit" to="buddycloud.montague.lit" type="result"
+<iq from="buddycloud.capulet.lit" to="channels.montague.lit" type="result"
 	id="publish:21">
 	<pubsub xmlns='http://jabber.org/protocol/pubsub'>
 		<publish node='/user/romeo@montague.lit/posts'>
@@ -659,7 +659,7 @@
 </example>
 			<example caption="The Local Server relays the Response back to the Client">
 		<![CDATA[
-<iq from="buddycloud.montague.lit" to="romeo@montague.lit/BuddycloudApp"
+<iq from="channels.montague.lit" to="romeo@montague.lit/BuddycloudApp"
 	type="result" id="publish:20">
 	<pubsub xmlns='http://jabber.org/protocol/pubsub'>
 		<publish node='/user/juliet@capulet.lit/posts'>
@@ -771,7 +771,7 @@
 			<example
 				caption="The Client sends a Delete Post request to their Local Server">
 		<![CDATA[
-<iq from="romeo@montague.lit/mobile" to="buddycloud.montague.lit"
+<iq from="romeo@montague.lit/mobile" to="channels.montague.lit"
 	type="set" id="retractitem:32">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<retract node="/user/juliet@capulet.lit/posts" notify="1">
@@ -788,7 +788,7 @@
 			<example
 				caption="The Client sends a Delete Post request to their Local Server">
 		<![CDATA[
-<iq from="romeo@montague.lit/mobile" to="buddycloud.montague.lit"
+<iq from="romeo@montague.lit/mobile" to="channels.montague.lit"
 	type="set" id="retractitem:32">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<retract node="/user/juliet@capulet.lit/posts" notify="1">
@@ -850,7 +850,7 @@
 			</p>
 			<example caption="Client sends Subscription Request to their Local Inbox">
 	<![CDATA[
-<iq type="set" from="romeo@montague.lit/client" to="buddycloud.montague.lit"
+<iq type="set" from="romeo@montague.lit/client" to="channels.montague.lit"
 	id="sub1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<subscribe node="/users/juliet@capulet.lit/posts" jid="romeo@montague.lit" />
@@ -863,7 +863,7 @@
 			</p>
 			<example caption="The Local Inbox Subscribes to the Remote Server">
 		<![CDATA[
-<iq type="set" from="buddycloud.montague.lit" to="buddycloud.capulet.lit"
+<iq type="set" from="channels.montague.lit" to="buddycloud.capulet.lit"
 	id="sub2">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<subscribe node="/users/juliet@capulet.lit/posts" jid="romeo@montague.lit" />
@@ -1153,7 +1153,7 @@
 			</p>
 			<example caption="Client requests entire Thread from a Post">
 <![CDATA[
-<iq type="get" from="romeo@montague.lit/BuddycloudApp" to="buddycloud.montague.lit" id="thread1">
+<iq type="get" from="romeo@montague.lit/BuddycloudApp" to="channels.montague.lit" id="thread1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<thread xmlns="http://buddycloud.org/v1" node="/user/juliet@capulet.lit/posts" item_id="1234567891"/>
 	</pubsub>
