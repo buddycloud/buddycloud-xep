@@ -195,7 +195,7 @@
 					MUST NOT allow the ownership to be altered. For example:
 					<em>juliet@capulet.lit</em>
 					owns
-					<em>channel.capulet.lit</em>
+					<em>buddycloud.capulet.lit</em>
 					, node
 					<em>/user/juliet@capulet.lit/posts</em>
 				</li>
@@ -505,7 +505,7 @@
 		id='items1'>
 		<query xmlns='http://jabber.org/protocol/disco#items'>
 			<item jid='muc.capulet.lit' name='Chatrooms' />
-			<item jid='buddycloud.montague.lit' name='Buddycloud Server' />
+			<item jid='buddycloud.capulet.lit' name='Buddycloud Server' />
 		</query>
 	</iq>
 	]]>
@@ -517,7 +517,7 @@
 	<![CDATA[
 	<iq type='get'
 		from='juliet@capulet.lit/BuddycloudApp'
-		to='channels.capulet.lit'
+		to='buddycloud.capulet.lit'
 		id='info1'>
 		<query xmlns='http://jabber.org/protocol/disco#info'/>
 	</iq>
@@ -578,7 +578,7 @@
 </example>
 			<example caption="An Entity Registers with the Service">
 	<![CDATA[
-	<iq from="juliet@capulet.lit/BuddycloudApp" to="buddycloudserver.capulet.lit" type="set">
+	<iq from="juliet@capulet.lit/BuddycloudApp" to="buddycloud.capulet.lit" type="set">
 		<query xmlns="jabber:iq:register"/>
 	</iq>
 	]]>
@@ -801,7 +801,7 @@
 			<p>Server replies</p>
 			<example caption="The Server replies to a Delete Post request">
 		<![CDATA[
-		<iq from="juliet@capulet.lit/BuddycloudApp" to="buddycloudserver.capulet.lit" type="result" id="retractitem:32"/>
+		<iq from="juliet@capulet.lit/BuddycloudApp" to="buddycloud.capulet.lit" type="result" id="retractitem:32"/>
 		]]>
 </example>
 			<p>A retraction message is sent to all online clients, along with an
@@ -810,19 +810,19 @@
 			<example
 				caption="The Server send a Retraction Notification to all Subscribers to the Channel">
 		<![CDATA[
-<message from="buddycloudserver.capulet.lit" id="bc:MGV3B"
+<message from="buddycloud.capulet.lit" id="bc:MGV3B"
 	to="imranraza@capulet.lit">
 	<event xmlns="http://jabber.org/protocol/pubsub#event">
 		<items node="/user/juliet@capulet.lit/posts">
 			<retract id="1291048772456" />
 			<item id="1291048772456">
 				<deleted-entry xmlns="http://purl.org/atompub/tombstones/1.0"
-					ref="xmpp:channels.capulet.lit?pubsub;action=retrieve;node=/user/juliet@capulet.lit/posts;item=1291048772456"
+					ref="xmpp:buddycloud.capulet.lit?pubsub;action=retrieve;node=/user/juliet@capulet.lit/posts;item=1291048772456"
 					when="2012-07-01T15:08:32.950Z">
 					<updated>2012-07-01T15:08:32.950Z</updated>
 					<id xmlns="http://www.w3.org/2005/Atom">1291048772456</id>
 					<link xmlns="http://www.w3.org/2005/Atom"
-						href="xmpp:channels.capulet.lit?pubsub;action=retrieve;node=/user/juliet@capulet.lit/posts;item=1291048772456"
+						href="xmpp:buddycloud.capulet.lit?pubsub;action=retrieve;node=/user/juliet@capulet.lit/posts;item=1291048772456"
 						rel="self" />
 					<published xmlns="http://www.w3.org/2005/Atom">2012-07-01T15:08:30.922Z</published>
 					<object xmlns="http://activitystrea.ms/spec/1.0/">
@@ -895,7 +895,7 @@
 <![CDATA[
 <iq type="result"
 	from="buddycloud.capulet.lit"
-	to="buddycloud.capulet.lit"
+	to="channels.montague.lit"
 	id="sub2">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<subscription node="/users/juliet@capulet.lit/posts" jid="romeo@montague.lit" subscription="subscribed"/>
@@ -940,7 +940,7 @@
 			<p>Client sends:</p>
 			<example caption="An Entity requests Recent Posts">
 		<![CDATA[
-<iq from="juliet@capulet.lit/BuddycloudApp" to="buddycloudserver.capulet.lit" type="get" id="ri1">
+<iq from="juliet@capulet.lit/BuddycloudApp" to="buddycloud.capulet.lit" type="get" id="ri1">
   <pubsub xmlns="http://jabber.org/protocol/pubsub">
 	  <recent-items xmlns="http://buddycloud.org/v1"
 		  since="2012-12-04T23:36:51.123Z"
@@ -964,7 +964,7 @@
 			</p>
 			<example caption="New Post Notification">
 <![CDATA[
-<message type="headline" id="bc:GfLwH" from="buddycloudserver.capulet.lit"
+<message type="headline" id="bc:GfLwH" from="buddycloud.capulet.lit"
 	to="31941515521289471453412508@anon.buddycloud.com/2906694851289471453813745">
 	<event xmlns="http://jabber.org/protocol/pubsub#event">
 		<items node="/user/juliet@capulet.lit/posts">
@@ -1004,7 +1004,7 @@
 <![CDATA[
 <iq type="get"
 	from="juliet@capulet.lit/BuddycloudApp"
-	to="buddycloudserver.capulet.lit"
+	to="buddycloud.capulet.lit"
 	id="items1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<items node="/user/kitteh@capulet.lit/posts"/>
@@ -1016,7 +1016,7 @@
 			<example caption="The Server responds with all Posts">
 <![CDATA[
 
-<iq type="result" from="buddycloudserver.capulet.lit" to="juliet@capulet.lit/BuddycloudApp"
+<iq type="result" from="buddycloud.capulet.lit" to="juliet@capulet.lit/BuddycloudApp"
 	id="items1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<items node="/user/kitteh@capulet.lit/posts">
@@ -1076,7 +1076,7 @@
 <![CDATA[
 <iq type="get"
 	from="juliet@capulet.lit/BuddycloudApp"
-	to="buddycloudserver.capulet.lit"
+	to="buddycloud.capulet.lit"
 	id="items2">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<items node="/user/kitteh@capulet.lit/posts"/>
@@ -1104,7 +1104,7 @@
 			<p>Client sends:</p>
 			<example caption="Client requests all Replies to a Post">
 <![CDATA[
-<iq type="get" from="juliet@capulet.lit/BuddycloudApp" to="buddycloudserver.capulet.lit" id="ri1">
+<iq type="get" from="juliet@capulet.lit/BuddycloudApp" to="buddycloud.capulet.lit" id="ri1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<replies xmlns="http://buddycloud.org/v1" node="/user/juliet@capulet.lit/posts" item_id="38efced3-5462-49af-ba83-9f1d0a753a93"/>
 	</pubsub>
@@ -1118,7 +1118,7 @@
 			<example
 				caption="Server responds with all Replies to a Post, paged as required">
 <![CDATA[
-<iq type="result" from="buddycloudserver.capulet.lit"
+<iq type="result" from="buddycloud.capulet.lit"
 	to="juliet@capulet.lit/BuddycloudApp" id="ri1">
 	<pubsub xmlns="http://jabber.org/protocol/pubsub">
 		<items>
