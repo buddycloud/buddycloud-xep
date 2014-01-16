@@ -1131,8 +1131,8 @@
 			...
 		</items>
 		<set xmlns="http://jabber.org/protocol/rsm">
-			<first>/user/kitteh@capulet.lit/posts;1291048810046</first>
-			<last>/user/tut@capulet.lit/posts;1131048810046</last>
+			<first>/user/tybalt@capulet.lit/posts;1291048810046</first>
+			<last>/user/peter@capulet.lit/posts;1131048810046</last>
 			<count>19827</count>
 		</set>
 	</pubsub>
@@ -1357,8 +1357,8 @@
 					caption='The &quot;from&quot; address is not authoritative for the Node'>
 <![CDATA[
 <iq type='error'
-	from='buddycloud.example.org'
-	to='francisco@example.org/client'
+	from='buddycloud.capulet.lit'
+	to='rosaline@capulet.lit/client'
 	id='items1'>
 	<error type='cancel'>
 		<policy-violation xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
