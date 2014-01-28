@@ -1,6 +1,6 @@
 before_install:
   - sudo apt-get install xsltproc
-install:
+script:
   - make
 after_success:
   - git commit -m "Updating XEP" buddycloud.html buddycloud.xml
