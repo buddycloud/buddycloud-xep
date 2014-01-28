@@ -1,13 +1,14 @@
-	<section1 topic='Buddycloud Introduction' anchor='intro'>
-		<p>Buddycloud channels is a decentralised communication protocol that
-			enables synchronised communication in the form of channels between
-			Buddycloud-enabled domains.
-		</p>
-		<p>Buddycloud channels build on XMPP's native federation and
-			asynchronous messaging to provide a decentralised sharing and
-			communication network. The Buddycloud ecosystem contains multiple
-			[XMPP] components (for example: location-butler, media-server and
-			channel-directory) that work together and enable developers to build
-			new communication products.
-		</p>
-	</section1>
+
+<section1 topic='Buddycloud Introduction' anchor='intro'>
+	<p>Buddycloud is a set of servers and clients that enable rich
+		federated communication between uses and groups. Buddycloud builds on
+		XMPP's native federaton and pubsub principles to connect to and
+		synchronise updates with other Buddycloud servers.
+	</p>
+	<p>At buddycloud's core are "channels". Channels represent a bundle of
+		publish-subscribe nodes that have the same owner, folllowers and
+		permissions. There are two types of channel: a user channel, for
+		example channel:romeo@montagu.lit) and a topic channel,
+		(beer@montague.liu)
+	</p>
+</section1>
