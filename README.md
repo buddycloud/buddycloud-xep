@@ -14,3 +14,29 @@ Next steps
 ----------
 
 * restructure according to https://github.com/buddycloud/buddycloud-xep/issues/6
+
+- discovery
+  - DISCO
+  - DNS
+- configuration
+  - get 
+  - set
+- items
+  - publish 
+     - rules
+  - retract
+  - retrieve
+ subscriptions
+  - retrieve
+  - subscribe
+  - unsubscribe
+  - manange
+- affiliations
+  - retrieve
+  - manage
+- search
+- inbox
+- MAM
+- Special nodes
+- Channels
+- Register
