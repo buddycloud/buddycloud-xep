@@ -15,28 +15,34 @@ Next steps
 
 * restructure according to https://github.com/buddycloud/buddycloud-xep/issues/6
 
-- discovery
+- 1. Introduction
+- 2. what is a channel?
+- 3. Register
+  - creates your channels
+  - default set is...
+- 4. discovery
   - DISCO
-  - DNS
-- configuration
+  - DNS (implement this SRV record)
+- 5. node configuration
   - get 
   - set
-- items
+    - minimum setting/optional
+    - recommended fallbacks
+- 6. items
   - publish 
      - rules
   - retract
-  - retrieve
- subscriptions
-  - retrieve
+  - retrieve (mention mam)
+    - search
+    - firehose
+- 7. subscriptions 
+  - retrieve (mention mam)
   - subscribe
   - unsubscribe
   - manange
-- affiliations
-  - retrieve
+- 8. affiliations
+  - retrieve (mention mam)
   - manage
-- search
-- inbox
-- MAM
-- Special nodes
-- Channels
-- Register
+- 9. federation
+  - inbox
+  - interaction with other services
