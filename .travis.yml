@@ -1,19 +1,19 @@
 before_install:
   - sudo apt-get install xsltproc
-  - rm -f buddycloud.html
+  - rm -f index.html
   - rm -f buddycloud.xml
 script:
   - make
 after_success: 
   - git config user.email "deploy@travis-ci.org"
   - git config user.name "Travis deploy"
-  - cp buddycloud.html ~/
+  - cp index.html ~/
   - cp buddycloud.xml ~/
   - git checkout gh-pages
-  - cp ~/buddycloud.html .
+  - cp ~/index.html .
   - cp ~/buddycloud.xml .
   - git add -f buddycloud.xml
-  - git add -f buddycloud.html
+  - git add -f index.html
   - echo "Added generated files"
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${GH_TOKEN}@github.com" > .git/credentials
