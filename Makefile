@@ -1,9 +1,5 @@
 index.html:
 	if [ -e buddycloud.xml ]; then rm buddycloud.xml; fi;
-	touch buddycloud.xml; 
-	for i in `ls ./sections/ | sort -n`; do \
-		cat ./sections/$$i >> buddycloud.xml;  \
-	done;
-	sed -i s/{{DATE}}/`date +%Y-%m-%d`/g buddycloud.xml
-	sed -i s/{{YEAR}}/`date +%Y`/g buddycloud.xml
-	xsltproc xep.xsl buddycloud.xml > $@
+	xsltproc --xinclude xep.xsl main.xml > $@
+	sed -i s/{{DATE}}/`date +%Y-%m-%d`/g buddycloud.html
+	sed -i s/{{YEAR}}/`date +%Y`/g buddycloud.html
