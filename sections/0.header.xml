@@ -103,7 +103,7 @@
                 </author>
 		<revision>
 			<version>0.0.1</version>
-			<date>2014-01-29</date>
+			<date>{{DATE}}</date>
 			<initials>sdt</initials>
 			<remark>
 				<p>First draft.</p>
