@@ -1,5 +1,5 @@
-<section1 topic="Channel affiliations" anchor='affiliations' />
-<section2 topic='Buddycloud to XEP-0060 mappings' anchor='affiliation-to-xep-60-mappings' />
+<section1 topic="Channel affiliations" anchor='affiliations'>
+<section2 topic='Buddycloud to XEP-0060 mappings' anchor='affiliation-to-xep-60-mappings'>
 <p>
 	Buddycloud channels build on XEP-0060's node affiliations.
 	<table caption="Channel Affiliations">
@@ -24,7 +24,7 @@
 				affiliation of entites with the node (except changing ownership),
 				and rights to manage the subscriptions of entities with the node.
 			</td>
-			
+
 			<td>REQUIRED</td>
 		</tr>
 		<tr>
@@ -66,24 +66,25 @@
 	anchor='rules-nodeaffiliations'>
 	<p>
 		A Channel Server SHOULD maintain similar affiliations for a subscribed
-		entity across all the Nodes of a Channel.
-		<section2 topic='Affiliation permissions' anchor='rules-affiliation-permissions'>
-			<di>
+		entity across all the Nodes of a Channel.</p>
+
+		  <section3 topic='Affiliation permissions' anchor='rules-affiliation-permissions'>
+			<dl>
 				<dt>Producer</dt>
 				<dd>the owner of a channel with the ability to add and remove
 					moderators
 				</dd>
-			</di>
-			<di>
+			</dl>
+			<dl>
 				<dt>Follower</dt>
 				<dd>A Channel subscriber</dd>
-			</di>
-			<di>
+			</dl>
+			<dl>
 				<dt>Moderator</dt>
 				<dd>A channel follower with capabilities to also approve followers
 					to topic channels and retract posts
 				</dd>
-			</di>
-			<!-- End fix this -->
-	</p>
+			</dl>
+            </section3>
 </section2>
+</section1>
