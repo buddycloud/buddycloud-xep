@@ -1,5 +1,7 @@
 before_install:
   - sudo apt-get install xsltproc
+  - rm -f buddycloud.html
+  - rm -f buddycloud.xml
 script:
   - make
 after_success: 
