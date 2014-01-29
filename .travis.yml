@@ -3,7 +3,6 @@ before_install:
 script:
   - make
 after_success: 
-  - cat buddycloud.html
   - ./update-gh-pages.sh
 env:
   global:
