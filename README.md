@@ -2,6 +2,7 @@ buddycloud-xep
 ==============
 
 http://buddycloud.com/buddycloud-xep/buddycloud.html
+http://buddycloud.com/buddycloud-xep/buddycloud.xml
 
 This XEP defines the XMPP protocol for buddycloud servers and clients.
 
