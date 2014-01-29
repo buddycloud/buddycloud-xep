@@ -4,9 +4,10 @@ script:
   - make
 after_success:
   - git config credential.helper "store --file=.git/credentials"
-  - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
-  - git commit -m "Updating XEP" buddycloud.html buddycloud.xml
-  - git push origin gh-pages
+  - echo "https://${GH_TOKEN}@github.com" > .git/credentials
+  - git add -f .
+  - git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
+  - git push -fq origin gh-pages > /dev/null
 env:
   global:
   - secure: 'EF0sdrfSkfTIjaQwlFyC+Ma9IOwlKh1N7qKDS0RMo7goq+5cFXOMXvlYguuxPX6YnxBFRWhTz5NNMjeCfjchET0Mu5mvD9aS4g38yAYHsqD0pBxgjXx01rkVo45dtrwASHUWhbupAde7ppbYKbjY5spOvFvyI57Vo/9hcrazyVk='
