@@ -1,0 +1,21 @@
+<section1 topic='Register' anchor='register'>
+  <p>Upon connection to the buddycloud server a user should send a register 
+     stanza.</p>
+
+  <example caption="The Entity sends a register request to the domain">
+  <![CDATA[
+  <iq type='set'
+  from='juliet@capulet.lit/balcony'
+  to='channels.capulet.lit'
+  id='register1'>
+  <query xmlns='jabber:iq:register'/>
+  </iq>
+  ]]>
+  </example>
+
+  <p>The register request creates the user's personal channels on first use 
+  and has the additional benefit of creating additional new channel nodes 
+  as they become available on the server (e.g. 'status' node, 'geoloc' nodes).
+  </p>
+  
+</section1>
