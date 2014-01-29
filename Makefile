@@ -2,7 +2,6 @@
 
 buddycloud.html:
 	if [ -e buddycloud.xml ]; then rm buddycloud.xml; fi;
-	if [ -e buddycloud.html ]; then rm buddycloud.html; fi;
 	touch buddycloud.xml; 
 	for i in `ls ./sections/ | sort -n`; do \
 		cat ./sections/$$i >> buddycloud.xml;  \
