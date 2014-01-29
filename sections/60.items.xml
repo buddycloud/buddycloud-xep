@@ -1,13 +1,13 @@
 <section1 topic="Pubsub Items" anchor="items">
 
-    <p>Many of the item use cases follow those from &amp;<strong>xep0060</strong>; here we 
+    <p>Many of the item use cases follow those from &amp;<strong>xep0060</strong>; here we
     only note the departures from the parent XEP and specific requirements.</p>
 
     <section2 topic="Deleting items" anchor="items-delete" />
 
     <section2 topic="Item Payload" anchor="item-payload">
 
-        <p>Buddycloud item data are formatted according to &amp;<strong>atom</strong>; standards 
+        <p>Buddycloud item data are formatted according to &amp;<strong>atom</strong>; standards
         and optionally making use of &amp;<strong>thread</strong>; and &amp;<strong>review</strong>; extensions.</p>
 
         <section3 topic='Publishing' anchor='item-publishing' />
@@ -15,7 +15,7 @@
         <p>The minimal payload for a publish request must be formatted as follows:</p>
         <example caption="The Entity publishes to a node">
   <![CDATA[
-<iq from="juliet@montague.lit/balcony" to="channels.montague.lit" type="set" id="publish:20"> 
+<iq from="juliet@montague.lit/balcony" to="channels.montague.lit" type="set" id="publish:20">
    <pubsub xmlns="http://jabber.org/protocol/pubsub">
       <publish node="/user/romeo@capulet.lit/posts">
          <item>
@@ -52,7 +52,7 @@
         </example>
 
         <section4 topic='Error Cases' anchor='item-publishing-errorcases'>
-  
+
         <p>Beyond standard &amp;<strong>xep0060</strong>; error cases additional errors are used:</p>
 
         <ul>
@@ -65,11 +65,11 @@
 
         <section3 topic='Threading' anchor='item-threading' />
 
-        <p>Posts in Buddycloud can be formed into threads consisting of a 
+        <p>Posts in Buddycloud can be formed into threads consisting of a
         parent post and comments to a maximum thread depth of 1.</p>
 
         <p>For this functionality we utilise the &amp;<strong>thread</strong>;
-        namespace with the 'ref' attribute referring to the full global ID 
+        namespace with the 'ref' attribute referring to the full global ID
         of the parent post.</p>
 
         <example caption='A valid payload for replying in a thread'>
@@ -102,19 +102,85 @@
 
         <section3 topic='Referencing' anchor='item-referencing' />
 
-        <section3 topic='Rating' anchor='item-rating' />
+        <p>Within a single thread comments can reference other comments or the parent item. This is for the purpose of making a comment to a post further back in the thread.</p>
 
-<![CDATA[ 
-	public static final String TARGETED_ITEM_NOT_FOUND = "targeted-item-not-found";
-	public static final String IN_REPLY_TO_MISSING = "missing-in-reply-to";
-	public static final String TARGET_ELEMENT_MISSING = "missing-target";
-	public static final String MISSING_TARGET_ID = "missing-target-id";
-	public static final String RATING_OUT_OF_RANGE = "rating-out-of-range";
-	public static final String INVALID_RATING_VALUE = "invalid-rating";
-	public static final String TARGET_MUST_BE_IN_SAME_THREAD = "target-outside-thread";
-	public static final String CAN_ONLY_RATE_A_POST = "invalid-rating-request";
+        <example caption='A valid payload for referencing another post within a thread'>
+        <![CDATA[
+            <entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/">
+               <id>96da02ee1baef61e767742844207bec4</id>
+               <title>Post title</title>
+               <published>2014-01-01T00:00:00.000Z</published>
+               <updated>2014-01-01T00:00:00.000Z</updated>
+               <author>
+                  <name>romeo@capulet.lit</name>
+                  <jid xmlns="http://buddycloud.com/atom-elements-0">romeo@capulet.lit</jid>
+               </author>
+               <content type="text">Shall I hear more, or shall I speak at this?</content>
+               <activity:verb>post</activity:verb>
+               <activity:object>
+                  <activity:object-type>comment</activity:object-type>
+               </activity:object>
+               <thr:in-reply-to ref="tag:channels.capulet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095" />
+<activity:target>                 <id>tag:channels.capuet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095</id>
+               </activity:target>
+            </entry>
+        ]]>
+        </example>
 
-]]>
+        <section4 topic='Error Cases' anchor='item-referencing-errorcases'>
+        <ul>
+            <li><em>missing-in-reply-to</em>: As posts referencing other posts can only be comments then attempting to do so results in this error</li>
+            <li><em>missing-target-id</em>: A target ID must be specificed as text to the target element</li>
+            <li><em>targeted-item-not-found</em>: If the targetted item can not be found in the current thread this error response will be returned</li>
+            <li><em>target-outside-thread</em>: The targetted item must be within the same thread as the new post</li>
+        </ul>
+
+        </section4>
+
+        <section3 topic='Rating' anchor='item-rating'>
+
+        <p>By making use of the &amp;<strong>review</strong>; extension of activity streams and the &amp;<strong>target</strong>; element outline above Buddycloud is able to support 'rating' a post.</p>
+
+        <p>Posts can be rated an integer value between 1 and 5, although may only wish to provide a binary setting to match popular services which provide 'likes', '+1', etc.</p>
+
+        <p>Any post content is discarded and replaced with <strong>rating:X.0</strong> (where <em>X</em> is the rating value). The activity very is also overwritten with 'rated'.</p>
+
+        <example caption='A valid payload for rating another post'>
+        <![CDATA[
+            <entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/">
+               <id>96da02ee1baef61e767742844207bec4</id>
+               <title>Post title</title>
+               <published>2014-01-01T00:00:00.000Z</published>
+               <updated>2014-01-01T00:00:00.000Z</updated>
+               <author>
+                  <name>romeo@capulet.lit</name>
+                  <jid xmlns="http://buddycloud.com/atom-elements-0">romeo@capulet.lit</jid>
+               </author>
+               <content type="text">rating:5.0</content>
+               <activity:verb>rated</activity:verb>
+               <activity:object>
+                  <activity:object-type>comment</activity:object-type>
+               </activity:object>
+               <thr:in-reply-to ref="tag:channels.capulet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095" />
+<activity:target>                 <id>tag:channels.capuet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095</id>
+               </activity:target>
+               <review:rating>5.0</review:rating>
+            </entry>
+        ]]>
+        </example>
+
+        <section4 topic='Error cases' anchor='item-rating-errorcases'>
+
+            <ul>
+                <li><em>invalid-rating</em>: A non-numerically parsable rating value will result in this error message</li>
+                <li><em>rating-out-of-range</em>: A rating can only have an integer value between 1 and 5 (inclusive)</li>
+                <li><em>invalid-rating-request</em>: Ratings can only be made against post types 'post' and 'comment' i.e. it is not possible to rate a rating</li>
+            </ul>
+
+        </section4>
+
+        </section3>
+
     </section2>
 
 </section1>
