@@ -14,7 +14,7 @@ make
 
 [![Build Status](https://travis-ci.org/buddycloud/buddycloud-xep.png?branch=gh-pages)](https://travis-ci.org/buddycloud/buddycloud-xep)
 
-http://buddycloud.com/buddycloud-xep/buddycloud.html
+http://buddycloud.com/buddycloud-xep/index.html
 
 http://buddycloud.com/buddycloud-xep/buddycloud.xml
 
