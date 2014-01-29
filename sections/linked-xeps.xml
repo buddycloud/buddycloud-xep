@@ -1,0 +1,10 @@
+<dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XEP-0059</spec>
+    <spec>XEP-0060</spec>
+    <spec>XEP-0313</spec>
+    <spec>XEP-0255</spec>
+    <spec>XEP-0107</spec>
+</dependencies>
+<supersedes />
+<supersededby />

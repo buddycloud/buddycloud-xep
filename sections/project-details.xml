@@ -1,0 +1,16 @@
+<title>Buddycloud Channels</title>
+<abstract>This document describes a profile and conventions for usage
+of the PubSub protocol in the context of a new type of communication.</abstract>
+<number>xxxx</number>
+<status>ProtoXEP</status>
+<type>Standards Track</type>
+<sig>Standards</sig>
+<approver>Council</approver>
+<revision>
+    <version>0.0.1</version>
+    <date>{{DATE}}</date>
+    <initials>sdt</initials>
+    <remark>
+        <p>First draft.</p>
+    </remark>
+</revision>
