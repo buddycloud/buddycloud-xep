@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Council Vote Tallies -- 2008-2009</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Council Vote Tallies -- 2008-2009</h2>
+<p>This page provides detailed voting status information for each <a href='/extensions/'>XMPP Extension Protocol</a> proposed to the Eighth <a href='/council/'>XMPP Council</a> (2008-2009). For further information, refer to the <a href='http://mail.jabber.org/pipermail/council/'>mailing list archives</a> and <a href='http://logs.jabber.org/council@conference.jabber.org/'>chatroom logs</a>, or contact the <a href='/extensions/editor.shtml'>XMPP Extensions Editor</a>.</p>
+
+<h3>Votes (in chronological order)</h3>
+
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>XEP</th>
+    <th>DC</th>
+    <th>RM</th>
+    <th>JM</th>
+    <th>PSA</th>
+    <th>KS</th>
+    <th>Type</th>
+    <th>Status</th>
+    <th>Version</th>
+    <th>Date</th>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0080.html'>0080</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.6</td>
+    <td valign='top'>2008-10-29</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0107.html'>0107</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.2</td>
+    <td valign='top'>2008-10-29</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0108.html'>0108</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.3</td>
+    <td valign='top'>2008-10-29</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0124.html'>0124</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.7</td>
+    <td valign='top'>2008-10-29</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0206.html'>0206</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.2</td>
+    <td valign='top'>2008-10-29</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0053.html'>0053</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Procedural</td>
+    <td valign='top'>Active</td>
+    <td valign='top'>1.4</td>
+    <td valign='top'>2008-10-29</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0078.html'>0078</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Final</td>
+    <td valign='top'>2.5</td>
+    <td valign='top'>2008-10-29</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0012.html'>0012</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Final</td>
+    <td valign='top'>2.0</td>
+    <td valign='top'>2008-11-26</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0085.html'>0085</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Final</td>
+    <td valign='top'>2.0</td>
+    <td valign='top'>2008-11-26</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0174.html'>0174</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Final</td>
+    <td valign='top'>2.0</td>
+    <td valign='top'>2008-11-26</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0205.html'>0205</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Informational</td>
+    <td valign='top'>Active</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-01-07</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0245.html'>0245</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Historical</td>
+    <td valign='top'>Active</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-01-21</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0047.html'>0047</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.2</td>
+    <td valign='top'>2009-03-17</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0124.html'>0124</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.8</td>
+    <td valign='top'>2009-04-29</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0256.html'>0256</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-05-06</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0237.html'>0237</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-05-27</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0138.html'>0138</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Final</td>
+    <td valign='top'>2.0</td>
+    <td valign='top'>2009-05-27</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0199.html'>0199</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Final</td>
+    <td valign='top'>2.0</td>
+    <td valign='top'>2009-06-03</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0166.html'>0166</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-06-03</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0167.html'>0167</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-06-03</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0176.html'>0176</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-06-03</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0177.html'>0177</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-06-03</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0198.html'>0198</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-06-17</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0249.html'>0249</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-06-24</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0202.html'>0202</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Final</td>
+    <td valign='top'>2.0</td>
+    <td valign='top'>2009-09-11</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0203.html'>0203</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Final</td>
+    <td valign='top'>2.0</td>
+    <td valign='top'>2009-09-15</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0055.html'>0055</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Historical</td>
+    <td valign='top'>Active</td>
+    <td valign='top'>1.3</td>
+    <td valign='top'>2009-09-15</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0077.html'>0077</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Final</td>
+    <td valign='top'>2.3</td>
+    <td valign='top'>2009-09-15</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0080.html'>0080</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.7</td>
+    <td valign='top'>2009-09-15</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0256.html'>0256</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.1</td>
+    <td valign='top'>2009-09-15</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0136.html'>0136</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.1</td>
+    <td valign='top'>2009-09-23</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0085.html'>0085</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Final</td>
+    <td valign='top'>2.1</td>
+    <td valign='top'>2009-09-23</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0175.html'>0175</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>DNV</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Informational</td>
+    <td valign='top'>Active</td>
+    <td valign='top'>1.2</td>
+    <td valign='top'>2009-09-30</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0270.html'>0270</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>DNV</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>0</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2009-09-30</td>
+  </tr>
+</table>
+
+<h3>Members of the Eighth Council</h3>
+
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Initials</th>
+    <th>Full Name</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>DC</td>
+    <td>Dave Cridland</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>RM</td>
+    <td>Ralph Meijer</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>JM</td>
+    <td>Jack Moffitt</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>PSA</td>
+    <td>Peter Saint-Andre</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>KS</td>
+    <td>Kevin Smith</td>
+  </tr>
+</table>
+
+<h3>Legend</h3>
+
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Vote</th>
+    <th>Meaning</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>-1</td>
+    <td>Disapproved</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>0</td>
+    <td>Neutral</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>+1</td>
+    <td>Approved</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>DNV</td>
+    <td>Did not vote</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>REC</td>
+    <td>Recused</td>
+  </tr>
+</table>
+
+<!--#include virtual="/includes/foot.txt" -->

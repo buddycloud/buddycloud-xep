@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Infrastructure Team</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Infrastructure Team</h2>
+
+<p>The XSF's Infrastructure Team is responsible for maintaining and improving the machines, software, and other tools used by the XSF to deliver its websites, discussion lists, chatrooms, and other services. Its particular areas of responsibility include:</p>
+<ul>
+  <li>Several physical server machines hosted at <a href='http://usshc.com/'>USSHC</a></li>
+  <li>Operating system maintenance (Debian GNU/Linux)</li>
+  <li>Web server and associated software (lighttpd, MySQL, WordPress, MediaWiki)</li>
+  <li>Tools for XEP publication (Python scripts, shell scripts, XSLT)</li>
+  <li>Email server and list software (Postfix and Mailman)</li>
+  <li>Source control (Subversion and various products donated by Atlassian)</li>
+  <li>XMPP server, chatrooms, and bots (Prosody and homegrown software)</li>
+  <li>DNS (Bind, with mirrors)</li>
+  <li>Digital certificates</li>
+  <li>Data backups (provided by ASET at Penn State University)</li>
+</ul>
+<p>The team is limited to <a href='/xsf/members/'>elected members</a> of the XSF (and invited others at the discretion of the team). Participants are recruited from among the XSF membership by the team lead and approved by a simple majority of the existing team members.</p>
+<p>The team has a private email list and chatroom, and uses a <a href='http://wiki.xmpp.org/web/XSF_Infrastructure'>wiki page</a> for coordination.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

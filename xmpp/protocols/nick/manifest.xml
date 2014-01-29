@@ -1,0 +1,14 @@
+<manifest>
+  <title>User Nickname</title>
+  <abstract>This specification defines a protocol for communicating user nicknames, either in XMPP presence subscription requests or in XMPP messages.</abstract>
+  <specnum>XEP-0172</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0172.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/nick</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/nick.xsd</schema>
+  </schemas>
+</manifest>

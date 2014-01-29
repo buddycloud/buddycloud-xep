@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DTD for registered namespaces -->
+<!ELEMENT registry ( meta, ns* ) >
+<!ELEMENT meta ( title, legal, overview, revision+ ) >
+<!ELEMENT title (#PCDATA)* >
+<!ELEMENT legal (#PCDATA)* >
+<!ELEMENT overview (#PCDATA)* >
+<!ELEMENT revision ( version, date, initials, remark ) >
+<!ELEMENT version (#PCDATA)* >
+<!ELEMENT date (#PCDATA)* >
+<!ELEMENT initials (#PCDATA)* >
+<!ELEMENT remark (#PCDATA)* >
+<!ELEMENT ns ( name, doc ) >
+<!ELEMENT name (#PCDATA)* >
+<!ELEMENT doc (#PCDATA)* >

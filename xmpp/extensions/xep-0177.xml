@@ -1,0 +1,458 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Jingle Raw UDP Transport Method</title>
+  <abstract>This specification defines a Jingle transport method that results in sending media data using raw datagram associations via the User Datagram Protocol (UDP). This simple transport method does not provide NAT traversal, and the ICE-UDP transport method should be used if NAT traversal is required.</abstract>
+  &LEGALNOTICE;
+  <number>0177</number>
+  <status>Draft</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <approver>Council</approver>
+  <dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XEP-0166</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby/>
+  <shortname>jingle-raw-udp</shortname>
+  <schemaloc>
+    <ns>jingle:transports:raw-udp</ns>
+    <url>http://xmpp.org/schemas/jingle-transports-raw-udp.xsd</url>
+  </schemaloc>
+  <discuss>jingle</discuss>
+  &joebeda;
+  &stpeter;
+  &scottlu;
+  &hildjj;
+  &seanegan;
+  <revision>
+    <version>1.1</version>
+    <date>2009-12-23</date>
+    <initials>psa</initials>
+    <remark><p>Added type attribute to candidate element for consistency with XEP-0176.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2009-06-10</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, advanced specification from Experimental to Draft.</p></remark>
+  </revision>
+  <revision>
+    <version>0.17</version>
+    <date>2009-04-04</date>
+    <initials>psa</initials>
+    <remark><p>Removed security consideration about sending IP address before session acceptance, since that functionality is no longer supported.</p></remark>
+  </revision>
+  <revision>
+    <version>0.16</version>
+    <date>2009-03-09</date>
+    <initials>psa</initials>
+    <remark><p>Minor changes to track modifications to XEP-0166; updated security considerations for consistency with XEP-0176.</p></remark>
+  </revision>
+  <revision>
+    <version>0.15</version>
+    <date>2009-02-11</date>
+    <initials>psa</initials>
+    <remark><p>Simplified flow by including responder candidate in session-accept.</p></remark>
+  </revision>
+  <revision>
+    <version>0.14</version>
+    <date>2008-12-16</date>
+    <initials>psa</initials>
+    <remark>
+      <ul>
+        <li>Removed the &lt;trying/&gt; info message.</li>
+        <li>Because the removal of the &lt;trying/&gt; info message is backwards-incompatible, modified protocol version number from 0 to 1 and changed namespace from urn:xmpp:jingle:transports:raw-udp:0 to urn:xmpp:jingle:transports:raw-udp:1.</li>
+        <li>Specified that media must be sent but only after session acceptance.</li>
+      </ul>
+    </remark>
+  </revision>
+  <revision>
+    <version>0.13</version>
+    <date>2008-12-07</date>
+    <initials>psa</initials>
+    <remark><p>Per list consensus, removed the &lt;received/&gt; info message.</p></remark>
+  </revision>
+  <revision>
+    <version>0.12</version>
+    <date>2008-10-20</date>
+    <initials>psa</initials>
+    <remark><p>For consistency with the ICE-UDP transport method, added component attribute to handle RTCP candidates and allowed multiple &lt;candidate/&gt; child elements.</p></remark>
+  </revision>
+  <revision>
+    <version>0.11</version>
+    <date>2008-09-30</date>
+    <initials>psa</initials>
+    <remark><p>Clarified protocol flow.</p></remark>
+  </revision>
+  <revision>
+    <version>0.10</version>
+    <date>2008-09-25</date>
+    <initials>psa</initials>
+    <remark>
+      <ul>
+        <li>Added an ID attribute to the candidate, trying, and received elements for tracking purposes.</li>
+        <li>Specified that trying and received messages must be sent.</li>
+        <li>Modified namespaces to incorporate namespace versioning.</li>
+        <li>Cleaned up XML schemas.</li>
+      </ul>
+    </remark>
+  </revision>
+  <revision>
+    <version>0.9</version>
+    <date>2007-11-27</date>
+    <initials>psa</initials>
+    <remark><p>Further editorial review.</p></remark>
+  </revision>
+  <revision>
+    <version>0.8</version>
+    <date>2007-11-15</date>
+    <initials>psa</initials>
+    <remark><p>Editorial review and consistency check.</p></remark>
+  </revision>
+  <revision>
+    <version>0.7</version>
+    <date>2007-06-25</date>
+    <initials>psa</initials>
+    <remark><p>More clearly specified the hit-or-miss nature of the transport; corrected informational messages.</p></remark>
+  </revision>
+  <revision>
+    <version>0.6</version>
+    <date>2007-04-17</date>
+    <initials>psa</initials>
+    <remark><p>Specified Jingle conformance, including definition of transport type as datagram; added section on service discovery.</p></remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2007-03-23</date>
+    <initials>psa</initials>
+    <remark><p>Updated to reflect changes to XEP-0166; clarified media data checking.</p></remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2006-12-21</date>
+    <initials>psa</initials>
+    <remark><p>Recommended sending of candidate in initiation request to save a round trip and expedite the negotiation; removed name attribute; clarified flow of negotiation; modified spec to use provisional namespace before advancement to Draft (per XEP-0053).</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2006-10-31</date>
+    <initials>psa</initials>
+    <remark><p>Added informational messages; clarified connectivity checks and acceptance process; mentioned that the Raw UDP candidate is conceptually equivalent to the concept of an in-use candidate from the ICE specification; added reference to RFC 4347.</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2006-07-12</date>
+    <initials>se/psa</initials>
+    <remark><p>Removed candidate element and specified exchange of address information via transport-info messages; clarified usage of name attribute.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2006-03-01</date>
+    <initials>psa/jb</initials>
+    <remark><p>Initial version (split from XEP-0166).</p></remark>
+  </revision>
+</header>
+
+<section1 topic='Introduction' anchor='intro'>
+  <p>&xep0166; defines a framework for negotiating and managing out-of-band data sessions over XMPP. In order to provide a flexible framework, the base Jingle specification defines neither data transport methods nor application formats, leaving that up to separate specifications. The current document defines a transport method for establishing and managing data between XMPP entities using a raw User Datagram Protocol (UDP) association (see &rfc0768;). This "raw-udp" method results in a datagram transport method suitable for use in media applications where some packet loss is tolerable (e.g., audio and video).</p>
+  <p>The Raw UDP transport does not provide end-to-end traversal of Network Address Translators (NATs), or even basic connectivity checks; if NAT traversal is needed, Jingle clients SHOULD use &ice; as described in &xep0176;. The Raw UDP transport method is defined only for the purpose of specifying the IP address and port that an entity considers "most likely to succeed" and is a "hit-or-miss" method that might work end-to-end in some circumstances (especially when the sending entity is a gateway or relay, for example when a back-to-back user agent or call manager sends an early media offer to the initiator on behalf of the responder, as described in &xep0167;).</p>
+</section1>
+
+<section1 topic='Requirements' anchor='reqs'>
+  <p>The Jingle transport method defined herein is designed to meet the following requirements:</p>
+  <ol>
+    <li>Make it possible to establish and manage out-of-band connections between two XMPP entities over the IP address and port that the parties consider most likely to succeed.</li>
+    <li>Make it relatively easy to implement support in standard Jabber/XMPP clients.</li>
+    <li>Where communication with non-XMPP entities is needed, push as much complexity as possible onto server-side gateways between the XMPP network and the non-XMPP network.</li>
+  </ol>
+</section1>
+
+<section1 topic='Jingle Conformance' anchor='conformance'>
+   <p>In accordance with Section 10 of <cite>XEP-0166</cite>, this document specifies the following information related to the Jingle Raw UDP transport type:</p>
+   <ol>
+     <li><p>The transport negotiation process is defined in the <link url='#protocol'>Protocol Description</link> section of this document.</p></li>
+     <li><p>The semantics of the &TRANSPORT; element are defined in the <link url='#initiate'>Transport Initiation</link> section of this document.</p></li>
+     <li><p>Successful negotiation of the Raw UDP method results in use of a datagram transport that is suitable for applications where some packet loss is tolerable, such as audio and video.</p></li>
+     <li><p>If multiple components are to be communicated by the application type that uses the transport, the transport shall support those components and assign identifiers for them as described in the specification that defines the application type.</p></li>
+   </ol>
+</section1>
+
+<section1 topic='Protocol Description' anchor='protocol'>
+  <section2 topic='Flow' anchor='protocol-flow'>
+    <p>The overall protocol flow for negotiation of the Jingle Raw UDP Transport Method is as follows.</p>
+    <code><![CDATA[
+INITIATOR                            RESPONDER
+    |                                    |
+    |  session-initiate (w/candidate)    |
+    |----------------------------------->|
+    |  ack                               |
+    |<-----------------------------------|
+    |  session-accept (w/candidate)      |
+    |<-----------------------------------|
+    |  ack                               |
+    |----------------------------------->|
+    |<========MEDIA NOW FLOWS===========>|
+    |                                    |
+    ]]></code>
+    <p>The following sections describe the protocol flow in detail.</p>
+  </section2>
+
+  <section2 topic='Transport Initiation' anchor='initiate'>
+    <p>In order for the initiator in a Jingle exchange to start the negotiation, it sends a Jingle "session-initiate" stanza that includes at least one content type, as described in <cite>XEP-0166</cite>. If the initiator wishes to negotiate the Raw UDP transport for a given content type, it MUST include a &TRANSPORT; child element qualified by the 'urn:xmpp:jingle:transports:raw-udp:1' namespace &VNOTE;, which MUST <note>This is required to avoid a round trip and help expedite the negotiation.</note> include the initiator's Raw UDP candidate via the 'ip', 'port', 'generation', and 'id' attributes of the &CANDIDATE; element. The &TRANSPORT; element MAY include more than one &CANDIDATE; element (typically one for RTP and another for RTCP).</p>
+    <example caption="Initiation"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='tp2hd816'
+    to='juliet@capulet.lit/balcony'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-initiate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <content creator='initiator' name='voice'>
+      <description xmlns='urn:xmpp:jingle:apps:rtp:1' media='audio'>
+        <payload-type id='18' name='G729'/>
+      </description>
+      <transport xmlns='urn:xmpp:jingle:transports:raw-udp:1'>
+        <candidate component='1'
+                   generation='0'
+                   id='a9j3mnbtu1'
+                   ip='10.1.1.104'
+                   port='13540'/>
+      </transport>
+    </content>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>All attributes are REQUIRED. The 'ip' and 'port' attributes are self-explanatory. The 'component' attribute enables the parties to distinguish between different aspects of the media stream that each need to use a separate transport address (e.g., RTP and RTCP). The 'generation' attribute defines which version of this candidate is in force (this is useful if the candidate is redefined mid-stream, for example if the port is changed). The 'id' attribute uniquely identifies this candidate for tracking purposes.</p>
+    <p>Note: The "Raw UDP candidate" is the candidate that the entity has reason to believe will be most likely to succeed for that content type, and thus is equivalent to the "default" candidate as described in the ICE specification. This is not necessarily the entity's preferred address for communication, but instead is the "address most likely to succeed", i.e., the address that is assumed to be reachable by the vast majority of target entities. To determine reachability, the sender needs to classify ahead of time the permissiveness of the NAT or firewall it is behind, if any. It then SHOULD assign the Raw UDP candidate as follows, where the candidate types are as described in <cite>ICE</cite>:</p>
+    <table caption='Raw UDP Candidate Assignment'>
+      <tr>
+        <th>NAT Type</th>
+        <th>Recommended Raw UDP Candidate Type</th>
+      </tr>
+      <tr>
+        <td>None</td>
+        <td>Host candidate</td>
+      </tr>
+      <tr>
+        <td>Symmetric</td>
+        <td>Relay candidate</td>
+      </tr>
+      <tr>
+        <td>Permissive</td>
+        <td>Server reflexive or peer reflexive candidate discovered via STUN (see &rfc5389;)</td>
+      </tr>
+    </table>
+    <p>If the client is aware of which type of candidate it is sending, the candidate element MAY contain a 'type' attribute. Although this information is merely a hint about the candidate type, this information can help the recipient be aware of how permissive the peer's NAT or firewall is. The values of the 'type' attribute are "host", "prflx", "relay", and "srflx" (as in the ICE specification and <cite>XEP-0176</cite>).</p>
+  </section2>
+
+  <section2 topic='Responder Response' anchor='response'>
+    <p>As described in <cite>XEP-0166</cite>, to acknowledge the session initiation request, the responder returns an IQ-result:</p>
+    <example caption="Responder acknowledges the session-initiate request"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='tp2hd816'
+    to='romeo@montague.lit/orchard'
+    type='result'/>
+    ]]></example>
+    <p>Depending on the application type, a user agent controlled by a human user might need to wait for the user to affirm a desire to proceed with the session before continuing. When the user agent has received such affirmation (or if the user agent can automatically proceed for any reason, e.g. because no human intervention is expected or because a human user has configured the user agent to automatically accept sessions with a given entity), it returns a Jingle session-accept message. This message MUST contain a &TRANSPORT; element qualified by the 'urn:xmpp:jingle:transports:raw-udp:1' namespace, which SHOULD in turn contain one &CANDIDATE; element for each Raw UDP candidate generated by or known to the responder.</p>
+    <example caption="Responder definitively accepts the session"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='hs81w639'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-accept'
+          initiator='romeo@montague.lit/orchard'
+          responder='juliet@capulet.lit/balcony'
+          sid='a73sjjvkla37jfea'>
+    <content creator='initiator' name='voice'>
+      <description xmlns='urn:xmpp:jingle:apps:rtp:1' media='audio'>
+        <payload-type id='18' name='G729'/>
+      </description>
+      <transport xmlns='urn:xmpp:jingle:transports:raw-udp:1'>
+        <candidate component='1'
+                   generation='0'
+                   id='z7sdjb01hf'
+                   ip='208.68.163.214'
+                   port='9876'/>
+        <candidate component='2'
+                   generation='0'
+                   id='hg92lsn10b'
+                   ip='208.68.163.214'
+                   port='9877'/>
+      </transport>
+    </content>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>(Notice that the foregoing example includes two &CANDIDATE; elements, one for RTP and the other for RTCP.)</p>
+    <p>The initiator then acknowledges the session acceptance.</p>
+    <example caption="Initiator acknowledges session acceptance"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='hs81w639'
+    to='juliet@capulet.lit/balcony'
+    type='result'/>
+    ]]></example>
+  </section2>
+
+  <section2 topic='Sending Media' anchor='media'>
+    <p>Upon sending the session-accept action, the responder MUST immediately attempt to send media to the initiator. Upon receiving the session-accept action, the initiator MUST immediately attempt to send media to the responder. The exact media to send depends on the application type being negotiated and therefore is out of scope for this specification (e.g., for Jingle RTP Sessions it would be appropriate to send comfort noise as specified in &rfc3389;).</p>
+    <p>An implementation SHOULD enforce a timeout on receipt of media, such that if no media is received from the other party within a reasonable period of time, the implementation will consider the session to have failed and therefore send to the other party a Jingle "session-terminate" action with a reason code of &lt;timeout/&gt;.</p>
+    <example caption="Responder terminates the session"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='rig16s95'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <reason><timeout/></reason>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>The other party then acknowledges termination of the session.</p>
+    <example caption="Initiator acknowledges termination"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='rig16s95'
+    to='juliet@capulet.lit/balcony'
+    type='result'/>
+    ]]></example>
+  </section2>
+</section1>
+
+<section1 topic='Determining Support' anchor='support'>
+    <p>To advertise its support for the Jingle Raw UDP Transport Method, when replying to &xep0030; information requests an entity MUST return URNs for any version of this protocol that the entity supports -- e.g., "urn:xmpp:jingle:transports:raw-udp:1" for this version and "urn:xmpp:jingle:transports:raw-udp:0" for the previous version &VNOTE;.</p>
+  <example caption="Service discovery information request"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='uw72g176'
+    to='juliet@capulet.lit/balcony'
+    type='get'>
+  <query xmlns='http://jabber.org/protocol/disco#info'/>
+</iq>
+  ]]></example>
+  <example caption="Service discovery information response"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='uw72g176'
+    to='romeo@montague.lit/orchard'
+    type='result'>
+  <query xmlns='http://jabber.org/protocol/disco#info'>
+    <feature var='urn:xmpp:jingle:1'/>
+    <feature var='urn:xmpp:jingle:transports:raw-udp:0'/>
+    <feature var='urn:xmpp:jingle:transports:raw-udp:1'/>
+    <feature var='urn:xmpp:jingle:apps:rtp:1'/>
+    <feature var='urn:xmpp:jingle:apps:rtp:audio'/>
+    <feature var='urn:xmpp:jingle:apps:rtp:video'/>
+  </query>
+</iq>
+  ]]></example>
+  <p>In order for an application to determine whether an entity supports this protocol, where possible it SHOULD use the dynamic, presence-based profile of service discovery defined in &xep0115;. However, if an application has not received entity capabilities information from an entity, it SHOULD use explicit service discovery instead.</p>
+</section1>
+
+<section1 topic='Security Considerations' anchor='security'>
+  <section2 topic='Encryption of Media' anchor='security-media'>
+    <p>A Jingle implementation SHOULD support security preconditions that are enforced before application media is allowed to flow over a UDP association, such as those described in &xtls;.</p>
+    <p>Application types that use the Jingle Raw UDP transport method MAY also define their own application-specific encryption methods, such as the Secure Real-time Transport Protocol (SRTP) for RTP exchanges as described in <cite>XEP-0167: Jingle RTP Sessions</cite>.</p>
+  </section2>
+</section1>
+
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p>
+</section1>
+
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <section2 topic='Protocol Namespaces' anchor='registrar-ns'>
+    <p>This specification defines the following XML namespace:</p>
+    <ul>
+      <li>urn:xmpp:jingle:transports:raw-udp:1</li>
+    </ul>
+    <p>The &REGISTRAR; includes the foregoing namespace in its registry at &NAMESPACES;, as governed by &xep0053;.</p>
+  </section2>
+  <section2 topic='Protocol Versioning' anchor='registrar-versioning'>
+    &NSVER;
+  </section2>
+  <section2 topic='Jingle Transport Methods' anchor='registrar-transports'>
+    <p>The XMPP Registrar includes "raw-udp" in its registry of Jingle transport methods at &JINGLETRANSPORTS;. The registry submission is as follows:</p>
+    <code><![CDATA[
+<transport>
+  <name>raw-udp</name>
+  <desc>A method for exchanging data over raw UDP associations.</desc>
+  <type>datagram</type>
+  <doc>XEP-0177</doc>
+</transport>
+    ]]></code>
+  </section2>
+</section1>
+
+<section1 topic='XML Schema' anchor='schema'>
+  <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:jingle:transports:raw-udp:1'
+    xmlns='urn:xmpp:jingle:transports:raw-udp:1'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0177: http://www.xmpp.org/extensions/xep-0177.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='transport'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='candidate' 
+                    type='candidateElementType'
+                    minOccurs='0'
+                    maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name='candidateElementType'>
+    <xs:simpleContent>
+      <xs:extension base='empty'>
+        <xs:attribute name='component' type='xs:unsignedByte' use='required'/>
+        <xs:attribute name='generation' type='xs:unsignedByte' use='required'/>
+        <xs:attribute name='id' type='xs:NCName' use='required'/>
+        <xs:attribute name='ip' type='xs:string' use='required'/>
+        <xs:attribute name='port' type='xs:unsignedShort' use='required'/>
+        <xs:attribute name='type' use='required'>
+          <xs:simpleType>
+            <xs:restriction base='xs:NCName'>
+              <xs:enumeration value='host'/>
+              <xs:enumeration value='prflx'/>
+              <xs:enumeration value='relay'/>
+              <xs:enumeration value='srflx'/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  ]]></code>
+</section1>
+
+<section1 topic='Acknowledgements' anchor='ack'>
+  <p>Thanks to Thiago Camargo, Paul Chitescu, Diana Cionoiu, Olivier Cr&#234;te, Steffen Larsen, Robert McQueen, Mike Ruprecht, Jakob Schroeter, Justin Uberti, Unnikrishnan Vikrama Panicker, and Paul Witty for their feedback.</p>
+</section1>
+
+</xep>

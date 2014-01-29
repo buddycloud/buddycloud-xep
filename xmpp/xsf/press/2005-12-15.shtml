@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Jabber Software Foundation Publishes Open VoIP and Multimedia Protocols</h3>
+<h4>Jabber Community and Industry Leaders Team Up on Voice, Video, and Multimedia Extensions to XMPP</h4>
+
+<p>DENVER, CO, USA, DECEMBER 15, 2005 -- The Jabber Software Foundation (<a href="http://www.jabber.org/jsf/">JSF</a>) today published initial documentation of Jingle, a set of extensions to the IETF's Extensible Messaging and Presence Protocol (<a href="http://www.xmpp.org/">XMPP</a>) for use in voice over IP (VoIP), video, and other peer-to-peer multimedia sessions. The Jingle technology represents an open version of the protocols used in the popular <a href="http://www.google.com/talk/">Google Talk</a> application released in August 2005, and Google is supporting the standardization and evolution of these protocols through the JSF's community standards process. The specifications published today are:</p>
+<ul>
+  <li><p><a href="http://www.jabber.org/jeps/jep-0166.html">JEP-0166: Jingle Signalling</a> -- The core technology for peer-to-peer session management, which enables communication through existing firewalls and can be extended to support a wide range of session types. (Authored by Scott Ludwig and Joe Beda of Google, Peter Saint-Andre of the JSF, and Joe Hildebrand of Jabber Inc.)</p></li>
+  <li><p><a href="http://www.jabber.org/jeps/jep-0167.html">JEP-0167: Jingle Audio</a> -- The session description format for Jingle audio sessions, enabling seamless one-to-one voice over IP (VoIP) between Jabber/XMPP users. (Authored by Scott Ludwig of Google and Peter Saint-Andre of the JSF.)</p></li>
+</ul>
+<p>Follow-on specifications will be published in the near future for additional session types (e.g., video) as well as to document interoperability with the IETF's Session Initiation Protocol (SIP), the ITU's H.323 technology, and the IAX protocol used natively in the popular Asterisk open-source PBX application.</p>
+<p>"Jingle provides a powerful framework for peer-to-peer multimedia sessions," said Peter Saint-Andre, Executive Director of the Jabber Software Foundation and co-author of the Jingle specifications. "Thanks to Google's commitment to open standards, the Jabber community can now build a wide range of new applications, from voice and video to file sharing, gaming, application casting, shared editing, and whiteboarding."</p>
+<p>Joe Hildebrand, CTO of Jabber Inc. and co-author of the Jingle signalling specification, added: "By laying the groundwork for real-time collaboration, Jingle is an important piece of the puzzle for our enterprise and service provider customers, and we are committed to supporting it in our products as soon as possible."</p>
+<p>In addition to <a href="http://www.google.com/">Google</a> and <a href="http://www.jabber.com/">Jabber Inc.</a>, the following companies and open-source projects have already pledged to support the Jingle protocols: <a href="http://www.antepo.com/">Antepo</a>, <a href="http://www.ceruleanstudios.com/">Cerulean Studios (Trillian)</a>, <a href="http://www.coversant.net/">Coversant</a>, <a href="http://www.digium.com/">Digium (Asterisk)</a>, <a href="http://gaim.sf.net/">Gaim</a>, <a href="http://www.jivesoftware.com/">Jive Software</a>, <a href="http://www.novamens.com/">Novamens</a>, <a href="http://www.psi-im.org/">Psi</a>, <a href="http://www.sapo.pt/">SAPO</a>, and <a href="http://www.tipic.com/">Tipic</a>. Support from additional vendors is expected in the near future.</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

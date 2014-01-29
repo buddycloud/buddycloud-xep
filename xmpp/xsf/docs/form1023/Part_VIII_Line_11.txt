@@ -1,0 +1,25 @@
+Organization: XMPP Standards Foundation
+EIN: 84-1611178
+Form: 1023
+Attachment: Part VIII, Line 11
+
+The XMPP Standards Foundation (XSF) accepts contributions of intellectual
+property, where each such contribution takes the form of documentation of a
+protocol extension to, or a technical best practice related to, the Extensible 
+Messaging and Presence Protocol (XMPP) for real-time communication over the
+Internet. Copyright in each contribution is assigned by the contributor to the 
+XSF when and if such a contribution is accepted for publication in the XSF's 
+official specification series, in accordance with the XSF's Intellectual Property 
+Rights policy:
+
+  http://www.xmpp.org/extensions/ipr-policy.shtml
+
+In the past, the XSF has accepted contributions of real property that will
+support the activities of the organization, in particular, contributions of
+computer equipment such as server machines on which the organization hosts
+websites, electronic mail discussion lists, and instant messaging and chat
+services. The XSF may accept such contributions of real property in the 
+future. Such contributions have been and will continue to be accepted on an 
+"as-is" basis with no conditions imposed by the donor and no agreement entered 
+into with the donor.
+

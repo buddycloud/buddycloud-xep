@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2003-09-30 @ 16:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 16:01 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Michael Bauer</li>
+<li>Russell Davis</li>
+<li>Ryan Eatmon</li>
+<li>Harold Gottschalk</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>All five Board members were in attendance. Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Board Procedures</p>
+    <p>Michael Bauer, as outgoing Chair, provided a brief overview of how the Board operates.</p>
+  </li>
+  <li>
+    <p>Trademark Transfer Status</p>
+    <p>Discussed status of transferring the JABBER trademark from Jabber, Inc. to the Jabber Software Foundation. The agreement was signed on May 5 and will run for at least 12 months; some flexibility required given the fact that the JSF's program is not up and running yet. Sticking point is website content, which was substantially borrowed from that of the Linux Mark Institute. Tony to follow up with legal counsel regarding website content. Peter to inform the Board of the URL for the prototype website.</p>
+  </li>
+  <li>
+    <p>Clarification of XMPP.ORG Work Team Charter</p>
+    <p>Much discussion regarding the scope of work to be pursued by the XMPP.ORG Work Team. Consensus reached on the need for a statement of clarification from the Board, as well as an outline of the content; Peter to craft the specific wording based on his notes and circulate a draft to the Board mailing list for approval.</p>
+  </li>
+</ol>
+<h2>Team Reports</h2>
+<ol>
+  <li>
+    <p>Team Reports</p>
+    <p>No formal reports presented.</p>
+    <p>The new Council is working swiftly to clear out old JEPs and move forward with a number of high-priority protocols (file transfer, pubsub, etc.).</p>
+    <p>Discussion of the need to make compliance a priority and move forward with a testing program, especially given the seemingly imminent approval of the XMPP Internet-Drafts; Peter to follow up with Compliance Team chair regarding next steps.</p>
+    <p>Discussion of the need to decide on a vision for the JSF and goals for 2003-2004 so that the Marketing Team knows what it needs to execute on; Peter to seek input on his proposed vision statement from the Marketing Team and the Membership at large; Board to improve communication.</p>
+  </li>
+</ol>
+<h2>Action and Consent Items</h2>
+<ol>
+  <li>
+    <p>Resolved: To establish an Infrastructure Work Team to manage the computing infrastructure and information services of the corporation, to be chaired initially by Ryan Eatmon.</p>
+    <p>Action: Approved</li>
+  </li>
+</ol>
+<h2>New Business</h2>
+<ol>
+  <li>
+    <p>The next Board meeting is tentatively scheduled for October 28, 2003.</p> 
+  </li>
+  <li>
+    <p>Michael Bauer resigned from the Board, effective immediately. Many thanks to Michael for his years of service to the JSF.</p>
+  </li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 17:31 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

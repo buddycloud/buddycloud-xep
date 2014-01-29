@@ -1,0 +1,412 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>User Mood</title>
+  <abstract>This specification defines a payload format for communicating information about user moods, such as whether a person is currently happy, sad, angy, or annoyed. The payload format is typically transported using the personal eventing protocol, a profile of XMPP publish-subscribe specified in XEP-0163.</abstract>
+  &LEGALNOTICE;
+  <number>0107</number>
+  <status>Draft</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XEP-0163</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby/>
+  <shortname>mood</shortname>
+  <schemaloc>
+    <url>http://www.xmpp.org/schemas/mood.xsd</url>
+  </schemaloc>
+  &stpeter;
+  &ralphm;
+  <revision>
+    <version>1.2</version>
+    <date>2008-10-29</date>
+    <initials>psa</initials>
+    <remark><p>Allowed empty mood element to signify a pause in publishing; added undefined element to handle any unspecified mood; also added more moods: amorous, cautious, confident, contemplative, crazy, creative, dejected, dismayed, envious, hopeful, lucky, outraged, relaxed, spontaneous, strong, thankful, tired, weak.</p></remark>
+  </revision>
+  <revision>
+    <version>1.1</version>
+    <date>2007-06-04</date>
+    <initials>psa</initials>
+    <remark><p>Corrected PEP examples.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2004-10-20</date>
+    <initials>psa/rm</initials>
+    <remark><p>Per a vote of the Jabber Council, advanced status to Draft; per Council discussion, also added two additional moods and adjusted structure to use elements rather than XML character data.</p></remark>
+  </revision>
+  <revision>
+    <version>0.6</version>
+    <date>2004-09-15</date>
+    <initials>psa</initials>
+    <remark><p>Added internationalization considerations.</p></remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2004-04-25</date>
+    <initials>psa</initials>
+    <remark><p>Corrected several errors; added reference to XEP-0033.</p></remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2004-02-19</date>
+    <initials>psa</initials>
+    <remark><p>Minor fixes to text and schema.</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2003-08-01</date>
+    <initials>psa</initials>
+    <remark><p>Added more moods.</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2003-07-23</date>
+    <initials>psa</initials>
+    <remark><p>Expanded the information format; changed primary container to use pubsub.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2003-07-22</date>
+    <initials>psa</initials>
+    <remark><p>Initial version.</p></remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>This document defines an extension mechanism for capturing "extended presence" data about user moods.</p>
+</section1>
+<section1 topic='Protocol' anchor='proto'>
+  <section2 topic='Data Format' anchor='proto-format'>
+    <p>Information about user moods is provided by the user and propagated on the network by the user's client. The information is structured via a &lt;mood/&gt; element that is qualified by the 'http://jabber.org/protocol/mood' namespace. The mood itself is provided as the element name of a defined child element of the &lt;mood/&gt; element (e.g., &lt;happy/&gt;); one such child element is REQUIRED. The user MAY also specify a natural-language description of, or reason for, the mood in the &lt;text/&gt; child of the &lt;mood/&gt; element, which is OPTIONAL. Here is an example:</p>
+    <code><![CDATA[
+<mood xmlns='http://jabber.org/protocol/mood'>
+  <happy/>
+  <text>Yay, the mood spec has been approved!</text>
+</mood>
+    ]]></code>
+    <p>In addition, an application MAY provide a more specific mood value as a properly-namespaced child of the defined element, which extension MUST be ignored if the receiving application does not understand the extended namespace. Here is an example:</p>
+    <code><![CDATA[
+<mood xmlns='http://jabber.org/protocol/mood'>
+  <happy>
+    <ecstatic xmlns='http://ik.nu/ralphm'/>
+  </happy>
+  <text>Yay, the mood spec has been approved!</text>
+</mood>
+    ]]></code>
+  </section2>
+  <section2 topic='Pubsub Transport' anchor='proto-pubsub'>
+    <p>Mood information SHOULD be communicated and transported by means of the &xep0060; subset specified in &xep0163;. Because mood information is not pure presence information and can change independently of the user's availability, it SHOULD NOT be provided as an extension to &PRESENCE;.</p>
+    <example caption='User Publishes Mood'><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='publish1'
+    type='set'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='http://jabber.org/protocol/mood'>
+      <item>
+        <mood xmlns='http://jabber.org/protocol/mood'>
+          <annoyed/>
+          <text>curse my nurse!</text>
+        </mood>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+    ]]></example>
+    <p>The mood is then delivered to all subscribers:</p>
+    <example caption='Mood is Delivered to All Subscribers'><![CDATA[
+<message 
+    from='juliet@capulet.lit'
+    to='romeo@montague.net'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='http://jabber.org/protocol/mood'>
+      <item id='a475804a-0f9c-11dc-98a8-001143d5d5db'>
+        <mood xmlns='http://jabber.org/protocol/mood'>
+          <annoyed/>
+          <text>curse my nurse!</text>
+        </mood>
+      </item>
+    </items>
+  </event>
+</message>
+    ]]></example>
+    <p>In order to indicate that the user is no longer publishing moods, the user's client shall send an empty &lt;mood/&gt; element, which can be considered a "stop command" for user moods:</p>
+    <example caption='User Disables Publishing'><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='publish1'
+    type='set'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='http://jabber.org/protocol/mood'>
+      <item>
+        <mood xmlns='http://jabber.org/protocol/mood'/>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+    ]]></example>
+    <example caption='Empty Mood Information is Delivered to All Subscribers'><![CDATA[
+<message 
+    from='juliet@capulet.lit'
+    to='romeo@montague.net'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='http://jabber.org/protocol/mood'>
+      <item id='a475804a-0f9c-11dc-98a8-001143d5d5db'>
+        <mood xmlns='http://jabber.org/protocol/mood'/>
+      </item>
+    </items>
+  </event>
+</message>
+    ]]></example>
+  </section2>
+  <section2 topic='Including a Mood in a IM Message' anchor='proto-message'>
+    <p>A user MAY provide a mood extension in a specific IM message in order to lend a defined emotional tone to text of that particular message. (This does not override the user's more general mood and is not intended to replace PEP as a more general transport method for user moods.)</p>
+    <example caption='User Provides Mood in Message'><![CDATA[
+<message from='romeo@montague.lit/pda'
+         from='juliet@capulet.lit'
+         type='chat'>
+  <body>A thousand times good night!</body>
+  <mood xmlns='http://jabber.org/protocol/mood'>
+    <sad/>
+  </mood>
+</message>
+    ]]></example>
+  </section2>
+</section1>
+<section1 topic='Mood Values' anchor='moods'>
+  <p>There exist various theories of human affect, mood, and emotion, including those promulgated by Frijda <note>Frijda, N. 1986. <cite>The Emotions</cite>. New York: Cambridge University Press.</note>, Ortony et al. <note>Ortony, A., Clore, G., and Collins, A. 1988. <cite>The Cognitive Structure of Emotions</cite>. Hillsdale, NJ:  Erlbaum.</note>, and Wierzbicka <note>Wierzbicka, A. 1992. Defining Emotion Concepts. <cite>Cognitive Science</cite> 16: 539-581.</note>. The taxonomy provided here mostly follows the Affective Knowledge Representation that has been defined by Lisetti <note>Lisetti, C. 2002. Personality, Affect, and Emotion Taxonomy for Socially Intelligent Agents. In <cite>Proceedings of FLAIRS 2002</cite>. Menlo Park, CA: AAAI Press.</note> in an effort to harmonize the prevailing theories in this area, as well as some work by Wierzbicka on cross-cultural studies of emotion. <note>Wierzbicka, A. 1999. <cite>Emotions across Languages and Cultures</cite>. Cambridge: Cambridge University Press.</note> Furthermore, the taxonomy provided here includes a number of common physical states in addition to moods, and also takes into account the specific context of instant messaging, including work done by other standards development organizations (e.g., the Wireless Village specifications contributed to the &OMA;) and instant messaging service providers (e.g., ICQ). Finally, lists of moods and physical states have been checked for commonality against studies of word frequency in the English language. <note>Leech, G., Rayson, P., and Wilson, A. 2001. <cite>Word Frequencies in Written and Spoken English</cite>. Harlow, England: Pearson Education.</note> to remove rarely used terms.</p>
+  <p>The following mood values are defined in this taxonomy. Where available as linked below, the definitions are obtained from <link url='http://en.wiktionary.org/'>Wiktionary</link>.</p>
+  <ul>
+    <li><p><link url='http://en.wiktionary.org/wiki/afraid'>afraid</link> -- Impressed with fear or apprehension; in fear; apprehensive.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/amazed'>amazed</link> -- Astonished; confounded with fear, surprise or wonder.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/amorous'>amorous</link> -- Inclined to love; having a propensity to love, or to sexual enjoyment; loving, fond, affectionate, passionate, lustful, sexual, etc.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/angry'>angry</link> -- Displaying or feeling anger, i.e., a strong feeling of displeasure, hostility or antagonism towards someone or something, usually combined with an urge to harm.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/annoyed'>annoyed</link> -- To be disturbed or irritated, especially by continued or repeated acts.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/anxious'>anxious</link> -- Full of anxiety or disquietude; greatly concerned or solicitous, esp. respecting something future or unknown; being in painful suspense.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/aroused'>aroused</link> -- To be stimulated in one's feelings, especially to be sexually stimulated.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/ashamed'>ashamed</link> -- Feeling shame or guilt.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/bored'>bored</link> -- Suffering from boredom; uninterested, without attention.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/brave'>brave</link> -- Strong in the face of fear; courageous. </p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/calm'>calm</link> -- Peaceful, quiet.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/cautious'>cautious</link> -- Taking care or caution; tentative.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/cold'>cold</link> -- Feeling the sensation of coldness, especially to the point of discomfort.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/confident'>confident</link> -- Feeling very sure of or positive about something, especially about one's own capabilities.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/confused'>confused</link> -- Chaotic, jumbled or muddled.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/contemplative'>contemplative</link> -- Feeling introspective or thoughtful.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/contented'>contented</link> -- Pleased at the satisfaction of a want or desire; satisfied.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/cranky'>cranky</link> -- Grouchy, irritable; easily upset.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/crazy'>crazy</link> -- Feeling out of control; feeling overly excited or enthusiastic.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/creative'>creative</link> -- Feeling original, expressive, or imaginative.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/curious'>curious</link> -- Inquisitive; tending to ask questions, investigate, or explore.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/dejected'>dejected</link> -- Feeling sad and dispirited.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/depressed'>depressed</link> -- Severely despondent and unhappy.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/disappointed'>disappointed</link> -- Defeated of expectation or hope; let down.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/disgusted'>disgusted</link> -- Filled with disgust; irritated and out of patience.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/dismayed'>dismayed</link> -- Feeling a sudden or complete loss of courage in the face of trouble or danger.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/distracted'>distracted</link> -- Having one's attention diverted; preoccupied.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/embarrassed'>embarrassed</link> -- Having a feeling of shameful discomfort.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/envious'>envious</link> -- Feeling pain by the excellence or good fortune of another.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/excited'>excited</link> -- Having great enthusiasm.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/flirtatious'>flirtatious</link> -- In the mood for flirting.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/frustrated'>frustrated</link> -- Suffering from frustration; dissatisfied, agitated, or discontented because one is unable to perform an action or fulfill a desire.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/grateful'>grateful</link> -- Feeling appreciation or thanks.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/grieving'>grieving</link> -- Feeling very sad about something, especially something lost; mournful; sorrowful.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/grumpy'>grumpy</link> -- Unhappy and irritable.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/guilty'>guilty</link> -- Feeling responsible for wrongdoing; feeling blameworthy.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/happy'>happy</link> -- Experiencing the effect of favourable fortune; having the feeling arising from the consciousness of well-being or of enjoyment; enjoying good of any kind, as peace, tranquillity, comfort; contented; joyous.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/hopeful'>hopeful</link> -- Having a positive feeling, belief, or expectation that something wished for can or will happen.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/hot'>hot</link> -- Feeling the sensation of heat, especially to the point of discomfort.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/humbled'>humbled</link> -- Having or showing a modest or low estimate of one's own importance; feeling lowered in dignity or importance.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/humiliated'>humiliated</link> -- Feeling deprived of dignity or self-respect.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/hungry'>hungry</link> -- Having a physical need for food.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/hurt'>hurt</link> -- Wounded, injured, or pained, whether physically or emotionally.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/impressed'>impressed</link> -- Favourably affected by something or someone.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/awe'>in_awe</link> -- Feeling amazement at something or someone; or feeling a combination of fear and reverence.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/in_love'>in_love</link> -- Feeling strong affection, care, liking, or attraction..</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/indignant'>indignant</link> -- Showing anger or indignation, especially at something unjust or wrong.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/interested'>interested</link> -- Showing great attention to something or someone; having or showing interest.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/intoxicated'>intoxicated</link> -- Under the influence of alcohol; drunk.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/invincible'>invincible</link> -- Feeling as if one cannot be defeated, overcome or denied.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/jealous'>jealous</link> -- Fearful of being replaced in position or affection.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/lonely'>lonely</link> -- Feeling isolated, empty, or abandoned.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/lost'>lost</link> -- Unable to find one's way, either physically or emotionally.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/lucky'>lucky</link> -- Feeling as if one will be favored by luck.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/mean'>mean</link> -- Causing or intending to cause intentional harm; bearing ill will towards another; cruel; malicious.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/moody'>moody</link> -- Given to sudden or frequent changes of mind or feeling; temperamental.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/nervous'>nervous</link> -- Easily agitated or alarmed; apprehensive or anxious.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/neutral'>neutral</link> -- Not having a strong mood or emotional state.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/offended'>offended</link> -- Feeling emotionally hurt, displeased, or insulted. </p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/outraged'>outraged</link> -- Feeling resentful anger caused by an extremely violent or vicious attack, or by an offensive, immoral, or indecent act.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/playful'>playful</link> -- Interested in play; fun, recreational, unserious, lighthearted; joking, silly.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/proud'>proud</link> -- Feeling a sense of one's own worth or accomplishment.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/relaxed'>relaxed</link> -- Having an easy-going mood; not stressed; calm.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/relieved'>relieved</link> -- Feeling uplifted because of the removal of stress or discomfort.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/remorseful'>remorseful</link> -- Feeling regret or sadness for doing something wrong.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/restless'>restless</link> -- Without rest; unable to be still or quiet; uneasy; continually moving.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/sad'>sad</link> -- Feeling sorrow; sorrowful, mournful.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/sarcastic'>sarcastic</link> -- Mocking and ironical.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/satisfied'>satisfied</link> -- Pleased at the fulfillment of a need or desire.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/serious'>serious</link> -- Without humor or expression of happiness; grave in manner or disposition; earnest; thoughtful; solemn.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/shocked'>shocked</link> -- Surprised, startled, confused, or taken aback.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/shy'>shy</link> -- Feeling easily frightened or scared; timid; reserved or coy.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/sick'>sick</link> -- Feeling in poor health; ill.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/sleepy'>sleepy</link> -- Feeling the need for sleep.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/spontaneous'>spontaneous</link> -- Acting without planning; natural; impulsive.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/stressed'>stressed</link> -- Suffering emotional pressure.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/strong'>strong</link> -- Capable of producing great physical force; or, emotionally forceful, able, determined, unyielding.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/surprised'>surprised</link> -- Experiencing a feeling caused by something unexpected.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/thankful'>thankful</link> -- Showing appreciation or gratitude.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/thirsty'>thirsty</link> -- Feeling the need to drink.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/tired'>tired</link> -- In need of rest or sleep.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/undefined'>undefined</link> -- [Feeling any emotion not defined here.]</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/weak'>weak</link> -- Lacking in force or ability, either physical or emotional.</p></li>
+    <li><p><link url='http://en.wiktionary.org/wiki/worried'>worried</link> -- Thinking about unpleasant things that have happened or that might happen; feeling afraid and unhappy.</p></li>
+  </ul>
+</section1>
+<section1 topic='Mapping to Wireless Village Moods' anchor='wv-mapping'>
+  <p>The Wireless Village (now "IMPS") specifications for mobile instant messaging define a number of presence attributes, encapsulated in the "StatusMood" information element <note>The Wireless Village Initiative: Presence Attributes v1.1 (WV-029); for further information, visit &lt;<link url='http://www.openmobilealliance.org/tech/affiliates/wv/wvindex.html'>http://www.openmobilealliance.org/tech/affiliates/wv/wvindex.html</link>&gt;.</note>. The following values are defined for StatusMood in Wireless Village, all of which map one-to-one from Wireless Village to the same values (albeit lowercase) in Jabber:</p>
+  <ul>
+    <li><p>ANGRY</p></li>
+    <li><p>ANXIOUS</p></li>
+    <li><p>ASHAMED</p></li>
+    <li><p>BORED</p></li>
+    <li><p>EXCITED</p></li>
+    <li><p>HAPPY</p></li>
+    <li><p>IN_LOVE</p></li>
+    <li><p>INVINCIBLE</p></li>
+    <li><p>JEALOUS</p></li>
+    <li><p>SAD</p></li>
+    <li><p>SLEEPY</p></li>
+  </ul>
+  <p>The full range of moods defined herein is richer than that defined in Wireless Village; no mapping is provided by this specification for mood values that are not present in Wireless Village, and any such mapping is the responsibility of a gateway between the two systems.</p>
+</section1>
+<section1 topic='Internationalization Considerations' anchor='i18n'>
+  <p>The XML character data values of the &lt;value/&gt; elements is not intended to be presented to a human user and thus there is no special reason to include an 'xml:lang' attribute unless the sender includes a &lt;text/&gt; element as well (as explained in &rfc2277;, "internationalization is for humans"). It is the responsibility of the receiving application to provide localized text strings associated with the XML character data values defined herein, or some other appropriate presentation (e.g., graphical images that represent the mood).</p>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>Because user moods may be published to a large number of pubsub subscribers, users should take care in approving subscribers and in characterizing their current moods.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p>
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <section2 topic='Protocol Namespaces' anchor='registrar-ns'>
+    <p>The &REGISTRAR; includes 'http://jabber.org/protocol/mood' in its registry of protocol namespaces.</p>
+  </section2>
+</section1>
+<section1 topic='XML Schema' anchor='schema'>
+  <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/mood'
+    xmlns='http://jabber.org/protocol/mood'
+    elementFormDefault='qualified'>
+
+  <xs:element name='mood'>
+    <xs:complexType>
+      <xs:sequence>
+	<xs:choice minOccurs='0'>
+          <xs:element name='afraid' type='empty'/>
+          <xs:element name='amazed' type='empty'/>
+          <xs:element name='angry' type='empty'/>
+          <xs:element name='amorous' type='empty'/>
+          <xs:element name='annoyed' type='empty'/>
+          <xs:element name='anxious' type='empty'/>
+          <xs:element name='aroused' type='empty'/>
+          <xs:element name='ashamed' type='empty'/>
+          <xs:element name='bored' type='empty'/>
+          <xs:element name='brave' type='empty'/>
+          <xs:element name='calm' type='empty'/>
+          <xs:element name='cautious' type='empty'/>
+          <xs:element name='cold' type='empty'/>
+          <xs:element name='confident' type='empty'/>
+          <xs:element name='confused' type='empty'/>
+          <xs:element name='contemplative' type='empty'/>
+          <xs:element name='contented' type='empty'/>
+          <xs:element name='cranky' type='empty'/>
+          <xs:element name='crazy' type='empty'/>
+          <xs:element name='creative' type='empty'/>
+          <xs:element name='curious' type='empty'/>
+          <xs:element name='dejected' type='empty'/>
+          <xs:element name='depressed' type='empty'/>
+          <xs:element name='disappointed' type='empty'/>
+          <xs:element name='disgusted' type='empty'/>
+          <xs:element name='dismayed' type='empty'/>
+          <xs:element name='distracted' type='empty'/>
+          <xs:element name='embarrassed' type='empty'/>
+          <xs:element name='envious' type='empty'/>
+          <xs:element name='excited' type='empty'/>
+          <xs:element name='flirtatious' type='empty'/>
+          <xs:element name='frustrated' type='empty'/>
+          <xs:element name='grumpy' type='empty'/>
+          <xs:element name='guilty' type='empty'/>
+          <xs:element name='happy' type='empty'/>
+          <xs:element name='hopeful' type='empty'/>
+          <xs:element name='hot' type='empty'/>
+          <xs:element name='humbled' type='empty'/>
+          <xs:element name='humiliated' type='empty'/>
+          <xs:element name='hungry' type='empty'/>
+          <xs:element name='hurt' type='empty'/>
+          <xs:element name='impressed' type='empty'/>
+          <xs:element name='in_awe' type='empty'/>
+          <xs:element name='in_love' type='empty'/>
+          <xs:element name='indignant' type='empty'/>
+          <xs:element name='interested' type='empty'/>
+          <xs:element name='intoxicated' type='empty'/>
+          <xs:element name='invincible' type='empty'/>
+          <xs:element name='jealous' type='empty'/>
+          <xs:element name='lonely' type='empty'/>
+          <xs:element name='lucky' type='empty'/>
+          <xs:element name='mean' type='empty'/>
+          <xs:element name='moody' type='empty'/>
+          <xs:element name='nervous' type='empty'/>
+          <xs:element name='neutral' type='empty'/>
+          <xs:element name='offended' type='empty'/>
+          <xs:element name='outraged' type='empty'/>
+          <xs:element name='playful' type='empty'/>
+          <xs:element name='proud' type='empty'/>
+          <xs:element name='relaxed' type='empty'/>
+          <xs:element name='relieved' type='empty'/>
+          <xs:element name='remorseful' type='empty'/>
+          <xs:element name='restless' type='empty'/>
+          <xs:element name='sad' type='empty'/>
+          <xs:element name='sarcastic' type='empty'/>
+          <xs:element name='serious' type='empty'/>
+          <xs:element name='shocked' type='empty'/>
+          <xs:element name='shy' type='empty'/>
+          <xs:element name='sick' type='empty'/>
+          <xs:element name='sleepy' type='empty'/>
+          <xs:element name='spontaneous' type='empty'/>
+          <xs:element name='stressed' type='empty'/>
+          <xs:element name='strong' type='empty'/>
+          <xs:element name='surprised' type='empty'/>
+          <xs:element name='thankful' type='empty'/>
+          <xs:element name='thirsty' type='empty'/>
+          <xs:element name='tired' type='empty'/>
+          <xs:element name='undefined' type='empty'/>
+          <xs:element name='weak' type='empty'/>
+          <xs:element name='worried' type='empty'/>
+	</xs:choice>
+        <xs:element name='text' minOccurs='0' type='xs:string'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  ]]></code>
+</section1>
+</xep>

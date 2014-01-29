@@ -1,0 +1,610 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc strict="yes"?>
+<rfc category="std" docName="draft-meyer-xmpp-sasl-cert-management-01" ipr="trust200902">
+  
+  <front>
+    <title abbrev='XMPP Client Certificates'>Management and Use of Client Certificates for the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials="D." surname="Meyer" fullname="Dirk Meyer">
+      <organization>Universitaet Bremen TZI</organization>
+      <address>
+        <email>dmeyer@tzi.de</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>Cisco</organization>
+      <address>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+    <date year="2009" month="March" day="8"/>
+    <area>Applications</area>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>XMPP</keyword>
+    <keyword>Jabber</keyword>
+    <keyword>SASL</keyword>
+    <abstract>
+      <t>This document defines methods for managing and using client certificates in the Extensible Messaging and Presence Protocol (XMPP).  These methods, which make use of the EXTERNAL mechanism of the Simple Authentication and Security Layer (SASL) protocol, enable an XMPP client to log in to an XMPP server without providing a password.</t>
+    </abstract>
+  </front>
+  
+  <middle>
+    
+    <section title="Introduction" anchor="intro">
+      <t>An XMPP client typically needs a user name and a password to log in to an XMPP server.  Many clients provide a mechanism to store these credentials so that a human user can automatically log in without being prompted for the password.  While this practice is very user friendly, it can be a security risk, especially for some devices.  Mobile devices like a mobile phone or a laptop might get stolen, providing the thief with the required password.  Mobile phones are particularly insecure: providing the password on the keypad for each login is too complicated and the risk of losing the phone is high.</t>
+      <t>A solution to this problem is to allow a client to log in without knowing the password.  XMPP as specified in <xref target='rfc3920bis'/> allows the use of any Simple Authentication and Security Layer <xref target='SASL'/> mechanism in the authentication of XMPP entities, including the SASL EXTERNAL mechanism.  Therefore this document defines two methods that will enable password-free login for XMPP clients:</t>
+      <t>
+        <list style='symbols'>
+          <t>How a client generates an X.509 certificate <xref target='X509'/>, manages the list of client certificates, and informs the server of its authorized certificates.</t>
+          <t>How a client presents a certificate during the Transport Layer Security <xref target='TLS'/> handshake and refers to it during SASL negotiation using the EXTERNAL mechanism.</t>
+        </list>
+      </t>
+      <t>The overall process is as follows:</t>
+      <t>
+        <list style='numbers'>
+          <t>Client logs in to server using standard password-based authentication methods (or a previously authorized certificate).</t>
+          <t>Client generates or obtains a certificate.</t>
+          <t>Client informs server of the certificate.</t>
+          <t>On subsequent login attempts, client can use the authorized certificate.</t>
+        </list>
+      </t>
+      <t>The client can also retrieve the list of authorized certificates, remove a certificate, or revoke a certificate.</t>
+      <t>These use cases are explained in the following sections.</t>
+      <t>Note: The following capitalized keywords are to be interpreted as described in <xref target="TERMS"/>: "MUST", "SHALL", "REQUIRED"; "MUST NOT", "SHALL NOT"; "SHOULD", "RECOMMENDED"; "SHOULD NOT", "NOT RECOMMENDED"; "MAY", "OPTIONAL".</t>
+    </section>
+
+    <section title='First Login' anchor='firstlogin'>
+      <t>On first login, the client has not yet authorized a certificate and therefore cannot use SASL EXTERNAL to authenticate.  (There is a possible exception if the client already has a valid certificate issued by a certificate authority ("CA") that is recognized by the server, but we ignore that case here because it is relatively rare.)  Therefore the client would authenticate using standard XMPP methods as described in <xref target='rfc3920bis'/>.  If the client will attempt to upload and authorize a certificate for subsequent login attempts, it MUST protect the client-to-server stream using channel encryption via Transport Layer Security <xref target='TLS'/> as described in <xref target='rfc3920bis'/>.</t>
+    </section>
+
+    <section title='Certificate Generation' anchor='certgen'>
+      <t>In order to upload and authorize a certificate, the client needs to generate or obtain a certificate.  Here we assume that the client generates a self-signed certificate since this is also a requirement of <xref target='XTLS'/>; however, it is also possible for the client to obtain a CA-issued certificate.  The client certificate MUST include a JID as described in section 15.2.1.2 of <xref target='rfc3920bis'/>, where the JID will be represented as an XmppAddr.  The JID can be either a bare JID of the form "user@domain.tld" or a full JID of the form "user@domain.tld/resource".</t>
+      <figure>
+        <artwork><![CDATA[
+subjectAltName=otherName:id-on-xmppAddr;UTF8:hamlet@example.com
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title='Uploading a Certificate' anchor='upload'>
+      <t>After the client has logged in and generated a certificate, it shall upload the certificate to its XMPP server.  This is done by sending an XMPP IQ stanza of type "set" containing an &lt;upload/&gt; element qualified by the 'urn:xmpp:saslcert:0' namespace; this element in turn MUST contain at least one &lt;item/&gt; element, which in turn MUST contain a &lt;certificate/&gt; child element and SHOULD contain a &lt;name/&gt; child element.  The XML character of the &lt;certificate/&gt; element is the X.509 certificate in DER encoding, Base64-encoded as specified in Section 4 of <xref target='RFC4648'/> for sending over the XML stream.  The XML character data of the &lt;name/&gt; element is a human-readable name for the certificate (thus making it easier for a human user to manage the different certificates); the name does not have to be unique, since the certificate's fingerprint provides a truly unique identifier. A client can upload multiple certificates with each certificate defined in one individual &lt;item/&gt; element.</t>
+      <figure>
+        <artwork><![CDATA[
+<iq from='hamlet@example.com/denmark'
+    id='hfg65sw'
+    type='set'>
+  <upload xmlns='urn:xmpp:saslcert:0'>
+    <item>
+      <name>Mobile Client</name>
+      <certificate>
+MIICCTCCAXKgAwIBAgIJALhU0Id6xxwQMA0GCSqGSIb3DQEBBQUAMA4xDDAKBgNV
+BAMTA2ZvbzAeFw0wNzEyMjgyMDA1MTRaFw0wODEyMjcyMDA1MTRaMA4xDDAKBgNV
+BAMTA2ZvbzCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA0DPcfeJzKWLGE22p
+RMINLKr+CxqozF14DqkXkLUwGzTqYRi49yK6aebZ9ssFspTTjqa2uNpw1U32748t
+qU6bpACWHbcC+eZ/hm5KymXBhL3Vjfb/dW0xrtxjI9JRFgrgWAyxndlNZUpN2s3D
+hKDfVgpPSx/Zp8d/ubbARxqZZZkCAwEAAaNvMG0wHQYDVR0OBBYEFJWwFqmSRGcx
+YXmQfdF+XBWkeML4MD4GA1UdIwQ3MDWAFJWwFqmSRGcxYXmQfdF+XBWkeML4oRKk
+EDAOMQwwCgYDVQQDEwNmb2+CCQC4VNCHesccEDAMBgNVHRMEBTADAQH/MA0GCSqG
+SIb3DQEBBQUAA4GBAIhlUeGZ0d0msNVxYWAXg2lRsJt9INHJQTCJMmoUeTtaRjyp
+ffJtuopguNNBDn+MjrEp2/+zLNMahDYLXaTVmBf6zvY0hzB9Ih0kNTh23Fb5j+yK
+QChPXQUo0EGCaODWhfhKRNdseUozfNWOz9iTgMGw8eYNLllQRL//iAOfOr/8
+      </certificate>
+    </item>
+  </upload>
+</iq>
+        ]]></artwork>
+      </figure>
+      <t>If the server can process the certificate, it returns an empty IQ result.</t>
+      <figure>
+        <artwork><![CDATA[
+<iq from='hamlet@example.com/denmark'
+    id='hfg65sw'
+    type='set'>
+        ]]></artwork>
+      </figure>
+      <t>(Error cases will be described in a future version of this specification, although the normal XMPP stanza errors apply.)</t>
+      <t>Once the server has accepted the certificate, a client can use that certificate to authenticate the user using SASL EXTERNAL on subsequent logins.  Therefore the client MUST NOT store the password for subsequent login attempts.</t>
+      <t>The client that uploads the certificate does not need to be the client that subsequently uses the certificate.  For example, a user might use a full-featured client to upload a certificate for subsequent use by a "bot" (e.g., an automated service or a device such as a set-top box).  The bot creates its certificate and private key, and the user uploads the certificate to the server with a different client.  After that procedure the bot can log in to the server and even participate in secure end-to-end communication without ever knowing the user's password.</t>
+      <t>An optional element &lt;no-cert-management/&gt; inside the &lt;item/&gt; element indicates that a client logged in with that certificate is not allowed to add or remove certificates from the list.  A server MAY allow such a client to query the list of certificates.</t>
+      <figure>
+        <artwork><![CDATA[
+<iq from='hamlet@example.com/denmark'
+    id='hf65d4aq'
+    type='set'>
+  <upload xmlns='urn:xmpp:saslcert:0'>
+    <item>
+      <name>Simple Bot</name>
+      <no-cert-management/>
+      <certificate>
+        Certificate-in-DER-format-Base64-encoded
+      </certificate>
+    </item>
+  </upload>
+</iq>
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title='Subsequent Login via SASL EXTERNAL' anchor='sasl'>
+      <t>The RECOMMENDED protocol flow for client-to-server use of SASL EXTERNAL with end-user certificates is as follows:</t>
+      <t>
+        <list style='numbers'>
+          <t>Client initiates stream to the server.
+            <figure>
+              <artwork><![CDATA[
+    <stream:stream 
+            xmlns:stream='http://etherx.jabber.org/streams' 
+            xmlns='jabber:client' 
+            to='example.com' 
+            version='1.0'>
+              ]]></artwork>
+            </figure>
+          </t>
+          <t>Server replies with stream header.
+            <figure>
+              <artwork><![CDATA[
+    <stream:stream 
+            xmlns:stream='http://etherx.jabber.org/streams' 
+            xmlns='jabber:client' 
+            id='c2s_234' 
+            from='example.com' 
+            version='1.0'>
+              ]]></artwork>
+            </figure>
+          </t>
+          <t>Server advertises TLS stream feature.
+            <figure>
+              <artwork><![CDATA[
+    <stream:features>
+      <starttls xmlns='urn:ietf:params:xml:ns:xmpp-tls'>
+        <required/>
+      </starttls>
+    </stream:features>
+              ]]></artwork>
+            </figure>
+          </t>
+          <t>Client sends STARTTLS command to the server.
+            <figure>
+              <artwork><![CDATA[
+    <starttls xmlns='urn:ietf:params:xml:ns:xmpp-tls'/>
+              ]]></artwork>
+            </figure>
+          </t>
+          <t>Server tells the client to proceed.
+            <figure>
+              <artwork><![CDATA[
+    <proceed xmlns='urn:ietf:params:xml:ns:xmpp-tls'/>
+              ]]></artwork>
+            </figure>
+          </t>
+          <t>During TLS handshake, the server requests a certificate and the client presents its certificate.</t>
+          <t>TLS negotiation completes successfully.</t>
+          <t>Client initiates a new stream header to the server.
+            <figure>
+              <artwork><![CDATA[
+    <stream:stream 
+            xmlns:stream='http://etherx.jabber.org/streams' 
+            xmlns='jabber:client' 
+            to='example.com' 
+            version='1.0'>
+              ]]></artwork>
+            </figure>
+          </t>
+          <t>Server replies with stream header.
+            <figure>
+              <artwork><![CDATA[
+    <stream:stream 
+            xmlns:stream='http://etherx.jabber.org/streams' 
+            xmlns='jabber:client' 
+            id='c2s_345' 
+            from='example.com' 
+            version='1.0'>
+              ]]></artwork>
+            </figure>
+          </t>
+          <t>Server advertises SASL mechanisms. If the server expects that the client will be able to authenticate and authorize as the identity provided in the presented certificate, then the server SHOULD advertise the SASL EXTERNAL mechanism; otherwise, if presented certificate is unacceptable (e.g., because the certificate is expired, not yet valid, or revoked), the server MUST NOT offer the EXTERNAL mechanism.
+            <figure>
+              <artwork><![CDATA[
+    <stream:features>
+      <mechanisms xmlns='urn:ietf:params:xml:ns:xmpp-sasl'>
+        <mechanism>EXTERNAL<mechanism>
+        <mechanism>DIGEST-MD5<mechanism>
+        <mechanism>ANONYMOUS<mechanism>
+        <required/>
+      </mechanisms>
+    </stream:features>
+              ]]></artwork>
+            </figure>
+          </t>
+          <t>Because the client presented a certificate, it SHOULD consider EXTERNAL to be its preferred SASL mechanism. If the client certificate includes only one XMPP address and the user wishes to authorize as the identity that has been authenticated by the TLS layer (i.e., the XMPP address that is contained in the client certificate), then the client SHOULD NOT include an authorization identity (i.e., the XML character data for the &lt;auth/&gt; element SHOULD be "=", indicating an empty response); if the client certificate contains more than one XMPP address or if the user wishes to authorize as another identity, then the client MUST include an authorization identity; if the client certificate contain no XMPP address, then the client SHOULD include an authorization identity (but MAY omit the authorization identity if it does not know its identity, instead having it assigned by the server).
+            <figure>
+              <artwork><![CDATA[
+    <auth xmlns='urn:ietf:params:xml:ns:xmpp-sasl' 
+          mechanism='EXTERNAL'>=</auth>
+              ]]></artwork>
+            </figure>
+          </t>
+          <t>Server determines whether to allow authentication and authorization of user.
+            <list style='numbers'>
+              <t>If (1) the certificate presented by the client contains only one valid XMPP address that corresponds to a registered account on the server and (2) the client did not pass an authorization identity in the SASL exchange, then the server SHOULD allow authentication and authorization of that JID. For the purpose of client authentication and authorization with a server, a valid XMPP address is a JID encapsulated as a subjectAltName entity of type otherName with an ASN.1 Object Identifier of "id-on-xmppAddr" as specified in Section 15.2.1.3 of <xref target='rfc3920bis'/>.
+                <figure>
+                  <artwork><![CDATA[
+    <success xmlns='urn:ietf:params:xml:ns:xmpp-sasl'/>
+                  ]]></artwork>
+                </figure>
+              </t>
+              <t>If the certificate contains more than one valid XMPP address that corresponds to a registered account on the server (e.g., because the server offers virtual hosting), then the server SHOULD allow authentication and authorization of the JID specified as the authorization identity.
+                <figure>
+                  <artwork><![CDATA[
+    <success xmlns='urn:ietf:params:xml:ns:xmpp-sasl'/>
+                  ]]></artwork>
+                </figure>
+              </t>
+              <t>If no authorization identity is included, then the server MUST return a SASL failure case of &lt;invalid-authzid/&gt; and close the stream.
+                <figure>
+                  <artwork><![CDATA[
+    <failure xmlns='urn:ietf:params:xml:ns:xmpp-sasl'>
+      <invalid-authzid/>
+    </failure>
+    </stream:stream>
+                  ]]></artwork>
+                </figure>
+              </t>
+              <t>If the certificate does not contain an XMPP address, then the server MAY attempt to determine if there is a registered account associated with the user, for example by performing an LDAP lookup based on the Common Name in the certificate; if such a JID mapping is successful and the mapped JID matches the authorization identity provided, then the server SHOULD allow authentication and authorization of that mapped JID.
+                <figure>
+                  <artwork><![CDATA[
+    <success xmlns='urn:ietf:params:xml:ns:xmpp-sasl'/>
+                  ]]></artwork>
+                </figure>
+              </t>
+              <t>If JID mapping is unsuccessful, then the server MUST return a SASL failure case of &lt;not-authorized/&gt; and close the stream.
+                <figure>
+                  <artwork><![CDATA[
+    <failure xmlns='urn:ietf:params:xml:ns:xmpp-sasl'>
+      <not-authorized/>
+    </failure>
+    </stream:stream>
+                  ]]></artwork>
+                </figure>
+              </t>
+              <t>If JID mapping is successful but the mapped JID does not match the authorization identity provided (if any), then the server MUST return a SASL failure case of &lt;invalid-authzid/&gt; and close the stream.
+                <figure>
+                  <artwork><![CDATA[
+    <failure xmlns='urn:ietf:params:xml:ns:xmpp-sasl'>
+      <invalid-authzid/>
+    </failure>
+    </stream:stream>
+                  ]]></artwork>
+                </figure>
+              </t>
+            </list>
+          </t>
+          <t>If SASL authentication succeeded, the client opens a new stream, then the client and server proceed with resource binding as described in <xref target='rfc3920bis'/>.  If the XmppAddr in the certificate is a full JID then the server MUST force the client to use the defined resource during resource binding.  The client is only allowed to use the provided resource name.  If a client with the same resource name is currently logged in and that client is not forced to use the specified resource name, it SHOULD be logged out by the server.</t>
+        </list>
+      </t>
+    </section>
+
+    <section title='Requesting the List of Certificates' anchor='list'>
+      <t>A client can request the list of all certificates that are authorized to authenticate for its bare JID using SASL EXTERNAL.  This is done by sending an XMPP IQ stanza of type "get" containing a &lt;list/&gt; element qualified by the 'urn:xmpp:saslcert:0' namespace.</t>
+      <figure>
+        <artwork><![CDATA[
+<iq from='hamlet@example.com/denmark'
+    id='hf7435gj'
+    type='get'>
+  <list xmlns='urn:xmpp:saslcert:0'/>
+</iq>
+         ]]></artwork>
+      </figure>
+      <t>The server then returns the list of all known certificates, including the provided name.  Each certificate is contained in a separate &lt;item/&gt; element and uniquely identified by the value of the 'id' attribute.  In the following example the 'id' is the SHA1 value in hex of the certificate. The 'id' is used for the client to remove or revoke a certificate.</t>
+      <figure>
+        <artwork><![CDATA[
+<iq id='hf7435gj'
+    to='hamlet@example.com/denmark'
+    type='result'>
+  <list xmlns='urn:xmpp:saslcert:0'>
+    <item id='428b1358a286430f628da23fb33ddaf6e474f5c5'>
+      <name>Mobile Client</name>
+      <certificate>
+        Certificate-in-DER-format-Base64-encoded
+      </certificate>
+    </item>
+    <item id='571b23d99892f4566017426e92c377288ed6c983'>
+      <name>Simple Bot</name>
+      <no-cert-management/>
+      <certificate>
+        Certificate-in-DER-format-Base64-encoded
+      </certificate>
+    </item>
+  </list>
+</iq>
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title='Removing a Certificate' anchor='remove'>
+      <t>A client needs to create a new certificate before its current one expires.  After the new certificate is uploaded to the server, it might want to remove the old certificate to keep the list of certificates short (otherwise the list will grow indefinitely, making certificate handling more difficult for the user).  The client removes a certificate by sending an XMPP IQ stanza of type "set" containing a &lt;remove/&gt; element that in turn contains an empty &lt;item/&gt; whose 'id' attribute uniquely identifies the certificate as retrieved from the server with the &lt;list/&gt; IQ stanza. Similar to the upload procedure a client can remove multiple certificates by adding more than one &lt;item/&gt; element.</t>
+      <figure>
+        <artwork><![CDATA[
+<iq from='hamlet@example.com/denmark'
+    id='di5rshyy'
+    type='set'>
+  <remove xmlns='urn:xmpp:saslcert:0'/>
+    <item id='428b1358a286430f628da23fb33ddaf6e474f5c5'/>
+  </remove>
+</iq>
+        ]]></artwork>
+      </figure>
+      <t>Once a certificate has been removed it can no longer be used for SASL EXTERNAL.  A server MAY automatically remove expired certificates from the list.</t>
+    </section>
+
+    <section title='Revoking a Certificate'>
+      <t>The user can revoke a certificate for a stolen or compromised device.  The mechanism is similar to removing a certificate.  The difference is that if a client is logged in with the compromised certificate using SASL EXTERNAL, the server SHOULD close the stream to that client thus forcing that client to log out.  The client revokes a certificate by sending an XMPP IQ stanza of type "set" containing a &lt;revoke/&gt; element that in turn contains an empty &lt;item/&gt; whose 'id' attribute uniquely identified the certificate.</t>
+      <figure>
+        <artwork><![CDATA[
+<iq from='hamlet@example.com/denmark'
+    id='rev9gewf'
+    type='set'>
+  <revoke xmlns='urn:xmpp:saslcert:0'/>
+    <item id='428b1358a286430f628da23fb33ddaf6e474f5c5'/>
+  </revoke>
+</iq>
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title='Security Considerations' anchor="sec">
+      <section title='Certificate Policies'>
+        <t>This specification defines a method whereby a user can authorize self-signed certificates for login.  In accordance with local security policies, a given XMPP deployment can refuse to support this feature, can allow only clients that have authenticated with CA-issued certificates to upload self-signed certificates, can accept self-signed certificates only for full JIDs, etc.</t>
+      </section>
+      <section title='Stream Characteristics'>
+        <t>This specification allows the user to manipulate an alternative way to log into the server.  The certificates are not required to be signed and any certificate can be used.  Therefore the server MUST reject any communication described in this document if the link between client and server is not secured with both STARTTLS and SASL.</t>
+      </section>
+      <section title='Check subjectAltName'>
+        <t>The server MUST check if the JID in the subjectAltName of the certificate matches the bare JID of the user.  A user MUST NOT be allowed to upload certificates for a different user.</t>
+      </section>
+      <section title='Changing the Password'>
+        <t><xref target='XEP-0077'/> defines a mechanism to change the password without knowing the current one.  If the server supports password change it MUST return not-authorized for clients logged in using SASL EXTERNAL and MAY include a password change form requiring the old password.  If the client has logged in with the current password, the server MAY change the password without a form as specified in XEP-0077.</t>
+        <t>If a client is allowed to change the password without knowing the current password, the additional security provided by this document is compromised.</t>
+      </section>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+<reference anchor='rfc3920bis'>
+<front>
+<title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+<organization />
+</author>
+<date month='March' day='8' year='2009' />
+<abstract><t>This document defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a technology for streaming Extensible Markup Language (XML) elements for the purpose of exchanging structured information in close to real time between any two or more network-aware entities.  XMPP provides a generalized, extensible framework for incrementally exchanging XML data, upon which a variety of applications can be built.  The framework includes methods for stream setup and teardown, channel encryption, authentication of a client to a server and of one server to another server, and primitives for push-style messages, publication of network availability information ("presence"), and request-response interactions.  This document also specifies the format for XMPP addresses, which are fully internationalizable.  This document obsoletes RFC 3920.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-rfc3920bis-09' />
+<format type='TXT'
+    target='http://www.ietf.org/internet-drafts/draft-saintandre-rfc3920bis-09.txt' />
+</reference>
+
+<reference anchor='RFC4648'>
+<front>
+<title>The Base16, Base32, and Base64 Data Encodings</title>
+<author initials='S.' surname='Josefsson' fullname='S. Josefsson'>
+<organization /></author>
+<date year='2006' month='October' />
+<abstract>
+<t>This document describes the commonly used base 64, base 32, and base 16 encoding schemes.  It also discusses the use of line-feeds in encoded data, use of padding in encoded data, use of non-alphabet characters in encoded data, use of different encoding alphabets, and canonical encodings. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4648' />
+<format type='TXT' octets='35491' target='ftp://ftp.isi.edu/in-notes/rfc4648.txt' />
+</reference>
+
+<reference anchor="SASL">
+<front>
+<title>Simple Authentication and Security Layer (SASL)</title>
+<author initials='A.' surname='Melnikov' fullname='A.  Melnikov'>
+<organization /></author>
+<author initials='K.' surname='Zeilenga' fullname='K.  Zeilenga'>
+<organization /></author>
+<date year='2006' month='June' />
+<abstract>
+<t>&lt;p>The Simple Authentication and Security Layer (SASL) is a framework for providing authentication and data security services in connection-oriented protocols via replaceable mechanisms.  It provides a structured interface between protocols and mechanisms.  The resulting framework allows new protocols to reuse existing mechanisms and allows old protocols to make use of new mechanisms.  The framework also provides a protocol for securing subsequent protocol exchanges within a data security layer.&lt;/p>&lt;p> This document describes how a SASL mechanism is structured, describes how protocols include support for SASL, and defines the protocol for carrying a data security layer over a connection.  In addition, this document defines one SASL mechanism, the EXTERNAL mechanism.&lt;/p>&lt;p> This document obsoletes RFC 2222.  [STANDARDS TRACK]&lt;/p></t></abstract></front>
+<seriesInfo name='RFC' value='4422' />
+<format type='TXT' octets='73206' target='ftp://ftp.isi.edu/in-notes/rfc4422.txt' />
+</reference>
+
+<reference anchor="TERMS">
+<front>
+<title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+<author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+<organization>Harvard University</organization>
+<address>
+<postal>
+<street>1350 Mass.  Ave.</street>
+<street>Cambridge</street>
+<street>MA 02138</street></postal>
+<phone>- +1 617 495 3864</phone>
+<email>sob@harvard.edu</email></address></author>
+<date month='March' year='1997' />
+<area>General</area>
+<keyword>keyword</keyword>
+<abstract>
+<t>
+   In many standards track documents several words are used to signify
+   the requirements in the specification.  These words are often
+   capitalized.  This document defines these words as they should be
+   interpreted in IETF documents.  Authors who follow these guidelines
+   should incorporate this phrase near the beginning of their document:
+
+<list>
+<t>
+      The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL
+      NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and
+      &quot;OPTIONAL&quot; in this document are to be interpreted as described in
+      RFC 2119.
+</t></list></t>
+<t>
+   Note that the force of these words is modified by the requirement
+   level of the document in which they are used.
+</t></abstract></front>
+<seriesInfo name='BCP' value='14' />
+<seriesInfo name='RFC' value='2119' />
+<format type='TXT' octets='4723' target='ftp://ftp.isi.edu/in-notes/rfc2119.txt' />
+<format type='HTML' octets='14486' target='http://xml.resource.org/public/rfc/html/rfc2119.html' />
+<format type='XML' octets='5661' target='http://xml.resource.org/public/rfc/xml/rfc2119.xml' />
+</reference>
+
+<reference anchor='TLS'>
+<front>
+<title>The Transport Layer Security (TLS) Protocol Version 1.2</title>
+<author initials='T.' surname='Dierks' fullname='T. Dierks'>
+<organization /></author>
+<author initials='E.' surname='Rescorla' fullname='E. Rescorla'>
+<organization /></author>
+<date year='2008' month='August' />
+<abstract>
+<t>This document specifies Version 1.2 of the Transport Layer Security (TLS) protocol.  The TLS protocol provides communications security over the Internet.  The protocol allows client/server applications to communicate in a way that is designed to prevent eavesdropping, tampering, or message forgery. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5246' />
+<format type='TXT' octets='222395' target='ftp://ftp.isi.edu/in-notes/rfc5246.txt' />
+</reference>
+
+<reference anchor="X509">
+<front>
+<title>ITU-T Recommendation X.509 (1997 E): Information Technology - Open Systems Interconnection - The Directory: Authentication Framework</title>
+<author><organization /></author>
+<date year='1997' month='June' />
+</front>
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor="XEP-0077">
+  <front>
+    <title>In-Band Registration</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P.  Saint-Andre'>
+      <organization>XMPP Software Foundation</organization>
+    </author>
+    <date year='2006' month='January' />
+  </front>
+  <seriesInfo name="XSF XEP" value="0077"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0077.html"/>
+</reference>
+      
+<reference anchor="XTLS">
+<front>
+<title>Extensible Messaging and Presence Protocol (XMPP) End-to-End Encryption Using Transport Layer Security ("XTLS")</title>
+<author initials="D." surname="Meyer" fullname="Dirk Meyer">
+<organization>TZI, Universitaet Bremen</organization>
+</author>
+<author initials='P.' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+<organization>Cisco</organization>
+</author>
+<date month='March' day='8' year='2009' />
+<abstract><t>This document specifies "XTLS", a protocol for end-to-end encryption of Extensible Messaging and Presence Protocol (XMPP) traffic via an application-level usage of Transport Layer Security (TLS).  XTLS treats the end-to-end exchange of XML stanzas as a virtual transport and uses TLS to secure that transport, thus enabling XMPP entities to communicate in a way that is designed to prevent eavesdropping, tampering, and forgery of XML stanzas.  The protocol can be used for secure end-to-end messaging as well as any others application such as file transfer.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-meyer-xmpp-e2e-encryption-01' />
+<format type='TXT'
+    target='http://www.ietf.org/internet-drafts/draft-meyer-e2e-encryption-01.txt' />
+</reference>
+      
+    </references>
+    
+    <section title='XML Schema' anchor='schema'>
+      <t>The following schema is not normative.</t>
+      <figure>
+        <artwork><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:saslcert:0'
+    xmlns='urn:xmpp:jingle:saslcert:0'
+    elementFormDefault='qualified'>
+
+  <xs:element name='list'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='item' 
+                    type='itemElementType'
+                    minOccurs='0' 
+                    maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='remove'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='item' 
+                    type='itemElementType'
+                    minOccurs='0' 
+                    maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='revoke'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='item' 
+                    type='itemElementType'
+                    minOccurs='0' 
+                    maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='upload'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='item' 
+                    type='itemElementType'
+                    minOccurs='0' 
+                    maxOccurs='unbounded'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name='itemElementType'>
+    <xs:sequence>
+      <xs:element name='name' 
+                  type='xs:string'
+                  minOccurs='0' 
+                  maxOccurs='1'/>
+      <xs:element name='no-cert-management' 
+                  type='empty'
+                  minOccurs='0' 
+                  maxOccurs='1'/>
+      <xs:element name='certificate' 
+                  type='xs:string'
+                  minOccurs='0' 
+                  maxOccurs='1'/>
+    </xs:sequence>
+    <xs:attribute name='id' type='xs:string' use='optional'/>
+  </xs:complexType>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title="Copying Conditions" anchor="copying">
+      <t>Regarding this entire document or any portion of it, the authors make no guarantees and are not responsible for any damage resulting from its use.  The authors grant irrevocable permission to anyone to use, modify, and distribute it in any way that does not diminish the rights of anyone else to use, modify, and distribute it, provided that redistributed derivative works do not contain misleading author or version information.  Derivative works need not be licensed under similar terms.</t>
+    </section>
+
+  </back>
+  
+</rfc>

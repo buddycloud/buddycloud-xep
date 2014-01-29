@@ -1,0 +1,1762 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Jingle</title>
+  <abstract>This specification defines an XMPP protocol extension for initiating and managing peer-to-peer media sessions between two XMPP entities in a way that is interoperable with existing Internet standards. The protocol provides a pluggable model that enables the core session management semantics (compatible with SIP) to be used for a wide variety of application types (e.g., voice chat, video chat, file transfer) and with a wide variety of transport methods (e.g., TCP, UDP, ICE, application-specific transports).</abstract>
+  &LEGALNOTICE;
+  <number>0166</number>
+  <status>Draft</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <approver>Council</approver>
+  <dependencies>
+    <spec>XMPP Core</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby/>
+  <shortname>jingle</shortname>
+  <schemaloc>
+    <ns>jingle</ns>
+    <url>http://xmpp.org/schemas/jingle.xsd</url>
+  </schemaloc>
+  <schemaloc>
+    <ns>jingle:errors</ns>
+    <url>http://xmpp.org/schemas/jingle-errors.xsd</url>
+  </schemaloc>
+  <registry/>
+  <discuss>jingle</discuss>
+  &scottlu;
+  &joebeda;
+  &stpeter;
+  &robmcqueen;
+  &seanegan;
+  &hildjj;
+  <revision>
+    <version>1.1</version>
+    <date>2009-12-23</date>
+    <initials>psa/jjh</initials>
+    <remark><p>Specified handling of duplicate name attributes on content element; clarified recommended usage of Jingle when exchanging multiple content-types; declared the principle that application types ought not to be mixed beyond necessity within a single session; clarified use of the reason element in cases other than termination.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2009-06-10</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, advanced specification from Experimental to Draft; also required inclusion of the creator attribute per list consensus.</p></remark>
+  </revision>
+  <revision>
+    <version>0.38</version>
+    <date>2009-05-27</date>
+    <initials>psa</initials>
+    <remark><p>Clarified and tightened handling of the initiator, responder, creator, and senders attributes.</p></remark>
+  </revision>
+  <revision>
+    <version>0.37</version>
+    <date>2009-04-20</date>
+    <initials>psa</initials>
+    <remark><p>Specified tie-breaking for session-initiate action; incremented errors namespace to match core namespace; clarified some ambiguities in the text, examples, and state machine.</p></remark>
+  </revision>
+  <revision>
+    <version>0.36</version>
+    <date>2009-03-11</date>
+    <initials>psa</initials>
+    <remark><p>Added none value for senders attribute.</p></remark>
+  </revision>
+  <revision>
+    <version>0.35</version>
+    <date>2009-03-06</date>
+    <initials>psa</initials>
+    <remark>
+      <ul>
+        <li>Added the concept of a security precondition to the Jingle framework, where preconditions are defined in separate specifications (just as application types and transport methods are).</li>
+        <li>Defined a new Jingle action of security-info.</li>
+        <li>Incremented the namespace to urn:xmpp:jingle:1 in order to reflect the addition of security preconditions and the security-info action.</li>
+        <li>Clarified a number of points about the overall session flow and state machine.</li>
+        <li>Added Jingle reasons for failed-application, failed-transport, and incompatible-parameters.</li>
+      </ul>
+    </remark>
+  </revision>
+  <revision>
+    <version>0.34</version>
+    <date>2009-02-17</date>
+    <initials>psa</initials>
+    <remark><p>Clarified the definitions and conformance requirements for datagram and streaming transports; tightened the security requirements regarding the initiator and responder attributes; updated examples to reflect changes to XEP-0176.</p></remark>
+  </revision>
+  <revision>
+    <version>0.33</version>
+    <date>2008-12-18</date>
+    <initials>psa</initials>
+    <remark>
+      <ul>
+        <li>Clarified handling of session timeouts.</li>
+        <li>Added description-info action.</li>
+        <li>Added cancel, expired, gone, security-error, and timeout reason conditions.</li>
+        <li>Changed XMPP error condition for Jingle &lt;unknown-session/&gt; condition from &lt;bad-request/&gt; to &lt;item-not-found/&gt;.</li>
+        <li>Changed XMPP error condition for Jingle tie breaks from &lt;unexpected-request/&gt; to &lt;conflict/&gt; and defined Jingle-specific condition of &lt;tie-break/&gt;.</li>
+        <li>Corrected schema.</li>
+      </ul>
+    </remark>
+  </revision>
+  <revision>
+    <version>0.32</version>
+    <date>2008-10-07</date>
+    <initials>psa</initials>
+    <remark><p>Added content-reject action to mirror content-accept for replies to content-add; also added transport-reject action to mirror transport-accept for replies to transport-replace.</p></remark>
+  </revision>
+  <revision>
+    <version>0.31</version>
+    <date>2008-09-25</date>
+    <initials>psa</initials>
+    <remark><p>Added disposition attribute to content element for mapping to SIP Content-Disposition header.</p></remark>
+  </revision>
+  <revision>
+    <version>0.30</version>
+    <date>2008-09-23</date>
+    <initials>ram/psa</initials>
+    <remark>
+      <ul>
+        <li>Allowed content-add in PENDING state.</li>
+        <li>Clarified that session-accept action accepts only the content definition(s) in the session-initiate.</li>
+        <li>Added optional thread element.</li>
+        <li>Clarified tie breaks for transport-replace.</li>
+        <li>Modified namespaces to incorporate namespace versioning.</li>
+        <li>Cleaned up XML schemas.</li>
+      </ul>
+    </remark>
+  </revision>
+  <revision>
+    <version>0.29</version>
+    <date>2008-07-31</date>
+    <initials>psa/ram</initials>
+    <remark>
+      <ul>
+        <li>Changed "reliable" vs. "lossy" to "streaming" vs. "datagram", since reliability or dependability is orthogonal to the streaming nature of the transport.</li>
+        <li>Deleted the "content-remove" action.</li>
+        <li>Added "transport-replace" action (answered by "transport-accept").</li>
+        <li>Removed &lt;condition/&gt; element as container for Jingle condition elements inside &lt;reason/&gt;, since it introduced an unnecessary layer of indirection.</li>
+        <li>Modified state machine to allow content removal during PENDING state.</li>
+        <li>Noted that a session can have more than one content instance of the same type.</li>
+        <li>Noted that the 'name' attribute is unique to a creator.</li>
+        <li>Changed examples to once again use voice chat instead of file transfer.</li>
+      </ul>
+    </remark>
+  </revision>
+  <revision>
+    <version>0.28</version>
+    <date>2008-06-16</date>
+    <initials>psa</initials>
+    <remark><p>Modified state machine to allow content-replace during PENDING state for more seamless handling of fallback scenarios.</p></remark>
+  </revision>
+  <revision>
+    <version>0.27</version>
+    <date>2008-06-04</date>
+    <initials>psa</initials>
+    <remark><p>Updated examples to track changes to XEP-0167 and retraction of XEP-0180; corrected definition of name attribute to allow semantic meaning.</p></remark>
+  </revision>
+  <revision>
+    <version>0.26</version>
+    <date>2008-05-28</date>
+    <initials>psa</initials>
+    <remark><p>Corrected several errors in the state diagrams.</p></remark>
+  </revision>
+  <revision>
+    <version>0.25</version>
+    <date>2008-02-29</date>
+    <initials>psa</initials>
+    <remark><p>More clearly specified the content-replace action (essentially similar to content-add); specified that content-accept shall be sent in response to content-replace; removed content-modify and content-accept from PENDING state; adjusted text regarding initial session negotiation.</p></remark>
+  </revision>
+  <revision>
+    <version>0.24</version>
+    <date>2008-02-28</date>
+    <initials>ram/psa</initials>
+    <remark><p>Added content-replace action; modified reasoncode and reasontext to use elements instead of attributes; added sid element to handle alternative-session condition; modified examples to use file transfer instead of voice chat; moved profile element to XEP-0167 and XEP-0180.</p></remark>
+  </revision>
+  <revision>
+    <version>0.23</version>
+    <date>2008-01-11</date>
+    <initials>psa</initials>
+    <remark><p>Removed content-accept after content-remove; removed errors for unsupported-content and unsupported-transports since they are handled via session-terminate; clarified handling of responder attribute.</p></remark>
+  </revision>
+  <revision>
+    <version>0.22</version>
+    <date>2007-12-06</date>
+    <initials>psa</initials>
+    <remark><p>Modified session flows for busy, unsupported application formats, and unsupported transport methods to enable separation between Jingle core and distinct modules for applications and transports; moved resource determination recommendations to XEP-208.</p></remark>
+  </revision>
+  <revision>
+    <version>0.21</version>
+    <date>2007-11-27</date>
+    <initials>psa</initials>
+    <remark><p>Further editorial review.</p></remark>
+  </revision>
+  <revision>
+    <version>0.20</version>
+    <date>2007-11-15</date>
+    <initials>psa</initials>
+    <remark><p>Editorial review and consistency check; moved voice chat scenarios to XEP-0167.</p></remark>
+  </revision>
+  <revision>
+    <version>0.19</version>
+    <date>2007-11-13</date>
+    <initials>psa</initials>
+    <remark><p>Added scenario for handling of busy state, including Jingle-specific error code and modified error flow (no longer an instance of decline).</p></remark>
+  </revision>
+  <revision>
+    <version>0.18</version>
+    <date>2007-11-08</date>
+    <initials>psa</initials>
+    <remark><p>Added scenarios for various session flows; clarified handling of content-add, content-modify, and content-remove actions; clarified rules for codec priority.</p></remark>
+  </revision>
+  <revision>
+    <version>0.17</version>
+    <date>2007-06-20</date>
+    <initials>psa</initials>
+    <remark><p>Added &lt;unsupported-info/&gt; error.</p></remark>
+  </revision>
+  <revision>
+    <version>0.16</version>
+    <date>2007-06-06</date>
+    <initials>psa</initials>
+    <remark><p>Clarified resource determination process and updated text to reflect modifications to XEP-0168.</p></remark>
+  </revision>
+  <revision>
+    <version>0.15</version>
+    <date>2007-05-25</date>
+    <initials>psa</initials>
+    <remark><p>Rewrote introduction and moved historical text to separate section.</p></remark>
+  </revision>
+  <revision>
+    <version>0.14</version>
+    <date>2007-04-17</date>
+    <initials>psa</initials>
+    <remark><p>Clarified session lifetime; defined reason attribute and associated registry; further specified conformance requirements.</p></remark>
+  </revision>
+  <revision>
+    <version>0.13</version>
+    <date>2007-03-23</date>
+    <initials>psa/ram</initials>
+    <remark><p>Simplified signalling process and state chart; Removed session-redirect action (use redirect error instead); removed content-decline action; removed transport-* actions (except transport-info for ICE negotiation); removed description-* actions; simplified syntax to allow only one transport per content type; corrected syntax of creator attribute to be either initiator or responder (not JIDs); added profile attribute to content element in order to specify RTP profile in use.</p></remark>
+  </revision>
+  <revision>
+    <version>0.12</version>
+    <date>2006-12-21</date>
+    <initials>psa/ram</initials>
+    <remark><p>Added creator attribute to content element for prevention of race condition; modified spec to use provisional namespace before advancement to Draft (per XEP-0053).</p></remark>
+  </revision>
+  <revision>
+    <version>0.11</version>
+    <date>2006-10-31</date>
+    <initials>psa</initials>
+    <remark><p>Completed clarifications and corrections throughout; added section on Jingle Actions.</p></remark>
+  </revision>
+  <revision>
+    <version>0.10</version>
+    <date>2006-09-29</date>
+    <initials>ram/psa</initials>
+    <remark><p>Made several corrections to the state machines and examples.</p></remark>
+  </revision>
+  <revision>
+    <version>0.9</version>
+    <date>2006-09-08</date>
+    <initials>ram/psa</initials>
+    <remark><p>Further cleaned up state machines and state-related actions.</p></remark>
+  </revision>
+  <revision>
+    <version>0.8</version>
+    <date>2006-08-23</date>
+    <initials>ram/psa</initials>
+    <remark><p>Changed channels to components in line with ICE; changed various action names for consistency; added session-extend and session-reduce actions to add and remove description/transport pairs; added description-modify action; added sender attribute to specify directionality.</p></remark>
+  </revision>
+  <revision>
+    <version>0.7</version>
+    <date>2006-07-17</date>
+    <initials>psa</initials>
+    <remark><p>Added implementation note about handling multiple content types.</p></remark>
+  </revision>
+  <revision>
+    <version>0.6</version>
+    <date>2006-07-12</date>
+    <initials>se/psa</initials>
+    <remark><p>Changed media type to content type.</p></remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2006-03-20</date>
+    <initials>psa/jb</initials>
+    <remark><p>Further clarified state machine diagrams; specified that session accept must include agreed-upon media format and transport description; moved deployment notes to appropriate transport spec.</p></remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2006-03-01</date>
+    <initials>psa/jb</initials>
+    <remark><p>Added glossary; clarified state machines; updated to reflect publication of XEP-0176 and XEP-0177.</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2006-02-24</date>
+    <initials>psa/jb</initials>
+    <remark><p>Provided more detail about modify scenarios; defined media-specific and transport-specific actions and adjusted state machine accordingly.</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2006-02-13</date>
+    <initials>psa/jb</initials>
+    <remark><p>Per agreement among the co-authors, moved transport definition to separate specification, simplified state machine, and made other associated changes to the text, examples, and schemas; also harmonized redirect, decline, and terminate processes.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2005-12-15</date>
+    <initials>psa</initials>
+    <remark><p>Initial version.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.10</version>
+    <date>2005-12-11</date>
+    <initials>psa</initials>
+    <remark><p>More fully documented burst mode, connectivity checks, error cases, etc.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.9</version>
+    <date>2005-12-08</date>
+    <initials>psa</initials>
+    <remark><p>Restructured document flow; provided example of burst mode.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.8</version>
+    <date>2005-12-05</date>
+    <initials>psa/sl/jb</initials>
+    <remark><p>Distinguished between dribble mode and burst mode, including mode attribute, service discovery features, and implementation notes; provided detailed resource discovery examples; corrected state chart; specified session termination; specified error conditions; specified semantics of informational messages; began to define security considerations; added Joe Beda as co-author.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.7</version>
+    <date>2005-11-08</date>
+    <initials>psa</initials>
+    <remark><p>Added more detail to basic session flow; harmonized candidate negotiation process with ICE.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.6</version>
+    <date>2005-10-27</date>
+    <initials>psa</initials>
+    <remark><p>Added XMPP Registrar considerations; defined schema; completed slight syntax cleanup.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.5</version>
+    <date>2005-10-21</date>
+    <initials>psa/sl</initials>
+    <remark><p>Separated method description formats from signalling protocol.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.4</version>
+    <date>2005-10-19</date>
+    <initials>psa/sl</initials>
+    <remark><p>Harmonized basic session flow with Google Talk protocol; added Scott Ludwig as co-author.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.3</version>
+    <date>2005-10-10</date>
+    <initials>psa</initials>
+    <remark><p>Added more detail to basic session flow.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.2</version>
+    <date>2005-10-07</date>
+    <initials>psa/jjh</initials>
+    <remark><p>Protocol cleanup.</p></remark>
+  </revision>
+  <revision>
+    <version>0.0.1</version>
+    <date>2005-10-06</date>
+    <initials>psa/jjh</initials>
+    <remark><p>First draft.</p></remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>The purpose of Jingle is to enable one-to-one, peer-to-peer media sessions between XMPP entities, where the negotiation occurs over the XMPP signalling channel and the media is exchanged over a data channel that is usually a dedicated non-XMPP transport. Jingle is designed in a modular way:</p>
+  <ul>
+    <li><p>Developers can easily plug in support for a wide variety of application types, such as voice and video chat (see &xep0167;), file transfer (see &xep0234;), application sharing, collaborative editing, whiteboarding, and secure transmission of end-to-end XML streams (see &xep0247;).</p></li>
+    <li><p>The transport methods are also pluggable, so that Jingle implementations can use any appropriate datagram transport such as User Datagram Protocol (UDP; &rfc0768;) as negotiated via &xep0177; or &xep0176;, or any appropriate streaming transport such as Transmission Control Protocol (TCP; &rfc0793;), &xep0065; as negotiated via &xep0260;, and &xep0047; as negotiated via &xep0261;.</p></li>
+    <li><p>This modular approach also extends to the security preconditions that need to be met before application data can be exchanged over a given transport, such as negotiation of Transport Layer Security (TLS; &rfc5246;) for streaming transports and negotiation of Datagram Transport Layer Security (DTLS; &rfc4347;) for datagram transports.</p></li>
+  </ul>
+  <p>It is expected that most application types, transport methods, and security preconditions will be documented in specifications produced by the &XSF; or the &IETF;; however, developers can also define proprietary methods for custom functionality.</p>
+  <p>Although Jingle provides a general framework for session management, the original target application for Jingle was simple voice and video chat. We stress the word "simple". The purpose of Jingle was not to build a full-fledged telephony application that supports call waiting, call forwarding, call transfer, hold music, IVR systems, find-me-follow-me functionality, conference calls, and the like. These features are of interest to some user populations, but adding support for them to the core Jingle layer would introduce unnecessary complexity into a technology that is designed for simple but generalized session negotiation.</p>
+  <p>Furthermore, Jingle is not intended to supplant or replace existing Internet technologies based on the Session Initiation Protocol (SIP; &rfc3261;). Because dual-stack XMPP+SIP clients are difficult to build, Jingle was designed as a pure XMPP signalling protocol. However, Jingle is at the same time designed to interwork with SIP so that the millions of deployed XMPP clients can be added onto existing Voice over Internet Protocol (VoIP) networks, rather than limiting XMPP users to a separate and distinct network.</p>
+</section1>
+<section1 topic='How It Works' anchor='howitworks'>
+  <p>This section provides a friendly introduction to Jingle.</p>
+  <p>In essence, Jingle enables two XMPP entities (e.g., romeo@montague.lit and juliet@capulet.lit) to set up, manage, and tear down a multimedia session. The negotiation takes place over XMPP, and the media transfer typically takes place outside of XMPP. A simplified session flow would be as follows: <note>Naturally, more complex scenarios are possible; such scenarios are described in other specifications, such as <cite>Jingle RTP Sessions</cite> for voice and video chat.</note></p>
+  <code><![CDATA[
+Romeo                         Juliet
+  |                             |
+  |   session-initiate          |
+  |---------------------------->|
+  |   ack                       |
+  |<----------------------------|
+  |   session-accept            |
+  |<----------------------------|
+  |   ack                       |
+  |---------------------------->|
+  |   MEDIA SESSION             |
+  |<===========================>|
+  |   session-terminate         |
+  |<----------------------------|
+  |   ack                       |
+  |---------------------------->|
+  |                             |
+  ]]></code>
+  <p>To illustrate the basic flow, we show a truncated example with a "stub" application format and transport method (skipping non-essential steps to enforce the most essential concepts and ignoring security preconditions for now).</p>
+  <example caption="Initiator sends session-initiate (stub)"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='zid615d9'
+    to='juliet@capulet.lit/balcony'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'>
+          action='session-initiate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <content creator='initiator' name='this-is-a-stub'>
+      <description xmlns='urn:xmpp:jingle:apps:stub:0'/>
+      <transport xmlns='urn:xmpp:jingle:transports:stub:0'/>
+    </content>
+  </jingle>
+</iq>
+  ]]></example>
+  <p>In this example, the initiator (romeo@montague.lit/orchard) sends a session initiation offer to the responder (juliet@capulet.lit/balcony), where the session is defined as the exchange of "stub" media over a "stub" transport.</p>
+  <p>After the responding client acknowledges receipt of the session-initiate message (not shown here), it prompts the responding user (if any) to choose whether she wants to proceed with the session (however, it does not need to prompt the user if for example she has configured her client to automatically accept session requests from this particular initiator). If she wants to proceed she selects the appropriate interface element and her client sends a session-accept message to the initiator.</p>
+  <example caption="Responder definitively accepts the session"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='rc61n59s'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-accept'
+          responder='juliet@capulet.lit/balcony'
+          sid='a73sjjvkla37jfea'>
+    <content creator='initiator' name='this-is-a-stub'>
+      <description xmlns='urn:xmpp:jingle:apps:stub:0'/>
+      <transport xmlns='urn:xmpp:jingle:transports:stub:0'/>
+    </content>
+  </jingle>
+</iq>
+  ]]></example>
+  <p>The initiating client acknowledges receipt of the session-accept message (not shown here) and the parties can exchange "stub" media data over the "stub" transport.</p>
+  <p>Eventually, one of the parties (here the responder) will terminate the session.</p>
+  <example caption="Responder terminates the session"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='le71fa63'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <success/>
+    </reason>
+  </jingle>
+</iq>
+  ]]></example>
+  <p>The initiating client acknowledges receipt of the session-terminate message (not shown here) and the session is ended.</p>
+  <p>We now "fill in the blanks" for the &DESCRIPTION; and &TRANSPORT; elements with a more complex example: a voice chat session, where the application type is a Jingle RTP session (with several different codec possibilities) and the transport method is ICE-UDP.</p>
+  <example caption="Initiator sends session-initiate"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='ph37a419'
+    to='juliet@capulet.lit/balcony'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'>
+          action='session-initiate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <content creator='initiator' name='voice'>
+      <description xmlns='urn:xmpp:jingle:apps:rtp:1' media='audio'>
+        <payload-type id='96' name='speex' clockrate='16000'/>
+        <payload-type id='97' name='speex' clockrate='8000'/>
+        <payload-type id='18' name='G729'/>
+        <payload-type id='0' name='PCMU' />
+        <payload-type id='103' name='L16' clockrate='16000' channels='2'/>
+        <payload-type id='98' name='x-ISAC' clockrate='8000'/>
+      </description>
+      <transport xmlns='urn:xmpp:jingle:transports:ice-udp:1'
+                 pwd='asd88fgpdd777uzjYhagZg'
+                 ufrag='8hhy'>
+        <candidate component='1'
+                   foundation='1'
+                   generation='0'
+                   id='el0747fg11'
+                   ip='10.0.1.1'
+                   network='1'
+                   port='8998'
+                   priority='2130706431'
+                   protocol='udp'
+                   type='host'/>
+        <candidate component='1'
+                   foundation='2'
+                   generation='0'
+                   id='y3s2b30v3r'
+                   ip='192.0.2.3'
+                   network='1'
+                   port='45664'
+                   priority='1694498815'
+                   protocol='udp'
+                   rel-addr='10.0.1.1'
+                   rel-port='8998'
+                   type='srflx'/>
+      </transport>
+    </content>
+  </jingle>
+</iq>
+  ]]></example>
+  <p>Upon receiving the session-initiate message, the responder determines whether it can proceed with the negotiation. If there is no error, the responder acknowledges the session initiation request.</p>
+  <example caption="Responder acknowledges session-initiate"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='ph37a419'
+    to='romeo@montague.lit/orchard'
+    type='result'/>
+  ]]></example>
+  <p>When the responding user affirms that she would like to proceed with the session, the responding client sends a session-accept message to the initiator (including in this example the subset of offered codecs that the responding client supports and one or more transport candidates generated by the responder).</p>
+  <example caption="Responder definitively accepts the session"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='yd71f495'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-accept'
+          responder='juliet@capulet.lit/balcony'
+          sid='a73sjjvkla37jfea'>
+    <content creator='initiator' name='voice'>
+      <description xmlns='urn:xmpp:jingle:apps:rtp:1' media='audio'>
+        <payload-type id='97' name='speex' clockrate='8000'/>
+        <payload-type id='18' name='G729'/>
+      </description>
+      <transport xmlns='urn:xmpp:jingle:transports:ice-udp:1'>
+        <candidate component='1'
+                   foundation='1'
+                   generation='0'
+                   id='or2ii2syr1'
+                   ip='192.0.2.1'
+                   network='0'
+                   port='3478'
+                   priority='2130706431'
+                   protocol='udp'
+                   type='host'/>
+      </transport>
+    </content>
+  </jingle>
+</iq>
+  ]]></example>
+  <p>And the initiating client acknowledges session acceptance:</p>
+  <example caption="Initiator acknowledges session acceptance"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='yd71f495'
+    to='juliet@capulet.lit/balcony'
+    type='result'/>
+  ]]></example>
+  <p>Once the parties finish the transport negotiation, they would then exchange media using any of the acceptable codecs.</p>
+  <p>Eventually, one of the parties (here the responder) will terminate the session.</p>
+  <example caption="Responder terminates the session"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='vua614d9'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <success/>
+      <text>Sorry, gotta go!</text>
+    </reason>
+  </jingle>
+</iq>
+  ]]></example>
+  <p>The other party then acknowledges termination of the session:</p>
+  <example caption="Initiator acknowledges termination"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='vua614d9'
+    to='juliet@capulet.lit/balcony'
+    type='result'/>
+  ]]></example>
+</section1>
+
+<section1 topic='Requirements' anchor='reqs'>
+  <p>The protocol defined herein is designed to meet the following requirements:</p>
+  <ol>
+    <li>Make it possible to manage a wide variety of peer-to-peer sessions (including but not limited to voice and video) within XMPP.</li>
+    <li>When a peer-to-peer connection cannot be negotiated, make it possible to fall back to relayed communications.</li>
+    <li>Clearly separate the signalling channel (XMPP) from the data channel.</li>
+    <li>Clearly separate the application format (e.g., RTP audio) from the transport method (e.g., UDP).</li>
+    <li>Make it possible to add, modify, and remove both application types and transport methods in an existing session.</li>
+    <li>Make it relatively easy to implement support for the protocol in standard Jabber/XMPP clients.</li>
+    <li>Where communication with non-XMPP entities is needed, push as much complexity as possible onto server-side gateways between the XMPP network and the non-XMPP network.</li>
+  </ol>
+  <p>This document defines the signalling protocol only. Additional documents specify the following:</p>
+  <ul>
+    <li><p>Various application formats (audio, video, etc.) and, where possible, mapping of those types to the Session Description Protocol (SDP; see &rfc4566;); examples include <cite>Jingle RTP Sessions</cite> and <cite>Jingle File Transfer</cite>.</p></li>
+    <li><p>Various transport methods; examples include <cite>Jingle ICE-UDP Transport Method</cite>, <cite>Jingle Raw UDP Transport Method</cite>, <cite>Jingle In-Band Bytestreams Transport Method</cite>, and <cite>Jingle SOCKS5 Bytestreams Transport Method</cite>.</p></li>
+    <li><p>Various methods of securing the transport before using it to send application data; the only method defined so far is Transport Layer Security as described in &xtls;.</p></li>
+    <li><p>Procedures for mapping the Jingle signalling protocol to existing signalling standards such as the IETF's Session Initiation Protocol (SIP) and the ITU's H.323 protocol (see &H.323;); see for example &xmppsipmedia;.</p></li>
+  </ul>
+</section1>
+<section1 topic='Terminology' anchor='terms'>
+  <section2 topic='Glossary' anchor='terms-glossary'>
+  <dl>
+    <di>
+      <dt>Application Format</dt>
+      <dd>The data format of the content type being established, which formally declares one purpose of the session (e.g., "audio" or "video"). This is the 'what' of the session (i.e., the bits to be transferred), such as the acceptable codecs when establishing a voice conversation. In Jingle XML syntax the application format is the namespace of the &DESCRIPTION; element.</dd>
+    </di>
+    <di>
+      <dt>Component</dt>
+      <dd>A numbered stream of data that needs to be transmitted between the endpoints for a given content type in the context of a given session. It is up to the transport to negotiate the details of each component. Depending on the content type, multiple components might be needed (e.g., one to transmit an RTP stream and another to transmit RTCP timing information).</dd>
+    </di>
+    <di>
+      <dt>Content Type</dt>
+      <dd>A pair formed by the combination of one application format and one transport method.</dd>
+    </di>
+    <di>
+      <dt>Session</dt>
+      <dd>One or more content types negotiated between two entities. It is delimited in time by a session-initiate action and a session-terminate action. During the lifetime of a session, content types can be added or removed. A session consists of at least one content type at a time.</dd>
+    </di>
+    <di>
+      <dt>Transport Method</dt>
+      <dd>The method for establishing data stream(s) between entities. Possible transports might include ICE-UDP, ICE-TCP, Raw UDP, In-Band Bytestreams, SOCKS5 Bytestreams, etc. This is the 'how' of the session. In Jingle XML syntax this is the namespace of the &TRANSPORT; element. The transport method defines how to transfer bits from one host to another. Each transport method MUST specify whether it is "datagram" or "streaming" as described in the <link url='#transports'>Transport Types</link> section of this document.</dd>
+    </di>
+  </dl>
+  </section2>
+  <section2 topic='Conventions' anchor='terms-conventions'>
+    <p>In diagrams, the following conventions are used:</p>
+    <ul>
+      <li>Single-dashed lines (---) represent Jingle stanzas that are sent via the XMPP signalling channel.</li>
+      <li>Double-dashed lines (===) represent media packets that are sent via the data channel, which typically is not an XMPP channel (although the <cite>Jingle In-Band Bytestreams Transport Method</cite> is an exception) but instead is a direct or mediated channel between the endpoints.</li>
+    </ul>
+  </section2>
+</section1>
+<section1 topic='Concepts and Approach' anchor='concepts'>
+  <p>Jingle consists of three parts, each with its own syntax and semantics:</p>
+  <ol>
+    <li>Overall session management</li>
+    <li>Application types (the "what")</li>
+    <li>Transport methods (the "how")</li>
+  </ol>
+  <p>This document defines the semantics and syntax for overall session management. It also provides pluggable "slots" for application formats and transport methods, which are specified in separate documents.</p>
+  <p>At the most basic level, the process for initial negotiation of a Jingle session is as follows:</p>
+  <ol>
+    <li>One user (the "initiator") sends to another user (the "responder") a session-initiate message containing at least one content definition, each of which defines one application type, one transport method, and optionally one security precondition.</li>
+    <li>If the responder wishes to proceed, it sends a session-accept message to the initiator, optionally including one or more transport candidates (depending on the transport method specified in the session-initiate message).</li>
+    <li>The parties attempt to establish connectivity over the offered transport method as defined in the relevant specification, which might involve the exchange of transport-info messages for additional transport candidates; if connectivity cannot be established then the parties might attempt to fall back to another transport method using the transport-replace and transport-accept messages.</li>
+    <li>Optionally, the parties attempt to establish security for the transport method before using it to exchange application data.</li>
+    <li>Optionally, either party can add or remove content definitions, or change the direction of the media flow, using the content-add, content-remove, and content-modify messages.</li>
+    <li>Optionally, either party can send session-info messages (e.g., to inform the other party that its device is ringing).</li>
+    <li>As soon as the initiator and responder determine that data can flow over the negotiated transport (potentially only after a security precondition has been met), they start sending application data over the transport.</li>
+  </ol>
+  <p>Even after application data is being exchanged, the parties can adjust the session definition by sending additional Jingle messages, such as content-modify, content-remove, content-add, description-info, security-info, session-info, and transport-replace.</p>
+  <section2 topic='Overall Session Management' anchor='concepts-session'>
+    <p>The state machine for overall session management (i.e., the state per Session ID) is as follows:</p>
+    <code>
+         o
+         |
+         | session-initiate
+         |
+         | +---------->--------------+
+         |/                          |
+PENDING  o-----------------------+   |
+         |   | content-accept,   |   |
+         |   | content-add,      |   |
+         |   | content-modify,   |   |
+         |   | content-reject,   |   |
+         |   | content-remove,   |   |
+         |   | description-info, |   |
+        \|/  | session-info,     |   |
+         |   | transport-accept, |   |
+         |   | transport-info,   |   |
+         |   | transport-reject, |   |
+         |   | transport-replace |   |
+         |   +-------------------+   |
+         |                           |
+         | session-accept           \|/
+         |                           |
+ ACTIVE  o-----------------------+   |
+         |   | content-accept,   |   |
+         |   | content-add,      |   |
+         |   | content-modify,   |   |
+         |   | content-reject,   |   |
+         |   | content-remove,   |   |
+         |   | description-info, |   |
+        \|/  | session-info,     |   |
+         |   | transport-accept, |   |
+         |   | transport-info,   |   |
+         |   | transport-reject, |   |
+         |   | transport-replace |   |
+         |   +-------------------+   |
+         |                           |
+         +------------>--------------+
+                                     |
+                                     | session-terminate
+                                     |
+                                     o ENDED
+    </code>
+    <p>As shown, there are three overall session states:</p>
+    <ol>
+      <li>PENDING</li>
+      <li>ACTIVE</li>
+      <li>ENDED</li>
+    </ol>
+    <p>Note: While it is allowed to send all actions while in the PENDING state, typically the responder will send a session-accept message as quickly as possible in order to expedite the transport negotiation; see the <link url='#sec'>Security Considerations</link> section of this document regarding information exposure when the responder sends transport candidates to the initiator.</p>
+    <p>The actions related to management of the overall Jingle session are as follows (detailed definitions are provided in the <link url='#def-action'>Action Attribute</link> section of this document).</p>
+    <dl>
+      <di><dt>content-accept</dt><dd>Accept a content-add action received from another party.</dd></di>
+      <di><dt>content-add</dt><dd>Add one or more new content definitions to the session.</dd></di>
+      <di><dt>content-modify</dt><dd>Change the directionality of media sending.</dd></di>
+      <di><dt>content-reject</dt><dd>Reject a content-add action received from another party.</dd></di>
+      <di><dt>content-remove</dt><dd>Remove one or more content definitions from the session.</dd></di>
+      <di><dt>description-info</dt><dd>Exchange information about parameters for an application type.</dd></di>
+      <di><dt>session-accept</dt><dd>Definitively accept a session negotiation.</dd></di>
+      <di><dt>session-info</dt><dd>Send session-level information, such as a ping or a ringing message.</dd></di>
+      <di><dt>session-initiate</dt><dd>Request negotiation of a new Jingle session.</dd></di>
+      <di><dt>session-terminate</dt><dd>End an existing session.</dd></di>
+      <di><dt>transport-accept</dt><dd>Accept a transport-replace action received from another party.</dd></di>
+      <di><dt>transport-info</dt><dd>Exchange transport candidates.</dd></di>
+      <di><dt>transport-reject</dt><dd>Reject a transport-replace action received from another party.</dd></di>
+      <di><dt>transport-replace</dt><dd>Redefine a transport method or replace it with a different method.</dd></di>
+    </dl>
+  </section2>
+</section1>
+<section1 topic='Session Flow' anchor='session'>
+  <p>This section defines the high-level flow of a Jingle session. More detailed descriptions are provided in the specifications for Jingle application formats and transport methods.</p>
+  <section2 topic='Resource Determination' anchor='session-resource'>
+    <p>In order to initiate a Jingle session, the initiator needs to determine which of the responder's XMPP resources is best for the desired application format. Methods for doing so are out of scope for this specification. However, see the <link url='#support'>Determining Support</link> section of this document for relevant information.</p>
+  </section2>
+  <section2 topic='Initiation' anchor='protocol-initiate'>
+    <p>Once the initiator has discovered which of the responder's XMPP resources is ideal for the desired application format, it sends a session initiation request to the responder. This request is an IQ-set containing a &JINGLE; element qualified by the 'urn:xmpp:jingle:1' namespace &VNOTE;, where the value of the 'action' attribute is "session-initiate" and where the &JINGLE; element contains one or more &CONTENT; elements. Each &CONTENT; element defines a content type to be transferred during the session, and each &CONTENT; element in turn contains one &DESCRIPTION; child element that specifies a desired application format and one &TRANSPORT; child element that specifies a potential transport method, as well as (optionally) one &lt;security/&gt; element that specifies a security precondition that needs to be met before the parties can exchange application data over the negotiated transport.</p>
+    <example caption="Initiator sends session-initiate"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='xs51r0k4'
+    to='juliet@capulet.lit/balcony'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-initiate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <content creator='initiator' name='voice'>
+      <description xmlns='urn:xmpp:jingle:apps:rtp:1' media='audio'>
+        <payload-type id='96' name='speex' clockrate='16000'/>
+        <payload-type id='97' name='speex' clockrate='8000'/>
+        <payload-type id='18' name='G729'/>
+        <payload-type id='0' name='PCMU' />
+        <payload-type id='103' name='L16' clockrate='16000' channels='2'/>
+        <payload-type id='98' name='x-ISAC' clockrate='8000'/>
+      </description>
+      <transport xmlns='urn:xmpp:jingle:transports:ice-udp:1'
+                 pwd='asd88fgpdd777uzjYhagZg'
+                 ufrag='8hhy'>
+        <candidate component='1'
+                   foundation='1'
+                   generation='0'
+                   id='el0747fg11'
+                   ip='10.0.1.1'
+                   network='1'
+                   port='8998'
+                   priority='2130706431'
+                   protocol='udp'
+                   type='host'/>
+        <candidate component='1'
+                   foundation='2'
+                   generation='0'
+                   id='y3s2b30v3r'
+                   ip='192.0.2.3'
+                   network='1'
+                   port='45664'
+                   priority='1694498815'
+                   protocol='udp'
+                   rel-addr='10.0.1.1'
+                   rel-port='8998'
+                   type='srflx'/>
+      </transport>
+    </content>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>Application types ought not to be mixed beyond necessity within a single session. Therefore the session initiation request (along with subsequent additions) will include only content-types that can be grouped together into a coherent session within a given Jingle application. For example, two parties might start an audio call but then add a video aspect to that call. If one of the parties decides to send a file to the other party as a result of discussion over the audio/video session or a text chat conversation, conceptually that is probably a separate session (unless file exchange or screen sharing or some other application type is an integral part of a broader collaboration experience and needs to be calibrated with the audio/video session).</p>
+    <p>Note: The syntax and semantics of the &DESCRIPTION;, &TRANSPORT;, and &lt;security/&gt; elements are out of scope for this document, since they are defined in related specifications. The syntax and semantics of the &JINGLE; and &CONTENT; elements are specified in this document under <link url='#def'>Formal Definition</link>.</p>
+  </section2>
+  <section2 topic='Responder Response' anchor='protocol-response'>
+    <section3 topic='Acknowledgement' anchor='protocol-response-ack'>
+      <p>Unless one of the following errors occurs, the responder MUST acknowledge receipt of the initiation request.</p>
+      <example caption="Responder acknowledges session-initiate"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='xs51r0k4'
+    to='romeo@montague.lit/orchard'
+    type='result'/>
+      ]]></example>
+      <p>However, after acknowledging the session initiation request, the responder might subsequently determine that it cannot proceed with negotiation of the session (e.g., because it does not support any of the offered application formats or transport methods, because a human user is busy or unable to accept the session, because a human user wishes to formally decline the session, etc.). In these cases, the responder SHOULD immediately acknowledge the session initiation request but then terminate the session with an appropriate reason as described in the <link url='#session-terminate'>Termination</link> section of this document.</p>
+    </section3>
+    <section3 topic='Errors' anchor='protocol-response-errors'>
+      <p>There are several reasons why the responder might immediately return an error instead of acknowledging receipt of the initiation request:</p>
+      <ul>
+        <li>The initiator is unknown to the responder and the responder does not communicate with unknown entities.</li>
+        <li>The responder does not support Jingle.</li>
+        <li>The responder wishes to redirect the request to another address.</li>
+        <li>The responder does not have sufficient resources to participate in a session.</li>
+        <li>The initiation request was malformed.</li>
+      </ul>
+      <p>If the initiator is unknown to the responder (e.g., via presence subscription as defined in &rfc3921;) and the responder has a policy of not communicating via Jingle with unknown entities, it MUST return a &unavailable; error.</p>
+      <example caption="Initiator is unknown to responder"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='xs51r0k4'
+    to='romeo@montague.lit/orchard'
+    type='error'>
+  <error type='cancel'>
+    <service-unavailable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+  </error>
+</iq>
+      ]]></example>
+      <p>If the responder does not support Jingle, it MUST return a &unavailable; error.</p>
+      <example caption="Responder does not support Jingle"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='xs51r0k4'
+    to='romeo@montague.lit/orchard'
+    type='error'>
+  <error type='cancel'>
+    <service-unavailable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+  </error>
+</iq>
+      ]]></example>
+      <p>If the responder wishes to redirect the request to another address, it MUST return a &redirect; error.</p>
+      <example caption="Responder redirection"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='xs51r0k4'
+    to='romeo@montague.lit/orchard'
+    type='error'>
+  <error type='modify'>
+    <redirect xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'>
+      xmpp:voicemail@capulet.lit
+    </redirect>
+  </error>
+</iq>
+      ]]></example>
+      <p>If the responder does not have sufficient resources to participate in a session, it MUST return a &constraint; error.</p>
+      <example caption="Responder has insufficent resources"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='xs51r0k4'
+    to='romeo@montague.lit/orchard'
+    type='error'>
+  <error type='wait'>
+    <resource-constraint xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+  </error>
+</iq>
+      ]]></example>
+      <p>If the initiation request was malformed, the responder MUST return a &badrequest; error.</p>
+      <example caption="Initiation request malformed"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='xs51r0k4'
+    to='romeo@montague.lit/orchard'
+    type='error'>
+  <error type='cancel'>
+    <bad-request xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+  </error>
+</iq>
+      ]]></example>
+    </section3>
+  </section2>
+  <section2 topic='Negotiation' anchor='session-negotiation'>
+    <p>Although in general it is preferable for the responder to send a session-accept message as soon as possible, some forms of negotiation might be necessary before the parties can agree on an acceptable set of application formats and transport methods. There are many potential parameter combinations, as defined in the relevant specifications for various application formats and transport methods.</p>
+    <p>The allowable negotiations (e.g., content-level and transport-level negotiations) include:</p>
+    <ul>
+      <li>Exchanging particular transport candidates via the transport-info action.</li>
+      <li>Modifying the communication direction for a content type via the content-modify action.</li>
+      <li>Changing the definition of a content type via the transport-replace action (typically to fall back to a more suitable transport).</li>
+      <li>Adding a content type via the content-add action.</li>
+      <li>Removing a content type via the content-remove action.</li>
+    </ul>
+    <p>These forms of negotiation can also occur after the session has been accepted.</p>
+  </section2>
+  <section2 topic='Acceptance' anchor='session-acceptance'>
+    <p>As soon as possible after receiving the session-initiate message, the responder informs the initiator that she wishes to proceed with the session by sending a session-accept message.</p>
+  <example caption="Responder accepts the session"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='jd82f517'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-accept'
+          initiator='romeo@montague.lit/orchard'
+          responder='juliet@capulet.lit/balcony'
+          sid='a73sjjvkla37jfea'>
+    <content creator='initiator' name='voice'>
+      <description xmlns='urn:xmpp:jingle:apps:rtp:1' media='audio'>
+        <payload-type id='97' name='speex' clockrate='8000'/>
+        <payload-type id='18' name='G729'/>
+      </description>
+      <transport xmlns='urn:xmpp:jingle:transports:ice-udp:1'>
+        <candidate component='1'
+                   foundation='1'
+                   generation='0'
+                   id='or2ii2syr1'
+                   ip='192.0.2.1'
+                   network='0'
+                   port='3478'
+                   priority='2130706431'
+                   protocol='udp'
+                   type='host'/>
+      </transport>
+    </content>
+  </jingle>
+</iq>
+    ]]></example>
+    <p class='box'>Note: After receiving and acknowledging the "session-initiate" action received from the initiator, the responding client SHOULD present an interface element that enables a human user to explicitly agree to proceeding with the session (e.g., an "Accept Incoming Call?" pop-up window including "Yes" and "No" buttons). However, the responding client SHOULD NOT return a "session-accept" action to the initiator until the responder has explicitly agreed to proceed with the session (unless the initiator is on a list of entities whose sessions are automatically accepted).</p>
+    <p>The initiator then acknowledges the responder's definitive acceptance.</p>
+    <example caption="Initiator acknowledges session acceptance"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='jd82f517'
+    to='juliet@capulet.lit/balcony'
+    type='result'/>
+    ]]></example>
+    <p>The session is now in the ACTIVE state. However, this does not necessarily mean that the parties can exchange application data yet, because further negotiation might be necessary (e.g., to fall back from the offered transport method to a suitable alternative).</p>
+  </section2>
+  <section2 topic='Modifying an Active Session' anchor='session-modify'>
+    <p>Once a session is in the ACTIVE state, it might be modified via a content-add, content-modify, content-remove, or transport-info message. Examples of such modifications are shown in the specifications for various application formats and transport methods.</p>
+  </section2>
+  <section2 topic='Termination' anchor='session-terminate'>
+    <p>In order to gracefully end the session (which can be done at any point after acknowledging receipt of the initiation request, including immediately thereafter in order to decline the request), either the responder or the initiator MUST send a session-terminate message to the other party.</p>
+    <p>The party that terminates the session SHOULD include a &lt;reason/&gt; element that specifies why the session is being terminated. Examples follow.</p>
+    <p>Probably the primary reason for terminating a session is that the session has ended successfully (e.g., because a file has been sent or a voice call has completed); in this case, the recommended condition is &lt;success/&gt;.</p>
+    <example caption="Terminating the session (success)"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='bv81gs75'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <success/>
+    </reason>
+  </jingle>
+</iq>
+  ]]></example>
+    <p>Another reason for terminating the session is that the terminating party is busy; in this case, the recommended condition is &lt;busy/&gt;.</p>
+    <example caption="Terminating the session (busy)"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='hr81fs63'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <busy/>
+    </reason>
+  </jingle>
+</iq>
+  ]]></example>
+  <p>Another reason for terminating the session is that the terminating party wishes to formally decline the session; in this case, the recommended condition is &lt;decline/&gt;.</p>
+  <example caption="Terminating the session (session formally declined)"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='ky47g295'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <decline/>
+    </reason>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>Another reason for terminating the session is that the terminating party already has an existing session with the other party and wishes to use that session rather than initiate a new session; in this case, the recommended condition is &lt;alternative-session/&gt; and the terminating party SHOULD include the session ID of the alternative session in the &lt;sid/&gt; element.</p>
+    <example caption="Terminating the session (existing session)"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='ay3r2b86'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <alternative-session>
+        <sid>b84tkkwlmb48kgfb</sid>
+      </alternative-session>
+    </reason>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>Another reason for terminating the session is that the terminating party does not support any of the offered transport methods; in this case, the recommended condition is &lt;unsupported-transports/&gt;.</p>
+    <example caption="Terminating the session (no offered transport method supported)"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='h82bs51g'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <unsupported-transports/>
+    </reason>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>Another reason for terminating the session is that the terminating party has determined that transport setup has failed in an unrecoverable fashion (e.g., all transport methods have been exhausted even after fallback and the last method attempted has failed); in this case, the recommended condition is &lt;failed-transport/&gt;.</p>
+    <example caption="Terminating the session (transport negotiation failed)"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='pe81ga88'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <failed-transport/>
+    </reason>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>Another reason for terminating the session is that the terminating party does not support any of the offered application types; in this case, the recommended condition is &lt;unsupported-applications/&gt;.</p>
+    <example caption="Terminating the session (no offered application type supported)"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='yd62vd67'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <unsupported-applications/>
+    </reason>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>Another reason for terminating the session is that the terminating party has determined that setup of the application type has failed in an unrecoverable fashion (e.g., the client cannot initialize audio processing for a voice call); in this case, the recommended condition is &lt;failed-application/&gt;.</p>
+    <example caption="Terminating the session (application setup failed)"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='kd82vs71'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <failed-application/>
+    </reason>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>Another reason for terminating the session is that the terminating party supports the offered application type but does not support the offered or negotiated parameters (e.g., in a voice call none of the payload types); in this case, the recommended condition is &lt;incompatible-parameters/&gt;.</p>
+    <example caption="Terminating the session (incompatible parameters)"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='hb3m59s7'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-terminate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <reason>
+      <incompatible-parameters/>
+    </reason>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>Note: Other reasons for terminating the session might apply, and the foregoing list is not exhaustive.</p>
+    <p>Upon receiving session-terminate message, the other party MUST then acknowledge termination of the session:</p>
+    <example caption="Acknowledging termination"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='h82bs51g'
+    to='juliet@capulet.lit/balcony'
+    type='result'/>
+    ]]></example>
+    <p>Note: As soon as an entity sends a session-terminate action, it MUST consider the session to be in the ENDED state (even before receiving acknowledgement from the other party). If the terminating entity receives additional Jingle-related IQ-sets from the other party after sending the session-terminate action, it MUST reply with an &lt;unknown-session/&gt; error.</p>
+    <example caption="Unknown-session error"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='ur71vs62'
+    to='juliet@capulet.lit/balcony'
+    type='error'>
+  <error type='cancel'>
+    <item-not-found xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    <unknown-session xmlns='urn:xmpp:jingle:errors:1'/>
+  </error>
+</iq>
+    ]]></example>
+    <p>Not all Jingle sessions end gracefully. When the parties to a Jingle session also exchange XMPP presence information, receipt of &UNAVAILABLE; from the other party SHOULD be considered a session-ending event that justifies proactively sending a session-terminate message to the seemingly unavailable party -- if, that is, no other communication has been received within 5 or 10 seconds from the seemingly unavailable party in the form of XMPP signalling traffic, connectivity checks, or continued media transfer.</p>  
+  </section2>
+  <section2 topic='Informational Messages' anchor='session-info'>
+    <p>At any point after initiation of a Jingle session, either entity MAY send an informational message to the other party, for example to inform the other party that a device is ringing.</p>
+    <example caption="Responder sends ringing message"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='hq7rg186'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-info'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <ringing xmlns='urn:xmpp:jingle:apps:rtp:1:info'/>
+  </jingle>
+</iq>
+    ]]></example>
+    <p>An informational message MUST be an IQ-set containing a &JINGLE; element whose 'action' attribute is set to a value of "session-info", "description-info", or "transport-info"; the &JINGLE; element SHOULD further contain a payload child element (specific to the application format or transport method) that specifies the information being communicated. If the party that receives an informational message does not understand the payload, it MUST return a &feature; error with a Jingle-specific error condition of &lt;unsupported-info/&gt;.</p>
+    <example caption="Responder returns unsupported-info error"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='hq7rg186'
+    to='juliet@capulet.lit/balcony'
+    type='error'>
+  <error type='modify'>
+    <feature-not-implemented xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    <unsupported-info xmlns='urn:xmpp:jingle:errors:1'/>
+  </error>
+</iq>
+    ]]></example>
+    <p>However, the &JINGLE; element associated with a session-info message MAY be empty. If either party receives an empty session-info message for an active session, it MUST send an empty IQ result; this usage functions as a "ping" to determine session vitality via the XMPP signalling channel.</p>
+    <example caption="Responder sends session ping"><![CDATA[
+<iq from='juliet@capulet.lit/balcony'
+    id='ug37vb25'
+    to='romeo@montague.lit/orchard'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'
+          action='session-info'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'/>
+</iq>
+    ]]></example>
+    <example caption="Initiator returns IQ-result"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='ug37vb25'
+    to='juliet@capulet.lit/balcony'
+    type='result'/>
+    ]]></example>
+  </section2>
+</section1>
+
+<section1 topic='Formal Definition' anchor='def'>
+  <section2 topic='Jingle Element' anchor='def-jingle'>
+    <p>The &JINGLE; element MAY be empty or contain one or more &CONTENT; elements (for which see <link url='#def-content'>Content Element</link>).</p>
+    <p>The attributes of the &JINGLE; element are as follows.</p>
+    <table caption='Attributes of Jingle Element'>
+      <tr>
+        <th>Attribute</th>
+        <th>Definition</th>
+        <th>Inclusion</th>
+      </tr>
+      <tr>
+        <td>action</td>
+        <td>A Jingle action as described under <link url='#def-action'>Action Attribute</link>.</td>
+        <td>REQUIRED</td>
+      </tr>
+      <tr>
+        <td>initiator*</td>
+        <td>The full JID of the entity that has initiated the session flow. When the Jingle action is "session-initiate", the &JINGLE; element SHOULD possess an 'initiator' attribute that explicitly specifies the full JID of the initiating entity; for all other actions, the &JINGLE; element SHOULD NOT possess an 'initiator' attribute and the recipient of the message SHOULD ignore the value if provided. The value of the 'initiator' attribute MAY be different from the 'from' address on the IQ-set of the session-initiate message (e.g., to handle certain interactions involving call managers, soft switches, and media relays). This usage shall be defined in other specifications, for example, in &xep0251;. However, in all cases if the 'initiator' and 'from' values differ then the responder MUST NOT interact with the 'initiator' JID unless it trusts the 'initiator' JID or trusts that the 'from' JID is allowed to authorize the 'initiator' JID to act on the 'from' JID's behalf. In the absence of explicit rules for handling this case, the responder SHOULD simply ignore the 'initiator' attribute and treat the 'from' JID as the initiating entity. After sending acknowledgement of the session-initiate message, the responder MUST send all future commmunications about the Jingle session to the initiator (whether the initiator is considered the 'from' JID or the 'initiator' JID).</td> 
+        <td>RECOMMENDED for session-initiate, NOT RECOMMENDED otherwise</td>
+      </tr>
+      <tr>
+        <td>responder*</td>
+        <td>The full JID of the entity that has replied to the initiation, which can be different from the 'to' address on the IQ-set. When the Jingle action is "session-accept", the &JINGLE; element SHOULD possess a 'responder' attribute that explicitly specifies the full JID of the responding entity; for all other actions, the &JINGLE; element SHOULD NOT possess a 'responder' attribute and the recipient of the message SHOULD ignore the value if provided. The value of the 'responder' attribute MAY be different from the 'from' address on the IQ-set of the session-accept message, where the logic for handling any difference between the 'responder' JID and the 'from' JID follows the same logic as for session-initiate messages (see above). After sending acknowledgement of the session-accept message, the initiator MUST send all future commmunications about this Jingle session to the responder (whether the responder is considered the 'from' JID or the 'responder' JID).</td> 
+        <td>RECOMMENDED for session-accept, NOT RECOMMENDED otherwise</td>
+      </tr>
+      <tr>
+        <td>sid</td>
+        <td>A random session identifier generated by the initiator, which effectively maps to the local-part of a SIP "Call-ID" parameter; this SHOULD match the XML Nmtoken production <note>See &lt;<link url='http://www.w3.org/TR/2000/WD-xml-2e-20000814#NT-Nmtoken'>http://www.w3.org/TR/2000/WD-xml-2e-20000814#NT-Nmtoken</link>&gt;</note> so that XML character escaping is not needed for characters such as '&amp;'. In some situations the Jingle session identifier might have security implications. See &rfc4086; regarding requirements for randomness.</td>
+        <td>REQUIRED</td>
+      </tr>
+    </table>
+  </section2>
+  <section2 topic='Action Attribute' anchor='def-action'>
+    <p>The value of the 'action' attribute MUST be one of the following. If an entity receives a value not defined here, it MUST ignore the attribute and MUST return a &badrequest; error to the sender. There is no default value for the 'action' attribute.</p>
+    <section3 topic='content-accept' anchor='def-action-content-accept'>
+      <p>The <strong>content-accept</strong> action is used to accept a content-add action received from another party.</p>
+    </section3>
+    <section3 topic='content-add' anchor='def-action-content-add'>
+      <p>The <strong>content-add</strong> action is used to add one or more new content definitions to the session. The sender MUST specify only the added content definition(s), not the added content definition(s) plus the existing content definition(s). Therefore it is the responsibility of the recipient to maintain a local copy of the current content definition(s). If the recipient wishes to include the new content definition in the session, it MUST send a content-accept action to the other party; if not, it MUST send a content-reject action to the other party.</p>
+    </section3>
+    <section3 topic='content-modify' anchor='def-action-content-modify'>
+      <p>The <strong>content-modify</strong> action is used to change the direction of an existing content definition through modification of the 'senders' attribute. If the recipient deems the directionality of a content-modify action to be unacceptable, it MAY reply with a contrary content-modify action, terminate the session, or simply refuse to send or accept application data in the new direction. In any case, the recipient MUST NOT send a content-accept action in response to the content-modify.</p>
+    </section3>
+    <section3 topic='content-reject' anchor='def-action-content-reject'>
+      <p>The <strong>content-reject</strong> action is used to reject a content-add action received from another party.</p>
+      <p>If the content-reject results in zero content definitions for the session, the entity that receives the content-reject SHOULD send a session-terminate action to the other party (since a session with no content definitions is void).</p>
+    </section3>
+    <section3 topic='content-remove' anchor='def-action-content-remove'>
+      <p>The <strong>content-remove</strong> action is used to remove one or more content definitions from the session. The sender MUST specify only the removed content definition(s), not the removed content definition(s) plus the remaining content definition(s). Therefore it is the responsibility of the recipient to maintain a local copy of the current content definition(s). Upon receiving a content-remove from the other party, the recipient MUST NOT send a content-accept and MUST NOT continue to negotiate the transport method or send application data related to that content definition.</p>
+      <p>If the content-remove results in zero content definitions for the session, the entity that receives the content-remove SHOULD send a session-terminate action to the other party (since a session with no content definitions is void).</p>
+    </section3>
+    <section3 topic='description-info' anchor='def-action-description-info'>
+      <p>The <strong>description-info</strong> action is used to send informational hints about parameters related to the application type, such as the suggested height and width of a video display area or suggested configuration for an audio stream.</p>
+    </section3>
+    <section3 topic='security-info' anchor='def-action-security-info'>
+      <p>The <strong>security-info</strong> action is used to send information related to establishment or maintenance of security preconditions.</p>
+    </section3>
+    <section3 topic='session-accept' anchor='def-action-session-accept'>
+      <p>The <strong>session-accept</strong> action is used to definitively accept a session negotiation (implicitly this action also serves as a content-accept). A session-accept action indicates a willingness to proceed with the session (which might necessitate further negotiation before media can be exchanged). The session-accept action indicates acceptance <em>only</em> of the content definition(s) whose disposition type is "session" (the default value of the &CONTENT; element's 'disposition' attribute), not any content definition(s) whose disposition type is something other than "session" (e.g., "early-session" for early media).</p>
+      <p>In the session-accept stanza, the &JINGLE; element MUST contain one or more &lt;content/&gt; elements, each of which MUST contain one &lt;description/&gt; element and one &lt;transport/&gt; element.</p>
+    </section3>
+    <section3 topic='session-info' anchor='def-action-session-info'>
+      <p>The <strong>session-info</strong> action is used to send session-level information, such as a session ping or (for Jingle RTP sessions) a ringing message.</p>
+    </section3>
+    <section3 topic='session-initiate' anchor='def-action-session-initiate'>
+      <p>The <strong>session-initiate</strong> action is used to request negotiation of a new Jingle session. When sending a session-initiate with one &CONTENT; element, the value of the &CONTENT; element's 'disposition' attribute MUST be "session" (if there are multiple &CONTENT; elements then at least one MUST have a disposition of "session"); if this rule is violated, the responder MUST return a &badrequest; error to the initiator.</p>
+    </section3>
+    <section3 topic='session-terminate' anchor='def-action-session-terminate'>
+      <p>The <strong>session-terminate</strong> action is used to end an existing session.</p>
+    </section3>
+    <section3 topic='transport-accept' anchor='def-action-transport-accept'>
+      <p>The <strong>transport-accept</strong> action is used to accept a transport-replace action received from another party.</p>
+    </section3>
+    <section3 topic='transport-info' anchor='def-action-transport-info'>
+      <p>The <strong>transport-info</strong> action is used to exchange transport candidates; it is mainly used in <cite>Jingle ICE-UDP</cite> but might be used in other transport specifications.</p>
+    </section3>
+    <section3 topic='transport-reject' anchor='def-action-transport-reject'>
+      <p>The <strong>transport-reject</strong> action is used to reject a transport-replace action received from another party.</p>
+    </section3>
+    <section3 topic='transport-replace' anchor='def-action-transport-replace'>
+      <p>The <strong>transport-replace</strong> action is used to redefine a transport method, typically for fallback to a different method (e.g., changing from ICE-UDP to Raw UDP for a datagram transport, or changing from &xep0065; to &xep0047; for a streaming transport). If the recipient wishes to use the new transport definition, it MUST send a transport-accept action to the other party; if not, it MUST send a transport-reject action to the other party.</p>
+    </section3>
+    <section3 topic='Tie Breaking Related to Jingle Actions' anchor='def-action-ties'>
+      <p>It is possible that the same Jingle action can be sent at the same time by both parties. There are two possible scenarios:</p>
+      <dl>
+        <di>
+          <dt>No existing session</dt>
+          <dd>If there is no existing session and both parties simultaneously send a Jingle session-initiate message with a content-type that is functionally equivalent (e.g., each message requests initiation of a voice call), the action with the lower of the two session IDs MUST overrule the other action, where by "lower" is meant the session ID that is sorted first using "i;octet" collation as specified in Section 9.3 of &rfc4790; (in the unlikely event that the random session IDs are the same, the action sent by the lower of the JabberIDs MUST overrule the other action). The party that receives the session-initiate action with the lower of the two session IDs MUST acknowledge the action or return an error condition that would normally be returned when receiving a session-initiate message, and the party that receives the session-initiate action with the higher of the two session IDs MUST return a &conflict; error to the other party, which SHOULD include a Jingle-specific condition of &lt;tie-break/&gt;.</dd>
+        </di>
+        <di>
+          <dt>Existing session</dt>
+          <dd>In the context of an existing session, the action sent by the initiator MUST overrule the action sent by the responder; i.e., both parties MUST accept the action sent by the initiator and the initiator MUST return a &conflict; error to the responder for the duplicate action, which SHOULD include a Jingle-specific condition of &lt;tie-break/&gt;.</dd>
+        </di>
+      </dl>
+      <p>In both scenarios, the error to be returned is &conflict;, as shown in the following example.</p>
+      <example caption="Initiator returns conflict error on tie-break"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='hb2f164w'
+    to='juliet@capulet.lit/balcony'
+    type='error'>
+  <error type='cancel'>
+    <conflict xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    <tie-break xmlns='urn:xmpp:jingle:errors:1'/>
+  </error>
+</iq>
+      ]]></example>
+    </section3>
+  </section2>
+  <section2 topic='Content Element' anchor='def-content'>
+    <p>The attributes of the &CONTENT; element are as follows.</p>
+    <table caption='Attributes of Content Element'>
+      <tr>
+        <th>Attribute</th>
+        <th>Definition</th>
+        <th>Inclusion</th>
+      </tr>
+      <tr>
+        <td>creator</td>
+        <td>Which party originally generated the content type (used to prevent race conditions regarding modifications); the defined values are "initiator" and "responder" (where the default is "initiator"). The value of the 'creator' attribute for a given content type MUST always match the party that originally generated the content type, even for Jingle actions that are sent by the other party in relation to that content type (e.g., subsequent content-modify or transport-info messages). The combination of the 'creator' attribute and the 'name' attribute is unique among both parties to a Jingle session.</td>
+        <td>REQUIRED</td>
+      </tr>
+      <tr>
+        <td>disposition</td>
+        <td>How the content definition is to be interpreted by the recipient. The meaning of this attribute matches the "Content-Disposition" header as defined in &rfc2183; and applied to SIP by <cite>RFC 3261</cite>. The value of this attribute SHOULD be one of the values registered in the &ianadispositions;. The default value of this attribute is "session".</td>
+        <td>OPTIONAL</td>
+      </tr>
+      <tr>
+        <td>name</td>
+        <td>A unique name or identifier for the content type according to the creator, which MAY have meaning to a human user in order to differentiate this content type from other content types (e.g., two content types containing video media could differentiate between "room-pan" and "slides"). If there are two content types with the same value for the 'name' attribute, they shall understood as alternative definitions for the same purpose (e.g., a legacy method and a standards-based method for establishing a voice call), typically to smooth the transition from an older technology to Jingle.</td>
+        <td>REQUIRED</td>
+      </tr>
+      <tr>
+        <td>senders</td>
+        <td>Which parties in the session will be generating content; the allowable values are "initiator", "none", "responder", and "both" (where the default is "both").</td>
+        <td>OPTIONAL except when sending content-modify, in which case it is REQUIRED.</td>
+      </tr>
+    </table>
+  </section2>
+  <section2 topic='Reason Element' anchor='def-reason'>
+    <p>The structure of the &lt;reason/&gt; element is as follows.</p>
+    <ul>
+      <li>The &lt;reason/&gt; element MUST contain an element that provides machine-readable information about the condition that prompted the action.</li>
+      <li>The &lt;reason/&gt; element MAY contain a &lt;text/&gt; element that provides human-readable information about the reason for the action.</li>
+      <li>The &lt;reason/&gt; element MAY contain an element qualified by some other namespace that provides more detailed machine-readable information about the reason for the action.</li>
+    </ul>
+    <p>A &lt;reason/&gt; element can be included with any Jingle action, and is not limited to session termination events.</p>
+    <p>The defined conditions are described in the following table.</p>
+    <table caption='Defined Conditions'>
+      <tr>
+        <th>Element</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>&lt;alternative-session/&gt;</td>
+        <td>The party prefers to use an existing session with the peer rather than initiate a new session; the Jingle session ID of the alternative session SHOULD be provided as the XML character data of the &lt;sid/&gt; child.</td>
+      </tr>
+      <tr>
+        <td>&lt;busy/&gt;</td>
+        <td>The party is busy and cannot accept a session.</td>
+      </tr>
+      <tr>
+        <td>&lt;cancel/&gt;</td>
+        <td>The initiator wishes to formally cancel the session initiation request.</td>
+      </tr>
+      <tr>
+        <td>&lt;connectivity-error/&gt;</td>
+        <td>The action is related to connectivity problems.</td>
+      </tr>
+      <tr>
+        <td>&lt;decline/&gt;</td>
+        <td>The party wishes to formally decline the session.</td>
+      </tr>
+      <tr>
+        <td>&lt;expired/&gt;</td>
+        <td>The session length has exceeded a pre-defined time limit (e.g., a meeting hosted at a conference service).</td>
+      </tr>
+      <tr>
+        <td>&lt;failed-application/&gt;</td>
+        <td>The party has been unable to initialize processing related to the application type.</td>
+      </tr>
+      <tr>
+        <td>&lt;failed-transport/&gt;</td>
+        <td>The party has been unable to establish connectivity for the transport method.</td>
+      </tr>
+      <tr>
+        <td>&lt;general-error/&gt;</td>
+        <td>The action is related to a non-specific application error.</td>
+      </tr>
+      <tr>
+        <td>&lt;gone/&gt;</td>
+        <td>The entity is going offline or is no longer available.</td>
+      </tr>
+      <tr>
+        <td>&lt;incompatible-parameters/&gt;</td>
+        <td>The party supports the offered application type but does not support the offered or negotiated parameters.</td>
+      </tr>
+      <tr>
+        <td>&lt;media-error/&gt;</td>
+        <td>The action is related to media processing problems.</td>
+      </tr>
+      <tr>
+        <td>&lt;security-error/&gt;</td>
+        <td>The action is related to a violation of local security policies.</td>
+      </tr>
+      <tr>
+        <td>&lt;success/&gt;</td>
+        <td>The action is generated during the normal course of state management and does not reflect any error.</td>
+      </tr>
+      <tr>
+        <td>&lt;timeout/&gt;</td>
+        <td>A request has not been answered so the sender is timing out the request.</td>
+      </tr>
+      <tr>
+        <td>&lt;unsupported-applications/&gt;</td>
+        <td>The party supports none of the offered application types.</td>
+      </tr>
+      <tr>
+        <td>&lt;unsupported-transports/&gt;</td>
+        <td>The party supports none of the offered transport methods.</td>
+      </tr>
+    </table>
+  </section2>
+</section1>
+
+<section1 topic='Transport Types' anchor='transports'>
+  <p>Jingle defines two types of transport methods.</p>
+  <section2 topic='Datagram' anchor='transports-datagram'>
+    <p>A datagram transport has one or more components with which to exchange packets with UDP-like behavior. Packets might be of arbitrary length, might be received out of order, and might not be received at all (i.e., the transport is lossy). Each component is assigned a string identifier and has a maximum packet length.</p>
+    <p>Applications compatible with datagram transports MUST specify how many components are necessary, what identifier to assign each component, and how each component will be used.</p>
+  </section2>
+  <section2 topic='Streaming' anchor='transports-streaming'>
+    <p>A streaming transport has one or more components with which to exchange bidirectional bytestreams with TCP-like behavior. Bytes are received reliably and in order, and applications MUST NOT rely on a stream being chunked in any specific way. Each component is assigned a string identifier and has a maximum packet length.</p>
+    <p>Applications compatible with stream transports MUST specify how many components are necessary, what identifier to assign each component, and what data shall be exchanged over the transport.</p>
+  </section2>
+</section1>
+
+<section1 topic='Security Preconditions' anchor='preconditions'>
+  <p>The initiator MAY include a &lt;security/&gt; element in its offer to signal that it wishes to enforce some security precondition on the session. A stub example follows.</p>
+  <example caption="Initiator sends session-initiate with security precondition (stub)"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='tiw51bv9'
+    to='juliet@capulet.lit/balcony'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'>
+          action='session-initiate'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <content creator='initiator' name='this-is-a-stub'>
+      <description xmlns='urn:xmpp:jingle:apps:stub:0'/>
+      <transport xmlns='urn:xmpp:jingle:transports:stub:0'/>
+      <security xmlns='urn:xmpp:jingle:security:stub:0'/>
+    </content>
+  </jingle>
+</iq>
+  ]]></example>
+  <p>Currently the only security precondition that is envisioned will enforce the use of end-to-end encryption for the transport before application data can be exchanged. This document does not define any security preconditions, just as it does not define any application types or transport methods. See &xtls; for an in-progress description of a security precondition using Transport Layer Security (TLS).</p>
+  <p>In order to exchange information about the establishment or maintenance of a security precondition, either party might send a Jingle security-info message. For example, when attempting to negotiate the use of TLS the initiator might send hints about his supported TLS methods (e.g., X.509 certificates and Secure Remote Password) in his session-initiate message and the responder might also send hints about her supported methods (e.g., X.509 and SRP) in her session-accept message; however, it is possible that the initiator might be able to verify the responder's certificate and therefore needs to inform the responder (via a security-info message) that he can in the end support only the X.509 method for this negotiation. An example follows.</p>
+  <example caption="Initiator sends security-info message"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='zyw6m167'
+    to='juliet@capulet.lit/balcony'
+    type='set'>
+  <jingle xmlns='urn:xmpp:jingle:1'>
+          action='security-info'
+          initiator='romeo@montague.lit/orchard'
+          sid='a73sjjvkla37jfea'>
+    <content creator='initiator' name='xmlstream'>
+      <security xmlns='urn:xmpp:jingle:security:xtls:0'>
+        <method name='x509'/>
+      </security>
+    </content>
+  </jingle>
+</iq>
+  ]]></example>
+  <p>If one of the parties attempts to send information over the unsecured XMPP signalling channel that the other party expects to receive over the encrypted data channel, the receiving party SHOULD return a &notacceptable; error to the sender, including a &lt;security-required/&gt; element qualified by the 'urn:xmpp:jingle:errors:1' namespace. An example follows.</p>
+  <example caption="Initiator sends security-required error"><![CDATA[
+<iq from='romeo@montague.lit/orchard'
+    id='bsi381f5'
+    to='juliet@capulet.lit/balcony'
+    type='error'>
+  <error type='cancel'>
+    <not-acceptable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    <security-required xmlns='urn:xmpp:jingle:errors:1'/>
+  </error>
+</iq>
+  ]]></example>
+</section1>
+
+<section1 topic='Error Handling' anchor='errors'>
+  <p>The Jingle-specific error conditions are as follows. These condition elements are qualified by the 'urn:xmpp:jingle:errors:1' namespace &VNOTE;.</p>
+  <table caption='Error Conditions'>
+    <tr>
+      <th>Jingle Condition</th>
+      <th>XMPP Condition</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>&lt;out-of-order/&gt;</td>
+      <td>&unexpected;</td>
+      <td>The request cannot occur at this point in the state machine (e.g., session-initiate after session-accept).</td>
+    </tr>
+    <tr>
+      <td>&lt;tie-break/&gt;</td>
+      <td>&conflict;</td>
+      <td>The request is rejected because it was sent while the initiator was awaiting a reply on a similar request.</td>
+    </tr>
+    <tr>
+      <td>&lt;unknown-session/&gt;</td>
+      <td>&notfound;</td>
+      <td>The 'sid' attribute specifies a session that is unknown to the recipient (e.g., no longer live according to the recipient's state machine because the recipient previously terminated the session).</td>
+    </tr>
+    <tr>
+      <td>&lt;unsupported-info/&gt;</td>
+      <td>&feature;</td>
+      <td>The recipient does not support the informational payload of a session-info action.</td>
+    </tr>
+  </table>
+</section1>
+
+<section1 topic='Determining Support' anchor='support'>
+  <p>If an entity supports Jingle, it MUST advertise that fact by returning a feature of "urn:xmpp:jingle:1" &VNOTE; in response to a &xep0030; information request. The response MUST also include features for the application formats and transport methods supported by the responding entity, as described in the relevant specifications.</p>
+  <example caption="Service Discovery Information Request"><![CDATA[
+<iq from='kingclaudius@shakespeare.lit/castle'
+    id='ku6e51v3'
+    to='laertes@shakespeare.lit/castle'
+    type='get'>
+  <query xmlns='http://jabber.org/protocol/disco#info'/>
+</iq>
+  ]]></example>
+  <example caption="Service Discovery Information Response"><![CDATA[
+<iq from='laertes@shakespeare.lit/castle'
+    id='ku6e51v3'
+    to='kingclaudius@shakespeare.lit/castle'
+    type='result'>
+  <query xmlns='http://jabber.org/protocol/disco#info'>
+    <feature var='urn:xmpp:jingle:1'/>
+    <feature var='urn:xmpp:jingle:apps:rtp:1'/>
+    <feature var='urn:xmpp:jingle:apps:rtp:audio'/>
+    <feature var='urn:xmpp:jingle:apps:rtp:video'/>
+  </query>
+</iq>
+  ]]></example>
+  <p>In order for an application to determine whether an entity supports this protocol, where possible it SHOULD use the dynamic, presence-based profile of service discovery defined in &xep0115;. However, if an application has not received entity capabilities information from an entity, it SHOULD use explicit service discovery instead.</p>
+</section1>
+
+<section1 topic='Conformance by Using Protocols' anchor='conformance'>
+  <section2 topic='Application Formats' anchor='conformance-apps'>
+    <p>A document that specifies a Jingle application format (e.g., RTP sessions) MUST define:</p>
+    <ol>
+      <li>How successful application format negotiation occurs.</li>
+      <li>A &DESCRIPTION; element and associated semantics for representing the application format.</li>
+      <li>If and how the application format can be mapped to the Session Description Protocol, including the appropriate SDP media type (see Section 8.2.1 of <cite>RFC 4566</cite>).</li>
+      <li>Whether the media data for the application format shall be sent over a streaming transport method or a datagram transport method (or, if both, which is preferred).</li>
+      <li>If the chosen transport handles "components", define how the components shall be identified and assigned.</li>
+      <li>Exactly how the media data is to be sent and received over a streaming or datagram transport.</li>
+    </ol>
+  </section2>
+  <section2 topic='Transport Methods' anchor='conformance-transports'>
+    <p>A document that specifies a Jingle transport method (e.g., raw UDP) MUST define:</p>
+    <ol>
+      <li>How successful transport negotiation occurs.</li>
+      <li>A &TRANSPORT; element and associated semantics for representing the transport method.</li>
+      <li>Whether the transport is a streaming method or a datagram method.</li>
+      <li>If the transport supports multiple components.</li>
+    </ol>
+  </section2>
+  <section2 topic='Security Preconditions' anchor='conformance-preconditions'>
+    <p>A document that specifies a Jingle security precondition MUST define:</p>
+    <ol>
+      <li>A &lt;security/&gt; element and associated semantics for representing the security precondition.</li>
+      <li>Whether the security precondition applies to streaming transport methods, datagram transport methods, or both.</li>
+      <li>When the precondition is met so that application data can be sent over the negotiated transport.</li>
+    </ol>
+  </section2>
+</section1>
+
+<section1 topic='Security Considerations' anchor='security'>
+  <section2 topic='Transport Security' anchor='security-transport'>
+    <p>It is strongly recommended to protect the transport method using an appropriate security precondition (e.g., Transport Layer Security). However, methods for doing so are out of scope for this specification.</p>
+  </section2>
+  <section2 topic='Denial of Service' anchor='security-dos'>
+    <p>Jingle sessions can be resource-intensive. Therefore, it is possible to launch a denial-of-service attack against an entity by burdening it with too many Jingle sessions. Care MUST be taken to accept sessions only from known entities and only if the entity's device is able to process such sessions.</p>
+  </section2>
+  <section2 topic='Communication Through Gateways' anchor='security-gateways'>
+    <p>Jingle communications can be enabled through gateways to non-XMPP networks, whose security characteristics can be quite different from those of XMPP networks. (For example, on some SIP networks authentication is optional and "from" addresses can be easily forged.) Care MUST be taken in communicating through such gateways.</p>
+  </section2>
+  <section2 topic='Information Exposure' anchor='security-info'>
+    <p>Mere negotiation of a Jingle session can expose sensitive information about the parties (e.g., IP addresses, or even the full JID of the responder). Care MUST be taken in communicating such information, and end-to-end encryption SHOULD be used if the parties do not trust the intermediate servers or gateways.</p>
+  </section2>
+  <section2 topic='Redirection' anchor='security-redirect'>
+    <p>The 'initiator' and 'responder' attributes can be used to redirect a session from one JID to another JID (i.e., the 'initiator' or 'responder' attribute might not match the 'from' or 'to' attribute of the sender). An application SHOULD NOT accept the redirection unless the bare JIDs match (i.e., the session is being redirected from one authorized resource to another authorized resource associated with the same account).</p>
+  </section2>
+</section1>
+
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p>
+</section1>
+
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <section2 topic='Protocol Namespaces' anchor='registrar-ns'>
+    <p>This specification defines the following XML namespaces:</p>
+    <ul>
+      <li>urn:xmpp:jingle:1</li>
+      <li>urn:xmpp:jingle:errors:1</li>
+    </ul>
+    <p>The &REGISTRAR; includes the foregoing namespaces in its registry at &NAMESPACES;, as governed by &xep0053;.</p>
+  </section2>
+  <section2 topic='Namespace Versioning' anchor='registrar-versioning'>
+    &NSVER;
+  </section2>
+  <section2 topic='Jingle Application Formats Registry' anchor='registrar-apps'>
+    <p>The XMPP Registrar maintains a registry of Jingle application formats at &JINGLEAPPS;. All application format registrations shall be defined in separate specifications (not in this document). Application types defined within the XEP series MUST be registered with the XMPP Registrar, resulting in protocol URNs of the form "urn:xmpp:jingle:app:name:X" (where "name" is the registered name of the application format and "X" is a non-negative integer).</p>
+    &REGPROCESS;
+    <code><![CDATA[
+<application>
+  <name>The name of the application format.</name>
+  <desc>A natural-language summary of the application format.</desc>
+  <transport>
+    Whether the media can be sent over a "streaming" transport, 
+    a "datagram" transport, or "both".
+  </transport>
+  <doc>The document in which the application format is specified.</doc>
+</application>
+    ]]></code>
+  </section2>
+  <section2 topic='Jingle Transport Methods Registry' anchor='registrar-transports'>
+    <p>The XMPP Registrar maintains a registry of Jingle transport methods at &JINGLETRANSPORTS;. All transport method registrations shall be defined in separate specifications (not in this document). Transport methods defined within the XEP series MUST be registered with the XMPP Registrar, resulting in protocol URNs of the form "urn:xmpp:jingle:transport:name" (where "name" is the registered name of the transport method).</p>
+    &REGPROCESS;
+    <code><![CDATA[
+<transport>
+  <name>The name of the transport method.</name>
+  <desc>A natural-language summary of the transport method.</desc>
+  <type>
+    Whether the transport method can be "streaming", "datagram", 
+    or "both".
+  </type>
+  <doc>The document in which this transport method is specified.</doc>
+</transport>
+    ]]></code>
+  </section2>
+</section1>
+<section1 topic='XML Schemas' anchor='schema'>
+  <section2 topic='Jingle' anchor='schema-jingle'>
+    <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:jingle:1'
+    xmlns='urn:xmpp:jingle:1'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0166: http://www.xmpp.org/extensions/xep-0166.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='jingle'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name='content' 
+                    type='contentElementType'
+                    minOccurs='0' 
+                    maxOccurs='unbounded'/>
+        <xs:element name='reason' 
+                    type='reasonElementType'
+                    minOccurs='0' 
+                    maxOccurs='1'/>
+        <xs:any namespace='##other' minOccurs='0' maxOccurs='unbounded'/>
+      </xs:sequence>
+      <xs:attribute name='action' use='required'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='content-accept'/>
+            <xs:enumeration value='content-add'/>
+            <xs:enumeration value='content-modify'/>
+            <xs:enumeration value='content-reject'/>
+            <xs:enumeration value='content-remove'/>
+            <xs:enumeration value='description-info'/>
+            <xs:enumeration value='security-info'/>
+            <xs:enumeration value='session-accept'/>
+            <xs:enumeration value='session-info'/>
+            <xs:enumeration value='session-initiate'/>
+            <xs:enumeration value='session-terminate'/>
+            <xs:enumeration value='transport-accept'/>
+            <xs:enumeration value='transport-info'/>
+            <xs:enumeration value='transport-reject'/>
+            <xs:enumeration value='transport-replace'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name='initiator' type='xs:string' use='optional'/>
+      <xs:attribute name='responder' type='xs:string' use='optional'/>
+      <xs:attribute name='sid' type='xs:NMTOKEN' use='required'/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name='alternativeSessionElementType'>
+    <xs:sequence>
+      <xs:element name='sid'
+                  minOccurs='0'
+                  maxOccurs='1'
+                  type='xs:NMTOKEN'/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name='contentElementType'>
+    <xs:sequence>
+      <xs:any namespace='##other' minOccurs='0' maxOccurs='unbounded'/>
+    </xs:sequence>
+    <xs:attribute name='creator'
+                  use='required'>
+      <xs:simpleType>
+        <xs:restriction base='xs:NCName'>
+          <xs:enumeration value='initiator'/>
+          <xs:enumeration value='responder'/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name='disposition'
+                  use='optional'
+                  type='xs:NCName'
+                  default='session'/>
+    <xs:attribute name='name'
+                  use='required'
+                  type='xs:string'/>
+    <xs:attribute name='senders'
+                  use='optional'
+                  default='both'>
+      <xs:simpleType>
+        <xs:restriction base='xs:NCName'>
+          <xs:enumeration value='both'/>
+          <xs:enumeration value='initiator'/>
+          <xs:enumeration value='none'/>
+          <xs:enumeration value='responder'/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name='reasonElementType'>
+    <xs:sequence>
+      <xs:choice>
+        <xs:element name='alternative-session' 
+                    type='alternativeSessionElementType'/>
+        <xs:element name='busy' type='empty'/>
+        <xs:element name='cancel' type='empty'/>
+        <xs:element name='connectivity-error' type='empty'/>
+        <xs:element name='decline' type='empty'/>
+        <xs:element name='expired' type='empty'/>
+        <xs:element name='failed-application' type='empty'/>
+        <xs:element name='failed-transport' type='empty'/>
+        <xs:element name='general-error' type='empty'/>
+        <xs:element name='gone' type='empty'/>
+        <xs:element name='incompatible-parameters' type='empty'/>
+        <xs:element name='media-error' type='empty'/>
+        <xs:element name='security-error' type='empty'/>
+        <xs:element name='success' type='empty'/>
+        <xs:element name='timeout' type='empty'/>
+        <xs:element name='unsupported-applications' type='empty'/>
+        <xs:element name='unsupported-transports' type='empty'/>
+      </xs:choice>
+      <xs:element name='text' type='xs:string' minOccurs='0' maxOccurs='1'/>
+      <xs:any namespace='##other' minOccurs='0' maxOccurs='1'/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+    ]]></code>
+  </section2>
+  <section2 topic='Jingle Errors' anchor='schema-errors'>
+    <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:xmpp:jingle:errors:1'
+    xmlns='urn:xmpp:jingle:errors:1'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0166: http://www.xmpp.org/extensions/xep-0166.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='out-of-order' type='empty'/>
+  <xs:element name='tie-break' type='empty'/>
+  <xs:element name='unknown-session' type='empty'/>
+  <xs:element name='unsupported-info' type='empty'/>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+    ]]></code>
+  </section2>
+</section1>
+
+<section1 topic='History' anchor='history'>
+  <p>Until Jingle was developed, there existed no widely-adopted standard for initiating and managing peer-to-peer interactions between XMPP entities. Although several large service providers and Jabber client teams had written and implemented their own proprietary XMPP extensions for peer-to-peer signalling (usually only for voice), those technologies were not open and did not always take into account requirements to interoperate with SIP-based technologies. The only existing open protocol was &xep0111;, which made it possible to initiate and manage peer-to-peer sessions, but which did not provide enough of the key signalling semantics to be easily implemented in Jabber/XMPP clients. <note>It is true that TINS made it relatively easy to implement an XMPP-to-SIP gateway; however, in line with the long-time Jabber philosophy of "simple clients, complex servers", it would be better to force complexity onto the server-side gateway and to keep the client as simple as possible.</note></p>
+  <p>The result was an unfortunate fragmentation within the XMPP community regarding signalling protocols. Essentially, there were two possible approaches to solving the problem:</p>
+  <ol>
+    <li>Recommend that all client developers implement a dual-stack (XMPP + SIP) solution.</li>
+    <li>Define a full-featured protocol for XMPP signalling.</li>
+  </ol>
+  <p>Implementation experience indicates that a dual-stack approach might not be feasible on all the computing platforms for which Jabber clients have been written, or even desirable on platforms where it is feasible. <note>For example, one large ISP decided to switch to a pure XMPP approach after having implemented and deployed a dual-stack client for several years.</note> Therefore, it seemed reasonable to define an XMPP signalling protocol that could provide the necessary session management semantics while also making it relatively straightforward to interoperate with existing Internet standards.</p>
+  <p>As a result of feedback received on <cite>XEP-0111</cite>, the original authors of this document (Joe Hildebrand and Peter Saint-Andre) began to define such a signalling protocol, code-named Jingle. Upon communication with members of the Google Talk team, <note>Google Talk is an instant messaging and voice/video chat service and client provided by Google; see &lt;<link url='http://www.google.com/talk/'>http://www.google.com/talk/</link>&gt;.</note> it was discovered that the emerging Jingle approach was conceptually (and even syntactically) quite similar to the signalling protocol used in the Google Talk application. Therefore, in the interest of interoperability and adoption, we decided to harmonize the two approaches. The signalling protocol specified herein is, therefore, substantially equivalent to the original Google Talk protocol, with several adjustments based on feedback received from implementors as well as for publication by the XMPP Standards Foundation.</p>
+</section1>
+<section1 topic='Acknowledgements' anchor='ack'>
+  <p>The authors would like to thank Rohan Mahy for his valuable input on early versions of the Jingle specifications. Thiago Camargo, Diana Cionoiu, Olivier Cr&#234;te, Dafydd Harries, Antti Ij&#228;s, Tim Julien, Lauri Kaila, Justin Karneges, Jussi Laako, Steffen Larsen, Marcus Lundblad, Dirk Meyer, Anthony Minessale, Akito Nozaki, Matt O'Gorman, Mike Ruprecht, Rob Taylor, Will Thompson, Matt Tucker, Justin Uberti, Saku Vainio, Unnikrishnan Vikrama Panicker, Brian West, Jeff Williams, and others have also provided helpful input. Thanks also to those who have commented on the &SSIG; and Jingle <note>Before this specification was formally accepted by the XMPP Standards Foundation as an XMPP Extension Protocol, it was discussed on the semi-private &lt;jingle@jabber.org&gt; mailing list. This list has since been resurrected as a special-purpose venue for discussion of Jingle protocols and implementation; interested developers can subscribe and access the archives at at &lt;<link url='http://mail.jabber.org/mailman/listinfo/jingle/'>http://mail.jabber.org/mailman/listinfo/jingle/</link>&gt;.</note> mailing lists.</p>
+</section1>
+</xep>

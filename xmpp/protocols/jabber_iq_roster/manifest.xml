@@ -1,0 +1,14 @@
+<manifest>
+  <title>Roster Management</title>
+  <abstract>This specification defines an XMPP protocol extension for server-side storage and management of contact lists, known in XMPP as rosters. The roster management protocol supports the ability to add, modify, and delete contacts, categorize contacts in one or more roster groups, and assign a private name to a contact. In addition, once a client retrieves the roster (typically on login), the server sends any subsequent roster changes to the client during an active presence session.</abstract>
+  <specnum>RFC 3920</specnum>
+  <specurl>http://www.ietf.org/rfc/rfc3920.txt</specurl>
+  <status>Proposed</status>
+  <publisher>Internet Engineering Task Force</publisher>
+  <namespaces>
+    <name>jabber:iq:roster</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/roster.xsd</schema>
+  </schemas>
+</manifest>

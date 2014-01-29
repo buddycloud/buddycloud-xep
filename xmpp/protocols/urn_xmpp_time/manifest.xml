@@ -1,0 +1,14 @@
+<manifest>
+  <title>Entity Time</title>
+  <abstract>This specification defines an XMPP protocol extension for communicating the local time of an entity, including the time in UTC according to the entity as well as the offset from UTC. The time format itself conforms to the dateTime profile of ISO 8601 defined in XEP-0082.</abstract>
+  <specnum>XEP-0202</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0202.html</specurl>
+  <status>Final</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:time</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/time.xsd</schema>
+  </schemas>
+</manifest>

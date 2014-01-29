@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DTD for stream initiation profile registry submissions -->
+<!ELEMENT registry ( meta, profile* ) >
+<!ELEMENT meta ( title, legal, overview, revision+ ) >
+<!ELEMENT title (#PCDATA)* >
+<!ELEMENT legal (#PCDATA)* >
+<!ELEMENT overview (#PCDATA)* >
+<!ELEMENT revision ( version, date, initials, remark ) >
+<!ELEMENT version (#PCDATA)* >
+<!ELEMENT date (#PCDATA)* >
+<!ELEMENT initials (#PCDATA)* >
+<!ELEMENT remark (#PCDATA)* >
+
+<!ELEMENT profile ( name, doc, desc ) >
+<!ELEMENT name (#PCDATA)* >
+<!ELEMENT desc (#PCDATA)* >
+<!ELEMENT doc (#PCDATA)* >

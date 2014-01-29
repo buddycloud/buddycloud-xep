@@ -1,0 +1,12 @@
+Organization: XMPP Standards Foundation
+EIN: 84-1611178
+Form: 1023
+Attachment: Part V, Line 5b
+
+The XMPP Standards Foundation has not, does not, and does not plan to have 
+employees or to provide compensation to any of its officers, directors, or 
+trustees. Before the organization considers the possibility of doing so, it 
+shall adopt a conflict of interest policy that is consistent with the sample 
+conflict of interest policy in "Appendix A" to the instructions for IRS Form 
+1023.
+

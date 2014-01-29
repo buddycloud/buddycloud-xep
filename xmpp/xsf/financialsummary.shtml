@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Financial Summary</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Financial Summary</h2>
+
+<p><em>Compiled By: Peter Saint-Andre
+<br />Last Updated: 2008-10-28</em></p>
+<p>This page summarizes the financial status of the <a href='http://www.xmpp.org/xsf/'>XMPP Standards Foundation</a> (until January 2007 the Jabber Software Foundation) since its inception in 2001.</p>
+<h4>1. Consolidated Statement of Earnings</h4>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Measure</th>
+    <th>2008 (YTD)</th>
+    <th>2007</th>
+    <th>2006</th>
+    <th>2005</th>
+    <th>2004</th>
+    <th>2003</th>
+    <th>2002</th>
+    <th>2001</th>
+  </tr>
+  <tr class='tablebody'>
+    <td><strong>Total&nbsp;Revenues</strong></td>
+    <td align='right' id='rev2008'>5,000.00</td>
+    <td align='right' id='rev2007'>8,000.00</td>
+    <td align='right' id='rev2006'>28,900.00</td>
+    <td align='right' id='rev2005'>8,120.33</td>
+    <td align='right' id='rev2004'>5,000.00</td>
+    <td align='right' id='rev2003'>13,750.00</td>
+    <td align='right' id='rev2002'>1,002.20</td>
+    <td align='right' id='rev2001'>20,064.75</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>&nbsp;&nbsp;Administrative&nbsp;Expenses&nbsp;[1]</td>
+    <td align='right' id='admin2007'>253.85</td>
+    <td align='right' id='admin2007'>2,289.42</td>
+    <td align='right' id='admin2006'>232.00</td>
+    <td align='right' id='admin2005'>427.40</td>
+    <td align='right' id='admin2004'>205.00</td>
+    <td align='right' id='admin2003'>244.70</td>
+    <td align='right' id='admin2002'>342.05</td>
+    <td align='right' id='admin2001'>5.50</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>&nbsp;&nbsp;Infrastructure&nbsp;Costs&nbsp;[2]</td>
+    <td align='right' id='infra2008'>199.99</td>
+    <td align='right' id='infra2007'>3,146.40</td>
+    <td align='right' id='infra2006'>3,913.88</td>
+    <td align='right' id='infra2005'>5,601.26</td>
+    <td align='right' id='infra2004'>734.30</td>
+    <td align='right' id='infra2003'>0.00</td>
+    <td align='right' id='infra2002'>4,880.00</td>
+    <td align='right' id='infra2001'>0.00</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>&nbsp;&nbsp;Conference&nbsp;Expenses&nbsp;[3]</td>
+    <td align='right' id='conf2008'>16,592.88</td>
+    <td align='right' id='conf2007'>3,851.08</td>
+    <td align='right' id='conf2006'>752.62</td>
+    <td align='right' id='conf2005'>0.00</td>
+    <td align='right' id='conf2004'>926.42</td>
+    <td align='right' id='conf2003'>0.00</td>
+    <td align='right' id='conf2002'>901.84</td>
+    <td align='right' id='conf2001'>0.00</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>&nbsp;&nbsp;Legal&nbsp;Fees&nbsp;[4]</td>
+    <td align='right' id='legal2008'>0.00</td>
+    <td align='right' id='legal2007'>0.00</td>
+    <td align='right' id='legal2006'>0.00</td>
+    <td align='right' id='legal2005'>0.00</td>
+    <td align='right' id='legal2004'>0.00</td>
+    <td align='right' id='legal2003'>0.00</td>
+    <td align='right' id='legal2002'>8,522.90</td>
+    <td align='right' id='legal2001'>0.00</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>&nbsp;&nbsp;Grants&nbsp;[5]</td>
+    <td align='right' id='grants2008'>0.00</td>
+    <td align='right' id='grants2007'>4,000.00</td>
+    <td align='right' id='grants2006'>0.00</td>
+    <td align='right' id='grants2005'>1,000.00</td>
+    <td align='right' id='grants2004'>0.00</td>
+    <td align='right' id='grants2003'>0.00</td>
+    <td align='right' id='grants2002'>0.00</td>
+    <td align='right' id='grants2001'>0.00</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>&nbsp;&nbsp;Marketing&nbsp;Expenses&nbsp;[6]</td>
+    <td align='right' id='mkt2008'>344.82</td>
+    <td align='right' id='mtk2007'>1,600.00</td>
+    <td align='right' id='mtk2006'>0.00</td>
+    <td align='right' id='mtk2005'>0.00</td>
+    <td align='right' id='mtk2004'>3,000.00</td>
+    <td align='right' id='mtk2003'>9,500.00</td>
+    <td align='right' id='mtk2002'>0.00</td>
+    <td align='right' id='mtk2001'>0.00</td>
+  </tr>
+  <tr class='tablebody'>
+    <td><strong>Total&nbsp;Costs</strong></td>
+    <td align='right' id='costs2008'>17,191.55</td>
+    <td align='right' id='costs2007'>14,886.90</td>
+    <td align='right' id='costs2006'>4,898.50</td>
+    <td align='right' id='costs2005'>7,028.66</td>
+    <td align='right' id='costs2004'>4,865.72</td>
+    <td align='right' id='costs2003'>9,744.70</td>
+    <td align='right' id='costs2002'>14,646.79</td>
+    <td align='right' id='costs2001'>5.50</td>
+  </tr>
+  <tr class='tablebody'>
+    <td><strong>Income&nbsp;(Loss)</strong></td>
+    <td align='right' id='income2008'>(12,191.55)</td>
+    <td align='right' id='income2007'>(6,886.90)</td>
+    <td align='right' id='income2006'>24,001.50</td>
+    <td align='right' id='income2005'>2,266.29</td>
+    <td align='right' id='income2004'>134.28</td>
+    <td align='right' id='income2003'>4,005.30</td>
+    <td align='right' id='income2002'>(13,644.59)</td>
+    <td align='right' id='income2001'>20,059.25</td>
+  </tr>
+</table>
+<p>Notes:</p>
+<blockquote>
+  <p>[1] Administrative expenses have included IRS filing fees, business registration fees, trade name renewal, domain name renewal, banking and accounting fees, post office box rental, postage, office supplies, etc.</p>
+  <p>[2] Infrastructure costs have included ongoing costs related to the <a href='http://xmpp.org/ca/'>XMPP intermediate certification authority</a> since 2006, purchase of server machines in 2002 and 2005, a one-time payment of $2,400 for server colocation in 2002, purchase of an SSL certificate in 2004, purchase of new RAM for server machines in 2004 and 2006, purchase of an external hard drive in 2008.</p>
+  <p>[3] Conference expenses have included costs related to the <a href='/summit/'>XMPP Summit</a> meetings held twice a year since 2006, costs related to EuroOSCON in 2006, as well as travel expenses to send Jeremie Miller to IETF 55 and to send Peter Saint-Andre to an Internet2 conference in 2004 and the Asterisk Developer Conference in 2007.</p>
+  <p>[4] Legal fees consisted of reimbursement to Jabber Inc. for legal expenses related to establishment of the JSF in 2001.</p>
+  <p>[5] Grants have consisted of payouts to mentors sponsored via the Google Summer of Code in 2005, 2006, and 2007.</p>
+  <p>[6] Marketing expenses include $500 paid to the JSF logo contest winner in 2003, $1,600 paid for professional design of the XSF logo in 2007, and $344.82 paid for production of a banner in 2008; in addition, through an arrangement sponsored by Jabber Inc., public relations fees were paid to The Usher Group in 2003 and 2004.</p>
+</blockquote>
+<h4>2. Consolidated Statement of Financial Position</h4>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Measure</th>
+    <th>2008 (YTD)</th>
+    <th>2007</th>
+    <th>2006</th>
+    <th>2005</th>
+    <th>2004</th>
+    <th>2003</th>
+    <th>2002</th>
+    <th>2001</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>Total&nbsp;Assets</td>
+    <td align='right' id='assets2008'>18,773.07</td>
+    <td align='right' id='assets2007'>30,938.26</td>
+    <td align='right' id='assets2006'>38,065.23</td>
+    <td align='right' id='assets2005'>14,063.73</td>
+    <td align='right' id='assets2004'>10,554.24</td>
+    <td align='right' id='assets2003'>10,419.96</td>
+    <td align='right' id='assets2002'>6,414.66</td>
+    <td align='right' id='assets2001'>20,059.25</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Total&nbsp;Liabilities</td>
+    <td align='right' id='liabilities2008'>0.00</td>
+    <td align='right' id='liabilities2007'>0.00</td>
+    <td align='right' id='liabilities2006'>0.00</td>
+    <td align='right' id='liabilities2005'>0.00</td>
+    <td align='right' id='liabilities2004'>0.00</td>
+    <td align='right' id='liabilities2003'>0.00</td>
+    <td align='right' id='liabilities2002'>0.00</td>
+    <td align='right' id='liabilities2001'>8,522.90</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>Equity</td>
+    <td align='right' id='equity2008'>18,773.07</td>
+    <td align='right' id='equity2007'>30,938.26</td>
+    <td align='right' id='equity2006'>38,065.23</td>
+    <td align='right' id='equity2005'>14,063.73</td>
+    <td align='right' id='equity2004'>10,554.24</td>
+    <td align='right' id='equity2003'>10,419.96</td>
+    <td align='right' id='equity2002'>6,414.66</td>
+    <td align='right' id='equity2001'>11,536.35</td>
+  </tr>
+</table>
+
+<!--#include virtual="/includes/foot.txt" -->

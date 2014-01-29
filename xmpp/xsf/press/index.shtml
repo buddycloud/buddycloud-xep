@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-loose.dtd'>
+<html>
+<head>
+<title>Press Releases</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>Press Releases</h2>
+
+<p>These are official press releases issued between 2002 and 2007 by the Jabber Software Foundation, the predecessor organization to the <a href='/xsf/'>XMPP Standards Foundation</a> (XSF). Announcements from the XSF are now made at <a href='http://blog.xmpp.org/'>Extended Conversation</a>, the official XSF weblog.</p>
+
+<blockquote>
+<table border='0' cellpadding='0' cellspacing='5'>
+<tr class='tablebody'><td valign='top'>2009-11-03</td><td width='15'>&nbsp;</td><td><a href='2009-11-03.shtml'>Resolution Achieved Regarding RhymBox/Pandion Dispute</a></td></tr>
+<tr class='tablebody'><td valign='top'>2007-01-16</td><td width='15'>&nbsp;</td><td><a href='2007-01-16.shtml'>Jabber Software Foundation Renamed to XMPP Standards Foundation</a></td></tr>
+<tr class='tablebody'><td valign='top'>2006-12-06</td><td width='15'>&nbsp;</td><td><a href='2006-12-06.shtml'>Jabber Software Foundation Establishes Certification Authority</a></td></tr>
+<tr class='tablebody'><td valign='top'>2006-07-11</td><td width='15'>&nbsp;</td><td><a href='2006-07-11.shtml'>Jabber Software Foundation to Hold XMPP Interop Test Event July 24-25, 2006</a></td></tr>
+<tr class='tablebody'><td valign='top'>2005-12-30</td><td width='15'>&nbsp;</td><td><a href='2005-12-30.shtml'>OpenDomain Contributes XMPP Domains to the Jabber Software Foundation</a></td></tr>
+<tr class='tablebody'><td valign='top'>2005-12-15</td><td width='15'>&nbsp;</td><td><a href='2005-12-15.shtml'>Jabber Software Foundation Publishes Open VoIP and Multimedia Protocols</a></td></tr>
+<tr class='tablebody'><td valign='top'>2004-10-04</td><td width='15'>&nbsp;</td><td><a href='2004-10-04.shtml'>IETF Publishes XMPP RFCs</a></td></tr>
+<tr class='tablebody'><td valign='top'>2004-04-01</td><td width='15'>&nbsp;</td><td><a href='2004-04-01.shtml'>Jabber Software Foundation and XCP Consortium Team Up to Build the Real-Time Internet</a></td></tr>
+<tr class='tablebody'><td valign='top'>2004-01-19</td><td width='15'>&nbsp;</td><td><a href='2004-01-19.shtml'>JabberAfrica Goes Live</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-10-15</td><td width='15'>&nbsp;</td><td><a href='2003-10-15.shtml'>XMPP Proven as a Standard for Instant Messaging Interoperability</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-09-29</td><td width='15'>&nbsp;</td><td><a href='2003-09-29.shtml'>Internet2 Focuses Instant Messaging Research on XMPP</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-09-22</td><td width='15'>&nbsp;</td><td><a href='2003-09-22.shtml'>Jabber Instant Messaging User Base Surpasses ICQ</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-07-21</td><td width='15'>&nbsp;</td><td><a href='2003-07-21.shtml'>Mono Embraced by XMPP Instant Messaging Vendors</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-07-09</td><td width='15'>&nbsp;</td><td><a href='2003-07-09.shtml'>Open Source Community Recognizes XMPP as Instant Messaging Standard</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-05-19</td><td width='15'>&nbsp;</td><td><a href='2003-05-19.shtml'>XMPP/Jabber and SIP/SIMPLE to Face Off in Online Debate</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-05-01</td><td width='15'>&nbsp;</td><td><a href='2003-05-01.shtml'>Winfessor Announces Sponsorship for XMPP/Jabber</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-04-30</td><td width='15'>&nbsp;</td><td><a href='2003-04-30.shtml'>Jive Software Sponsors Jabber Software Foundation</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-04-29</td><td width='15'>&nbsp;</td><td><a href='2003-04-29.shtml'>Antepo Sponsors Jabber Software Foundation</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-04-28</td><td width='15'>&nbsp;</td><td><a href='2003-04-28.shtml'>Jabber Community Announces Major Presence at O'Reilly Open Source Convention</a></td></tr>
+<tr class='tablebody'><td valign='top'>2003-03-21</td><td width='15'>&nbsp;</td><td><a href='2003-03-21.shtml'>JabberD Quickstart Now Available for Free Download</a></td></tr>
+<tr class='tablebody'><td valign='top'>2002-11-06</td><td width='15'>&nbsp;</td><td><a href='2002-11-06.shtml'>IETF Announces XMPP Working Group</a></td></tr>
+</table>
+</blockquote>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Public XMPP Services</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>Public XMPP Services</h2>
+
+<p>There are tens of thousands of XMPP services deployed on the Internet. In addition to large, well-known services such as <a href='http://www.google.com/talk/'>Google Talk</a>, <a href='http://www.livejournal.com/chat/'>Live Journal Talk</a>, <a href='http://www.nimbuzz.com/'>Nimbuzz</a>, and <a href='http://www.ovi.com/'>Ovi</a>, there are also many smaller services run by volunteers in the XMPP community. The following table lists the public XMPP services that have <a href='register.shtml'>registered</a> with the XSF to be listed here, but there are many more such services on the Internet so this is <em>not</em> a complete list!</p>
+
+<p>Last updated: 2009-12-09</p>
+
+<p>Client developers, this data is available in machine-readable format for pre-populating in-band registration screens! See <a href='services.xml'>services.xml</a> and <a href='services-full.xml'>services-full.xml</a>.</p>
+
+<p><em>The following table is sortable, just click on the headers (click twice to reverse the sort order).</em></p>
+
+<table border='1' cellpadding='3' cellspacing='0' class='sortable' id='servicelist'>
+  <tr>
+    <th align='left'>Domain</th>
+    <th align='left'>Founded</th>
+    <th align='left'>Country</th>
+    <th align='left'>Lat</th>
+    <th align='left'>Lon</th>
+    <th align='left'>Security Provider</th>
+    <th align='left'>Software</th>
+    <th align='left'>Primary Admin</th>
+  </tr>
+  <!--#include virtual="rows.txt" -->
+</table>
+
+<!--#include virtual="/includes/foot.txt" -->

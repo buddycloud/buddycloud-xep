@@ -1,0 +1,10 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF People :: Nathan Fritz</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF People :: Nathan Fritz</h2>
+
+<p>Nathan Fritz is a long-time contributor to the XMPP community, developer of the <a href='http://code.google.com/p/sleekxmpp/'>SleekXMPP</a> Python library, and a realtime web expert at <a href='http://andyet.net/'>&amp;yet</a>. Nathan is a member of the <a href='/council/'>XMPP Council</a> for 2009-2010.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

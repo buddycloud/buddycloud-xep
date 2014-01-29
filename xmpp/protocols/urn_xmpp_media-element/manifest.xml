@@ -1,0 +1,14 @@
+<manifest>
+  <title>Data Forms Media Element</title>
+  <abstract>This specification defines an XMPP protocol extension for including media in XEP-0004 data forms.</abstract>
+  <specnum>XEP-0221</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0221.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:media-element</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/media-element.xsd</schema>
+  </schemas>
+</manifest>

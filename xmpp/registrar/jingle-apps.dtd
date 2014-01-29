@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DTD for Jingle application formats registry -->
+<!ELEMENT registry ( meta, application* ) >
+<!ELEMENT meta ( title, legal, overview, revision+ ) >
+<!ELEMENT title (#PCDATA)* >
+<!ELEMENT legal (#PCDATA)* >
+<!ELEMENT overview (#PCDATA)* >
+<!ELEMENT revision ( version, date, initials, remark ) >
+<!ELEMENT version (#PCDATA)* >
+<!ELEMENT date (#PCDATA)* >
+<!ELEMENT initials (#PCDATA)* >
+<!ELEMENT remark (#PCDATA)* >
+<!ELEMENT application ( name, desc, transport, doc ) >
+<!ELEMENT name (#PCDATA)* >
+<!ELEMENT desc (#PCDATA)* >
+<!ELEMENT transport (#PCDATA)* >
+<!ELEMENT doc (#PCDATA)* >

@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html>
+
+<head>
+<title>XSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Member Meeting</h2>
+<ul>
+	<li><span lang="en-us">Where</span>: <a href="xmpp:foundation@conference.jabber.org?join">foundation@conference.jabber.org</a></li>
+	<li>Log:
+	<a href="http://logs.jabber.org/foundation@conference.jabber.org/2009-11-24.html">
+	http://logs.jabber.org/foundation@conference.jabber.org/2009-11-24.html</a></li>
+	<li>Time: Tuesday, 2009-11-24, 20:00 UTC</li>
+	<li>When is 20:00 UTC in your local time?
+	<a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+<ol>
+	<li><strong>Call for Quorum</strong><p>The following 29 XSF members voted via 
+	proxy:</p>
+	<pre>waqas (at) jaim.at
+axelsena (at) jabber.uww.edu
+intosi (at) ik.nu
+xue.yong.zhi (at) gmail.com
+alexey.melnikov (at) isode.com
+hildjj (at) jabber.org
+mwild1 (at) jaim.at
+gnauck (at) jabber.org
+cbas (at) pandion.im
+linuxwolf (at) outer-planes.net
+aconbere (at) gmail.com
+tofu (at) thetofu.com
+artur.hefczyc (at) gmail.com
+dmeyer (at) jabber.org
+ralphm (at) ik.nu
+bmalkow (at) malkowscy.net
+admin (at) im.flosoft.biz
+tobiasfar (at) jabber.org
+nyco (at) jabber.fr
+dwd (at) dave.cridland.net
+safasofuoglu (at) gmail.com
+ff (at) jabber.bluendo.com
+siegle (at) jabber.org
+omega (at) im.apinc.org
+lucas (at) nussbaum.fr
+kurt.zeilenga (at) isode.com
+kevin (at) doomsong.co.uk
+mateusz (at) bilinski.it
+remko (at) el-tramo.be
+</pre>
+	<p>The XSF has 46 members as of this date. Therefore quorum is achieved in accordance 
+	with Section 3.8 of the <a href="/xsf/docs/bylaws.shtml">XSF Bylaws</a>.</p>
+	</li>
+	<li>
+	<p><strong>Items Subject to a Vote</strong></p>
+	<ol>
+		<li>New and Returning members<p>Vote yes or no for the Q4 2009
+		<a href="http://wiki.xmpp.org/web/Membership_Applications_October_2009" target="_blank">
+		applicants</a>.</p>
+		</li>
+		<li>Bylaw changes</li><p>Vote yes or no on the
+		<a href="http://mail.jabber.org/pipermail/members/2009-October/005453.html">
+		bylaw changes</a>.</p>
+	</ol>
+	</li>
+	<li>
+	<p><strong>Opportunity for XSF Members to Vote in the Meeting</strong> </p>
+	<ol>
+		<li>The following members voted in the meeting<pre>stpeter (at) jabber.org</pre>
+		</li>
+	</ol>
+	</li>
+	<li>
+	<p><strong>Vote on board size via memberbot</strong></p>
+	<p>The membership proposed to set the size of the current
+	<a href="http://xmpp.org/xsf/board/">XSF board</a> to four.</p>
+	</li>
+	<li>
+	<p><strong>Announcement of Voting Results</strong></p>
+	<table border="1" cellpadding="3" cellspacing="0">
+		<tr>
+			<th>Applicant </th>
+			<th>Yes</th>
+			<th>No</th>
+		</tr>
+		<tr>
+			<td>Michael Grigutsch</td>
+			<td>24</td>
+			<td>6</td>
+		</tr>
+		<tr>
+			<td>Luca Tagliaferri</td>
+			<td>25</td>
+			<td>5</td>
+		</tr>
+		<tr>
+			<td>Steven Parkes</td>
+			<td>25</td>
+			<td>5</td>
+		</tr>
+		<tr>
+			<td>Guillaume LeGales</td>
+			<td>23</td>
+			<td>8</td>
+		</tr>
+		<tr>
+			<td>Mike Taylor</td>
+			<td>30</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>Alex Malgaroli</td>
+			<td>24</td>
+			<td>6</td>
+		</tr>
+		<tr>
+			<td>Tuomas Koski</td>
+			<td>25</td>
+			<td>5</td>
+		</tr>
+		<tr>
+			<td>Steffen Larsen</td>
+			<td>29</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>Peter Mount</td>
+			<td>27</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td>Joe Maissel</td>
+			<td>27</td>
+			<td>3</td>
+		</tr>
+		
+		</table>
+	<br />
+	<br />
+	<table border="1" cellpadding="3" cellspacing="0">
+		<tr>
+			<th>Reappliers </th>
+			<th>Yes</th>
+			<th>No</th>
+		</tr>
+		<tr>
+			<td>Gregoire Menuel</td>
+			<td>24</td>
+			<td>6</td>
+		</tr>
+		<tr>
+			<td>Lucas Nussbaum</td>
+			<td>29</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>Johannes Wagener</td>
+			<td>28</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>Kurt Zeilenga</td>
+			<td>30</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>Alexey Melnikov</td>
+			<td>28</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>Mateusz Bilinski</td>
+			<td>26</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td>Waqas Hussain</td>
+			<td>28</td>
+			<td>2</td>
+		</tr>
+			</table>
+			<br/>
+			<br/>
+			<table border="1" cellpadding="3" cellspacing="0">
+		<tr>
+			<th>Bylaw changes </th>
+			<th>Yes</th>
+			<th>No</th>
+		</tr>
+		<tr>
+			<td>Section 4.4</td>
+			<td>28</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>Section 5.7</td>
+			<td>29</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>Section 3.12</td>
+			<td>30</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>Section 4.5</td>
+			<td>30</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>Section 8.1</td>
+			<td>30</td>
+			<td>0</td>
+		</tr>
+			</table>
+			<br/>
+			<br/>
+			<table border="1" cellpadding="3" cellspacing="0">
+		<tr>
+			<th>Board size</th>
+			<th>Yes</th>
+			<th>No</th>
+		</tr>
+		<tr>
+			<td>change size to 4</td>
+			<td>11</td>
+			<td>2</td>
+		</tr>
+	</table>
+	</li>
+	
+	<li>
+	<strong>Any Other Business?</strong>
+	<p>None</p>
+	</li>
+	<li>
+	<p><strong>Formal Adjournment</strong></p>
+	</li>
+</ol>
+<!--#include virtual="/includes/foot.txt" -->
+
+</html>

@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<reference anchor='RFC3922'>
+  <front>
+    <title>Mapping the Extensible Messaging and Presence Protocol (XMPP) to Common Presence and Instant Messaging (CPIM)</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3922' />
+  <format type='TXT' octets='70790' target='ftp://ftp.isi.edu/in-notes/rfc3922.txt' />
+</reference>

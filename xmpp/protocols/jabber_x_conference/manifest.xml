@@ -1,0 +1,14 @@
+<manifest>
+  <title>Direct MUC Invitations</title>
+  <abstract>This specification defines a method for inviting a contact to a multi-user chat room directly, instead of sending the invitation through the chat room.</abstract>
+  <specnum>XEP-0249</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0249.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>jabber:x:conference</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/x-conference.xsd</schema>
+  </schemas>
+</manifest>

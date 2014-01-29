@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Software Version</title>
+  <abstract>This specification defines an XMPP protocol extension for retrieving information about the software application associated with an XMPP entity. The protocol enables one entity to explicitly query another entity, where the response can include the name of the software application, the version of the software application, and the operating system on which the application is running.</abstract>
+  &LEGALNOTICE;
+  <number>0092</number>
+  <status>Draft</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <dependencies>
+    <spec>XMPP Core</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby/>
+  <shortname>iq-version</shortname>
+  <schemaloc>
+    <url>http://www.xmpp.org/schemas/iq-version.xsd</url>
+  </schemaloc>
+  &stpeter;
+  <revision>
+    <version>1.1</version>
+    <date>2007-02-15</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the XMPP Council, changed from Historical and Active to Standards Track and Draft; recommended use of Entity Capabilities instead of Software Version when presence information is available; added proviso to security considerations regarding disclosure of operating system information; added section on Service Discovery.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2003-10-08</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the Jabber Council, changed status to Active.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2003-05-22</date>
+    <initials>psa</initials>
+    <remark><p>Initial version.</p></remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>The Jabber protocols have long included a method for discovering version information about the software running at another entity's JID. This method makes use of the 'jabber:iq:version' namespace and has been documented variously in Internet-Drafts and elsewhere. Because this protocol is not required by &rfc2779;, the 'jabber:iq:version' namespace was removed from &xmppim;. This specification fills the void for canonical documentation.</p>
+  <p><em>Note Well: The jabber:iq:version protocol SHOULD NOT be used to determine the identity of entities from which an application receives presence (e.g., contacts in a user's roster and certain kinds of gateways); &xep0115; SHOULD be used instead. However, the jabber:iq:version protocol MAY be used to determine the identity of entities from which an application does not receive presence (e.g., servers and many kinds of components). The jabber:iq:version protocol MAY also be used to determine information available only via jabber:iq:version (e.g., operating system information) for contacts from which a user receives presence, but only if the user specifically requests such information for a particular contact.</em></p>
+</section1>
+<section1 topic='Protocol' anchor='protocol'>
+  <p>The 'jabber:iq:version' namespace provides a standard way for Jabber entities to exchange information about the software version used by the entities. The information is communicated in a request/response pair using an &lt;iq/&gt; element that contains a &lt;query/&gt; scoped by the 'jabber:iq:version' namespace. The following children of the &lt;query/&gt; are allowed in an IQ result:</p>
+  <ul>
+    <li>&lt;name/&gt; -- The natural-language name of the software. This element is REQUIRED in a result.</li>
+    <li>&lt;version/&gt; -- The specific version of the software. This element is REQUIRED in a result.</li>
+    <li>&lt;os/&gt; -- The operating system of the queried entity. This element is OPTIONAL in a result (see also the <link url='#security'>Security Considerations</link>).</li>
+  </ul>
+</section1>
+<section1 topic='Examples' anchor='examples'>
+  <example caption='Querying Another Entity for its Software Version'><![CDATA[
+<iq
+    type='get'
+    from='romeo@montague.net/orchard'
+    to='juliet@capulet.com/balcony'
+    id='version_1'>
+  <query xmlns='jabber:iq:version'/>
+</iq>
+  ]]></example>
+  <example caption='Receiving a Reply Regarding Software Version'><![CDATA[
+<iq
+    type='result'
+    to='romeo@montague.net/orchard'
+    from='juliet@capulet.com/balcony'
+    id='version_1'>
+  <query xmlns='jabber:iq:version'>
+    <name>Exodus</name>
+    <version>0.7.0.4</version>
+    <os>Windows-XP 5.01.2600</os>
+  </query>
+</iq>
+  ]]></example>
+  <p>The standard error conditions described in &xep0086; apply (e.g., service unavailable if the entity does not support the namespace).</p>
+</section1>
+<section1 topic='Determining Support' anchor='disco'>
+  <p>In order for a requesting entity to determine if a responding entity supports this protocol, it SHOULD send a &xep0030; information request to the responding entity:</p>
+  <example caption='Requesting entity queries responding entity regarding protocol support'><![CDATA[
+<iq from='stpeter@jabber.org/roundabout'
+    to='conference.jabber.org'
+    id='disco1'>
+  <query xmlns='http://jabber.org/protocol/disco#info'/>
+</iq>
+  ]]></example>
+  <example caption='Responding entity communicates protocol support'><![CDATA[
+<iq from='conference.jabber.org'
+    to='stpeter@jabber.org/roundabout'
+    id='disco1'>
+  <query xmlns='http://jabber.org/protocol/disco#info'>
+    ...
+    <feature var='jabber:iq:version'/>
+    ...
+  </query>
+</iq>
+  ]]></example>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>Revealing the application's underlying operating system may open the user or system to attacks directed against that operating system; therefore, an application MUST provide a way for a human user or administrator to disable sharing of information about the operating system.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p>
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <p>The 'jabber:iq:version' namespace is registered in the protocol namespaces registry maintained by the &REGISTRAR;.</p>
+</section1>
+<section1 topic='XML Schema' anchor='schema'>
+  <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='jabber:iq:version'
+    xmlns='jabber:iq:version'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0092: http://www.xmpp.org/extensions/xep-0092.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='query'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0'>
+        <xs:element name='name' type='xs:string' minOccurs='1'/>
+        <xs:element name='version' type='xs:string' minOccurs='1'/>
+        <xs:element name='os' type='xs:string' minOccurs='0'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+  ]]></code>
+</section1>
+</xep>

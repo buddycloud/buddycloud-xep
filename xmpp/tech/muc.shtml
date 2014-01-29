@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Technologies: MUC</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Technologies: MUC</h2>
+
+<h3>Table of Contents</h3>
+<ol>
+  <li><a href='#overview'>Overview</a></li>
+  <li><a href='#specs'>Specifications</a></li>
+  <li>
+    <a href='#impl'>Implementations</a>
+    <ol>
+      <li><a href='#impl-server'>Servers</a></li>
+      <li><a href='#impl-component'>Server Components</a></li>
+      <li><a href='#impl-client'>Clients</a></li>
+      <li><a href='#impl-library'>Libraries</a></li>
+    </ol>
+  </li>
+  <li><a href='#discuss'>Discussion Venues</a></li>
+</ol>
+
+<a name='overview'></a><h3>1. Overview</h3>
+<p>MUC is Multi-User Chat, an XMPP extension for multi-party information exchange similar to Internet Relay Chat (IRC), whereby multiple XMPP users can exchange messages in the context of a room or channel. In addition to standard chatroom features such as room topics and invitations, the protocol defines a strong room control model, including the ability to kick and ban users, to name room moderators and administrators, to require membership or passwords in order to join the room, etc. Because MUC rooms are based on XMPP, they can be used to exchange not only plaintext message bodies but a wide variety of XML payloads.</p>
+
+<a name='specs'></a><h3>2. Specifications</h3>
+<p>MUC is defined in one primary specification (XEP-0045) and several ancillary specifications:</p>
+<ul>
+  <li><a href='http://www.xmpp.org/extensions/xep-0045.html'>XEP-0045: Multi-User Chat</a></li>
+  <li><a href='http://www.xmpp.org/extensions/xep-0249.html'>XEP-0249: Direct MUC Invitations</a></li>
+  <li><a href='http://www.xmpp.org/extensions/xep-0272.html'>XEP-0272: Multiparty Jingle</a></li>
+</ul>
+
+<a name='impl'></a><h3>3. Implementations</h3>
+<a name='impl-server'></a><h4>3.1 Servers</h4>
+<p>The following XMPP servers include built-in support for MUC:</p>
+<ul>
+  <li><a href='http://www.ejabberd.im/'>ejabberd</a></li>
+  <li><a href='http://www.jabber.com/'>Jabber XCP</a></li>
+  <li><a href='http://www.igniterealtime.org/projects/openfire/index.jsp'>Openfire</a></li>
+  <li><a href='http://prosody.im/'>Prosody</a></li>
+  <li><a href='http://www.tigase.org/'>Tigase</a></li>
+</ul>
+
+<a name='impl-component'></a><h4>3.2 External Components</h4>
+<p>The following standalone components can be used with a wide variety of XMPP servers:</p>
+<ul>
+  <li><a href='https://gna.org/projects/mu-conference/'>mu-conference</a></li>
+  <li><a href='http://code.stanziq.com/palaver'>palaver</a></li>
+</ul>
+
+<a name='impl-client'></a><h4>3.3 Clients</h4>
+<ul>
+  <li><a href='http://adiumx.com/'>Adium</a></li>
+  <li><a href='http://gajim.org/'>Gajim</a></li>
+  <li><a href='http://blog.jwchat.org/jwchat/'>JWChat</a></li>
+  <li><a href='http://mcabber.com/'>mcabber</a></li>
+  <li><a href='http://pidgin.im/'>Pidgin</a></li>
+  <li><a href='http://www.psi-im.org/'>Psi</a></li>
+</ul>
+
+<a name='impl-library'></a><h4>3.4 Libraries</h4>
+<ul>
+  <li><a href='http://www.ta-sa.org/projects/anyevent_xmpp.html'>AnyEvent:XMPP</a> (Perl)</li>
+  <li><a href='http://camaya.net/gloox'>gloox</a> (C++)</li>
+  <li><a href='http://code.google.com/p/jabber-net/'>jabber-net</a> (.Net)</li>
+  <li><a href='http://developer.pidgin.im/wiki/WhatIsLibpurple'>libpurple</a> (C)</li>
+  <li><a href='http://www.igniterealtime.org/projects/smack/index.jsp'>Smack</a> (Java)</li>
+  <li><a href='http://home.gna.org/xmpp4r/'>XMPP4R</a> (Ruby)</li>
+</ul>
+
+<a name='discuss'></a><h3>4. Discussion Venues</h3>
+<p>The XMPP Standards Foundation maintains a dedicated email list ("muc@xmpp.org") about MUC, intended as a low-volume venue for discussion of MUC implementation and protocol issues. As with all XSF technology lists, the muc@xmpp.org list is open to all interested individuals.</p>
+<ul>
+  <li><a href='http://mail.jabber.org/mailman/listinfo/muc'>Info page and subscription information</a></li>
+  <li><a href='mailto:muc-subscribe@xmpp.org'>Subscribe via email</a></li>
+  <li><a href='http://mail.jabber.org/pipermail/muc/'>Discussion archives</a></li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

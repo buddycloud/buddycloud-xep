@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Summit</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Summit</h2>
+
+<p>The <a href='/xsf/'>XMPP Standards Foundation</a> holds a developer conference twice a year, usually co-located with <a href='http://www.fosdem.org/'>FOSDEM</a> in Europe (winter) and <a href='http://conferences.oreillynet.com/'>OSCON</a> in North America (summer). Information about the following meetings is available:</p>
+
+<ul>
+  <li><a href='summit9.shtml'>Summit 9</a> (Portland, Oregon, July 2010)</li>
+  <li><a href='summit8.shtml'>Summit 8</a> (Brussels, Belgium, February 2010)</li>
+  <li><a href='summit7.shtml'>Summit 7</a> (San Jose, California, July 2009)</li>
+  <li><a href='summit6.shtml'>Summit 6</a> (Brussels, Belgium, February 2009)</li>
+  <li><a href='summit5.shtml'>Summit 5</a> (Portland, Oregon, July 2008)</li>
+  <li><a href='summit4.shtml'>Summit 4</a> (Brussels, Belgium, February 2008)</li>
+  <li><a href='summit3.shtml'>Summit 3</a> (Portland, Oregon, July 2007)</li>
+  <li><a href='summit2.shtml'>Summit 2</a> (Brussels, Belgium, February 2007)</li>
+  <li><a href='summit1.shtml'>Summit 1</a> (Portland, Oregon, July 2006)</li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

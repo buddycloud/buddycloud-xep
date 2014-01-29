@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Contact Page</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Contact Page</h2>
+
+<p>The XMPP Standards Foundation provides public mailing lists related to Jabber/XMPP <a href='http://mail.jabber.org/mailman/listinfo/jdev/'>programming</a>, <a href='http://mail.jabber.org/mailman/listinfo/jadmin/'>server administration</a>, <a href='http://www.jabber.org/cgi-bin/mailman/listinfo/juser/'>client use</a>, and <a href='http://mail.jabber.org/mailman/listinfo/standards/'>protocol development</a>. Please post there first, since you will probably receive a faster response!</p>
+
+<p>If your question is not answered in available documentation and is not appropriate for one of the public mailing lists, feel free to contact XSF Executive Director <a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a> with any questions or concerns.</p>
+
+<p>You can also contact the XMPP Standards Foundation at the following postal address:</p>
+<p>
+XMPP Standards Foundation<br />
+1899 Wynkoop Street, Suite 600<br />
+Denver, CO 80202 USA
+</p>
+
+<p>Financial contributions are accepted (mostly from <a href='/xsf/sponsors/'>XSF Sponsors</a>) either by check to the foregoing mailing address or by PayPal to &lt;paypal@xmpp.org&gt;. Because the XMPP Standards Foundation is <a href='/xsf/docs/XSF-Tax-Exempt-Ruling-2007.pdf'>recognized</a> as a 501(c)(3) non-profit organization, your contribution might be tax deductible.</p>
+
+<p><a href='https://www.paypal.com/us/verified/pal=paypal%40jabber%2eorg'><img src='http://www.paypal.com/en_US/i/icon/verification_seal.gif' alt='Official PayPal Seal' style='border-width: 0px'/></a></p>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'nodes.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='nodes.xsl'?>
+<registry>
+  <meta>
+    <title>Nodes for Service Discovery and Publish-Subscribe</title>
+    &LEGALNOTICE;
+    <overview>This is the official registry of well-known nodes for service discovery (see &xep0030;) and publish-subscribe (see &xep0060;), as registered with the &REGISTRAR;.</overview>
+    <revision>
+      <version>0.2</version>
+      <date>2004-10-11</date>
+      <initials>psa</initials>
+      <remark>Added AMP and MUC nodes.</remark>
+    </revision>
+    <revision>
+      <version>0.1</version>
+      <date>2004-04-23</date>
+      <initials>psa</initials>
+      <remark>Initial version.</remark>
+    </revision>
+  </meta>
+  <node>
+    <name>http://jabber.org/protocol/amp</name>
+    <desc>A node for all Advanced Message Processing conditions and actions supported by an entity.</desc>
+    <doc>&xep0079;</doc>
+  </node>
+  <node>
+    <name>http://jabber.org/protocol/commands</name>
+    <desc>A node for all ad-hoc commands provided by an entity.</desc>
+    <doc>&xep0050;</doc>
+  </node>
+  <node>
+    <name>http://jabber.org/protocol/muc#rooms</name>
+    <desc>A node for discovery of the rooms in which a user is an occupant.</desc>
+    <doc>&xep0045;</doc>
+  </node>
+  <node>
+    <name>http://jabber.org/protocol/muc#traffic</name>
+    <desc>A node for discovery of the namespaces that are allowed in traffic sent through a room.</desc>
+    <doc>&xep0045;</doc>
+  </node>
+  <node>
+    <name>pubsub/nodes</name>
+    <desc>A "meta-node" for all pubsub nodes hosted by a publish-subscribe service.</desc>
+    <doc>&xep0060;</doc>
+  </node>
+  <node>
+    <name>x-roomuser-item</name>
+    <desc>A node by which a user can discover his or her reserved room nickname.</desc>
+    <doc>&xep0045;</doc>
+  </node>
+</registry>

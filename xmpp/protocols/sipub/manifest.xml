@@ -1,0 +1,14 @@
+<manifest>
+  <title>Publishing Stream Initiation Requests</title>
+  <abstract>This specification defines an XMPP protocol extension that enables an XMPP entity to advertise the fact that it is willing accept a particular Stream Initiation request. The protocol is used mainly to inform other entities that a particular file is available for transfer via the File Transfer protocol defined in XEP-0096.</abstract>
+  <specnum>XEP-0137</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0137.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/sipub</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/sipub.xsd</schema>
+  </schemas>
+</manifest>

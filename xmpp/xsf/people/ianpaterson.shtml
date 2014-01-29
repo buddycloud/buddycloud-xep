@@ -1,0 +1,10 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF People :: Ian Paterson</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF People :: Ian Paterson</h2>
+
+<p>Ian Paterson has been developing Jabber/XMPP applications full-time since 2001, mainly the <a href='http://www.clientside.co.uk/#description.html'>Chatterbox</a> web client and the <a href='http://www.clientside.co.uk/#breakthru.html'>BreakThru</a> HTTP proxy server. He has also completed significant work on several protocol enhancements, including the <a href='/extensions/xep-0124.html'>HTTP binding</a> and <a href='/extensions/xep-0116.html'>end-to-end encryption</a>. Ian is a member of the <a href='/council/'>XMPP Council</a> for 2005-2006, 2006-2007, and 2007-2008.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

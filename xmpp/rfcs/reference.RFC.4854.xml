@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<reference anchor='RFC4622'>
+  <front>
+    <title>A Uniform Resource Name (URN) Namespace for Extensions to the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+      <organization>XSF</organization>
+    </author>
+    <date year='2007' month='April' />
+  </front>
+  <seriesInfo name='RFC' value='4854' />
+  <format type='TXT' octets='15911' target='ftp://ftp.isi.edu/in-notes/rfc4854.txt' />
+</reference>

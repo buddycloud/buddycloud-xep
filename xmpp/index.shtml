@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Standards Foundation</title>
+<!--#include virtual="/includes/head.txt" -->
+<script src="/js/dateiso8601.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery.icalendar.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/jquery.timeago.js" type="text/javascript" charset="utf-8"></script>
+<script src="/js/upcomingevents.js" type="text/javascript" charset="utf-8"></script>
+<h2>XMPP Standards Foundation</h2>
+<p>This website provides complete information about the Extensible Messaging and Presence Protocol (XMPP), a set of open XML <a href='/tech/'>technologies</a> for presence and real-time communication developed by the <a href='/about/jabber.shtml'>Jabber</a> open-source community in 1999, formalized by the <a href='http://www.ietf.org/'>IETF</a> in 2002-2004, continuously extended through the standards process of the <a href='/xsf/'>XMPP Standards Foundation</a>, and implemented in a wide variety of <a href='/software/'>software</a>, devices, and Internet services. We host many open <a href='/about/discuss.shtml'>discussion venues</a>, so join the conversation!</p>
+<h3>Latest Spec Updates</h3>
+<!--#include virtual="/includes/xepshome.txt" -->
+<p class='nav'><a href='/extensions/'>more...</a></p>
+<h3>Latest Blog Posts</h3>
+<!--#include virtual="/includes/blogshome.txt" -->
+<p class='nav'><a href='http://blog.xmpp.org/'>more...</a></p>
+<h3 id="upcomingevents" style="display: none;">Upcoming Events</h3>
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF People</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF People</h2>
+
+<h3>Executive Team</h3>
+<ul>
+<li><a href="/xsf/people/stpeter.shtml">Peter Saint-Andre</a> (Executive Director)</li>
+</ul>
+
+<h3>XSF Board of Directors</h3>
+<p>See the <a href='/xsf/board/'>Board</a> page.</p>
+
+<h3>XMPP Council</h3>
+<p>See the <a href='/council/'>Council</a> page.</p>
+
+<h3>BDFL</h3>
+<ul>
+<li><a href="/xsf/people/jer.shtml">Jeremie Miller</a></li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Jabber Software Foundation Establishes Certification Authority</h3>
+<h4>Free Digital Certificates To Help Secure Real-Time Communications</h4>
+
+<p>DENVER, CO, USA, DECEMBER 6, 2006 -- The Jabber Software Foundation (<a href='http://www.jabber.org/'>JSF</a>) has teamed with Start Commercial Ltd. (<a href='http://www.startcom.org/'>StartCom</a>) to establish an intermediate certification authority for the network of servers and organizations that use the Extensible Messaging and Presence Protocol (<a href='/'>XMPP</a>) for real-time communications.</p>
+<p>XMPP, a widely-deployed standard for presence and real-time messaging approved by the Internet Engineering Task Force (<a href='http://www.ietf.org/'>IETF</a>) in 2004, includes numerous security features such as support for Transport Layer Security (TLS), the successor to Secure Sockets Layer (SSL). However, until now it has been difficult for XMPP server administrators to obtain the proper digital certificates for use in encrypted communications. The XMPP Federation CA (located at &lt;<a href='http://xmpp.org/ca/'>http://xmpp.org/ca/</a>&gt;) will make that task much easier, thus helping to create a more secure environment for real-time communications.</p>
+<p>Peter Saint-Andre, executive director of the JSF, noted: "The Jabber/XMPP community has long been dedicated to user privacy and strong security. To our knowledge, this is the first time that any organization has established a dedicated certification authority for real-time communication over the Internet. We look forward to making the Jabber/XMPP network even more secure than it already is."</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+
+<h4>About Start Commercial Ltd.</h4>
+<p>Start Commercial Ltd. (<a href='http://www.startcom.org/'>StartCom</a>) is a software development company and solution provider located in Eilat, Israel. Producers of the StartCom Linux distribution and providers of the MediaHost web service, StartCom has also operated the StartCom Free SSL Certification Authority (SFSCA) since early 2005. The SFSCA successfully passed an independent audit in early 2006 and its root certificate is now included in numerous popular software distributions, including the Mozilla/Firefox web browser and the OpenSSL security suite.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,608 @@
+<html>
+<head>
+<title>XMPP WG Requirements Summary</title>
+<style>
+.comment 
+   {
+   color:green;
+   font-style: italic;
+   }
+.done 
+   {
+   color:blue;
+   font-style: italic;
+   }
+.unsure 
+   {
+   color:red;
+   font-style: italic;
+   }
+</style>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP WG Requirements Summary</h2>
+<p><em>
+Author: Peter Saint-Andre<br />
+Version: 0.5<br />
+Last Updated: 2007-01-14
+</em></p>
+<p>The charter of the XMPP WG specifies that "the final specifications will be consistent as much as practical with ... the requirements given in RFC2779". This document summarizes how the <a href='/rfcs/'>XMPP RFCs</a> (and their prospective successors, currently published as <a href='/internet-drafts/'>Internet-Drafts</a>) meet the requirements defined in <a href='http://www.ietf.org/rfc/rfc2779.txt'>RFC2779</a>. Text from RFC2779 that specifies each requirement is followed by explanatory text that specifies how XMPP meets that requirement. Further detail, including references to specific sections of the XMPP RFCs, may be added to this document at a future date. Note well that this document inherits the terminology defined in the XMPP RFCs, and cannot be understood apart from those specifications. This document refers to <a href='http://www.ietf.org/rfc/rfc3920.txt'>RFC 3920</a> as "XMPP Core" and <a href='http://www.ietf.org/rfc/rfc3921.txt'>RFC 3921</a> as "XMPP IM".</p>
+<h2>Table of Contents</h2>
+<pre>
+   2. Shared Requirements
+    2.1. Namespace and Administration
+    2.2. Scalability
+    2.3. Access Control
+    2.4. Network Topology
+    2.5. Message Encryption and Authentication
+   3. Additional Requirements for PRESENCE INFORMATION
+    3.1. Common Presence Format
+    3.2. Presence Lookup and Notification
+    3.3. Presence Caching and Replication
+    3.4. Performance
+   4. Additional Requirements for INSTANT MESSAGES
+    4.1. Common Message Format
+    4.2. Reliability
+    4.3. Performance
+    4.4. Presence Format
+   5. Security Considerations
+    5.1. Requirements related to SUBSCRIPTIONS
+    5.2. Requirements related to NOTIFICATION
+    5.3. Requirements related to receiving a NOTIFICATION
+    5.4. Requirements related to INSTANT MESSAGES
+</pre>
+<hr />
+<h2>2. Shared Requirements</h2>
+<h3>2.1. Namespace and Administration</h3>
+<blockquote><pre>
+   2.1.1. The protocols MUST allow a PRESENCE SERVICE to be available
+   independent of whether an INSTANT MESSAGE SERVICE is available, and
+   vice-versa.
+</pre></blockquote>
+<p class='done'>DONE: Nothing in XMPP specifically ties instant messaging to presence. An entity can send and receive messages without broadcasting or receiving presence (i.e., while in a state of 'unavailable', e.g. before sending "initial presence" as defined in draft-ietf-xmpp-im). And an entity can broadcast and receive presence without sending or receiving messages (specifically, by sending a presence stanza of negative priority as defined in draft-ietf-xmpp-im).</p>
+<blockquote><pre>
+   2.1.2. The protocols must not assume that an INSTANT INBOX is
+   necessarily reached by the same IDENTIFIER as that of a PRESENTITY.
+   Specifically, the protocols must assume that some INSTANT INBOXes may
+   have no associated PRESENTITIES, and vice versa.
+</pre></blockquote>
+<p class='done'>DONE: Messages may be sent to and from a JID without the JID having any presence information associated with it. Similarly, a JID may broadcast and receive presence information without possessing the capacity to send or receive messages.</p>
+<blockquote><pre>
+   2.1.3. The protocols MUST also allow an INSTANT INBOX to be reached
+   via the same IDENTIFIER as the IDENTIFIER of some PRESENTITY.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   2.1.4. The administration and naming of ENTITIES within a given
+   DOMAIN MUST be able to operate independently of actions in any other
+   DOMAIN.
+</pre></blockquote>
+<p class='done'>DONE: An XMPP network will normally use a distributed architecture, with each domain separate from (though interoperable with) all others.</p>
+<blockquote><pre>
+   2.1.5. The protocol MUST allow for an arbitrary number of DOMAINS
+   within the NAMESPACE.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<h3>2.2. Scalability</h3>
+<blockquote><pre>
+   2.2.1. It MUST be possible for ENTITIES in one DOMAIN to interoperate
+   with ENTITIES in another DOMAIN, without the DOMAINS having
+   previously been aware of each other.
+</pre></blockquote>
+<p class='done'>DONE. This is addressed by stream negotiation between domains.</p>
+<blockquote><pre>
+   The protocol MUST be capable of meeting its other functional and
+   performance requirements even when
+</pre></blockquote>
+<blockquote><pre>
+      -- (2.2.2) there are millions of ENTITIES within a single DOMAIN.
+</pre></blockquote>
+<p class='done'>DONE in existing Jabber implementations and deployments.</p>
+<blockquote><pre>
+      -- (2.2.3) there are millions of DOMAINS within the single
+         NAMESPACE.
+</pre></blockquote>
+<p class='done'>DONE up to tens of thousands of domains on the Jabber network, and nothing in the protocol prevents support for millions of domains.</p>
+<blockquote><pre>
+      -- (2.2.4) every single SUBSCRIBER has SUBSCRIPTIONS to hundreds
+         of PRESENTITIES.
+</pre></blockquote>
+<p class='done'>DONE in existing Jabber implementations and deployments (though not necessarily for every single subscriber -- usage varies).</p>
+<blockquote><pre>
+      -- (2.2.5) hundreds of distinct SUBSCRIBERS have SUBSCRIPTIONS to
+         a single PRESENTITY.
+</pre></blockquote>
+<p class='done'>DONE in existing Jabber implementations and deployments.</p>
+<blockquote><pre>
+      -- (2.2.6) every single SUBSCRIBER has SUBSCRIPTIONS to
+         PRESENTITIES in hundreds of distinct DOMAINS.
+</pre></blockquote>
+<p class='done'>DONE in existing Jabber implementations and deployments (though not necessarily for every single subscriber -- usage varies).</p>
+<h3>2.3. Access Control</h3>
+   <p>The PRINCIPAL controlling a PRESENTITY MUST be able to control</p>
+<blockquote><pre>
+      -- (2.3.1) which WATCHERS can observe that PRESENTITY's PRESENCE
+         INFORMATION.
+</pre></blockquote>
+<p class='done'>DONE via presence subscriptions -- only those whom the user approves can observe the user's presence (in XMPP, the *only* Watchers are Subscribers).</p>
+<blockquote><pre>
+      -- (2.3.2) which WATCHERS can have SUBSCRIPTIONS to that
+         PRESENTITY's PRESENCE INFORMATION.
+</pre></blockquote>
+<p class='done'>DONE: All subscriptions to a user's presence MUST be approved by the user.</p>
+<blockquote><pre>
+      -- (2.3.3) what PRESENCE INFORMATION a particular WATCHER will see
+         for that PRESENTITY, regardless of whether the WATCHER gets it
+         by fetching or NOTIFICATION.
+</pre></blockquote>
+<p class='done'>DONE: Normally the same presence information (controlled by the user's client) is "broadcasted" to all Subscribers/Watchers for the sake of convenience, but the user can also send directed presence to a particular contact by adding a 'to' address to the presence stanza.</p>
+<blockquote><pre>
+      -- (2.3.4) which other PRINCIPALS, if any, can update the PRESENCE
+         INFORMATION of that PRESENTITY.
+</pre></blockquote>
+<p class='done'>DONE: Only authenticated resources have permission to change presence information associated with the user's username/presentity.</p>
+<blockquote><pre>
+   The PRINCIPAL controlling an INSTANT INBOX MUST be able to control
+</pre></blockquote>
+<blockquote><pre>
+      -- (2.3.5) which other PRINCIPALS, if any, can send INSTANT
+         MESSAGES to that INSTANT INBOX.
+</pre></blockquote>
+<p class='done'>DONE via privacy lists (specified in <a href='/extensions/xep-0016.html'>XEP-0016</a>) or block lists (specified in <a href='/extensions/xep-0191.html'>XEP-0191</a>).</p>
+<blockquote><pre>
+      -- (2.3.6) which other PRINCIPALS, if any, can read INSTANT
+         MESSAGES from that INSTANT INBOX.
+</pre></blockquote>
+<p class='done'>DONE: Only authenticated resources have permission to read or receive messages sent to the user's JID/inbox.</p>
+<blockquote><pre>
+   2.3.7. Access control MUST be independent of presence: the PRESENCE
+   SERVICE MUST be able to make access control decisions even when the
+   PRESENTITY is OUT OF CONTACT.
+</pre></blockquote>
+<p class='done'>DONE: XMPP meets all of the foregoing requirements independent of the presence status of an entity, including subscription requests, which are never automatically approved if an entity if offline when the request was received.</p>
+<h3>2.4. Network Topology</h3>
+<blockquote><pre>
+   Note that intermediaries such as PROXIES may be necessitated between
+   IP and non-IP networks, and by an end-user's desire to provide
+   anonymity and hide their IP address.
+</pre></blockquote>
+<p class='comment'>COMMENT: Per discussion with Mark Day (primary author of RFC2779), this requirement specifies that it must be possible for a client to connect to a server through a proxy (i.e., a single IP hop from client to server must not be required). Regarding the point that an end user may desire to hide their IP address, XMPP specifies that this information MUST never be made public by a server.</p>
+<blockquote><pre>
+   2.4.1. The protocol MUST allow the creation of a SUBSCRIPTION both
+   directly and via intermediaries, such as PROXIES.
+</pre></blockquote>
+<p class='done'>DONE: XMPP communications may occur through a proxy or other intermediary.</p>
+<blockquote><pre>
+   2.4.2. The protocol MUST allow the sending of a NOTIFICATION both
+   directly and via intermediaries, such as PROXIES.
+</pre></blockquote>
+<p class='done'>DONE: XMPP communications may occur through a proxy or other intermediary.</p>
+<blockquote><pre>
+   2.4.3. The protocol MUST allow the sending of an INSTANT MESSAGE both
+   directly and via intermediaries, such as PROXIES.
+</pre></blockquote>
+<p class='done'>DONE: XMPP communications may occur through a proxy or other intermediary.</p>
+<blockquote><pre>
+   2.4.4. The protocol proxying facilities and transport practices MUST
+   allow ADMINISTRATORS ways to enable and disable protocol activity
+   through existing and commonly-deployed FIREWALLS.  The protocol MUST
+   specify how it can be effectively filtered by such FIREWALLS.
+</pre></blockquote>
+<p class='done'>DONE: XMPP communications occur over IANA-registered ports and thus may easily be enabled or disabled using commonly-deployed firewalls.</p>
+<h3>2.5. Message Encryption and Authentication</h3>
+<blockquote><pre>
+   2.5.1. The protocol MUST provide means to ensure confidence that a
+   received message (NOTIFICATION or INSTANT MESSAGE) has not been
+   corrupted or tampered with.
+</pre></blockquote>
+<p class='done'>DONE: Addressed by draft-ietf-xmpp-e2e.</p>
+<blockquote><pre>
+   2.5.2. The protocol MUST provide means to ensure confidence that a
+   received message (NOTIFICATION or INSTANT MESSAGE) has not been
+   recorded and played back by an adversary.
+</pre></blockquote>
+<p class='done'>DONE: Addressed by draft-ietf-xmpp-e2e.</p>
+<blockquote><pre>
+   2.5.3. The protocol MUST provide means to ensure that a sent message
+   (NOTIFICATION or INSTANT MESSAGE) is only readable by ENTITIES that
+   the sender allows.
+</pre></blockquote>
+<p class='done'>DONE: Addressed by draft-ietf-xmpp-e2e.</p>
+<blockquote><pre>
+   2.5.4. The protocol MUST allow any client to use the means to ensure
+   non-corruption, non-playback, and privacy, but the protocol MUST NOT
+   require that all clients use these means at all times.
+</pre></blockquote>
+<p class='done'>DONE: Addressed by draft-ietf-xmpp-e2e (use is optional).</p>
+<h2>3. Additional Requirements for PRESENCE INFORMATION</h2>
+<h3>3.1. Common Presence Format</h3>
+<blockquote><pre>
+   3.1.1. All ENTITIES MUST produce and consume at least a common base
+   format for PRESENCE INFORMATION.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   3.1.2. The common presence format MUST include a means to uniquely
+   identify the PRESENTITY whose PRESENCE INFORMATION is reported.
+</pre></blockquote>
+<p class='done'>DONE via server stamping/validation of 'from' address on presence stanzas.</p>
+<blockquote><pre>
+   3.1.3. The common presence format MUST include a means to encapsulate
+   contact information for the PRESENTITY's PRINCIPAL (if applicable),
+   such as email address, telephone number, postal address, or the like.
+</pre></blockquote>
+<p class='done'>DONE via vCard XML format (defined in <a href='/extensions/xep-0054.html'>XEP-0054</a> but not part of core specs).</p>
+<blockquote><pre>
+   3.1.4. There MUST be a means of extending the common presence format
+   to represent additional information not included in the common
+   format, without undermining or rendering invalid the fields of the
+   common format.
+</pre></blockquote>
+<p class='done'>DONE via extensibility of child elements.</p>
+<blockquote><pre>
+   3.1.5. The working group must define the extension and registration
+   mechanisms for presence information schema, including new STATUS
+   conditions and new forms for OTHER PRESENCE MARKUP.
+</pre></blockquote>
+<p class='done'>DONE: XMPP defines several status conditions ("unavailable" corresponding to RFC2778's closed, and "available" corresponding to RFC2778's open, with 4 defined sub-states of available using the &lt;show/&gt; child element); registration of official status conditions must be pursued only through changes to XMPP Core, although XMPP extensibility mechanisms make it possible to define unofficial status conditions as well. The meaning of "other presence markup" is undefined in RFC2778 except to note that it includes any additional presence information (above and beyond status conditions) that may be included in a notification; in XMPP this might include (1) user-defined values of the &lt;status/&gt; element that is part of the XMPP schema, (2) well-known presence information contained in extended namespaces defined in the <a href='/extensions/'>XEP Series</a> published by the XMPP Standards Foundation, or (3) proprietary extensions that are custom to a particular application or implementation. The particular values or data included via (1) or (3) would not be registered or explictly defined, whereas those included via (2) would be (albeit outside the purview of the XMPP WG). However, extended presence information mechanisms such as those in the <a href='/extensions/'>XEP Series</a> would need to be defined and approved through the XMPP WG in order to be considered part of XMPP.</p>
+<blockquote><pre>
+   3.1.6. The presence format SHOULD be based on IETF standards such as
+   vCard [RFC 2426] if possible.
+</pre></blockquote>
+<p class='done'>DONE: The vCard XML format is used for information lookup regarding principals. In addition, other IETF standards form the basis for aspects of the presence format; as an example, an XMPP address is made up of three parts, all of which must conform to various stringprep profiles.</p>
+<h3>3.2. Presence Lookup and Notification</h3>
+<blockquote><pre>
+   3.2.1. A FETCHER MUST be able to fetch a PRESENTITY's PRESENCE
+   INFORMATION even when the PRESENTITY is OUT OF CONTACT.
+</pre></blockquote>
+<p class='done'>DONE, although it must be noted that in XMPP only the server of a subscriber is a fetcher.</p>
+<blockquote><pre>
+   3.2.2. A SUBSCRIBER MUST be able to request a SUBSCRIPTION to a
+   PRESENTITY's PRESENCE INFORMATION, even when the PRESENTITY is OUT OF
+   CONTACT.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   3.2.3. If the PRESENCE SERVICE has SUBSCRIPTIONS for a PRESENTITY's
+   PRESENCE INFORMATION, and that PRESENCE INFORMATION changes, the
+   PRESENCE SERVICE MUST deliver a NOTIFICATION to each SUBSCRIBER,
+   unless prevented by the PRESENTITY's ACCESS RULES.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   3.2.4. The protocol MUST provide a mechanism for detecting when a
+   PRESENTITY or SUBSCRIBER has gone OUT OF CONTACT.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   3.2.5. The protocol MUST NOT depend on a PRESENTITY or SUBSCRIBER
+   gracefully telling the service that it will no longer be in
+   communication, since a PRESENTITY or SUBSCRIBER may go OUT OF CONTACT
+   due to unanticipated failures.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<h3>3.3. Presence Caching and Replication</h3>
+<blockquote><pre>
+   3.3.1. The protocol MUST include mechanisms to allow PRESENCE
+   INFORMATION to be cached.
+</pre></blockquote>
+<p class='done'>DONE: nothing in XMPP prevents presence caching on the part of a server, although caching is an implementation issue.</p>
+<blockquote><pre>
+   3.3.2. The protocol MUST include mechanisms to allow cached PRESENCE
+   INFORMATION to be updated when the master copy changes.
+</pre></blockquote>
+<p class='done'>DONE: although "master copy" is not defined here, we assume that the master copy is normally possessed by the XMPP client acting as a presence user agent, in which case the protocol includes a mechanism for enabling the client to update the cache (by sending updated presence information to the server).</p>
+<blockquote><pre>
+   3.3.3 The protocol caching facilities MUST NOT circumvent established
+   ACCESS RULES or restrict choice of authentication/encryption
+   mechanisms.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<h3>3.4 Performance</h3>
+<blockquote><pre>
+   3.4.1 When a PRESENTITY changes its PRESENCE INFORMATION, any
+   SUBSCRIBER to that information MUST be notified of the changed
+   information rapidly, except when such notification is entirely
+   prevented by ACCESS RULES. This requirement is met if each
+   SUBSCRIBER's NOTIFICATION is transported as rapidly as an INSTANT
+   MESSAGE would be transported to an INSTANT INBOX.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<h2>4. Additional Requirements for INSTANT MESSAGES</h2>
+<h3>4.1. Common Message Format</h3>
+<blockquote><pre>
+   4.1.1. All ENTITIES sending and receiving INSTANT MESSAGES MUST
+   implement at least a common base format for INSTANT MESSAGES.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   4.1.2. The common base format for an INSTANT MESSAGE MUST identify
+   the sender and intended recipient.
+</pre></blockquote>
+<p class='done'>DONE via server stamping/validation of 'from' and 'to' addresses.</p>
+<blockquote><pre>
+   4.1.3. The common message format MUST include a return address for
+   the receiver to reply to the sender with another INSTANT MESSAGE.
+</pre></blockquote>
+<p class='done'>DONE via server stamping/validation of 'from' address on message from sender.</p>
+<blockquote><pre>
+   4.1.4. The common message format SHOULD include standard forms of
+   addresses or contact means for media other than INSTANT MESSAGES,
+   such as telephone numbers or email addresses.
+</pre></blockquote>
+<p class='done'>DONE via vCard XML format (defined in <a href='/extensions/xep-0054.html'>XEP-0054</a> but not part of core specs).</p>
+<blockquote><pre>
+   4.1.5. The common message format MUST permit the encoding and
+   identification of the message payload to allow for non-ASCII or
+   encrypted content.
+</pre></blockquote>
+<p class='done'>DONE: Non-ASCII content is addressed by use of UTF-8, encrypted content is addressed by draft-ietf-xmpp-e2e.</p> 
+<blockquote><pre>
+   4.1.6. The protocol must reflect best current practices related to
+   internationalization.
+</pre></blockquote>
+<p class='done'>DONE via use of UTF-8, as well as optional inclusion of multiple &lt;body/&gt; and &lt;subject/&gt; child elements of the message stanza with distinct values of the 'xml:lang' attribute.</p>
+<blockquote><pre>
+   4.1.7. The protocol must reflect best current practices related to
+   accessibility.
+</pre></blockquote>
+<p class='done'>DONE. Clearer definition of accessibility requirements would be helpful.</p>
+<blockquote><pre>
+   4.1.8. The working group MUST define the extension and registration
+   mechanisms for the message format, including new fields and new
+   schemes for INSTANT INBOX ADDRESSES.
+</pre></blockquote>
+<p class='done'>DONE: XMPP defines several child elements of the message stanza (subject, body, thread); definition of official new child elements would need to be pursued through changes to XMPP Core. However, XMPP includes a ready mechanism for extension, since a message stanza may contain child elements in other namespaces. Many such extended namespaces are defined in the <a href='/extensions/'>XEP Series</a> (e.g., <a href='/extensions/xep-0045.html'>multi-user chat</a>), and proprietary extensions that are custom to a particular application or implementation may also be included if desired. The particular values or data included via custom extensions would not be registered or explictly defined, whereas those defined in the <a href='/extensions/'>XEP Series</a> would be (albeit outside the purview of the XMPP WG). Extended message information mechanisms such as those specified in the <a href='/extensions/'>XEP Series</a> would need to be defined and approved through the XMPP WG in order to be considered part of XMPP.</p>
+<blockquote><pre>
+   4.1.9. The working group MUST determine whether the common message
+   format includes fields for numbering or identifying messages. If
+   there are such fields, the working group MUST define the scope within
+   which such identifiers are unique and the acceptable means of
+   generating such identifiers.
+</pre></blockquote>
+<p class='done'>DONE via the &lt;thread/&gt; child of the message stanza and via the optional 'id' attribute.</p>
+<blockquote><pre>
+   4.1.10. The common message format SHOULD be based on IETF-standard
+   MIME [RFC 2045].
+</pre></blockquote>
+<p class='unsure'>NOT DONE: the XMPP message format is not based on MIME. Although this requirement is a SHOULD, MIME data could be included in an extended namespace if needed or desired; for example, this is the approach taken by draft-ietf-xmpp-e2e, which uses S/MIME for end-to-end object encryption.</p>
+<h3>4.2. Reliability</h3>
+<blockquote><pre>
+   4.2.1. The protocol MUST include mechanisms so that a sender can be
+   informed of the SUCCESSFUL DELIVERY of an INSTANT MESSAGE or reasons
+   for failure.  The working group must determine what mechanisms apply
+   when final delivery status is unknown, such as when a message is
+   relayed to non-IMPP systems.
+</pre></blockquote>
+<p class='done'>DONE: reasons for failure are communicated via messages of type "error" sent to the sender if delivery is not successful.</p>
+<h3>4.3 Performance</h3>
+<blockquote><pre>
+   4.3.1. The transport of INSTANT MESSAGES MUST be sufficiently rapid
+   to allow for comfortable conversational exchanges of short messages.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<h3>4.4 Presence Format</h3>
+<blockquote><pre>
+   4.4.1. The common presence format MUST define a minimum standard
+   presence schema suitable for INSTANT MESSAGE SERVICES.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   4.4.2. When used in a system supporting INSTANT MESSAGES, the common
+   presence format MUST include a means to represent the STATUS
+   conditions OPEN and CLOSED.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   4.4.3. The STATUS conditions OPEN and CLOSED may also be applied to
+   messaging or communication modes other than INSTANT MESSAGE SERVICES.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<h2>5. Security Considerations</h2>
+<h3>5.1. Requirements related to SUBSCRIPTIONS</h3>
+   <p>When A establishes a SUBSCRIPTION to B's PRESENCE INFORMATION:</p>
+<blockquote><pre>
+   5.1.1. The protocol MUST provide A means of identifying and
+   authenticating that the PRESENTITY subscribed to is controlled by B.
+</pre></blockquote>
+<p class='done'>DONE: The <em>identity</em> of B is provided to A by B's Jabber ID, and appropriate authentication credentials must be provided in order for a Principal to control B's presence information. This requirement may further specify that B must be able to sign the presence information it generates in such a way that A can determine that the information is authentic; such a requirement is addressed by draft-ietf-xmpp-e2e.</p>
+<blockquote><pre>
+   5.1.2. If A so chooses, the protocol SHOULD NOT make A's SUBSCRIPTION
+   to B obvious to a third party C.
+</pre></blockquote>
+<p class='done'>DONE: The subscription between A and B is private and is never revealed to any third party. XMPP support here is stronger than required.</p>
+<blockquote><pre>
+   5.1.3. The protocol MUST provide B with means of allowing an
+   unauthenticated subscription by A.
+</pre></blockquote>
+<p class='done'>DONE: Authentication is not required in order to allow a subscription.</p>
+<blockquote><pre>
+   5.1.4. The protocol MUST provide A means of verifying the accurate
+   receipt of the content B chooses to disclose to A.
+</pre></blockquote>
+<p class='done'>DONE: This requirement specifies that there must be a means of verifying the integrity of presence information; this is addressed by draft-ietf-xmpp-e2e.</p>
+<blockquote><pre>
+   5.1.5. B MUST inform A if B refuses A's SUBSCRIPTION. Note that B may
+   choose to accept A's SUBSCRIPTION, but fail to deliver any
+   information to it (so-called "polite blocking"). See 5.1.15.
+</pre></blockquote>
+<p class='done'>DONE: The MUST is addressed fully by sending &lt;presence type='unsubscribed'/&gt;. Polite blocking is handled via privacy lists (specified in <a href='/extensions/xep-0016.html'>XEP-0016</a>) or block lists (specified in <a href='/extensions/xep-0191.html'>XEP-0191</a>).</p>
+<blockquote><pre>
+   5.1.6. The protocol MUST NOT let any third party C force A to
+   subscribe to B's PRESENCE INFORMATION without A's consent.
+</pre></blockquote>
+<p class='done'>DONE: No third parties are involved in presence subscriptions.</p>
+<blockquote><pre>
+   5.1.7. A MUST be able to cancel her SUBSCRIPTION to B's PRESENCE
+   INFORMATION at any time and for any reason.  When A does so, the
+   PRESENCE SERVICE stops informing A of changes to B's PRESENCE
+   INFORMATION.
+</pre></blockquote>
+<p class='done'>DONE via &lt;presence type='unsubscribe'/&gt;.</p>
+<blockquote><pre>
+   5.1.8. The protocol MUST NOT let an unauthorized party C cancel A's
+   SUBSCRIPTION to B.
+</pre></blockquote>
+<p class='done'>DONE: No third parties are involved in presence subscriptions.</p>
+<blockquote><pre>
+   5.1.9. If A's SUBSCRIPTION to B is cancelled, the service SHOULD
+   inform A of the cancellation.
+</pre></blockquote>
+<p class='done'>DONE via &lt;presence type='unusbscribe'/&gt;.</p>
+<blockquote><pre>
+   5.1.10. A SHOULD be able to determine the status of A's SUBSCRIPTION
+   to B, at any time.
+</pre></blockquote>
+<p class='done'>DONE via the 'subscription' attribute in roster items.</p>
+<blockquote><pre>
+   5.1.11. The protocol MUST provide B means of learning about A's
+   SUBSCRIPTION to B, both at the time of establishing the SUBSCRIPTION
+   and afterwards.
+</pre></blockquote>
+<p class='done'>DONE as described above.</p>
+<blockquote><pre>
+   5.1.12. The protocol MUST provide B means of identifying and
+   authenticating the SUBSCRIBER's PRINCIPAL, A.
+</pre></blockquote>
+<p class='done'>DONE: Identification is provided via JIDs and vCard lookups.</p>
+<blockquote><pre>
+   5.1.13. It MUST be possible for B to prevent any particular PRINCIPAL
+   from subscribing.
+</pre></blockquote>
+<p class='done'>DONE via not allowing subscriptions unless approved by B.</p>
+<blockquote><pre>
+   5.1.14. It MUST be possible for B to prevent anonymous PRINCIPALS
+   from subscribing.
+</pre></blockquote>
+<p class='done'>DONE: There are no anonymous Principals in XMPP.</p>
+<blockquote><pre>
+   5.1.15. It MUST be possible for B to configure the PRESENCE SERVICE
+   to deny A's subscription while appearing to A as if the subscription
+   has been granted (this is sometimes called "polite blocking").  The
+   protocol MUST NOT mandate the PRESENCE SERVICE to service
+   subscriptions that are treated in this manner.
+</pre></blockquote>
+<p class='done'>DONE via privacy lists (specified in <a href='/extensions/xep-0016.html'>XEP-0016</a>) or block lists (specified in <a href='/extensions/xep-0191.html'>XEP-0191</a>).</p>
+<blockquote><pre>
+   5.1.16. B MUST be able to cancel A's subscription at will.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   5.1.17. The protocol MUST NOT require A to reveal A's IP address to
+   B.
+</pre></blockquote>
+<p class='done'>DONE: IP addresses are never made public in XMPP.</p>
+<blockquote><pre>
+   5.1.18 The protocol MUST NOT require B to reveal B's IP address to A.
+</pre></blockquote>
+<p class='done'>DONE: IP addresses are never made public in XMPP.</p>
+<h3>5.2. Requirements related to NOTIFICATION</h3>
+<blockquote><pre>
+   When a PRINCIPAL B publishes PRESENCE INFORMATION for NOTIFICATION to
+   another PRINCIPAL A:
+</pre></blockquote>
+<blockquote><pre>
+   5.2.1. The protocol MUST provide means of ensuring that only the
+   PRINCIPAL A being sent the NOTIFICATION by B can read the
+   NOTIFICATION.
+</pre></blockquote>
+<p class='done'>DONE: Only authenticated resources may access such information.</p>
+<blockquote><pre>
+   5.2.2. A should receive all NOTIFICATIONS intended for her.
+</pre></blockquote>
+<p class='done'>DONE. If a notification cannot be delivered, B will receive an error.</p>
+<blockquote><pre>
+   5.2.3. It MUST be possible for B to prevent A from receiving
+   notifications, even if A is ordinarily permitted to see such
+   notifications.  It MUST be possible for B to, at its choosing, notify
+   different subscribers differently, through different notification
+   mechanisms or through publishing different content. This is a
+   variation on "polite blocking".
+</pre></blockquote>
+<p class='done'>DONE via ability to send &lt;presence to='A' type='unavailable'/&gt; ("directed presence").</p>
+<blockquote><pre>
+   5.2.4. The protocol MUST provide means of protecting B from another
+   PRINCIPAL C "spoofing" notification messages about B.
+</pre></blockquote>
+<p class='done'>DONE: Prevention of address spoofing is addressed via authentication and by having the server stamp/verify 'from' addresses.</p>
+<blockquote><pre>
+   5.2.5. The protocol MUST NOT require that A reveal A's IP address to
+   B.
+</pre></blockquote>
+<p class='done'>DONE: IP addresses are never made public in XMPP.</p>
+<blockquote><pre>
+   5.2.6. The protocol MUST NOT require that B reveal B's IP address to
+   A.
+</pre></blockquote>
+<p class='done'>DONE: IP addresses are never made public in XMPP.</p>
+<h3>5.3. Requirements related to receiving a NOTIFICATION</h3>
+<blockquote><pre>
+   When a PRINCIPAL A receives a notification message from another
+   principal B, conveying PRESENCE INFORMATION,
+</pre></blockquote>
+<blockquote><pre>
+   5.3.1. The protocol MUST provide A means of verifying that the
+   presence information is accurate, as sent by B.
+</pre></blockquote>
+<p class='done'>DONE via authentication and identification.</p>
+<blockquote><pre>
+   5.3.2. The protocol MUST ensure that A is only sent NOTIFICATIONS
+   from entities she has subscribed to.
+</pre></blockquote>
+<p class='done'>DONE via privacy lists (specified in <a href='/extensions/xep-0016.html'>XEP-0016</a>) or block lists (specified in <a href='/extensions/xep-0191.html'>XEP-0191</a>).</p>
+<blockquote><pre>
+   5.3.3. The protocol MUST provide A means of verifying that the
+   notification was sent by B.
+</pre></blockquote>
+<p class='done'>DONE via prevention of address spoofing.</p>
+<h3>5.4. Requirements related to INSTANT MESSAGES</h3>
+<blockquote><pre>
+   When a user A sends an INSTANT MESSAGE M to another user B,
+</pre></blockquote>
+<blockquote><pre>
+   5.4.1. A MUST receive confirmation of non-delivery.
+</pre></blockquote>
+<p class='done'>DONE via appropriate error messages if M cannot be delivered.</p>
+<blockquote><pre>
+   5.4.2. If M is delivered, B MUST receive the message only once.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   5.4.3. The protocol MUST provide B means of verifying that A sent the
+   message.
+</pre></blockquote>
+<p class='done'>DONE via authentication and identification.</p>
+<blockquote><pre>
+   5.4.4. B MUST be able to reply to the message via another instant
+   message.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   5.4.5. The protocol MUST NOT always require A to reveal A's IP
+   address, for A to send an instant message.
+</pre></blockquote>
+<p class='done'>DONE: IP addresses are never made public in XMPP.</p>
+<blockquote><pre>
+   5.4.6. The protocol MUST provide A means of ensuring that no other
+   PRINCIPAL C can see the content of M.
+</pre></blockquote>
+<p class='done'>DONE via addressing and encryption (draft-ietf-xmpp-e2e).</p>
+<blockquote><pre>
+   5.4.7. The protocol MUST provide A means of ensuring that no other
+   PRINCIPAL C can tamper with M, and B means to verify that no
+   tampering has occurred.
+</pre></blockquote>
+<p class='done'>DONE via encryption (draft-ietf-xmpp-e2e).</p>
+<blockquote><pre>
+   5.4.8. B must be able to read M.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   5.4.9. The protocol MUST allow A to sign the message, using existing
+   standards for digital signatures.
+</pre></blockquote>
+<p class='done'>DONE.</p>
+<blockquote><pre>
+   5.4.10. B MUST be able to prevent A from sending him messages
+</pre></blockquote>
+<p class='done'>DONE via privacy lists (specified in <a href='/extensions/xep-0016.html'>XEP-0016</a>) or block lists (specified in <a href='/extensions/xep-0191.html'>XEP-0191</a>).</p>
+<!--#include virtual="/includes/foot.txt" -->

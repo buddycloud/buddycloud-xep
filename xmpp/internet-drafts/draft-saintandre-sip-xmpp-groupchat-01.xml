@@ -1,0 +1,1412 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc compact="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc strict="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<rfc category="info" docName="draft-saintandre-sip-xmpp-groupchat-01" ipr="pre5378Trust200902">
+
+  <front>
+    <title abbrev="SIP-XMPP Interworking: Chat">Interworking between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP): Multi-Party Text Chat</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>Cisco</organization>
+      <address>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+    <author initials="S." surname="Loreto" fullname="Salvatore Loreto">
+      <organization>Ericsson</organization>
+      <address>
+        <postal>
+          <street>Hirsalantie 11</street>
+          <code>02420</code> 
+          <city>Jorvas</city> 
+          <country>Finland</country>
+         </postal>
+        <email>Salvatore.Loreto@ericsson.com</email>
+      </address>
+    </author>
+    <author initials="F." surname="Forno" fullname="Fabio Forno">
+     <organization>Bluendo srl</organization>
+     <address>
+       <postal>
+         <street>Via Morosini 10</street>
+         <code>10128</code> 
+         <city>Torino</city> 
+         <country>Italy</country>
+        </postal>
+       <email>fabio@bluendo.com</email>
+     </address>
+   </author>
+    <date year="2009" month="March" day="8"/>
+    <area>RAI</area>
+    <keyword>Text Chat</keyword>
+    <keyword>Instant Messaging</keyword>
+    <keyword>Session Initiation Protocol</keyword>
+    <keyword>SIP</keyword>
+    <keyword>Message Sessions Relay Protocol</keyword>
+    <keyword>MSRP</keyword>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>XMPP</keyword>
+    <abstract>
+      <t>This document defines a bi-directional protocol mapping for the exchange of instant messages in the context of a many-to-many chat session among users of the Session Initiation Protocol (SIP) and users of the Extensible Messaging and Presence Protocol (XMPP).  Specifically for SIP text chat, this document specifies a mapping to the Message Session Relay Protocol (MSRP).</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+
+      <section title="Overview" anchor="intro-overview">
+        <t>Both the Session Initiation Protocol <xref target="SIP"/> and the Extensible Messaging and Presence Protocol <xref target="XMPP"/> can be used for the purpose of many-to-many text chat over the Internet. To ensure interworking between these technologies, it is important to define bi-directional protocol mappings.</t>
+        <t>The architectural assumptions underlying such protocol mappings are provided in <xref target="SIP-XMPP"/>, including mapping of addresses and error conditions. Mappings for single instant messages (sometimes called "pager-mode" messaging) are provided in <xref target="SIP-XMPP-IM"/>. Mappings for one-to-one text chat sessions are provided in <xref target="SIP-XMPP-CHAT"/>. </t>
+
+<t>This document specifies mappings for many-to-many text chat sessions (sometimes called "groupchat"); in particular, this document specifies mappings between XMPP and the Message Session Relay Protocol <xref target="MSRP"/>.</t>
+        <t>Note: The capitalized key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="TERMS">RFC 2119</xref>.</t>
+      </section>
+
+
+      <section title="Scope" anchor="intro-scope">
+        <t>Both XMPP and SIP/SIMPLE technologies enable multi-user text chat, whereby users can exchange messages in the context of a room. The term "room" usually is a synonym for a virtual environment where people enter and exchange messages.</t>
+<!--SAL-->
+
+            <t>Groupchat messages are messages which are sent from a sender to multiple recipients (i.e., two or more) in the context of a "multi-user chat session", "text conference", or "chatroom".  In XMPP a groupchat message is a &lt;message/&gt; stanza of type "groupchat" that is reflected from the sender to multiple recipients by a multi-user chat service, as defined in <xref target="MUC"/>.  In SIP/SIMPLE a groupchat message is reflected from the sender to multiple recipients by a conference server that uses MSRP to handle groupchat sessions, as defined in <xref target="MSRP-MULTI"/>.</t>
+    
+
+        <t>As in <xref target="SIP-XMPP-IM"/> and related documents, the approach taken here is to directly map syntax and semantics from one protocol to another.  The mapping described herein depends on the protocols defined in the following specifications:</t>
+        <t>
+          <list style="symbols">
+            <t>XMPP chat sessions using message stanzas of type "groupchat" are specified in <xref target="MUC"/>.</t>
+            <t>SIP-based chat room sessions using the SIP INVITE and SEND request types are specified in <xref target="MSRP-MULTI"/>.</t>
+          </list>
+        </t>
+      </section>
+
+      <section title="Formal and Informal Sessions" anchor="intro-sessions">
+        <t>[TBD] Does XMPP use Formal and Informal session also for group-chat?</t>
+      </section>
+                
+      <section title="Gateway Heuristics" anchor="intro-heuristics">
+        <t>[TBD]</t>
+        <!--t>after the initial join the gw must learn than verona@shakespeare.net is a conference service</t-->
+
+
+      </section>
+
+
+      <section title="Acknowledgements" anchor="intro-ack">
+        <t>Some text in this document was borrowed from <xref target="SIP-XMPP"/> and from <xref target="MUC"/>.</t>
+      </section>
+
+      <section title="Discussion Venue" anchor="intro-discuss">
+        <t>The authors welcome discussion and comments related to the topics presented in this document.  The preferred forum is the &lt;sip-xmpp@xmpp.org&gt; mailing list, for which archives and subscription information are available at <eref target="http://mail.jabber.org/mailman/listinfo/sip-xmpp"/>.</t>
+      </section>
+    </section>
+
+
+    <section title="XMPP Group Chat to MSRP Multiparty Instant Message (IM) Session" anchor="xmppf">
+      <t>This section describes how to map an XMPP Group Chat to a Multi-party Instant Message (IM) MSRP session.</t>
+      <figure>
+        <artwork><![CDATA[
+                                                  MSRP conference
+XMPP User                      GW                       server
+    |                          |                          |
+    |(F1) (XMPP) Entering a room                          |
+    |------------------------->|                          |
+    |                          |(F2) (SIP) INVITE         |
+    |                          |------------------------->|
+    |                          |(F3) (SIP) 200 OK         |
+    |                          |<-------------------------|
+    |                          |(F4) (SIP) ACK            |
+    |                          |------------------------->|
+    |                          |                          |
+    |                          |(F5) (MSRP) NICKNAME      |
+    |                          |------------------------->|
+    |                          |(F6) (MSRP) 200 OK        |
+    |                          |<-------------------------|
+    |                          |                          |
+    |                          |(F7) (SIP)SUBSCRIBE       |
+    |                          |------------------------->|
+    |                          |     Event:conference     |
+    |                          |                          |
+    |                          |(F8) (SIP) 200 OK         |
+    |                          |<-------------------------|
+    |                          |                          |
+    |                          |(F9) (SIP) NOTIFY         |
+    |                          |<-------------------------|
+    |                          |(F10) (SIP) 200 OK        |
+    |                          |------------------------->|
+    |(F11) (XMPP) Presence     |                          |
+    |<-------------------------|                          |
+    |                          |                          |
+    |(F12) (XMPP) A chat message                          |
+    |------------------------->|                          |
+    |                          |(F13) (MSRP) SEND         |
+    |                          |------------------------->|
+    |                          |(F14) (MSRP) 200 OK       |
+    |                          |<-------------------------|
+    |                          |                          |
+    |(F15) (XMPP) echo chat message                       |
+    |--------------------------|                          |
+    .                          .                          .
+    .                          .                          .
+    |(F16) (XMPP) Exiting a room                          |
+    |------------------------->|                          |
+    |                          |(F17) (SIP) BYE           |
+    |                          |------------------------->|
+    |                          |(F18) (SIP) 200 OK        |
+    |                          |<-------------------------|
+        ]]></artwork>
+      </figure>
+
+      <section title="Entering a Room" anchor="xmppf-init">
+        <t>When the XMPP user ("Juliet") wants to join a multi-user chat room ("Verona"), she sends a &lt;presence/&gt; stanza to the hostname hosting that chat room, she also specifies the "nick" she desires to use within the room ("juliet"). The Room Nickname is the resource identifier portion of a Room JID. The Juliet client SHOULD signal its ability to speak the multi-user chat protocol by including in the initial presence stanza an empty &lt;x/&gt; element qualified by the
+'http://jabber.org/protocol/muc' namespace.</t>
+        <figure>
+          <preamble>Example: (F1) Juliet entering a chatroom</preamble>
+          <artwork><![CDATA[
+    <presence from='juliet@example.com'
+             to='verona@chat.shakespeare.net/juliet'>
+      <x xmlns='http='http://jabber.org/protocol/muc'/>
+    </presence>
+
+          ]]></artwork>
+        </figure>
+        <t>Upon receiving such a presence stanza, the XMPP server to which Juliet has authenticated attempts to deliver the stanza to a local domain or attempts to route the presence stanza to the remote domain that services the hostname in the 'to' attribute. Naturally, in this document we assume that the hostname in the 'to' attribute is an Chat Room-aware SIP service hosted by a separate server.</t>
+
+        <t>As specified in <xref target="XMPP-IM"/>, the XMPP server needs to determine the identity of the remote domain, which it does by performing one or more <xref target="DNS-SRV"/> lookups. For presence stanzas, the order of lookups recommended by <xref target="XMPP-IM"/> is to first try the "_xmpp-server" service as specified in <xref target="XMPP"/> and to then try the "_im" service as specified in <xref target="IMP-SRV"/>.  Here we assume that the first lookup will fail but that the second lookup will succeed and return a resolution "_im._simple.shakespeare.net", since we have already assumed that the shakespeare.net hostname is running a SIP instant messaging service.  (Note: The XMPP server may have previously determined that the remote domain is a SIMPLE server, in which case it would not need to perform the SRV lookups; the caching of such information is a matter of implementation and local service policy, and is therefore out of scope for this document.)</t>
+        <t>Once the XMPP server (example.com) has determined that the remote domain is serviced by a SIMPLE server, it hands the XMPP presence stanza off to its local XMPP-to-SIP gateway (x2s.example.com), which transforms the presence stanza into SIP syntax and routes it to the remote conference server (shakespeare.net).</t>
+	<t>As a compliant multi-user chat services MUST accept the presence stanza containing an empty &lt;x/&gt; element qualified by the
+'http://jabber.org/protocol/muc' namespace as a request to enter a room; the XMPP-to-SIP gateway MUST transform it in a SIP INVITE request.
+</t>
+        <figure>
+          <preamble>Example: (F2) Juliet entering a chatroom (SIP transformation)</preamble>
+          <artwork><![CDATA[
+    INVITE sip:verona@chat.shakespeare.net SIP/2.0
+    To: <sip:verona@chat.shakespeare.net>
+    From: <sip:juliet@example.com>;tag=786
+    Call-ID: 711609sa
+    Content-Type: application/sdp
+    Content-Lenght: [length]
+
+    c=IN IP4 x2s.shakespeare.net
+    m=message 7654 TCP/MSRP *
+    a=accept-types:text/cpim text/plain text/html
+    a=path:msrp://x2s.example.com:7654/jshA7weztas;tcp
+    a=chatroom:nickname private-message
+          ]]></artwork>
+        </figure>
+        <t>Here the Session Description Protocol offer specifies the MSRP-aware XMPP-to-SIP gateway on the XMPP side as well as other particulars of the session.</t>
+        <t><list style="empty"><t>There is no direct mapping for the MSRP URIs.  In fact MSRP URIs identify a session of instant messages at a particular device; they are ephemeral and have no meaning outside the scope of that session.  The authority component of the MSRP URI MUST contain the XMPP-to-SIP gateway hostname or numeric IP address and an explicit port number.</t></list></t>
+        <t>As specified in <xref target="SIP-XMPP"/>, the mapping of XMPP syntax elements to SIP and <xref target='SDP'/> syntax elements SHOULD be as shown in the following table.  (Mappings for elements not mentioned are undefined.)</t>
+        <figure>
+          <preamble>Table 1: Message syntax mapping from XMPP to SIP/SDP</preamble>
+          <artwork><![CDATA[
+    +-----------------------------+-----------------------------+
+    |  XMPP Element or Attribute  |  SIP Header or SDP Contents |
+    +-----------------------------+-----------------------------+
+    |  from                       |  From                       |
+    |  to (without the /nick)     |  To                         |
+    +-----------------------------+-----------------------------+
+          ]]></artwork>
+        </figure>
+
+        <t>Here we assume that the chat room server accepts the session establishment. It includes the 'isfocus' and other relevant feature tags in the Contact header field of the response. The chat room server also includes an answer session description that acknowledges the choice of media and contains the extensions specified in <xref target="MSRP-MULTI"/>.</t>
+        <figure>
+          <preamble>Example: (F3) the chat room accepts the session establishment</preamble>
+          <artwork><![CDATA[
+  SIP/2.0 200 OK
+  To: <sip:verona@chat.shakespeare.net>
+  From: <sip:juliet@example.com>;tag=786
+  Call-ID: 711609sa
+  Contact: <sip:verona@chat.shakespeare.net;transport=tcp>\
+           ;methods="INVITE,BYE,OPTIONS,ACK,CANCEL,SUBSCRIBE,NOTIFY"\
+           ;automata;isfocus;message;event="conference"
+  Content-Type: application/sdp
+  Content-Lenght: [length]
+
+  c=IN IP4 shakespeare.net
+  m=message 12763 TCP/MSRP *
+  a=accept-types:message/cpim
+  a=accept-wrapped-types:text/plain text/html *
+  a=path:msrp://s2x.shakespeare.net:12763/kjhd37s2s20w2a;tcp
+         ]]></artwork>
+        </figure>
+        <t>Upon receiving such a response, the SIMPLE server or associated SIP-to-XMPP gateway MUST send a SIP ACK to the SIP user.</t>
+        <figure>
+          <preamble>Example: (F4) the Gateway sends ACK to the chat room server</preamble>
+          <artwork><![CDATA[
+    ACK sip:verona@chat.shakespeare.net SIP/2.0
+    To: <sip:verona@chat.shakespeare.net>;tag=087js
+    From: <sip:juliet@example.com>;tag=786
+    Call-ID: 711609sa
+          ]]></artwork>
+        </figure>
+
+      </section>
+
+      <section title="Setting up a nickname" anchor="xmpp-nicksetup">
+
+
+        <t>If the chat room server accepted the session, the SIMPLE server or associated SIP-to-XMPP gateway MUST set up the nickname as received in the presence stanza. The nickname is set up using the extension specified in <xref target="MSRP-MULTI"/></t>
+
+        <figure>
+          <preamble>Example: (F5) the Gateway set up the nickname</preamble>
+          <artwork><![CDATA[
+    MSRP a786hjs2 NICKNAME
+    To-Path: msrp://s2x.shakespeare.net:12763/kjhd37s2s20w2a;tcp
+    From-Path: msrp://x2s.example.com:7654/jshA7weztas;tcp
+    Use-Nickname: "juliet"
+    -------a786hjs2
+          ]]></artwork>
+        </figure>
+
+
+        <t>The chat room server analyzes the existing allocation of nicknames, accepts the nick name proposal and answers with a 200   
+        response.</t>
+        <figure>
+          <preamble>Example: (F6) the chat room accepts the nickname proposal</preamble>
+          <artwork><![CDATA[
+    MSRP a786hjs2 200 OK
+    To-Path: msrp://x2s.example.com:7654/jshA7weztas;tcp
+    From-Path: msrp://s2x.shakespeare.net:12763/kjhd37s2s20w2a;tcp
+    -------a786hjs2
+          ]]></artwork>
+        </figure>
+        
+      </section>
+
+      <section title="Presence Broadcast" anchor="xmppf-presence">
+      <t>If the multi-user chat service accepts the request to enter a room, the xmpp user expects to receive back presence 
+      information from all the existing occupants' room. So the XMPP-to-SIP gateway MUST SUBSCRIBE to the Conference Event
+      package <xref target="RFC4575"/> on the MSRP conference server. When the subscription is completed the MSRP conference
+      server send back to the XMPP-to-SIP gateway a NOTIFY with the presence information from all the existing occupants' room</t>
+
+        <figure>
+          <preamble>Example: (F9) the chat room notifies the presence information</preamble>
+          <artwork><![CDATA[
+    NOTIFY sip:verona@chat.shakespeare.net SIP/2.0
+    To: Juliet <sip:juliet@example.com>;tag=43524545
+    From: <sip:verona@chat.shakespeare.net>;tag=a3343df32
+    Call-ID: k3l43id034ksereree
+    Event: conference
+    Subscription-State: active;expires=3600
+    Content-Type: application/conference-info+xml
+    Content-Length: ...
+
+
+    <conference-info version="0" state="full"
+     entity="sip:3402934234@conf.example.com">
+     <conference-description>
+      <subject>Today in Verona</subject>
+      <conf-uris>
+       <entry>
+        <uri>tel:+18882934234</uri>
+       </entry>
+      </conf-uris>
+     </conference-description>
+     <users>
+      <user entity="sip:romeo@example.com" state="full">
+       <nickname-text>romeo</nickname-text>
+        <roles>
+         <entry>participant</entry>
+        </roles>
+      </user>
+     </users>
+    </conference-info>
+
+          ]]></artwork>
+        </figure>
+	
+	<t><list style="format [NOTE: %d]">
+        <t> a full mapping of RFC 4575 will be defined later on.</t>
+        <t> the &lt;nickname-text/&gt; attribute is an extension to the conference package
+        explained but not defined in <xref target="MSRP-MULTI"/> </t>
+        <t>the subject (if present in the NOTIFY) must be sent with a separate &lt;message/&gt; stanza;
+        so after F11 there should be another &lt;message/&gt; stanza from the gw to the joining party</t>
+        </list></t>
+
+	<t><list style="format [OPEN ISSUE: %d]">
+        <t> how to send to the room jid with the subject child set: do we need to send it in a different presence stanza
+        that the F11?</t>
+        </list></t>
+
+	<t> Upon receiving such a response, the SIP-to-XMPP gateway MUST send a 200 OK to the MSRP conference server and
+        translate it in an xmpp presence stanza.</t>
+
+         <figure>
+          <preamble>Example: (F11) the chat room presence information translated in XMPP</preamble>
+          <artwork><![CDATA[
+    <presence from='romeo@example.com/romeo'
+     to='verona@chat.shakespeare.net/juliet'>
+     <x xmlns='http://jabber.org/protocol/muc#user'>
+      <item affiliation='none' role='participant'/>
+     </x>
+    </presence>
+          ]]></artwork>
+        </figure>
+
+
+ <t>As specified in ???, the mapping of SIP and SDP syntax elements to XMPP syntax elements SHOULD be as shown in the following table.  (Mappings for elements not mentioned are undefined.)</t>
+        <figure>
+          <preamble>Table 2: Message syntax mapping from SIP/SDP to XMPP</preamble>
+          <artwork><![CDATA[
+    +-----------------------------+-----------------------------+
+    | SIP Header or SDP Contents  | XMPP Element or Attribute   |
+    +-----------------------------+-----------------------------+
+    |  <user entity=...>          |  From                       |
+    |  To + / <nickname-text>     |  To                         |
+    |  roles                      |  role                       |
+    |  'none'                     |  affiliation                |
+    +-----------------------------+-----------------------------+
+          ]]></artwork>
+        </figure>
+
+        <t><list style="format [OPEN ISSUE: %d]"><t> how to match the &lt;roles/&gt; SIP Conference attribute in the XMPP 
+        &lt;affiliation/&gt; and &lt;role/&gt;. In XMPP roles are current privileges within the room while, affiliations 
+        are kept permanently in different sessions (they are the default for a given user).</t></list></t>
+
+      </section>
+
+
+      <section title="Exchanging Messages" anchor="xmppf-exchange">
+       <t>Once the user has joined the chat room, the user can exchange an unbounded number of messages both public and private.</t>
+
+       <t>The mapping of XMPP syntax elements to MSRP syntax elements SHOULD be as shown in the following table.
+        (Mappings for elements not mentioned are undefined.)</t>
+
+        <figure>
+          <preamble>Table 3: Message syntax mapping from XMPP Message to MSRP</preamble>
+          <artwork><![CDATA[
+    +-----------------------------+-----------------------------+
+    |  XMPP Element or Attribute  |  CPIM Header                |
+    +-----------------------------+-----------------------------+
+    |  to                         |  To                         |
+    |  from                       |  From                       |
+    |  <body/>                    |  body of the SEND request   |
+    +-----------------------------+-----------------------------+
+          ]]></artwork>
+        </figure>
+
+	<section title="Sending a Message to All Occupants" anchor="xmppf-messageToAll">
+        <t>When Juliet wants to sends a message to all other occupants in the room, she sends a message of type "groupchat" to 
+        &lt;room@service&gt; itself (i.e. &lt;verona@chat.shakespeare.net&gt; in our example).</t>
+	
+
+        <t>The following examples show an exchange of a public message.</t>
+        <figure>
+          <preamble>Example: (F12) Juliet sends a Message to all occupants</preamble>
+          <artwork><![CDATA[
+    <message from='juliet@example.com'
+              to='verona@chat.shakespeare.net'
+              type='groupchat'>
+          <body>Who knows where Romeo is?</body>
+    </message>
+          ]]></artwork>
+        </figure>
+
+    <t>Upon receiving such stanza message, the XMPP-to-SIP gateway MUST translate it in an MSRP SEND message.</t> 
+
+        <figure>
+          <preamble>Example: (F13) Gateway transforms XMPP message to MSRP</preamble>
+          <artwork><![CDATA[
+    MSRP a786hjs2 SEND
+    To-Path: msrp://s2x.shakespeare.net:12763/kjhd37s2s20w2a;tcp
+    From-Path: msrp://x2s.example.com:7654/jshA7weztas;tcp
+    Message-ID: 87652491
+    Byte-Range: 1-*/*
+    Content-Type: message/cpim
+
+    To: <sip:verona@chat.shakespeare.net;transport=tcp>
+    From: <sip:juliet@example.com>
+    DateTime: 2008-10-15T15:02:31-03:00
+    Content-Type: text/plain
+
+    Who knows where Romeo is?
+    -------a786hjs2$
+          ]]></artwork>
+        </figure>
+        <t>Upon receiving the SEND request, if the request either contains a Failure-Report header field value of "yes" 
+        or does not contain a Failure-Report header at all, MSRP conference server MUST immediately generate and send 
+        a response.</t>
+
+        <figure>
+          <artwork><![CDATA[
+    MSRP d93kswow 200 OK
+    To-Path: msrp://x2s.example.com:7654/jshA7weztas;tcp
+    From-Path: msrp://s2x.shakespeare.net:12763/kjhd37s2s20w2a;tcp
+    -------d93kswow$
+          ]]></artwork>
+        </figure>
+
+        <t>Since the XMPP room could be moderated and an XMPP User can not be sure whether his message has been accepted
+        or not, without an echo from the server, the <xref target="MUC"/> states that the sender have to receive back the
+        same message it has generated. So in this scenario the XMPP-to-SIP gateway has to generate the echo message.</t>
+        </section>
+
+	<section title="Sending a Private Message" anchor="xmppf-privatemessage">
+        <t>Since each occupant has a unique JID, Juliet MAY send a "private message" to a selected occupant via the
+        service by sending a message to the occupant's room JID. The message type SHOULD be "chat" and MUST NOT be
+        "groupchat", but MAY be left unspecified.</t>
+
+        <t>The following examples show an exchange of a private message.</t>
+        <figure>
+          <preamble>Example: (F12) Juliet sends a private message</preamble>
+          <artwork><![CDATA[
+    <message from='juliet@example.com'
+              to='verona@chat.shakespeare.net/romeo'
+              type='chat'/>
+          <body>O Romeo, Romeo! wherefore art thou Romeo?</body>
+    </message>
+          ]]></artwork>
+        </figure>
+    <t>Upon receiving such stanza message, the XMPP-to-SIP gateway MUST translate it in an MSRP SEND message.</t> 
+
+
+        <figure>
+          <preamble>Example: (F13) Gateway transforms XMPP message to MSRP</preamble>
+          <artwork><![CDATA[
+    MSRP a786hjs2 SEND
+    To-Path: msrp://s2x.shakespeare.net:12763/kjhd37s2s20w2a;tcp
+    From-Path: msrp://x2s.example.com:7654/jshA7weztas;tcp
+    Message-ID: 87652491
+    Byte-Range: 1-*/*
+    Content-Type: message/cpim
+
+    To: <sip:romeo@chat.shakespeare.net>
+    From: <sip:juliet@chat.shakespeare.net>
+    DateTime: 2008-10-15T15:02:31-03:00
+    Content-Type: text/plain
+
+    O Romeo, Romeo! wherefore art thou Romeo?
+    -------a786hjs2$
+          ]]></artwork>
+        </figure>
+
+        </section>
+
+      </section>
+
+	<section title="Exiting a Room" anchor="xmppf-exit">
+         <t>If Juliet decides to exit the multi-user chat room, her client sends a presence stanza of type "unavailable" to the &lt;verona@chat.shakespeare.net/juliet&gt; she is currently using in the room.</t>
+
+        <figure>
+          <preamble>Example: (F16) Juliet exiting a chatroom</preamble>
+          <artwork><![CDATA[
+    <presence from='juliet@example.com'
+             to='verona@chat.shakespeare.net/juliet'
+             type='unavailable'>
+    </presence>
+          ]]></artwork>
+        </figure>
+        <t>Upon receiving such stanza exiting the multi-user chat room, the XMPP-to-SIP gateway terminates the SIP session by sending a SIP BYE to MSRP conference server. The MSRP conference server then responds with a 200 OK.</t>
+
+        <t>Juliet MAY include a custom exit message in the presence stanza of type "unavailable"</t>
+        <figure>
+          <preamble>Example: (F16) Juliet exiting a chatroom</preamble>
+          <artwork><![CDATA[
+    <presence from='juliet@example.com'
+             to='verona@chat.shakespeare.net/juliet'
+             type='unavailable'>
+      <status>I can not chat now!</status>
+    </presence>
+          ]]></artwork>
+        </figure>
+
+        <t>Upon receiving such stanza exiting the multi-user chat room, the XMPP-to-SIP gateway MUST before delivering the message and then, after the message is successfully delivered, it terminates the SIP session by sending a SIP BYE to MSRP conference server. The MSRP conference server then responds with a 200 OK.</t>
+
+        </section>
+
+    <section title="Nickname Conflict" anchor="xmppf-nickConflict">
+      <figure>
+        <artwork><![CDATA[
+                                                  MSRP conference
+XMPP User                      GW                       server
+    |                          |                          |
+    |(F1) (XMPP) Entering a room                          |
+    |------------------------->|                          |
+    |                          |(F2) (SIP) INVITE         |
+    |                          |------------------------->|
+    |                          |(F3) (SIP) 200 OK         |
+    |                          |<-------------------------|
+    |                          |(F4) (SIP) ACK            |
+    |                          |------------------------->|
+    |                          |                          |
+    |                          |(F5) (MSRP) NICKNAME      |
+    |                          |------------------------->|
+    |                          |(F6) (MSRP) 423 OK        |
+    |                          |<-------------------------|
+    |                          |                          |
+    |(F7) (XMPP) Presence Error
+    |<-------------------------|                          |
+    .                          .                          .
+    |                          |(F8) (SIP) BYE            |
+    |                          |------------------------->|
+    |                          |(F9) (SIP) 200 OK         |
+    |                          |<-------------------------|
+        ]]></artwork>
+      </figure>
+
+ 
+        <t>The chat room server analyzes the existing allocation of nicknames, and detects that the nickname proposal
+        is already provided to another partecipant by the conference. In this case the MSRP conference server answers
+        with a 423 response.</t>
+        <figure>
+          <preamble>Example: (F6) the chat room does not accept the nickname proposal</preamble>
+          <artwork><![CDATA[
+    MSRP a786hjs2 423 Nickname usage failed
+    To-Path: msrp://x2s.example.com:7654/jshA7weztas;tcp
+    From-Path: msrp://s2x.shakespeare.net:12763/kjhd37s2s20w2a;tcp
+    -------a786hjs2
+          ]]></artwork>
+        </figure>
+
+	<t> Upon receiving such a response, the SIP-to-XMPP gateway MUST translate it in an xmpp presence stanza of type "error"
+        specifying a &lt;conflict/&gt; error condition.</t>
+
+        <figure>
+          <preamble>Example: (F7) Juliet sends a Message to all occupants</preamble>
+          <artwork><![CDATA[
+    <presence from='verona@chat.shakespeare.net'
+              to='juliet@example.com'
+              type='error'>
+      <x xmlns='http='http://jabber.org/protocol/muc'/>
+      <error type='cancel'>
+        <conflict xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+      </error>
+    </presence>
+          ]]></artwork>
+        </figure>
+
+
+        </section>
+
+	<section title="Changing Nickname" anchor="xmppf-nickChanging">
+
+      <figure>
+        <artwork><![CDATA[
+                                                  MSRP conference
+XMPP User                      GW                       server
+    |                          |                          |
+    |(F1) (XMPP) Presence changing Nickname               |
+    |------------------------->|                          |
+    |                          |(F2) (MSRP) NICKNAME      |
+    |                          |------------------------->|
+    |                          |(F3) (MSRP) 200 OK        |
+    |                          |<-------------------------|
+
+        ]]></artwork>
+      </figure>
+
+      <t>If Juliet decides to changing her nickname within the room, she SHOULD send an update presence information to the room, 
+      specifically she SHOULD send a new Nickname in the same room.</t>
+
+
+        <figure>
+          <preamble>Example: (F1) Juliet changing the nickname</preamble>
+          <artwork><![CDATA[
+    <presence from='juliet@example.com'
+             to='verona@chat.shakespeare.net/July'>
+    </presence>
+
+          ]]></artwork>
+        </figure>
+
+        </section>
+    </section>      
+
+    <section title="MSRP Multiparty Instant Message (IM) Session to XMPP Group Chat" anchor="msrp">
+    <t>This section describes how to map a Multi-party Instant Message (IM) MSRP session to an XMPP Group Chat.</t>
+
+      <figure>
+        <artwork><![CDATA[
+                                                    XMPP Chat
+SIP User                     GW                       room                        
+   |                         |                          |
+   |(F1)(SIP) INVITE         |                          |
+   |------------------------>|                          |
+   |(F2) (SIP) 200 OK        |                          |
+   |<------------------------|                          |
+   |(F3) (SIP) ACK           |                          |
+   |------------------------>|                          |
+   |                         |                          |
+   |(F4) (MSRP) NICKNAME     |                          |
+   |------------------------>|                          |
+   |                         |(F5)(XMPP) Entering a room|
+   |                         |------------------------->|
+   |(F6) (MSRP) 200 OK       |                          |
+   |<------------------------|                          |
+   |                         |(F7)(XMPP) (XMPP) Presence|
+   |                         |<-------------------------|
+   |(ISSUE)how to handle F7  |                          |
+   |    if the user has not  |                          |
+   |    yet SUBSCRIBE to     |                          |
+   |    Event: conference    |                          |
+   |                         |                          |
+   |(F8)(SIP) SUBSCRIBE      |                          |
+   |------------------------>|                          |
+   |     Event:conference    |                          |
+   |                         |                          |
+   |(F9) (SIP) 200 OK        |                          |
+   |<------------------------|                          |
+   |                         |                          |
+   |(F10) (SIP) NOTIFY       |                          |
+   |<------------------------|                          |
+   |(F11) (SIP) 200 OK       |                          |
+   |------------------------>|                          |
+   |                         |                          |
+   |(F12)(MSRP) SEND         |                          |
+   |------------------------>|                          |
+   |                         |(F13)(XMPP) A chat message|
+   |(F14)(MSRP) 200 OK       |------------------------->|
+   |<------------------------|(F15)(XMPP) A chat message|
+   |                         |<-------------------------|
+   |(F16)(MSRP) SEND         |                          |
+   |<------------------------|                          |
+   |(F17)(MSRP) 200 OK       |                          |
+   |------------------------>|                          |
+   .                         .                          .
+   .                         .                          .
+   |                         |                          |
+   |(F18)(SIP) BYE           |                          |
+   |------------------------>|                          |
+   |                         |(F19)(XMPP) Exiting a room|
+   |                         |------------------------->|
+   |(F20)(SIP) 200 OK        |                          |
+   |<------------------------|                          |
+        ]]></artwork>
+      </figure>
+
+      <section title="Entering a Room" anchor="mrsp-init">
+     <t>When the MSRP user ("Romeo") wants to join a multi-user chat room ("Verona"), he first has to start the SIP session by sending out
+      a SIP INVITE request containing an offered session description that includes an MSRP media line accompanied by a mandatory "path" and
+      "chatroom" attributes. The MSRP media line is also accompanied by an "accept-types" attribute specifing support for a Message/CPIM top 
+      level wrapper for the MSRP message.</t>
+      
+        <figure>
+          <preamble>Example: (F1) SIP user starts the session</preamble>
+          <artwork><![CDATA[
+    INVITE sip:verona@chat.shakespeare.net SIP/2.0
+    To: <sip:verona@chat.shakespeare.net>
+    From: <sip:romeo@example.com>;tag=786
+    Call-ID: 742510no
+    Content-Type: application/sdp
+    Content-Lenght: [length]
+
+    c=IN IP4 s2x.example.net
+    m=message 7313 TCP/MSRP *
+    a=accept-types:message/cpim text/plain text/html
+    a=path:msrp://s2x.example.net:7313/ansp71weztas;tcp
+    a=chatroom:nickname private-message
+          ]]></artwork>
+        </figure>
+
+        <t><list style="format [OPEN ISSUE: %d]">
+           <t><xref target="MSRP-MULTI"/> does not say anything abouth the inclusion of the SDP "chatroom" attribute in the INVITE
+              however that is the only way for a GW to understand the the INVITE is establishing a group-chat session</t>
+        </list></t>
+
+        <t>Upon receiving the INVITE, the SIP-to-XMPP gateway needs to determine the identity of the remote domain, which it does by 
+        performing one or more DNS SRV lookups <xref target="DNS-SRV"/>. The SIP-to-XMPP gateway SHOULD resolve the address present in the
+       To header of the INVITE to an im URI, then follow the rules in <xref target="IMP-SRV"/> regarding the "_im" SRV service for the
+       target domain contained in the To header. If SRV address resolution fails for the "_im" service, the SIP-to-XMPP gateway MAY attempt
+       a lookup for the "_xmpp-server" service as specified in <xref target="XMPP"/> or MAY return an error to the sender (i.e.  502 Bad
+       Gateway).</t>
+        <t>If SRV address resolution succeeds, the SIP-to-XMPP gateway SHOULD answer successfuly with a SIP 200 OK (F2), but it MUST not
+        yet translate the request into an XMPP presece stanza before the MSRP user set up the nickname.</t>
+
+        <figure>
+          <artwork><![CDATA[
+  SIP/2.0 200 OK
+  To: <sip:verona@chat.shakespeare.net>
+  From: <sip:romeo@example.com>;tag=786
+  Contact: <sip:x2s.example.com;transport=tcp> \
+           ;methods="INVITE,BYE,OPTIONS,ACK,CANCEL,SUBSCRIBE,NOTIFY"\
+           ;automata;isfocus;message;event="conference"
+  Call-ID: 742510no
+  Content-Type: application/sdp
+
+  c=IN IP4 x2s.example.com
+  m=message 8763 TCP/MSRP *
+  a=accept-types:message/cpim text/plain text/html
+  a=path:msrp://x2s.example.com:8763/lkjh37s2s20w2a;tcp
+          ]]></artwork>
+        </figure>
+
+
+        <t><list style="format [OPEN ISSUE: %d]">
+           <t>the GW could use a temporary nick name and translate directly the request into a XMPP presence stanza, entering the XMPP
+           chat room</t>
+        </list></t>
+
+        <figure>
+          <preamble>Example: (F4) the MSRP user set up the nickname</preamble>
+          <artwork><![CDATA[
+    MSRP a786hjs2 NICKNAME
+    To-Path: path:msrp://s2x.example.net:7313/ansp71weztas;tcp
+    From-Path: path:msrp://x2s.example.com:8763/lkjh37s2s20w2a;tcp
+    Use-Nickname: "romeo"
+        -------a786hjs2
+          ]]></artwork>
+        </figure>
+
+        <t>Upon receiving the MSRP NICKNAME request, the SIP-to-XMPP gateway is responsible to generate an XMPP presence stanza and
+        sending it to the hostname hosting that chat room.</t>
+
+        <figure>
+          <preamble>Example: (F5) Romeo entering a chatroom</preamble>
+          <artwork><![CDATA[
+    <presence from='romeo@example.com'
+             to='verona@chat.shakespeare.net/romeo'>
+      <x xmlns='http='http://jabber.org/protocol/muc'/>
+    </presence>
+          ]]></artwork>
+        </figure> 
+
+        <t>If the room does not already contain another user with the nickname, the service accept the access. So if the GW does not
+        receive any stanza of type "error" specifying a &lt;conflict/&gt; error condition, it MUST answer the MSRP nickname proposal
+        with a 200 OK response (F6).</t>
+
+        <figure>
+          <preamble>Example: (F6) </preamble>
+          <artwork><![CDATA[
+    MSRP a786hjs2 200 OK
+    To-Path: path:msrp://x2s.example.com:8763/lkjh37s2s20w2a;tcp
+    From-Path: path:msrp://s2x.example.net:7313/ansp71weztas;tcp
+        -------a786hjs2
+          ]]></artwork>
+        </figure>
+      </section>
+
+      <section title="Presence Broadcast" anchor="msrp-presence">
+        <t>If the multi-user chat service is able to add the user to the room, it sends presence from all the existing occupants' room
+        JIDs to the new occupants's full JID, including extended presence information about roles in an &lt;x/&gt; element.</t>
+
+         <figure>
+          <preamble>Example: (F7) the chat room presence information translated in XMPP</preamble>
+          <artwork><![CDATA[
+    <presence from='verona@chat.shakespeare.net/juliet'
+     to='juliet@example.com'>
+     <x xmlns='http://jabber.org/protocol/muc#user'>
+      <item affiliation='none' role='participant'/>
+     </x>
+    </presence>
+          ]]></artwork>
+        </figure>
+
+	<t> Upon receiving such a response, if the MSRP has already complited the subscription to the Conference Event package
+        <xref target="RFC4575"/>, the XMPP-to-SIP gateway MUST translate it in a SIP NOTIFY request.</t>
+
+
+        <figure>
+          <preamble>Example: (F10) the XMPP-to-SIP notifies the presence information</preamble>
+          <artwork><![CDATA[
+    NOTIFY sip:romeo@example.com SIP/2.0
+    To: Juliet <sip:romeo@example.com>;tag=43524545
+    From: <sip:verona@chat.shakespeare.net>;tag=a3343df32
+    Call-ID: k3l43id034ksererff
+    Event: conference
+    Subscription-State: active;expires=3600
+    Content-Type: application/conference-info+xml
+    Content-Length: ...
+
+
+    <conference-info version="0" state="full"
+     entity="sip:3402934234@conf.example.com">
+     <conference-description>
+      <subject>Today in Verona</subject>
+      <conf-uris>
+       <entry>
+        <uri>tel:+18882934234</uri>
+       </entry>
+      </conf-uris>
+     </conference-description>
+     <users>
+      <user entity="sip:juliet@example.com" state="full">
+       <nickname-text>juliet</nickname-text>
+        <roles>
+         <entry>participant</entry>
+        </roles>
+      </user>
+     </users>
+    </conference-info>
+
+          ]]></artwork>
+        </figure>
+
+      </section>
+
+      <section title="Exchanging Messages" anchor="mrsp-exchange">
+      <t>Once the user has joined the chat room, the user can exchange an unbounded number of messages both public and private.</t>
+
+      <t>The mapping of MSRP syntax elements to XMPP syntax elements SHOULD be as shown in the following table.
+        (Mappings for elements not mentioned are undefined.)</t>
+
+
+        <figure>
+          <preamble>Table 4: Message syntax mapping from MSRP Message to XMPP</preamble>
+          <artwork><![CDATA[
+    +-----------------------------+-----------------------------+
+    |  CPIM Header                |XMPP Element or Attribute    |
+    +-----------------------------+-----------------------------+
+    |  To                         |  to                         |
+    |  From                       |  from                       |
+    |  body of the SEND request   |  <body/>                    |
+    +-----------------------------+-----------------------------+
+          ]]></artwork>
+        </figure>
+
+
+	<section title="Sending a Message to All Occupants" anchor="msrp-messageToAll">
+
+        <t>When Romeo wants to sends a message to all other occupants in the room, he sends a MSRP SEND request to 
+        &lt;room@service&gt; itself (i.e. &lt;verona@chat.shakespeare.net&gt; in our example).</t>
+	
+
+        <figure>
+          <preamble>Example: (F12) ROMEO sends a message to the chat room</preamble>
+          <artwork><![CDATA[
+    MSRP a786hjs2 SEND
+    To-Path: path:msrp://s2x.example.net:7313/ansp71weztas;tcp
+    From-Path: path:msrp://x2s.example.com:8763/lkjh37s2s20w2a;tcp
+    Message-ID: 87652492
+    Byte-Range: 1-*/*
+    Content-Type: message/cpim
+
+    To: <sip:verona@chat.shakespeare.net;transport=tcp>
+    From: <sip:juliet@example.com>
+    DateTime: 2008-10-15T15:02:31-03:00
+    Content-Type: text/plain
+
+    Romeo is here!
+    -------a786hjs2$
+          ]]></artwork>
+        </figure>
+
+        <t>Upon receiving the SEND request, if the request either contains a Failure-Report header field value of "yes" 
+        or does not contain a Failure-Report header at all, the SIP-to-XMPP gateway MUST immediately translate in a xmpp message stanza (F13)
+        and then generate and send an MSRP response (F14).</t>
+
+        <t>The following examples show an exchange of a public message.</t>
+        <figure>
+          <preamble>Example: (F13) Romeo sends a Message to all occupants</preamble>
+          <artwork><![CDATA[
+    <message from='romeo@example.com'
+              to='verona@chat.shakespeare.net'
+              type='groupchat'>
+          <body>Romeo is here!</body>
+    </message>
+          ]]></artwork>
+        </figure>
+
+
+        <figure>
+          <preamble>Example: (F14) the SIP-to-XMPP send the MSRP response</preamble>
+          <artwork><![CDATA[
+    MSRP d93kswow 200 OK
+    To-Path: path:msrp://x2s.example.com:8763/lkjh37s2s20w2a;tcp
+    From-Path: path:msrp://s2x.example.net:7313/ansp71weztas;tcp
+    -------d93kswow$
+          ]]></artwork>
+        </figure>
+
+        <t><list style="format [OPEN ISSUE: %d]">
+           <t>The SIP-to-XMPP gateway will receive back the echo message from the Chat room service. The SIP-to-XMPP gateway 
+           has to translate it back to the MSRP user or no?</t>
+        </list></t>
+
+        </section>
+
+	<section title="Sending a Private Message" anchor="msrp-privatemessage">
+        <t>Romeo MAY send a "private message" to a selected occupant via the chat room service by sending a message 
+        to the occupant's room nick name.</t>
+        <t>The following examples show an exchange of a private message.</t>
+
+        <figure>
+          <preamble>Example: (F12) Romeo sends a private message</preamble>
+          <artwork><![CDATA[
+    MSRP a786hjs2 SEND
+    To-Path: path:msrp://s2x.example.net:7313/ansp71weztas;tcp
+    From-Path: path:msrp://x2s.example.com:8763/lkjh37s2s20w2a;tcp
+    Message-ID: 87652492
+    Byte-Range: 1-*/*
+    Content-Type: message/cpim
+
+    To: <sip:juliet@chat.shakespeare.net>
+    From: <sip:romeo@example.com>
+    DateTime: 2008-10-15T15:02:31-03:00
+    Content-Type: text/plain
+
+    I am here!!!
+    -------a786hjs2$
+          ]]></artwork>
+        </figure>
+
+
+       <figure>
+          <preamble>Example: (F13) Juliet sends a private message</preamble>
+          <artwork><![CDATA[
+    <message from='romeo@example.com'
+              to='verona@chat.shakespeare.net/juliet'
+              type='chat'/>
+          <body>I am here!!!</body>
+    </message>
+          ]]></artwork>
+        </figure>
+
+
+
+        </section>
+      </section>
+
+	<section title="Exiting a Room" anchor="msrp-exit">
+         <t>If Romeo decides to exit the multi-user chat room, his client sends SIP BYE to the &lt;verona@chat.shakespeare.net&gt;
+         chat room.</t>
+
+        <figure>
+          <preamble>Example: (F11) Romeo terminates the session</preamble>
+          <artwork><![CDATA[
+    BYE sip:verona@chat.shakespeare.net SIP/2.0
+    Max-Forwards: 70
+    From: <sip:romeo@example.net>;tag=786
+    To: <sip:verona@chat.shakespeare.net>;tag=534
+    Call-ID: 742510no
+    Cseq: 1 BYE
+    Content-Length: 0
+          ]]></artwork>
+        </figure>
+
+        <t>Upon receiving the SIP BYE, the SIP-to-XMPP gateway translate it in a presence stanza (F19) and send it to the XMPP chat room
+        service. Then the SIP-to-XMPP gateway responds with a 200 OK to the MSRP user.</t>
+
+        <figure>
+          <preamble>Example: (F19) Juliet exiting a chatroom</preamble>
+          <artwork><![CDATA[
+    <presence from='romeo@example.com'
+             to='verona@chat.shakespeare.net/romeo'
+             type='unavailable'>
+    </presence>
+          ]]></artwork>
+        </figure>
+
+
+        </section>
+
+	<section title="Nickname Conflict" anchor="msrp-nickConflict">
+      <figure>
+        <artwork><![CDATA[
+                                                  XMPP conference
+SIP User                      GW                       server
+   |                         |                          |
+   |(F1)(SIP) INVITE         |                          |
+   |------------------------>|                          |
+   |(F2) (SIP) 200 OK        |                          |
+   |<------------------------|                          |
+   |(F3) (SIP) ACK           |                          |
+   |------------------------>|                          |
+   |                         |                          |
+   |(F4) (MSRP) NICKNAME     |                          |
+   |------------------------>|                          |
+   |                         |(F5)(XMPP) Entering a room|
+   |                         |------------------------->|
+   |                         |(F7) (XMPP) Presence Error|
+   |                         |<-------------------------| 
+   |(F6) (MSRP) 423 OK       |                          |
+   |<------------------------|                          |
+   |                         |                          |
+
+   ]]></artwork>
+      </figure>
+
+        </section>
+
+	<section title="Changing Nickname" anchor="msrp-nickChanging">
+      <figure>
+        <artwork><![CDATA[
+                                                  XMPP conference
+SIP User                      GW                       server
+    |                          |                          |
+    |(F1) (MSRP) NICKNAME      |                          |
+    |------------------------->|                          |
+    |                          |(F2) (XMPP) Presence w/ Nickname
+    |                          |------------------------->|    
+    |(F3) (MSRP) 200 OK        |                          |
+    |<-------------------------|                          |
+
+        ]]></artwork>
+      </figure>
+
+      <t>If Romeo decides to changing her nickname within the room, he SHOULD send a
+     new MSRP NICKNAME request. In fact modification of the nickname in MSRP is
+     not different from the initial reservation and usage of a nickname.</t>
+
+        <figure>
+          <preamble>Example: (F1) the MSRP user changes the nickname</preamble>
+          <artwork><![CDATA[
+    MSRP a786hjs2 NICKNAME
+    To-Path: path:msrp://s2x.example.net:7313/ansp71weztas;tcp
+    From-Path: path:msrp://x2s.example.com:8763/lkjh37s2s20w2a;tcp
+    Use-Nickname: "montecchi"
+        -------a786hjs2
+          ]]></artwork>
+        </figure>
+
+    <t>Upon receiving such message, the SIP-to-XMPP gateway MUST translate it in a XMPP presence stanza.</t>
+
+        <figure>
+          <preamble>Example: (F2) Juliet changing the nickname</preamble>
+          <artwork><![CDATA[
+    <presence from='juliet@example.com'
+             to='verona@chat.shakespeare.net/montecchi'>
+    </presence>
+
+          ]]></artwork>
+        </figure>
+
+
+        </section>
+
+    </section>
+    
+    <section title="Security Considerations" anchor="security">
+      <t>To follow.</t>
+    </section>
+
+  </middle>
+  <back>
+    <references title="Normative References">
+
+<reference anchor="MSRP">
+<front>
+<title>The Message Session Relay Protocol (MSRP)</title>
+<author initials="B." surname="Campbell" fullname="B.  Campbell">
+<organization/></author>
+<author initials="R." surname="Mahy" fullname="R.  Mahy">
+<organization/></author>
+<author initials="C." surname="Jennings" fullname="C.  Jennings">
+<organization/></author>
+<date year="2007" month="September"/>
+<abstract>
+<t>This document describes the Message Session Relay Protocol, a protocol for transmitting a series of related instant messages in the context of a session.  Message sessions are treated like any other media stream when set up via a rendezvous or session creation protocol such as the Session Initiation Protocol.  [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name="RFC" value="4975"/>
+<format type="TXT" octets="144254" target="ftp://ftp.isi.edu/in-notes/rfc4975.txt"/>
+</reference>
+
+<reference anchor="IMP-SRV">
+<front>
+<title>Address Resolution for Instant Messaging and Presence</title>
+<author initials="J." surname="Peterson" fullname="J.  Peterson">
+<organization/></author>
+<date year="2004" month="August"/>
+<abstract>
+<t>Presence and instant messaging are defined in RFC 2778.  The Common Profiles for Presence and Instant Messaging define two Universal Resource Identifier (URI) schemes: 'im' for INSTANT INBOXes and 'pres' for PRESENTITIES.  This document provides guidance for locating the resources associated with URIs that employ these schemes.  [STANDARDS TRACK] </t></abstract></front>
+<seriesInfo name="RFC" value="3861"/>
+<format type="TXT" octets="15764" target="ftp://ftp.isi.edu/in-notes/rfc3861.txt"/>
+</reference>
+
+<reference anchor="SIP">
+<front>
+<title>SIP: Session Initiation Protocol</title>
+<author initials="J." surname="Rosenberg" fullname="J.  Rosenberg">
+<organization/></author>
+<author initials="H." surname="Schulzrinne" fullname="H.  Schulzrinne">
+<organization/></author>
+<author initials="G." surname="Camarillo" fullname="G.  Camarillo">
+<organization/></author>
+<author initials="A." surname="Johnston" fullname="A.  Johnston">
+<organization/></author>
+<author initials="J." surname="Peterson" fullname="J.  Peterson">
+<organization/></author>
+<author initials="R." surname="Sparks" fullname="R.  Sparks">
+<organization/></author>
+<author initials="M." surname="Handley" fullname="M.  Handley">
+<organization/></author>
+<author initials="E." surname="Schooler" fullname="E.  Schooler">
+<organization/></author>
+<date year="2002" month="June"/>
+<abstract>
+<t>This document describes Session Initiation Protocol (SIP), an application-layer control (signaling) protocol for creating, modifying, and terminating sessions with one or more participants.  These sessions include Internet telephone calls, multimedia distribution, and multimedia conferences.  [STANDARDS TRACK] </t></abstract></front>
+<seriesInfo name="RFC" value="3261"/>
+<format type="TXT" octets="647976" target="ftp://ftp.isi.edu/in-notes/rfc3261.txt"/>
+</reference>
+
+<reference anchor="MUC">
+  <front>
+    <title>Multi-User Chat</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="16" month="July" year="2008"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0045"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0045.html"/>
+</reference>
+
+<reference anchor="TERMS">
+<front>
+<title abbrev="RFC Key Words">Key words for use in RFCs to Indicate Requirement Levels</title>
+<author initials="S." surname="Bradner" fullname="Scott Bradner">
+<organization>Harvard University</organization>
+<address>
+<postal>
+<street>1350 Mass.  Ave.</street>
+<street>Cambridge</street>
+<street>MA 02138</street></postal>
+<phone>- +1 617 495 3864</phone>
+<email>sob@harvard.edu</email></address></author>
+<date year="1997" month="March"/>
+<area>General</area>
+<keyword>keyword</keyword>
+<abstract>
+<t>
+   In many standards track documents several words are used to signify
+   the requirements in the specification.  These words are often
+   capitalized.  This document defines these words as they should be
+   interpreted in IETF documents.  Authors who follow these guidelines
+   should incorporate this phrase near the beginning of their document:
+
+<list>
+<t>
+      The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in
+      RFC 2119.
+</t></list></t>
+<t>
+   Note that the force of these words is modified by the requirement
+   level of the document in which they are used.
+</t></abstract></front>
+<seriesInfo name="BCP" value="14"/>
+<seriesInfo name="RFC" value="2119"/>
+<format type="TXT" octets="4723" target="ftp://ftp.isi.edu/in-notes/rfc2119.txt"/>
+<format type="HTML" octets="17491" target="http://xml.resource.org/public/rfc/html/rfc2119.html"/>
+<format type="XML" octets="5777" target="http://xml.resource.org/public/rfc/xml/rfc2119.xml"/>
+</reference>
+
+<reference anchor="XMPP">
+<front>
+<title abbrev="XMPP Core">Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre" role="editor">
+<organization>Jabber Software Foundation</organization>
+<address>
+<email>stpeter@jabber.org</email></address></author>
+<date year="2004" month="October"/>
+<area>Applications</area>
+<workgroup>XMPP Working Group</workgroup>
+<keyword>RFC</keyword>
+<keyword>Request for Comments</keyword>
+<keyword>I-D</keyword>
+<keyword>Internet-Draft</keyword>
+<keyword>XMPP</keyword>
+<keyword>Extensible Messaging and Presence Protocol</keyword>
+<keyword>Jabber</keyword>
+<keyword>IM</keyword>
+<keyword>Instant Messaging</keyword>
+<keyword>Presence</keyword>
+<keyword>XML</keyword>
+<keyword>Extensible Markup Language</keyword>
+<abstract>
+<t>This memo defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a protocol for streaming Extensible Markup Language (XML) elements in order to exchange structured information in close to real time between any two network endpoints.  While XMPP provides a generalized, extensible framework for exchanging XML data, it is used mainly for the purpose of building instant messaging and presence applications that meet the requirements of RFC 2779.</t></abstract></front>
+<seriesInfo name="RFC" value="3920"/>
+<format type="TXT" octets="194313" target="ftp://ftp.isi.edu/in-notes/rfc3920.txt"/>
+<format type="HTML" octets="279912" target="http://xml.resource.org/public/rfc/html/rfc3920.html"/>
+<format type="XML" octets="234610" target="http://xml.resource.org/public/rfc/xml/rfc3920.xml"/>
+</reference>
+
+<reference anchor="XMPP-IM">
+<front>
+<title abbrev="XMPP IM">Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+<author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre" role="editor">
+<organization>Jabber Software Foundation</organization>
+<address>
+<email>stpeter@jabber.org</email></address></author>
+<date year="2004" month="October"/>
+<area>Applications</area>
+<workgroup>XMPP Working Group</workgroup>
+<keyword>RFC</keyword>
+<keyword>Request for Comments</keyword>
+<keyword>I-D</keyword>
+<keyword>Internet-Draft</keyword>
+<keyword>XMPP</keyword>
+<keyword>Extensible Messaging and Presence Protocol</keyword>
+<keyword>Jabber</keyword>
+<keyword>IM</keyword>
+<keyword>Instant Messaging</keyword>
+<keyword>Presence</keyword>
+<keyword>XML</keyword>
+<keyword>Extensible Markup Language</keyword>
+<abstract>
+<t>This memo describes extensions to and applications of the core features of the Extensible Messaging and Presence Protocol (XMPP) that provide the basic instant messaging (IM) and presence functionality defined in RFC 2779.</t></abstract></front>
+<seriesInfo name="RFC" value="3921"/>
+<format type="TXT" octets="217527" target="ftp://ftp.isi.edu/in-notes/rfc3921.txt"/>
+<format type="HTML" octets="274538" target="http://xml.resource.org/public/rfc/html/rfc3921.html"/>
+<format type="XML" octets="234468" target="http://xml.resource.org/public/rfc/xml/rfc3921.xml"/>
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor="DNS-SRV">
+<front>
+<title abbrev="DNS SRV RR">A DNS RR for specifying the location of services (DNS SRV)</title>
+<author initials="A." surname="Gulbrandsen" fullname="Arnt Gulbrandsen">
+<organization>Troll Tech</organization>
+<address>
+<postal>
+<street>Waldemar Thranes gate 98B</street>
+<city>Oslo</city>
+<region/>
+<code>N-0175</code>
+<country>NO</country></postal>
+<phone>+47 22 806390</phone>
+<facsimile>+47 22 806380</facsimile>
+<email>arnt@troll.no</email></address></author>
+<author initials="P." surname="Vixie" fullname="Paul Vixie">
+<organization>Internet Software Consortium</organization>
+<address>
+<postal>
+<street>950 Charter Street</street>
+<city>Redwood City</city>
+<region>CA</region>
+<code>94063</code>
+<country>US</country></postal>
+<phone>+1 650 779 7001</phone></address></author>
+<author initials="L." surname="Esibov" fullname="Levon Esibov">
+<organization>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>One Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code>
+<country>US</country></postal>
+<email>levone@microsoft.com</email></address></author>
+<date year="2000" month="February"/>
+<abstract>
+<t>This document describes a DNS RR which specifies the location of the
+   server(s) for a specific protocol and domain.</t></abstract></front>
+<seriesInfo name="RFC" value="2782"/>
+<format type="TXT" octets="24013" target="ftp://ftp.isi.edu/in-notes/rfc2782.txt"/>
+</reference>
+
+<reference anchor="MSRP-MULTI">
+<front>
+<title>Multi-party Instant Message (IM) Sessions Using the Message Session Relay  Protocol (MSRP)</title>
+<author initials="A" surname="Niemi" fullname="Aki Niemi">
+    <organization/>
+</author>
+<author initials="M" surname="Garcia-Martin" fullname="Miguel Garcia-Martin">
+    <organization/>
+</author>
+<author initials="G" surname="Sandbakken" fullname="Geir Arne Sandbakken">
+    <organization/>
+</author>
+<date month="October" day="30" year="2009"/>
+<abstract><t>The Message Session Relay Protocol (MSRP) defines a mechanism for sending instant messages within a peer-to-peer session, negotiated using the Session Initiation Protocol (SIP) and the Session Description Protocol (SDP).  This document defines the necessary tools for establishing multi-party instant messaging (IM) sessions, or chat rooms, with MSRP.</t></abstract>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-ietf-simple-chat-03"/>
+<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-ietf-simple-chat-03.txt"/>
+</reference>
+
+<reference anchor="SDP">
+<front>
+<title>SDP: Session Description Protocol</title>
+<author initials="M." surname="Handley" fullname="M.  Handley">
+<organization/></author>
+<author initials="V." surname="Jacobson" fullname="V.  Jacobson">
+<organization/></author>
+<author initials="C." surname="Perkins" fullname="C.  Perkins">
+<organization/></author>
+<date year="2006" month="July"/>
+<abstract>
+<t>This memo defines the Session Description Protocol (SDP).  SDP is intended for describing multimedia sessions for the purposes of session announcement, session invitation, and other forms of multimedia session initiation.  [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name="RFC" value="4566"/>
+<format type="TXT" octets="108820" target="ftp://ftp.isi.edu/in-notes/rfc4566.txt"/>
+</reference>
+
+<reference anchor="SIP-XMPP">
+<front>
+<title>Interworking between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials="P" surname="Saint-Andre" fullname="Peter Saint-Andre">
+    <organization/>
+</author>
+<author initials="A" surname="Houri" fullname="Avshalom Houri">
+    <organization/>
+</author>
+<author initials="J" surname="Hildebrand" fullname="Joe Hildebrand">
+    <organization/>
+</author>
+<date month="March" day="8" year="2009"/>
+<abstract><t>As a foundation for the definition of application-specific, bi-directional protocol mappings between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP), this document specifies the architectural assumptions underlying such mappings as well as the mapping of addresses and error conditions.</t></abstract>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-saintandre-sip-xmpp-core-01"/>
+<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-saintandre-sip-xmpp-core-01.txt"/>
+</reference>
+
+<reference anchor='SIP-XMPP-CHAT'>
+<front>
+<title>Interworking between the Session Initiation Protocol (SIP) and the  Extensible Messaging and Presence Protocol (XMPP): One-to-One Text Chat</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<author initials='E' surname='Gavita' fullname='Eddy Gavita'>
+    <organization />
+</author>
+<author initials='N' surname='Hossain' fullname='Nazin Hossain'>
+    <organization />
+</author>
+<author initials='S' surname='Loreto' fullname='Salvatore Loreto'>
+    <organization />
+</author>
+<date month='March' day='8' year='2009' />
+<abstract><t>This document defines a bi-directional protocol mapping for the exchange of instant messages in the context of a one-to-one chat session between a user of the Session Initiation Protocol (SIP) and a user of the Extensible Messaging and Presence Protocol (XMPP). Specifically for SIP text chat, this document specifies a mapping to the Message Session Relay Protocol (MSRP).</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-sip-xmpp-chat-03' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-saintandre-sip-xmpp-chat-03.txt' />
+</reference>
+
+<reference anchor="SIP-XMPP-IM">
+<front>
+<title>Interworking between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP): Instant Messaging</title>
+<author initials="P" surname="Saint-Andre" fullname="Peter Saint-Andre">
+    <organization/>
+</author>
+<author initials="A" surname="Houri" fullname="Avshalom Houri">
+    <organization/>
+</author>
+<author initials="J" surname="Hildebrand" fullname="Joe Hildebrand">
+    <organization/>
+</author>
+<date month="March" day="8" year="2009"/>
+<abstract><t>This document defines a bi-directional protocol mapping for the exchange of single instant messages between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP).</t></abstract>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-saintandre-sip-xmpp-im-01"/>
+<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-saintandre-sip-xmpp-im-01.txt"/>
+</reference>
+
+<reference anchor='RFC4575'>
+<front>
+<title>A Session Initiation Protocol (SIP) Event Package for Conference State</title>
+<author initials='J.' surname='Rosenberg' fullname='J. Rosenberg'>
+<organization /></author>
+<author initials='H.' surname='Schulzrinne' fullname='H. Schulzrinne'>
+<organization /></author>
+<author initials='O.' surname='Levin' fullname='O. Levin'>
+<organization /></author>
+<date year='2006' month='August' />
+<abstract>
+<t>This document defines a conference event package for tightly coupled conferences using the Session Initiation Protocol (SIP) events framework, along with a data format used in notifications for this package.  The conference package allows users to subscribe to a conference Uniform Resource Identifier (URI).  Notifications are sent about changes in the membership of this conference and optionally about changes in the state of additional conference components. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4575' />
+<format type='TXT' octets='97484' target='ftp://ftp.isi.edu/in-notes/rfc4575.txt' />
+</reference>
+
+    </references>
+  </back>
+</rfc>

@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Resolution Achieved Regarding RhymBox/Pandion Dispute</h3>
+<h4>XMPP Standards Foundation Plays Key Role in Successful Conclusion</h4>
+
+<p>FORT LAUDERDALE, FLORIDA, USA; BRUGES, BELGIUM; AND DENVER, COLORADO, USA; NOVEMBER 3, 2009</p>
+
+<p>Justin Fisher and Sebastiaan Deckers are pleased to announce their settlement of ownership over the RhymBox instant messaging software code and domain name.</p>
+
+<p>Messrs. Fisher and Deckers entered into an agreement in May 2003 to further develop the RhymBox instant messaging client originally created by Deckers and RhymBox developer Dries Staelens. This work was to occur under the auspices of RhymBox LLC, a Florida company that Mr. Fisher formed for the purpose. Unfortunately, through a series of misunderstandings and misconceptions, the RhymBox developers removed their support from the venture in June 2004 and re-released their RhymBox client under the name Pandion.</p>
+
+<p>Because of the longstanding controversy over the RhymBox name and code, the parties involved recently decided to reconcile their differences. The agreement, mediated by Peter Saint-Andre, Executive Director of the XMPP Standards Foundation (XSF), contains the following points:</p>
+
+<ol>
+<li><p>The parties affirm that ownership of all intellectual property related to RhymBox and Pandion belong to Sebastiaan Deckers.</p></li>
+<li><p>The rhymbox.com domain has been transferred to Peter Saint-Andre for safekeeping, and will be subsequently transferred to Sebastiaan Deckers upon completion of all outstanding items agreed upon by the parties.</p></li>
+<li><p>RhymBox, LLC had been annulled as a corporate entity. Its last official act was to rescind all claims to the RhymBox name and codebase.</p></li>
+<li><p>Each party apologizes for and retracts any public statements they have made regarding their past conflict and will work to remedy any outstanding harm caused by such statements.</p></li>
+<li><p>The parties affirm that they are no longer in conflict, freeing each side to pursue new opportunities related to instant messaging software and services.</p></li>
+</ol>
+
+<p>Justin Fisher said: "I want to personally extend my gratitude to Peter Saint-Andre and Sebastiaan Deckers for their cooperation and assistance in working out this agreement. During my involvement with the RhymBox project, I had an opportunity to work with some amazingly talented individuals and participate in the coming of age of the XMPP protocol. Although we did not complete our vision, we did succeed in being the first to bring VoIP to a Jabber client. Fortunately, and to the benefit of the community, the project will go on and will continue its place as a leading XMPP application. We wish everyone involved the best of success."</p>
+
+<p>Sebastiaan Deckers commented: "I thank Peter Saint-Andre and Justin Fisher for their respective roles in establishing this conclusion to the RhymBox saga. This agreement provides suitable closure to the RhymBox brand as it is absorbed by Pandion. The project has already continued for several years under the name Pandion and will continue to do so. This agreement also strengthens the Pandion open source community with absolute legal confidence. The neutral authority of the XSF and the unique position of Peter Saint-Andre in the XMPP community reassure Pandion users to continue enjoying their favourite instant messaging client. As Pandion development continues, the entire XMPP community will benefit from this long-overdue resolution."
+
+<p>Peter Saint-Andre added: "Justin Fisher and Sebastiaan Deckers have impressed me with their professionalism throughout the process of mediating this matter. Despite the sensitive nature of their original disagreement, both parties came together to reach a mutually agreeable settlement. I look forward to continued contributions from both Justin and Sebastiaan regarding Jabber/XMPP technologies."</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

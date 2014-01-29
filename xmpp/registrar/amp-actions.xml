@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'amp-actions.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='amp-actions.xsl'?>
+<registry>
+<meta>
+  <title>Advanced Message Processing Rule Actions</title>
+  &LEGALNOTICE;
+  <overview>This is the official registry of Advanced Message Processing rule actions maintained by the &REGISTRAR;, as authorized by &xep0079;.</overview>
+  <revision>
+    <version>0.1</version>
+    <date>2004-10-11</date>
+    <initials>psa</initials>
+    <remark>Initial version (actions defined in version 1.0 of XEP-0079).</remark>
+  </revision>
+</meta>
+
+<action>
+  <name>alert</name>
+  <ns>http://jabber.org/protocol/amp?action=drop</ns>
+  <behavior>The message is silently discarded but an alert is returned to the sender.</behavior>
+  <doc>&xep0079;</doc>
+</action>
+
+<action>
+  <name>drop</name>
+  <ns>http://jabber.org/protocol/amp?action=drop</ns>
+  <behavior>The message is silently discarded.</behavior>
+  <doc>&xep0079;</doc>
+</action>
+
+<action>
+  <name>error</name>
+  <ns>http://jabber.org/protocol/amp?action=error</ns>
+  <behavior>The message is not processed and an error is returned to the sender, specifying which rule resulted in failed processing.</behavior>
+  <doc>&xep0079;</doc>
+</action>
+
+<action>
+  <name>notify</name>
+  <ns>http://jabber.org/protocol/amp?action=notify</ns>
+  <behavior>The message is processed and a notification message is returned to the sender, specifying which rule was processed.</behavior>
+  <doc>&xep0079;</doc>
+</action>
+
+</registry>

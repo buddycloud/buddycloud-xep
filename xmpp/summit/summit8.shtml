@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Summit 8</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Summit 8</h2>
+
+<p>The eighth <a href='/summit/'>XMPP Summit</a> to be held by the <a href='/xsf/'>XMPP Standards Foundation</a> will occur on February 5-8, 2010, in Brussels, Belgium (the same weekend as <a href='http://www.fosdem.org/'>FOSDEM 2010</a>).</p>
+
+<ul>
+  <li><a href='#friday'>Friday, February 5</a></li>
+  <li><a href='#saturday'>Saturday, February 6</a></li>
+  <li><a href='#sunday'>Sunday, February 7</a></li>
+  <li><a href='#dinner'>Sunday, February 7 - Official XSF Dinner</a></li>
+  <li><a href='#monday'>Monday, February 8</a></li>
+  <li><a href="#mobile">Mobile Dev Challenge and SIMs</a></li>
+  <li><a href="#hotel">Hotel</a></li>
+  <li><a href='#logistics'>Logistics</a></li>
+  <li><a href='#contact'>Contact</a></li>
+</ul>
+<p>&nbsp;</p>
+
+<a name='friday'></a>
+<h3>Friday, February 5: XMPP Hackfest</h3>
+
+<p>The official XMPP Hackfest is there for people to code on XMPP, test interoperability and build or extend applications. The XMPP Hackfest will be happening at the <a href="#hotel">Hotel</a>.</p>
+<p>The following people are likely to participate:</p>
+<ol>
+  <li>Yuriy Blokhin (<a href="http://kik.com">Kik</a>)</li>
+  <li>Dan Brickley</li>
+  <li>Ilya Braude (<a href="http://drakontas.com">Drakontas</a>)</li>
+  <li>Thiago Camargo (<a href="http://nimbuzz.com/">Nimbuzz</a>)</li>
+  <li>Cosimoc Cecchi (<a href="http://www.collabora.co.uk">Collabora</a>)</li>
+  <li>Diana Cionoiu (<a href='http://yate.null.ro/'>Yate Project</a>)</li>
+  <li>Dave Cridland (<a href="http://isode.com/products/m-link.html">Isode</a>)</li>
+  <li>Sebastiaan  Deckers (<a href="http://www.pandion.be">Pandion</a>)</li>
+  <li>Florian Detig (<a href="http://www.andlabs.de/">ANDLabs</a>)</li>
+  <li>Laurent Eschenauer (<a href="http://rndbackyard.vodafone.com">Vodafone Group R&amp;D</a>)</li>
+  <li>Fabio Forno (<a href="http://ooros.com/">Ooros</a>)</li>
+  <li>Artur Hefczyc (<a href="http://tigase.org">Tigase</a>)</li>
+  <li>Joe Hildebrand (<a href="http://cisco.com/">Cisco</a>)</li>
+  <li>Makoto Inoue (<a href="http://new-bamboo.co.uk/">New Bamboo</a>)</li>
+  <li>Cristina Jianu (<a href='http://yate.null.ro/'>Yate Project</a>)</li>
+  <li>Tuomas Koski (<a href="http://buddycloud.com/">Buddycloud</a>)</li>
+  <li>Petri  Liimatta (<a href="http://www.nokia.com">Nokia</a>)</li>
+  <li>Ralph Meijer (<a href="http://www.mediamatic.nl/">Mediamatic Lab</a>)</li>
+  <li>Edwin Mons</li>
+  <li>Marian Podgoreanu (<a href='http://yate.null.ro/'>Yate Project</a>)</li>
+  <li>Johann Prieur (<a href="http://www.tandberg.com">TANDBERG</a>)</li>
+  <li>Micka&euml;l R&eacute;mond (<a href="http://www.process-one.net/">Process One</a>)</li>
+  <li>Ali Sabil (<a href="http://www.tandberg.com">TANDBERG</a>)</li>
+  <li>Ross Savage (<a href="http://buddycloud.com/">Buddycloud</a>)</li>
+  <li>Marco Sgrignuoli (<a href="http://ooros.com">Ooros</a>)</li>
+  <li>Sjoerd Simons (<a href="http://www.collabora.co.uk">Collabora</a>)</li>
+  <li>Kevin Smith (<a href="http://isode.com/products/m-link.html">Isode</a> / <a href="http://swift.im">Swift.im</a>)</li>
+  <li>Dries Staelens (<a href="http://www.pandion.be">Pandion</a>)</li>
+  <li>Luca Tagliaferri (<a href="http://www.bluendo.com/">Bluendo</a>)</li>
+  <li>Simon Tennant (<a href="http://buddycloud.com/">Buddycloud</a>)</li>
+  <li>Florian Thie&szlig;en (<a href="http://www.thiessen.im">Thiessen.IM</a>)</li>
+  <li>Will Thompson (<a href="http://www.collabora.co.uk">Collabora</a>)</li>
+  <li>Winfried Tilanus (<a href="http://www.helpim.org/">HelpIM</a>)</li>
+  <li>Rene Treffer  (<a href="http://buddycloud.com/">Buddycloud</a>)</li>
+  <li>Nicolas V&eacute;rit&eacute; (<a href="http://www.process-one.net/">Process One</a>)</li>
+  <li>Ian Wild (<a href="http://prosody.im/">Prosody.im</a>)</li>
+  <li>Matthew Wild (<a href="http://prosody.im/">Prosody.im</a>)</li>
+  <li>Paul Witty (<a href="http://www.tandberg.com">TANDBERG</a>)</li>
+  <li>Kurt Zeilenga (<a href="http://isode.com/products/m-link.html">Isode</a>)</li>
+  <li>Christopher Zorn (<a href="http://collecta.com">Collecta</a>)</li>
+</ol>
+<p>&nbsp;</p>
+
+<a name='saturday'></a><h3>Saturday, February 6: Devroom @ FOSDEM</h3>
+
+<p>From 13:00 until 19:00 we will have a devroom where we can host tutorials, presentations, demos, and lightning talks at <a href='http://www.fosdem.org/2010/'>FOSDEM 2010</a>. Location: ULB Solbosh Campus (see <a href='#logistics'>logistic</a>), the Building and Room will be announced soon.</p>
+
+<p>If you would like to be a speaker, please contact <a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a>. We especially want technical talks of interest to open-source geeks. No marketing fluff, please! The typical talk will be 15 minutes with 15 minutes for discussion.</p>
+
+<p>The schedule is as follows (slots for lightning talks are still available, post to the <a href='http://mail.jabber.org/mailman/listinfo/summit'>summit@xmpp.org list</a> if you are interested!).</p>
+
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr>
+    <th>Time</th>
+    <th>Topic</th>
+    <th>Speaker(s)</th>
+  </tr>
+  <tr>
+    <td>13:00-13:15</td>
+    <td>Intro / Logistics</td>
+    <td>Peter Saint-Andre</td>
+  </tr>
+  <tr>
+    <td>13:15-14:00</td>
+    <td>The Extraordinary, Magical Powers and Possibilities of XMPP</td>
+    <td>Remko Tron&#231;on</td>
+  </tr>
+  <tr>
+    <td>14:00-14:30</td>
+    <td>Stump the XMPP Experts! Open Q&amp;A</td>
+    <td>XMPP Council and book authors</td>
+  </tr>
+  <tr>
+    <td>14:30-15:00</td>
+    <td>Building Federated Social Networks on XMPP</td>
+    <td>Simon Tennant &amp; Tuomas Koski</td>
+  </tr>
+  <tr>
+    <td>15:00-15:30</td>
+    <td>XMPP and the Social Web</td>
+    <td>Laurent Eschenauer &amp; Alard Weisscher</td>
+  </tr>
+  <tr>
+    <td>15:30-16:00</td>
+    <td>PubSub Gone Wild: Info Sharing at Mediamatic</td>
+    <td>Ralph Meijer</td>
+  </tr>
+  <tr>
+    <td>16:00-16:30</td>
+    <td>Mirabeau: Creating Personal Media Networks and Bridging UPnP Devices over the Internet with XMPP</td>
+    <td>Frank Scholz &amp; Philippe Normand</td>
+  </tr>
+  <tr>
+    <td>16:30-17:00</td>
+    <td>You Got Your XMPP in My Website: Using Strophe.js for Fun and Profit</td>
+    <td>Jack Moffitt</td>
+  </tr>
+  <tr>
+    <td>17:00-17:30</td>
+    <td>Lightning Talks</td>
+    <td>various speakers</td>
+  </tr>
+  <tr>
+    <td>17:30-17:50</td>
+    <td>Jingle Nodes: An Open Alternative to Skype</td>
+    <td>Thiago Camargo</td>
+  </tr>
+  <tr>
+    <td>17:50-18:10</td>
+    <td>Jingle in the Enterprise</td>
+    <td>Diana Cionoiu</t>
+  </tr>
+  <tr>
+    <td>18:10-18:30</td>
+    <td>Multi-User Jingle: Voice and Video Conferencing with XMPP</td>
+    <td>Sjoerd Simons &amp; Robert McQueen</td>
+  </tr>
+  <tr>
+    <td>18:30-19:00</td>
+    <td>More Lightning Talks</td>
+    <td>various speakers</td>
+  </tr>
+</table>
+
+<p>We will also have a XMPP Stand (10am-6pm) where you'll be able to talk to great people of the XMPP community. It'll be the place to start off all your interesting &quot;hallway&quot; discussions.</p>
+<p>&nbsp;</p>
+<p><a name='sunday'></a></p>
+<h3>Sunday, February 7: FOSDEM</h3>
+
+<p>Developers are free to attend the second day of the FOSDEM conference. We'll need help manning the booth (10am-5pm) and attending talks to spread the word about XMPP. Also expect many interesting "hallway" discussions and continued hacking in the background.</p>
+<p>&nbsp;</p>
+<p><a name='dinner' id="dinner"></a></p>
+<h3>Sunday, February 7: Official XSF Dinner</h3>
+<p><em>Note: We have reached our dinner limit of 48 people!</em></p>
+<p>Depending on the amount of sponsorships / donations we receive, the price of the dinner will vary.</p>
+<p>Please be at the Hotel reception at <strong>18:15</strong> so that you don't miss the coach to the Restaurant.</p>
+<p>Contact <a href="#contact">Florian</a> if you would like to donate!</p>
+<p>Sponsors / Donations:</p>
+
+<ul>
+  <li><a href="http://www.nokia.com">Nokia</a> (1000&euro;)</li>
+  <li><a href="http://www.betavine.net/?utm_source=banner&utm_medium=web&utm_campaign=fosdem">Vodafone</a> (1000&euro;)</li>
+  <li><a href="http://www.collabora.co.uk">Collabora</a> (500&euro;)</li>
+  <li><a href="http://isode.com/products/m-link.html">Isode</a> (500&euro;)</li>
+  <li><a href="http://www.tandberg.com">TANDBERG</a> (500&euro;)</li>
+  <li><a href="http://buddycloud.com/">Buddycloud</a> (100&euro;)</li>
+  <li><a href="http://www.collecta.com">Collecta</a> (100&euro;)</li>
+  <li><a href="http://ooros.com">Ooros</a> (100&euro;)</li>
+</ul>
+<p>Participants:</p>
+<ol>
+  <li>Yuriy Blokhin (<a href="http://kik.com">Kik</a>)(M)</li>
+  <li>Alex Borisov (M)</li>
+  <li>Ilya Braude (<a href="http://drakontas.com">Drakontas</a>) (M)</li>
+  <li>Thiago Camargo (<a href="http://nimbuzz.com/">Nimbuzz</a>) (M)</li>
+  <li>Cosimoc Cecchi (<a href="http://www.collabora.co.uk">Collabora</a>)</li>
+  <li>Diana Cionoiu (<a href='http://yate.null.ro/'>Yate Project</a>) (M)</li>
+  <li>Dave Cridland (<a href="http://isode.com/products/m-link.html">Isode</a>) (M)</li>
+  <li>Sebastiaan  Deckers (<a href="http://www.pandion.be">Pandion</a>) (M)</li>
+  <li>Florian Detig (<a href="http://www.andlabs.de/">ANDLabs</a>) (M)</li>
+  <li>Laurent Eschenauer (<a href="http://rndbackyard.vodafone.com">Vodafone Group R&amp;D</a>) (M)</li>
+  <li>Fabio Forno (<a href="http://ooros.com/">Ooros</a>) (M)</li>
+  <li>Artur Hefczyc (<a href="http://tigase.org">Tigase</a>) (M)</li>
+  <li>Joe Hildebrand (<a href="http://cisco.com/">Cisco</a>) (M)</li>
+  <li>Lee Hughes (M)</li>
+  <li>Makoto Inoue (<a href="http://new-bamboo.co.uk/">New Bamboo</a>)</li>
+  <li>Florian Jensen (<a href="http://flosoft.biz">Flosoft.biz</a>) (M)</li>
+  <li>Cristina Jianu (<a href='http://yate.null.ro/'>Yate Project</a>) (M)</li>
+  <li>Steve Kille (<a href="http://isode.com/products/m-link.html">Isode</a>)</li>
+  <li>Tuomas Koski (<a href="http://buddycloud.com/">Buddycloud</a>) (M)</li>
+  <li>Petri  Liimatta (<a href="http://www.nokia.com">Nokia</a>) (M)</li>
+  <li>Kristian Luoma (<a href="http://www.nokia.com">Nokia</a>)</li>
+  <li>Tobias Markmann (M)</li>
+  <li>Robert McQueen (<a href="http://www.collabora.co.uk">Collabora</a>)</li>
+  <li>Ralph Meijer (<a href="http://www.mediamatic.nl/">Mediamatic Lab</a>) (M)</li>
+  <li>Alexey Melnikov (<a href="http://isode.com/products/m-link.html">Isode</a>) (M)</li>
+  <li>Mafalda Mendes</li>
+  <li>Jack Moffitt (<a href="http://collecta.com">Collecta</a>)</li>
+  <li>Edwin Mons (M)</li>
+  <li>Christopher Orr (M)</li>
+  <li>Marian Podgoreanu (<a href='http://yate.null.ro/'>Yate Project</a>) (M)</li>
+  <li>Johann Prieur (<a href="http://www.tandberg.com">TANDBERG</a>) (M)</li>
+  <li>Micka&euml;l R&eacute;mond (<a href="http://www.process-one.net/">Process One</a>) (M)</li>
+  <li>Ali Sabil (<a href="http://www.tandberg.com">TANDBERG</a>) (M)</li>
+  <li>Peter Saint-Andre (<a href="http://cisco.com/">Cisco</a>) (M)</li>
+  <li>Marco Sgrignuoli (<a href="http://ooros.com">Ooros</a>) (M)</li>
+  <li>Ross Savage (<a href="http://buddycloud.com/">Buddycloud</a>) (M)</li>
+  <li>Sjoerd Simons (<a href="http://www.collabora.co.uk">Collabora</a>)</li>
+  <li>Kevin Smith (<a href="http://isode.com/products/m-link.html">Isode</a> / <a href="http://swift.im">Swift.im</a>) (M)</li>
+  <li>Dries Staelens (<a href="http://www.pandion.be">Pandion</a>) (M)</li>
+  <li>Luca Tagliaferri (<a href="http://www.bluendo.com/">Bluendo</a>) (M)</li>
+  <li>Simon Tennant (<a href="http://buddycloud.com/">Buddycloud</a>) (M)</li>
+  <li>Florian Thie&szlig;en (<a href="http://www.thiessen.im">Thiessen.IM</a>) (M)</li>
+  <li>Will Thompson (<a href="http://www.collabora.co.uk">Collabora</a>)</li>
+  <li>Winfried Tilanus (<a href="http://www.helpim.org/">HelpIM</a>) (M)</li>
+  <li>Rene Treffer  (<a href="http://buddycloud.com/">Buddycloud</a>) (M)</li>
+  <li>Remko Tron&ccedil;on (<a href="http://swift.im">Swift.im</a>) (M)</li>
+  <li>Nicolas V&eacute;rit&eacute; (<a href="http://www.process-one.net/">Process One</a>) (M)</li>
+  <li>Alard Weisscher (<a href="http://rndbackyard.vodafone.com">Vodafone Group R&amp;D</a>) (M)</li>
+  <li>Lukasz Wiechec (<a href="http://www.nc3a.nato.int">NC3A</a>)</li>
+  <li>Ian Wild (<a href="http://prosody.im/">Prosody.im</a>) (M)</li>
+  <li>Matthew Wild (<a href="http://prosody.im/">Prosody.im</a>) (M)</li>
+  <li>Paul Witty (<a href="http://www.tandberg.com">TANDBERG</a>) (M)</li>
+  <li>Kurt Zeilenga (<a href="http://isode.com/products/m-link.html">Isode</a>) (M)</li>
+  <li>Christopher Zorn (<a href="http://collecta.com">Collecta</a>) (M)</li>
+</ol>
+  
+<a name='monday'></a><h3>Monday, February 8: XMPP Summit</h3>
+
+<p>The official "XMPP Summit" itself: Intensive discussions among core XMPP developers to solve pressing problems in the XMPP protocol stack.</p>
+
+<p>The Summit is not intended for people who are just interested in learning about XMPP (see the Saturday schedule), but instead for active technical contributors in the XMPP community. If you would like to participate, please say so on the <a href='http://mail.jabber.org/mailman/listinfo/summit'>summit@xmpp.org</a> mailing list. The tentative schedule is 9:30 to 4:30. Location: Conference Room at the <a href="#hotel">Hotel</a>.</p>
+
+<p>The following people will participate:</p>
+<ol>
+  <li>Thomas Baquet</li>
+  <li>Yuriy Blokhin (<a href="http://kik.com">Kik</a>)</li>
+  <li>Alex Borisov</li>
+  <li>Ilya Braude (<a href="http://drakontas.com">Drakontas</a>)</li>
+  <li>Thiago Camargo (<a href="http://nimbuzz.com/">Nimbuzz</a>)</li>
+  <li>Cosimoc Cecchi (<a href="http://www.collabora.co.uk">Collabora</a>)</li>
+  <li>Diana Cionoiu (<a href='http://yate.null.ro/'>Yate Project</a>)</li>
+  <li>Dave Cridland (<a href="http://isode.com/products/m-link.html">Isode</a>)</li>
+  <li>Sebastiaan  Deckers (<a href="http://www.pandion.be">Pandion</a>)</li>
+  <li>Florian Detig (<a href="http://www.andlabs.de/">ANDLabs</a>)</li>
+  <li>Laurent Eschenauer (<a href="http://rndbackyard.vodafone.com">Vodafone Group R&amp;D</a>)</li>
+  <li>Fabio Forno (<a href="http://ooros.com/">Ooros</a>)</li>
+  <li>Artur Hefczyc (<a href="http://tigase.org">Tigase</a>)</li>
+  <li>Joe Hildebrand (<a href="http://cisco.com/">Cisco</a>)</li>
+  <li>Lee Hughes</li>
+  <li>Florian Jensen (<a href="http://flosoft.biz">Flosoft.biz</a>)</li>
+  <li>Cristina Jianu (<a href='http://yate.null.ro/'>Yate Project</a>)</li>
+  <li>Steve Kille (<a href="http://isode.com/products/m-link.html">Isode</a>)</li>
+  <li>Tuomas Koski (<a href="http://buddycloud.com/">Buddycloud</a>)</li>
+  <li>Petri  Liimatta (<a href="http://www.nokia.com">Nokia</a>)</li>
+  <li>Kristian Luoma (<a href="http://www.nokia.com">Nokia</a>)</li>
+  <li>Tobias Markmann</li>
+  <li>Ralph Meijer (<a href="http://www.mediamatic.nl/">Mediamatic Lab</a>)</li>
+  <li>Alexey Melnikov (<a href="http://isode.com/products/m-link.html">Isode</a>)</li>
+  <li>Jack Moffitt (<a href="http://collecta.com">Collecta</a>)</li>
+  <li>Edwin Mons</li>
+  <li>Maciek Niedzielski (<a href='http://psi-im.org/'>Psi</a>)</li>
+  <li>Sonny Piers</li>
+  <li>Marian Podgoreanu (<a href='http://yate.null.ro/'>Yate Project</a>)</li>
+  <li>Johann Prieur (<a href="http://www.tandberg.com">TANDBERG</a>)</li>
+  <li>Micka&euml;l R&eacute;mond (<a href="http://www.process-one.net/">Process One</a>)</li>
+  <li>Alex Rogers (<a href="http://www.mondago.com">Mondago</a>)</li>
+  <li>Ali Sabil (<a href="http://www.tandberg.com">TANDBERG</a>)</li>
+  <li>Ross Savage (<a href="http://buddycloud.com/">Buddycloud</a>)</li>
+  <li>Peter Saint-Andre (<a href="http://cisco.com/">Cisco</a>)</li>
+  <li>Marco Sgrignuoli (<a href="http://ooros.com">Ooros</a>)</li>
+  <li>Sjoerd Simons (<a href="http://www.collabora.co.uk">Collabora</a>)</li>
+  <li>Kevin Smith (<a href="http://isode.com/products/m-link.html">Isode</a> / <a href="http://swift.im">Swift.im</a>)</li>
+  <li>Dries Staelens (<a href="http://www.pandion.be">Pandion</a>)</li>
+  <li>Neil Stratford (<a href="http://www.voxeo.com">Voxeo</a>)</li>
+  <li>Luca Tagliaferri (<a href="http://www.bluendo.com/">Bluendo</a>)</li>
+  <li>Simon Tennant (<a href="http://buddycloud.com/">Buddycloud</a>)</li>
+  <li>Florian Thie&szlig;en (<a href="http://www.thiessen.im">Thiessen.IM</a>)</li>
+  <li>Will Thompson (<a href="http://www.collabora.co.uk">Collabora</a>)</li>
+  <li>Winfried Tilanus (<a href="http://www.helpim.org/">HelpIM</a>)</li>
+  <li>Rene Treffer  (<a href="http://buddycloud.com/">Buddycloud</a>)</li>
+  <li>Remko Tron&ccedil;on (<a href="http://swift.im">Swift.im</a>)</li>
+  <li>Nicolas V&eacute;rit&eacute; (<a href="http://www.process-one.net/">Process One</a>)</li>
+  <li>Alard Weisscher (<a href="http://rndbackyard.vodafone.com">Vodafone Group R&amp;D</a>)</li>
+  <li>Lukasz Wiechec (<a href="http://www.nc3a.nato.int">NC3A</a>)</li>
+  <li>Ian Wild (<a href="http://prosody.im/">Prosody.im</a>)</li>
+  <li>Matthew Wild (<a href="http://prosody.im/">Prosody.im</a>)</li>
+  <li>Paul Witty (<a href="http://www.tandberg.com">TANDBERG</a>)</li>
+  <li>Kurt Zeilenga (<a href="http://isode.com/products/m-link.html">Isode</a>)</li>
+  <li>Christopher Zorn (<a href="http://collecta.com">Collecta</a>)</li>
+</ol>
+<p>&nbsp;</p>
+<p><a name='mobile' id="hotel2"></a></p>
+<h3>Mobile Dev Challenge and SIM Cards</h3>
+<p>All information about the XMPP Developer Challenge can be found <a href="http://bit.ly/7135Iu">here</a>.</p>
+<p><a href="http://mobilevikings.com">MobileVikings</a> has generously given us 20 SIM cards with mobile internet access for demonstration purposes for the XMPP Stand, Devroom and Summit.</p>
+<p>If you are interested in getting a SIM card for the 4 days, please contact <a href="#contact">Florian</a>.</p>
+<p>&nbsp;</p>
+<p><a name='hotel' id="hotel"></a></p>
+<h3>Hotel</h3>
+<p>The XMPP Summit will be held at the <a href="http://carrefourhotel.be/" target="_blank">Best Western Premier - Carrefour de L'Europe</a> Hotel in the heart of Brussels. It's conveniently located next to the Brussels Central station and the Grand Place.</p>
+<p>The XSF has a deal for a Business Room for 109&euro; per night for a single or a double / twin room. The rooms are on lock until the 15th of January. For the booking and information, please contact <a href="#contact">Florian Jensen</a>.</p>
+<p>&nbsp;</p>
+
+
+<a name='logistics'></a><h3>Logistics</h3>
+<p>The FOSDEM activities (Saturday and Sunday) will take place at ULB Campus Solbosh, 50 Avenue Franklin D. Roosevelt, 1050 Brussels (detals <a href='http://fosdem.org/2010/transportation'>here</a>).</p>
+<p>&nbsp;</p>
+
+<a name='contact'></a><h3>Contact</h3>
+<p>Join the <a href='http://mail.jabber.org/mailman/listinfo/summit'>summit@xmpp.org</a> list to discuss. If you have any questions, ping <a href='https://stpeter.im/?page_id=1968'>Peter Saint-Andre</a>.<br>
+For queries about the Hotel or Dinner, please contact Florian Jensen (<a href="xmpp:admin@im.flosoft.biz">XMPP</a> / <a href="mailto:florian@florianjensen.com">E-mail</a>). </p>
+
+<!--#include virtual="/includes/foot.txt" -->

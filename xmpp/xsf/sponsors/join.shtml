@@ -1,0 +1,11 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Sponsoring the XSF</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>Sponsoring the XSF</h2>
+
+<p>The <a href='/xsf/'>XMPP Standards Foundation</a> (XSF) is a non-profit, member-run organization whose mission is to develop open extensions to the IETF's Extensible Messaging and Presence Protocol (XMPP), support the Jabber/XMPP community, and promote XMPP for real-time communications. The XSF is able to fulfill that mission in large part because of the generous support of <a href='/xsf/sponsors/'>sponsoring companies</a> who are using or building Jabber/XMPP technologies.</p>
+<p>For further information about sponsoring the XSF, please view our <a href='/xsf/docs/sponsorship.pdf'>Sponsorship Program Definition</a> or contact XSF Executive Director Peter Saint-Andre via IM or email at &lt;&#115;&#116;&#112;&#101;&#116;&#101;&#114;&#64;&#106;&#97;&#98;&#98;&#101;&#114;&#46;&#111;&#114;&#103;&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

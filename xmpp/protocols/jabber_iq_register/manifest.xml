@@ -1,0 +1,14 @@
+<manifest>
+  <title>In-Band Registration</title>
+  <abstract>This specification defines an XMPP protocol extension for in-band registration with XMPP-based instant messaging servers and other services hosted on an XMPP network (such as groupchat rooms and gateways to non-XMPP IM services). The protocol is extensible via use of data forms, thus enabling services to gather a wide range of information during the registration process. The protocol also supports in-band password changes and cancellation of an existing registration.</abstract>
+  <specnum>XEP-0077</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0077.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>jabber:iq:register</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/iq-register.xsd</schema>
+  </schemas>
+</manifest>

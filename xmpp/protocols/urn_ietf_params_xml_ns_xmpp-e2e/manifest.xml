@@ -1,0 +1,14 @@
+<manifest>
+  <title>S/MIME Encryption</title>
+  <abstract>This specification defines an XMPP protocol extension that enables an XMPP client to sign, encrypt, or encrypt-and-sign the contents of any given XML stanza using the secure MIME (S/MIME) technology defined by the IETF, typically with client-side X.509 certificates. For the sake of interoperability, the protocol encodes information in the CPIM message format before signing or encryption.</abstract>
+  <specnum>RFC 3923</specnum>
+  <specurl>http://www.ietf.org/rfc/rfc3923.txt</specurl>
+  <status>Proposed</status>
+  <publisher>Internet Engineering Task Force</publisher>
+  <namespaces>
+    <name>urn:ietf:params:xml:ns:xmpp-e2e</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/e2e.xsd</schema>
+  </schemas>
+</manifest>

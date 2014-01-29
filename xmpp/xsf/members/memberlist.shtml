@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Member List</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Member List</h2>
+
+<p><em>Last Updated: 2010-05-</em>05</p>
+
+<p>This page shows the elected <a href='http://www.xmpp.org/xsf/members/'>members</a> of the <a href='http://www.xmpp.org/xsf/'>XMPP Standards Foundation</a>, along with their <a href='/xsf/teams/'>team affiliations</a>.</p>
+
+<ol>
+  <li>Douglas Abbink</li>
+  <li>Aaron Axelsen</li>
+  <li>David Banes</li>
+  <li>Mateusz Bilinski</li>
+  <li>Ludovic Bocquet</li> -- <a href='/xsf/teams/communication/'>communication</a>
+  <li>Diana Cionoiu</li>
+  <li>Anders Conbere -- <a href='/xsf/teams/communication/'>communication</a>, <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+  <li>Dave Cridland -- <a href='/council/'>XMPP Council</a></li>
+  <li>Sebastiaan Deckers</li>
+  <li>Pradeep Elankumaran</li>
+  <li>Peter Ferne</li>
+  <li>Fabio Forno -- <a href='/xsf/teams/infrastructure'>infrastructure</a>, <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Nathanael Fritz -- <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Guillaume Le Gal&#232;s -- <a href='/xsf/teams/communication/'>communication</a></li>
+  <li>Alexander Gnauck -- <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+  <li>Michael Grigutsch -- <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+  <li>Artur Hefczyc</li>
+  <li>Joe Hildebrand</li>
+  <li>Waqas Hussain -- <a href='/xsf/teams/infrastructure'>infrastructure</a>, <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Florian Jensen -- <a href='/xsf/board/'>Board of Directors</a>, <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+  <li>Justin Karneges</li>
+  <li>Tuomas Koski -- <a href='/xsf/teams/infrastructure'>infrastructure</a>, <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Steffen Larsen -- <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Joe Maissel -- <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Alex Malgaroli -- <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Stephan Maka</li>
+  <li>Bartosz Ma&#322;kowski</li>
+  <li>Tobias Markmann -- <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+  <li>Ralph Meijer -- <a href='/council/'>XMPP Council</a></li>
+  <li>Alexey Melnikov -- <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Dirk Meyer</li>
+  <li>Gr&#233;goire Menuel</li>
+  <li>Matthew Miller</li>
+  <li>Jack Moffitt -- <a href='/xsf/board/'>Board of Directors</a>, <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+  <li>Edwin Mons -- <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+  <li>Peter Mount -- <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Lucas Nussbaum</li>
+  <li>Jehan Pagès</li>
+  <li>Vinod Panicker</li>
+  <li>Johann Prieur</li>
+  <li>Steven Parkes -- <a href='/xsf/teams/communication/'>communication</a>, <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+  <li>Micka&#235;l R&#233;mond</li>
+  <li>Arc Riley</li>
+  <li>Ali Sabil</li>
+  <li>Peter Saint-Andre -- Executive Director, <a href='/extensions/editor.shtml'>XEP Editor</a>, <a href='/registrar/'>XMPP Registrar</a>, <a href='/xsf/teams/communication/'>communication</a>, <a href='/xsf/teams/infrastructure'>infrastructure</a>, <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Jonathan Schleifer</li>
+  <li>Safa Sofuoğlu -- <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Jonathan Siegle -- <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+  <li>Kevin Smith -- <a href='/council/'>XMPP Council</a>, <a href='/xsf/teams/communication/'>communication</a>, <a href='/xsf/teams/infrastructure'>infrastructure</a>, <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Neil Stratford</li> 
+  <li>Luca Tagliaferri -- <a href='/xsf/teams/infrastructure'>infrastructure</a>, <a href='/xsf/teams/techreview/'>technical review</a></li>
+  <li>Mike Taylor</li>
+  <li>Mick Thompson</li>
+  <li>Remko Tron&#231;on -- <a href='/council/'>XMPP Council</a>, <a href='/xsf/teams/infrastructure/'>infrastructure</a></li>
+  <li>Nicolas V&#233;rit&#233; -- <a href='/xsf/board/'>Board of Directors</a>, <a href='/xsf/teams/communication/'>communication</a></li>
+  <li>Johannes Wagener</li>
+  <li>Matthew Wild -- <a href='/council/'>XMPP Council</a>, <a href='/xsf/teams/infrastructure/'>infrastructure</a></li>
+  <li>Heiner Wolf</li>
+  <li>Kurt Zeilenga</li>
+  <li>Florian Zeitz</li>
+  <li>Xue Yong Zhi</li>
+  <li>Christopher Zorn</li>
+</ol>
+
+<p>In addition, the following individuals are emeritus members of the XMPP Standards Foundation:
+<ul>
+  <li>Ryan Eatmon</li>
+  <li>Jeremie Miller -- <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+  <li>Julian Missig</li>
+  <li>Thomas Muldowney</li>
+  <li>Dave Smith -- <a href='/xsf/teams/infrastructure'>infrastructure</a></li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

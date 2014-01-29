@@ -1,0 +1,14 @@
+<manifest>
+  <title>Portable Import/Export Format for XMPP-IM Servers</title>
+  <abstract>This document specifies a file format for importing and exporting user data to and from XMPP-IM servers.</abstract>
+  <specnum>XEP-0227</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0227.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:pie:0</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/pie.xsd</schema>
+  </schemas>
+</manifest>

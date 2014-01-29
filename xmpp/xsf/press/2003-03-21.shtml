@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>JabberD Quickstart Now Available for Free Download</h3>
+<h4>All-In-One Executable to Hasten Adoption of Jabber Protocol</h4>
+<p>DENVER, CO - March 21, 2003 -- The Jabber Software Foundation (JSF), the non-profit organization that manages the open Jabber protocol for XML-based instant messaging and presence, today announced the availability of JabberD Quickstart, a pre-packaged executable for the one-step installation and use of the JabberD open-source instant messaging server. JabberD Quickstart may be downloaded for free at &lt;<a href="http://jabberd.jabberstudio.org/quickstart/">http://jabberd.jabberstudio.org/quickstart/</a>&gt;.</p> 
+<p>The JSF reports that more than 150,000 copies of the JabberD server have been downloaded prior to the launch of Quickstart. Worldwide, it is estimated that there are more than 7 million users of Jabber for instant communications.</p>
+<p>"Quickstart is emblematic of our philosophy of inclusion and transparency," noted Jeremie Miller, the widely respected founder of the Jabber movement. "The intention of Quickstart is to make it easier for IT managers to install and use Jabber in order to expand the universe of Jabber users."</p>
+<p>Added Michael Bauer, Chairman of the JSF, "The Quickstart package will be essential to helping companies adopt Jabber as an emerging Internet standard for instant messaging and XML routing."</p>
+<p>According to the JSF, Quickstart is an all-in-one executable file that provides IT managers with the functional equivalent of shrink-wrapped software. Once installed, JabberD can be used for secure intra-organizational IM behind the firewall, secure inter-organizational IM through server-to-server communications, or as a publicly available open IM server.</p>
+<p>Whereas legacy instant messaging services are closed networks based on proprietary protocols, Jabber provides a distributed architecture developed around a is a client-server-based open protocol. Because Jabber enables organizations to take control of their own IM services, it is an increasingly attractive option for companies that require the kind of privacy and security that is lacking in consumer IM services. The new JabberD Quickstart package is intended to makes it easier to get started with Jabber, and hasten the adoption of Jabber technologies.</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

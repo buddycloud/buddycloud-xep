@@ -1,0 +1,216 @@
+﻿<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html>
+
+<head>
+<title>XSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Member Meeting</h2>
+<ul>
+	<li><span lang="en-us">Where</span>: <a href="xmpp:foundation@conference.jabber.org?join">foundation@conference.jabber.org</a></li>
+	<li>Log:
+	<a href="http://logs.jabber.org/foundation@conference.jabber.org/2009-08-06.html">
+	http://logs.jabber.org/foundation@conference.jabber.org/2009-08-06.html</a></li>
+	<li>Time: Monday, 2009-06-08, 20:00 UTC</li>
+	<li>When is 20:00 UTC in your local time?
+	<a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+<ol>
+	<li><strong>Call for Quorum</strong><p>The following 35 XSF members voted via 
+	proxy:</p>
+	<pre>xue.yong.zhi@gmail.com
+linuxwolf@outer-planes.net
+dmeyer@jabber.org
+alexey.melnikov@isode.com
+coder2000@jabber.org
+artur.hefczyc@gmail.com
+justin@andbit.net
+tofu@thetofu.com
+edrin@jabber.org
+matt@jivesoftware.com
+aconbere@gmail.com
+mateusz@bilinski.it
+waqas@jaim.at
+ff@jabber.bluendo.com
+stpeter@jabber.org
+kurt.zeilenga@isode.com
+mwild1@jaim.at
+bmalkow@malkowscy.net
+tobiasfar@jabber.org
+mremond@process-one.net
+siegle@jabber.org
+cbas@pandion.be
+migri@jabber.i-pobox.net
+intosi@ik.nu
+cking@mumbo.ca
+safasofuoglu@gmail.com
+hildjj@jabber.org
+kevin@doomsong.co.uk
+omega@im.apinc.org
+js@webkeks.org
+nyco@jabber.fr
+remko@el-tramo.be
+gnauck@jabber.org
+axelsena@jabber.uww.edu
+aadaam@gmail.com
+	</pre>
+	<p>The XSF has 53 members as of this date. Therefore quorum is achieved in accordance 
+	with Section 3.8 of the <a href="/xsf/docs/bylaws.shtml">XSF Bylaws</a>.</p>
+	</li>
+	<li>
+	<p><strong>Items Subject to a Vote</strong></p>
+	<ol>
+		<li>New and Returning members<p>Vote yes or no for the Q3 2009
+		<a href="http://wiki.xmpp.org/web/Membership_Applications_July_2009" target="_blank">
+		applicants</a>.</p>
+		</li>
+	</ol>
+	</li>
+	<li>
+	<p><strong>Opportunity for XSF Members to Vote in the Meeting</strong> </p>
+	<ol>
+		<li>The following members voted in the meeting
+		<pre>admin@xmpp-admin.flosoft-servers.net</pre>
+		</li>
+	</ol>
+	</li>
+	<li>
+	<p><strong>Announcement of Voting Results</strong></p>
+	<table border="1" cellpadding="3" cellspacing="0">
+		<tr>
+			<th>Applicant </th>
+			<th>Yes</th>
+			<th>No</th>
+		</tr>
+		<tr>
+			<td>Peter Ferne</td>
+			<td>33</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td>Douglas Abbink</td>
+			<td>30</td>
+			<td>6</td>
+		</tr>
+		</table>
+	<br />
+	<br />
+	<table border="1" cellpadding="3" cellspacing="0">
+		<tr>
+			<th>Reappliers </th>
+			<th>Yes</th>
+			<th>No</th>
+		</tr>
+		<tr>
+			<td>Aaron Axelsen</td>
+			<td>25</td>
+			<td>11</td>
+		</tr>
+		<tr>
+			<td>Diana Cionoiu</td>
+			<td>32</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td>Sebastiaan Deckers</td>
+			<td>35</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>Nathanael Fritz</td>
+			<td>36</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>Joe Hildebrand</td>
+			<td>35</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>Florian Jensen</td>
+			<td>35</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>Nicolas Vérité</td>
+			<td>32</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td>Dieter Lunn</td>
+			<td>12</td>
+			<td>24</td>
+		</tr>
+		<tr>
+			<td>Bartosz Malkowski</td>
+			<td>34</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>Tobias Markmann</td>
+			<td>36</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>Ralph Meijer</td>
+			<td>36</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>Dirk Meyer</td>
+			<td>35</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>Matthew Miller</td>
+			<td>36</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>Edwin Mons</td>
+			<td>33</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td>Mickael Remond</td>
+			<td>34</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>Peter Saint-Andre</td>
+			<td>34</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>Jonathan Schleifer</td>
+			<td>29</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td>Jonathan Siegle</td>
+			<td>29</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td>Remko Tronçon</td>
+			<td>36</td>
+			<td>0</td>
+		</tr>
+			</table>
+	</li>
+	<li>
+	<p><strong>Any Other Business?</strong></p>
+	<p><em>Board and Council elections:<br /></em>we discussed the schedule. Accept candidates until September 11, vote by proxy September 14 - 30, and have a meeting on October 1st.</p>
+	<p><em>Limit of board candidates:</em> <br />
+	there is no limit of board candatiates as there is for council in our bylaws. 
+	We have agree on a odd number and formalize the bylaw changes with an 
+	official vote.</p>
+	</li>
+	<li>
+	<p><strong>Formal Adjournment</strong></p>
+	</li>
+</ol>
+<!--#include virtual="/includes/foot.txt" -->
+
+</html>
+</head>

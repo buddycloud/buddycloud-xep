@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2003-04-29 @ 16:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 16:08 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Michael Bauer</li>
+<li>Jeremie Miller</li>
+<li>Marco Palombi</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>Four of five Board members were in attendance. Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Sponsorship</p>
+    <p>Four "silver" sponsors have signed recently or will sign soon. Tony is working on eight significant prospects, all of which are customers of Jabber, Inc.</p>
+    <p>The sponsorship materials may need to be updated to include more benefits, e.g., co-branding at conferences and website presence. Tony to work on this with help from Michael and Peter based on their interaction with prospective sponsors.</p>
+    <p>Reiterated that website presence is as follows: "platinum" sponsors are in banner rotation at top of all pages, "gold" sponsors receive graphic image on the homepage, "silver" sponsors receive text link on homepage. All sponsors receive a dedicated page in the sponsors section of the website. Peter has not yet implemented the graphic links and banners on the homepage.</p>
+    <p>Lengthy discussion of sponsor benefits such as a dedicated mailing list or "Sponsor's Roundtable" that would enable sponsors to provide input regarding strategy discussions at the executive level within the JSF. A related issue is the desirability of creating an Advisory Board consisting of industry luminaries who understand Jabber and could provide helpful advice to the Jabber community through the JSF. Peter to author a feasibility study regarding Sponsor's Roundtable and Advisory Board, and to present it to the Board.</p>
+    <p>Discussed criteria for in-kind sponsorships. Consensus that in-kind sponsorships should be granted when the sponsor provides tangible assets that are needed by the JSF, such as equipment. Consensus that it is extremely important to recognize "softer" contributions such as the effort expended by Team Leaders, but that such contributions do not warrant in-kind sponsorships. However, we need to recognize such contributions in significant ways (e.g., subsidizing travel to conferences).</p>
+  </li>
+  <li>
+    <p>Trademark Enforcement Agreement</p>
+    <p>This meets with approval and will be signed as soon as Tony provides a fair copy to Michael for signing.</p>
+  </li>
+  <li>
+    <p>Membership and Teams</p>
+    <p>Consensus that one-year terms for membership are a good idea. Peter to propose Bylaws change regarding this in May. Peter to also improve the membership application in order to gather more data from applicants regarding their specific contributions in the 12 months prior to applying.</p>
+    <p>Issue of inactive Council members remanded back to the Council, since it seems that Section 8.1 of the Bylaws gives the Council sufficient standing to address this issue on its own.</p>
+    <p>Discussed principles and policies related to JSF Work Teams. Consensus that when a Team is formed, the Board shall either appoint an initial Team Leader or ask for volunteers, from among whom the Board shall choose a Leader. The Team Leader serves at the discretion of the Board and is responsible to the Board. The Team Leader shall determine the process by which team members shall be chosen or approved within the team. This process shall be specified in the Team Charter and approved by the Board. The Board shall approve both the Team Charter and a Team Budget. Such approval does not need to wait until the next Board meeting, and may be done via the Board mailing list. As the JSF raises more money, budgets may be revised and Team Leaders may submit new ones. Finally, the Board requests official charters and budgets from all existing Teams. Peter to add these processes to the proposed Bylaws change, also to be voted on in May.</p>
+  </li>
+  <li>
+    <p>Team Reports</p>
+    <p>No official reports presented. Going forward, JSF Secretary to request such reports from Team Leaders at least one week prior to each Board meeting, including action and approval items required by the Teams.</p>
+  </li>
+  <li>
+    <p>Marketing Discussion</p>
+    <p>The Board must exercise due oversight regarding use of the JSF logo by entities outside the JSF. Bylines or slogans to accompany such use must also be approved by the Board. Not necessary to wait for a Board meeting to seek such approval. Proposed use and message should be discussed by or with the Marketing Team first, then presented to the Board by the Marketing Team Leader.</p>
+    <p>Discussed "co-branding" of Jabber and XMPP. Strong consensus that the JSF needs an effective and visible marketing communications program to clarify "what is Jabber" since there is so much misunderstanding regarding the nature of Jabber among technical professionals, journalists, and the public at large. Good idea to tap into the IETF pedigree of XMPP when doing so, but must make it clear that the JSF manages open protocols for applications (especially "Open IM") built on top of XMPP.</p>
+  </li>
+</ol>
+<h2>New Business</h2>
+<ol>
+  <li>
+    <p>The next Board meeting will be held in early June -- specific date to be decided soon.</p> 
+  </li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 17:45 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

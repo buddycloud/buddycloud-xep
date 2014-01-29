@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<events>
+<event>
+  <date>2011-01-19T17:00:00Z</date>
+  <duration>30</duration>
+  <summary>XSF Board Meeting</summary>
+  <description>The meeting is open to all, click xmpp:xsf@muc.xmpp.org?join to participate.</description>
+  <alarm></alarm>
+</event>
+</events>

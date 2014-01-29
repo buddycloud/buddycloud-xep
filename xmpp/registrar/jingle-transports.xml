@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'linklocal.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='linklocal.xsl'?>
+<registry>
+
+<meta>
+  <title>Jingle Transport Methods</title>
+  &LEGALNOTICE;
+  <overview>This is the official registry of Jingle Transport Methods as maintained by the &REGISTRAR; and authorized by &xep0166;.</overview>
+  <revision>
+    <version>0.1</version>
+    <date>2009-06-10</date>
+    <initials>psa</initials>
+    <remark>Initial version, populated with "ice-udp" and "raw-udp" application format from XEP-0176 and XEP-0177.</remark>
+  </revision>
+</meta>
+
+<transport>
+  <name>ice-udp</name>
+  <desc>
+    A method for negotiation of out-of-band UDP connections 
+    with built-in NAT and firewall traversal, equivalent to 
+    the IETF's Interactive Connectivity Establishment (ICE) 
+    methodology when resulting in the use of UDP as the
+    transport protocol.
+  </desc>
+  <type>datagram</type>
+  <doc>XEP-0176</doc>
+</transport>
+
+<transport>
+  <name>raw-udp</name>
+  <desc>A method for exchanging data over raw UDP associations.</desc>
+  <type>datagram</type>
+  <doc>XEP-0177</doc>
+</transport>
+
+</registry>

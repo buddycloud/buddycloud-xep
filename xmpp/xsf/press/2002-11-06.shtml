@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>IETF Announces XMPP Working Group</h3>
+<h4>Internet Standards Body to Adapt Jabber Protocol as an IETF IM and Presence Technology</h4>
+<p>DENVER, CO - November 6, 2002 -- The Jabber Software Foundation (JSF), the non-profit organization that manages the open Jabber protocol for XML-based instant messaging and presence, today acknowledged that the Internet Engineering Steering Group (<a href="http://www.ietf.org/iesg.html">IESG</a>) has <a href="http://www.ietf.org/mail-archive/ietf-announce/Current/msg21379.html">announced</a> the formation of an XMPP Working Group within the Internet Engineering Task Force (<a href="http://www.ietf.org/">IETF</a>). This Working Group will be dedicated to discussion and improvement of the Extensible Messaging and Presence Protocol (XMPP) that is used throughout the Jabber community, with the intent of adapting XMPP as an IETF instant messaging and presence technology.</p>
+<p>Because the Jabber community has always been focused on the importance of true interoperability in the domain of instant messaging and presence, prominent individuals within the community have been interested and involved in the IETF standards process for the last three years (see the <a href="/about/history.html">history page</a> for details). However, the formation of a dedicated working group provides an opportunity to receive feedback from the broader Internet community, and to ensure that the protocol used in the Jabber community adheres to IETF standards regarding security, internationalization, and the like.</p>
+<p>As defined in the <a href="http://www.ietf.org/html.charters/xmpp-charter.html">charter</a>, the scope of the Working Group is to explore and, where necessary, modify the existing protocol in order to meet the requirements defined in <a href="http://www.ietf.org/rfc/rfc2779.txt">RFC 2779</a> as well as the interoperability requirements defined in the CPIM specification. The main focus of the Working Group will be on XML streams (including stream-level security and authentication), the core data elements (&lt;message/&gt;, &lt;presence/&gt;, and &lt;iq/&gt;), and the namespaces required to achieve basic instant messaging and presence.</p>
+<p>Parallel to the Working Group, the Jabber Software Foundation (JSF) will continue to use its <a href="/jeps/">Jabber Enhancement Proposal (JEP) Process</a> (itself modelled on the IETF's standards process) to explore requirements not addressed in RFC 2779, such as multi-user chat, publish-subscribe systems, file transfer, whiteboarding, and calendaring. As such specifications are defined and adopted within the Jabber community, they too may be submitted to the IETF for consideration on top of the XMPP framework.</p>
+<p>Members of the Jabber community and the broader Internet community are welcome to participate in the XMPP Working Group as well as the Jabber Interest Group devoted to discussion of Jabber Enhancement Proposals. Information about the relevant mailing lists maybe be found at the following URLs:</p>
+<ul>
+<li><a href="http://mail.jabber.org/mailman/listinfo/xmppwg/">http://mail.jabber.org/mailman/listinfo/xmppwg/</a></li>
+<li><a href="http://mailman.jabber.org/listinfo/standards-jig/">http://mailman.jabber.org/listinfo/standards-jig/</a></li>
+</ul>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

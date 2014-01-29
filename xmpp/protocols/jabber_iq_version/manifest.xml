@@ -1,0 +1,14 @@
+<manifest>
+  <title>Software Version</title>
+  <abstract>This specification defines an XMPP protocol extension for retrieving information about the software application associated with an XMPP entity. The protocol enables one entity to explicitly query another entity, where the response can include the name of the software application, the version of the software application, and the operating system on which the application is running.</abstract>
+  <specnum>XEP-0092</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0092.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>jabber:iq:version</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/iq-version.xsd</schema>
+  </schemas>
+</manifest>

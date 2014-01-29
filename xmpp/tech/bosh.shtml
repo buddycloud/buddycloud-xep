@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Technologies: BOSH</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Technologies: BOSH</h2>
+
+<h3>Table of Contents</h3>
+<ol>
+  <li><a href='#overview'>Overview</a></li>
+  <li><a href='#specs'>Specifications</a></li>
+  <li>
+    <a href='#impl'>Implementations</a>
+    <ol>
+      <li><a href='#impl-server'>Servers</a></li>
+      <li><a href='#impl-cm'>Connection Managers</a></li>
+      <li><a href='#impl-client'>Clients</a></li>
+      <li><a href='#impl-library'>Libraries</a></li>
+    </ol>
+  </li>
+  <li><a href='#discuss'>Discussion Venues</a></li>
+</ol>
+
+<a name='overview'></a><h3>1. Overview</h3>
+<p>BOSH is "Bidirectional-streams Over Synchronous HTTP", a technology for two-way communication over the Hypertext Transfer Protocol (HTTP). BOSH emulates many of the transport primitives that are familiar from the Transmission Control Protocol (TCP). For applications that require both "push" and "pull" communications, BOSH is significantly more bandwidth-efficient and responsive than most other bidirectional HTTP-based transport protocols and the techniques known as AJAX. BOSH achieves this efficiency and low latency by avoiding HTTP polling, yet it does so without resorting to chunked HTTP responses as is done in the technique known as Comet. To date, BOSH has been used mainly as a transport for traffic exchanged between Jabber/XMPP clients and servers (e.g., to facilitate connections from web clients and from mobile clients on intermittent networks). However, BOSH is not tied solely to XMPP and can be used for other kinds of traffic, as well.</p>
+
+<a name='specs'></a><h3>2. Specifications</h3>
+<p>BOSH is defined in two specifications:</p>
+<ul>
+  <li><a href='http://www.xmpp.org/extensions/xep-0124.html'>XEP-0124: Bidirectional-streams Over Synchronous HTTP</a></li>
+  <li><a href='http://www.xmpp.org/extensions/xep-0206.html'>XEP-0206: XMPP Over BOSH</a></li>
+</ul>
+
+<a name='impl'></a><h3>3. Implementations</h3>
+<a name='impl-server'></a><h4>3.1 Servers</h4>
+<p>The following XMPP servers include built-in support for BOSH:</p>
+<ul>
+  <li><a href='http://www.ejabberd.im/'>ejabberd</a></li>
+  <li><a href='http://www.jabber.com/'>Jabber XCP</a></li>
+  <li><a href='http://www.igniterealtime.org/projects/openfire/index.jsp'>Openfire</a></li>
+  <li><a href='http://prosody.im/'>Prosody</a></li>
+  <li><a href='http://www.tigase.org/'>Tigase</a></li>
+</ul>
+
+<a name='impl-cm'></a><h4>3.2 Connection Managers</h4>
+<p>The following standalone XMPP connection managers can be used with a wide variety of XMPP servers:</p>
+<ul>
+  <li><a href='http://blog.bluendo.com/ff/bosh-connection-manager-update'>Araneo</a></li>
+  <li><a href='http://blog.jwchat.org/jhb/'>JabberHTTPBind</a></li>
+  <li><a href='http://code.stanziq.com/punjab'>Punjab</a></li>
+  <li><a href='http://rubyforge.org/projects/rhb/'>rhb</a></li>
+</ul>
+
+<a name='impl-client'></a><h4>3.3 Clients</h4>
+<ul>
+  <li><a href='http://adium.im/'>Adium</a></li>
+  <li><a href='http://gajim.org/'>Gajim</a></li>
+  <li><a href='http://blog.jwchat.org/jwchat/'>JWChat</a></li>
+  <li><a href='http://pidgin.im/'>Pidgin</a></li>
+  <li><a href='http://www.soashable.com/'>Soashable</a></li>
+  <li><a href='http://www.igniterealtime.org/projects/sparkweb/'>SparkWeb</a></li>
+  <li><a href='http://www.tigase.org/project/messenger'>Tigase Messenger</a></li>
+  <li><a href='http://www.tigase.org/project/minichat'>Tigase Minichat</a></li>
+</ul>
+
+<a name='impl-library'></a><h4>3.4 Libraries</h4>
+<ul>
+  <li><a href='http://code.google.com/p/emite/'>emite</a> (gwt)</li>
+  <li><a href='http://camaya.net/gloox'>gloox</a> (C++)</li>
+  <li><a href='http://blog.jwchat.org/jsjac/'>JSJaC</a> (JavaScript)</li>
+  <li><a href='http://code.stanziq.com/strophe/'>strophe</a> (C or JavaScript)</li>
+  <li><a href='http://www.igniterealtime.org/projects/xiff/'>XIFF</a> (Flash)</li>
+  <li><a href='http://www.tigase.org/project/xmpp4gwt'>XMPP4GWT</a> (gwt)</li>
+  <li><a href='http://xmpp4js.sourceforge.net/index.html'>xmpp4js</a> (JavaScript)</li>
+  <li><a href='http://home.gna.org/xmpp4r/'>XMPP4R</a> (Ruby)</li>
+</ul>
+
+<a name='discuss'></a><h3>4. Discussion Venues</h3>
+<p>The XMPP Standards Foundation maintains a dedicated email list ("bosh@xmpp.org") about BOSH, intended as a low-volume venue for discussion of BOSH implementation and protocol issues. As with all XSF technology lists, the bosh@xmpp.org list is open to all interested individuals.</p>
+<ul>
+  <li><a href='http://mail.jabber.org/mailman/listinfo/bosh'>Info page and subscription information</a></li>
+  <li><a href='mailto:bosh-subscribe@xmpp.org'>Subscribe via email</a></li>
+  <li><a href='http://mail.jabber.org/pipermail/bosh/'>Discussion archives</a></li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

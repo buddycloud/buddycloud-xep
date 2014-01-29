@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Discussion</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Discussion</h2>
+<p>There are many active discussion venues for Jabber/XMPP developers, system administrators, and end users. In addition to discussion lists and web forums specific to particular codebases, the following general venues are hosted by the <a href='/'>XMPP Standards Foundation</a>. Most of these lists are easily searchable at <a href='http://jabber.markmail.org/'>jabber.markmail.org</a>.</p>
+<h3>For End Users</h3>
+<ul>
+  <li><p><span style='font-weight: bold'>JUser</span>@jabber.org email list -- for discussion about <span style='font-weight: bold'>use of IM clients</span> (<a href='http://mail.jabber.org/mailman/listinfo/juser'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/juser/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Jabber support chatroom</span> -- real-time chat about using Jabber/XMPP technologies (<a href='http://speeqe.com/room/jabber@conference.jabber.org/'>webchat</a> | <a href='xmpp:jabber@conference.jabber.org?join'>join</a> | <a href='http://logs.jabber.org/jabber@conference.jabber.org/'>logs</a>)</p></li>
+</ul>
+<h3>For System Admins</h3>
+<ul>
+  <li><p><span style='font-weight: bold'>JAdmin</span>@jabber.org email list -- for discussion about installing and configuring Jabber/XMPP <span style='font-weight: bold'>server software</span> (<a href='http://mail.jabber.org/mailman/listinfo/jadmin'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/jadmin/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Operators</span>@xmpp.org email list -- for discussion about <span style='font-weight: bold'>day-to-day operation</span> of the Jabber/XMPP communications network (<a href='http://mail.jabber.org/mailman/listinfo/operators'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/operators/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Operators chatroom</span> -- real-time chat about the Jabber/XMPP network (<a href='http://speeqe.com/room/operators@conference.jabber.org/'>webchat</a> | <a href='xmpp:operators@conference.jabber.org?join'>join</a> | <a href='http://logs.jabber.org/operators@conference.jabber.org/'>logs</a>)</p></li>
+</ul>
+<h3>For Developers</h3>
+<p>The following venues are of general interest to developers, architects, and other technologists.</p>
+<ul>
+  <li><p><span style='font-weight: bold'>Interop</span>@xmpp.org email list -- for discussion about <span style='font-weight: bold'>interoperability testing</span> (<a href='http://mail.jabber.org/mailman/listinfo/interop'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/interop/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>JDev</span>@jabber.org email list -- for discussion about <span style='font-weight: bold'>software development</span> using Jabber/XMPP technologies (<a href='http://mail.jabber.org/mailman/listinfo/jdev'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/jdev/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Standards</span>@xmpp.org email list -- for general discussion about <span style='font-weight: bold'>XMPP protocols</span> (<a href='http://mail.jabber.org/mailman/listinfo/standards'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/standards/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>xmpp@ietf.org</span> email list -- official list for <a href='http://tools.ietf.org/wg/xmpp/'>XMPP Working Group</a> discussions at the <a href='http://www.ietf.org/'>IETF</a> (<a href='https://www.ietf.org/mailman/listinfo/xmpp'>subscribe</a> | <a href='http://www.ietf.org/mail-archive/web/xmpp/current/maillist.html'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Developer chatroom</span> -- real-time chat about software and protocols (<a href='http://speeqe.com/room/jdev@conference.jabber.org/'>webchat</a> | <a href='xmpp:jdev@conference.jabber.org?join'>join</a> | <a href='http://logs.jabber.org/jdev@conference.jabber.org/'>logs</a>)</p></li>
+</ul>
+<p>The following special-purpose mailing lists provide low-volume, high-quality discussion among developers interested in specific aspects of XMPP technologies.</p>
+<ul>
+  <li><p><span style='font-weight: bold'>BOSH</span>@xmpp.org email list -- for discussion about the <span style='font-weight: bold'>HTTP binding</span> for XMPP as defined in <a href='http://www.xmpp.org/extensions/xep-0124.html'>XEP-0124</a> and <a href='http://www.xmpp.org/extensions/xep-0206.html'>XEP-0206</a> (<a href='http://mail.jabber.org/mailman/listinfo/bosh'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/bosh/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Gaming</span>@xmpp.org email list -- for discussion about the XMPP extensions for <span style='font-weight:bold'>gaming applications and protocol extensions</span> (<a href='http://mail.jabber.org/mailman/listinfo/gaming'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/gaming/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Jingle</span>@xmpp.org email list -- for discussion about the use of XMPP as a signalling channel for <span style='font-weight: bold'>multimedia session negotiation</span> (voice, video, file sharing, etc.) as defined in <a href='http://www.xmpp.org/extensions/xep-0166.html'>XEP-0166</a> and related extensions (<a href='http://mail.jabber.org/mailman/listinfo/jingle'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/jingle/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Mobile</span>@xmpp.org email list -- for discussion about the applications and optimization of XMPP technologies for <span style='font-weight: bold'>mobile networks</span> (<a href='http://mail.jabber.org/mailman/listinfo/mobile'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/mobile/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>MUC</span>@xmpp.org email list -- for discussion about the XMPP extensions for <span style='font-weight:bold'>multi-user chat</span> (<a href='http://mail.jabber.org/mailman/listinfo/muc'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/muc/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>PubSub</span>@xmpp.org email list -- for discussion about the XMPP extensions for <span style='font-weight:bold'>publish-subscribe and personal eventing</span> such as data syndication and extended presence (<a href='http://mail.jabber.org/mailman/listinfo/pubsub'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/pubsub/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Security</span>@xmpp.org email list -- for discussion about <span style='font-weight:bold'>security issues</span> related to XMPP, including encryption, authentication, and spam (<a href='http://mail.jabber.org/mailman/listinfo/security'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/security/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Social</span>@xmpp.org email list -- for discussion about the use of XMPP in <span style='font-weight:bold'>social networking applications</span> such as microblogging (<a href='http://mail.jabber.org/mailman/listinfo/social'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/social/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>SIP-XMPP</span>@xmpp.org email list -- for discussion about interworking between <span style='font-weight: bold'>SIP and XMPP</span> (<a href='http://mail.jabber.org/mailman/listinfo/sip-xmpp'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/sip-xmpp/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>WS-XMPP</span>@xmpp.org email list -- for discussion about the use of XMPP in <span style='font-weight: bold'>real-time web services</span>, middleware, cloud computing, etc. (<a href='http://mail.jabber.org/mailman/listinfo/ws-xmpp'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/ws-xmpp/'>archives</a>)</p></li>
+</ul>
+<p>All of the foregoing venues are completely free and open to any interested person.</p>
+<h3>For XSF Members</h3>
+<p>The following venues are intended for <a href='/xsf/members/'>elected members</a> of the <a href='/xsf/'>XMPP Standards Foundation</a> but are openly archived as part of the public record.</p>
+<ul>
+  <li><p><span style='font-weight: bold'>CommTeam</span>@xmpp.org email list -- for discussion among members of the <a href='/xsf/teams/communication/'>XSF Communication Team</a> about the XSF website, blog, podcasts, and other communication strategies (<a href='http://mail.jabber.org/pipermail/commteam/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Council</span>@xmpp.org email list -- for discussion among members of the <a href='/council/'>XMPP Council</a>, anyone can subscribe but only Council members are allowed to post (<a href='http://mail.jabber.org/mailman/listinfo/council'>subscribe</a> | <a href='http://mail.jabber.org/pipermail/council/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>Members</span>@xmpp.org email list -- for discussion among <a href='/xsf/members/'>elected XSF members</a> about overall organizational issues (<a href='http://mail.jabber.org/pipermail/members/'>archives</a>)</p></li>
+  <li><p><span style='font-weight: bold'>TechReview</span>@xmpp.org email list -- for discussion among members of the <a href='/xsf/teams/techreview/'>XSF Technical Review Team</a>, mainly used for coordination of reviews that happen on the public lists (<a href='http://mail.jabber.org/pipermail/techreview/'>archives</a>)</p></li>
+</ul>
+<!--#include virtual="/includes/foot.txt" -->

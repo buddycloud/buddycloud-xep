@@ -1,0 +1,14 @@
+<manifest>
+  <title>Jingle ICE-UDP Transport Method</title>
+  <abstract>This specification defines a Jingle transport method that results in sending media data using raw datagram associations via the User Datagram Protocol (UDP). This transport method is negotiated via the Interactive Connectivity Establishment (ICE) methodology, which provides robust NAT traversal for media traffic.</abstract>
+  <specnum>XEP-0176</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0176.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:jingle:transports:ice-udp:1</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/jingle-transports-ice-udp.xsd</schema>
+  </schemas>
+</manifest>

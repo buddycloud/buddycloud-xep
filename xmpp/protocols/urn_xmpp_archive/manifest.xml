@@ -1,0 +1,14 @@
+<manifest>
+  <title>Message Archiving</title>
+  <abstract>This document defines mechanisms and preferences for the server-side archiving and retrieval of XMPP messages.</abstract>
+  <specnum>XEP-0136</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0136.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:archive</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/archive.xsd</schema>
+  </schemas>
+</manifest>

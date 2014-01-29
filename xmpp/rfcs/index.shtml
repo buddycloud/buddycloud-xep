@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP RFCs</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP RFCs</h2>
+<p><em>Last Updated: 2009-06-11</em></p>
+<p>The base specifications of the Extensible Messaging and Presence Protocol (XMPP) formalize the core protocols developed within the <a href="/about/jabber.shtml">Jabber</a> open-source community in 1999. They were produced by the IETF's XMPP Working Group and published as RFCs 3920 and 3921 in October 2004.</p>
+<p style='font-style: italic'>Note: Updated versions of RFC 3920 and RFC 3921 are currently being worked on in the IETF via the re-formed <a href='http://tools.ietf.org/wg/xmpp/'>XMPP WG</a>. Consult <a href='http://tools.ietf.org/html/draft-ietf-xmpp-3920bis'>rfc3920bis</a> and <a href='http://tools.ietf.org/html/draft-ietf-xmpp-3921bis'>rfc3921bis</a> for the most accurate, up-to-date protocol definitions, and join the <a href='https://www.ietf.org/mailman/listinfo/xmpp'>xmpp@ietf.org</a> list to participate in the revision process.</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='body'><th>RFC</th><th>Short Name</th><th>Formats</th><th>Description</th></tr>
+<tr class='body'>
+  <td>RFC&nbsp;3920</td>
+  <td>XMPP&nbsp;Core</td>
+  <td>see&nbsp;<a href='http://tools.ietf.org/html/draft-ietf-xmpp-3920bis'>rfc3920bis</a><br/><a href="http://www.ietf.org/rfc/rfc3920.txt">Text</a>&nbsp;|&nbsp;<a href="rfc3920.html">HTML</a></td>
+  <td>XML streams, SASL, TLS, stringprep profiles, stanza semantics</td>
+</tr>
+<tr class='body'>
+  <td>RFC&nbsp;3921</td>
+  <td>XMPP&nbsp;IM</td>
+  <td>see&nbsp;<a href='http://tools.ietf.org/html/draft-ietf-xmpp-3921bis'>rfc3921bis</a><br/><a href="http://www.ietf.org/rfc/rfc3921.txt">Text</a>&nbsp;|&nbsp;<a href="rfc3921.html">HTML</a></td>
+  <td>XMPP extensions for basic instant messaging and presence</td>
+</tr>
+<tr class='body'>
+  <td>RFC&nbsp;3922</td>
+  <td>XMPP&nbsp;CPIM</td>
+  <td><a href="http://www.ietf.org/rfc/rfc3922.txt">Text</a>&nbsp;|&nbsp;<a href="rfc3922.html">HTML</a></td>
+  <td>Mapping XMPP to the IETF's CPIM specifications</td>
+</tr>
+<tr class='body'>
+  <td>RFC&nbsp;3923</td>
+  <td>XMPP&nbsp;E2E</td>
+  <td><a href="http://www.ietf.org/rfc/rfc3923.txt">Text</a>&nbsp;|&nbsp;<a href="rfc3923.html">HTML</a></td>
+  <td>End-to-end signing and object encryption for XMPP</td>
+</tr>
+<tr class='body'>
+  <td>RFC&nbsp;4854</td>
+  <td>XMPP&nbsp;URN</td>
+  <td><a href="http://www.ietf.org/rfc/rfc4854.txt">Text</a>&nbsp;|&nbsp;<a href="rfc4854.html">HTML</a></td>
+  <td>A Uniform Resource Name (URN) tree for use in XMPP extensions</td>
+</tr>
+<tr class='body'>
+  <td>RFC&nbsp;4979</td>
+  <td>XMPP&nbsp;ENUM</td>
+  <td><a href="http://www.ietf.org/rfc/rfc4979.txt">Text</a> | <a href="http://tools.ietf.org/html/rfc4979">HTML</a></td>
+  <td>IANA registration of an Enumservice (see <a href='http://www.ietf.org/rfc/rfc3761.txt'>RFC 3761</a>) for XMPP</td>
+</tr>
+<tr class='body'>
+  <td>RFC&nbsp;5122</td>
+  <td>XMPP&nbsp;URI</td>
+  <td><a href="http://www.ietf.org/rfc/rfc5122.txt">Text</a>&nbsp;|&nbsp;<a href="rfc5122.html">HTML</a></td>
+  <td>A Uniform Resource Identifier (URI) scheme for XMPP (this specification corrects several errors in <a href='http://www.ietf.org/rfc/rfc4622.txt'>RFC 4622</a>)</td>
+</tr>
+</table>
+<p>In addition to the RFCs, there are many <a href='/extensions/'>XMPP extensions</a> defined in the XEP series produced by the <a href='/xsf/'>XMPP Standards Foundation</a>, and several <a href="/internet-drafts/">XMPP-related Internet-Drafts</a> are currently under consideration within the IETF.</p>
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,14 @@
+<manifest>
+  <title>User Mood</title>
+  <abstract>This specification defines a payload format for communicating information about user moods, such as whether a person is currently happy, sad, angy, or annoyed. The payload format is typically transported using the personal eventing profile of XMPP publish-subscribe as specified in XEP-0163.</abstract>
+  <specnum>XEP-0107</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0107.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/mood</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/mood.xsd</schema>
+  </schemas>
+</manifest>

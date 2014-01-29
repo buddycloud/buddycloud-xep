@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>User Tune</title>
+  <abstract>This specification defines a payload format for communicating information about music to which a user is listening, including the title, track number, collection, performer, composer, length, and user rating. The payload format is typically transported using the personal eventing protocol, a profile of XMPP publish-subscribe specified in XEP-0163.</abstract>
+  &LEGALNOTICE;
+  <number>0118</number>
+  <status>Draft</status>
+  <type>Standards Track</type>
+  <sig>Standards</sig>
+  <dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XEP-0163</spec>
+  </dependencies>
+  <supersedes/>
+  <supersededby/>
+  <shortname>tune</shortname>
+  <schemaloc>
+    <url>http://www.xmpp.org/schemas/tune.xsd</url>
+  </schemaloc>
+  &stpeter;
+  <revision>
+    <version>1.2</version>
+    <date>2008-01-30</date>
+    <initials>psa</initials>
+    <remark><p>Added rating element.</p></remark>
+  </revision>
+  <revision>
+    <version>1.1</version>
+    <date>2007-06-04</date>
+    <initials>psa</initials>
+    <remark><p>Removed non-PEP examples; added uri element.</p></remark>
+  </revision>
+  <revision>
+    <version>1.0</version>
+    <date>2004-11-12</date>
+    <initials>psa</initials>
+    <remark><p>Per a vote of the Jabber Council, advanced status to Draft.</p></remark>
+  </revision>
+  <revision>
+    <version>0.10</version>
+    <date>2004-10-29</date>
+    <initials>psa</initials>
+    <remark><p>Added example with URL.</p></remark>
+  </revision>
+  <revision>
+    <version>0.9</version>
+    <date>2004-10-27</date>
+    <initials>psa</initials>
+    <remark><p>Changed recommendation to not include the &lt;length/&gt; element if the track time is unknown.</p></remark>
+  </revision>
+  <revision>
+    <version>0.8</version>
+    <date>2004-10-26</date>
+    <initials>psa</initials>
+    <remark><p>Added implementation notes; clarified nature of &lt;source/&gt; and &lt;track/&gt; elements; if length is unknown, set to zero.</p></remark>
+  </revision>
+  <revision>
+    <version>0.7</version>
+    <date>2004-05-20</date>
+    <initials>psa</initials>
+    <remark><p>Changed &lt;length/&gt; datatype from xs:duration to xs:unsignedShort.</p></remark>
+  </revision>
+  <revision>
+    <version>0.6</version>
+    <date>2004-04-25</date>
+    <initials>psa</initials>
+    <remark><p>Corrected several errors; added reference to XEP-0033.</p></remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2004-02-19</date>
+    <initials>psa</initials>
+    <remark><p>Reverted from infobits to tune elements.</p></remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2003-12-14</date>
+    <initials>psa</initials>
+    <remark><p>Slight modifications to track changes to infobits specifications.</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2003-10-23</date>
+    <initials>psa</initials>
+    <remark><p>Replaced tune elements with infobits.</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2003-09-10</date>
+    <initials>psa</initials>
+    <remark><p>Added "stop" function via empty &lt;tune/&gt; element.</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2003-09-08</date>
+    <initials>psa</initials>
+    <remark><p>Initial version.</p></remark>
+  </revision>
+</header>
+<section1 topic='Introduction' anchor='intro'>
+  <p>This document defines a protocol for communicating information about the music to which a user is listening. Such information may be seen as a kind of "extended presence", and users may want to communicate such information to their contacts on the network as a fun add-on to traditional IM applications or to provide integration with common music-player applications.</p>
+</section1>
+<section1 topic='Protocol' anchor='protocol'>
+  <section2 topic='Container Element and Child Elements' anchor='protocol-elements'>
+    <p>Information about tunes is provided by the user and propagated on the network by the user's client. The information container for tune data is a &lt;tune/&gt; element that is qualified by the 'http://jabber.org/protocol/tune' namespace. The tune information itself is provided as the XML character data of the following children of the &lt;tune/&gt; element:</p>
+    <table caption='Child Elements'>
+      <tr>
+        <th>Element</th>
+        <th>Description</th>
+        <th>Example</th>
+        <th>Datatype</th>
+      </tr>
+      <tr>
+        <td>artist</td>
+        <td>The artist or performer of the song or piece</td>
+        <td>Yes</td>
+        <td>xs:string</td>
+      </tr>
+      <tr>
+        <td>length</td>
+        <td>The duration of the song or piece in seconds</td>
+        <td>686</td>
+        <td>xs:unsignedShort</td>
+      </tr>
+      <tr>
+        <td>rating</td>
+        <td>The user's rating of the song or piece, from 1 (lowest) to 10 (highest).</td>
+        <td>8</td>
+        <td>xs:positiveInteger</td>
+      </tr>
+      <tr>
+        <td>source</td>
+        <td>The collection (e.g., album) or other source (e.g., a band website that hosts streams or audio files)</td>
+        <td>Yessongs</td>
+        <td>xs:string</td>
+      </tr>
+      <tr>
+        <td>title</td>
+        <td>The title of the song or piece</td>
+        <td>Heart of the Sunrise</td>
+        <td>xs:string</td>
+      </tr>
+      <tr>
+        <td>track</td>
+        <td>A unique identifier for the tune; e.g., the track number within a collection or the specific URI for the object (e.g., a stream or audio file)</td>
+        <td>3</td>
+        <td>xs:string</td>
+      </tr>
+      <tr>
+        <td>uri</td>
+        <td>A URI or URL pointing to information about the song, collection, or artist</td>
+        <td>http://www.yesworld.com/lyrics/Fragile.html#9</td>
+        <td>xs:anyURI</td>
+      </tr>
+    </table>
+    <p>NOTE: The datatypes specified above are defined in &w3xmlschema2;.</p>
+  </section2>
+  <section2 topic='Transport Mechanism' anchor='protocol-transport'>
+    <p>Tune information SHOULD be communicated and transported by means of the &xep0060; subset specified in &xep0163;. Because tune information is not pure presence information and can change independently of the user's availability, it SHOULD NOT be provided as an extension to &PRESENCE;.</p>
+    <example caption='User Publishes Tune Information'><![CDATA[
+<iq type='set'
+    from='stpeter@jabber.org/14793c64-0f94-11dc-9430-000bcd821bfb'
+    id='tunes123'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='http://jabber.org/protocol/tune'>
+      <item>
+        <tune xmlns='http://jabber.org/protocol/tune'>
+          <artist>Yes</artist>
+          <length>686</length>
+          <rating>8</rating>
+          <source>Yessongs</source>
+          <title>Heart of the Sunrise</title>
+          <track>3</track>
+          <uri>http://www.yesworld.com/lyrics/Fragile.html#9</uri>
+        </tune>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+    ]]></example>
+    <p>The tune information is then delivered to all subscribers:</p>
+    <example caption='Tune Information is Delivered to All Subscribers'><![CDATA[
+<message
+    from='stpeter@jabber.org'
+    to='maineboy@jabber.org'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='http://jabber.org/protocol/tune'>
+      <item id='bffe6584-0f9c-11dc-84ba-001143d5d5db'>
+        <tune xmlns='http://jabber.org/protocol/tune'>
+          <artist>Yes</artist>
+          <length>686</length>
+          <rating>8</rating>
+          <source>Yessongs</source>
+          <title>Heart of the Sunrise</title>
+          <track>3</track>
+          <uri>http://www.yesworld.com/lyrics/Fragile.html#9</uri>
+        </tune>
+      </item>
+    </items>
+  </event>
+</message>
+    ]]></example>
+    <p>In order to indicate that the user is no longer listening to any tunes (or has simply disabled publication), the user's client shall send an empty &lt;tune/&gt; element, which can be considered a "stop command" for user tunes:</p>
+    <example caption='User Disables Publishing'><![CDATA[
+<iq type='set'
+    from='stpeter@jabber.org/14793c64-0f94-11dc-9430-000bcd821bfb'
+    id='tunes345'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='http://jabber.org/protocol/tune'>
+      <item>
+        <tune xmlns='http://jabber.org/protocol/tune'/>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+    ]]></example>
+    <example caption='Empty Tune Information is Delivered to All Subscribers'><![CDATA[
+<message
+    from='stpeter@jabber.org'
+    to='maineboy@jabber.org'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='http://jabber.org/protocol/tune'>
+      <item id='cbbb3f5a-0f9c-11dc-afe0-001143d5d5db'>
+        <tune xmlns='http://jabber.org/protocol/tune'/>
+      </item>
+    </items>
+  </event>
+</message>
+    ]]></example>
+  </section2>
+</section1>
+<section1 topic='Implementation Notes' anchor='impl'>
+  <p>To prevent a large number of updates when a user is skipping through tracks, an implementation SHOULD wait several seconds before publishing new tune information.</p>
+  <p>If the length is unknown (e.g., the user is listening to a stream), the &lt;length/&gt; element SHOULD NOT be included.</p>
+  <p>A typical interface for user ratings is to show one to five star icons such as &#9733;&#9733;&#9733;&#9733;. If this interface is used, the numbers 2, 4, 6, 8, and 10 should be mapped to one, two, three, four, and five stars respectively, and odd numbers should be mapped to half stars (e.g., the number 9 would be mapped to four-and-a-half stars).</p>
+</section1>
+<section1 topic='Security Considerations' anchor='security'>
+  <p>The publication of user tune information is not known to introduce any new security considerations above and beyond those defined in <cite>XEP-0060: Publish-Subscribe</cite>.</p>
+</section1>
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;.</p>
+</section1>
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <section2 topic='Protocol Namespaces' anchor='registrar-ns'>
+    <p>The &REGISTRAR; includes 'http://jabber.org/protocol/tune' in its registry of protocol namespaces.</p>
+  </section2>
+</section1>
+<section1 topic='XML Schema' anchor='schema'>
+  <code><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='http://jabber.org/protocol/tune'
+    xmlns='http://jabber.org/protocol/tune'
+    elementFormDefault='qualified'>
+
+  <xs:annotation>
+    <xs:documentation>
+      The protocol documented by this schema is defined in
+      XEP-0118: http://www.xmpp.org/extensions/xep-0118.html
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name='tune'>
+    <xs:complexType>
+      <xs:sequence minOccurs='0'>
+        <xs:element name='artist' type='xs:string' minOccurs='0'/>
+        <xs:element name='length' type='xs:unsignedShort' minOccurs='0'/>
+        <xs:element name='rating'>
+          <xs:simpleType>
+            <xs:restriction base='xs:positiveInteger'>
+              <xs:maxInclusive value='10'/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name='source' type='xs:string' minOccurs='0'/>
+        <xs:element name='title' type='xs:string' minOccurs='0'/>
+        <xs:element name='track' type='xs:string' minOccurs='0'/>
+        <xs:element name='uri' type='xs:anyURI' minOccurs='0'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+  ]]></code>
+</section1>
+</xep>

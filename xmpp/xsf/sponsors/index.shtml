@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Sponsors</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Sponsors</h2>
+
+<p>The XMPP Standards Foundation is generously supported by a number of companies that are using or building Jabber/XMPP technologies. If your organization derives value from Jabber/XMPP technologies, we invite you to also <a href='join.shtml'>support the XSF</a>.</p>
+
+<h2>Titanium Sponsors</h2>
+<blockquote>
+<p><a href='google.shtml'><img alt='Google Logo' style='border-width: 0px' src='/images/logo-google.gif' /></a></p>
+<p><a href='jabberinc.shtml'><img alt='Jabber Inc. Logo' style='border-width: 0px' src='/images/logo-jinc.png' /></a></p>
+<p><a href='process-one.shtml'><img alt='ProcessOne Logo' style='border-width: 0px' src='/images/logo-p1.png' /></a></p>
+</blockquote>
+<hr />
+
+<h2>Platinum Sponsors</h2>
+<blockquote>
+<p><a href='usshc.shtml'><img alt='USSHC Logo' style='border-width: 0px' src='/images/logo-usshc.jpg' /></a></p>
+</blockquote>
+<hr />
+
+<h2>Gold Sponsors</h2>
+<blockquote>
+<p><a href='hp.shtml'><img alt='HP Logo' style='border-width: 0px' src='/images/logo-hp.gif' /></a></p>
+</blockquote>
+<hr />
+
+<h2>Silver Sponsors</h2>
+<blockquote>
+<p><a href='agsoftware.shtml'><img alt='AG Software Logo' style='border-width: 0px' src='/images/logo-agsoftware.png' /></a></p>
+<p><a href='cleartext.shtml'><img alt='Cleartext Logo' style='border-width: 0px' src='/images/logo-cleartext.jpg' /></a></p>
+<p><a href='dreamhost.shtml'><img alt='DreamHost Logo' style='border-width: 0px' src='/images/logo-dreamhost.png' /></a></p>
+<p><a href='jivesoftware.shtml'><img alt='Jive Software Logo' style='border-width: 0px' src='/images/logo-jivesoftware.png' /></a></p>
+<p><a href='wimba.shtml'><img alt='Wimba Logo' style='border-width: 0px' src='/images/logo-wimba.gif' /></a></p>
+</blockquote>
+<hr />
+
+<!--#include virtual="/includes/foot.txt" -->

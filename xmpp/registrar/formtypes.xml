@@ -1,0 +1,1005 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'formtypes.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='formtypes.xsl'?>
+<registry>
+<meta>
+  <title>FORM_TYPEs for Data Forms</title>
+  &LEGALNOTICE;
+  <overview>This is the official registry of FORM_TYPEs and associated fields used in the context of the 'jabber:x:data' namespace (see &xep0004; and &xep0068;), as registered with the &REGISTRAR;.</overview>
+  <revision>
+    <version>0.9</version>
+    <date>2009-04-06</date>
+    <initials>psa</initials>
+    <remark>Added missing jabber:iq:register:cancel and jabber:iq:register:changepassword FORM_TYPEs from XEP-0077.</remark>
+  </revision>
+  <revision>
+    <version>0.8</version>
+    <date>2008-09-03</date>
+    <initials>psa</initials>
+    <remark>Added CAPTCHA form type and CAPTCHA-related fields for registration form type.</remark>
+  </revision>
+  <revision>
+    <version>0.7</version>
+    <date>2007-09-27</date>
+    <initials>psa</initials>
+    <remark>Added pubsub-options form type.</remark>
+  </revision>
+  <revision>
+    <version>0.6</version>
+    <date>2007-01-31</date>
+    <initials>psa</initials>
+    <remark>Added server contact addresses registration from XEP-0157.</remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2007-01-17</date>
+    <initials>psa</initials>
+    <remark>Added chat session negotiation registration from XEP-0155.</remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2006-07-05</date>
+    <initials>psa</initials>
+    <remark>Corrected pubsub registration.</remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2006-03-23</date>
+    <initials>psa</initials>
+    <remark>Added registration from XEP-0146.</remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2004-01-18</date>
+    <initials>psa</initials>
+    <remark>Registrations from XEP-0055 and XEP-0060.</remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2003-12-31</date>
+    <initials>psa</initials>
+    <remark>Initial version (registrations from XEP-0045 and XEP-0077).</remark>
+  </revision>
+</meta>
+<!-- begin FORM_TYPEs for extended server information (XEP-0128 / XEP-0157) -->
+<form_type>
+  <name>http://jabber.org/network/serverinfo</name>
+  <doc>&xep0157;</doc>
+  <desc>
+    Forms enabling the communication of contact addresses
+    and other server information.
+  </desc>
+  <field
+      var='abuse-addresses'
+      type='list-multi'
+      label='One or more addresses for communication related to abusive traffic'/>
+  <field
+      var='feedback-addresses'
+      type='list-multi'
+      label='One or more addresses for customer feedback'/>
+  <field
+      var='sales-addresses'
+      type='list-multi'
+      label='One or more addresses for communication related to sales and marketing'/>
+  <field
+      var='security-addresses'
+      type='list-multi'
+      label='One or more addresses for communication related to security concerns'/>
+  <field
+      var='support-addresses'
+      type='list-multi'
+      label='One or more addresses for customer support'/>
+</form_type>
+<!-- end FORM_TYPEs for extended server information (XEP-0128 / XEP-0157) -->
+<!-- begin FORM_TYPEs for Service Administration (XEP-0133) -->
+<form_type>
+  <name>http://jabber.org/protocol/admin</name>
+  <doc>&xep0133;</doc>
+  <desc>Forms used for administration of servers and components.</desc>
+  <field var='accountjid'
+         type='jid-single'
+         label='The Jabber ID of a single entity to which an operation applies'/>
+  <field var='accountjids'
+         type='jid-multi'
+         label='The Jabber ID of one or more entities to which an operation applies'/>
+  <field var='activeuserjids'
+         type='jid-multi'
+         label='The Jabber IDs associated with active sessions'/>
+  <field var='activeusersnum'
+         type='text-single'
+         label='The number of online entities that are active'/>
+  <field var='adminjids'
+         type='jid-multi'
+         label='A list of entities with administrative privileges'/>
+  <field var='announcement'
+         type='text-multi'
+         label='The text of an announcement to be sent to active users or all users'/>
+  <field var='blacklistjids'
+         type='jid-multi'
+         label='A list of entities with whom communication is blocked'/>
+  <field var='delay'
+         type='list-multi'
+         label='The number of seconds to delay before applying a change'/>
+  <field var='disableduserjids'
+         type='jid-multi'
+         label='The Jabber IDs that have been disabled'/>
+  <field var='disabledusersnum'
+         type='text-single'
+         label='The number of disabled entities'/>
+  <field var='email'
+         type='text-single'
+         label='The email address for a user'/>
+  <field var='given_name'
+         type='text-single'
+         label='The given (first) name of a user'/>
+  <field var='idleusersnum'
+         type='text-single'
+         label='The number of online entities that are idle'/>
+  <field var='ipaddresses'
+         type='list-multi'
+         label='The IP addresses of an account&apos;s online sessions'/>
+  <field var='lastlogin'
+         type='text-single'
+         label='The last login time (per XEP-0082) of a user'/>
+  <field var='loginsperminute'
+         type='text-single'
+         label='The number of logins per minute for an account'/>
+  <field var='max_items'
+         type='list-single'
+         label='The maximum number of items associated with a search or list'/>
+  <field var='motd'
+         type='text-multi'
+         label='The text of a message of the day'/>
+  <field var='onlineresources'
+         type='text-single'
+         label='The names of an account&apos;s online sessions'/>
+  <field var='onlineuserjids'
+         type='jid-multi'
+         label='The Jabber IDs associated with online users'/>
+  <field var='onlineusersnum'
+         type='text-single'
+         label='The number of online entities'/>
+  <field var='password'
+         type='text-private'
+         label='The password for an account'/>
+  <field var='password-verify'
+         type='text-private'
+         label='Password verification'/>
+  <field var='registereduserjids'
+         type='jid-multi'
+         label='A list of registered entities'/>
+  <field var='registeredusersnum'
+         type='text-single'
+         label='The number of registered entities'/>
+  <field var='rostersize'
+         type='text-single'
+         label='Number of roster items for an account'/>
+  <field var='stanzaspersecond'
+         type='text-single'
+         label='The number of stanzas being sent per second by an account'/>
+  <field var='surname'
+         type='text-single'
+         label='The family (last) name of a user'/>
+  <field var='welcome'
+         type='text-multi'
+         label='The text of a welcome message'/>
+  <field var='whitelistjids'
+         type='jid-multi'
+         label='A list of entities with whom communication is allowed'/>
+</form_type>
+<!-- end FORM_TYPEs for Service Administration (XEP-0133) -->
+<!-- begin FORM_TYPEs for Multi-User Chat (XEP-0045) -->
+<form_type>
+  <name>http://jabber.org/protocol/muc#register</name>
+  <doc>&xep0045;</doc>
+  <desc>
+    Forms enabling user registration with a
+    Multi-User Chat (MUC) room.
+  </desc>
+  <field
+      var='muc#register_first'
+      type='text-single'
+      label='Given Name'/>
+  <field
+      var='muc#register_last'
+      type='text-single'
+      label='Family Name'/>
+  <field
+      var='muc#register_roomnick'
+      type='text-single'
+      label='Desired Nickname'/>
+  <field
+      var='muc#register_url'
+      type='text-single'
+      label='Your URL'/>
+  <field
+      var='muc#register_email'
+      type='text-single'
+      label='Email Address'/>
+  <field
+      var='muc#register_faqentry'
+      type='text-multi'
+      label='FAQ Entry'/>
+</form_type>
+<form_type>
+  <name>http://jabber.org/protocol/muc#roomconfig</name>
+  <doc>&xep0045;</doc>
+  <desc>
+    Forms enabling creation and configuration of
+    a Multi-User Chat (MUC) room.
+  </desc>
+  <field
+      var='muc#roomconfig_allowinvites'
+      type='boolean'
+      label='Whether to Allow Occupants to Invite Others'/>
+  <field
+      var='muc#roomconfig_changesubject'
+      type='boolean'
+      label='Whether to Allow Occupants to Change Subject'/>
+  <field
+      var='muc#roomconfig_enablelogging'
+      type='boolean'
+      label='Whether to Enable Logging of Room Conversations'/>
+  <field
+      var='muc#roomconfig_lang'
+      type='text-single'
+      label='Natural Language for Room Discussions'/>
+  <field
+      var='muc#roomconfig_maxusers'
+      type='list-single'
+      label='Maximum Number of Room Occupants'/>
+  <field
+      var='muc#roomconfig_membersonly'
+      type='boolean'
+      label='Whether an Make Room Members-Only'/>
+  <field
+      var='muc#roomconfig_moderatedroom'
+      type='boolean'
+      label='Whether to Make Room Moderated'/>
+  <field
+      var='muc#roomconfig_passwordprotectedroom'
+      type='boolean'
+      label='Whether a Password is Required to Enter'/>
+  <field
+      var='muc#roomconfig_persistentroom'
+      type='boolean'
+      label='Whether to Make Room Persistent'/>
+  <field
+      var='muc#roomconfig_presencebroadcast'
+      type='list-multi'
+      label='Roles for which Presence is Broadcast'/>
+  <field
+      var='muc#roomconfig_publicroom'
+      type='boolean'
+      label='Whether to Allow Public Searching for Room'/>
+  <field
+      var='muc#roomconfig_roomadmins'
+      type='jid-multi'
+      label='Full List of Room Admins'/>
+  <field
+      var='muc#roomconfig_roomdesc'
+      type='text-single'
+      label='Short Description of Room'/>
+  <field
+      var='muc#roomconfig_roomname'
+      type='text-single'
+      label='Natural-Language Room Name'/>
+  <field
+      var='muc#roomconfig_roomowners'
+      type='jid-multi'
+      label='Full List of Room Owners'/>
+  <field
+      var='muc#roomconfig_roomsecret'
+      type='text-private'
+      label='The Room Password'/>
+  <field
+      var='muc#roomconfig_whois'
+      type='list-single'
+      label='Affiliations that May Discover Real JIDs of Occupants'/>
+</form_type>
+<!-- end FORM_TYPEs for Multi-User Chat (XEP-0045) -->
+<!-- begin FORM_TYPEs for Publish-Subscribe (XEP-0060) -->
+<form_type>
+  <name>http://jabber.org/protocol/pubsub#subscribe_authorization</name>
+  <doc>&xep0060;</doc>
+  <desc>Forms enabling authorization of subscriptions to pubsub nodes</desc>
+  <field
+      var='pubsub#allow'
+      type='boolean'
+      label='Whether to allow the subscription'/>
+  <field
+      var='pubsub#subid'
+      type='text-single'
+      label='The SubID of the subscription'/>
+  <field
+      var='pubsub#node'
+      type='text-single'
+      label='The NodeID of the relevant node'/>
+  <field
+      var='pubsub#subscriber_jid'
+      type='jid-single'
+      label='The address (JID) of the subscriber'/>
+</form_type>
+<form_type>
+  <name>http://jabber.org/protocol/pubsub#subscribe_options</name>
+  <doc>&xep0060;</doc>
+  <desc>Forms enabling configuration of subscription options for pubsub nodes</desc>
+  <field
+      var='pubsub#deliver'
+      type='boolean'
+      label='Whether an entity wants to receive
+             or disable notifications'/>
+  <field
+      var='pubsub#digest'
+      type='boolean'
+      label='Whether an entity wants to receive digests
+             (aggregations) of notifications or all
+             notifications individually'/>
+  <field var='pubsub#digest_frequency'
+         type='text-single'
+         label='The minimum number of milliseconds between
+                sending any two notification digests'/>
+  <field
+      var='pubsub#expire'
+      type='text-single'
+      label='The DateTime at which a leased subscription
+             will end or has ended'/>
+  <field
+      var='pubsub#include_body'
+      type='boolean'
+      label='Whether an entity wants to receive an XMPP
+             message body in addition to the payload
+             format'/>
+  <field
+      var='pubsub#show-values'
+      type='list-multi'
+      label='The presence states for which an entity
+             wants to receive notifications'>
+    <option label='XMPP Show Value of Away'>
+      <value>away</value>
+    </option>
+    <option label='XMPP Show Value of Chat'>
+      <value>chat</value>
+    </option>
+    <option label='XMPP Show Value of DND (Do Not Disturb)'>
+      <value>dnd</value>
+    </option>
+    <option label='Mere Availability in XMPP (No Show Value)'>
+      <value>online</value>
+    </option>
+    <option label='XMPP Show Value of XA (Extended Away)'>
+      <value>xa</value>
+    </option>
+  </field>
+  <field var='pubsub#subscription_type'
+         type='list-single'>
+    <option label='Receive notification of new items only'>
+      <value>items</value>
+    </option>
+    <option label='Receive notification of new nodes only'>
+      <value>nodes</value>
+    </option>
+  </field>
+  <field var='pubsub#subscription_depth'
+         type='list-single'>
+    <option label='Receive notification from direct child nodes only'>
+      <value>1</value>
+    </option>
+    <option label='Receive notification from all descendent nodes'>
+      <value>all</value>
+    </option>
+  </field>
+</form_type>
+<form_type>
+  <name>http://jabber.org/protocol/pubsub#meta-data</name>
+  <doc>&xep0060;</doc>
+  <desc>Forms enabling setting of meta-data information about pubsub nodes</desc>
+  <field var='pubsub#contact'
+         type='jid-multi'
+         label='The JIDs of those to contact with questions'/>
+  <field var='pubsub#creation_date'
+         type='text-single'
+         label='The datetime when the node was created'/>
+  <field var='pubsub#creator'
+         type='jid-single'
+         label='The JID of the node creator'/>
+  <field var='pubsub#description'
+         type='text-single'
+         label='A description of the node'/>
+  <field var='pubsub#language'
+         type='text-single'
+         label='The default language of the node'/>
+  <field var='pubsub#num_subscribers'
+         type='text-single'
+         label='The number of subscribers to the node'/>
+  <field var='pubsub#owner'
+         type='jid-multi'
+         label='The JIDs of those with an affiliation of owner'/>
+  <field var='pubsub#publisher'
+         type='jid-multi'
+         label='The JIDs of those with an affiliation of publisher'/>
+  <field var='pubsub#title'
+         type='text-single'
+         label='The name of the node'/>
+  <field var='pubsub#type'
+         type='text-single'
+         label='Payload type'/>
+</form_type>
+<form_type>
+  <name>http://jabber.org/protocol/pubsub#node_config</name>
+  <doc>&xep0060;</doc>
+  <desc>Forms enabling configuration of pubsub nodes</desc>
+  <field var='pubsub#access_model'
+         type='list-single'
+         label='Who may subscribe and retrieve items'>
+    <option label='Subscription requests must be approved and only subscribers may retrieve items'>
+      <value>authorize</value>
+    </option>
+    <option label='Anyone may subscribe and retrieve items'>
+      <value>open</value>
+    </option>
+    <option label='Anyone with a presence subscription of both or from may subscribe and retrieve items'>
+      <value>presence</value>
+    </option>
+    <option label='Anyone in the specified roster group(s) may subscribe and retrieve items'>
+      <value>roster</value>
+    </option>
+    <option label='Only those on a whitelist may subscribe and retrieve items'>
+      <value>whitelist</value>
+    </option>
+  </field>
+  <field var='pubsub#body_xslt'
+         type='text-single'
+         label='The URL of an XSL transformation which can be
+                applied to payloads in order to generate an
+                appropriate message body element.'/>
+  <field var='pubsub#collection'
+         type='text-single'
+         label='The collection with which a node is affiliated'/>
+  <field var='pubsub#contact'
+         type='jid-multi'
+         label='The JIDs of those to contact with questions'/>
+  <field var='pubsub#dataform_xslt'
+         type='text-single'
+         label='The URL of an XSL transformation which can be
+                applied to the payload format in order to generate
+                a valid Data Forms result that the client could
+                display using a generic Data Forms rendering
+                engine'/>
+  <field var='pubsub#deliver_notifications' type='boolean'
+         label='Whether to deliver event notifications'>
+    <value>true</value>
+  </field>
+  <field var='pubsub#deliver_payloads'
+         type='boolean'
+         label='Whether to deliver payloads with event notifications; applies only to leaf nodes'/>
+  <field var='pubsub#itemreply'
+         type='list-single'
+         label='Whether owners or publisher should receive replies to items'>
+    <option label='Statically specify a replyto of the node owner(s)'>
+      <value>owner</value>
+    </option>
+    <option label='Dynamically specify a replyto of the item publisher'>
+      <value>publisher</value>
+    </option>
+  </field>
+  <field var='pubsub#children_association_policy'
+         type='list-single'
+         label='Who may associate leaf nodes with a collection'>
+    <option label='Anyone may associate leaf nodes with the collection'>
+      <value>all</value>
+    </option>
+    <option label='Only collection node owners may associate leaf nodes with the collection'>
+      <value>owners</value>
+    </option>
+    <option label='Only those on a whitelist may associate leaf nodes with the collection'>
+      <value>whitelist</value>
+    </option>
+  </field>
+  <field var='pubsub#children_association_whitelist'
+         type='jid-multi'
+         label='The list of JIDs that may associate leaf nodes with a collection'/>
+  <field var='pubsub#children'
+         type='text-multi'
+         label='The child nodes (leaf or collection) associated with a collection'/>
+  <field var='pubsub#children_max'
+         type='text-single'
+         label='The maximum number of child nodes that can be associated with a collection'/>
+  <field var='pubsub#max_items'
+         type='text-single'
+         label='The maximum number of items to persist'/>
+  <field var='pubsub#max_payload_size'
+         type='text-single'
+         label='The maximum payload size in bytes'/>
+  <field var='pubsub#node_type'
+         type='list-single'
+         label='Whether the node is a leaf (default) or a collection'>
+    <option label='The node is a leaf node (default)'>
+      <value>leaf</value>
+    </option>
+    <option label='The node is a collection node'>
+      <value>collection</value>
+    </option>
+  </field>
+  <field var='pubsub#notify_config'
+         type='boolean'
+         label='Whether to notify subscribers when the node configuration changes'/>
+  <field var='pubsub#notify_delete'
+         type='boolean'
+         label='Whether to notify subscribers when the node is deleted'/>
+  <field var='pubsub#notify_retract'
+         type='boolean'
+         label='Whether to notify subscribers when items are removed from the node'/>
+  <field var='pubsub#notify_sub'
+         type='boolean'
+         label='Whether to notify owners about new subscribers and unsubscribes'/>
+  <field var='pubsub#persist_items'
+         type='boolean'
+         label='Whether to persist items to storage'/>
+  <field var='pubsub#presence_based_delivery'
+         type='boolean'
+         label='Whether to deliver notifications to available users only'/>
+  <field var='pubsub#publish_model'
+         type='list-single'
+         label='The publisher model'>
+    <option label='Only publishers may publish'>
+      <value>publishers</value>
+    </option>
+    <option label='Subscribers may publish'>
+      <value>subscribers</value>
+    </option>
+    <option label='Anyone may publish'>
+      <value>open</value>
+    </option>
+  </field>
+  <field var='pubsub#replyroom'
+         type='jid-multi'
+         label='The specific multi-user chat rooms to specify for replyroom'/>
+  <field var='pubsub#replyto'
+         type='jid-multi'
+         label='The specific JID(s) to specify for replyto'/>
+  <field var='pubsub#roster_groups_allowed'
+         type='list-multi'
+         label='The roster group(s) allowed to subscribe and retrieve items'/>
+  <field var='pubsub#send_last_published_item'
+         type='list-single'
+         label='When to send the last published item'>
+    <option label='Never'>
+      <value>never</value>
+    </option>
+    <option label='When a new subscription is processed'>
+      <value>on_sub</value>
+    </option>
+    <option label='When a new subscription is processed and whenever a subscriber comes online'>
+      <value>on_sub_and_presence</value>
+    </option>
+  </field>
+  <field var='pubsub#subscribe' type='boolean'
+         label='Whether to allow subscriptions'>
+    <value>1</value>
+  </field>
+  <field var='pubsub#title'
+         type='text-single'
+         label='A friendly name for the node'/>
+  <field var='pubsub#type'
+         type='text-single'
+         label='The type of node data, usually specified by
+                the namespace of the payload (if any); MAY
+                be list-single rather than text-single'/>
+</form_type>
+<form_type>
+  <name>http://jabber.org/protocol/pubsub#publish-options</name>
+  <doc>&xep0060;</doc>
+  <desc>
+    Forms enabling publication with options; each field must specify whether it
+    defines METADATA to be attached to the item, a per-item OVERRIDE of the node 
+    configuration, or a PRECONDITION to be checked against the node configuration.
+  </desc>
+  <field var='pubsub#access_model'
+         type='list-single'
+         label='Precondition: node configuration with the specified access model'>
+    <option label='Access model of authorize'>
+      <value>authorize</value>
+    </option>
+    <option label='Access model of open'>
+      <value>open</value>
+    </option>
+    <option label='Access model of presence'>
+      <value>presence</value>
+    </option>
+    <option label='Access model of roster'>
+      <value>roster</value>
+    </option>
+    <option label='Access model of whitelist'>
+      <value>whitelist</value>
+    </option>
+  </field>
+</form_type>
+<!-- end FORM_TYPEs for Publish-Subscribe (XEP-0060) -->
+<!-- begin FORM_TYPEs for Remote Controlling Clients (XEP-0145) -->
+<form_type>
+  <name>http://jabber.org/protocol/rc</name>
+  <doc>&xep0146;</doc>
+  <desc>Forms used for remote controlling clients</desc>
+  <field var='auto-auth'
+         type='boolean'
+         label='Whether to automatically authorize subscription requests'/>
+  <field var='auto-files'
+         type='boolean'
+         label='Whether to automatically accept file transfers'/>
+  <field var='auto-msg'
+         type='boolean'
+         label='Whether to automatically open new messages'/>
+  <field var='auto-offline'
+         type='boolean'
+         label='Whether to automatically go offline when idle'/>
+  <field var='sounds'
+         type='boolean'
+         label='Whether to play sounds'/>
+  <field var='files'
+         type='list-multi'
+         label='A list of pending file transfers'/>
+  <field var='groupchats'
+         type='list-multi'
+         label='A list of joined groupchat rooms'/>
+  <field var='status'
+         type='list-single'
+         label='A presence or availability status'>
+    <option label='Chat'> 
+        <value>chat</value>
+    </option>
+    <option label='Online'> 
+        <value>online</value>
+    </option>
+    <option label='Away'> 
+        <value>away</value>
+    </option>
+    <option label='Extended Away'> 
+        <value>xa</value>
+    </option>
+    <option label='Do Not Disturb'> 
+        <value>dnd</value>
+    </option>
+    <option label='Invisible'> 
+        <value>invisible</value>
+    </option>
+    <option label='Offline'> 
+        <value>offline</value>
+    </option>
+  </field>
+  <field var='status-message'
+         type='text-multi'
+         label='The status message text'/>
+  <field var='status-priority'
+         type='text-single'
+         label='The new priority for the client'/>
+</form_type>
+<!-- end FORM_TYPEs for Remote Controlling Clients (XEP-0145) -->
+<!-- begin FORM_TYPEs for In-Band Registration (XEP-0077) -->
+<form_type>
+  <name>jabber:iq:register</name>
+  <doc>&xep0077;</doc>
+  <desc>
+    Standardization of fields related to in-band registration.
+  </desc>
+  <field
+      var='address'
+      type='text-single'
+      label='Street portion of a physical or mailing address'/>
+  <field
+      var='answers'
+      type='hidden'
+      label='number of answers required'/>
+  <field
+      var='audio_recog'
+      type='text-single'
+      label='text associated with a sound'/>
+  <field
+      var='challenge'
+      type='hidden'
+      label='challenge ID'/>
+  <field
+      var='city'
+      type='text-single'
+      label='Locality portion of a physical or mailing address'/>
+  <field
+      var='email'
+      type='text-single'
+      label='Email address of the user'/>
+  <field
+      var='first'
+      type='text-single'
+      label='Given name of the user'/>
+  <field
+      var='last'
+      type='text-single'
+      label='Family name of the user'/>
+  <field
+      var='name'
+      type='text-single'
+      label='Full name of the user'/>
+  <field
+      var='nick'
+      type='text-single'
+      label='Familiar name of the user'/>
+  <field
+      var='ocr'
+      type='text-single'
+      label='code appearing in an image'/>
+  <field
+      var='password'
+      type='text-private'
+      label='Password or secret for the user'/>
+  <field
+      var='picture_q'
+      type='text-single'
+      label='answer associated with a picture'/>
+  <field
+      var='picture_recog'
+      type='text-single'
+      label='text associated with a picture'/>
+  <field
+      var='qa'
+      type='text-single'
+      label='answer to a question'/>
+  <field
+      var='SHA-256'
+      type='text-single'
+      label='least significant bits of SHA-256 hash of text should equal hexadecimal label'/>
+  <field
+      var='sid'
+      type='hidden'
+      label='stanza ID'/>
+  <field
+      var='speech_q'
+      type='text-single'
+      label='answer associated with speech'/>
+  <field
+      var='speech_recog'
+      type='text-single'
+      label='text associated with speech'/>
+  <field
+      var='state'
+      type='text-single'
+      label='Region portion of a physical or mailing address'/>
+  <field
+      var='username'
+      type='text-single'
+      label='Account name associated with the user'/>
+  <field
+      var='video_q'
+      type='text-single'
+      label='answer associated with a video'/>
+  <field
+      var='video_recog'
+      type='text-single'
+      label='text associated with a video'/>
+  <field
+      var='zip'
+      type='text-single'
+      label='Postal code portion of a physical or mailing address'/>
+</form_type>
+<form_type>
+  <name>jabber:iq:register:cancel</name>
+  <doc>XEP-0077</doc>
+  <desc>Standardization of fields related to cancellation use case.</desc>
+  <field
+      var='password'
+      type='text-private'
+      label='Password or secret for the user'/>
+  <field
+      var='username'
+      type='text-single'
+      label='Account name associated with the user'/>
+</form_type>
+<form_type>
+  <name>jabber:iq:register:changepassword</name>
+  <doc>XEP-0077</doc>
+  <desc>Standardization of fields related to change password use case.</desc>
+  <field
+      var='old_password'
+      type='text-private'
+      label='Old password for the user'/>
+  <field
+      var='password'
+      type='text-private'
+      label='Desired password for the user'/>
+  <field
+      var='username'
+      type='text-single'
+      label='Account name associated with the user'/>
+</form_type>
+<!-- end FORM_TYPEs for In-Band Registration (XEP-0077) -->
+<!-- begin FORM_TYPEs for Jabber Search (XEP-0055) -->
+<form_type>
+  <name>jabber:iq:search</name>
+  <doc>&xep0055;</doc>
+  <desc>Forms enabling directory searches.</desc>
+  <field
+      var='first'
+      type='text-single'
+      label='Given Name'/>
+  <field
+      var='last'
+      type='text-single'
+      label='Family Name'/>
+  <field
+      var='nick'
+      type='text-single'
+      label='Nickname'/>
+  <field
+      var='email'
+      type='text-single'
+      label='Email Address'/>
+</form_type>
+<!-- end FORM_TYPEs for Jabber Search (XEP-0055) -->
+<!-- begin FORM_TYPEs for CAPTCHA forms (XEP-0158) -->
+<form_type>
+  <name>urn:xmpp:captcha</name>
+  <doc>XEP-0158</doc>
+  <desc>Forms enabling the use of CAPTCHAs.</desc>
+  <field
+      var='answers'
+      type='hidden'
+      label='number of answers required'/>
+  <field
+      var='audio_recog'
+      type='text-single'
+      label='text associated with a sound'/>
+  <field
+      var='challenge'
+      type='hidden'
+      label='challenge ID'/>
+  <field
+      var='from'
+      type='hidden'
+      label='to attribute of stanza that triggered challenge'/>
+  <field
+      var='ocr'
+      type='text-single'
+      label='code appearing in an image'/>
+  <field
+      var='picture_q'
+      type='text-single'
+      label='answer associated with a picture'/>
+  <field
+      var='picture_recog'
+      type='text-single'
+      label='text associated with a picture'/>
+  <field
+      var='qa'
+      type='text-single'
+      label='answer to a question'/>
+  <field
+      var='SHA-256'
+      type='text-single'
+      label='least significant bits of SHA-256 hash of text should equal hexadecimal label'/>
+  <field
+      var='sid'
+      type='hidden'
+      label='stanza ID'/>
+  <field
+      var='speech_q'
+      type='text-single'
+      label='answer associated with speech'/>
+  <field
+      var='speech_recog'
+      type='text-single'
+      label='text associated with speech'/>
+  <field
+      var='video_q'
+      type='text-single'
+      label='answer associated with a video'/>
+  <field
+      var='video_recog'
+      type='text-single'
+      label='text associated with a video'/>
+</form_type>
+<!-- end FORM_TYPEs for CAPTCHA forms (XEP-0158) -->
+<!-- begin FORM_TYPEs for Stanza Session Negotiation (XEP-0155) -->
+<form_type>
+  <name>urn:xmpp:ssn</name>
+  <doc>&xep0155;</doc>
+  <desc>
+    Forms enabling negotation of a one-to-one
+    chat session between two entities.
+  </desc>
+  <field
+      var='accept'
+      type='boolean'
+      label='Whether to accept the invitation'/>
+  <field
+      var='continue'
+      type='text-single'
+      label='Another resource with which to continue the session'/>
+  <field
+      var="disclosure"
+      type="list-single"
+      label="Disclosure of content, decryption keys or identities">
+    <option label="Entities guarantee no disclosure features
+                   exist (not even disabled features)">
+      <value>never</value>
+    </option>
+    <option label="Entities MUST NOT disclose (except for those
+                   disclosures that are required by law)">
+      <value>disabled</value>
+    </option>
+    <option label="Entities MAY disclose">
+      <value>enabled</value>
+    </option>
+  </field>
+  <field
+      var='http://jabber.org/protocol/chatstates'
+      type='list-single'
+      label='Whether may send Chat State Notifications per XEP-0085'>
+    <option label='May Send'>
+      <value>may</value>
+    </option>
+    <option label='Must Not Send'>
+      <value>mustnot</value>
+    </option>
+  </field>
+  <field
+      var='http://jabber.org/protocol/xhtml-im'
+      type='list-single'
+      label='Whether allowed to use XHTML-IM formatting per XEP-0071'>
+    <option label='May Send'>
+      <value>may</value>
+    </option>
+    <option label='Must Not Send'>
+      <value>mustnot</value>
+    </option>
+  </field>
+  <field
+      var='language'
+      type='list-single'
+      label='Primary written language of the chat (each
+             value appears in order of preference and
+             conforms to RFC 4646 and the IANA registry)'/>
+  <field
+      var='logging'
+      type='list-single'
+      label='Whether allowed to log messages (i.e., 
+             whether Off-The-Record mode is required)'>
+    <option label='Allow Message Logging'>
+      <value>may</value>
+    </option>
+    <option label='Disallow All Message Logging (i.e., must 
+                   disable absolutely all message
+                   logging including automatic archiving
+                   -- see XEP-0136'>
+      <value>mustnot</value>
+    </option>
+  </field>
+  <field
+      var='renegotiate'
+      type='boolean'
+      label='Whether to renegotiate the session'/>
+  <field
+      var='security'
+      type='list-single'
+      label='Minimum security level'>
+    <option label='Secure connections not required'>
+      <value>none</value>
+    </option>
+    <option label='Both parties must be securely connected to their servers'>
+      <value>c2s</value>
+    </option>
+    <option label='Both parties must be securely connected to each other'>
+      <value>e2e</value>
+    </option>
+  </field>
+  <field
+      var='terminate'
+      type='boolean'
+      label='Whether to terminate the session'/>
+  <field
+      var='urn:xmpp:receipts'
+      type='boolean'
+      label='Whether to enable Message Receipts per XEP-0184'/>
+</form_type>
+<!-- end FORM_TYPEs for Stanza Session Negotiation (XEP-0155) -->
+</registry>

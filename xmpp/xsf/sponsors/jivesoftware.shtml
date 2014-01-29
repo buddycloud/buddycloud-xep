@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Sponsors :: Jive Software</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Sponsors :: Jive Software</h2>
+
+<p>
+<a href='http://www.jivesoftware.com/'><img alt='Jive Software Logo' style='float: right; border-width: 0px' src='/images/logo-jivesoftware.png'/></a> 
+<a href='http://www.jivesoftware.com/'>Jive Software</a> builds next-generation collaboration solutions. Jive Software is the developer of the Openfire server, Spark client, and Smack Java library, three leading professional Open Source projects for EIM, presence, and XMPP-based communications. Built using pure Java, Openfire is a scalable, secure, cross-platform XMPP server that can be easily and quickly customized using simple plugins. It installs in a matter of minutes and provides enterprise-class features such as message auditing, archiving and LDAP integration. An enterprise edition of Openfire is also available under a commercial license. Openfire Enterprise is implemented as a standard plugin and provides an expanded set of features such as real-time reporting, advanced archiving and granular client control.</p> 
+<p>Spark, a full-featured XMPP client, provides an exceptional IM user experience and is tightly integrated with the Openfire server. Spark's plugin architecture allows you to buy or build plugins (Sparkplugs&#8482;) that add new application features tailored for your business. Spark is centrally managed from within the Openfire administration console, making it easy to provision and update all clients on your network.</p>
+<p>Jive Software has over 1,350 customers world-wide, including IBM, Sun, Oracle, BEA, Deutsche Telekom, USJFCOM, Citrix and Toshiba.</p>
+<p>To learn more about the Open Source community behind Wildfire and Spark, visit &lt;<a href='http://www.igniterealtime.org/'>www.igniterealtime.org</a>&gt;.</p>
+<p>For more information about Jive Software, visit &lt;<a href='http://www.jivesoftware.com/'>www.jivesoftware.com</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

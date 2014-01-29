@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Interop :: Join</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Interop :: Join</h2>
+
+<p>The <a href='/interop/'>XMPP Interoperability Testing Network</a> is a private network run exclusively for the benefit of XMPP developers. Access is limited to <a href='developers.shtml'>authorized developers</a>, who must be associated with an <a href='producers.shtml'>approved project or company</a>.</p>
+<p>To join the network, please follow the instructions below.</p>
+
+<h3>For Companies and Open-Source Projects</h3>
+<p>In order to join the network, a company or open-source project must complete the <a href='/xsf/docs/Interoperability-Confidentiality-Agreement.pdf'>Confidentiality Agreement</a> and send it to <a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a>. The basic intent of the agreement is that your authorized developers will not publicize any bugs they find in other developers' software, which makes all developers comfortable with exposing their software to interoperability testing.</p>
+<p>Please read the entire agreement and make sure your company or project accepts its terms. Then initial each printed page, complete the "Acceptance" section at the end of the document, and sign your name. You can submit the agreement in any of the following ways:</p>
+<ul>
+  <li>Scan it to PDF format and email it to Peter Saint-Andre via <a href='mailto:stpeter@jabber.org'>mailto:stpeter@jabber.org</a></li>
+  <li> Fax it to +1-303-308-3219 (make sure to include a cover page directing it to Peter Saint-Andre!)</li>
+  <li> Send it via postal mail to XSF, P.O. Box 1641, Denver, CO 80201 USA</li>
+</ul>
+<p>After your agreement is received, you will be subscribed to the <a href='http://mail.jabber.org/mailman/listinfo/interop'>interop mailing list</a> for ongoing discussion.</p>
+
+<h3>For Individual Developers</h3>
+<p>If you are an individual developer, tester, or other contributor associated with one of the <a href='producers.shtml'>approved projects or companies</a>, please talk with the contact person for your project or company about joining the network. The contact person will then request for you to be added to the list of <a href='developers.shtml'>authorized developers</a>.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

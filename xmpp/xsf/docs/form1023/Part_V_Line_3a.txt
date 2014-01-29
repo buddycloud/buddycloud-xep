@@ -1,0 +1,39 @@
+Organization: XMPP Standards Foundation
+EIN: 84-1611178
+Form: 1023
+Attachment: Part V, Line 3a
+
+J. Peter Saint-Andre, Executive Director, is Director of Standards at 
+Jabber, Inc., a privately-held software development company in Denver,
+Colorado. He has been helping to define XMPP technologies since 1999. 
+He edited the XMPP specifications published by the Internet Engineering 
+Task Force in 2004 and has written many of the XMPP Extension Protocol 
+(XEP) documents published by the XMPP Standards Foundation (XSF). He also 
+manages the XSF's standards process including editing and publication of 
+the XEP series. In addition, his duties include management of day-to-day 
+operations for the XSF. He has over ten years of experience in the field 
+of Internet communication and collaboration. He typically works 40 hours 
+a week on XSF business. 
+
+Matt Tucker, Chair of the Board, is Chief Technology Officer and co-founder
+of Jive Software, a privately-held software development company in Portland,
+Oregon. He has over ten years of experience in software engineering, with a
+focus on real-time communications. His duties include helping to lead the
+business strategy of the organization, including a focus on marketing of 
+XMPP technologies. He typically works 10 hours a month on XSF business.
+
+Alexander Gnauck, Board Member and Secretary, is founder and principal of 
+AG-Software, a privately-held software development and consulting company
+in Heilbronn, Germany. He has over ten years of experience in software
+engineering. His duties include helping to lead the business strategy of 
+the organization, as well as the duties of the Secretary role (including 
+issuance of meeting notices, running of meetings, certification of election
+results, and maintenance of the organization's list of members and official 
+records). He typically works 10 hours a month on XSF business.
+
+Mickael Remond, Board Member, is founder and principal of Process-One, a
+software development and consulting company in Paris, France. He has over
+ten years of experience in software engineering. His duties include helping 
+to lead the business strategy of the organization. He typically works 10 
+hours a month on XSF business.
+

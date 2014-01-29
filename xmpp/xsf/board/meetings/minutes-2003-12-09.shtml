@@ -1,0 +1,60 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2003-12-09 @ 17:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 17:07 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Russell Davis</li>
+<li>Ryan Eatmon</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Trademark Transfer Status</p>
+    <p>The trademark program web pages, license agreement, and online application form are ready to make public, pending final approval by a representative of the Linux Mark Institute (LMI). Further discussion still required regarding detailed processes and procedures.</p>
+  </li>
+  <li>
+    <p>Certificate</p>
+    <p>Peter Saint-Andre has begun researching the process and cost of purchasing a certificate for use by JSF-run domains (jabber.org, xmpp.org), and shall report to the Board regarding his findings and recommendations.</p>
+  </li>
+  <li>
+    <p>Finances</p>
+    <p>Peter Saint-Andre reports that the JSF has approximately $10,700 in the bank. He is also working to source new bookkeeping and accounting services.</p>
+  </li>
+  <li>
+    <p>Protocol Priorities</p>
+    <p>Discussion of costs and benefits of sending further protocols through the IETF process. Consensus that it would be desirable to raise the credibility and visibility of JSF-produced protocols, and that this needs to be a priority for 2004.</p>
+  </li>
+  <li>
+    <p>Infrastructure Team</p>
+    <p>Report from Ryan Eatmon that a team work plan has been created. After a consideration of the organization's infrastructure needs, the team may recommend sourcing of additional hardware.</p>
+  </li>
+  <li>
+    <p>XMPP.ORG</p>
+    <p>Hopefully to be launched around the time of advancement of the XMPP Internet-Drafts to RFC (perhaps January or February at the current pace). Peter Saint-Andre to seek out a possible logo for Board review.</p>
+  </li>
+</ol>
+<h2>Action and Consent Items</h2>
+<p>None.</p>
+<h2>New Business</h2>
+<ol>
+  <li>
+    <p>The next Board meeting is tentatively scheduled for January 13, 2004.</p> 
+  </li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 17:38 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,148 @@
+<html>
+<head>
+<title>JSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Member Meeting</h2>
+
+<p>This is the agenda for a meeting of the Members of the Jabber Software Foundation (JSF). Meeting participants may want to refer to the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+<ul>
+<li>Where: foundation at conference.jabber.org</li>
+<li>Time: Wednesday, 2004-01-28, 18:00 UTC</li>
+<li>When is 18:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+<ol>
+  <li>
+    <p><strong>Call for Quorum</strong></p>
+    <p>The following 40 JSF members voted via proxy:</p>
+    <pre>
+&lt; adrian at dtedu.net &gt;
+&lt; ahkitj at greta.electric.gen.nz &gt;
+&lt; al019409 at mi.uji.es &gt;
+&lt; aleksey at jabber.ru &gt;
+&lt; byair at jabber.org &gt;
+&lt; cbas at rhymbox.com &gt;
+&lt; daniel at chote.net &gt;
+&lt; dave2000 at jabber.org &gt;
+&lt; edrin at jabber.org &gt;
+&lt; gnauck at myjabber.net &gt;
+&lt; hildjj at jabber.org &gt;
+&lt; jajcus at jabber.bnet.pl &gt;
+&lt; jer at jabber.org &gt;
+&lt; jeremy at austux.net &gt;
+&lt; jfrankel at jabber.org &gt;
+&lt; julian at jabber.org &gt;
+&lt; justin at andbit.net &gt;
+&lt; linuxwolf at outer-planes.net &gt;
+&lt; marian at t-system.com.pl &gt;
+&lt; martin at jabber.bettercom.de &gt;
+&lt; mass at akuma.org &gt;
+&lt; mawis at charente.de &gt;
+&lt; mblsha at jabber.ru &gt;
+&lt; me at ukscone.net &gt;
+&lt; mike at mikesatlas.com &gt;
+&lt; nickperez at jabber.org &gt;
+&lt; ocrampal at tipic.com &gt;
+&lt; paperino at tipic.com &gt;
+&lt; pluto at tipic.com &gt;
+&lt; rabbit at jabber.wp.pl &gt;
+&lt; ralphm at ik.nu &gt;
+&lt; reatmon at jabber.org &gt;
+&lt; richard_edward_dobson at jabber.org &gt;
+&lt; rob at cataclysm.cx &gt;
+&lt; rynok at jabber.com &gt;
+&lt; siegle at jabber.org &gt;
+&lt; stpeter at jabber.org &gt;
+&lt; temas at jabber.org &gt;
+&lt; uls at jabber.org &gt;
+&lt; zion at openaether.org &gt;
+    </pre>
+    <p>The JSF has 67 <a href="/members/memberlist.shtml">members</a> as of this date. Therefore quorum is achieved.</p>
+  </li>
+  <li><strong>Items Subject to a Vote</strong>
+    <ol>
+      <li><p>Voting on new members and renewal of membership for current members.</p></li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Opportunity for JSF members to Vote in the Meeting</strong></p>
+    <p>The following JSF members voted during the meeting:</p>
+    <p><ul>
+      <li>Michael Bauer</li>
+      <li>JD Conley</li>
+      <li>Peter Millard</li>
+      <li>Chris Mullins</li>
+      <li>Constantin Nickonov</li>
+      <li>Martin Rogard</li>
+    </ul></p>
+  </li>
+  <li><strong>Announcement of Voting Results</strong>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'><th>Applicant</th><th>Yes</th><th>No</th></tr>
+<tr class='tablebody'><td>Tony Cheung</td><td>41</td><td>5</td></tr>
+<tr class='tablebody'><td>Tom Coffin</td><td>41</td><td>5</td></tr>
+<tr class='tablebody'><td>JD Conley</td><td>41</td><td>5</td></tr>
+<tr class='tablebody'><td>David Courvoysier</td><td>41</td><td>5</td></tr>
+<tr class='tablebody'><td>Ciro D'Elia</td><td>32</td><td>14</td></tr>
+<tr class='tablebody'><td>Sebastiaan Deckers</td><td>38</td><td>8</td></tr>
+<tr class='tablebody'><td>Francesco Delfino</td><td>32</td><td>14</td></tr>
+<tr class='tablebody'><td>Boyd Fletcher</td><td>25</td><td>21</td></tr>
+<tr class='tablebody'><td>Jason Frankel</td><td>34</td><td>12</td></tr>
+<tr class='tablebody'><td>Cesar Garcia</td><td>13</td><td>33</td></tr>
+<tr class='tablebody'><td>Alexander Gnauck</td><td>36</td><td>10</td></tr>
+<tr class='tablebody'><td>Gino Micacchi</td><td>33</td><td>13</td></tr>
+<tr class='tablebody'><td>Daniel Noll</td><td>37</td><td>9</td></tr>
+<tr class='tablebody'><td>Adrian Rapa</td><td>27</td><td>19</td></tr>
+<tr class='tablebody'><td>Marshall Rose</td><td>35</td><td>11</td></tr>
+<tr class='tablebody'><td>Hal Rottenberg</td><td>40</td><td>6</td></tr>
+<tr class='tablebody'><td>Alexey Shchepin</td><td>38</td><td>8</td></tr>
+<tr class='tablebody'><td>Scott Vosburg</td><td>22</td><td>24</td></tr>
+<tr class='tablebody'><td>Nathan Walp</td><td>38</td><td>8</td></tr>
+<tr class='tablebody'><td>Matthias Wimmer</td><td>39</td><td>7</td></tr>
+<tr class='tablebody'><td>Yuexiang Yang</td><td>28</td><td>18</td></tr>
+</table>
+        <p>Therefore the following 19 individuals are accepted as JSF members for the next 12 months:</p>
+        <ul>
+<li>Tony Cheung</li>
+<li>Tom Coffin</li>
+<li>JD Conley</li>
+<li>David Courvoysier</li>
+<li>Ciro D'Elia</li>
+<li>Sebastiaan Deckers</li>
+<li>Francesco Delfino</li>
+<li>Boyd Fletcher</li>
+<li>Jason Frankel</li>
+<li>Alexander Gnauck</li>
+<li>Gino Micacchi</li>
+<li>Daniel Noll</li>
+<li>Adrian Rapa</li>
+<li>Marshall Rose</li>
+<li>Hal Rottenberg</li>
+<li>Alexey Shchepin</li>
+<li>Nathan Walp</li>
+<li>Matthias Wimmer</li>
+<li>Yuexiang Yang</li>
+        </ul>
+        <p>The following applicants were not accepted but are welcome to apply in the future:</p>
+        <ul>
+          <li>Cesar Garcia</li>
+          <li>Scott Vosburg</li>
+        </ul>
+        <p>The following JSF members eligible for re-election did not re-apply and therefore will be dropped from the membership:</p>
+        <ul>
+          <li>Joe Breeden</li>
+          <li>Dougal Campbell</li>
+        </ul>
+        <p>The following JSF members have missed the last three votes and therefore will be dropped from the membership, but are welcome to apply in the future:</p>
+        <ul>
+          <li>Sudipta Ghosh</li>
+          <li>Glenn MacGregor</li>
+          <li>Evan Promodrou</li>
+        </ul>
+        <p>As a result of these changes, the JSF now has 72 members.</p>
+  </li>
+  <li><p><strong>Open Discussion</strong></p></li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

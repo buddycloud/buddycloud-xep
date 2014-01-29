@@ -1,0 +1,14 @@
+<manifest>
+  <title>Presence and IM Session Establishment</title>
+  <abstract>This specification defines a method by which a client can formally request establishment of a presence and instant messaging session.</abstract>
+  <specnum>RFC 3921</specnum>
+  <specurl>http://www.ietf.org/rfc/rfc3921.txt</specurl>
+  <status>Proposed</status>
+  <publisher>Internet Engineering Task Force</publisher>
+  <namespaces>
+    <name>urn:ietf:params:xml:ns:xmpp-session</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/session.xsd</schema>
+  </schemas>
+</manifest>

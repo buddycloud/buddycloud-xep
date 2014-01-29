@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'errors.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='errors.xsl'?>
+<registry>
+  <meta>
+    <title>Application-Specific Error Conditions</title>
+    &LEGALNOTICE;
+    <overview>This is the official registry of application-specific error conditions as maintained by the &REGISTRAR; and authorized by &xep0182;.</overview>
+    <revision>
+      <version>0.2</version>
+      <date>2009-01-07</date>
+      <initials>psa</initials>
+      <remark>Added errors from XEP-0205.</remark>
+    </revision>
+    <revision>
+      <version>0.1</version>
+      <date>2006-05-16</date>
+      <initials>psa</initials>
+      <remark>Initial version.</remark>
+    </revision>
+  </meta>
+  <condition>
+    <ns>urn:xmpp:errors</ns>
+    <element>resource-limit-exceeded</element>
+    <desc>
+      The account is not allowed to bind more resources at this time.
+    </desc>
+    <doc>&xep0205;</doc>
+  </condition>
+  <condition>
+    <ns>urn:xmpp:errors</ns>
+    <element>stanza-too-big</element>
+    <desc>
+      The stanza is larger than the processing entity will accept.
+    </desc>
+    <doc>&xep0182;</doc>
+  </condition>
+  <condition>
+    <ns>urn:xmpp:errors</ns>
+    <element>too-many-stanzas</element>
+    <desc>
+      A connected client has attempted to send multiple stanzas to 
+      too many different intended recipients in a given time period.
+    </desc>
+    <doc>&xep0205;</doc>
+  </condition>
+</registry>

@@ -1,0 +1,1273 @@
+<?xml version='1.0'?>
+<!DOCTYPE rfc SYSTEM 'rfc2629.dtd'>
+<?rfc toc='yes'?>
+<?rfc tocdepth='2'?>
+<?rfc symrefs='yes'?>
+<?rfc compact='yes'?>
+<?rfc strict='yes'?>
+<rfc category="std" docName='draft-hildebrand-webdav-notify-02' ipr='pre5378Trust200902'>
+
+  <front>
+    <title abbrev='WEBDAV-EVENTS'>Transporting WebDAV-Related Event Notifications over the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials='J.' surname='Hildebrand' fullname='Joe Hildebrand'>
+      <organization>Jabber, Inc.</organization>
+      <address>
+        <email>jhildebrand@jabber.com</email>
+      </address>
+    </author>
+    <author initials='P.' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date year='2006' month='August' day='22'/>
+    <area>Applications</area>
+    <keyword>WebDAV</keyword>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>XMPP</keyword>
+    <keyword>event notification</keyword>
+    <keyword>publish-subscribe</keyword>
+    <abstract>
+      <t>This memo describes a method for notifying interested parties about WebDAV-related events (such as PUTs and DELETEs), where such notifications are delivered via an extension to the Extensible Messaging and Presence Protocol (XMPP) for publish-subscribe functionality.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title='Introduction' anchor='intro'>
+
+      <section title='Overview' anchor='intro-overview'>
+        <t><xref target="WEBDAV"/> defines a set of extensions to <xref target="HTTP"/> for remote web content authoring operations.  Entities that make use of such WebDAV services, which may include both human users and ancillary applications such as content management systems, may want to be notified when a WebDAV operation is applied to a web resource.  For example, a human user may want to be notified whenever a particular shared resource is locked or unlocked, and an external auditing application may need to be informed whenever a resource is added, modified, or deleted. The methods of greatest interest will probably be COPY, DELETE, LOCK, MKCOL, MOVE, POST, PROPPATCH, PUT, and UNLOCK, but event notifications related to other methods may be appropriate, as well.</t>
+        <t>Such notifications follow a classic "observer" or "publish-subscribe" design pattern: one entity initiates an event, and an event notification is broadcasted to all those who are interested in knowing when such events occur.  Unfortunately, existing methods for learning that a resource has been updated are currently limited to "polling" for changes via HTTP, which is inherently inefficient.  What is needed is a technology that can be relied on to "push" information only when a resource undergoes a state change, and only to those who are interested in learning about such state changes.</t>
+        <t>One possible technology for doing so is email, since <xref target='SMTP'/> provides a way to initiate the sending of information from "publishers" to "subscribers" (think, for example, of email lists such as those used to announce newly-published RFCs).  While email is one possible solution, it is not necessarily the best solution for WebDAV; in particular, <xref target='WEBDAV'/> defines XML data formats for method parameters and other metadata, which implies that it might be beneficial to use a native XML delivery mechanism rather than to attach a special XML media type to email messages.  Thankfully, a specialized XML delivery protocol has been formalized through the IETF: the Extensible Messaging and Presence Protocol (XMPP) as specified in <xref target='XMPP-CORE'/>.  XMPP has the added benefit of being optimized for near-real-time data delivery, which may be important in applications of WebDAV that require subscribers to be notified about WebDAV-related events in a highly timely manner.</t>
+        <t>While the semantics of a normal XMPP &lt;message/&gt; element may be suitable for WebDAV-related event notifications, there also exists an XMPP extension that provides more structured communications in the context of "topics" whose scope can be limited to a particular WebDAV resource or collection.  This extension is specified in <xref target='XMPP-PUBSUB'/> and may be especially useful for delivering notifications related to changes in WebDAV resources.  Therefore, this memo describes a method for notifying interested parties about WebDAV-related events, where such notifications are delivered via the XMPP publish-subscribe extension.</t>
+      </section>
+
+      <section title='Use Cases' anchor='intro-usecases'>
+        <t>Several use cases originally motivated this proposal:</t>
+        <t><list style='numbers'>
+          <t>A user who views a WebDAV collection through a file explorer application can use the notification protocol described herein to see in near-real-time when resources in the collection are successfully updated, locked, unlocked, etc.</t>
+          <t>An application that replicates or mirrors an existing WebDAV repository can use the notification protocol described herein to stay synchronized with changes to the source repository, rather than updating less often in "batch" mode.</t>
+        </list></t>
+      </section>
+
+      <section title='Process Flow' anchor='into-flow'>
+        <t>When a client performs a WebDAV operation on a resource, many other entities may be interested in learning that the operation has successfully completed.  The generalized process flow is as follows:</t>
+        <t><list style='numbers'>
+          <t>A WebDAV client creates a resource at a WebDAV service.</t>
+          <t>The WebDAV service sends an XMPP pubsub node creation request to an XMPP pubsub service and thereafter advertises availability of that pubsub node as a live property of the resource.</t>
+          <t>One or more XMPP entities subscribe to the pubsub node.</t>
+          <t>A WebDAV client requests completion of a WebDAV operation on the resource.</t>
+          <t>The WebDAV service successfully completes the requested operation.</t>
+          <t>The WebDAV service sends an appropriate XMPP pubsub request -- node creation, node deletion, or publish (with payload if appropriate) -- to the XMPP pubsub service.</t>
+          <t>The XMPP pubsub service sends an XMPP message notification to each XMPP entity that subscribed to the pubsub node.</t>
+        </list></t>
+        <t>The result is that the XMPP subscribers will receive near-real-time notification whenever a WebDAV operation has been completed on a resource of interest.</t>
+        <t>The steps initiated by a WebDAV client in communication with a WebDAV service are out of scope for this document, since they are described in <xref target='WEBDAV'/> and related documents.  The XMPP protocols for the other steps are shown in the examples provided below.</t>
+        <t>Note: This document describes event notifications related to successful WebDAV operations only (i.e., operations that result in a 200-series acknowledgement from the WebDAV service to the WebDAV client).  The pattern described herein could be used for unsuccessful operations as well (e.g., to address auditing use cases), but such usage is out of scope for this document.</t>
+      </section>
+
+      <section title='Architecture' anchor='into-arch'>
+        <t>We can visualize the architecture as follows:</t>
+        <figure>
+          <artwork><![CDATA[
+          +---------------+
+          | WebDAV Client |
+          +---------------+
+                 |
+                 | [HTTP/1.1 + WebDAV]
+                 |
+          +----------------+
+          | WebDAV Service |
+          +----------------+
+                 |
+                 | [XMPP Pubsub ]
+                 |
+       +---------------------+
+       | XMPP Pubsub Service |
+       +---------------------+
+                 |
+                 | [XMPP Pubsub]
+                 |
+      +----------+-------+
+      |                  |
++-------------+     +-------------+
+| XMPP Entity |     | XMPP Entity |
++-------------+     +-------------+
+          ]]></artwork>
+        </figure>
+      </section>
+
+      <section title='Terminology' anchor='intro-terms'>
+        <t>This document inherits terminology from <xref target='WEBDAV'/>, <xref target='XMPP-CORE'/>, and <xref target='XMPP-PUBSUB'/>.</t>
+        <t>The capitalized key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target='TERMS'>RFC 2119</xref>.</t>
+      </section>
+
+      <section title='Discussion Venue' anchor='intro-discuss'>
+        <t>The authors welcome discussion and comments related to the topics presented in this document.  The preferred forum is the &lt;w3c-dist-auth@w3.org&gt; mailing list, for which subscription information and archive links are available at &lt;<eref target='http://www.ietf.org/html.charters/webdav-charter.html'>http://www.ietf.org/html.charters/webdav-charter.html</eref>&gt;.</t>
+      </section>
+
+      <section title='Acknowledgements' anchor='intro-ack'>
+        <t>Thanks to Lisa Dusseault for helpful comments.</t>
+      </section>
+
+    </section>
+
+    <section title='Properties' anchor='props'>
+      <t>This section describes the WebDAV properties that SHOULD be supported by a WebDAV service that publishes notifications to an XMPP pubsub service.  Advertisement of these properties enables WebDAV clients and other entities to discover that a WebDAV service or specific resource supports the protocol defined herein.</t>
+      <section title='Pubsub Notification Property' anchor='props-notify'>
+        <t>The "notify" property specifies whether XMPP pubsub notifications are published for a resource.  The qualifying namespace is 'urn:ietf:params:xml:ns:webdav-event:prop:notify', the element name is &lt;notify/&gt;, and the allowable values of the character data are "true" and "false" (where "true" means that there exists an XMPP pubsub node associated with the resource, and "false" means that no such node exists).  This property MUST be live and MAY be protected.  The WebDAV service SHOULD advertise this property for each resource it hosts.</t>
+        <t>A sample of the format is shown in the following WebDAV PROPFIND example.</t>
+        <t>First, a client queries a specific WebDAV resource regarding this property.</t>
+        <figure>
+          <artwork><![CDATA[
+PROPFIND /foo/bar HTTP/1.1
+Host: example.com
+Depth: 1
+Content-Type: text/xml; charset="utf-8"
+Content-Length: xxxx
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<propfind xmlns="DAV:">
+  <prop>
+    <notify 
+      xmlns="urn:ietf:params:xml:ns:webdav-event:prop:notify"/>
+  </prop>
+</propfind>
+          ]]></artwork>
+        </figure>
+        <t>Then the WebDAV service responds with "true" or "false".</t>
+        <figure>
+          <artwork><![CDATA[
+HTTP/1.1 207 Multi-Status
+Date: Mon, 27 Sep 2004 19:52:01 GMT
+Content-Type: text/xml; charset="utf-8"
+Content-Length: xxxx
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<multistatus xmlns="DAV:">
+  <response>
+    <href>http://example.com/foo/bar</href>
+    <propstat>
+      <notify 
+          xmlns="urn:ietf:params:xml:ns:webdav-event:prop:notify">
+        true
+      </notify>
+      <status>HTTT//1.1 200 OK</status>
+    </propstat>
+  </response>
+</propfind>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Pubsub Node Property' anchor='props-node'>
+        <t>The "node" property specifies the pubsub node at which notifications are published.  The qualifying namespace is 'urn:ietf:params:xml:ns:webdav-event:prop:node', the element name is &lt;node/&gt;, and the character data of the &lt;service/&gt; and &lt;nodeid/&gt; children specify, respectively, the XMPP address of the pubsub service (in accordance with the definition of a JID in <xref target="XMPP-CORE"/>) and the node ID at which notifications are published (in accordance with the definition of a pubsub NodeID in <xref target="XMPP-PUBSUB"/>).  This property MUST be live and MAY be protected.  The WebDAV service SHOULD advertise this property for each resource whose &lt;notify/&gt; property is "true".</t>
+        <t>The syntax of the &lt;nodeid/&gt; element's character data is implementation-specific and therefore out of scope for this specification.  If the pubsub service is a "dedicated" service connected only to the WebDAV service, the node ID could simply be the URI of the WebDAV resource (e.g., "http://example.com/foo/bar").  If the pubsub service is a generalized pubsub service that serves entities other than the WebDAV service, the pubsub node could be the WebDAV resource URI prepended by an implementation-specific or deployment-specific string such as "webdav|".  Naturally, some other syntax is allowable as well, such as a <xref target='SHA-1'/> hash of the WebDAV resource URI.</t>
+        <t>A sample of the format is shown in the following WebDAV PROPFIND example.</t>
+        <t>First, a client queries a specific WebDAV resource regarding this property.</t>
+        <figure>
+          <artwork><![CDATA[
+PROPFIND /foo/bar HTTP/1.1
+Host: example.com
+Depth: 1
+Content-Type: text/xml; charset="utf-8"
+Content-Length: xxxx
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<propfind xmlns="DAV:">
+  <prop>
+    <node 
+      xmlns="urn:ietf:params:xml:ns:webdav-event:prop:node"/>
+  </prop>
+</propfind>
+          ]]></artwork>
+        </figure>
+        <t>Then the WebDAV service responds with the XMPP address of the pubsub service along with the specific node ID.</t>
+        <figure>
+          <artwork><![CDATA[
+HTTP/1.1 207 Multi-Status
+Date: Mon, 27 Sep 2004 20:06:38 GMT
+Content-Type: text/xml; charset="utf-8"
+Content-Length: xxxx
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<multistatus xmlns="DAV:">
+  <response>
+    <href>http://example.com/foo/bar</href>
+    <propstat>
+      <node xmlns="urn:ietf:params:xml:ns:webdav-event:prop:node">
+        <service>pubsub.example.com</service>
+        <nodeid>webdav|http://example.com/foo/bar</nodeid>
+      </node>
+      <status>HTTT//1.1 200 OK</status>
+    </propstat>
+  </response>
+</propfind>
+          ]]></artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section title='Payload Format' anchor='payload'>
+      <section title='Wrapper Element' anchor='payload-wrapper'>
+        <t>In order to include payloads (rather than mere event notifications) in XMPP pubsub, it is necessary to re-use an existing XML format or define a new one.  Since no existing format is fully appropriate for WebDAV-related events, we define a new payload format for use in WebDAV notifications.  The "wrapper" for such payloads is a &lt;webdav/&gt; element qualified by the 'urn:ietf:params:xml:ns:webdav-event:payload' namespace; this wrapper element MUST possess two attributes: the 'method' attribute specifies which WebDAV method was applied, and the 'resource' attribute specifies the full URI of the resource to which the method was applied.  The wrapper format is as follows:</t>
+        <figure>
+          <artwork><![CDATA[
+  <webdav xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+          method='METHOD-NAME'
+          resource='RESOURCE-URI'>
+    [ OPTIONAL PAYLOAD ELEMENTS ]
+  </webdav>
+          ]]></artwork>
+        </figure>
+        <t>For certain operations, the wrapper element may provide complete information about the success of the operation.  For example, this is true for the DELETE operation:</t>
+        <figure>
+          <artwork><![CDATA[
+  <webdav xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+          method='DELETE'
+          resource='http://example.com/foo/bar'/>
+          ]]></artwork>
+        </figure>
+        <t>The same is true of the UNLOCK operation:</t>
+        <figure>
+          <artwork><![CDATA[
+  <webdav xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+          method='UNLOCK'
+          resource='http://example.com/foo/bar'/>
+          ]]></artwork>
+        </figure>
+        <t>However, this is not true of all WebDAV operations, in which case the wrapper element MAY contain child elements that specify additional information about the operation.  For example, a PUT or POST operation may result in changes to the resource (for which it would be helpful to receive a "diff"), a PROPPATCH operation may result in the application of new or changed properties (for which an XML format is defined in <xref target="WEBDAV"/>), and other operations may result in a new ETag or output in some other XML format defined in <xref target="WEBDAV"/>.  The following subsections specify the formats to be included as children of the event wrapper element.</t>
+        <t>It is not necessary to define a payload format associated with the MKCOL operation, since that operation maps directly to node creation in the XMPP pubsub extension (where the node is a collection node).  Similarly, a WebDAV PUT or POST operation that results in the creation of a new resource maps to node creation in the XMPP pubsub extension (where the node is not a collection node).</t>
+        <t>Note: Line breaks in the following protocol descriptions are not significant and are included to improve readability only.</t> 
+      </section>
+      <section title='&lt;activelock/&gt; Element' anchor='payload-activelock'>
+        <t>The &lt;activelock/&gt; payload child (qualified by the 'DAV:' namespace) enables a WebDAV service to communicate the results of a LOCK request received from a WebDAV client (i.e., the fact that a resource is now locked).</t>
+        <figure>
+          <artwork><![CDATA[
+  <webdav xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+          method='LOCK'
+          resource='http://example.com/foo/bar'>
+    <activelock xmlns='DAV:'>
+      <locktype><write/></locktype>
+      <lockscope><exclusive/></lockscope>
+      <depth>infinity</depth>
+      <owner>
+        <href>
+          http://jabber.org/people/stpeter.shtml
+        </href>
+      </owner>
+      <timeout>Second-604800</timeout>
+      <lockroot>
+        <href>http://example.com/foo/bar</href>
+      </lockroot>
+    </activelock>
+  </webdav>
+          ]]></artwork>
+        </figure>
+        <t>Note: A WebDAV service MAY send less information than shown above, and for security purposes SHOULD NOT include the &lt;locktoken/&gt; element described in <xref target="WEBDAV"/>.</t>
+      </section>
+      <section title='&lt;diff/&gt; Element' anchor='payload-diff'>
+        <t>The &lt;diff/&gt; payload child (qualified by the 'urn:ietf:params:xml:ns:webdav-event:payload:diff' namespace) enables a WebDAV service to communicate the changes to a resource that resulted from a successful WebDAV operation (e.g., a POST or PUT).  The XML character data of the &lt;diff/&gt; element MUST be encoded using base64, where the encoding adheres to the definition in Section 3 of <xref target="BASE64">RFC 3548</xref>.  The value of the 'format' attribute specifies which diff format is used; possible values include, but are not limited to, "gdiff" (see <xref target="GDIFF"/>) and "vcdiff" (see <xref target="VCDIFF"/>).</t>
+        <figure>
+          <artwork><![CDATA[
+  <webdav xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+          method='PUT'
+          resource='http://example.com/foo'>
+    <diff xmlns='urn:ietf:params:xml:ns:webdav-event:payload:diff'
+          format='gdiff'>
+      base64
+    </diff>
+  </webdav>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='&lt;etag/&gt; Element' anchor='payload-etag'>
+        <t>The &lt;etag/&gt; payload child (qualified by the 'urn:ietf:params:xml:ns:webdav-event:payload:etag' namespace) enables a WebDAV service to communicate an entity tag related to a request received from a WebDAV client.  The XML character data of the &lt;etag/&gt; element MUST be an ETag as defined in Sections 3.11 and 14.19 of <xref target="HTTP"/>.</t>
+        <figure>
+          <artwork><![CDATA[
+  <webdav xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+          method='POST'
+          resource='http://example.com/foo/bar'>
+    <etag xmlns='urn:ietf:params:xml:ns:webdav-event:payload:etag'>
+      some-entity-tag
+    </etag>
+  </webdav>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='&lt;href/&gt; Element' anchor='payload-href'>
+        <t>The &lt;href/&gt; payload child (qualified by the 'DAV:' namespace) enables a WebDAV service to communicate a URI resulting from a successful WebDAV COPY or MOVE operation as specified by the 'method' attribute of the &lt;webdav/&gt; element.  For body COPY and MOVE, the 'resource' attribute of the &lt;webdav/&gt; element specifies the URI of the source resource, and the character data of the &lt;href/&gt; child specifies the URI of the destination resource.</t>
+        <figure>
+          <artwork><![CDATA[
+  <webdav xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+          method='COPY'
+          resource='http://example.com/foo'>
+    <href xmlns='DAV:'>http://example.com/foo/newbar</href>
+  </webdav>
+          ]]></artwork>
+        </figure>
+        <figure>
+          <artwork><![CDATA[
+  <webdav xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+          method='MOVE'
+          resource='http://example.com/foo'>
+    <href xmlns='DAV:'>http://example.com/foo/newbar</href>
+  </webdav>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='&lt;propertyupdate/&gt; Element' anchor='payload-propertyupdate'>
+        <t>The &lt;propertyupdate/&gt; payload child (qualified by the 'DAV:' namespace) enables a WebDAV service to communicate the property update received from a WebDAV client during a PROPPATCH operation.  The XML format for this element is defined in <xref target="WEBDAV"/>.</t>
+        <figure>
+          <artwork><![CDATA[
+  <webdav xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+          method='POST'
+          resource='http://example.com/foo/bar'>
+    <propertyupdate xmlns='DAV:'>
+      <set>
+        <prop>
+          <publish xmlns='http://example.com/ns'>true</publish>
+        </prop>
+      </set>
+    </propertyupdate>
+  </webdav>
+          ]]></artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section title='Examples' anchor='examples'>
+      <t>This section currently provides several examples of process flows.  We assume the following order of operations:</t>
+      <t><list style='numbers'>
+        <t>A new collection "foo" is created at the example.com WebDAV service.</t>
+        <t>A new resource "bar" is created within the "foo" collection.</t>
+        <t>The "bar" resource is copied to the "newbar" resource.</t>
+        <t>The properties of the "bar" resource are modified.</t>
+        <t>The "bar" resource is locked.</t>
+        <t>The "bar" resource is modified.</t>
+        <t>The "bar" resource is unlocked.</t>
+        <t>The "newbar" resource is deleted.</t>
+      </list></t>
+      <t>We also assume that the entity "trackerbot@example.com" has an XMPP pubsub subscription of type "nodes" at depth='all' to the root pubsub collection node ("pubsub.example.com") and therefore receives notification regarding all new nodes and collections created at the pubsub service.</t>
+      <t>Finally, we assume that the pubsub nodes are configured to deliver payloads, not just event notifications (since the &lt;webdav/&gt; wrapper element and its children are necessary in order to understand the full context of operations at the WebDAV service).</t>
+        <t>Note: Line breaks in the following protocol examples are not significant and are included to improve readability only.</t> 
+      <section title='Collection Created' anchor='ex-mkcol'>
+        <t>First, a WebDAV client creates the "foo" collection by means of a MKCOL operation.</t>
+        <t>Once the WebDAV service successfully creates the "foo" collection, it sends an XMPP pubsub collection node creation request to the XMPP pubsub service:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='webdav-service.example.com'
+    to='pubsub.example.com'
+    id='mkcol1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <create node='foo'/>
+    <configure>
+      <x xmlns='jabber:x:data' type='submit'>
+        <field type='hidden' var='FORM_TYPE'>
+          <value>
+            http://jabber.org/protocol/pubsub#node_config
+          </value>
+        </field>
+        <field var='pubsub#node_type'>
+          <value>collection</value>
+        </field>
+      </x>
+    </configure>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>If no errors occur during processing of the foregoing XML stanza, the XMPP pubsub service then sends a pubsub node creation notification to each XMPP entity that has a subscription of type "nodes" to the root collection node (including our "TrackerBot"), where the payload contains the meta-data for the new collection node as described in <xref target="XMPP-PUBSUB"/>.  (Note that in accordance with the rules in <xref target="XMPP-PUBSUB"/> allowing such behavior, the pubsub service has created a node ID of "webdav|http://example.com/foo" as a result of the request to create a node named "foo".)</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='trackerbot@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items>
+      <item id='webdav|http://example.com/foo'>
+        <x xmlns='jabber:x:data' type='result'>
+          <field var='FORM_TYPE' type='hidden'>
+            <value>
+              http://jabber.org/protocol/pubsub#meta-data
+            </value>
+          </field>
+          <field var='pubsub#creation_date' 
+                 label='Creation date'>
+            <var>2004-09-23T17:23Z</var>
+          </field>
+          <field var='pubsub#creator' label='Node creator'>
+            <var>webdav-service.example.com</var>
+          </field>
+          <field var='pubsub#type' label='The type of node'>
+            <var>urn:ietf:params:xml:ns:webdav-event</var>
+          </field>
+        </x>
+     </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Resource Created' anchor='ex-put'>
+        <t>Next, a WebDAV client creates the "bar" resource in the "foo" collection (we assume by means of a PUT operation).</t>
+        <t>Once the WebDAV service successfully creates the "bar" resource, it sends an XMPP pubsub node creation request to the XMPP pubsub service and associates the new node with the "foo" collection:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='webdav-service.example.com'
+    to='pubsub.example.com'
+    id='put1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <create id='bar'/>
+    <configure>
+      <x xmlns='jabber:x:data' type='submit'>
+        <field var='pubsub#collections'>
+          <value>foo</value>
+        </field>
+      </x>
+    </configure>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>If no errors occur during processing of the foregoing XML stanza, the XMPP pubsub service then sends a pubsub node creation notification to each XMPP entity that has a subscription of type "nodes" to the root collection node or the "foo" collection node.</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='trackerbot@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='webdav|http://example.com/foo'>
+      <item id='webdav|http://example.com/foo/bar'>
+        <x xmlns='jabber:x:data' type='result'>
+          <field var='FORM_TYPE' type='hidden'>
+            <value>
+              http://jabber.org/protocol/pubsub#meta-data
+            </value>
+          </field>
+          <field var='pubsub#creation_date' 
+                 label='Creation date'>
+            <var>2004-09-23T17:26Z</var>
+          </field>
+          <field var='pubsub#creator' label='Node creator'>
+            <var>webdav-service.example.com</var>
+          </field>
+          <field var='pubsub#type' label='The type of node'>
+            <var>urn:ietf:params:xml:ns:webdav-event</var>
+          </field>
+        </x>
+     </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+        <t>Those informed of the new node may then decide to subscribe to it for pubsub item notifications; we shall assume that the TrackerBot does so:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq from='trackerbot@example.com/bot'
+    to='pubsub.example.com'
+    type='set'
+    id='sub1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <subscribe 
+        node='webdav|http://example.com/foo/bar'
+        jid='trackerbot@example.com'/>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>The pubsub service then replies with success:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq from='pubsub.example.com'
+    to='trackerbot@example.com/bot'
+    type='result'
+    id='sub1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <entity 
+        node='webdav|http://example.com/foo/bar'
+        jid='trackerbot@example.com'
+        affiliation='none'
+        subid='123-abc'
+        subscription='subscribed'/>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Resource Copied' anchor='ex-copy'>
+        <t>Next, a WebDAV client copies the "bar" resource to a new resource "newbar" by means of a COPY operation.</t>
+        <t>Once the WebDAV service successfully copies the "bar" resource to the "newbar" resource, it (1) creates a new pubsub node for it (since the "newbar" resource is new and XMPP entities may want to know when it is modified, deleted, and so on), and (2) publishes an XMPP pubsub item to the "foo/bar" node at the XMPP pubsub service, including a &lt;webdav/&gt; wrapper element specifying a COPY operation and containing an &lt;href/&gt; child element:</t>
+        <t>First, the WebDAV service sends an XMPP pubsub node creation request to the XMPP pubsub service and associates the new node with the "foo" collection:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='webdav-service.example.com'
+    to='pubsub.example.com'
+    id='newnode2'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <create id='newbar'/>
+    <configure>
+      <x xmlns='jabber:x:data' type='submit'>
+        <field var='pubsub#collections'>
+          <value>foo</value>
+        </field>
+      </x>
+    </configure>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>If no errors occur during processing of the foregoing XML stanza, the XMPP pubsub service then sends a pubsub node creation notification to each XMPP entity that has a subscription of type "nodes" to the root collection node or the "foo" collection node.</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='trackerbot@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='webdav|http://example.com/foo'>
+      <item id='webdav|http://example.com/foo/newbar'>
+        <x xmlns='jabber:x:data' type='result'>
+          <field var='FORM_TYPE' type='hidden'>
+            <value>
+              http://jabber.org/protocol/pubsub#meta-data
+            </value>
+          </field>
+          <field var='pubsub#creation_date' 
+                 label='Creation date'>
+            <var>2004-09-23T20:22Z</var>
+          </field>
+          <field var='pubsub#creator' label='Node creator'>
+            <var>webdav-service.example.com</var>
+          </field>
+          <field var='pubsub#type' label='The type of node'>
+            <var>urn:ietf:params:xml:ns:webdav-event</var>
+          </field>
+        </x>
+     </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+        <t>Those informed of the new node may then decide to subscribe to it for pubsub item notifications; we shall assume that the TrackerBot does so:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq from='trackerbot@example.com/bot'
+    to='pubsub.example.com'
+    type='set'
+    id='sub2'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <subscribe 
+        node='webdav|http://example.com/foo/newbar'
+        jid='trackerbot@example.com'/>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>The pubsub service then replies with success:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq from='pubsub.example.com'
+    to='trackerbot@example.com/bot'
+    type='result'
+    id='sub2'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <entity 
+        node='webdav|http://example.com/foo/newbar'
+        jid='trackerbot@example.com'
+        affiliation='none'
+        subid='234-bcd'
+        subscription='subscribed'/>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>Second, the WebDAV service publishes a COPY event to the pubsub node for the "bar" resource.</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='webdav-service.example.com'
+    to='pubsub.example.com'
+    id='copy1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='webdav|http://example.com/foo/bar'>
+      <item>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='COPY'
+            resource='http://example.com/foo/bar'>
+          <href xmlns='DAV:'>
+            http://example.com/foo/newbar
+          </href>
+        </webdav>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>If no errors occur during processing of the foregoing XML stanza, the XMPP pubsub service then sends a pubsub notification to each XMPP entity that has a subscription of type "items" to the "bar" node (or at depth='all' to any of its ancestor nodes).</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='trackerbot@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='webdav|http://example.com/foo/bar'>
+      <item id='copy-id'>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='COPY'
+            resource='http://example.com/foo/bar'>
+          <href xmlns='DAV:'>
+            http://example.com/foo/newbar
+          </href>
+        </webdav>
+      </item>
+    </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Properties Modified' anchor='ex-proppatch'>
+        <t>Next, a WebDAV client modifies the properties of the "bar" resource by means of a PROPPATCH operation.</t>
+        <t>Once the WebDAV service successfully modifies the properties of the "bar" resource, it publishes an XMPP pubsub item to the "foo/bar" node at the XMPP pubsub service, including a &lt;webdav/&gt; wrapper element specifying a PROPPATCH method and containing a &lt;propertyupdate/&gt; child element:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='webdav-service.example.com'
+    to='pubsub.example.com'
+    id='proppatch1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='webdav|http://example.com/foo/bar'>
+      <item>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='PROPPATCH'
+            resource='http://example.com/foo/bar'>
+          <propertyupdate xmlns='DAV:'>
+            <set>
+              <prop>
+                <publish xmlns='http://example.com/ns'>
+                  true
+                </publish>
+              </prop>
+            </set>
+          </propertyupdate>
+        </webdav>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>If no errors occur during processing of the foregoing XML stanza, the XMPP pubsub service then sends a pubsub notification to each XMPP entity that has a subscription of type "items" to the "bar" node (or at depth='all' to any of its ancestor nodes).</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='trackerbot@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='webdav|http://example.com/foo/bar'>
+      <item id='prop-id'>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='PROPPATCH'
+            resource='http://example.com/foo/bar'>
+          <propertyupdate xmlns='DAV:'>
+            <set>
+              <prop>
+                <publish xmlns='http://example.com/ns'>
+                  true
+                </publish>
+              </prop>
+            </set>
+          </propertyupdate>
+        </webdav>
+      </item>
+    </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Resource Locked' anchor='ex-lock'>
+        <t>Next, a WebDAV client locks the "bar" resource by means of a LOCK operation.</t>
+        <t>Once the WebDAV service successfully locks the "bar" resource, it publishes an XMPP pubsub item to the "foo/bar" node at the XMPP pubsub service, including a &lt;webdav/&gt; wrapper element specifying a LOCK method and containing an &lt;activelock/&gt; child element:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='webdav-service.example.com'
+    to='pubsub.example.com'
+    id='proppatch1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='webdav|http://example.com/foo/bar'>
+      <item>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='LOCK'
+            resource='http://example.com/foo/bar'>
+          <activelock xmlns='DAV:'>
+            <locktype><write/></locktype>
+            <lockscope><exclusive/></lockscope>
+            <depth>infinity</depth>
+            <owner>
+              <href>
+                http://jabber.org/people/stpeter.shtml
+              </href>
+            </owner>
+            <timeout>Second-604800</timeout>
+            <locktoken>
+              <href>
+                opaquelocktoken:e71d4fae-5dec-22d6-\
+                fea5-00a0c91e6be4
+              </href>
+            </locktoken>
+            <lockroot>
+              <href>http://example.com/foo/bar</href>
+            </lockroot>
+          </activelock>
+        </webdav>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>If no errors occur during processing of the foregoing XML stanza, the XMPP pubsub service then sends a pubsub notification to each XMPP entity that has a subscription of type "items" to the "bar" node (or at depth='all' to any of its ancestor nodes).</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='trackerbot@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='webdav|http://example.com/foo/bar'>
+      <item>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='LOCK'
+            resource='http://example.com/foo/bar'>
+          <activelock xmlns='DAV:'>
+            <locktype><write/></locktype>
+            <lockscope><exclusive/></lockscope>
+            <depth>infinity</depth>
+            <owner>
+              <href>
+                http://jabber.org/people/stpeter.shtml
+              </href>
+            </owner>
+            <timeout>Second-604800</timeout>
+            <locktoken>
+              <href>
+                opaquelocktoken:e71d4fae-5dec-22d6-\
+                fea5-00a0c91e6be4
+              </href>
+            </locktoken>
+            <lockroot>
+              <href>http://example.com/foo/bar</href>
+            </lockroot>
+          </activelock>
+        </webdav>
+      </item>
+    </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Resource Modified' anchor='ex-modify'>
+        <t>Next, a WebDAV client modifies the "bar" resource (we assume by means of a PUT operation).</t>
+        <t>Once the WebDAV service successfully modifies the "bar" resource, it publishes an XMPP pubsub item to the "foo/bar" node at the XMPP pubsub service, including a &lt;webdav/&gt; wrapper element specifying a PUT method and containing a &lt;diff/&gt; child element:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='webdav-service.example.com'
+    to='pubsub.example.com'
+    id='put2'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='webdav|http://example.com/foo/bar'>
+      <item>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='PUT'
+            resource='http://example.com/foo/bar'>
+          <diff 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload:diff'>
+            base64
+          </diff>
+        </webdav>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>If no errors occur during processing of the foregoing XML stanza, the XMPP pubsub service then sends a pubsub notification to each XMPP entity that has a subscription of type "items" to the "bar" node (or at depth='all' to any of its ancestor nodes).</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='trackerbot@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='webdav|http://example.com/foo/bar'>
+      <item id='mod-id'>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='PUT'
+            resource='http://example.com/foo/bar'>
+          <diff 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload:diff'>
+            base64
+          </diff>
+        </webdav>
+      </item>
+    </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Resource Unlocked' anchor='ex-unlock'>
+        <t>Next, a WebDAV client unlocks the "bar" resource by means of an UNLOCK operation.</t>
+        <t>Once the WebDAV service successfully unlocks the "bar" resource, it publishes an XMPP pubsub item to the "foo/bar" node at the XMPP pubsub service, including an empty &lt;webdav/&gt; wrapper element specifying an UNLOCK method:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='webdav-service.example.com'
+    to='pubsub.example.com'
+    id='unlock1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='webdav|http://example.com/foo/bar'>
+      <item>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='UNLOCK'
+            resource='http://example.com/foo/bar'/>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>If no errors occur during processing of the foregoing XML stanza, the XMPP pubsub service then sends a pubsub notification to each XMPP entity that has a subscription of type "items" to the "bar" node (or at depth='all' to any of its ancestor nodes).</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='trackerbot@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='webdav|http://example.com/foo/bar'>
+      <item id='unlock-id'>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='UNLOCK'
+            resource='http://example.com/foo/bar'/>
+      </item>
+    </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Resource Deleted' anchor='ex-delete'>
+        <t>Next, a WebDAV client deletes the "newbar" resource by means of a DELETE operation.</t>
+        <t>Once the WebDAV service successfully deletes the "newbar" resource, it publishes an XMPP pubsub item to the "foo/newbar" node at the XMPP pubsub service, including an empty &lt;webdav/&gt; wrapper element specifying a DELETE method:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='webdav-service.example.com'
+    to='pubsub.example.com'
+    id='delete1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <publish node='webdav|http://example.com/foo/newbar'>
+      <item>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='DELETE'
+            resource='http://example.com/foo/newbar'/>
+      </item>
+    </publish>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>If no errors occur during processing of the foregoing XML stanza, the XMPP pubsub service then sends a pubsub notification to each XMPP entity that has a subscription of type "items" to the "newbar" node (or at depth='all' to any of its ancestor nodes).</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='trackerbot@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <items node='webdav|http://example.com/foo/newbar'>
+      <item id='delete-id'>
+        <webdav 
+            xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+            method='DELETE'
+            resource='http://example.com/foo/newbar'/>
+      </item>
+    </items>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+        <t>It might be assumed that it would be enough to delete the pubsub node when the corresponding WebDAV resource is deleted.  However, there is not necessarily a one-to-one correspondence between WebDAV resources and pubsub nodes, and there may be good reasons to delete the pubsub node even if the WebDAV resource has not been deleted (e.g., "publish events" might be a property that can be set via PROPPATCH, and setting that property to "false" might result in deletion of the associated pubsub node).  However, once the resource is deleted, the WebDAV service SHOULD also delete the associated pubsub node:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq type='set'
+    from='webdav-service.example.com'
+    to='pubsub.example.com'
+    id='delete1'>
+  <pubsub xmlns='http://jabber.org/protocol/pubsub'>
+    <delete id='webdav|http://example.com/foo/newbar'/>
+  </pubsub>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>Subscribers will then be notified that the node has been deleted:</t>
+        <figure>
+          <artwork><![CDATA[
+<message from='pubsub.example.com'
+         to='trackerbot@example.com'>
+  <event xmlns='http://jabber.org/protocol/pubsub#event'>
+    <delete id='webdav|http://example.com/foo/newbar'/>
+  </event>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section title='IANA Considerations' anchor='iana'>
+      <t>To follow (how to register new notification types).</t>
+    </section>
+
+    <section title='Security Considerations' anchor='sec'>
+      <t>Detailed security considerations for the relevant protocols profiled in this memo are given in <xref target='WEBDAV'/>, <xref target='XMPP-CORE'/>, and <xref target='XMPP-PUBSUB'/>.</t>
+      <t>As far as possible, a WebDAV service SHOULD synchronize authorization between the WebDAV service and the XMPP pubsub service, using the subscription authorization protocol described in <xref target="XMPP-PUBSUB"/>; for example, a WebDAV service SHOULD NOT allow an entity to receive diffs via XMPP if such an entity would not be authorized to retrieve the resource via HTTP and its WebDAV extensions.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title='Normative References'>
+
+<reference anchor="BASE64">
+<front>
+<title>The Base16, Base32, and Base64 Data Encodings</title>
+<author initials='S.' surname='Josefsson' fullname='S.  Josefsson'>
+<organization /></author>
+<date month='July' year='2003' /></front>
+<seriesInfo name='RFC' value='3548' />
+<format type='TXT' octets='26363' target='ftp://ftp.isi.edu/in-notes/rfc3548.txt' />
+</reference>
+
+<reference anchor='HTTP'>
+<front>
+<title abbrev='HTTP/1.1'>Hypertext Transfer Protocol -- HTTP/1.1</title>
+<author initials='R.' surname='Fielding' fullname='Roy T.  Fielding'>
+<organization abbrev='UC Irvine'>Department of Information and Computer Science</organization>
+<address>
+<postal>
+<street>University of California, Irvine</street>
+<city>Irvine</city>
+<region>CA</region>
+<code>92697-3425</code></postal>
+<facsimile>+1(949)824-1715</facsimile>
+<email>fielding@ics.uci.edu</email></address></author>
+<author initials='J.' surname='Gettys' fullname='James Gettys'>
+<organization abbrev='Compaq/W3C'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>jg@w3.org</email></address></author>
+<author initials='J.' surname='Mogul' fullname='Jeffrey C.  Mogul'>
+<organization abbrev='Compaq'>Compaq Computer Corporation</organization>
+<address>
+<postal>
+<street>Western Research Laboratory</street>
+<street>250 University Avenue</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94305</code></postal>
+<email>mogul@wrl.dec.com</email></address></author>
+<author initials='H.' surname='Frystyk' fullname='Henrik Frystyk Nielsen'>
+<organization abbrev='MIT/LCS'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>frystyk@w3.org</email></address></author>
+<author initials='L.' surname='Masinter' fullname='Larry Masinter'>
+<organization abbrev='Xerox'>Xerox Corporation</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>3333 Coyote Hill Road</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94034</code></postal>
+<email>masinter@parc.xerox.com</email></address></author>
+<author initials='P.' surname='Leach' fullname='Paul J.  Leach'>
+<organization abbrev='Microsoft'>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>1 Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code></postal>
+<email>paulle@microsoft.com</email></address></author>
+<author initials='T.' surname='Berners-Lee' fullname='Tim Berners-Lee'>
+<organization abbrev='MIT/LCS'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>timbl@w3.org</email></address></author>
+<date month='June' year='1999' />
+<abstract>
+<t>
+   The Hypertext Transfer Protocol (HTTP) is an application-level
+   protocol for distributed, collaborative, hypermedia information
+   systems.  It is a generic, stateless, protocol which can be used for
+   many tasks beyond its use for hypertext, such as name servers and
+   distributed object management systems, through extension of its
+   request methods, error codes and headers .  A feature of HTTP is
+   the typing and negotiation of data representation, allowing systems
+   to be built independently of the data being transferred.
+</t>
+<t>
+   HTTP has been in use by the World-Wide Web global information
+   initiative since 1990.  This specification defines the protocol
+   referred to as "HTTP/1.1", and is an update to RFC 2068 .
+</t></abstract></front>
+<seriesInfo name='RFC' value='2616' />
+<format type='TXT' octets='422317' target='ftp://ftp.isi.edu/in-notes/rfc2616.txt' />
+<format type='PS' octets='5529857' target='ftp://ftp.isi.edu/in-notes/rfc2616.ps' />
+<format type='PDF' octets='550558' target='ftp://ftp.isi.edu/in-notes/rfc2616.pdf' />
+<format type='HTML' octets='498891' target='http://xml.resource.org/public/rfc/html/rfc2616.html' />
+<format type='XML' octets='471630' target='http://xml.resource.org/public/rfc/xml/rfc2616.xml' />
+</reference>
+
+      <reference anchor='TERMS'>
+        <front>
+          <title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+          <author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+            <organization>Harvard University</organization>
+            <address>
+              <postal>
+                <street>1350 Mass. Ave.</street>
+                <street>Cambridge</street>
+                <street>MA 02138</street>
+              </postal>
+              <phone>- +1 617 495 3864</phone>
+              <email>-</email>
+            </address>
+          </author>
+          <date month='March' year='1997'></date>
+          <area>General</area>
+          <keyword>keyword</keyword>
+          <abstract>
+            <t>In many standards track documents several words are used to signify the requirements in the specification.  These words are often capitalized.  This document defines these words as they should be interpreted in IETF documents.  Authors who follow these guidelines should incorporate this phrase near the beginning of their document:
+              <list>
+                <t>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in RFC 2119.</t>
+              </list>
+            </t>
+            <t>Note that the force of these words is modified by the requirement level of the document in which they are used.</t>
+          </abstract>
+        </front>
+        <seriesInfo name='BCP' value='14' />
+        <seriesInfo name='RFC' value='2119' />
+      </reference>
+
+<reference anchor="WEBDAV">
+<front>
+<title>HTTP Extensions for Distributed Authoring - WebDAV</title>
+<author initials='L' surname='Dusseault' fullname='Lisa Dusseault'>
+    <organization />
+</author>
+<date month='May' day='15' year='2006' />
+<abstract><t>WebDAV consists of a set of methods, headers, and content-types ancillary to HTTP/1.1 for the management of resource properties, creation and management of resource collections, URL namespace manipulation, and resource locking (collision avoidance). RFC2518 was published in February 1999, and this specification makes minor revisions mostly due to interoperability experience.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-webdav-rfc2518bis-15' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-webdav-rfc2518bis-15.txt' />
+</reference>
+
+<reference anchor="XMPP-CORE">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3920' />
+  <format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+</reference>
+
+<reference anchor="XMPP-PUBSUB">
+  <front>
+    <title>Publish-Subscribe</title>
+    <author initials="P." surname="Millard" fullname="Peter Millard">
+      <organization/>
+      <address>
+        <email></email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <author initials="R." surname="Meijer" fullname="Ralph Meijer">
+      <organization/>
+      <address>
+        <email>ralphm@ik.nu</email>
+      </address>
+    </author>
+    <date day="27" month="June" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0060"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0060.html"/>
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor="GDIFF">
+<front>
+<title>Generic Diff Format Specification</title>
+<author initials="A" surname="Hoff" fullname="Arthur van Hoff">
+    <organization />
+</author>
+<author initials="J" surname="Payne" fullname="Jonathan Payne">
+    <organization />
+</author>
+<date month="September" day="1" year="1997" />
+</front>
+<seriesInfo name="W3C NOTE" value="NOTE-gdiff-19970901" />
+<format type="HTML" target="http://www.w3.org/TR/NOTE-gdiff-19970901" />
+</reference>
+
+<reference anchor='SHA-1'>
+<front>
+<title>US Secure Hash Algorithm 1 (SHA1)</title>
+<author initials='D.' surname='Eastlake' fullname='D. Eastlake'>
+<organization /></author>
+<author initials='P.' surname='Jones' fullname='P. Jones'>
+<organization /></author>
+<date year='2001' month='September' />
+<abstract>
+<t>&lt;p>The purpose of this document is to make the SHA-1 (Secure Hash Algorithm 1) hash algorithm conveniently available to the Internet community. This memo provides information for the Internet community. &lt;/p></t></abstract></front>
+<seriesInfo name='RFC' value='3174' />
+<format type='TXT' octets='35525' target='ftp://ftp.isi.edu/in-notes/rfc3174.txt' />
+</reference>
+
+<reference anchor='SMTP'>
+<front>
+<title>Simple Mail Transfer Protocol</title>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<date month='April' year='2001' /></front>
+<seriesInfo name='RFC' value='2821' />
+<format type='TXT' octets='192504' target='ftp://ftp.isi.edu/in-notes/rfc2821.txt' />
+</reference>
+
+<reference anchor='VCDIFF'>
+<front>
+<title>The VCDIFF Generic Differencing and Compression Data Format</title>
+<author initials='D.' surname='Korn' fullname='D. Korn'>
+<organization /></author>
+<author initials='J.' surname='MacDonald' fullname='J. MacDonald'>
+<organization /></author>
+<author initials='J.' surname='Mogul' fullname='J. Mogul'>
+<organization /></author>
+<author initials='K.' surname='Vo' fullname='K. Vo'>
+<organization /></author>
+<date year='2002' month='June' /></front>
+<seriesInfo name='RFC' value='3284' />
+<format type='TXT' octets='64035' target='ftp://ftp.isi.edu/in-notes/rfc3284.txt' />
+</reference>
+
+    </references>
+
+    <section title="XML Schema" anchor="schema">
+      <t>The following XML schema is descriptive, not normative.</t>
+      <figure>
+        <artwork><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:ietf:params:xml:ns:webdav-event:payload'
+    xmlns='urn:ietf:params:xml:ns:webdav-event:payload'
+    elementFormDefault='unqualified'>
+
+  <xs:element name='webdav'>
+    <xs:complexType>
+      <xs:choice 
+        xmlns:dav='DAV:' 
+        xmlns:diff='urn:ietf:params:xml:ns:webdav-event:payload:diff'
+        xmlns:etag='urn:ietf:params:xml:ns:webdav-event:payload:etag'
+        minOccurs='0'
+        maxOccurs='unbounded'>
+        <xs:element ref='dav:activelock'/>
+        <xs:element ref='diff:diff'/>
+        <xs:element ref='etag:etag'/>
+        <xs:element ref='dav:href'/>
+        <xs:element ref='dav:propertyupdate'/>
+      </xs:choice>
+      <xs:attribute name='method' use='required'>
+        <xs:simpleType>
+          <xs:restriction base='xs:NCName'>
+            <xs:enumeration value='CONNECT'/>
+            <xs:enumeration value='COPY'/>
+            <xs:enumeration value='DELETE'/>
+            <xs:enumeration value='GET'/>
+            <xs:enumeration value='HEAD'/>
+            <xs:enumeration value='LOCK'/>
+            <xs:enumeration value='MKCOL'/>
+            <xs:enumeration value='MOVE'/>
+            <xs:enumeration value='OPTIONS'/>
+            <xs:enumeration value='PATCH'/>
+            <xs:enumeration value='POST'/>
+            <xs:enumeration value='PROPFIND'/>
+            <xs:enumeration value='PROPPATCH'/>
+            <xs:enumeration value='PUT'/>
+            <xs:enumeration value='TRACE'/>
+            <xs:enumeration value='UNLOCK'/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name='resource' type='xs:string' use='required'/>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title="Revision History" anchor="rev">
+      <t>Note to RFC Editor: please remove this entire appendix, and the corresponding entries in the table of contents, prior to publication.</t>
+      <section title="Changes from draft-hildebrand-webdav-notify-00" anchor='rev-01'>
+        <t><list style='symbols'>
+	  <t>Specified XML schema.</t>
+        </list></t>
+      </section>
+    </section>
+
+  </back>
+
+</rfc>

@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>OpenDomain Contributes XMPP Domains to the Jabber Software Foundation</h3>
+<h4>XMPP.com, XMPP.net, and XMPP.org to Provide Information and Services Related to the Extensible Messaging and Presence Protocol (XMPP)</h4>
+
+<p>DENVER, CO, USA, DECEMBER 30, 2005 -- The Jabber Software Foundation (<a href="http://www.jabber.org/jsf/">JSF</a>) has accepted a contribution of the XMPP.com, XMPP.net, and XMPP.org domains and has already begun to offer services related to the Extensible Messaging and Presence Protocol (<a href="http://www.xmpp.org/">XMPP</a>) at those domains. The domains were transferred to the JSF by <a href="http://www.opendomain.org/">OpenDomain.Org</a> in recognition of the JSF's work in promoting open instant messaging, presence, and XML routing technologies.</p>
+<p>"We appreciate the efforts and promotion of open and free communities, specifically the work done by the Jabber Software Foundation on XMPP," said Ric Johnson, President of OpenDomain.org. "Because of this, we have decided to grant full ownership of the domain names to the JSF." Even though OpenDomain was offered several thousand dollars to sell these domains to a third party, it transferred the domains to the JSF for free. The OpenDomain program does not sell domains, rather it enables organizations and individuals to use them in promoting open technologies. The OpenDomain trademark says it best: "Open Source for Domains."</p>
+<p>JSF Executive Director Peter Saint-Andre noted: "Jabber/XMPP technologies are the open alternative in the realm of instant messaging, presence, and real-time XML delivery. With the IETF's approval of the XMPP RFCs in 2004, mindshare around the XMPP brand has become ever more important. OpenDomain's generous contribution of the XMPP.com, XMPP.net, and XMPP.org domains will enable us to offer valuable services related to these technologies."</p>
+<p>The domains are being used as follows:</p>
+<ul>
+  <li><p><a href="http://www.xmpp.org/">XMPP.org</a> hosts a website devoted to explaining the XMPP protocols, as well as multi-user chat rooms used by the Internet Engineering Task Force (<a href="http://www.ietf.org/">IETF</a>) and the Internet Research Task Force (<a href="http://www.irtf.org/">IRTF</a>) in their work on Internet standards development.</p></li>
+  <li><p><a href="http://www.xmpp.net/">XMPP.net</a> hosts the website of the XMPP Federation, a group of server administrators dedicated to further strengthening and securing the existing network of Jabber/XMPP servers.</p></li>
+  <li><p><a href="http://www.xmpp.com/">XMPP.com</a> will be used as the home for a wide range of services related to XMPP technologies, including protocol compliance testing, interoperability events, and developer conferences.</p></li>
+</ul>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+
+<h4>About OpenDomain.Org</h4>
+<p><a href="http://www.opendomain.org/">OpenDomain.Org</a> is a program through which organizations and individuals can use a domain owned by OpenDomain.Org and then freely put it to good use. This enables domains that otherwise would stand empty to be used for a good purpose and also offers an excellent opportunity to obtain a relevant domain URL. OpenDomain.org is sponsored by <a href="http://www.free.tv/">Free.TV</a>.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

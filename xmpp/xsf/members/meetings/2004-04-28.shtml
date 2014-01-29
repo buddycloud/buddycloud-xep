@@ -1,0 +1,156 @@
+<html>
+<head>
+<title>JSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Member Meeting</h2>
+
+<p>This is the agenda for a meeting of the Members of the Jabber Software Foundation (JSF). Meeting participants may want to refer to the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+<ul>
+<li>Where: foundation at conference.jabber.org</li>
+<li>Time: Wednesday, 2004-04-28, 18:00 UTC</li>
+<li>When is 18:00 UTC in your local time? <a href="http://www.worldtimeserver.com/">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+<ol>
+  <li>
+    <p><strong>Call for Quorum</strong></p>
+    <p>The following 48 JSF members voted via proxy:</p>
+    <pre>
+&lt; adrian at dtedu.net &gt;
+&lt; ahkitj at greta.electric.gen.nz &gt;
+&lt; al019409 at mi.uji.es &gt;
+&lt; aleksey at jabber.ru &gt;
+&lt; bglee at myjabber.net &gt;
+&lt; cbas at rhymbox.com &gt;
+&lt; cmullins at jabber.org &gt;
+&lt; daniel at chote.net &gt;
+&lt; dave2000 at jabber.org &gt;
+&lt; dcorvoysier at jabber.com &gt;
+&lt; faceprint at faceprint.com &gt;
+&lt; ginomi at tipic.com &gt;
+&lt; gnauck at myjabber.net &gt;
+&lt; hal at jabber.rocks.cc &gt;
+&lt; hildjj at jabber.org &gt;
+&lt; jabber at vanbragt.com &gt;
+&lt; jajcus at jabber.bnet.pl &gt;
+&lt; jconley at jabber.org &gt;
+&lt; jfrankel at jabber.org &gt;
+&lt; jlseguineau at im.antepo.com &gt;
+&lt; julian at jabber.org &gt;
+&lt; justin at andbit.net &gt;
+&lt; lgf at jabber.com &gt;
+&lt; linuxwolf at outer-planes.net &gt;
+&lt; mass at akuma.org &gt;
+&lt; mblsha at jabber.ru &gt;
+&lt; me at ukscone.net &gt;
+&lt; mike at citybright.com &gt;
+&lt; mrose at jabber.dbc.mtview.ca.us &gt;
+&lt; nickonov at jabber.com &gt;
+&lt; nickperez at jabber.org &gt;
+&lt; ocrampal at tipic.com &gt;
+&lt; paperino at tipic.com &gt;
+&lt; pgmillard at jabber.org &gt;
+&lt; pluto at tipic.com &gt;
+&lt; rabbit at jabber.wp.pl &gt;
+&lt; ralphm at ik.nu &gt;
+&lt; reatmon at jabber.org &gt;
+&lt; richard_edward_dobson at jabber.org &gt;
+&lt; rob at cataclysm.cx &gt;
+&lt; rynok at jabber.com &gt;
+&lt; siegle at jabber.org &gt;
+&lt; srlee at myjabber.net &gt;
+&lt; stpeter at jabber.org &gt;
+&lt; tbamonti at corp.jabber.com &gt;
+&lt; temas at jabber.org &gt;
+&lt; trejkaz at jabber.xaoza.net &gt;
+&lt; uls at jabber.org &gt;
+    </pre>
+    <p>The JSF has 72 <a href="/members/memberlist.shtml">members</a> as of this date. Therefore quorum is achieved.</p>
+  </li>
+  <li><strong>Items Subject to a Vote</strong>
+    <ol>
+      <li><p>Voting on new members and renewal of membership for current members.</p></li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Opportunity for JSF members to Vote in the Meeting</strong></p>
+    <p>No JSF members voted in the meeting.</p>
+  </li>
+  <li><strong>Announcement of Voting Results</strong>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'>
+  <th>Applicant</th>
+  <th>Yes</th>
+  <th>No</th>
+</tr>
+<tr class='tablebody'>
+  <td>Marco Balmer</td>
+  <td>40</td>
+  <td>8</td>
+</tr>
+<tr class='tablebody'>
+  <td>Srinivas Chakravarty</td>
+  <td>42</td>
+  <td>6</td>
+</tr>
+<tr class='tablebody'>
+  <td>Marc Derricutt</td>
+  <td>39</td>
+  <td>9</td>
+</tr>
+<tr class='tablebody'>
+  <td>Stephan Hermann</td>
+  <td>15</td>
+  <td>33</td>
+</tr>
+<tr class='tablebody'>
+  <td>Santosh Kadam</td>
+  <td>10</td>
+  <td>38</td>
+</tr>
+<tr class='tablebody'>
+  <td>Edwin Mons</td>
+  <td>39</td>
+  <td>9</td>
+</tr>
+<tr class='tablebody'>
+  <td>Chris Mullins</td>
+  <td>45</td>
+  <td>3</td>
+</tr>
+</table>
+        <p>Therefore the following 5 individuals are accepted as JSF members for the next 12 months:</p>
+        <ul>
+<li>Marco Balmer</li>
+<li>Srinivas Chakravarty</li>
+<li>Marc Derricutt</li>
+<li>Edwin Mons</li>
+<li>Chris Mullins</li>
+        </ul>
+        <p>The following applicants were not accepted but are welcome to apply in the future:</p>
+        <ul>
+          <li>Stephan Hermann</li>
+          <li>Santosh Kadam</li>
+        </ul>
+        <p>The following 5 JSF members eligible for re-election did not re-apply and therefore will be dropped from the membership:</p>
+        <ul>
+          <li>Don Bergal</li>
+          <li>Ashvil D'Costa</li>
+          <li>Matt Mankins</li>
+          <li>Damian Saez</li>
+          <li>Mariusz Smykula</li>
+        </ul>
+        <p>The following JSF members have missed the last three votes and therefore will be dropped from the membership:</p>
+        <ul>
+          <li>Ragavan Srinivasan</li>
+        </ul>
+        <p>As a result of these changes, the JSF now has 71 members.</p>
+  </li>
+  <li>
+    <p><strong>Open Discussion</strong></p>
+    <p>Discussed desirability of holding a monthly JSF meeting. Peter Saint-Andre to follow up (perhaps May 12?)</p>
+  </li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

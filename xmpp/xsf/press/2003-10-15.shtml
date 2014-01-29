@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>XMPP Proven as a Standard for Instant Messaging Interoperability</h3>
+<h4>Jabber Community Continues To Play Leadership Role in Push towards IM and Presence Interoperability</h4>
+
+<p>DENVER, COLO., OCTOBER 15, 2003 -- The Jabber Software Foundation (JSF), the non-profit organization that builds open application protocols on top of the IETF's Extensible Messaging and Presence Protocol (XMPP), today announced the public availability of gateways to two of the leading protocols for instant messaging, SIMPLE and Wireless Village (OMA - Open Mobile Alliance IMPS).</p>
+
+<p>XMPP is an open protocol widely used as the common connection between open source and proprietary IM systems.  The protocol is expected to be ratified soon by the IETF as an Internet standard for instant messaging.  XMPP grew out of the Jabber open-source project, and continues to be developed and extended within both the IETF and the broader Jabber community, including the JSF.  The JSF reports that more than 215,000 open source XMPP servers have been deployed with a total worldwide user base of approximately 7-10 million people.</p>
+
+<p>Responding to customer-driven demands for seamless communication between disparate IM systems, two JSF sponsors have used the open XMPP protocol as the basis for their work. The XMPP-to-SIMPLE gateway was built by Antepo, Inc. and the XMPP-to-IMPS gateway was built by Jabber, Inc.  The XMPP-to-SIMPLE gateway is available for public evaluation at sametime.xmpp.org.</p>
+
+<p>"The Jabber community has always deeply valued interoperability, and it is fantastic to see commercial companies such as Antepo and Jabber, Inc.  continue the strong tradition begun by open-source developers," said Peter Saint Andre, the JSF's executive director.  "The fact that Jabber/XMPP is both extensible and modular makes it the natural platform on which to build interoperable systems."</p>
+
+<p>"The XMPP-to-SIMPLE gateway extends XMPP networks to other relevant and leading players in the marketplace.  For example, it interoperates with IBM's Lotus SameTime, the largest enterprise IM installed base," said Don Bergal, VP of Business Development for Antepo.  "This initiative highlights XMPP's central role in deploying open, cohesive and global presence architectures."</p>
+
+<p>"The XMPP-to-IMPS, also known as Wireless Village, gateway is a great example of XMPP's native ability to act as a neutral internetworking technology for multi-protocol interoperability," said Tony Bamonti, Jabber, Inc.'s VP of Open Alliances and Standards.  "XMPP/Jabber has historically been used as a protocol bridge to connect proprietary messaging systems, such as AIM, ICQ, MSN, and others, and is now demonstrating a similar ability to interconnect systems based on different emerging IM protocol standards."</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+
+<h4>About Antepo</h4>
+<p>Antepo is the leading provider of interoperable Instant Messaging infrastructure software. Antepo's standards-based Instant Messaging technology extends business networks for real-time communication and collaboration, connecting users across protocols and enterprise boundaries, bridging fixed and mobile systems, and federating separate islands of Instant Messaging connectivity into a single Presence network.</p>
+<p>Antepo is a global company headquartered in New York, NY with business development and support offices in Paris, France.</p>
+
+<h4>About Jabber, Inc.</h4>
+<p>Jabber, Inc. is the developer of the world's most widely used open platform for extensible instant messaging and presence management applications.  Jabber Inc.'s commercial software has been sold and deployed to more than four million users.  The Jabber Open Source project now has more than 215,000 servers in operation worldwide.  Jabber has been adopted in the telecommunications, enterprise and software development markets by customers that include France Telecom, Hewlett-Packard, BellSouth, Lehman Brothers, Sony Corporation, CapWIN, Netsize, AT&amp;T, and Juniper Networks.  Jabber, Inc.'s investors include France Telecom (NYSE:FTE - News), Intel Capital, Intel's strategic investing arm, and Webb Interactive Services, Inc. (OTCBB:WEBB - News). Please see www.jabber.com for more information.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

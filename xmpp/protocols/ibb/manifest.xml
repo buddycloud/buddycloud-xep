@@ -1,0 +1,14 @@
+<manifest>
+  <title>In-Band Bytestreams</title>
+  <abstract>This specification defines an XMPP protocol extension that enables any two entities to establish a one-to-one bytestream between themselves, where the data is broken down into smaller chunks and transported in-band over XMPP.</abstract>
+  <specnum>XEP-0047</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0047.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/ibb</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/ibb.xsd</schema>
+  </schemas>
+</manifest>

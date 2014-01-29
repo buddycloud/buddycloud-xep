@@ -1,0 +1,14 @@
+<manifest>
+  <title>Flexible Offline Message Handling</title>
+  <abstract>This specification defines an XMPP protocol extension for flexible, POP3-like handling of offline messages. The protocol enables a connecting client to retrieve its offline messages on login in a controlled fashion, without receiving a flood of messages. Messages can also be left on the server for later retrieval.</abstract>
+  <specnum>XEP-0013</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0013.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/offline</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/offline.xsd</schema>
+  </schemas>
+</manifest>

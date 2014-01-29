@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'altconn.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='altconn.xsl'?>
+<registry>
+
+<meta>
+  <title>Alternative XMPP Connection Methods</title>
+  &LEGALNOTICE;
+  <overview>This is the official registry of Alternative XMPP Connection Methods as maintained by the &REGISTRAR; and authorized by &xep0156;.</overview>
+  <revision>
+    <version>0.1</version>
+    <date>2007-06-12</date>
+    <initials>psa</initials>
+    <remark>Initial version (populated from XEP-0156, version 1.0).</remark>
+  </revision>
+</meta>
+
+<method>
+  <name>_xmpp-client-httppoll</name>
+  <desc>HTTP Polling connection method</desc>
+  <syntax>The http: or https: URL at which to contact the HTTP Polling connection manager or proxy</syntax>
+  <doc>XEP-0025 (DEPRECATED)</doc>
+</method>
+
+<method>
+  <name>_xmpp-client-xbosh</name>
+  <desc>XMPP Over Bosh connection method</desc>
+  <syntax>The http: or https: URL at which to contact the HTTP Binding connection manager or proxy</syntax>
+  <doc>&xep0206;</doc>
+</method>
+
+</registry>

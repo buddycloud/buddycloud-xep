@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Council</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Council</h2>
+<p>The XMPP Council is the technical steering group that approves <a href='/extensions/'>XMPP Extension Protocols</a>, as governed by the <a href='/xsf/docs/bylaws.shtml'>XSF Bylaws</a> and <a href='/extensions/xep-0001.html'>XEP-0001</a>. The Council is elected by the members of the <a href='http://www.xmpp.org/xsf/'>XMPP Standards Foundation</a> each year in September.</p>
+<p>The ninth Council (2009-2010) consists of the following individuals:</p>
+<ul>
+<li><a href='/xsf/people/dcridland.shtml'>Dave Cridland</a> (resigned 2010-03-01)</li>
+<li><a href='/xsf/people/fritzy.shtml'>Nathan Fritz</a> (joined 2010-03-31)</li>
+<li><a href='/xsf/people/ralphm.shtml'>Ralph Meijer</a></li>
+<li><a href='/xsf/people/ksmith.shtml'>Kevin Smith</a> (Chair)</li>
+<li><a href='/xsf/people/remko.shtml'>Remko Tron&#231;on</A></li>
+<li><a href='/xsf/people/mwild.shtml'>Matthew Wild</a></li>
+</ul>
+<p>For more information about the XMPP Council, refer to the following pages:</p>
+<ul>
+<li><a href='policies.shtml'>Policies and procedures</a></li>
+<li><a href='votes.shtml'>Vote tallies</a></li>
+<li><a href='http://wiki.xmpp.org/web/Radar'>Radar page</a> for tracking issues of interest</a></li>
+<li><a href='xmpp:council@muc.xmpp.org?join'>Chatroom</a> for meetings</li>
+<li>Chatroom logs: <a href='http://xmpp.org:5290/muc_log/muc.xmpp.org/council/'>new</a> and <a href='http://logs.jabber.org/council@conference.jabber.org/'>old</a></li>
+<li><a href='/calendar/xsf-council.ics'>Calendar file</a> (.ics) for meeting reminders</li>
+<li><a href='http://mail.jabber.org/mailman/listinfo/council'>Mailing list</a> (subscription is open, posting is restricted)</li>
+<li><a href='http://mail.jabber.org/pipermail/council/'>Mailing list archives</a></li>
+</ul>
+<!--#include virtual="/includes/foot.txt" -->

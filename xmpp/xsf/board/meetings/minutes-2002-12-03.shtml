@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2002-12-03 @ 16:30 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 16:33 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Michael Bauer</li>
+<li>Ryan Eatmon</li>
+<li>Jeremie Miller</li>
+<li>Marco Palombi</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>All Board members were in attendance. Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Jabber Trademark</p>
+    <p>Discussed the Jabber Trademark Position Statement and the Letter of Intent formulated by Tony. Agreement that these documents generally meet our needs. Peter raised a question about the exact timeline for a review with regard to trademark transfer and Michael raised a question about the wording of the review procedure. Tony will make slight changes to the documents and they will be approved in an interim meeting before the next scheduled meeting in January.</p>
+  </li>
+  <li>
+    <p>XMPP WG</p>
+    <p>Jer, Tony, and Peter reported on the success of the XMPP WG meeting at the 55th IETF in Atlanta, providing details about the priorities of the WG, its projected timeline, issues related to backwards compatibility (desirable but not the top priority of the group), and interaction with the SIMPLE WG (especially the "Jabber sessions" Internet-Draft for initiating an XMPP session from SIP devices).</p>
+  </li>
+  <li>
+    <p>Marketing Committee</p>
+    <p>Michael and Marco reported on the work of the Marketing Committee, including the draft JSF Sponsorship Program and JSF Grant Program formulated by Michael Bauer, Iain Shigeoka, Harold Gottschalk, et al. Several Board members expressed concern that presenting potential sponsors with two programs to support might be confusing and lead to one or the other being underfunded. Agreement that it is best to clearly communicate why sponsors should support the JSF, including how sponsorship money is directed (e.g., ongoing expenses, in-person meetings of the Jabber Council, compliance testing program, etc.). Discussed possibility of funding, through a grant program, the creation of running code (a la Source Exchange), but decided that if code projects are supported, they should be related more to research and development than the creation of production-ready components. Consensus reached that there should be one sponsorship program with multiple levels of support, and the ability of larger donors to earmark a relatively small percentage (perhaps 10%-20%) of their monies to certain pre-defined R&amp;D projects (e.g., whiteboarding, pub-sub, and other initiatives approved by the JSF). Michael will take these results back to the Marketing Committee and work to generate a sponsorship program definition.</p>
+  </li>
+  <li>
+    <p>Compliance Committee</p>
+    <p>Jeremie Miller reported on the Compliance Committee. As captured on the wiki, the focus seems to be on minimal compliance for now (the basic wire protocol, not UI or advanced features). This minimal compliance may be "XMPP Compliance", with "Jabber Compliance" comprising one or more levels above that (probably multiple levels). Jer will bundle the existing wiki information (etc.) into a document for review by the Compliance Committee. The intent is to create a test bot or component against which developers can unit-test, then save the results into a database (perhaps with a reporting function). This will enable client developers (open-source and commercial) to ensure that their software is compliant before submitting it for official compliance testing and certification by the JSF. Pricing levels for certification of commercial software yet to be determined, but should be relatively inexpensive to encourage certification (though high enough to cover our costs).</p>
+  </li>
+  <li>
+    <p>Official Liaison Role</p>
+    <p>Discussed the desirability to deputize individuals as official liaisons or "ambassadors" to other other projects/initiatives/organizations if necessary and appropriate (examples might be liaisons to the Apache Software Foundation, Java Community Process, etc.). If an individual is to have an official role (including the right to represent the JSF with relation to another organization), the individual needs to be accountable and the Board needs to have some measure of oversight. Therefore the Board must approve any such role, and will do so on a case-by-case basis.</p>
+  </li>
+</ol>
+<h2>Resolutions</h2>
+<ol>
+  <li>
+    <p>Resolved: that the Board of the JSF approve the Letter Of Intent for re-licensing the Jabber Trademark and eventually transferring the trademark to the Jabber Software Foundation.</p>
+    <p>Action: Deferred pending slight changes to the LOI.</li>
+  </li>
+  <li>
+    <p>Resolved: that the Board of the JSF must approve the role of a formal liaison from the JSF to any other organization.</p>
+    <p>Action: Approved</li>
+  </li>
+</ol>
+<h2>New Business</h2>
+<ol>
+  <li>Tony informed the Board of the Messaging and Presence Interoperability Consotrium (MPIC), a group of carriers, service providers, and enterprises that will act as advocates for interoperability in the IM and presence arena. Still embryonic but Tony is participating and may ask to be named as an official JSF liaison to MPIC.</li>
+  <li>Peter reminded the Board that applications for new members will be accepted again from January 1 to January 10.</li>
+  <li>Michael will submit a formal budget shortly.</li>
+  <li>Peter relayed concern from several JSF members that it may be counterproductive for Board members to lead committees such as the Marketing and Compliance committees. The feeling of the Board is that ideally this would not be the case but that no hard-and-fast rule is required.</li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 18:32 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

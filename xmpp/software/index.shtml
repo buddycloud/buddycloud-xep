@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Software</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Software</h2>
+<p>The Extensible Messaging and Presence Protocol (XMPP) has been implemented in dozens of <a href='clients.shtml'>clients</a>, <a href='servers.shtml'>servers</a>, and <a href='libraries.shtml'>code libraries</a>, some of them going all the way back to the first open-source Jabber projects in 1999. The following pages provide lists of XMPP implementations, without any warranty that the software is fully compliant with the XMPP specifications.</p>
+<ul>
+  <li><a href='clients.shtml'>Clients</a></li>
+  <li><a href='servers.shtml'>Servers</a></li>
+  <li><a href='libraries.shtml'>Code Libraries</a></li>
+</ul>
+<p>Software developers: to have your code project added to these pages, file a feature request with the XSF Communication Team at the <a href='http://athena.jabber.org:18081/browse/COMM'>issue tracker</a>.</p>
+<!--#include virtual="/includes/foot.txt" -->

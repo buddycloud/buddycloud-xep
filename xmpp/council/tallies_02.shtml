@@ -1,0 +1,445 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Council Vote Tallies -- 2002-2003</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Council Vote Tallies -- 2002-2003</h2>
+<p>This page provides detailed voting status information for each <a href='/extensions/'>XMPP Extension Protocol</a> that was presented to the Second <a href='/council/'>XMPP Council</a> in 2002-2003. For further information, refer to the <a href='http://mail.jabber.org/pipermail/council/'>mailing list archives</a> or contact the <a href='/extensions/editor.shtml'>XMPP Extensions Editor</a>.</p>
+<h3>Votes (in chronological order)</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'>
+<th>XEP</th>
+<th>DJ</th>
+<th>RE</th>
+<th>JH</th>
+<th>PGM</th>
+<th>JER</th>
+<th>JM</th>
+<th>TM</th>
+<th>RN</th>
+<th>DW</th>
+<th>Result</th>
+<th>Date</th>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0003.html'>0003</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2002-10-15</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0008.html'>0008</a></td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>Deferred</td>
+<td valign='top'>2002-10-15</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0014.html'>0014</a></td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>Rejected</td>
+<td valign='top'>2002-10-15</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0015.html'>0015</a></td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>Rejected</td>
+<td valign='top'>2002-10-15</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0017.html'>0017</a></td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>Rejected</td>
+<td valign='top'>2002-10-15</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0025.html'>0025</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2002-10-15</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0037.html'>0037</a></td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>-1</td>
+<td valign='top'>Rejected</td>
+<td valign='top'>2002-10-15</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0016.html'>0016</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2002-10-22</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0001.html'>0001</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2002-11-20</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0045.html'>0045</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2002-11-21</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0020.html'>0020</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2002-12-06</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0004.html'>0004</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Final</td>
+<td valign='top'>2002-12-09</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0009.html'>0009</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Final</td>
+<td valign='top'>2002-12-09</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0049.html'>0049</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2003-01-09</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0055.html'>0055</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>0</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2003-01-09</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0053.html'>0053</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2003-03-20</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0054.html'>0054</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2003-03-26</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0030.html'>0030</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2003-04-21</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0065.html'>0065</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2003-04-21</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0050.html'>0050</a></td>
+<td valign='top'>DNV*</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2003-05-19</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0082.html'>0082</a></td>
+<td valign='top'>DNV*</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2003-05-28</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0077.html'>0077</a></td>
+<td valign='top'>DNV*</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2003-06-18</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0078.html'>0078</a></td>
+<td valign='top'>DNV*</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2003-06-18</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0068.html'>0068</a></td>
+<td valign='top'>DNV*</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2003-08-18</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0013.html'>0013</a></td>
+<td valign='top'>DNV*</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2003-09-09</td>
+</tr>
+</table>
+<h3>Members of the Second Council</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'>
+<th>Initials</th>
+<th>Full Name</th>
+</tr>
+<tr class='tablebody'>
+<td>DJ</td>
+<td>DJ Adams</td>
+</tr>
+<tr class='tablebody'>
+<td>RE</td>
+<td>Ryan Eatmon</td>
+</tr>
+<tr class='tablebody'>
+<td>JH</td>
+<td>Joe Hildebrand</td>
+</tr>
+<tr class='tablebody'>
+<td>PGM</td>
+<td>Peter Millard</td>
+</tr>
+<tr class='tablebody'>
+<td>JER</td>
+<td>Jeremie Miller</td>
+</tr>
+<tr class='tablebody'>
+<td>JM</td>
+<td>Julian Missig</td>
+</tr>
+<tr class='tablebody'>
+<td>TM</td>
+<td>Thomas Muldowney</td>
+</tr>
+<tr class='tablebody'>
+<td>RN</td>
+<td>Rob Norris</td>
+</tr>
+<tr class='tablebody'>
+<td>DW</td>
+<td>Dave Waite</td>
+</tr>
+</table>
+<h3>Legend</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'>
+<th>Vote</th>
+<th>Meaning</th>
+</tr>
+<tr class='tablebody'>
+<td>-1</td>
+<td>Disapproved</td>
+</tr>
+<tr class='tablebody'>
+<td>0</td>
+<td>Neutral</td>
+</tr>
+<tr class='tablebody'>
+<td>+1</td>
+<td>Approved</td>
+</tr>
+<tr class='tablebody'>
+<td>DNV</td>
+<td>Did not vote</td>
+</tr>
+</table>
+<table><tr class='tablebody'>
+<td valign='top'><strong>*Note:</strong></td>
+<td valign='top'>DJ Adams resigned his Council membership on 2002-05-18 and therefore did not participate in subsequent Council votes.</td>
+</tr></table>
+<!--#include virtual="/includes/foot.txt" -->

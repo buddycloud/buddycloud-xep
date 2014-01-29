@@ -1,0 +1,205 @@
+<html>
+<head>
+<title>JSF Member Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Member Meeting</h2>
+
+<p>This is the agenda for the 2006 Annual Meeting of the Members of the Jabber Software Foundation (JSF). Meeting participants may want to refer to the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+<ul>
+<li>Where: foundation at conference.jabber.org</li>
+<li>Time: Wednesday, 2006-09-20, 17:00 UTC</li>
+<li>When is 17:00 UTC in your local time? <a href="http://www.worldtimeserver.com/convert_time_in_UTC.aspx?y=2006&mo=9&d=20&h=17&mn=0">Click here</a>!</li>
+</ul>
+<h3>Agenda</h3>
+<ol>
+  <li>
+    <p><strong>Call for Quorum</strong></p>
+    <p>The following 44 JSF members voted via proxy:</p>
+    <pre>
+Jack Moffitt
+Ulrich Staudinger
+Joe Hildebrand
+Paul Curtis
+Boris Mann
+Lucas Nussbaum
+Nolan Eakins
+Marco Balmer
+Gustavo Felisberto
+Ben Turner
+Ralph Meijer
+Jacek Koniezcny
+Gino Micacchi
+Gaston Dombiak
+Luis Peralta
+Jason Tucker
+Tobias Markmann
+Francesco Delfino
+Daniel Noll
+Florian Holzhauer
+Alexey Shchepin
+Mickaël Rémond
+Johannes Wagener
+Rob Norris
+Artur Hefczyc
+Chris Mullins
+Jesus Cea
+Jonathan Siegle
+Aaron Axelsen
+Kevin Smith
+Heiner Wolf
+Matt O'Gorman
+Matt Tucker
+Alexander Gnauck
+Matt Miller
+Tony Cheung
+Richard Edward Dobson
+Remko Tronçon
+Hal Rottenberg
+Edwin Mons
+Ian Paterson
+Stephan Maka
+Matthias Wimmer
+Peter Saint-Andre
+    </pre>
+    <p>The JSF has 57 <a href="/members/memberlist.shtml">members</a> as of this date. Therefore quorum is achieved in accordance with section 3.8 of the <a href="/jsf/bylaws.shtml">JSF Bylaws</a>.</p>
+  </li>
+  <li><strong>Items Subject to a Vote</strong>
+    <ol>
+      <li>
+        <p>Board Election</p>
+        <p>Vote yes or no for the following (all candidates receiving more than 50% affirmative votes will be approved):</p>
+        <ul>
+          <li><a href='http://wiki.jabber.org/index.php/Alexander_Gnauck_for_Board_2006'>Alexander Gnauck</a></li>
+          <li><a href='http://wiki.jabber.org/index.php/Micka%C3%ABl_R%C3%A9mond_for_Board_2006'>Mickael Remond</a></li>
+          <li><a href='http://wiki.jabber.org/index.php/Matt_Tucker_for_Board_2006'>Matt Tucker</a></li>
+        </ul>
+      </li>
+      <li>
+        <p>Council Election</p>
+        <p>Vote yes or no for the following (all candidates receiving more than 50% affirmative votes will be approved):</p>
+        <ul>
+          <li><a href='http://wiki.jabber.org/index.php/Gaston_Dombiak_for_Council_2006'>Gaston Dombiak</a></li>
+          <li><a href='http://wiki.jabber.org/index.php/Ralph_Meijer_for_Council_2006'>Ralph Meijer</a></li>
+          <li><a href='http://wiki.jabber.org/index.php/Matthew_Miller_for_Council_2006'>Matthew Miller</a></li>
+          <li><a href='http://wiki.jabber.org/index.php/Chris_Mullins_For_Council'>Chris Mullins</a></li>
+          <li><a href='http://wiki.jabber.org/index.php/Ian_Paterson_for_Council_2006'>Ian Paterson</a></li>
+          <li><a href='http://wiki.jabber.org/index.php/Peter_Saint_Andre_for_Council_2006'>Ian Paterson</a></li>
+          <li><a href='http://wiki.jabber.org/index.php/Kevin_Smith_for_Council_2006'>Kevin Smith</a></li>
+          <li><a href='http://wiki.jabber.org/index.php/Remko_Troncon_for_Council_2006'>Remko Troncon</a></li>
+        </ul>
+      </li>
+      <li>
+        <p><a href='http://www.jabber.org/jsf/branding-proposal.html'>Jabber/XMPP Branding Proposal</a></p>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p><strong>Opportunity for JSF members to Vote in the Meeting</strong></p>
+  </li>
+  <li>
+    <p><strong>Announcement of Voting Results</strong></p>
+    <ol>
+      <li>
+        <p>Board Election</p>
+<table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th>Candidate</th>
+<th>Yes</th>
+<th>No</th>
+</tr>
+<tr>
+<td>Alexander Gnauck</td>
+<td>37</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Mickael Remond</td>
+<td>37</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Matt Tucker</td>
+<td>40</td>
+<td>4</td>
+</tr>
+</table>
+        <p>All three candidates are accepted and will comprise the Board for 2006-2007.</p>
+      </li>
+      <li>
+        <p>Council Election</p>
+<table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th>Jabber Council</th>
+<th>Yes</th>
+<th>No</th>
+</tr>
+<tr>
+<td>Gaston Dombiak</td>
+<td>18</td>
+<td>26</td>
+</tr>
+<tr>
+<td>Ralph Meijer</td>
+<td>33</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Matthew Miller</td>
+<td>22</td>
+<td>22</td>
+</tr>
+<tr>
+<td>Chris Mullins</td>
+<td>26</td>
+<td>18</td>
+</tr>
+<tr>
+<td>Ian Paterson</td>
+<td>34</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Peter Saint-Andre</td>
+<td>41</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Kevin Smith</td>
+<td>23</td>
+<td>21</td>
+</tr>
+<tr>
+<td>Remko Troncon</td>
+<td>17</td>
+<td>27</td>
+</tr>
+</table>
+        <p>The top five vote-getters are accepted and will comprise the Council for 2006-2007:</p>
+        <ul>
+          <li>Ralph Meijer</li>
+          <li>Chris Mullins</li>
+          <li>Ian Paterson</li>
+          <li>Peter Saint-Andre</li>
+          <li>Kevin Smith</li>
+        </ul>
+      </li>
+      <li>
+        <p><a href='http://www.jabber.org/jsf/branding-proposal.html'>Jabber/XMPP Branding Proposal</a></p>
+<table border="1" cellpadding="3" cellspacing="0">
+<tr>
+<th>Yes</th>
+<th>No</th>
+</tr>
+<tr>
+<td>38</td>
+<td>6</td>
+</tr>
+</table>
+    </ol>
+  <li>
+    <p><strong>Any Other Business?</strong></p>
+  </li>
+  <li><p><strong>Formal Adjournment</strong></p></li>
+</ol>
+
+<!--#include virtual="/includes/foot.txt" -->

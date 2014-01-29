@@ -1,0 +1,10 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF People :: Chris Mullins</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF People :: Chris Mullins</h2>
+
+<p>Chris Mullins, a member of the <a href='/council/'>XMPP Council</a> for 2006-2007, is the Chief Software Architect for XSF Sponsor <a href='/xsf/sponsors/coversant.shtml'>Coversant</a>. In that role, Chris oversees the architecture for the SoapBox Server and SoapBox Framework. Other duties include acting as a technology evangelist for open standards and interoperability, evaluating technology based decisions, and even writing a little bit of code from time to time. Chris's weblog can be found at &lt;<a href='http://www.coversant.net/blogs/cmullins'>http://www.coversant.net/blogs/cmullins</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Jabber Community Announces Major Presence at O'Reilly Open Source Convention</h3>
+<h4>Jabber Software Foundation to Sponsor Premier Open Source Gathering</h4>
+ 
+<p>DENVER, COLO. - APRIL 28, 2003 -- The Jabber Software Foundation (JSF), the non-profit organization that manages open application protocols built on top of the IETF's Extensible Messaging and Presence Protocol (XMPP), today announced that it is sponsoring the 2003 Open Source Software Convention (<a href="http://conferences.oreillynet.com/os2003/">OSCON</a>) in Portland, OR, July 7-11.  The convention, held annually by O'Reilly &amp; Associates, is the central gathering place for the open source community to exchange ideas for resolving integration issues, pushing technical boundaries, and maximizing the benefits of both open source and proprietary software.  In that spirit, the JSF's sponsorship will be accompanied by a major presence at OSCON, including multiple lectures, seminars and public discussions, demonstrations by open source and commercial developers of Jabber technologies, and a Jabber lounge for high-bandwidth connections between Jabber enthusiasts.</p>
+<p>Scheduled speakers include Jeremie Miller, founder of the Jabber movement; Peter Saint-Andre, executive director of the JSF; Ryan Eatmon, chair of the Jabber Council; Peter Millard of Jabber, Inc.; Harold Gottschalk, IMissary, LLC; and DJ Adams, author of <cite>Programming Jabber</cite>, the definitive guide to Jabber technologies published by O'Reilly &amp; Associates.  Complete details can be found at the JSF's dedicated OSCON page (&lt;<a href="/oscon/">www.jabber.org/oscon/</a>&gt;).</p>
+<p>"Jabber is about the free flow of information and the enabling effect that presence has on the ability to communicate," said Michael Bauer, Chairman of the JSF.  "The Jabber community's presence at OSCON will extend its stature as a vibrant movement of open source projects and commercial organizations centered around XMPP as the emerging Internet standard for instant communications.  We would especially like to thank Jabber, Inc. for its generous support, which has made it possible for the JSF to play such a major role at OSCON this year."</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+
+<h3>About O'Reilly</h3>
+<p>O'Reilly &amp; Associates is the premier information source for leading-edge computer technologies. The company's books, conferences, and web sites bring to light the knowledge of technology innovators. O'Reilly books, known for the animals on their covers, occupy a treasured place on the shelves of the developers building the next generation of software. O'Reilly conferences and summits bring alpha geeks and forward-thinking business leaders together to shape the revolutionary ideas that spark new industries. From the Internet to XML, open source, .NET, Java, and web services, O'Reilly puts technologies on the map.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE registry SYSTEM 'xdv-prefixes.dtd' [
+  <!ENTITY % ents SYSTEM 'reg.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xdv-prefixes.xsl'?>
+<registry>
+  <meta>
+    <title>Data Forms Validation Datatypes</title>
+    &LEGALNOTICE;
+    <overview>This is the official registry of datatypes for use in the context of &xep0122;, as maintained by the &REGISTRAR;. This registry contains datatypes specified in XEP-0122 as well as datatypes submitted directly to the XMPP Registrar.</overview>
+    <revision>
+      <version>0.2</version>
+      <date>2005-08-26</date>
+      <initials>psa</initials>
+      <remark>Added sipub:file-transfer type specified in XEP-0137.</remark>
+    </revision>
+    <revision>
+      <version>0.1</version>
+      <date>2004-09-22</date>
+      <initials>psa</initials>
+      <remark>Initial version with parameters specified in XEP-0122.</remark>
+    </revision>
+  </meta>
+<datatype>
+  <name>sipub:file-transfer</name>
+  <desc>Datatype for publishing an SI using the File Transfer Profile</desc>
+  <doc>XEP-0096</doc>
+  <methods>basic</methods>
+  <min>N/A</min>
+  <max>N/A</max>
+</datatype>
+<datatype>
+  <name>xs:anyURI</name>
+  <desc>a Uniform Resource Identifier Reference (URI)</desc>
+  <methods>basic regex</methods>
+  <min>N/A</min>
+  <max>N/A</max>
+</datatype>
+<datatype>
+  <name>xs:byte</name>
+  <desc>an integer with the specified min/max</desc>
+  <methods>basic range</methods>
+  <min>-128</min>
+  <max>127</max>
+</datatype>
+<datatype>
+  <name>xs:date</name>
+  <desc>a calendar date</desc>
+  <methods>basic range regex</methods>
+  <min>N/A</min>
+  <max>N/A</max>
+</datatype>
+<datatype>
+  <name>xs:dateTime</name>
+  <desc>a specific instant of time</desc>
+  <methods>basic range regex</methods>
+  <min>N/A</min>
+  <max>N/A</max>
+</datatype>
+<datatype>
+  <name>xs:decimal</name>
+  <desc>an arbitrary-precision decimal number</desc>
+  <methods>basic range</methods>
+  <min>none</min>
+  <max>none</max>
+</datatype>
+<datatype>
+  <name>xs:double</name>
+  <desc>an IEEE double-precision 64-bit floating point type</desc>
+  <methods>basic range</methods>
+  <min>none</min>
+  <max>none</max>
+</datatype>
+<datatype>
+  <name>xs:int</name>
+  <desc>an integer with the specified min/max</desc>
+  <methods>basic range</methods>
+  <min>-2147483648</min>
+  <max>2147483647</max>
+</datatype>
+<datatype>
+  <name>xs:integer</name>
+  <desc>a decimal number with no fraction digits</desc>
+  <methods>basic range</methods>
+  <min>none</min>
+  <max>none</max>
+</datatype>
+<datatype>
+  <name>xs:language</name>
+  <desc>a language identifier as defined by RFC 1766</desc>
+  <methods>basic regex</methods>
+  <min>N/A</min>
+  <max>N/A</max>
+</datatype>
+<datatype>
+  <name>xs:long</name>
+  <desc>an integer with the specified min/max</desc>
+  <methods>basic range</methods>
+  <min>-9223372036854775808</min>
+  <max>9223372036854775807</max>
+</datatype>
+<datatype>
+  <name>xs:short</name>
+  <desc>an integer with the specified min/max</desc>
+  <methods>basic range</methods>
+  <min>-32768</min>
+  <max>32767</max>
+</datatype>
+<datatype>
+  <name>xs:string</name>
+  <desc>a character strings in XML</desc>
+  <methods>basic regex</methods>
+  <min>N/A</min>
+  <max>N/A</max>
+</datatype>
+<datatype>
+  <name>xs:time</name>
+  <desc>an instant of time that recurs every day</desc>
+  <methods>basic range regex</methods>
+  <min>N/A</min>
+  <max>N/A</max>
+</datatype>
+</registry>

@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Winfessor Announces Sponsorship for XMPP/Jabber</h3>
+<h4>Jabber Software Foundation and Winfessor Corporation Collaborate to Advance XMPP/Jabber for Public and Private Use</h4>
+
+<p>Denver, CO and Sacramento, CA - May 1, 2003 - The Jabber Software Foundation (&lt;<a href="http://www.jabber.org/">www.jabber.org</a>&gt;), the non-profit organization that manages open application protocols built on top of the IETF's Extensible Messaging and Presence Protocol (XMPP), and Winfessor Corporation (&lt;<a href="http://www.winfessor.com/">www.winfessor.com</a>&gt;), today announced Winfessor's commitment to contribute both financial and in-kind donations to support XMPP/Jabber.</p>
+
+<p>"Building on the established leadership of Jabber-based instant messaging, the IETF's Extensible Messaging and Presence Protocol (XMPP) is a front-running candidate for a ubiquitous communications protocol, so it's logical to choose XMPP/Jabber" says Jason Frankel, CTO and co-founder of Winfessor Corporation.  "We're doing our part to support organizations choosing XMPP/Jabber by sponsoring the Jabber Software Foundation (JSF) and also by providing a .NET development platform for custom corporate XMPP/Jabber development."</p>
+
+<p>In addition to monetary contributions, Winfessor, Inc is also making available Mr. Frankel and other Winfessor employees to actively contribute to the ongoing activities of the JSF.</p>
+
+<p>"We are pleased with the leadership Jason Frankel has provided as head of the JSF Marketing Team. Winfessor's support as a sponsor is just one more sign that corporations increasingly realize the importance of supporting open standards such as those developed by the IETF's XMPP Working Group and through the JSF's community standards process," said JSF Executive Director Peter Saint-Andre.</p>
+
+<p>In contrast to other instant messaging protocols, the Jabber protocol is an extensible, field proven, time tested, and open technology that is being used in tens of thousands of deployments world wide. XMPP is an IETF adaptation of the core Jabber protocol, and is designed to meet the highest standards of security and internationalization for Internet protocols.</p>
+
+<p>Winfessor joins existing sponsors such as IBM and Hitachi in supporting the JSF's work on XMPP/Jabber. To learn more about the benefits of sponsorship, visit &lt;<a href="http://www.jabber.org/sponsors/">www.jabber.org/sponsors/</a>&gt;.</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+
+<h3>About Winfessor</h3>
+<p>Winfessor, Inc is the leading provider of XMPP/Jabber .NET development tools for smart devices as well as desktops. For more information about Winfessor, Inc visit &lt;<a href="http://www.winfessor.com">www.winfessor.com</a>&gt; or contact &lt;<a href="mailto:press@winfessor.com">press@winfessor.com</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

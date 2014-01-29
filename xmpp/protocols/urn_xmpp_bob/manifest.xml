@@ -1,0 +1,14 @@
+<manifest>
+  <title>Bits of Binary</title>
+  <abstract>This specification defines an XMPP protocol extension for including or referring to small bits of binary data in an XML stanza.</abstract>
+  <specnum>XEP-0231</specnum>
+  <specurl>http://xmpp.org/extensions/xep-0231.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:bob</name>
+  </namespaces>
+  <schemas>
+    <schema>http://xmpp.org/schemas/bob.xsd</schema>
+  </schemas>
+</manifest>

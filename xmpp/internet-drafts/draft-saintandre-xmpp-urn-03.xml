@@ -1,0 +1,375 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc symrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc strict="yes"?>
+<rfc category="std" docName="draft-saintandre-xmpp-urn-03" ipr="trust200902">
+
+  <front>
+    <title abbrev="URN Namespace for XMPP Extensions">A Uniform Resource Name (URN) Namespace for Extensions to the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization abbrev="XSF">XMPP Standards Foundation</organization>
+      <address>
+        <postal>
+          <street>P.O. Box 1641</street>
+          <city>Denver</city>
+          <region>CO</region>
+          <code>80201</code>
+          <country>USA</country>
+        </postal>
+        <email>stpeter@jabber.org</email>
+        <uri>xmpp:stpeter@jabber.org</uri>
+      </address>
+    </author>
+    <date year="2007" month="February" day="23"/>
+    <area>Applications</area>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>XMPP</keyword>
+    <keyword>Jabber</keyword>
+    <keyword>Instant Messaging</keyword>
+    <keyword>Presence</keyword>
+    <keyword>Uniform Resource Name</keyword>
+    <keyword>URN</keyword>
+    <abstract>
+      <t>This document describes a Uniform Resource Name (URN) namespace for uniquely identifying Extensible Markup Language (XML) formats and protocols that provide extensions to the Extensible Messaging and Presence Protocol (XMPP) and are defined in specifications published by the XMPP Standards Foundation (XSF).</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <t>While the Extensible Messaging and Presence Protocol (XMPP) as specified in <xref target='XMPP-CORE'/> and <xref target='XMPP-IM'/> provides basic messaging and presence functionality, the fact that XMPP is at root a technology for streaming Extensible Markup Language <xref target='XML'/> data makes it possible to include virtually any structured information within XMPP, as long as such information is qualified by appropriate XML namespaces <xref target='XML-NAMES'/>.  When sent over XMPP, such structured data formats and protocols are generally referred to as "XMPP extensions".</t>
+      <t>A large number of such XMPP extensions exist.  The main standards development organization in which such extensions are defined is the XMPP Standards Foundation (XSF) (formerly the Jabber Software Foundation), which contributed XMPP to the Internet Standards Process.  Typically, such extensions are defined within the XSF's XMPP Extension Protocol (XEP) specification series.  To date, the XML namespaces defined within the Jabber/XMPP community have used names of the form "jabber:*" (deprecated since early 2002) and "http://jabber.org/protocol/*" (not including names of the form "urn:ietf:params:xml:ns:xmpp-*" specified in the XMPP RFCs).  However, it is desirable that names associated with future XMPP extensions be both unique and persistent, which is not necessarily the case with names that are also HTTP URLs.  Therefore, in accordance with the process defined in <xref target='MECHANISMS'/>, this document registers a formal namespace identifier (NID) for Uniform Resource Names <xref target='URN'/> associated with XMPP extensions published in the XSF's XEP series and for XML namespaces registered with the XSF's XMPP Registrar function <xref target='REGISTRAR'/>.</t>
+    </section>
+
+    <section title="Specification Template" anchor="template">
+      <figure>
+        <artwork><![CDATA[
+Namespace ID:
+
+   The Namespace ID "xmpp" is requested.
+
+Registration Information:
+
+   Version 1
+   Date: <when submitted>
+
+Declared Registrant of the Namespace:
+
+   Registering organization
+      Organization: XMPP Standards Foundation
+      Address: P.O. Box 1641, Denver, CO 80201 USA
+
+   Designated contact
+      Role: XMPP Registrar
+      Email: registrar@xmpp.org
+
+Declaration of Syntactic Structure:
+
+   The Namespace Specific String (NSS) of all URNs that use the
+   "xmpp" NID shall have the following structure:
+
+      urn:xmpp:{ShortName}:{SubName}
+  
+   The keywords have the following meaning:
+
+      (1) the "ShortName" is a required US-ASCII string that 
+      conforms to the URN syntax requirements (see RFC 2141) 
+      and defines a particular protocol or format that is used 
+      as an XMPP extension.
+
+      (2) the "SubName" is an optional US-ASCII string that 
+      conforms to the URN syntax requirements (see RFC 2141) 
+      and defines a particular subset of the relevant protocol 
+      or format.
+
+   The XSF's XMPP Registrar function shall be responsible for
+   managing the assignment of both "ShortName" and "SubName"
+   strings and for maintaining a registry of resulting namespaces
+   at <http://www.xmpp.org/registrar/namespaces.html>.  The
+   XMPP Registrar may also assign URNs in sub-trees below the 
+   level of the ShortName or SubName as needed for use in various 
+   XMPP extensions.
+
+Relevant Ancillary Documentation:
+
+   Information about the XSF's XMPP Registrar function can be
+   found at <http://www.xmpp.org/extensions/xep-0053.html>
+   and <http://www.xmpp.org/registrar/>.
+
+Identifier Uniqueness Considerations:
+
+   The XMPP Registrar is already responsible for managing 
+   the assignment of XML namespace names of the form
+   "http://jabber.org/protocol/{ShortName}" and
+   "http://jabber.org/protocol/{ShortName}#{SubName}"
+   (e.g., "http://jabber.org/protocol/pubsub" and
+   "http://jabber.org/protocol/disco#info").  In order to 
+   assign namespace names in the context of the "xmpp"
+   NID, the XMPP Registrar shall simply modify the syntax
+   of the namespace names it assigns from
+   "http://jabber.org/protocol/{ShortName}" and
+   "http://jabber.org/protocol/{ShortName}#{SubName}" to
+   "urn:xmpp:{ShortName}" and "urn:xmpp:{ShortName}:{SubName}".
+
+   The XMPP Registrar shall ensure the uniqueness of all 
+   XMPP URNs by checking such names against the list of 
+   existing namespace names, as documented in XEP-0053 
+   (the controlling specification for the XMPP Registrar
+   function).  The XMPP Registrar shall in all cases directly 
+   ensure the uniqueness of the assigned strings and shall 
+   not assign secondary responsibility for management of any 
+   sub-trees.  However, the XMPP Registrar may assign URNs 
+   in sub-trees below the level of the ShortName or SubName 
+   as needed for use in various XMPP extensions.  The 
+   resulting URNs shall not be re-assigned.
+
+Identifier Persistence Considerations:
+
+   The XMPP Registrar shall provide clear documentation of 
+   the registered uses of the "xmpp" NID in the form of 
+   XMPP Extension Protocol (XEP) specifications published 
+   at <http://www.xmpp.org/extensions/>, as well as a
+   registry of the namespace names themselves at
+   <http://www.xmpp.org/registrar/namespaces.html>.
+
+Process of Identifier Assignment:
+
+   The XMPP Registrar's processes and procedures for 
+   identifier assignment are documented in XEP-0053, 
+   which is the controlling specification for the XMPP
+   Registrar function.  In particular, identifiers shall
+   be issued only upon advancement of the relevant protocol
+   specification to a status of Draft within the standards
+   process followed by the XMPP Standards Foundation (as 
+   specified in XEP-0001).  The XMPP Registrar shall check 
+   all identifiers against the list of existing namespace 
+   names to ensure uniqueness and to encourage relevance 
+   and memorability.  Assignment of URNs within the "xmpp" 
+   tree is reserved to the XMPP Standards Foundation, 
+   specifically to its XMPP Registrar function.
+
+Process for Identifier Resolution:
+
+   The namespace is not currently listed with a Resolution 
+   Discovery System (RDS), but nothing about the namespace 
+   prohibits the future definition of appropriate resolution 
+   methods or listing with an RDS.
+
+Rules for Lexical Equivalence:
+
+   No special considerations; the rules for lexical
+   equivalence specified in RFC 2141 apply.
+
+Conformance with URN Syntax:
+
+   No special considerations.
+
+Validation Mechanism:
+
+   None specified.
+
+Scope:
+
+   Global.
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title="Namespace Considerations" anchor="namespace">
+      <t>The XMPP Standards Foundation has been developing Internet protocols since August 2001 and that work is expected to continue for the foreseeable future.  The old-style "jabber:*" namespace names originally used in the Jabber open-source community were not proper URNs or URIs and thus were deprecated in early 2002.  Since then, the namespace names assigned by the XMPP Registrar function of the XMPP Standards Foundation have been (equivalent to) specialized HTTP URLs whose authority component is "jabber.org".  While that domain is currently under the control of the XMPP Standards Foundation, there is no guarantee that it will always remain so, thus potentially threatening the reliability and permanence of the assigned namespace names.  The use of Uniform Resource Names with an appropriate Namespace ID will enable the XMPP Standards Foundation to assign cleaner, more general, more permanent, more reliable, and more controllable namespace names related to the XMPP extensions it defines, while keeping the tree of XMPP extensions produced by the XMPP Standards Foundation properly separate from the IETF tree used to define some of the core XMPP namespaces as well as namespaces related to XMPP extensions that may be produced in the future by the IETF.</t>
+    </section>
+
+    <section title="Community Considerations" anchor="community">
+      <t>The XMPP standards development community will benefit from publication of this namespace by having more permanent and reliable names for the XML namespaces defined in XMPP Extension Protocol specifications produced by the XMPP Standards Foundation.</t>
+      <t>The standards process followed by the XSF is open to contributions from any interested individual; such a contribution takes the form of a proposal submitted to the XMPP Extensions Editor &lt;mailto:editor@xmpp.org&gt;, accepted by the XMPP Council &lt;http://www.xmpp.org/council/&gt;, and published in the XSF's XMPP Extension Protocol (XEP) series at &lt;http://www.xmpp.org/extensions/&gt;.  Use of the proposed space for a particular XML format or protocol extension will be contingent upon advancement of the appropriate specification within the XSF's standards process (as documented in <xref target='XEP'/>) and issuance of a namespace name within the "xmpp" tree by the XMPP Registrar (as documented in <xref target='REGISTRAR'/>).</t>
+    </section>
+
+    <section title="Security Considerations" anchor="security">
+      <t>This document introduces no additional security considerations beyond those associated with the use and resolution of URNs in general.</t>
+    </section>
+
+    <section title="IANA Considerations" anchor="iana">
+      <t>This document defines a URN NID registration of "xmpp", which shall be entered into the IANA registry located at &lt;http://www.iana.org/assignments/urn-namespaces&gt;.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+<reference anchor='MECHANISMS'>
+<front>
+<title>Uniform Resource Names (URN) Namespace Definition Mechanisms</title>
+<author initials='L.' surname='Daigle' fullname='L. Daigle'>
+<organization /></author>
+<author initials='D.' surname='van Gulik' fullname='D. van Gulik'>
+<organization /></author>
+<author initials='R.' surname='Iannella' fullname='R. Iannella'>
+<organization /></author>
+<author initials='P.' surname='Faltstrom' fullname='P. Faltstrom'>
+<organization /></author>
+<date year='2002' month='October' />
+<abstract>
+<t>&lt;p>This document lays out general definitions of and mechanisms for establishing Uniform Resource Names (URN) "namespaces". The URN WG has defined a syntax for URNs in RFC 2141, as well as some proposed mechanisms for their resolution and use in Internet applications in RFC 3401 and RFC 3405. The whole rests on the concept of individual "namespaces" within the URN structure. Apart from proof-of-concept namespaces, the use of existing identifiers in URNs has been discussed in RFC 2288. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements. &lt;/p></t></abstract></front>
+<seriesInfo name='BCP' value='66' />
+<seriesInfo name='RFC' value='3406' />
+<format type='TXT' octets='43707' target='ftp://ftp.isi.edu/in-notes/rfc3406.txt' />
+</reference>
+
+<reference anchor='URN'>
+<front>
+<title>URN Syntax</title>
+<author initials='R.' surname='Moats' fullname='Ryan Moats'>
+<organization>AT&amp;T</organization>
+<address>
+<postal>
+<street>15621 Drexel Circle</street>
+<street>Omaha</street>
+<street>NE 68135-2358</street>
+<country>USA</country></postal>
+<phone>+1 402 894-9456</phone>
+<email>jayhawk@ds.internic.net</email></address></author>
+<date year='1997' month='May' />
+<area>Applications</area>
+<keyword>URN</keyword>
+<keyword>uniform resource</keyword>
+<abstract>
+<t>
+   Uniform Resource Names (URNs) are intended to serve as persistent,
+   location-independent, resource identifiers. This document sets
+   forward the canonical syntax for URNs.  A discussion of both existing
+   legacy and new namespaces and requirements for URN presentation and
+   transmission are presented.  Finally, there is a discussion of URN
+   equivalence and how to determine it.
+</t></abstract></front>
+<seriesInfo name='RFC' value='2141' />
+<format type='TXT' octets='14077' target='ftp://ftp.isi.edu/in-notes/rfc2141.txt' />
+<format type='HTML' octets='30670' target='http://xml.resource.org/public/rfc/html/rfc2141.html' />
+<format type='XML' octets='17551' target='http://xml.resource.org/public/rfc/xml/rfc2141.xml' />
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor="REGISTRAR">
+  <front>
+    <title>XMPP Registrar Function</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="7" month="December" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0053"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0053.html"/>
+</reference>
+
+<reference anchor="XEP">
+  <front>
+    <title>XMPP Extension Protocols</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="7" month="December" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0001"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0001.html"/>
+</reference>
+
+<reference anchor="XML" target="http://www.w3.org/TR/REC-xml">
+  <front>
+    <title abbrev="XML">Extensible Markup Language (XML) 1.0 (2nd ed)</title>
+    <author initials="T." surname="Bray" fullname="Tim Bray">
+      <organization>Textuality and Netscape</organization>
+      <address>
+        <email>tbray@textuality.com</email>
+      </address>
+    </author>
+    <author initials="J." surname="Paoli" fullname="Jean Paoli">
+      <organization>Microsoft</organization>
+      <address>
+        <email>jeanpa@microsoft.com</email>
+      </address>
+    </author>
+    <author initials="C.M." surname="Sperberg-McQueen" fullname="C.  M.  Sperberg-McQueen">
+      <organization>University of Illinois at Chicago and Text Encoding Initiative</organization>
+      <address>
+        <email>cmsmcq@uic.edu</email>
+      </address>
+    </author>
+    <author initials="E." surname="Maler" fullname="Eve Maler">
+      <organization>Sun Microsystems</organization>
+      <address>
+        <email>eve.maler@east.sun.com</email>
+      </address>
+    </author>
+    <date day="6" month="October" year="2000"/>
+  </front>
+  <seriesInfo name="W3C" value="REC-xml"/>
+</reference>
+
+<reference anchor="XML-NAMES" target="http://www.w3.org/TR/REC-xml-names">
+  <front>
+    <title>Namespaces in XML</title>
+    <author initials="T." surname="Bray" fullname="Tim Bray">
+      <organization>Textuality</organization>
+      <address>
+        <email>tbray@textuality.com</email>
+      </address>
+    </author>
+    <author initials="D." surname="Hollander" fullname="Dave Hollander">
+      <organization>Hewlett-Packard Company</organization>
+      <address>
+        <email>dmh@corp.hp.com</email>
+      </address>
+    </author>
+    <author initials="A." surname="Layman" fullname="Andrew Layman">
+      <organization>Microsoft</organization>
+      <address>
+        <email>andrewl@microsoft.com</email>
+      </address>
+    </author>
+    <date day="14" month="January" year="1999"/>
+  </front>
+  <seriesInfo name="W3C" value="REC-xml-names"/>
+</reference>
+
+<reference anchor="XMPP-CORE">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3920' />
+  <format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+</reference>
+
+<reference anchor="XMPP-IM">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3921' />
+  <format type='TXT' octets='217527' target='ftp://ftp.isi.edu/in-notes/rfc3921.txt' />
+</reference>
+
+    </references>
+
+  </back>
+
+</rfc>

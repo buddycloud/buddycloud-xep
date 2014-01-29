@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Council Vote Tallies -- 2005-2006</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Council Vote Tallies -- 2005-2006</h2>
+<p>This page provides detailed voting status information for each <a href='/extensions/'>XMPP Extension Protocol</a> proposed to the Fifth <a href='/council/'>XMPP Council</a> (2005-2006). For further information, refer to the <a href='http://mail.jabber.org/pipermail/council/'>mailing list archives</a> and <a href='http://logs.jabber.org/council@conference.jabber.org/'>chatroom logs</a>, or contact the <a href='/extensions/editor.shtml'>XMPP Extensions Editor</a>.</p>
+<h3>Votes (in chronological order)</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'>
+<th>XEP</th>
+<th>RM</th>
+<th>MM</th>
+<th>JM</th>
+<th>IP</th>
+<th>PSA</th>
+<th>Result</th>
+<th>Date</th>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0100.html'>0100</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2005-10-05</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0072.html'>0072</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2005-12-14</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0070.html'>0070</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2005-12-14</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0169.html'>0169</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2005-12-14</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0149.html'>0149</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2006-01-24</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0160.html'>0160</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2006-01-24</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0145.html'>0145</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2006-03-23</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0146.html'>0146</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2006-03-23</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0147.html'>0147</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2006-03-23</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0182.html'>0182</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2006-05-16</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0172.html'>0172</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2006-06-05</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0175.html'>0175</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Active</td>
+<td valign='top'>2006-09-20</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0163.html'>0163</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2006-09-20</td>
+</tr>
+<tr class='tablebody'>
+<td valign='top'><a href='/extensions/xep-0059.html'>0059</a></td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>+1</td>
+<td valign='top'>Draft</td>
+<td valign='top'>2006-09-20</td>
+</tr>
+</table>
+<h3>Members of the Fifth Council</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'>
+<th>Initials</th>
+<th>Full Name</th>
+</tr>
+<tr class='tablebody'>
+<td>RM</td>
+<td>Ralph Meijer</td>
+</tr>
+<tr class='tablebody'>
+<td>MM</td>
+<td>Matthew Miller</td>
+</tr>
+<tr class='tablebody'>
+<td>JM</td>
+<td>Jack Moffitt</td>
+</tr>
+<tr class='tablebody'>
+<td>IP</td>
+<td>Ian Paterson</td>
+</tr>
+<tr class='tablebody'>
+<td>PSA</td>
+<td>Peter Saint-Andre</td>
+</tr>
+</table>
+<h3>Legend</h3>
+<table border='1' cellpadding='3' cellspacing='0'>
+<tr class='tablebody'>
+<th>Vote</th>
+<th>Meaning</th>
+</tr>
+<tr class='tablebody'>
+<td>-1</td>
+<td>Disapproved</td>
+</tr>
+<tr class='tablebody'>
+<td>0</td>
+<td>Neutral</td>
+</tr>
+<tr class='tablebody'>
+<td>+1</td>
+<td>Approved</td>
+</tr>
+<tr class='tablebody'>
+<td>DNV</td>
+<td>Did not vote</td>
+</tr>
+<tr class='tablebody'>
+<td>REC</td>
+<td>Recused</td>
+</tr>
+</table>
+<!--#include virtual="/includes/foot.txt" -->

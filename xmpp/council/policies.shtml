@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Council Policies and Procedures</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Council Policies and Procedures</h2>
+<p>The <a href='/council/'>XMPP Council</a> adheres to the following policies and procedures (in addition to those defined in the <a href='/xsf/docs/bylaws.shtml'>XSF Bylaws</a> and <a href='/extensions/xep-0001.html'>XEP-0001</a>):</p>
+<ol>
+  <li><p>All <a href='/extensions/'>XMPP Extension Protocols</a> (XEPs) pass by a simple majority of +1 votes.</p></li>
+  <li><p>A -1 vote is a veto, and the concerns of the Council member voting -1 must be addressed before the XEP can be approved.</p></li>
+  <li><p>Unless noted otherwise by the <a href='/extensions/editor.shtml'>XMPP Extensions Editor</a> when announcing a Council vote, the voting period shall be ten (10) days.</p></li>
+  <li><p>If a Council member does not vote within the voting period, the Council member's vote defaults to 0 but the XMPP Extensions Editor shall track the fact that the member did not vote.</p></li>
+  <li><p>If a Council member misses three votes in a row, the Council member may be subject to forfeiting his or her membership.</p></li>
+  <li><p>The Council shall determine if and when to remove members (e.g.., for non-voting). In order for a member to be removed, three-quarters (75%) of all Council members must vote +1 for removal.</p></li>
+  <li><p>The Council shall at its discretion determine whether to fill any vacancies on the Council, but as a matter of policy should do so if there are more than 3 months remaining in the Council's term.</p></li>
+  <li><p>In order to fill any vacancies, the Council shall call for applicants and select a new member from among the applicants.</p></li>
+</ol>
+<!--#include virtual="/includes/foot.txt" -->

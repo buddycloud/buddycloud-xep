@@ -1,0 +1,17 @@
+Organization: XMPP Standards Foundation
+EIN: 84-1611178
+Form: 1023
+Attachment: Part X, Line 3
+
+The XMPP Standards Foundation (XSF) effectively has had no adjusted net
+income throughout its history, since it has subsisted on contributions
+received from sponsoring organizations. Therefore the XSF appears to 
+meet the income test required by the definition of a private operating
+foundation.
+
+All of the assets of the XSF are devoted directly to the conduct of its
+scientific, technical, and educational activities, and the XSF does not
+hold any assets for the purposes of income production or investment, or
+for any similar purpose. Therefore the XSF appears to meet the assets 
+test required by the definition of a private operating foundation.
+

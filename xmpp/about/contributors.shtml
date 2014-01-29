@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Contributors</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>Contributors</h2>
+<p>The XMPP Standards Foundation would like to thank the following organizations for their services:</p>
+<ul>
+  <li>The xmpp.org domain was contributed by <a href='http://www.opendomain.org/'>opendomain.org</a></li>
+  <li>Hosting services are provided by <a href='http://usshc.com/'>United States Secure Hosting Center</a></li>
+  <li>Data backup services are provided by <a href='http://aset.psu.edu/'>ASET</a></li>
+  <li>DNS services are provided by <a href='https://www.startssl.net/'>StartSSL DNS Network</a></li>
+  <li>The XMPP logo was designed by <a href='http://www.rajasandhu.com/'>Raja Sandhu</a></li>
+</ul>
+<!--#include virtual="/includes/foot.txt" -->

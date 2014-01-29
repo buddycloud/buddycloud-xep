@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Proposals</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Proposals</h2>
+
+<p>The following organizational proposals have been officially approved by the <a href='/xsf/members/'>membership</a> or the <a href='/xsf/board/'>Board</a> of the <a href='/xsf/'>XMPP Standards Foundation</a> (or its predecessor the Jabber Software Foundation):</p>
+<ol>
+  <li><a href='branding-proposal.shtml'>Protocol Branding (Q2 2006)</a></li>
+  <li><a href='ica-proposal.shtml'>Intermediate Certification Authority (Q4 2006)</a></li>
+  <li><a href='xsf-proposal.shtml'>XMPP Standards Foundation (Q4 2006)</a></li>
+  <li><a href='trust-proposal.shtml'>Strengthening Trust in XMPP Technologies (Q1 2007)</a></li>
+  <li><a href='purpose-proposal.shtml'>Clarifying the Purposes of the XSF (Q1 2007)</a></li>
+</ol>
+<p>There are no pending proposals at this time.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

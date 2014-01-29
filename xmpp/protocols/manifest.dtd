@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!ELEMENT manifest ( title, abstract, specnum, specurl, status, publisher, namespaces*, schemas* ) >
+<!ELEMENT title (#PCDATA)* >
+<!ELEMENT abstract (#PCDATA)* >
+<!ELEMENT specnum (#PCDATA)* >
+<!ELEMENT specurl (#PCDATA)* >
+<!ELEMENT status (#PCDATA)* >
+<!ELEMENT publisher (#PCDATA)* >
+<!ELEMENT namespaces ( name+ ) >
+<!ELEMENT schemas ( schema+ ) >
+<!ELEMENT name (#PCDATA)* >
+<!ELEMENT schema (#PCDATA)* >

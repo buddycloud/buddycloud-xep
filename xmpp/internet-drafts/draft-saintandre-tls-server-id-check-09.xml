@@ -1,0 +1,1837 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc compact="yes"?>
+<?rfc subcompact="yes"?>
+<?rfc iprnotified="no" ?>
+<?rfc strict="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+
+<rfc category="bcp" docName="draft-saintandre-tls-server-id-check-09" ipr="trust200902">
+
+  <front>
+    <title abbrev="Server Identity">Representation and Verification of Domain-Based Application Service Identity in Certificates Used with Transport Layer Security</title>
+
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>Cisco</organization>
+      <address>
+        <postal>
+          <street>1899 Wyknoop Street, Suite 600</street>
+          <city>Denver</city>
+          <region>CO</region>
+          <code>80202</code>
+          <country>USA</country>
+        </postal>
+        <phone>+1-303-308-3282</phone>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+
+    <author initials="J." surname="Hodges" fullname="Jeff Hodges">
+      <organization>PayPal</organization>
+      <address>
+        <postal>
+          <street>2211 North First Street</street>
+          <city>San Jose</city>
+          <region>California</region>
+          <code>95131</code>
+          <country>US</country>
+        </postal>
+        <email>Jeff.Hodges@PayPal.com</email>
+      </address>
+    </author> 
+
+    <date month="August" day="6" year="2010"/>
+
+    <area>Applications</area>
+    <keyword>Internet-Draft</keyword>
+
+    <abstract>
+      <t>Many application technologies enable a secure connection between two entities using certificates in the context of Transport Layer Security (TLS).  This document specifies best current practices for representing and verifying the identity of application services in such interactions.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <section title="Motivation" anchor="motivation">
+        <t>The visible face of the Internet consists of services that employ a client-server architecture in which an interactive or automated client connects to an application services in order to retrieve or upload information, communicate with other entities, or access a broader network of services.  When a client connects to an application services using Transport Layer Security <xref target='TLS'/> (or, less commonly, Datagram Transport Layer Security <xref target='DTLS'/>), it references some conception of the server's identity while attempting to establish a secure connection (e.g., "the web site at example.com").  Likewise, during TLS negotiation the server presents its conception of the server's identity in the form of a public-key certificate that was issued by a certification authority (CA) in the context of the Internet Public Key Infrastructure using X.509 <xref target='PKIX'/>.  Informally, we can think of these identities as the client's "reference identity" and the server's "presented identity" (these rough ideas are defined more precisely later in this document through the concept of particular identifiers).  In general, a client needs to verify that the server's presented identity matches its reference identity so that it can be sure that the certificate can legitimately be used to authenticate the connection.</t> 
+        <t>Many application technologies adhere to the pattern outlined here, including but not limited to the following:</t>
+        <t>
+          <list style="symbols">
+            <t>The Internet Message Access Protocol <xref target="IMAP"/> and the Post Office Protocol <xref target="POP3"/>, for which see also <xref target="USINGTLS"/><vspace blankLines='1'/></t>
+            <t>The Hypertext Transfer Protocol <xref target="HTTP"/>, for which see also <xref target="HTTP-TLS"/><vspace blankLines='1'/></t>
+            <t>The Lightweight Directory Access Protocol <xref target="LDAP"/>, for which see also <xref target="LDAP-AUTH"/> and its predecessor <xref target="LDAP-TLS"/><vspace blankLines='1'/></t>
+            <t>The Simple Mail Transfer Protocol <xref target="SMTP"/>, for which see also <xref target="SMTP-AUTH"/> and <xref target="SMTP-TLS"/><vspace blankLines='1'/></t>
+            <t>The Extensible Messaging and Presence Protocol <xref target="XMPP"/>, for which see also <xref target="XMPPBIS"/><vspace blankLines='1'/></t>
+            <t>The Network News Transfer Protocol <xref target="NNTP"/>, for which see also <xref target="NNTP-TLS"/><vspace blankLines='1'/></t>
+            <t>The NETCONF Configuration Protocol <xref target="NETCONF"/>, for which see also <xref target="NETCONF-SSH"/> and <xref target="NETCONF-TLS"/><vspace blankLines='1'/></t>
+            <t>The Syslog Protocol <xref target="SYSLOG"/>, for which see also <xref target="SYSLOG-TLS"/><vspace blankLines='1'/></t>
+            <t>The Session Initiation Protocol <xref target="SIP"/>, for which see also <xref target="SIP-CERTS"/><vspace blankLines='1'/></t>
+            <t>The General Internet Signalling Transport <xref target="GIST"/></t>
+          </list>
+        </t>
+        <t>Application protocols have traditionally specified their own rules for representing and verifying server identities.  Unfortunately, this divergence of approaches has caused some confusion among certification authorities, application developers, and protocol designers.</t>
+        <t>Therefore, to codify best current practices regarding the implementation and deployment of secure PKIX-based authentication, this document specifies recommended procedures for representing and verifying server identities in certificates intended for use in applications employing TLS.</t>
+      </section>
+
+      <section title="Applicability" anchor="applicability">
+        <t>This document does not supersede the rules for certificate validation provided in <xref target='PKIX'/>; specifically, in order to ensure proper authentication, application clients need to verify the entire certification path (this document addresses only the DNS domain name of the application service itself, not the entire trust chain).  This document also does not supersede the rules for verifying server identity provided in existing application protocol specifications, such as those mentioned under <xref target='prior'/>.  However, it is the intent of the authors that the best current practices described here can be referenced by future specifications.  It is also expected that this document will be updated or obsoleted in the future as best practices for issuance and verification of PKIX certificates continue to evolve through more widespread implementation and deployment of TLS-protected application services over the Internet.</t>
+      </section>
+
+      <section title="Scope" anchor="scope">
+        <section anchor="in-scope" title="In Scope">
+          <t>This document applies only to server identities associated with fully-qualified DNS domain names, only to TLS or DTLS (or the older Secure Sockets Layer (SSL) technology), and only to PKIX-based systems.  As a result, the scenarios described in the following section are out of scope for this specification (although they might be addressed by future specifications).</t>
+        </section>
+        <section anchor="out-of-scope" title="Out of Scope">
+          <t>The following topics are out of scope for this specification:</t>
+          <t>
+            <list style='symbols'>
+              <t>
+                Client or end-user identities.
+
+                <vspace blankLines="1"/> 
+
+                Certificates representing client or end-user identities (e.g., the rfc822Name identifier) can be used for mutual authentication between a client and server or between two clients, thus enabling stronger client-server security or end-to-end security.  However, certification authorities, application developers, and service operators have less experience with client certificates than with server certificates, thus gives us fewer models from which to generalize and a less solid basis for defining best practices.
+
+                <vspace blankLines="1"/> 
+              </t>
+              <t>
+                Identifiers other than fully-qualified DNS domain names.
+
+                <vspace blankLines="1"/> 
+
+                Some certification authorities issue server certificates based on IP addresses, but preliminary evidence indicates that such certificates are a very small percentage of issued certificates (e.g., less than 1%).  Furthermore, IP addresses are not necessarily reliable identifiers for application services because of the existence of private internets <xref target='PRIVATE'/>, host mobility, multiple interfaces on a given host, Network Address Translators (NATs) resulting in different addresses for a host from different locations on the network, the practice of grouping many hosts together behind a single IP address, etc.  Most fundamentally, most users find DNS domain names much easier to work with than IP addresses, which is why the domain name system was designed in the first place.  We prefer to define best practices for the much more common use case and not to complicate the rules in this specification.
+
+                <vspace blankLines="1"/> 
+
+                Furthermore, we focus here on the verification of application service identities, not specific resources located at such services, e.g., a specific web page that can be accessed at a particular Uniform Resource Identifier <xref target='URI'/> whose authority component is the DNS domain name of the application service.  We also do not address identifiers derived from Naming Authority Pointer (NAPTR) DNS resource records <xref target='NAPTR'/> and related technologies such as <xref target='S-NAPTR'/>, since such identifiers cannot be validated in a trusted manner in the absence of <xref target='DNSSEC'/>.
+
+                <vspace blankLines="1"/> 
+
+                Finally, we do not discuss attributes unrelated to DNS domain names, such as those defined in <xref target='X.520'/> and other such specifications (e.g., organizational attributes, geographical attributes, company logos, and the like).
+
+                <vspace blankLines="1"/>
+              </t>
+              <t>
+                Security protocols other than <xref target='TLS'/>, <xref target='DTLS'/>, or the older Secure Sockets Layer (SSL) technology.  
+
+                <vspace blankLines="1"/> 
+
+                Although other secure, lower-layer protocols exist and even employ PKIX certificates at times, e.g. IPsec <xref target='IPSEC'/>, their use cases can differ from those of TLS-based or DTLS-based application technologies.  Furthermore, application technologies have less experience with IPsec than with TLS, thus making it more difficult to gather feedback on proposed best practices.
+
+                <vspace blankLines="1"/> 
+              </t>
+              <t>
+                Keys or certificates employed outside the context of PKIX-based systems.  
+
+                <vspace blankLines="1"/> 
+                
+                Some deployed application technologies use a web of trust model based on or similar to OpenPGP <xref target='OPENPGP'/>, or use self-signed certificates, or are deployed on networks are not directly connected to the public Internet and therefore cannot depend on Certificate Revocation Lists (CRLs) or the Online Certificate Status Protocol <xref target='OCSP'/> to check CA-issued certificates.  However, the syntax of OpenPGP differs essentially from that of X.509, the data in self-signed certificates has not been certified by a third party in any way, and checking of CA-issued certificates via CRLs or OSCP is critically important to maintaining the security of PKIX-based systems.  Attempting to define best practices for such technologies would unduly complicate the rules defined in this specification.
+
+                <vspace blankLines="1"/>  
+              </t>
+            </list>
+          </t>
+          <t>Furthermore, this document also does not address various certification authority policies, such as:</t>
+          <t>
+            <list style='symbols'>
+              <t>What classes and types of certificates to issue and whether to apply different policies for them (e.g., allow the wildcard character in Class 2 certificates but not in Class 1 or Extended Validation certificates).<vspace blankLines="1"/></t>
+              <t>Whether to issue certificates based on IP addresses (or some other form, such as relative domain names) in addition to fully-qualified DNS domain names.<vspace blankLines="1"/></t>
+              <t>Which identifiers to include (e.g., whether to include the SRVName and uniformResourceIdentifier extensions).<vspace blankLines="1"/></t>
+              <t>How to certify or validate fully-qualified domain names and application service types.<vspace blankLines="1"/></t>
+              <t>How to certify or validate other kinds of information that might be included in a certificate (e.g., organization name).</t>
+            </list>
+          </t>
+          <t>Finally, this specification is mostly silent about user interface issues, which in general are properly the responsibility of client software developers and standards development organizations dedicated to particular application technologies (see for example <xref target='WSC-UI'/>).</t>
+        </section>
+      </section>
+
+      <section title="Terminology" anchor="terminology">
+        <t>Because many concepts related to "identity" are often too vague to be actionable in application protocols, we define a set of more concrete terms for use in this specification.</t>
+        <t>
+          <list style="hanging">
+            <t hangText="application service:">A service on the Internet that enables interactive and automated clients to connect for the purpose of retrieving or uploading information, communicating with other entities, or connecting to a broader network of services.<vspace blankLines='1'/></t>
+            <t hangText="application service provider:">An organization or individual that hosts or deploys an application service.<vspace blankLines='1'/></t>
+            <t hangText="attribute-type-and-value pair:">A colloquial name for the ASN.1-based construction comprising a Relative Distinguished Name (RDN), which itself is a building-block component of Distinguished Names. See Section 2 of <xref target='LDAP-DN'/>.<vspace blankLines='1'/></t>
+            <t hangText="automated client:">A software agent or device that is not directly controlled by a natural person.<vspace blankLines='1'/></t>
+            <t hangText="direct name:">A name for an application service that is provided directly to a client by a user, resulting in a source domain and (optionally) a service type.<vspace blankLines='1'/></t>
+            <t hangText="identifier:">A particular instance of an identifier type that is either presented by a server in a certificate or referenced by a client for matching purposes.<vspace blankLines='1'/></t>
+            <t hangText="identifier type:">A formally defined category of identifier that can be included in a certificate and therefore also used for matching purposes; the types covered in this specification are:
+              <vspace blankLines='1'/><list style='symbols'>
+                <t>CN-ID = a Relative Distinguished Name (RDN) in the certificate subject that contains one and only one attribute-type-and-value pair of type Common Name (CN); see <xref target='PKIX'/> and also <xref target='LDAP-SCHEMA'/><vspace blankLines='1'/></t>
+                <t>DNS-ID = a subjectAltName entry of type dNSName; see <xref target='PKIX'/><vspace blankLines='1'/></t>
+                <t>SRV-ID = a subjectAltName entry of type otherName whose name form is SRVName; see <xref target='SRVNAME'/><vspace blankLines='1'/></t>
+                <t>URI-ID = a subjectAltName entry of type uniformResourceIdentifier; see <xref target='PKIX'/></t>
+              </list>
+            <vspace blankLines='1'/></t>
+            <t hangText="indirect name:">A name for an application service that is resolved by a client based on a direct name provided by a user, resulting in a target domain and (optionally) a service type.<vspace blankLines='1'/></t>
+            <t hangText="interactive client:">A software agent or device that is directly controlled by a natural person.  (Other specifications related to security and application protocols, such as <xref target='WSC-UI'/>, often refer to this entity as a "user agent", however that term is neither entirely accurate nor consistent with the terminology of common application protocols such as <xref target='HTTP'/>.)<vspace blankLines='1'/></t>
+            <t hangText="PKIX certificate:">An X.509v3 certificate generated and employed in the context of the Internet Public Key Infrastructure using X.509 <xref target='PKIX'/>.<vspace blankLines='1'/></t>
+            <t hangText="presented identifier:">An identifier that is presented by a server to a client within the server's PKIX certificate when the client attempts to establish a secure connection with the server; the certificate can include one or more presented identifiers of different types.<vspace blankLines='1'/></t>
+            <t hangText="reference identifier:">An identifier that is used by the client for matching purposes when checking the presented identifiers; the client can attempt to match multiple reference identifiers of different types.<vspace blankLines='1'/></t>
+            <t hangText="restricted name:">A name that can be used only for one type of service at an application service provider.<vspace blankLines='1'/></t>
+            <t hangText="service type:">A formal identifier for the application protocol used to provide a particular kind of service at a domain; the service type typically takes the form of a Uniform Resource Identifier scheme <xref target='URI'/> or a DNS SRV Service <xref target='DNS-SRV'/>.<vspace blankLines='1'/></t>
+            <t hangText="source domain:">The fully-qualified DNS domain name that a client expects an application service to present in the certificate.<vspace blankLines='1'/></t>
+            <t hangText="subjectAltName entry:">A specific identifier placed in a subjectAltName extension.<vspace blankLines='1'/></t>
+            <t hangText="subjectAltName extension:">A standard PKIX certificate extension as described in <xref target='PKIX'/>.  The subject alternative name extension allows various identifiers of various types to be bound to the certificate subject, in addition or in place of the subject name.<vspace blankLines='1'/></t>
+            <t hangText="subject name:">The name of a PKIX certificate's subject, encoded as the X.501 type Name, and conveyed in a certificate's subject field (see Section 4.1.2.6 of <xref target='PKIX'/>).  Note that a subject's name(s) can be represented in the subject field, the subjectAltName extension, or both (see <xref target='PKIX'/> for details).<vspace blankLines='1'/></t>
+            <t hangText="TLS client:">An entity that assumes the role of a client in a Transport Layer Security <xref target='TLS'/> negotiation; in this specfication we generally assume that the TLS client is an (interactive or automated) application client, however in application protocols that enable server-to-server communication the TLS client could be a peer application service.<vspace blankLines='1'/></t>
+            <t hangText="TLS server:">An entity that assumes the role of a server in a Transport Layer Security <xref target='TLS'/> negotiation; in this specfication we assume that the TLS server is an application service.<vspace blankLines='1'/></t>
+            <t hangText="target domain:">A domain name or host name that a client has derived from the source domain in an automated fashion (e.g., by means of a <xref target='DNS-SRV'/> lookup) or that a natural person directly controlling an interactive client has explicitly configured for connecting to the source domain.<vspace blankLines='1'/></t>
+            <t hangText="unrestricted name:">A name that can be used for any service type at an application service provider.</t>
+          </list>
+        </t>
+        <t>Most security-related terms in this document are to be understood in the sense defined in <xref target="SECTERMS"/>; such terms include, but are not limited to, "attack", "authentication", "authorization", "certification authority", "certification path", "certificate", "credential", "identity", "self-signed certificate", "trust", "trust anchor", "trust chain", "validate", and "verify".</t>
+        <t>The following capitalized keywords are to be interpreted as described in <xref target="KEYWORDS"/>: "MUST", "SHALL", "REQUIRED"; "MUST NOT", "SHALL NOT"; "SHOULD", "RECOMMENDED"; "SHOULD NOT", "NOT RECOMMENDED"; "MAY", "OPTIONAL".</t>
+      </section>
+
+      <section title="Contributors" anchor="contributors">
+        <t>The following individuals made important contributions to the text of this document: Shumon Huque, RL 'Bob' Morgan, and Kurt Zeilenga.</t>
+      </section>
+
+      <section title="Acknowledgements" anchor="acknowledgements">
+        <t>The editors and contributors wish to thank the following individuals for their feedback and suggestions: Nelson Bolyard, Kaspar Brand, Ben Campbell, Scott Cantor, Wan-Teh Chang, Dave Crocker, Cyrus Daboo, Charles Gardiner, Philip Guenther, Bruno Harbulot, Wes Hardaker, David Harrington, Paul Hoffman, Love Hornquist Astrand, Harry Hotz, Geoff Keating, John Klensin, Scott Lawrence, Matt McCutchen, Alexey Melnikov, Eddy Nigg, Ludwig Nussel, Joe Orton, Tom Petch, Yngve Pettersen, Tim Polk, Eric Rescorla, Pete Resnick, Martin Rex, Joe Salowey, Stefan Santesson, Rob Stradling, Peter Sylvester, Paul Tiemann, Dan Wing, and Dan Winship.</t>
+      </section>
+
+      <section title="Discussion Venue" anchor="discuss">
+        <t>[[ RFC Editor: please remove this section. ]]</t>
+        <t>The editors are actively seeking input from certification authorities, application developers, and protocol designers regarding the recommendations in this document.  Please send feedback to the editors directly or post to the &lt;certid@ietf.org&gt; mailing list, for which archives and subscription information are available at <eref target='https://www.ietf.org/mailman/listinfo/certid'/>.</t>
+      </section>
+
+    </section>
+
+    <section title="Names" anchor="names">
+      <t>This section discusses naming of application services on the Internet, followed by a brief tutorial about subject naming in PKIX.</t>
+      <section title="Naming Application Services" anchor="names-apps">
+        <t>This specification assumes that the name of an application service is based on a DNS domain name (e.g., "example.com") -- supplemented in some circumstances by a service type (e.g., "the IMAP server at example.com").</t>
+        <t>From the perspective of the application client or user, some names are direct because they are provided directly by the user (e.g., via runtime input or prior configuration) whereas other names are indirect because they are resolved by the client based on input provided directly by the user (e.g., a target name resolved from a source name using DNS SRV records). This dimension matters for certificate verification.</t>
+        <t>From the perspective of the application service, some names are unrestricted because they can be used in any type of service (e.g., a certificate might be re-used for both the HTTP service and the IMAP service at example.com) whereas other names are restricted because they can be used in only one type of service (e.g., a special-purpose certificate that can be used only for an IMAP service).  This dimension matters for certificate issuance.</t>
+        <t>Therefore:</t>
+        <t>
+          <list style='symbols'>
+            <t>A CN-ID is direct (provided by a user) and unrestricted (can be used for any application).<vspace blankLines='1'/></t>
+            <t>A DNS-ID is direct (provided by a user) and unrestricted (can be used for any application).<vspace blankLines='1'/></t>
+            <t>An SRV-ID can be either direct (provided by a user) or more typically indirect (resolved by a client) and is restricted (can be used for only a single application).<vspace blankLines='1'/></t>
+            <t>A URI-ID is direct (provided by a user) and restricted (can be used for only a single application).</t>
+          </list>
+        </t>
+        <t>We summarize this taxonomy in the following table.</t>
+        <figure>
+          <artwork><![CDATA[
++-----------+-----------+---------------+
+|           |  Direct   |  Restricted   |
++-----------+-----------+---------------+
+|  CN-ID    |  Yes      |  No           |
++-----------+-----------+---------------+
+|  DNS-ID   |  Yes      |  No           |
++-----------+-----------+---------------+
+|  SRV-ID   |  Either   |  Yes          |
++-----------+-----------+---------------+
+|  URI-ID   |  Yes      |  Yes          |
++-----------+-----------+---------------+
+          ]]></artwork>
+        </figure>
+        <t>When implementing software, deploying services, and issuing certificates for secure PKIX-based authentication, it is important to keep these distinctions in mind.  In particular, best practices differ somewhat for application server implementations, application client implementations, application service providers, and certification authorities.  Protocol specifications that reference this document MUST specify which identifiers are mandatory-to-implement by servers and clients, which identifiers are to be preferred by application service providers, and which identifiers ought to be supported by certificate issuers.  Because these requirements differ across applications, it is impossible to categorically stipulate universal rules (e.g., that all software implementations, service providers, and certification authorities for all application protocols need to use or support DNS-IDs as a baseline for the purpose of interoperability); however, it is preferable that each application protocol will at least define a baseline that applies to the community of software developers, application service providers, and CAs actively using or supporting that technology.</t>
+      </section>
+      <section title="DNS Domain Names" anchor="names-dns">
+        <t>For the purposes of this specification, the name of an application service MUST be a DNS domain name that conforms to one of the following forms:</t>
+        <t>
+          <list style='numbers'>
+            <t>A "traditional domain name", i.e., a fully-qualified domain name or "FQDN" (see <xref target='DNS-CONCEPTS'/>) all of whose labels are "LDH labels" as defined in <xref target='IDNA-DEFS'/>.  Informally, such labels are constrained to <xref target='US-ASCII'/> letters, digits, and the hyphen, with the hyphen prohibited in the first character position.  Additional qualifications apply (please refer to the above-referenced specifications for details) but they are not germane to this specification.<vspace blankLines='1'/></t>
+            <t>An "internationalized domain name", i.e., a DNS domain name that conforms to the overall form of a domain name (dot-separated labels) but that can include Unicode code points outside the traditional US-ASCII range or, more precisely, either U-labels or A-labels as described in <xref target='IDNA-DEFS'/> and the associated documents.<vspace blankLines='1'/></t>
+          </list>
+        </t>
+      </section>
+      <section title="Subject Naming in PKIX Certificates" anchor="names-pkix">
+        <t>In theory, the Internet Public Key Infrastructure using X.509 <xref target='PKIX'/> employs the global directory service model defined in <xref target='X.500'/> and <xref target='X.501'/>.  In that model, information is held in a directory information base (DIB) and entries in the DIB are organized in a hierarchy called the directory information tree (DIT).  An object or alias entry in that hierarchy consists of a set of attributes (each of which has a defined type and one or more values) and is uniquely identified by a Distinguished Name (DN).  The DN of an entry is constructed by combining the Distinguished Name of its superior entries in the tree (all the way down to the root of the DIT) with one or more specially-nominated attributes of the entry itself (which together comprise the Relative Distinguished Name (RDN) of the entry, so-called because it is relative to the Distinguished Names of the superior entries in the tree).  The entry closest to the root is sometimes referred to as the "most significant" entry and the entry farthest from the root is sometimes referred to as the "least significant" entry.  An RDN is a set (i.e., an unordered group) of attribute-type-and-value pairs (see also <xref target='LDAP-DN'/>), each of which asserts some attribute about the entry.</t>
+        <t>In practice, the certificates used in <xref target='X.509'/> and <xref target='PKIX'/> borrow key concepts of X.500 and X.501 (e.g., DNs and RDNs) to identify entities, but such certificates are not necessarily part of a global directory information base.  Specifically, the subject field of a PKIX certificate is an X.501 type Name that "identifies the entity associated with the public key stored in the subject public key field" (see Section 4.1.2.6 of <xref target='PKIX'/>).  However, it is perfectly acceptable for the subject field to be empty, as long as the certificate contains a subjectAltName extension that includes at least one subjectAltName entry, because the subject alternative name ("subjectAltName") extension allows various identities to be bound to the subject (see Section 4.2.1.6 of <xref target='PKIX'/>).  The subjectAltName extension itself is a sequence of typed entries, where each type is a distinct kind of identifier.</t>
+        <t>For our purposes, an application service is identified by a name or names carried in the subject field and/or in one of the following subjectAltName entry types:</t>
+        <t>
+          <list style='symbols'>
+            <t>dNSName -- a (fully-qualified) DNS domain name <xref target='PKIX'/><vspace blankLines='1'/></t>
+            <t>SRVName -- a DNS SRV service name <xref target='DNS-SRV'/> <xref target='SRVNAME'/><vspace blankLines='1'/></t>
+            <t>uniformResourceIdentifier -- a Uniform Resource Identifier <xref target='URI'/> <xref target='PKIX'/></t>
+          </list>
+        </t>
+        <t>We recognize that existing certificates often use a CN-ID in the subject field to represent a fully-qualified DNS domain name; for example, consider the following subject name, where the attribute of type Common Name contains a string whose form matches that of a fully-qualified DNS domain name of "www.example.com":</t>
+        <figure>
+          <artwork><![CDATA[
+cn=www.example.com,c=GB,ou=Web Services
+          ]]></artwork>
+        </figure>
+        <t>However, in general, this specification recommends and prefers use of subjectAltName entries over use of the subject field where possible, as more completely described in the following sections.</t>
+        <t><list style='empty'><t>Implementation Note: Confusion sometimes arises from different renderings or encodings of the hierarchical information contained in a certificate.  Certificates are binary objects and are encoded using the Distinguished Encoding Rules (DER) specified in <xref target='X.690'/>.  However, some implementations generate displayable (a.k.a. printable) renderings of certificate issuer, subject, and subject alternative names, and these renderings convert the DER-encoded sequences into a "string representation" before being displayed.  Because a Distinguished Name (DN) is an ordered sequence, order is preserved in the string representation of a DN.  However, because a Relative Distinguished Name (RDN) is an unordered group of attribute-type-and-value pairs, the string representation of an RDN can differ from the canonical DER encoding.  Furthermore, various specifications refer to the order of RDNs using terminology that is not directly related to the information hierarchy, such as "most specific" vs. "least specific", "left-most" vs. "right-most", "first" vs. "last", or "most significant" vs. "least significant" (see for example <xref target='LDAP-DN'/>).  To reduce confusion, in this specification we avoid such terms and instead use the terms provided under <xref target='terminology'/>; in particular, we do not use the term "(most specific) Common Name field in the Subject field" from <xref target='HTTP-TLS'/> and instead state that a CN-ID is a Relative Distinguished Name (RDN) in the certificate subject that contains one and only one attribute-type-and-value pair of type Common Name (thus removing the possibility that an RDN might contain multiple AVAs of type CN, one of which would be considered "most specific").</t></list></t>
+      </section>
+    </section>
+
+    <section title="Representation of Server Identity" anchor="representation">
+      <t>When a certification authority issues a certificate based on the fully-qualified DNS domain name at which the application service provider will provide the relevant application, the following rules apply to the representation of application service identities.</t>
+      <t>
+        <list style='numbers'>
+          <t>The certificate SHOULD include a "DNS-ID" (i.e., a subjectAltName entry of type dNSName) if possible as a baseline for interoperability.<vspace blankLines='1'/></t>
+          <t>If the service using the certificate deploys a technology in which a server is discovered by means of DNS SRV records <xref target='DNS-SRV'/> (e.g., this is true of <xref target='XMPP'/>), then the certificate SHOULD include an "SRV-ID" (i.e., a subjectAltName entry of type otherName whose name form is SRVName as specified in <xref target='SRVNAME'/>).<vspace blankLines='1'/></t>
+          <t>If the service using the certificate deploys a technology in which a server is typically associated with a URI (e.g., this is true of <xref target='SIP'/>), then the certificate SHOULD include a URI-ID (i.e., a subjectAltName entry of type uniformResourceIdentifier); the scheme SHALL be that of the protocol associated with the service type and the authority component SHALL be the fully-qualified DNS domain name of the service.<vspace blankLines='1'/></t>
+          <t>The certificate MAY include other application-specific identifiers for types that were defined before specification of the SRVName extension (e.g., XmppAddr for <xref target='XMPP'/>) or for which service names or URI schemes do not exist; however, such application-specific identifiers are not generally applicable and therefore are out of scope for this specification.<vspace blankLines='1'/></t>
+          <t>The certificate SHOULD NOT represent the server's fully-qualified DNS domain name in a CN-ID, even though many deployed clients still check for this legacy identifier configuration within certificate subject name.<vspace blankLines='1'/></t>
+          <t>The certificate MAY contain more than one DNS-ID, but SHOULD NOT contain more than one CN-ID.<vspace blankLines='1'/></t>
+          <t>The fully-qualified DNS domain name portion of a DNS-ID or CN-ID MAY contain one instance of the wildcard character '*', but only as the left-most label of the domain name component of the identifier (following the definition of "label" from <xref target='DNS'/>).  Specifications that reference the rules defined in this document can specify that the wildcard character is not allowed in certificates used by the relevant application protocol or community of interest.<vspace blankLines='1'/></t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Verification of Server Identity" anchor="verify">
+      <section title="Overview" anchor="verify-overview">
+        <t>At a high level, the client verifies the application service's identity by performing the following actions:</t>
+        <t>
+          <list style="numbers">
+            <t>Before connecting to the server, the client constructs a list of reference identifiers against which to check the presented identifiers.<vspace blankLines='1'/></t>
+            <t>The server provides its identifiers in the form of a PKIX certificate.<vspace blankLines='1'/></t>
+            <t>The client checks each of its reference identifiers against the presented identifiers for the purpose of finding a match.<vspace blankLines='1'/></t>
+            <t>When checking a reference identifier against a presented identifier, the client (a) MUST match the source domain (or, in some cases, target domain) of the identifiers and (b) MAY also match the service type of the identifiers.</t>
+          </list>
+        </t>
+        <t><list style='empty'><t>Implementation Note: Naturally, in addition to checking identifiers, a client might complete further checks to ensure that the server is authorized to provide the requested service.  However, such checking is not a matter of verifying the application service identity presented in a certificate, and therefore methods for doing so (e.g., consulting local policy information) are out of scope for this document.</t></list></t>
+      </section>
+      <section title="Constructing a List of Reference Identifiers" anchor="verify-reference">
+        <t>Before connecting to the server, the client MUST construct a list of acceptable reference identifiers.</t>
+        <t>The inputs here might be a URI that a user has typed into an interface (e.g., an HTTP URL for a web site), configured account information (e.g., the domain name of an IMAP or POP3 account for retrieving email), or some other combination of information that can yield a source domain and a service type.</t>
+        <t>The client might need to derive the source domain and service type from the input(s) it has received.  The derived data MUST include only information that can be securely parsed out of the inputs (e.g., extracting the fully-qualified DNS domain name from the authority component of a URI or extracting the service type from the scheme of a URI) or information for which the derivation is performed in a secure manner (e.g., using <xref target='DNSSEC'/>).</t>
+        <t>In some cases the inputs might include more than one fully-qualified DNS domain name, because a user might have explicitly configured the client to associate a target domain with the source domain.  Such delegation can occur by means of user-approved DNS SRV records (e.g., _xmpp-server._tcp.im.example.com might yield an address of hosting.example.net) or a user-configured lookup table for host-to-address or address-to-host translations (e.g., the Unix "hosts" file).  See under <xref target='security'/> for further discussion of service delegation.</t>
+        <t>Using the combination of fully-qualified DNS domain name(s) and service type, the client constructs a list of reference identifiers in accordance with the following rules:</t>
+        <t>
+          <list style='symbols'>
+            <t>The list MUST include a DNS-ID.  A reference identifier of type DNS-ID can be directly constructed from a fully-qualified DNS domain name that is (a) contained in or securely derived from the inputs (i.e., the source domain), or (b) explicitly associated with the source domain by means of user configuration (i.e., a target domain).<vspace blankLines='1'/></t>
+            <t>If a server for the service type is typically discovered by means of DNS SRV records, then the list SHOULD include an SRV-ID.<vspace blankLines='1'/></t>
+            <t>If a server for the service type is typically associated with a URI, then the list SHOULD include a URI-ID <vspace blankLines='1'/></t>
+            <t>The list SHOULD NOT include a CN-ID; however, the CN-ID (if included) MUST be constructed only from the source domain and never from a target domain.</t>
+          </list>
+        </t>
+        <t><list style='empty'><t>Implementation Note: The client does not need to actually construct the foregoing identifiers in the formats found in a certificate (e.g., as ASN.1 types), only the functional equivalent of such identifiers for matching purposes.</t></list></t>
+        <t><list style='empty'><t>Security Note: A client MUST NOT construct a reference identifier corresponding to Relative Distinguished Names (RDNs) other than the Common Name and MUST NOT check for such RDNs in the presented identifiers.</t></list></t>
+      </section>
+      <section title="Seeking a Match" anchor="verify-seek">
+        <t>Once the client has constructed its list of reference identifiers and has received the server's presented identifiers in the form of a PKIX certificate, the client checks its reference identifiers against the presented identifiers for the purpose of finding a match.  It does so by seeking a match and aborting the search if any presented identifier matches one of its reference identifiers.  The search fails if the client exhausts its list of reference identifiers without finding a match.  Detailed comparison rules for finding a match are provided in the following sections.</t>
+        <t><list style='empty'><t>Security Note: A client MUST NOT seek a match for a reference identifier of CN-ID if the presented identifiers include an SRV-ID, URI-ID, DNS-ID, or any application-specific subjectAltName entry types supported by the client.</t></list></t>
+      </section>
+      <section title="Verifying a Domain Name" anchor="verify-domain">
+        <t>The client MUST match the source domain of a reference identifier according to the following rules, depending on whether the source domain is a "traditional domain name" or an "internationalized domain name" as previously defined.</t>
+        <section title="Checking of Traditional Domain Names" anchor="verify-domain-trad">
+          <t>If the source domain of a reference identifier is a "traditional domain name", then matching of the reference identifier against the presented identifier is performed by comparing the set of domain name components using a case-insensitive ASCII comparison, as clarified by <xref target='DNS-CASE'/> (e.g., "WWW.Example.Com" would be lower-cased to "www.example.com" for comparison purposes).  Each label MUST match in order for the names to be considered to match.</t>
+        </section>
+        <section title="Checking of Internationalized Domain Names" anchor="verify-domain-idn">
+          <t>If the source domain of a reference identifier is an internationalized domain name, then an implementation MUST convert every label in the domain name to an A-label before checking the domain name.</t>
+        </section>
+        <section title="Checking of Wildcard Labels" anchor="verify-domain-wildcards">
+          <t>A client employing this specification's rules MAY match the reference identifier against a presented identifier containing one instance of the wildcard character '*', but only as the left-most label of the domain name, e.g. *.example.com (following the definition of "label" from <xref target='DNS'/>).</t>
+          <t>If such a wildcard identifier is presented, the wildcard MUST be used to match only the one position-wise corresponding label (thus *.example.com matches foo.example.com but not bar.foo.example.com or example.com).  The client MUST fail to match a presented identifier in which the wildcard character is contained within a label fragment (e.g., baz*.example.net is not allowed and MUST NOT be taken to match baz1.example.net and baz2.example.net), or in which the wildcard character does not comprise the left-most label in the presented identifier (e.g., neither bar.*.example.net nor bar.f*o.example.net are allowed).</t>
+          <t>A specification that references the rules defined in this document can specify that the wildcard character is not allowed in certificates used by the relevant application protocol or community of interest.</t>
+        </section>
+        <section title="Checking of Common Names" anchor="verify-domain-cn">
+          <t>As noted, a client MUST NOT seek a match for a reference identifier of CN-ID if the presented identifiers include an SRV-ID, URI-ID, DNS-ID, or any application-specific subjectAltName entry types supported by the client.</t>
+          <t>Therefore, if and only if the set of identifiers does not include a subjectAltName entry of type dNSName, SRVName, or uniformResourceIdentifier (or any application-specific subjectAltName entry types supported by the client), the client MAY as a fallback check for a string whose form matches that of a fully-qualified DNS domain name in the CN-ID.  If the client chooses to compare a reference identifier of type CN-ID against that string, it MUST follow the comparison rules for the source domain of an identifier of type DNS-ID, SRV-ID, or URI-ID, as described under <xref target='verify-domain'/>.</t>
+        </section>
+      </section>
+      <section title="Verifying an Application Type" anchor="verify-app">
+        <t>A client SHOULD check not only the domain name but also the service type of the service to which it connects.  This is a best practice because typically a client is not designed to connect to all kinds of services using all possible application protocols, but instead is designed to connect to one kind of service, such as a web site, an email service, or an instant messaging service.</t>
+        <t>The service type is verified by means of either an SRV-ID or URI-ID.</t>
+        <section title="SRV-ID" anchor="verify-app-srv">
+          <t>The service name portion of an SRV-ID (e.g., "xmpp") MUST be matched in a case-insensitive manner, in accordance with <xref target='DNS-SRV'/>.  Note that the "_" character is prepended to the service identifier in DNS SRV records.</t>
+        </section>
+        <section title="URI-ID" anchor="verify-app-uri">
+          <t>The scheme name portion of a URI-ID (e.g., "sip") MUST be matched in a case-insensitive manner, in accordance with <xref target='URI'/>.  Note that the ":" character is a separator between the scheme name and the rest of the URI, and therefore does not need to be included in any comparison.</t>
+        </section>
+      </section>
+      <section title="Outcome" anchor="verify-outcome">
+        <t>The outcome of the checking procedure is one of the following cases.</t>
+        <section title="Case #1: Match Found" anchor="verify-outcome-matched">
+          <t>If the client has found a presented identifier that matches a reference identifier, matching has succeeded.  In this case, the client MUST use the matched reference identifier as the validated identity of the server.</t>
+        </section>
+        <section title="Case #2: No Match Found, Cached Certificate" anchor="verify-outcome-cached">
+          <t>If the client finds no presented identifier that matches any of the reference identifiers but a natural person has permanently accepted the certificate during a previous connection attempt or via configured preferences, the certificate is cached.  In this case, the client MUST verify that the presented certificate matches the cached certificate and (if it is an interactive client) MUST notify the user if the certificate has changed since the last time a secure connection was successfully negotiated (where causes of change include but are not limited to changes in the DNS domain name, identifiers, issuer, certification path, and expiration date).</t>
+        </section>
+        <section title="Case #3: No Match Found, Uncached Certificate" anchor="verify-outcome-uncached">
+          <t>If the client finds no presented identifier that matches any of the reference identifiers and a human user has not permanently accepted the certificate for this application service during a previous connection attempt, the client MUST NOT consider the certificate to include a validated identity for the application service.</t>
+          <t>Instead, the client MUST proceed as follows.</t>
+          <section title="Interactive User Agent" anchor="verify-outcome-uncached-interactive">
+            <t>If the client is an interactive client that is directly controlled by a natural person, then it SHOULD inform the user of the identity mismatch and terminate the connection automatically with a bad certificate error; this behavior is preferable because it prevents the majority of users from inadvertently bypassing security protections in hostile situations.</t>
+            <t><list style='empty'><t>Security Note: Many existing interactive user agents give advanced users the option of proceeding despite an identity mismatch.  Although this behavior can be appropriate in certain specialized circumstances, in general it needs to be handled with extreme caution, for example by first encouraging the user to terminate the connection, forcing the user to view the entire certification path, and allowing the user to accept the certificate only on a temporary basis (i.e., for this connection attempt and all subsequent connection attempts for the life of the application session).</t></list></t>
+          </section>
+          <section title="Automated Client" anchor="verify-outcome-uncached-automated">
+            <t>If the client is an automated application that is not directly controlled by a natural person, then it SHOULD terminate the connection with a bad certificate error and log the error to an appropriate audit log.  An automated application MAY provide a configuration setting that disables this check, but MUST enable the check by default.</t>
+          </section>
+        </section>
+      </section>
+    </section>
+
+    <section title="Security Considerations" anchor="security">
+      <section title="Service Delegation" anchor="security-delegation">
+        <t>When the connecting application is an interactive client, the source domain name and service type MUST be provided by a human user (e.g. when specifying the server portion of the user's account name on the server or when explicitly configuring the client to connect to a particular host or URI as in <xref target='SIP-LOC'/>) and MUST NOT be derived from the user inputs in an automated fashion (e.g., a host name or domain name discovered through DNS resolution of the source domain).  This rule is important because only a match between the user inputs (in the form of a reference identifier) and a presented identifier enables the client to be sure that the certificate can legitimately be used to secure the connection.</t>
+        <t>However, an interactive client MAY provide a configuration setting that enables a human user to explicitly specify a particular host name or domain name (called a "target domain") to be checked for connection purposes.</t>
+      </section>
+      <section title="Wildcard Certificates" anchor="security-wildcard">
+        <t>Allowing the wildcard character in certificates has led to homograph attacks involving non-ASCII characters that look similar to characters commonly included in HTTP URLs, such as "/" and "?"; for discussion, see for example <xref target='Defeating-SSL'/>.</t>
+      </section>
+      <section title="Internationalized Domain Names" anchor="security-idn">
+        <t>In addition to the wildcard certificate attacks previously mentioned, allowing internationalized domain names can lead to the inclusion of visually similar (so-called "confusable") characters in certificates; for discussion, see for example <xref target='IDNA-DEFS'/>.</t>
+      </section>
+    </section>
+
+    <section title="IANA Considerations" anchor="iana">
+      <t>This document specifies no actions for the IANA.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+<reference anchor='DNS'>
+<front>
+<title abbrev='Domain Implementation and Specification'>Domain names - implementation and specification</title>
+<author initials='P.' surname='Mockapetris' fullname='P. Mockapetris'>
+<organization>USC/ISI</organization>
+<address>
+<postal>
+<street>4676 Admiralty Way</street>
+<city>Marina del Rey</city>
+<region>CA</region>
+<code>90291</code>
+<country>US</country></postal>
+<phone>+1 213 822 1511</phone></address></author>
+<date year='1987' day='1' month='November' /></front>
+<seriesInfo name='STD' value='13' />
+<seriesInfo name='RFC' value='1035' />
+<format type='TXT' octets='125626' target='ftp://ftp.isi.edu/in-notes/rfc1035.txt' />
+</reference>
+
+<reference anchor='DNS-CONCEPTS'>
+<front>
+<title abbrev='Domain Concepts and Facilities'>Domain names - concepts and facilities</title>
+<author initials='P.' surname='Mockapetris' fullname='P. Mockapetris'>
+<organization>Information Sciences Institute (ISI)</organization></author>
+<date year='1987' day='1' month='November' /></front>
+<seriesInfo name='STD' value='13' />
+<seriesInfo name='RFC' value='1034' />
+<format type='TXT' octets='129180' target='ftp://ftp.isi.edu/in-notes/rfc1034.txt' />
+</reference>
+
+<reference anchor='DNS-SRV'>
+<front>
+<title abbrev='DNS SRV RR'>A DNS RR for specifying the location of services (DNS SRV)</title>
+<author initials='A.' surname='Gulbrandsen' fullname='Arnt Gulbrandsen'>
+<organization>Troll Tech</organization>
+<address>
+<postal>
+<street>Waldemar Thranes gate 98B</street>
+<city>Oslo</city>
+<region />
+<code>N-0175</code>
+<country>NO</country></postal>
+<phone>+47 22 806390</phone>
+<facsimile>+47 22 806380</facsimile>
+<email>arnt@troll.no</email></address></author>
+<author initials='P.' surname='Vixie' fullname='Paul Vixie'>
+<organization>Internet Software Consortium</organization>
+<address>
+<postal>
+<street>950 Charter Street</street>
+<city>Redwood City</city>
+<region>CA</region>
+<code>94063</code>
+<country>US</country></postal>
+<phone>+1 650 779 7001</phone></address></author>
+<author initials='L.' surname='Esibov' fullname='Levon Esibov'>
+<organization>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>One Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code>
+<country>US</country></postal>
+<email>levone@microsoft.com</email></address></author>
+<date month='February' year='2000' />
+<abstract>
+<t>This document describes a DNS RR which specifies the location of the
+   server(s) for a specific protocol and domain.</t></abstract></front>
+<seriesInfo name='RFC' value='2782' />
+<format type='TXT' octets='24013' target='ftp://ftp.isi.edu/in-notes/rfc2782.txt' />
+</reference>
+
+<reference anchor='IDNA-DEFS'>
+<front>
+<title>Internationalized Domain Names for Applications (IDNA): Definitions and Document Framework</title>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<date year='2010' month='August' />
+<abstract>
+<t>This document is one of a collection that, together, describe the protocol and usage context for a revision of Internationalized Domain Names for Applications (IDNA), superseding the earlier version.  It describes the document collection and provides definitions and other material that are common to the set. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5890' />
+<format type='TXT' octets='54245' target='http://www.rfc-editor.org/rfc/rfc5890.txt' />
+</reference>
+
+<reference anchor='KEYWORDS'>
+<front>
+<title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+<author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+<organization>Harvard University</organization>
+<address>
+<postal>
+<street>1350 Mass.  Ave.</street>
+<street>Cambridge</street>
+<street>MA 02138</street></postal>
+<phone>- +1 617 495 3864</phone>
+<email>sob@harvard.edu</email></address></author>
+<date month='March' year='1997' />
+<area>General</area>
+<keyword>keyword</keyword>
+<abstract>
+<t>
+   In many standards track documents several words are used to signify
+   the requirements in the specification.  These words are often
+   capitalized.  This document defines these words as they should be
+   interpreted in IETF documents.  Authors who follow these guidelines
+   should incorporate this phrase near the beginning of their document:
+
+<list>
+<t>
+      The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL
+      NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and
+      &quot;OPTIONAL&quot; in this document are to be interpreted as described in
+      RFC 2119.
+</t></list></t>
+<t>
+   Note that the force of these words is modified by the requirement
+   level of the document in which they are used.
+</t></abstract></front>
+<seriesInfo name='BCP' value='14' />
+<seriesInfo name='RFC' value='2119' />
+<format type='TXT' octets='4723' target='ftp://ftp.isi.edu/in-notes/rfc2119.txt' />
+<format type='HTML' octets='14486' target='http://xml.resource.org/public/rfc/html/rfc2119.html' />
+<format type='XML' octets='5661' target='http://xml.resource.org/public/rfc/xml/rfc2119.xml' />
+</reference>
+
+<reference anchor='LDAP-DN'>
+<front>
+<title>Lightweight Directory Access Protocol (LDAP): String Representation of Distinguished Names</title>
+<author initials='K.' surname='Zeilenga' fullname='K. Zeilenga'>
+<organization /></author>
+<date year='2006' month='June' />
+<abstract>
+<t>The X.500 Directory uses distinguished names (DNs) as primary keys to entries in the directory.  This document defines the string representation used in the Lightweight Directory Access Protocol (LDAP) to transfer distinguished names.  The string representation is designed to give a clean representation of commonly used distinguished names, while being able to represent any distinguished name. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4514' />
+<format type='TXT' octets='31859' target='ftp://ftp.isi.edu/in-notes/rfc4514.txt' />
+</reference>
+
+<reference anchor='PKIX'>
+<front>
+<title>Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</title>
+<author initials='D.' surname='Cooper' fullname='D. Cooper'>
+<organization /></author>
+<author initials='S.' surname='Santesson' fullname='S. Santesson'>
+<organization /></author>
+<author initials='S.' surname='Farrell' fullname='S. Farrell'>
+<organization /></author>
+<author initials='S.' surname='Boeyen' fullname='S. Boeyen'>
+<organization /></author>
+<author initials='R.' surname='Housley' fullname='R. Housley'>
+<organization /></author>
+<author initials='W.' surname='Polk' fullname='W. Polk'>
+<organization /></author>
+<date year='2008' month='May' />
+<abstract>
+<t>This memo profiles the X.509 v3 certificate and X.509 v2 certificate revocation list (CRL) for use in the Internet.  An overview of this approach and model is provided as an introduction.  The X.509 v3 certificate format is described in detail, with additional information regarding the format and semantics of Internet name forms.  Standard certificate extensions are described and two Internet-specific extensions are defined.  A set of required certificate extensions is specified.  The X.509 v2 CRL format is described in detail along with standard and Internet-specific extensions.  An algorithm for X.509 certification path validation is described.  An ASN.1 module and examples are provided in the appendices. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5280' />
+<format type='TXT' octets='352580' target='ftp://ftp.isi.edu/in-notes/rfc5280.txt' />
+</reference>
+
+<reference anchor='SRVNAME'>
+<front>
+<title>Internet X.509 Public Key Infrastructure Subject Alternative Name for Expression of Service Name</title>
+<author initials='S.' surname='Santesson' fullname='S. Santesson'>
+<organization /></author>
+<date year='2007' month='August' />
+<abstract>
+<t>This document defines a new name form for inclusion in the otherName field of an X.509 Subject Alternative Name extension that allows a certificate subject to be associated with the service name and domain name components of a DNS Service Resource Record. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4985' />
+<format type='TXT' octets='17868' target='ftp://ftp.isi.edu/in-notes/rfc4985.txt' />
+</reference>
+
+<reference anchor='URI'>
+<front>
+<title abbrev='URI Generic Syntax'>Uniform Resource Identifier (URI): Generic Syntax</title>
+<author initials='T.' surname='Berners-Lee' fullname='Tim Berners-Lee'>
+<organization abbrev='W3C/MIT'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>Massachusetts Institute of Technology</street>
+<street>77 Massachusetts Avenue</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code>
+<country>USA</country></postal>
+<phone>+1-617-253-5702</phone>
+<facsimile>+1-617-258-5999</facsimile>
+<email>timbl@w3.org</email>
+<uri>http://www.w3.org/People/Berners-Lee/</uri></address></author>
+<author initials='R.' surname='Fielding' fullname='Roy T. Fielding'>
+<organization abbrev='Day Software'>Day Software</organization>
+<address>
+<postal>
+<street>5251 California Ave., Suite 110</street>
+<city>Irvine</city>
+<region>CA</region>
+<code>92617</code>
+<country>USA</country></postal>
+<phone>+1-949-679-2960</phone>
+<facsimile>+1-949-679-2972</facsimile>
+<email>fielding@gbiv.com</email>
+<uri>http://roy.gbiv.com/</uri></address></author>
+<author initials='L.' surname='Masinter' fullname='Larry Masinter'>
+<organization abbrev='Adobe Systems'>Adobe Systems Incorporated</organization>
+<address>
+<postal>
+<street>345 Park Ave</street>
+<city>San Jose</city>
+<region>CA</region>
+<code>95110</code>
+<country>USA</country></postal>
+<phone>+1-408-536-3024</phone>
+<email>LMM@acm.org</email>
+<uri>http://larry.masinter.net/</uri></address></author>
+<date year='2005' month='January' />
+<area>Applications</area>
+<keyword>uniform resource identifier</keyword>
+<keyword>URI</keyword>
+<keyword>URL</keyword>
+<keyword>URN</keyword>
+<keyword>WWW</keyword>
+<keyword>resource</keyword>
+<abstract>
+<t>
+A Uniform Resource Identifier (URI) is a compact sequence of characters
+that identifies an abstract or physical resource.  This specification
+defines the generic URI syntax and a process for resolving URI references
+that might be in relative form, along with guidelines and security
+considerations for the use of URIs on the Internet.
+The URI syntax defines a grammar that is a superset of all valid URIs,
+allowing an implementation to parse the common components of a URI
+reference without knowing the scheme-specific requirements of every
+possible identifier.  This specification does not define a generative
+grammar for URIs; that task is performed by the individual
+specifications of each URI scheme.
+</t></abstract></front>
+<seriesInfo name='STD' value='66' />
+<seriesInfo name='RFC' value='3986' />
+<format type='TXT' octets='141811' target='ftp://ftp.isi.edu/in-notes/rfc3986.txt' />
+<format type='HTML' octets='200858' target='http://xml.resource.org/public/rfc/html/rfc3986.html' />
+<format type='XML' octets='165759' target='http://xml.resource.org/public/rfc/xml/rfc3986.xml' />
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor='Defeating-SSL' target='http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf'>
+<front>
+<title>New Tricks for Defeating SSL in Practice</title>
+<author initials='M.' surname='Marlinspike' fullname='Moxie Marlinspike'>
+<organization /></author>
+<date year='2009' month='February' />
+</front>
+<format type='PDF' target='http://www.blackhat.com/presentations/bh-dc-09/Marlinspike/BlackHat-DC-09-Marlinspike-Defeating-SSL.pdf' />
+</reference>
+
+<reference anchor='DNS-CASE'>
+<front>
+<title>Domain Name System (DNS) Case Insensitivity Clarification</title>
+<author initials='D.' surname='Eastlake' fullname='D. Eastlake'>
+<organization /></author>
+<date year='2006' month='January' />
+<abstract>
+<t>Domain Name System (DNS) names are "case insensitive".  This document explains exactly what that means and provides a clear specification of the rules.  This clarification updates RFCs 1034, 1035, and 2181. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4343' />
+<format type='TXT' octets='22899' target='ftp://ftp.isi.edu/in-notes/rfc4343.txt' />
+</reference>
+
+<reference anchor='DNSSEC'>
+<front>
+<title>DNS Security Introduction and Requirements</title>
+<author initials='R.' surname='Arends' fullname='R. Arends'>
+<organization /></author>
+<author initials='R.' surname='Austein' fullname='R. Austein'>
+<organization /></author>
+<author initials='M.' surname='Larson' fullname='M. Larson'>
+<organization /></author>
+<author initials='D.' surname='Massey' fullname='D. Massey'>
+<organization /></author>
+<author initials='S.' surname='Rose' fullname='S. Rose'>
+<organization /></author>
+<date year='2005' month='March' />
+<abstract>
+<t>The Domain Name System Security Extensions (DNSSEC) add data origin authentication and data integrity to the Domain Name System. This document introduces these extensions and describes their capabilities and limitations. This document also discusses the services that the DNS security extensions do and do not provide. Last, this document describes the interrelationships between the documents that collectively describe DNSSEC. [STANDARDS TRACK] </t></abstract></front>
+<seriesInfo name='RFC' value='4033' />
+<format type='TXT' octets='52445' target='ftp://ftp.isi.edu/in-notes/rfc4033.txt' />
+</reference>
+
+<reference anchor='DTLS'>
+<front>
+<title>Datagram Transport Layer Security</title>
+<author initials='E.' surname='Rescorla' fullname='E. Rescorla'>
+<organization /></author>
+<author initials='N.' surname='Modadugu' fullname='N. Modadugu'>
+<organization /></author>
+<date year='2006' month='April' />
+<abstract>
+<t>This document specifies Version 1.0 of the Datagram Transport Layer Security (DTLS) protocol.  The DTLS protocol provides communications privacy for datagram protocols.  The protocol allows client/server applications to communicate in a way that is designed to prevent eavesdropping, tampering, or message forgery.  The DTLS protocol is based on the Transport Layer Security (TLS) protocol and provides equivalent security guarantees.  Datagram semantics of the underlying transport are preserved by the DTLS protocol. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4347' />
+<format type='TXT' octets='56014' target='ftp://ftp.isi.edu/in-notes/rfc4347.txt' />
+</reference>
+
+<reference anchor='GIST'>
+<front>
+<title>GIST: General Internet Signalling Transport</title>
+<author initials='H' surname='Schulzrinne' fullname='Henning Schulzrinne'>
+    <organization />
+</author>
+<author initials='M' surname='Stiemerling' fullname='Martin Stiemerling'>
+    <organization />
+</author>
+<date month='June' day='3' year='2009' />
+<abstract><t>This document specifies protocol stacks for the routing and transport of per-flow signalling messages along the path taken by that flow through the network.  The design uses existing transport and security protocols under a common messaging layer, the General Internet Signalling Transport (GIST), which provides a common service for diverse signalling applications.  GIST does not handle signalling application state itself, but manages its own internal state and the configuration of the underlying transport and security protocols to enable the transfer of messages in both directions along the flow path.  The combination of GIST and the lower layer transport and security protocols provides a solution for the base protocol component of the "Next Steps in Signalling" framework.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-nsis-ntlp-20' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-nsis-ntlp-20.txt' />
+</reference>
+
+<reference anchor='HTTP'>
+<front>
+<title abbrev='HTTP/1.1'>Hypertext Transfer Protocol -- HTTP/1.1</title>
+<author initials='R.' surname='Fielding' fullname='Roy T.  Fielding'>
+<organization abbrev='UC Irvine'>Department of Information and Computer Science</organization>
+<address>
+<postal>
+<street>University of California, Irvine</street>
+<city>Irvine</city>
+<region>CA</region>
+<code>92697-3425</code></postal>
+<facsimile>+1(949)824-1715</facsimile>
+<email>fielding@ics.uci.edu</email></address></author>
+<author initials='J.' surname='Gettys' fullname='James Gettys'>
+<organization abbrev='Compaq/W3C'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>jg@w3.org</email></address></author>
+<author initials='J.' surname='Mogul' fullname='Jeffrey C.  Mogul'>
+<organization abbrev='Compaq'>Compaq Computer Corporation</organization>
+<address>
+<postal>
+<street>Western Research Laboratory</street>
+<street>250 University Avenue</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94305</code></postal>
+<email>mogul@wrl.dec.com</email></address></author>
+<author initials='H.' surname='Frystyk' fullname='Henrik Frystyk Nielsen'>
+<organization abbrev='MIT/LCS'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>frystyk@w3.org</email></address></author>
+<author initials='L.' surname='Masinter' fullname='Larry Masinter'>
+<organization abbrev='Xerox'>Xerox Corporation</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>3333 Coyote Hill Road</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94034</code></postal>
+<email>masinter@parc.xerox.com</email></address></author>
+<author initials='P.' surname='Leach' fullname='Paul J.  Leach'>
+<organization abbrev='Microsoft'>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>1 Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code></postal>
+<email>paulle@microsoft.com</email></address></author>
+<author initials='T.' surname='Berners-Lee' fullname='Tim Berners-Lee'>
+<organization abbrev='MIT/LCS'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>timbl@w3.org</email></address></author>
+<date month='June' year='1999' />
+<abstract>
+<t>
+   The Hypertext Transfer Protocol (HTTP) is an application-level
+   protocol for distributed, collaborative, hypermedia information
+   systems.  It is a generic, stateless, protocol which can be used for
+   many tasks beyond its use for hypertext, such as name servers and
+   distributed object management systems, through extension of its
+   request methods, error codes and headers .  A feature of HTTP is
+   the typing and negotiation of data representation, allowing systems
+   to be built independently of the data being transferred.
+</t>
+<t>
+   HTTP has been in use by the World-Wide Web global information
+   initiative since 1990.  This specification defines the protocol
+   referred to as "HTTP/1.1", and is an update to RFC 2068 .
+</t></abstract></front>
+<seriesInfo name='RFC' value='2616' />
+<format type='TXT' octets='422317' target='ftp://ftp.isi.edu/in-notes/rfc2616.txt' />
+<format type='PS' octets='5529857' target='ftp://ftp.isi.edu/in-notes/rfc2616.ps' />
+<format type='PDF' octets='550558' target='ftp://ftp.isi.edu/in-notes/rfc2616.pdf' />
+<format type='HTML' octets='498891' target='http://xml.resource.org/public/rfc/html/rfc2616.html' />
+<format type='XML' octets='471630' target='http://xml.resource.org/public/rfc/xml/rfc2616.xml' />
+</reference>
+
+<reference anchor='HTTP-TLS'>
+<front>
+<title>HTTP Over TLS</title>
+<author initials='E.' surname='Rescorla' fullname='E. Rescorla'>
+<organization /></author>
+<date year='2000' month='May' />
+<abstract>
+<t>This memo describes how to use Transport Layer Security (TLS) to secure Hypertext Transfer Protocol (HTTP) connections over the Internet.  This memo provides information for the Internet community.</t></abstract></front>
+<seriesInfo name='RFC' value='2818' />
+<format type='TXT' octets='15170' target='ftp://ftp.isi.edu/in-notes/rfc2818.txt' />
+</reference>
+
+<reference anchor='IMAP'>
+<front>
+<title>INTERNET MESSAGE ACCESS PROTOCOL - VERSION 4rev1</title>
+<author initials='M.' surname='Crispin' fullname='M. Crispin'>
+<organization /></author>
+<date year='2003' month='March' /></front>
+<seriesInfo name='RFC' value='3501' />
+<format type='TXT' octets='227640' target='ftp://ftp.isi.edu/in-notes/rfc3501.txt' />
+</reference>
+
+<reference anchor='IDNA2003'>
+<front>
+<title>Internationalizing Domain Names in Applications (IDNA)</title>
+<author initials='P.' surname='Faltstrom' fullname='P. Faltstrom'>
+<organization /></author>
+<author initials='P.' surname='Hoffman' fullname='P. Hoffman'>
+<organization /></author>
+<author initials='A.' surname='Costello' fullname='A. Costello'>
+<organization /></author>
+<date month='March' year='2003' /></front>
+<seriesInfo name='RFC' value='3490' />
+<format type='TXT' octets='51943' target='ftp://ftp.isi.edu/in-notes/rfc3490.txt' />
+</reference>
+
+<reference anchor='IP'>
+<front>
+<title abbrev='Internet Protocol'>Internet Protocol</title>
+<author initials='J.' surname='Postel' fullname='Jon Postel'>
+<organization>University of Southern California (USC)/Information Sciences Institute</organization>
+<address>
+<postal>
+<street>4676 Admiralty Way</street>
+<city>Marina del Rey</city>
+<region>CA</region>
+<code>90291</code>
+<country>US</country></postal></address></author>
+<date year='1981' day='1' month='September' /></front>
+<seriesInfo name='STD' value='5' />
+<seriesInfo name='RFC' value='791' />
+<format type='TXT' octets='97779' target='ftp://ftp.isi.edu/in-notes/rfc791.txt' />
+</reference>
+
+<reference anchor='IPv6'>
+<front>
+<title abbrev='IPv6 Specification'>Internet Protocol, Version 6 (IPv6) Specification</title>
+<author initials='S.E.' surname='Deering' fullname='Stephen E. Deering'>
+<organization>Cisco Systems, Inc.</organization>
+<address>
+<postal>
+<street>170 West Tasman Drive</street>
+<street>San Jose</street>
+<region>CA</region>
+<code>95134-1706</code>
+<country>USA</country></postal>
+<phone>+1 408 527 8213</phone>
+<facsimile>+1 408 527 8254</facsimile>
+<email>deering@cisco.com</email></address></author>
+<author initials='R.M.' surname='Hinden' fullname='Robert M. Hinden'>
+<organization>Nokia</organization>
+<address>
+<postal>
+<street>232 Java Drive</street>
+<street>Sunnyvale</street>
+<region>CA</region>
+<code>94089</code>
+<country>USA</country></postal>
+<phone>+1 408 990 2004</phone>
+<facsimile>+1 408 743 5677</facsimile>
+<email>hinden@iprg.nokia.com</email></address></author>
+<date year='1998' month='December' />
+<area>Internet</area>
+<keyword>internet protocol version 6</keyword>
+<keyword>IPv6</keyword>
+<abstract>
+<t>
+   This document specifies version 6 of the Internet Protocol (IPv6),
+   also sometimes referred to as IP Next Generation or IPng.
+</t></abstract></front>
+<seriesInfo name='RFC' value='2460' />
+<format type='TXT' octets='85490' target='ftp://ftp.isi.edu/in-notes/rfc2460.txt' />
+<format type='HTML' octets='99496' target='http://xml.resource.org/public/rfc/html/rfc2460.html' />
+<format type='XML' octets='93343' target='http://xml.resource.org/public/rfc/xml/rfc2460.xml' />
+</reference>
+
+<reference anchor='IPSEC'>
+<front>
+<title>Security Architecture for the Internet Protocol</title>
+<author initials='S.' surname='Kent' fullname='S. Kent'>
+<organization /></author>
+<author initials='K.' surname='Seo' fullname='K. Seo'>
+<organization /></author>
+<date year='2005' month='December' />
+<abstract>
+<t>This document describes an updated version of the "Security Architecture for IP", which is designed to provide security services for traffic at the IP layer.  This document obsoletes RFC 2401 (November 1998). [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4301' />
+<format type='TXT' octets='262123' target='ftp://ftp.isi.edu/in-notes/rfc4301.txt' />
+</reference>
+
+<reference anchor='LDAP'>
+<front>
+<title>Lightweight Directory Access Protocol (LDAP): The Protocol</title>
+<author initials='J.' surname='Sermersheim' fullname='J. Sermersheim'>
+<organization /></author>
+<date year='2006' month='June' />
+<abstract>
+<t>This document describes the protocol elements, along with their semantics and encodings, of the Lightweight Directory Access Protocol (LDAP).  LDAP provides access to distributed directory services that act in accordance with X.500 data and service models.  These protocol elements are based on those described in the X.500 Directory Access Protocol (DAP). [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4511' />
+<format type='TXT' octets='150116' target='ftp://ftp.isi.edu/in-notes/rfc4511.txt' />
+</reference>
+
+<reference anchor='LDAP-AUTH'>
+<front>
+<title>Lightweight Directory Access Protocol (LDAP): Authentication Methods and Security Mechanisms</title>
+<author initials='R.' surname='Harrison' fullname='R. Harrison'>
+<organization /></author>
+<date year='2006' month='June' />
+<abstract>
+<t>This document describes authentication methods and security mechanisms of the Lightweight Directory Access Protocol (LDAP). This document details establishment of Transport Layer Security (TLS) using the StartTLS operation.&lt;/t>&lt;t> This document details the simple Bind authentication method including anonymous, unauthenticated, and name/password mechanisms and the Simple Authentication and Security Layer (SASL) Bind authentication method including the EXTERNAL mechanism.&lt;/t>&lt;t> This document discusses various authentication and authorization states through which a session to an LDAP server may pass and the actions that trigger these state changes.&lt;/t>&lt;t> This document, together with other documents in the LDAP Technical Specification (see Section 1 of the specification's road map), obsoletes RFC 2251, RFC 2829, and RFC 2830. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4513' />
+<format type='TXT' octets='80546' target='ftp://ftp.isi.edu/in-notes/rfc4513.txt' />
+</reference>
+
+<reference anchor='LDAP-SCHEMA'>
+<front>
+<title>Lightweight Directory Access Protocol (LDAP): Schema for User Applications</title>
+<author initials='A.' surname='Sciberras' fullname='A. Sciberras'>
+<organization /></author>
+<date year='2006' month='June' />
+<abstract>
+<t>This document is an integral part of the Lightweight Directory Access Protocol (LDAP) technical specification.  It provides a technical specification of attribute types and object classes intended for use by LDAP directory clients for many directory services, such as White Pages.  These objects are widely used as a basis for the schema in many LDAP directories.  This document does not cover attributes used for the administration of directory servers, nor does it include directory objects defined for specific uses in other documents. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4519' />
+<format type='TXT' octets='64996' target='ftp://ftp.isi.edu/in-notes/rfc4519.txt' />
+</reference>
+
+<reference anchor='LDAP-TLS'>
+<front>
+<title>Lightweight Directory Access Protocol (v3): Extension for Transport Layer Security</title>
+<author initials='J.' surname='Hodges' fullname='J. Hodges'>
+<organization /></author>
+<author initials='R.' surname='Morgan' fullname='R. Morgan'>
+<organization /></author>
+<author initials='M.' surname='Wahl' fullname='M. Wahl'>
+<organization /></author>
+<date year='2000' month='May' />
+<abstract>
+<t>This document defines the "Start Transport Layer Security (TLS) Operation" for LDAP. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='2830' />
+<format type='TXT' octets='24469' target='ftp://ftp.isi.edu/in-notes/rfc2830.txt' />
+</reference>
+
+<reference anchor='NAPTR'>
+<front>
+<title>Dynamic Delegation Discovery System (DDDS) Part Three: The Domain Name System (DNS) Database</title>
+<author initials='M.' surname='Mealling' fullname='M. Mealling'>
+<organization /></author>
+<date year='2002' month='October' />
+<abstract>
+<t>This document describes a Dynamic Delegation Discovery System (DDDS) Database using the Domain Name System (DNS) as a distributed database of Rules.  The Keys are domain-names and the Rules are encoded using the Naming Authority Pointer (NAPTR) Resource Record (RR).  Since this document obsoletes RFC 2915, it is the official specification for the NAPTR DNS Resource Record.  It is also part of a series that is completely specified in "Dynamic Delegation Discovery System (DDDS) Part One: The Comprehensive DDDS" (RFC 3401).  It is very important to note that it is impossible to read and understand any document in this series without reading the others. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='3403' />
+<format type='TXT' octets='31058' target='http://www.rfc-editor.org/rfc/rfc3403.txt' />
+</reference>
+
+<reference anchor='NETCONF'>
+<front>
+<title>NETCONF Configuration Protocol</title>
+<author initials='R.' surname='Enns' fullname='R. Enns'>
+<organization /></author>
+<date year='2006' month='December' />
+<abstract>
+<t>The Network Configuration Protocol (NETCONF) defined in this document provides mechanisms to install, manipulate, and delete the configuration of network devices.  It uses an Extensible Markup Language (XML)-based data encoding for the configuration data as well as the protocol messages.  The NETCONF protocol operations are realized on top of a simple Remote Procedure Call (RPC) layer. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4741' />
+<format type='TXT' octets='173914' target='ftp://ftp.isi.edu/in-notes/rfc4741.txt' />
+</reference>
+
+<reference anchor='NETCONF-SSH'>
+<front>
+<title>Using the NETCONF Configuration Protocol over Secure SHell (SSH)</title>
+<author initials='M.' surname='Wasserman' fullname='M. Wasserman'>
+<organization /></author>
+<author initials='T.' surname='Goddard' fullname='T. Goddard'>
+<organization /></author>
+<date year='2006' month='December' />
+<abstract>
+<t>This document describes a method for invoking and running the Network Configuration Protocol (NETCONF) within a Secure Shell (SSH) session as an SSH subsystem. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4742' />
+<format type='TXT' octets='17807' target='ftp://ftp.isi.edu/in-notes/rfc4742.txt' />
+</reference>
+
+<reference anchor='NETCONF-TLS'>
+<front>
+<title>NETCONF over Transport Layer Security (TLS)</title>
+<author initials='M.' surname='Badra' fullname='M. Badra'>
+<organization /></author>
+<date year='2009' month='May' />
+<abstract>
+<t>The Network Configuration Protocol (NETCONF) provides mechanisms to install, manipulate, and delete the configuration of network devices.  This document describes how to use the Transport Layer Security (TLS) protocol to secure NETCONF exchanges. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5539' />
+<format type='TXT' octets='16073' target='ftp://ftp.isi.edu/in-notes/rfc5539.txt' />
+</reference>
+
+<reference anchor='NNTP'>
+<front>
+<title>Network News Transfer Protocol (NNTP)</title>
+<author initials='C.' surname='Feather' fullname='C. Feather'>
+<organization /></author>
+<date year='2006' month='October' />
+<abstract>
+<t>The Network News Transfer Protocol (NNTP) has been in use in the Internet for a decade, and remains one of the most popular protocols (by volume) in use today.  This document is a replacement for RFC 977, and officially updates the protocol specification.  It clarifies some vagueness in RFC 977, includes some new base functionality, and provides a specific mechanism to add standardized extensions to NNTP. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='3977' />
+<format type='TXT' octets='247440' target='ftp://ftp.isi.edu/in-notes/rfc3977.txt' />
+</reference>
+
+<reference anchor='NNTP-TLS'>
+<front>
+<title>Using Transport Layer Security (TLS) with Network News Transfer Protocol (NNTP)</title>
+<author initials='K.' surname='Murchison' fullname='K. Murchison'>
+<organization /></author>
+<author initials='J.' surname='Vinocur' fullname='J. Vinocur'>
+<organization /></author>
+<author initials='C.' surname='Newman' fullname='C. Newman'>
+<organization /></author>
+<date year='2006' month='October' />
+<abstract>
+<t>This memo defines an extension to the Network News Transfer Protocol (NNTP) that allows an NNTP client and server to use Transport Layer Security (TLS).  The primary goal is to provide encryption for single-link confidentiality purposes, but data integrity, (optional) certificate-based peer entity authentication, and (optional) data compression are also possible. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4642' />
+<format type='TXT' octets='29366' target='ftp://ftp.isi.edu/in-notes/rfc4642.txt' />
+</reference>
+
+<reference anchor='OCSP'>
+<front>
+<title abbrev='PKIX OCSP'>X.509 Internet Public Key Infrastructure Online Certificate Status Protocol - OCSP</title>
+<author initials='M.' surname='Myers' fullname='Michael Myers'>
+<organization>VeriSign, Inc.</organization>
+<address>
+<postal>
+<street>1350 Charleston Road</street>
+<city>Mountain View</city>
+<region>CA</region>
+<code>94043</code>
+<country>US</country></postal>
+<email>mmyers@verisign.com</email></address></author>
+<author initials='R.' surname='Ankney' fullname='Rich Ankney'>
+<organization>CertCo, LLC</organization>
+<address>
+<postal>
+<street>13506 King Charles Dr.</street>
+<city>Chantilly</city>
+<region>VA</region>
+<code>20151</code>
+<country>US</country></postal>
+<email>rankney@erols.com</email></address></author>
+<author initials='A.' surname='Malpani' fullname='Ambarish Malpani'>
+<organization>ValiCert, Inc.</organization>
+<address>
+<postal>
+<street>1215 Terra Bella Avenue</street>
+<city>Mountain View</city>
+<region>CA</region>
+<code>94043</code>
+<country>US</country></postal>
+<phone>+1 650 567 5457</phone>
+<email>ambarish@valicert.com</email></address></author>
+<author initials='S.' surname='Galperin' fullname='Slava Galperin'>
+<organization>My CFO, Inc.</organization>
+<address>
+<postal>
+<street>1945 Charleston Road</street>
+<city>Mountain View</city>
+<region>CA</region>
+<code>94043</code>
+<country>US</country></postal>
+<email>galperin@mycfo.com</email></address></author>
+<author initials='C.' surname='Adams' fullname='Carlisle Adams'>
+<organization>Entrust Technologies</organization>
+<address>
+<postal>
+<street>750 Heron Road</street>
+<street>Suite E08</street>
+<city>Ottawa</city>
+<region>Ontario</region>
+<code>K1V 1A7</code>
+<country>CA</country></postal>
+<email>cadams@entrust.com</email></address></author>
+<date year='1999' month='June' />
+<abstract>
+<t>This document specifies a protocol useful in determining the current
+   status of a digital certificate without requiring CRLs. Additional
+   mechanisms addressing PKIX operational requirements are specified in
+   separate documents.</t>
+<t>An overview of the protocol is provided in section 2. Functional
+   requirements are specified in section 4. Details of the protocol are
+   in section 5. We cover security issues with the protocol in section
+   6. Appendix A defines OCSP over HTTP, appendix B accumulates ASN.1
+   syntactic elements and appendix C specifies the mime types for the
+   messages.</t>
+<t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this
+   document (in uppercase, as shown) are to be interpreted as described
+   in.</t></abstract></front>
+<seriesInfo name='RFC' value='2560' />
+<format type='TXT' octets='43243' target='ftp://ftp.isi.edu/in-notes/rfc2560.txt' />
+</reference>
+
+<reference anchor='OPENPGP'>
+<front>
+<title>OpenPGP Message Format</title>
+<author initials='J.' surname='Callas' fullname='J. Callas'>
+<organization /></author>
+<author initials='L.' surname='Donnerhacke' fullname='L. Donnerhacke'>
+<organization /></author>
+<author initials='H.' surname='Finney' fullname='H. Finney'>
+<organization /></author>
+<author initials='D.' surname='Shaw' fullname='D. Shaw'>
+<organization /></author>
+<author initials='R.' surname='Thayer' fullname='R. Thayer'>
+<organization /></author>
+<date year='2007' month='November' />
+<abstract>
+<t>This document is maintained in order to publish all necessary information needed to develop interoperable applications based on the OpenPGP format. It is not a step-by-step cookbook for writing an application. It describes only the format and methods needed to read, check, generate, and write conforming packets crossing any network. It does not deal with storage and implementation questions. It does, however, discuss implementation issues necessary to avoid security flaws.&lt;/t>&lt;t> OpenPGP software uses a combination of strong public-key and symmetric cryptography to provide security services for electronic communications and data storage. These services include confidentiality, key management, authentication, and digital signatures. This document specifies the message formats used in OpenPGP. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4880' />
+<format type='TXT' octets='203706' target='ftp://ftp.isi.edu/in-notes/rfc4880.txt' />
+</reference>
+
+<reference anchor='POP3'>
+<front>
+<title abbrev='POP3'>Post Office Protocol - Version 3</title>
+<author initials='J.G.' surname='Myers' fullname='John G.  Myers'>
+<organization>Carnegie-Mellon University</organization>
+<address>
+<postal>
+<street>5000 Forbes Ave</street>
+<city>Pittsburgh</city>
+<region>PA</region>
+<code>15213</code>
+<country>US</country></postal>
+<email>jgm+@cmu.edu</email></address></author>
+<author initials='M.T.' surname='Rose' fullname='Marshall T.  Rose'>
+<organization>Dover Beach Consulting, Inc.</organization>
+<address>
+<postal>
+<street>420 Whisman Court</street>
+<city>Mountain View</city>
+<region>CA</region>
+<code>94043-2186</code>
+<country>US</country></postal>
+<email>mrose@dbc.mtview.ca.us</email></address></author>
+<date month='May' year='1996' /></front>
+<seriesInfo name='STD' value='53' />
+<seriesInfo name='RFC' value='1939' />
+<format type='TXT' octets='47018' target='ftp://ftp.isi.edu/in-notes/rfc1939.txt' />
+</reference>
+
+<reference anchor='PRIVATE'>
+<front>
+<title>Address Allocation for Private Internets</title>
+<author initials='Y.' surname='Rekhter' fullname='Yakov Rekhter'>
+<organization>Cisco systems</organization>
+<address>
+<postal>
+<street>170 West Tasman Drive</street>
+<city>San Jose</city>
+<region>CA</region>
+<code>95134-1706</code>
+<country>US</country></postal>
+<phone>+1 914 528 0090</phone>
+<facsimile>+1 408 526 4952</facsimile>
+<email>yakov@cisco.com</email></address></author>
+<author initials='R.' surname='Moskowitz' fullname='Robert G. Moskowitz'>
+<organization>Chrysler Corporation</organization>
+<address>
+<postal>
+<street>25999 Lawrence Ave</street>
+<city>Center Line</city>
+<region>MI</region>
+<code>48015</code>
+<country>US</country></postal>
+<phone>+1 810 758 8212</phone>
+<facsimile>+1 810 758 8173</facsimile>
+<email>rgm3@is.chrysler.com</email></address></author>
+<author initials='D.' surname='Karrenberg' fullname='Daniel Karrenberg'>
+<organization>RIPE Network Coordination Centre</organization>
+<address>
+<postal>
+<street>Kruislaan 409</street>
+<city>Amsterdam</city>
+<region />
+<code>1098 SJ</code>
+<country>NL</country></postal>
+<phone>+31 20 5925065</phone>
+<facsimile>+31 20 5925090</facsimile>
+<email>Daniel.Karrenberg@ripe.net</email></address></author>
+<author initials='G.' surname='Groot' fullname='Geert Jan de Groot'>
+<organization>RIPE Network Coordination Centre</organization>
+<address>
+<postal>
+<street>Kruislaan 409</street>
+<city>Amsterdam</city>
+<region />
+<code>1098 SJ</code>
+<country>NL</country></postal>
+<phone>+31 20 5925065</phone>
+<facsimile>+31 20 5925090</facsimile>
+<email>GeertJan.deGroot@ripe.net</email></address></author>
+<author initials='E.' surname='Lear' fullname='Eliot Lear'>
+<organization>Silicon Graphics, Inc.</organization>
+<address>
+<postal>
+<street>2011 N. Shoreline Blvd.</street>
+<street>Mail Stop 15-730</street>
+<city>Mountain View</city>
+<region>CA</region>
+<code>94043-1389</code>
+<country>US</country></postal>
+<phone>+1 415 960 1980</phone>
+<facsimile>+1 415 961 9584</facsimile>
+<email>lear@sgi.com</email></address></author>
+<date year='1996' month='February' /></front>
+<seriesInfo name='BCP' value='5' />
+<seriesInfo name='RFC' value='1918' />
+<format type='TXT' octets='22270' target='ftp://ftp.isi.edu/in-notes/rfc1918.txt' />
+</reference>
+
+<reference anchor='PKIX-OLD'>
+<front>
+<title abbrev='Internet X.509 Public Key Infrastructure'>Internet X.509 Public Key Infrastructure Certificate and CRL Profile</title>
+<author initials='R.' surname='Housley' fullname='Russell Housley'>
+<organization>SPYRUS</organization>
+<address>
+<postal>
+<street>381 Elden Street</street>
+<street>Suite 1120</street>
+<city>Herndon</city>
+<region>VA</region>
+<code>20170</code>
+<country>US</country></postal>
+<email>housley@spyrus.com</email></address></author>
+<author initials='W.' surname='Ford' fullname='Warwick Ford'>
+<organization>VeriSign, Inc.</organization>
+<address>
+<postal>
+<street>One Alewife Center</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02140</code>
+<country>US</country></postal>
+<email>wford@verisign.com</email></address></author>
+<author initials='T.' surname='Polk' fullname='Tim Polk'>
+<organization>NIST</organization>
+<address>
+<postal>
+<street />
+<city>Gaithersburg</city>
+<region>MD</region>
+<code>20899</code>
+<country>US</country></postal>
+<email>wpolk@nist.gov</email></address></author>
+<author initials='D.' surname='Solo' fullname='David Solo'>
+<organization>Citicorp</organization>
+<address>
+<postal>
+<street>666 Fifth Ave</street>
+<street>3rd Floor</street>
+<city>New York</city>
+<region>NY</region>
+<code>10103</code>
+<country>US</country></postal>
+<email>david.solo@citicorp.com</email></address></author>
+<date year='1999' month='January' />
+<abstract>
+<t>This memo profiles the X.509 v3 certificate and  X.509 v2 CRL for use in the Internet.  An overview of the approach and model are provided  as an introduction.  The .509 v3 certificate format is described in detail, with additional information regarding the format and semantics of Internet name forms (e.g., IP addresses).  Standard certificate extensions are described and one new Internet-specific extension is defined.  A required set of certificate extensions is specified.  The X.509 v2 CRL format is described and a required extension set is defined as well.  An algorithm for X.509 certificate path validation is described. Supplemental information is provided describing the format of public keys and digital signatures in X.509 certificates for common Internet public key encryption algorithms (i.e., RSA, DSA, and Diffie-Hellman).  ASN.1 modules and examples are provided in the appendices.</t>
+<t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",  "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in RFC 2119.</t>
+<t>Please send comments on this document to the ietf-pkix@imc.org mail list.</t></abstract></front>
+<seriesInfo name='RFC' value='2459' />
+<format type='TXT' octets='278438' target='ftp://ftp.isi.edu/in-notes/rfc2459.txt' />
+</reference>
+
+<reference anchor='S-NAPTR'>
+<front>
+<title>Domain-Based Application Service Location Using SRV RRs and the Dynamic Delegation Discovery Service (DDDS)</title>
+<author initials='L.' surname='Daigle' fullname='L. Daigle'>
+<organization /></author>
+<author initials='A.' surname='Newton' fullname='A. Newton'>
+<organization /></author>
+<date year='2005' month='January' />
+<abstract>
+<t>This memo defines a generalized mechanism for application service naming that allows service location without relying on rigid domain naming conventions (so-called name hacks).  The proposal defines a Dynamic Delegation Discovery System (DDDS) Application to map domain name, application service name, and application protocol dynamically to target server and port. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='3958' />
+<format type='TXT' octets='54568' target='http://www.rfc-editor.org/rfc/rfc3958.txt' />
+</reference>
+
+<reference anchor='SECTERMS'>
+<front>
+<title>Internet Security Glossary, Version 2</title>
+<author initials='R.' surname='Shirey' fullname='R. Shirey'>
+<organization /></author>
+<date year='2007' month='August' />
+<abstract>
+<t>This Glossary provides definitions, abbreviations, and explanations of terminology for information system security.  The 334 pages of entries offer recommendations to improve the comprehensibility of written material that is generated in the Internet Standards Process (RFC 2026).  The recommendations follow the principles that such writing should (a) use the same term or definition whenever the same concept is mentioned; (b) use terms in their plainest, dictionary sense; (c) use terms that are already well-established in open publications; and (d) avoid terms that either favor a particular vendor or favor a particular technology or mechanism over other, competing techniques that already exist or could be developed.  This memo provides information for the Internet community.</t></abstract></front>
+<seriesInfo name='RFC' value='4949' />
+<format type='TXT' octets='867626' target='ftp://ftp.isi.edu/in-notes/rfc4949.txt' />
+</reference>
+
+<reference anchor='SIP'>
+<front>
+<title>SIP: Session Initiation Protocol</title>
+<author initials='J.' surname='Rosenberg' fullname='J. Rosenberg'>
+<organization /></author>
+<author initials='H.' surname='Schulzrinne' fullname='H. Schulzrinne'>
+<organization /></author>
+<author initials='G.' surname='Camarillo' fullname='G. Camarillo'>
+<organization /></author>
+<author initials='A.' surname='Johnston' fullname='A. Johnston'>
+<organization /></author>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<author initials='R.' surname='Sparks' fullname='R. Sparks'>
+<organization /></author>
+<author initials='M.' surname='Handley' fullname='M. Handley'>
+<organization /></author>
+<author initials='E.' surname='Schooler' fullname='E. Schooler'>
+<organization /></author>
+<date year='2002' month='June' />
+<abstract>
+<t>This document describes Session Initiation Protocol (SIP), an application-layer control (signaling) protocol for creating, modifying, and terminating sessions with one or more participants.  These sessions include Internet telephone calls, multimedia distribution, and multimedia conferences. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='3261' />
+<format type='TXT' octets='647976' target='ftp://ftp.isi.edu/in-notes/rfc3261.txt' />
+</reference>
+
+<reference anchor='SIP-CERTS'>
+<front>
+<title>Domain Certificates in the Session Initiation Protocol (SIP)</title>
+<author initials='V.' surname='Gurbani' fullname='V. Gurbani'>
+<organization /></author>
+<author initials='S.' surname='Lawrence' fullname='S. Lawrence'>
+<organization /></author>
+<author initials='A.' surname='Jeffrey' fullname='A. Jeffrey'>
+<organization /></author>
+<date year='2010' month='June' />
+<abstract>
+<t>This document describes how to construct and interpret certain information in a PKIX-compliant (Public Key Infrastructure using X.509) certificate for use in a Session Initiation Protocol (SIP) over Transport Layer Security (TLS) connection.  More specifically, this document describes how to encode and extract the identity of a SIP domain in a certificate and how to use that identity for SIP domain authentication.  As such, this document is relevant both to implementors of SIP and to issuers of certificates. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5922' />
+<format type='TXT' octets='37667' target='http://www.rfc-editor.org/rfc/rfc5922.txt' />
+</reference>
+
+<reference anchor='SIP-LOC'>
+<front>
+<title>Session Initiation Protocol (SIP): Locating SIP Servers</title>
+<author initials='J.' surname='Rosenberg' fullname='J. Rosenberg'>
+<organization /></author>
+<author initials='H.' surname='Schulzrinne' fullname='H. Schulzrinne'>
+<organization /></author>
+<date year='2002' month='June' />
+<abstract>
+<t>The Session Initiation Protocol (SIP) uses DNS procedures to allow a client to resolve a SIP Uniform Resource Identifier (URI) into the IP address, port, and transport protocol of the next hop to contact.  It also uses DNS to allow a server to send a response to a backup client if the primary client has failed.  This document describes those DNS procedures in detail. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='3263' />
+<format type='TXT' octets='42310' target='ftp://ftp.isi.edu/in-notes/rfc3263.txt' />
+</reference>
+
+<reference anchor='SMTP'>
+<front>
+<title>Simple Mail Transfer Protocol</title>
+<author initials='J.' surname='Klensin' fullname='J. Klensin'>
+<organization /></author>
+<date year='2008' month='October' />
+<abstract>
+<t>This document is a specification of the basic protocol for Internet electronic mail transport.  It consolidates, updates, and clarifies several previous documents, making all or parts of most of them obsolete.  It covers the SMTP extension mechanisms and best practices for the contemporary Internet, but does not provide details about particular extensions.  Although SMTP was designed as a mail transport and delivery protocol, this specification also contains information that is important to its use as a "mail submission" protocol for "split-UA" (User Agent) mail reading systems and mobile environments. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5321' />
+<format type='TXT' octets='225929' target='ftp://ftp.isi.edu/in-notes/rfc5321.txt' />
+</reference>
+
+<reference anchor='SMTP-AUTH'>
+<front>
+<title>SMTP Service Extension for Authentication</title>
+<author initials='R.' surname='Siemborski' fullname='R. Siemborski'>
+<organization /></author>
+<author initials='A.' surname='Melnikov' fullname='A. Melnikov'>
+<organization /></author>
+<date year='2007' month='July' />
+<abstract>
+<t>This document defines a Simple Mail Transport Protocol (SMTP) extension whereby an SMTP client may indicate an authentication mechanism to the server, perform an authentication protocol exchange, and optionally negotiate a security layer for subsequent protocol interactions during this session. This extension includes a profile of the Simple Authentication and Security Layer (SASL) for SMTP.&lt;/t>&lt;t> This document obsoletes RFC 2554. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4954' />
+<format type='TXT' octets='43493' target='ftp://ftp.isi.edu/in-notes/rfc4954.txt' />
+</reference>
+
+<reference anchor='SMTP-TLS'>
+<front>
+<title>SMTP Service Extension for Secure SMTP over Transport Layer Security</title>
+<author initials='P.' surname='Hoffman' fullname='P. Hoffman'>
+<organization /></author>
+<date year='2002' month='February' />
+<abstract>
+<t>This document describes an extension to the SMTP (Simple Mail Transfer Protocol) service that allows an SMTP server and client to use TLS (Transport Layer Security) to provide private, authenticated communication over the Internet.  This gives SMTP agents the ability to protect some or all of their communications from eavesdroppers and attackers. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='3207' />
+<format type='TXT' octets='18679' target='ftp://ftp.isi.edu/in-notes/rfc3207.txt' />
+</reference>
+
+<reference anchor='SYSLOG'>
+<front>
+<title>The Syslog Protocol</title>
+<author initials='R.' surname='Gerhards' fullname='R. Gerhards'>
+<organization /></author>
+<date year='2009' month='March' />
+<abstract>
+<t>This document describes the syslog protocol, which is used to convey event notification messages. This protocol utilizes a layered architecture, which allows the use of any number of transport protocols for transmission of syslog messages. It also provides a message format that allows vendor-specific extensions to be provided in a structured way.&lt;/t>&lt;t> This document has been written with the original design goals for traditional syslog in mind. The need for a new layered specification has arisen because standardization efforts for reliable and secure syslog extensions suffer from the lack of a Standards-Track and transport-independent RFC. Without this document, each other standard needs to define its own syslog packet format and transport mechanism, which over time will introduce subtle compatibility issues. This document tries to provide a foundation that syslog extensions can build on. This layered architecture approach also provides a solid basis that allows code to be written once for each syslog feature rather than once for each transport. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5424' />
+<format type='TXT' octets='85162' target='ftp://ftp.isi.edu/in-notes/rfc5424.txt' />
+</reference>
+
+<reference anchor='SYSLOG-TLS'>
+<front>
+<title>Transport Layer Security (TLS) Transport Mapping for Syslog</title>
+<author initials='F.' surname='Miao' fullname='F. Miao'>
+<organization /></author>
+<author initials='Y.' surname='Ma' fullname='Y. Ma'>
+<organization /></author>
+<author initials='J.' surname='Salowey' fullname='J. Salowey'>
+<organization /></author>
+<date year='2009' month='March' />
+<abstract>
+<t>This document describes the use of Transport Layer Security (TLS) to provide a secure connection for the transport of syslog messages.  This document describes the security threats to syslog and how TLS can be used to counter such threats. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5425' />
+<format type='TXT' octets='28159' target='ftp://ftp.isi.edu/in-notes/rfc5425.txt' />
+</reference>
+
+<reference anchor='TLS'>
+<front>
+<title>The Transport Layer Security (TLS) Protocol Version 1.2</title>
+<author initials='T.' surname='Dierks' fullname='T. Dierks'>
+<organization /></author>
+<author initials='E.' surname='Rescorla' fullname='E. Rescorla'>
+<organization /></author>
+<date year='2008' month='August' />
+<abstract>
+<t>This document specifies Version 1.2 of the Transport Layer Security (TLS) protocol.  The TLS protocol provides communications security over the Internet.  The protocol allows client/server applications to communicate in a way that is designed to prevent eavesdropping, tampering, or message forgery. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5246' />
+<format type='TXT' octets='222395' target='ftp://ftp.isi.edu/in-notes/rfc5246.txt' />
+</reference>
+
+<reference anchor="US-ASCII">
+<front>
+<title>Coded Character Set - 7-bit American Standard Code for Information Interchange</title>
+<author>
+<organization>American National Standards Institute</organization>
+</author>
+<date month="" year="1986" />
+</front>
+<seriesInfo name="ANSI" value="X3.4" />
+</reference>
+
+<reference anchor="USINGTLS">
+<front>
+<title>Using TLS with IMAP, POP3 and ACAP</title>
+<author initials='C.' surname='Newman' fullname='Chris Newman'>
+<organization>Innosoft International, Inc.</organization>
+<address>
+<postal>
+<street>1050 Lakes Drive</street>
+<city>West Covina</city>
+<region>CA</region>
+<code>91790</code>
+<country>US</country></postal>
+<email>chris.newman@innosoft.com</email></address></author>
+<date month='June' year='1999' /></front>
+<seriesInfo name='RFC' value='2595' />
+<format type='TXT' octets='32440' target='ftp://ftp.isi.edu/in-notes/rfc2595.txt' />
+</reference>
+
+<reference anchor='WSC-UI'
+           target='http://www.w3.org/TR/2010/WD-wsc-ui-20100309'>
+<front>
+<title>Web Security Context: User Interface Guidelines</title>
+<author initials='A.' surname='Saldhana' fullname='Anil Saldhana'>
+    <organization />
+</author>
+<author initials='T.' surname='Roessler' fullname='Thomas Roessler'>
+    <organization />
+</author>
+<date month='March' day='9' year='2010' />
+</front>
+<seriesInfo name='World Wide Web Consortium LastCall' value='WD-wsc-ui-20100309' />
+<format type='HTML' target='http://www.w3.org/TR/2010/WD-wsc-ui-20100309' />
+</reference>
+
+<reference anchor="X.500">
+<front>
+<title>Information Technology - Open Systems Interconnection - The Directory: Overview of concepts, models and services</title>
+<author>
+<organization>International Telecommunications Union</organization>
+</author>
+<date month="August" year="2005" />
+</front>
+<seriesInfo name="ITU-T" value="Recommendation X.500" />
+<seriesInfo name="ISO" value="Standard 9594-1" />
+</reference>
+
+<reference anchor="X.501">
+<front>
+<title>Information Technology - Open Systems Interconnection - The Directory: Models</title>
+<author>
+<organization>International Telecommunications Union</organization>
+</author>
+<date month="August" year="2005" />
+</front>
+<seriesInfo name="ITU-T" value="Recommendation X.501" />
+<seriesInfo name="ISO" value="Standard 9594-2" />
+</reference>
+
+<reference anchor="X.509">
+<front>
+<title>Information Technology - Open Systems Interconnection - The Directory: Public-key and attribute certificate frameworks</title>
+<author>
+<organization>International Telecommunications Union</organization>
+</author>
+<date month="August" year="2005" />
+</front>
+<seriesInfo name="ITU-T" value="Recommendation X.509" />
+<seriesInfo name="ISO" value="Standard 9594-8" />
+</reference>
+
+<reference anchor="X.520">
+<front>
+<title>Information Technology - Open Systems Interconnection - The Directory: Selected attribute types</title>
+<author>
+<organization>International Telecommunications Union</organization>
+</author>
+<date month="August" year="2005" />
+</front>
+<seriesInfo name="ITU-T" value="Recommendation X.509" />
+<seriesInfo name="ISO" value="Standard 9594-6" />
+</reference>
+
+<reference anchor="X.690">
+<front>
+<title>Information Technology - ASN.1 encoding rules: Specification of Basic Encoding Rules (BER), Canonical Encoding Rules (CER) and Distinguished Encoding Rules (DER)</title>
+<author>
+<organization>International Telecommunications Union</organization>
+</author>
+<date month="August" year="2008" />
+</front>
+<seriesInfo name="ITU-T" value="Recommendation X.690" />
+<seriesInfo name="ISO" value="Standard 8825-1" />
+</reference>
+
+<reference anchor='XMPP'>
+<front>
+<title abbrev='XMPP Core'>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P.' surname='Saint-Andre' fullname='Peter Saint-Andre' role='editor'>
+<organization>Jabber Software Foundation</organization>
+<address>
+<email>stpeter@jabber.org</email></address></author>
+<date year='2004' month='October' />
+<area>Applications</area>
+<workgroup>XMPP Working Group</workgroup>
+<keyword>RFC</keyword>
+<keyword>Request for Comments</keyword>
+<keyword>I-D</keyword>
+<keyword>Internet-Draft</keyword>
+<keyword>XMPP</keyword>
+<keyword>Extensible Messaging and Presence Protocol</keyword>
+<keyword>Jabber</keyword>
+<keyword>IM</keyword>
+<keyword>Instant Messaging</keyword>
+<keyword>Presence</keyword>
+<keyword>XML</keyword>
+<keyword>Extensible Markup Language</keyword>
+<abstract>
+<t>This memo defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a protocol for streaming Extensible Markup Language (XML) elements in order to exchange structured information in close to real time between any two network endpoints.  While XMPP provides a generalized, extensible framework for exchanging XML data, it is used mainly for the purpose of building instant messaging and presence applications that meet the requirements of RFC 2779.</t></abstract></front>
+<seriesInfo name='RFC' value='3920' />
+<format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+<format type='HTML' octets='237435' target='http://xml.resource.org/public/rfc/html/rfc3920.html' />
+<format type='XML' octets='234474' target='http://xml.resource.org/public/rfc/xml/rfc3920.xml' />
+</reference>
+
+<reference anchor='XMPPBIS'>
+<front>
+<title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='April' day='7' year='2010' />
+<abstract><t>This document defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a technology for streaming Extensible Markup Language (XML) elements for the purpose of exchanging structured information in close to real time between any two or more network-aware entities.  XMPP provides a generalized, extensible framework for incrementally exchanging XML data, upon which a variety of applications can be built.  The framework includes methods for stream setup and teardown, channel encryption, authentication of a client to a server and of one server to another server, and primitives for push-style messages, publication of network availability information ("presence"), and request-response interactions.  This document also specifies the format for XMPP addresses, which are fully internationalizable.  This document obsoletes RFC 3920.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-xmpp-3920bis-07' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-xmpp-3920bis-07.txt' />
+</reference>
+
+    </references>
+
+    <section title="Prior Art" anchor="prior">
+      <t>(This section is non-normative.)</t>
+      <t>The recommendations in this document are an abstraction from recommendations in specifications for a wide range of application protocols.  For the purpose of comparison and to delineate the history of thinking about server identity verification within the IETF, this informative section gathers together prior art by including the exact text from various RFCs (the only modifications are changes to the names of several references to maintain coherence with the main body of this document, and the elision of irrelevant text as marked by the characters "[...]").</t>
+      <section title="IMAP, POP3, and ACAP (1999)" anchor="prior-imap">
+        <t>In 1999, <xref target='USINGTLS'/> specified the following text regarding server identity verification in IMAP, POP3, and ACAP:</t>
+        <t>######</t>
+        <t>2.4. Server Identity Check</t>
+        <t>During the TLS negotiation, the client MUST check its understanding of the server hostname against the server's identity as presented in the server Certificate message, in order to prevent man-in-the-middle attacks.  Matching is performed according to these rules:</t>
+        <t>
+          <list style='symbols'>
+            <t>The client MUST use the server hostname it used to open the connection as the value to compare against the server name as expressed in the server certificate.  The client MUST NOT use any form of the server hostname derived from an insecure remote source (e.g., insecure DNS lookup).  CNAME canonicalization is not done.</t>
+            <t>If a subjectAltName extension of type dNSName is present in the certificate, it SHOULD be used as the source of the server's identity.</t>
+            <t>Matching is case-insensitive.</t>
+            <t>A "*" wildcard character MAY be used as the left-most name component in the certificate.  For example, *.example.com would match a.example.com, foo.example.com, etc. but would not match example.com.</t>
+            <t>If the certificate contains multiple names (e.g. more than one dNSName field), then a match with any one of the fields is considered acceptable.</t>
+          </list>
+        </t>
+        <t>If the match fails, the client SHOULD either ask for explicit user confirmation, or terminate the connection and indicate the server's identity is suspect.</t>
+        <t>######</t>
+      </section>
+      <section title="HTTP (2000)" anchor="prior-http">
+        <t>In 2000, <xref target='HTTP-TLS'/> specified the following text regarding server identity verification in HTTP:</t>
+        <t>######</t>
+        <t>3.1. Server Identity</t>
+        <t>In general, HTTP/TLS requests are generated by dereferencing a URI.  As a consequence, the hostname for the server is known to the client.  If the hostname is available, the client MUST check it against the server's identity as presented in the server's Certificate message, in order to prevent man-in-the-middle attacks.</t>
+        <t>If the client has external information as to the expected identity of the server, the hostname check MAY be omitted. (For instance, a client may be connecting to a machine whose address and hostname are dynamic but the client knows the certificate that the server will present.) In such cases, it is important to narrow the scope of acceptable certificates as much as possible in order to prevent man in the middle attacks.  In special cases, it may be appropriate for the client to simply ignore the server's identity, but it must be understood that this leaves the connection open to active attack.</t>
+        <t>If a subjectAltName extension of type dNSName is present, that MUST be used as the identity. Otherwise, the (most specific) Common Name field in the Subject field of the certificate MUST be used. Although the use of the Common Name is existing practice, it is deprecated and Certification Authorities are encouraged to use the dNSName instead.</t>
+        <t>Matching is performed using the matching rules specified by <xref target='PKIX-OLD'/>.  If more than one identity of a given type is present in the certificate (e.g., more than one dNSName name, a match in any one of the set is considered acceptable.) Names may contain the wildcard character * which is considered to match any single domain name component or component fragment. E.g., *.a.com matches foo.a.com but not bar.foo.a.com. f*.com matches foo.com but not bar.com.</t>
+        <t>In some cases, the URI is specified as an IP address rather than a hostname. In this case, the iPAddress subjectAltName must be present in the certificate and must exactly match the IP in the URI.</t>
+        <t>If the hostname does not match the identity in the certificate, user oriented clients MUST either notify the user (clients MAY give the user the opportunity to continue with the connection in any case) or terminate the connection with a bad certificate error. Automated clients MUST log the error to an appropriate audit log (if available) and SHOULD terminate the connection (with a bad certificate error).  Automated clients MAY provide a configuration setting that disables this check, but MUST provide a setting which enables it.</t>
+        <t>Note that in many cases the URI itself comes from an untrusted source. The above-described check provides no protection against attacks where this source is compromised. For example, if the URI was obtained by clicking on an HTML page which was itself obtained without using HTTP/TLS, a man in the middle could have replaced the URI.  In order to prevent this form of attack, users should carefully examine the certificate presented by the server to determine if it meets their expectations.</t>
+        <t>######</t>
+      </section>
+      <section title="LDAP (2000/2006)" anchor="prior-ldap">
+        <t>In 2000, <xref target='LDAP-TLS'/> specified the following text regarding server identity verification in LDAP:</t>
+        <t>######</t>
+        <t>3.6. Server Identity Check</t>
+        <t>The client MUST check its understanding of the server's hostname against the server's identity as presented in the server's Certificate message, in order to prevent man-in-the-middle attacks.</t>
+        <t>Matching is performed according to these rules:</t>
+        <t>
+          <list style='symbols'>
+            <t>The client MUST use the server hostname it used to open the LDAP connection as the value to compare against the server name as expressed in the server's certificate.  The client MUST NOT use the server's canonical DNS name or any other derived form of name.</t>
+            <t>If a subjectAltName extension of type dNSName is present in the certificate, it SHOULD be used as the source of the server's identity.</t>
+            <t>Matching is case-insensitive.</t>
+            <t>The "*" wildcard character is allowed.  If present, it applies only to the left-most name component.</t>
+          </list>
+        </t>
+        <t>E.g. *.bar.com would match a.bar.com, b.bar.com, etc. but not bar.com.  If more than one identity of a given type is present in the certificate (e.g. more than one dNSName name), a match in any one of the set is considered acceptable.</t>
+        <t>If the hostname does not match the dNSName-based identity in the certificate per the above check, user-oriented clients SHOULD either notify the user (clients MAY give the user the opportunity to continue with the connection in any case) or terminate the connection and indicate that the server's identity is suspect. Automated clients SHOULD close the connection, returning and/or logging an error indicating that the server's identity is suspect.</t>
+        <t>Beyond the server identity checks described in this section, clients SHOULD be prepared to do further checking to ensure that the server is authorized to provide the service it is observed to provide. The client MAY need to make use of local policy information.</t>
+        <t>######</t>
+        <t>In 2006, <xref target='LDAP-AUTH'/> specified the following text regarding server identity verification in LDAP:</t>
+        <t>######</t>
+        <t>3.1.3. Server Identity Check</t>
+        <t>In order to prevent man-in-the-middle attacks, the client MUST verify the server's identity (as presented in the server's Certificate message).  In this section, the client's understanding of the server's identity (typically the identity used to establish the transport connection) is called the "reference identity".</t>
+        <t>The client determines the type (e.g., DNS name or IP address) of the reference identity and performs a comparison between the reference identity and each subjectAltName value of the corresponding type until a match is produced.  Once a match is produced, the server's identity has been verified, and the server identity check is complete.  Different subjectAltName types are matched in different ways.  Sections 3.1.3.1 - 3.1.3.3 explain how to compare values of various subjectAltName types.</t>
+        <t>The client may map the reference identity to a different type prior to performing a comparison.  Mappings may be performed for all available subjectAltName types to which the reference identity can be mapped; however, the reference identity should only be mapped to types for which the mapping is either inherently secure (e.g., extracting the DNS name from a URI to compare with a subjectAltName of type dNSName) or for which the mapping is performed in a secure manner (e.g., using <xref target='DNSSEC'/>, or using user- or admin-configured host-to-address/address-to-host lookup tables).</t>
+        <t>The server's identity may also be verified by comparing the reference identity to the Common Name (CN) <xref target='LDAP-SCHEMA'/> value in the last Relative Distinguished Name (RDN) of the subject name field of the server's certificate (where "last" refers to the DER-encoded order, not the order of presentation in a string representation of DER-encoded data).  This comparison is performed using the rules for comparison of DNS names in Section 3.1.3.1, below, with the exception that no wildcard matching is allowed.  Although the use of the Common Name value is existing practice, it is deprecated, and Certification Authorities are encouraged to provide subjectAltName values instead.  Note that the TLS implementation may represent DNs in certificates according to X.500 or other conventions.  For example, some X.500 implementations order the RDNs in a DN using a left-to-right (most significant to least significant) convention instead of LDAP's right-to-left convention.</t>
+        <t>If the server identity check fails, user-oriented clients SHOULD either notify the user (clients may give the user the opportunity to continue with the LDAP session in this case) or close the transport connection and indicate that the server's identity is suspect.  Automated clients SHOULD close the transport connection and then return or log an error indicating that the server's identity is suspect or both.</t>
+        <t>Beyond the server identity check described in this section, clients should be prepared to do further checking to ensure that the server is authorized to provide the service it is requested to provide.  The client may need to make use of local policy information in making this determination.</t>
+        <t>3.1.3.1. Comparison of DNS Names</t>
+        <t>If the reference identity is an internationalized domain name, conforming implementations MUST convert it to the ASCII Compatible Encoding (ACE) format as specified in Section 4 of RFC 3490 <xref target='IDNA2003'/> before comparison with subjectAltName values of type dNSName.  Specifically, conforming implementations MUST perform the conversion operation specified in Section 4 of RFC 3490 as follows:</t>
+        <t>
+          <list style='symbols'>
+            <t>in step 1, the domain name SHALL be considered a "stored string";</t>
+            <t>in step 3, set the flag called "UseSTD3ASCIIRules";</t>
+            <t>in step 4, process each label with the "ToASCII" operation; and</t>
+            <t>in step 5, change all label separators to U+002E (full stop).</t>
+          </list>
+        </t>
+        <t>After performing the "to-ASCII" conversion, the DNS labels and names MUST be compared for equality according to the rules specified in Section 3 of RFC3490.</t>
+        <t>The '*' (ASCII 42) wildcard character is allowed in subjectAltName values of type dNSName, and then only as the left-most (least significant) DNS label in that value.  This wildcard matches any left-most DNS label in the server name.  That is, the subject *.example.com matches the server names a.example.com and b.example.com, but does not match example.com or a.b.example.com.</t>
+        <t>3.1.3.2. Comparison of IP Addresses</t>
+        <t>When the reference identity is an IP address, the identity MUST be converted to the "network byte order" octet string representation <xref target='IP'/> <xref target='IPv6'/>.  For IP Version 4, as specified in RFC 791, the octet string will contain exactly four octets.  For IP Version 6, as specified in RFC 2460, the octet string will contain exactly sixteen octets.  This octet string is then compared against subjectAltName values of type iPAddress.  A match occurs if the reference identity octet string and value octet strings are identical.</t>
+        <t>3.1.3.3. Comparison of Other subjectName Types</t>
+        <t>Client implementations MAY support matching against subjectAltName values of other types as described in other documents.</t>
+        <t>######</t>
+      </section>
+      <section title="SMTP (2002/2007)" anchor="prior-smtp">
+        <t>In 2002, <xref target='SMTP-TLS'/> specified the following text regarding server identity verification in SMTP:</t>
+        <t>######</t>
+        <t>4.1 Processing After the STARTTLS Command</t>
+        <t>[...]</t>
+        <t>The decision of whether or not to believe the authenticity of the other party in a TLS negotiation is a local matter.  However, some general rules for the decisions are:</t>
+        <t>
+          <list style='symbols'>
+            <t>A SMTP client would probably only want to authenticate an SMTP server whose server certificate has a domain name that is the domain name that the client thought it was connecting to.</t>
+          </list>
+        </t>
+        <t>[...]</t>
+        <t>######</t>
+        <t>In 2006, <xref target='SMTP-AUTH'/> specified the following text regarding server identity verification in SMTP:</t>
+        <t>######</t>
+        <t>14. Additional Requirements When Using SASL PLAIN over TLS</t>
+        <t>[...]</t>
+        <t>After a successful <xref target='TLS'/> negotiation, the client MUST check its understanding of the server hostname against the server's identity as presented in the server Certificate message, in order to prevent man-in-the-middle attacks.  If the match fails, the client MUST NOT attempt to authenticate using the SASL PLAIN mechanism.  Matching is performed according to the following rules:</t>
+        <t>
+          <list style='empty'>
+            <t>The client MUST use the server hostname it used to open the connection as the value to compare against the server name as expressed in the server certificate.  The client MUST NOT use any form of the server hostname derived from an insecure remote source (e.g., insecure DNS lookup).  CNAME canonicalization is not done.</t>
+            <t>If a subjectAltName extension of type dNSName is present in the certificate, it SHOULD be used as the source of the server's identity.</t>
+            <t>Matching is case-insensitive.</t>
+            <t>A "*" wildcard character MAY be used as the leftmost name component in the certificate.  For example, *.example.com would match a.example.com, foo.example.com, etc., but would not match example.com.</t>
+            <t>If the certificate contains multiple names (e.g., more than one dNSName field), then a match with any one of the fields is considered acceptable.</t>
+          </list>
+        </t>
+        <t>######</t>
+      </section>
+      <section title="XMPP (2004)" anchor="prior-xmpp">
+        <t>In 2004, <xref target='XMPP'/> specified the following text regarding server identity verification in XMPP:</t>
+        <t>######</t>
+        <t>14.2. Certificate Validation</t>
+        <t>When an XMPP peer communicates with another peer securely, it MUST validate the peer's certificate.  There are three possible cases:</t>
+        <t>
+          <list style='hanging'>
+            <t hangText='Case #1:'>The peer contains an End Entity certificate which appears to be certified by a certification path terminating in a trust anchor (as described in Section 6.1 of <xref target="PKIX"/>).</t>
+            <t hangText='Case #2:'>The peer certificate is certified by a Certificate Authority not known to the validating peer.</t>
+            <t hangText='Case #3:'>The peer certificate is self-signed.</t>
+          </list>
+        </t>
+        <t>In Case #1, the validating peer MUST do one of two things:
+          <list style="numbers">
+            <t>Verify the peer certificate according to the rules of <xref target="PKIX"/>.  The certificate SHOULD then be checked against the expected identity of the peer following the rules described in <xref target="HTTP-TLS"/>, except that a subjectAltName extension of type "xmpp" MUST be used as the identity if present.  If one of these checks fails, user-oriented clients MUST either notify the user (clients MAY give the user the opportunity to continue with the connection in any case) or terminate the connection with a bad certificate error.  Automated clients SHOULD terminate the connection (with a bad certificate error) and log the error to an appropriate audit log.  Automated clients MAY provide a configuration setting that disables this check, but MUST provide a setting that enables it.</t>
+            <t>The peer SHOULD show the certificate to a user for approval, including the entire certification path.  The peer MUST cache the certificate (or some non-forgeable representation such as a hash).  In future connections, the peer MUST verify that the same certificate was presented and MUST notify the user if it has changed.</t>
+          </list>
+        </t>
+        <t>In Case #2 and Case #3, implementations SHOULD act as in (2) above.</t>
+        <t>######</t>
+        <t>At the time of this writing, <xref target='XMPPBIS'/> refers to this document for rules regarding server identity verification in XMPP.</t>
+      </section>
+      <section title="NNTP (2006)" anchor="prior-nntp">
+        <t>In 2006, <xref target='NNTP-TLS'/> specified the following text regarding server identity verification in NNTP:</t>
+        <t>######</t>
+        <t>5. Security Considerations</t>
+        <t>[...]</t>
+        <t>During the TLS negotiation, the client MUST check its understanding of the server hostname against the server's identity as presented in the server Certificate message, in order to prevent man-in-the-middle attacks.  Matching is performed according to these rules:</t>
+        <t>
+          <list style='symbols'>
+            <t>The client MUST use the server hostname it used to open the connection (or the hostname specified in TLS "server_name" extension <xref target='TLS'/>) as the value to compare against the server name as expressed in the server certificate.  The client MUST NOT use any form of the server hostname derived from an insecure remote source (e.g., insecure DNS lookup).  CNAME canonicalization is not done.</t>
+            <t>If a subjectAltName extension of type dNSName is present in the certificate, it SHOULD be used as the source of the server's identity.</t>
+            <t>Matching is case-insensitive.</t>
+            <t>A "*" wildcard character MAY be used as the left-most name component in the certificate.  For example, *.example.com would match a.example.com, foo.example.com, etc., but would not match example.com.</t>
+            <t>If the certificate contains multiple names (e.g., more than one dNSName field), then a match with any one of the fields is considered acceptable.</t>
+          </list>
+        </t>
+        <t>If the match fails, the client SHOULD either ask for explicit user confirmation or terminate the connection with a QUIT command and indicate the server's identity is suspect.</t>
+        <t> Additionally, clients MUST verify the binding between the identity of the servers to which they connect and the public keys presented by those servers.  Clients SHOULD implement the algorithm in Section 6 of <xref target='PKIX'/> for general certificate validation, but MAY supplement that algorithm with other validation methods that achieve equivalent levels of verification (such as comparing the server certificate against a local store of already-verified certificates and identity bindings).</t>
+        <t>######</t>
+      </section>
+      <section title="NETCONF (2006/2009)" anchor="prior-netconf">
+        <t>In 2006, <xref target='NETCONF-SSH'/> specified the following text regarding server identity verification in NETCONF:</t>
+        <t>######</t>
+        <t>6. Security Considerations</t>
+        <t>The identity of the server MUST be verified and authenticated by the client according to local policy before password-based authentication data or any configuration or state data is sent to or received from the server.  The identity of the client MUST also be verified and authenticated by the server according to local policy to ensure that the incoming client request is legitimate before any configuration or state data is sent to or received from the client.  Neither side should establish a NETCONF over SSH connection with an unknown, unexpected, or incorrect identity on the opposite side.</t>
+        <t>######</t>
+        <t>In 2009, <xref target='NETCONF-TLS'/> specified the following text regarding server identity verification in NETCONF:</t>
+        <t>######</t>
+        <t>3.1. Server Identity</t>
+        <t>During the TLS negotiation, the client MUST carefully examine the certificate presented by the server to determine if it meets the client's expectations.  Particularly, the client MUST check its understanding of the server hostname against the server's identity as presented in the server Certificate message, in order to prevent man- in-the-middle attacks.</t>
+        <t>Matching is performed according to the rules below (following the example of <xref target='NNTP-TLS'/>):</t>
+        <t>
+          <list style='symbols'>
+            <t>The client MUST use the server hostname it used to open the connection (or the hostname specified in the TLS "server_name" extension <xref target='TLS'/>) as the value to compare against the server name as expressed in the server certificate.  The client MUST NOT use any form of the server hostname derived from an insecure remote source (e.g., insecure DNS lookup).  CNAME canonicalization is not done.</t>
+            <t>If a subjectAltName extension of type dNSName is present in the certificate, it MUST be used as the source of the server's identity.</t>
+            <t>Matching is case-insensitive.</t>
+            <t>A "*" wildcard character MAY be used as the leftmost name component in the certificate.  For example, *.example.com would match a.example.com, foo.example.com, etc., but would not match example.com.</t>
+            <t>If the certificate contains multiple names (e.g., more than one dNSName field), then a match with any one of the fields is considered acceptable.</t>
+          </list>
+        </t>
+        <t>If the match fails, the client MUST either ask for explicit user confirmation or terminate the connection and indicate the server's identity is suspect.</t>
+        <t>Additionally, clients MUST verify the binding between the identity of the servers to which they connect and the public keys presented by those servers.  Clients SHOULD implement the algorithm in Section 6 of <xref target='PKIX'/> for general certificate validation, but MAY supplement that algorithm with other validation methods that achieve equivalent levels of verification (such as comparing the server certificate against a local store of already-verified certificates and identity bindings).</t>
+        <t>If the client has external information as to the expected identity of the server, the hostname check MAY be omitted.</t>
+        <t>######</t>
+      </section>
+      <section title="Syslog (2009)" anchor="prior-syslog">
+        <t>In 2009, <xref target='SYSLOG-TLS'/> specified the following text regarding server identity verification in Syslog:</t>
+        <t>######</t>
+        <t>5.2. Subject Name Authorization</t>
+        <t>Implementations MUST support certification path validation <xref target='PKIX'/>.  In addition, they MUST support specifying the authorized peers using locally configured host names and matching the name against the certificate as follows.</t>
+        <t>
+          <list style='symbols'>
+            <t>Implementations MUST support matching the locally configured host name against a dNSName in the subjectAltName extension field and SHOULD support checking the name against the common name portion of the subject distinguished name.</t>
+            <t>The '*' (ASCII 42) wildcard character is allowed in the dNSName of the subjectAltName extension (and in common name, if used to store the host name), but only as the left-most (least significant) DNS label in that value.  This wildcard matches any left-most DNS label in the server name.  That is, the subject *.example.com matches the server names a.example.com and b.example.com, but does not match example.com or a.b.example.com.  Implementations MUST support wildcards in certificates as specified above, but MAY provide a configuration option to disable them.</t>
+            <t>Locally configured names MAY contain the wildcard character to match a range of values.  The types of wildcards supported MAY be more flexible than those allowed in subject names, making it possible to support various policies for different environments.  For example, a policy could allow for a trust-root-based authorization where all credentials issued by a particular CA trust root are authorized.</t>
+            <t>If the locally configured name is an internationalized domain name, conforming implementations MUST convert it to the ASCII Compatible Encoding (ACE) format for performing comparisons, as specified in Section 7 of <xref target='PKIX'/>.</t>
+            <t>Implementations MAY support matching a locally configured IP address against an iPAddress stored in the subjectAltName extension.  In this case, the locally configured IP address is converted to an octet string as specified in <xref target='PKIX'/>, Section 4.2.1.6.  A match occurs if this octet string is equal to the value of iPAddress in the subjectAltName extension.</t>
+          </list>
+        </t>
+        <t>######</t>
+      </section>
+      <section title="SIP (2010)" anchor="prior-sip">
+        <t>At the time of this writing, <xref target='SIP-CERTS'/> specified text regarding server identity verification in the Session Initiation Protocol (SIP).  However, that specification has not yet been approved by the IESG and text cannot be considered final.</t>
+        <t>The relevant text follows.</t>
+        <t>######</t>
+        <t>7.2. Comparing SIP Identities</t>
+        <t>When an implementation (either client or server) compares two values as SIP domain identities:
+          <list style='empty'>
+            <t>Implementations MUST compare only the DNS name component of each SIP domain identifier; an implementation MUST NOT use any scheme or parameters in the comparison.</t>
+            <t>Implementations MUST compare the values as DNS names, which means that the comparison is case insensitive as specified by <xref target="DNS-CASE"/>.  Implementations MUST handle Internationalized Domain Names (IDNs) in accordance with Section 7.2 of <xref target="PKIX"/>.</t>
+            <t>Implementations MUST match the values in their entirety:
+              <list>
+                <t>Implementations MUST NOT match suffixes.  For example, "foo.example.com" does not match "example.com".</t>
+                <t>Implemenations MUST NOT match any form of wildcard, such as a leading "." or "*." with any other DNS label or sequence of labels.  For example, "*.example.com" matches only "*.example.com" but not "foo.example.com".   Similarly, ".example.com" matches only ".example.com", and does not match "foo.example.com."
+                  <list style="empty">
+                    <t><xref target="HTTP-TLS"/> allows the dNSName component to contain a wildcard; e.g., "DNS:*.example.com".  <xref target="PKIX"/>, while not disallowing this explicitly, leaves the interpretation of wildcards to the individual specification.  <xref target="SIP"/> does not provide any guidelines on the presence of wildcards in certificates.  Through the rule above, this document prohibits such wildcards in certificates for SIP domains.</t>
+                  </list>
+                </t>
+              </list>
+            </t>
+          </list>
+        </t>
+        <t>######</t>
+      </section>
+      <section title="GIST (2010)" anchor="prior-gist">
+        <t>In 2010, <xref target='GIST'/> specified the following text regarding server identity verification in the General Internet Signalling Transport:</t>
+        <t>######</t>
+        <t>5.7.3.1. Identity Checking in TLS</t>
+        <t>After TLS authentication, a node MUST check the identity presented by the peer in order to avoid man-in-the-middle attacks, and verify that the peer is authorised to take part in signalling at the GIST layer.  The authorisation check is carried out by comparing the presented identity with each Authorised Peer Database (APD) entry in turn, as discussed in Section 4.4.2.  This section defines the identity comparison algorithm for a single APD entry.</t>
+        <t>For TLS authentication with X.509 certificates, an identity from the DNS namespace MUST be checked against each subjectAltName extension of type dNSName present in the certificate.  If no such extension is present, then the identity MUST be compared to the (most specific) Common Name in the Subject field of the certificate.  When matching DNS names against dNSName or Common Name fields, matching is case- insensitive.  Also, a "*" wildcard character MAY be used as the left- most name component in the certificate or identity in the APD.  For example, *.example.com in the APD would match certificates for a.example.com, foo.example.com, *.example.com, etc., but would not match example.com.  Similarly, a certificate for *.example.com would be valid for APD identities of a.example.com, foo.example.com, *.example.com, etc., but not example.com.</t>
+        <t>Additionally, a node MUST verify the binding between the identity of the peer to which it connects and the public key presented by that peer.  Nodes SHOULD implement the algorithm in Section 6 of [PKIX] for general certificate validation, but MAY supplement that algorithm with other validation methods that achieve equivalent levels of verification (such as comparing the server certificate against a local store of already-verified certificates and identity bindings).</t>
+        <t>For TLS authentication with pre-shared keys, the identity in the psk_identity_hint (for the server identity, i.e. the Responding node) or psk_identity (for the client identity, i.e. the Querying node) MUST be compared to the identities in the APD.</t>
+        <t>######</t>
+      </section>
+    </section>
+
+  </back>
+</rfc>

@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Organizational Documents</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Organizational Documents</h2>
+<p>The Jabber Software Foundation (JSF) was incorporated in August 2001 and renamed to the XMPP Standards Foundation (XSF) in January 2007. Scanned copies of the following documents are provided online for complete documentation of the legal status of the XSF:</p>
+<ul>
+  <li><p><a href='bylaws.shtml'>Bylaws</a> -- the defining document for the XMPP Standards Foundation</p></li>
+  <li><p><a href='JSF-Certificate-Of-Incorporation.pdf'>Certificate of Incorporation</a> -- note that this shows the organization name as "The Jabber Foundation" (the State of Delaware requested a change to this name at the last minute, and the name "The Jabber Software Foundation" was chosen by the incorporator)</p></li>
+  <li><p><a href='JSF-Incorporation-Name.pdf'>Incorporation Name</a> -- a letter from Gray, Plant, Mooty, Mooty &amp; Bennett showing the official incorporation name of "The Jabber Software Foundation"</p></li>
+  <li><p><a href='XSF-Certificate-Of-Amendment-Name.pdf'>Certificate of Amendment for Name Change</a> -- the Certificate of Amendment submitted to the State of Delaware on 2007-01-09 regarding the organizational name change to "The XMPP Standards Foundation"</p></li>
+  <li><p><a href='XSF-Certificate-Of-Amendment-Name-Certified.pdf'>Certificate of Amendment for Name Change (Certified)</a> -- official Certification from the State of Delaware regarding the organizational name change to "The XMPP Standards Foundation"</p></li>
+  <li><p><a href='XSF-Certificate-Of-Amendment-Purposes.pdf'>Certificate of Amendment for Change of Organizational Purposes</a> -- the Certificate of Amendment submitted to the State of Delaware on 2007-03-20 regarding modification of Section 3 of the Certificate of Incorporation</p></li>
+  <li><p><a href='XSF-Certificate-Of-Amendment-Purposes-Certified.pdf'>Certificate of Amendment for Change of Organizational Purposes (Certified)</a> -- official Certification from the State of Delaware regarding modification of Section 3 of the Certificate of Incorporation</p></li>
+  <li><p><a href='JSF-Articles-Of-Incorporation.pdf'>Articles of Incorporation</a> -- the articles of incorporation of the Jabber Software Foundation, signed by the original Board of Directors</p></li>
+  <li><p><a href='JSF-Initial-Board-Action.pdf'>Initial Board Action</a> -- the Board action taken to accept the <a href='JSF-Initial-Bylaws.pdf'>Initial Bylaws</a>, signed by the Board of Directors</p></li>
+  <li><p><a href='JSF-Trade-Name.pdf'>Trade Name</a> -- the JSF's trade name as registered with the State of Colorado</p></li>
+  <li><p><a href='JSF-EIN.pdf'>Employer Identification Number</a> -- the JSF's Employer Identification Number as issued by the Internal Revenue Service</p></li>
+  <li><p><a href='XSF-Tax-Exempt-Ruling-2007.pdf'>Tax-Exempt Ruling</a> -- the positive ruling received from the Internal Revenue Service regarding the XSF's application for tax-exempt status</p></li>
+</ul>
+<p>Note: The original incorporator was the first Executive Director, Michael Bauer (then affiliated with Jabber Inc.), who worked with the law firm of Gray, Plant, Mooty, Mooty &amp; Bennett on the incorporation. The initial Board of Directors consisted of Andre Durand (then of Jabber Inc.), James Barry (then of CollabNet), Jeremie Miller (inventor of Jabber technologies), and Dan Powers (then of IBM). The initial officers of the JSF were Michael Bauer (Executive Director), Andre Durand (Chair of the Board), Peter Saint-Andre (Secretary), and Stuart Lucko (Treasurer). Since that time, the various officers and Board members have changed in accordance with the procedures defined in the organization's <a href='bylaws.shtml'>Bylaws</a>.</p>
+<p>If you have any questions about these documents, please contact <a href="/xsf/director.shtml">Peter Saint-Andre</a>, Executive Director of the XSF.</p>
+<!--#include virtual="/includes/foot.txt" -->

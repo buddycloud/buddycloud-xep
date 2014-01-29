@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Intermediate Certification Authority</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Intermediate Certification Authority</h2>
+<p>The <a href='/xsf/'>XMPP Standards Foundation</a>, in cooperation with <a href='http://www.startssl.com/'>StartCom</a>, issues free domain certificates to administrators of XMPP-based services. Our goal is to make the XMPP network the most secure open communications network on the Internet. To find out more, visit any of the following pages:</p>
+<ul>
+  <li><a href='issuance.shtml'>Certificate Issuance HOWTO</a></li>
+  <li><a href='installation.shtml'>Certificate Installation HOWTO</a></li>
+  <li><a href='developers.shtml'>Information for XMPP Developers</a></li>
+</ul>
+<p>The XMPP Intermediate Certification Authority is a service of the <a href='/xsf/'>XMPP Standards Foundation</a>, as defined in the <a href='/xsf/proposals/ica-proposal.shtml'>ICA Proposal</a> approved by the XSF membership on 2006-11-28.</p>
+<!--#include virtual="/includes/caboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

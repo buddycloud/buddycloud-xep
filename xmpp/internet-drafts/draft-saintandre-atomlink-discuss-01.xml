@@ -1,0 +1,528 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc compact="yes"?>
+<?rfc strict="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="3"?>
+<rfc category="std" docName="draft-saintandre-atomlink-discuss-01" ipr="trust200902">
+
+  <front>
+    <title abbrev="Atom Link Relation: Discuss">Atom Link Relation: Discuss</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization abbrev="XSF">XMPP Standards Foundation</organization>
+      <address>
+        <postal>
+          <street>P.O. Box 1641</street>
+          <city>Denver</city>
+          <region>CO</region>
+          <code>80201</code>
+          <country>USA</country>
+        </postal>
+        <email>stpeter@jabber.org</email>
+        <uri>xmpp:stpeter@jabber.org</uri>
+      </address>
+    </author>
+    <date year="2008" month="May" day="29"/>
+    <area>Applications</area>
+    <keyword>Atom</keyword>
+    <abstract>
+      <t>This specification defines a link relation that enables an Atom document to point to a venue for multi-party discussion of the document or its primary topic.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <t>Atom <xref target='ATOM'/> is an XML-based document format that describes lists of related information known as "feeds".  Feeds are composed of a number of items, known as "entries", each with an extensible set of attached metadata.  Such metadata can include links to other resources, which are primarily defined by Uniform Resource Indentifiers <xref target='URI'/> or Internationalized Resource Indentifiers <xref target='IRI'/>.  A link can be secondarily defined as partaking in a specific kind of relationship to the document.  This specification defines a new link relation, "discuss", which can be used to point to Internet resources where a person can actively engage in a multi-party discussion or conversation about the document itself or the primary topic covered by the document.</t>
+    </section>
+
+    <section title="Notational Conventions" anchor="notation">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target='TERMS'/>.</t>
+      <t>This specification allows the use of Internationalized Resource Identifiers <xref target='IRI'/>.  Every Uniform Resource Identifier <xref target='URI'/> is also an IRI, so a URI may be used wherever an IRI is named.  When an IRI that is not also a URI is given for dereferencing, it MUST be mapped to a URI using the steps in Section 3.1 of <xref target='URI'/>.  When an IRI is serving as an identifier, it MUST NOT be so mapped.</t>
+    </section>
+
+    <section title="The 'discuss' Link Relation" anchor="relation">
+      <t>An Atom link element with a rel attribute value of "discuss" is used to reference an Internet resource where multi-party discussion of the feed, entry, or source can occur.  In the terminology of this specification, such a resource is called a "venue".  Such venues might include, but are not limited to, the following:</t>
+      <t>
+        <list style='symbols'>
+          <t>Electronic mail discussion lists</t>
+          <t>NetNews discussion boards (see <xref target='NNTP'/>)</t>
+          <t>Internet Relay Chat channels (see <xref target='IRC'/>)</t>
+          <t>Web-based forums accessible via the Hypertext Transport Protocol (see <xref target='HTTP'/>)</t>
+          <t>Multi-user chat rooms based on the Extensible Messaging and Presence Protocol (see <xref target='MUC'/> and <xref target='XMPP'/>)</t>
+          <t>Multi-user chat rooms based on the Message Session Relay Protocol (see <xref target='MSRP'/>)</t>
+          <t>Voice or video conference rooms based on the Session Initiation Protocol (see <xref target='SIP'/>)</t>
+        </list>
+      </t>
+      <t>The use of the "discuss" relation enables a person who receives an Atom feed or entry to discover a venue where the person can engage in a conversation about the feed or entry with interested others.  This use case is not currently addressed by any existing Atom link relation, which to date address use cases such as reading background material (the "related" relation) or following other people's comments (the "replies" relation) rather than actively engaging in a conversation or discussion about the feed or entry.</t>
+      <t>It is expected that a link relation of type "discuss" would be presented to a human user in such a way that the user would understand that following the link would result in joining an active discussion venue rather than accessing a static resource.</t>
+      <t>If the rel attribute has a value of "discuss" but the type attribute of the atom:link is omitted, no type value shall be assumed.</t>
+      <t>Although Atom feed, entry, and source elements MAY each contain any number of atom:link elements using the "discuss" link relation, this specification assigns no significance to the presence or order of such links.  Multiple discuss links appearing within an atom:entry may reference alternative representations of the same venue or may reference entirely distinct venues containing distinct conversations.  Processors MUST NOT assume that multiple discuss links make reference to different representations of the same venue and MUST process each discuss link independently of any others.</t>
+    </section>
+
+    <section title="Example" anchor="example">
+      <t>The following example shows an Atom entry that contains numerous links related to the ejabberd XMPP server project.  The resources identified by the links are as follows:</t>
+      <t>
+        <list style='symbols'>
+          <t>An XMPP publish-subscribe node (see <xref target='PUBSUB'/>) where a user can subscribe to real-time updates to the feed (see <xref target='ATOMSUB'/>).</t>
+          <t>An XMPP publish-subscribe node (see <xref target='PUBSUB'/>) where a user can subscribe to real-time updates to the feed of comments on the entry (see <xref target='THREADING'/> and <xref target='ATOMSUB'/>).</t>
+          <t>An XMPP chatroom.</t>
+          <t>An email discussion list.</t>
+          <t>A NetNews discussion board.</t>
+          <t>A web forum.</t>
+          <t>Two web pages containing background information.</t>
+        </list>
+      </t>
+      <figure>
+        <artwork><![CDATA[
+<entry xmlns='http://www.w3.org/2005/Atom'>
+  <source>
+    <title>Example.org Admin Feed</title>
+    <link href='http://example.org/'/>
+    <link rel='self' 
+          type='application/atom+xml'
+          href='http://example.org/atom.xml'/>
+    <id>tag:example.org,2008:home</id>
+    <updated>2008-05-27T17:30:03Z</updated>
+    <author>
+      <name>Example.org Admin Team</name>
+    </author>
+  </source>
+  <title>Service Upgrade</title>
+  <summary>We have upgraded to ejabberd 2.0</summary>
+  <link rel='alternate' 
+        type='text/html'
+        href='http://example.org/2008/05/27/atom03'/>
+  <link rel='alternate'
+        href='xmpp:pubsub.example.com?;node=admin-feed'
+        label='Real-time admin feed'/>
+  <link rel='replies'
+        href='xmpp:pubsub.example.com?;node=admin-comments'
+        label='Real-time comments on the admin feed'/>
+  <link rel='discuss'
+        href='xmpp:ejabberd@conference.jabber.ru?join'
+        label='Real-time chatroom about ejabberd'/>
+  <link rel='discuss'
+        href='mailto:ejabberd@jabber.ru'
+        label='Email discussion list about ejabberd'/>
+  <link rel='discuss'
+        href='news://news.gmane.org/gmane.network.jabber.ejabberd'
+        label='Newsgroup about ejabberd'/>
+  <link rel='discuss'
+        href='http://www.ejabberd.im/forum'
+        label='Web forum about ejabberd'/>
+  <link rel='related'
+        href='http://ejabberd.im/'
+        label='Project homepage for ejabberd'/>
+  <link rel='related'
+        href='http://en.wikipedia.org/wiki/Ejabberd'
+        label='Wikipedia page about ejabberd'/>
+  <id>tag:example.org,2008:entry-32397</id>
+  <published>2008-05-27T17:30:03Z</published>
+  <updated>2008-05-27T17:30:03Z</updated>
+</entry>
+        ]]></artwork>
+      </figure>
+      <t>Notice that without the "discuss" relation it would be difficult to differentiate among some of these links and that the "discuss" links can be differentiated via the URI schemes.  In particular:</t>
+      <t>
+        <list style='symbols'>
+          <t>The entry contains three links to XMPP entities, which can be differentiated by the relation ("alternate" vs. "replies" vs. "discuss").</t>
+          <t>The entry contains four "discuss" links, which can be differentiated via the URI scheme ("xmpp" vs. "mailto" vs. "nntp" vs. "http").</t>
+          <t>The entry contains three links to HTTP resources, which can be differentiated via the relation type ("discuss" vs. "related").</t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Security Considerations" anchor="security">
+      <t>This document introduces few additional security considerations beyond those associated with the use and resolution of URIs/IRIs in general.</t>
+      <t>However, depending on the technology used and the local service policy at a particular installation, a venue for multi-party discussion may expose personally-identifying information about the participants (e.g., IP addresses), may be public in the sense that anyone can join the venue, and may archive the conversations that occur in the venue either privately or publicly (e.g., on the World Wide Web).  An Atom user agent or the appropriate helper application should warn a human user about the possibility of information exposure and public archiving.</t>
+    </section>
+
+    <section title="IANA Considerations" anchor="iana">
+      <t>This specification defines one new Atom link relation type, which shall be registered in the IANA Registry of Atom Link Relations, as defined by <xref target='ATOM'/>.</t>
+      <t>
+        <list style="hanging">
+          <t hangText="Attribute value:">discuss</t>
+          <t hangText="Description:">(see <xref target='relation'/>)</t>
+          <t hangText="Expected display characteristics:">(see <xref target='relation'/>)</t>
+          <t hangText="Security considerations:">(see <xref target='security'/>)</t>
+        </list>
+      </t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+<reference anchor="ATOM">
+<front>
+<title>The Atom Syndication Format</title>
+<author initials='M.' surname='Nottingham' fullname='M. Nottingham'>
+<organization /></author>
+<author initials='R.' surname='Sayre' fullname='R. Sayre'>
+<organization /></author>
+<date year='2005' month='December' /></front>
+<seriesInfo name='RFC' value='4287' />
+<format type='TXT' octets='81922' target='ftp://ftp.isi.edu/in-notes/rfc4287.txt' />
+</reference>
+
+<reference anchor='TERMS'>
+<front>
+<title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+<author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+<organization>Harvard University</organization>
+<address>
+<postal>
+<street>1350 Mass.  Ave.</street>
+<street>Cambridge</street>
+<street>MA 02138</street></postal>
+<phone>- +1 617 495 3864</phone>
+<email>sob@harvard.edu</email></address></author>
+<date year='1997' month='March' />
+<area>General</area>
+<keyword>keyword</keyword>
+<abstract>
+<t>
+   In many standards track documents several words are used to signify
+   the requirements in the specification.  These words are often
+   capitalized.  This document defines these words as they should be
+   interpreted in IETF documents.  Authors who follow these guidelines
+   should incorporate this phrase near the beginning of their document:
+
+<list>
+<t>
+      The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+      NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in
+      RFC 2119.
+</t></list></t>
+<t>
+   Note that the force of these words is modified by the requirement
+   level of the document in which they are used.
+</t></abstract></front>
+<seriesInfo name='BCP' value='14' />
+<seriesInfo name='RFC' value='2119' />
+<format type='TXT' octets='4723' target='ftp://ftp.isi.edu/in-notes/rfc2119.txt' />
+<format type='HTML' octets='17491' target='http://xml.resource.org/public/rfc/html/rfc2119.html' />
+<format type='XML' octets='5777' target='http://xml.resource.org/public/rfc/xml/rfc2119.xml' />
+</reference>
+
+<reference anchor="URI">
+<front>
+<title>Uniform Resource Identifier (URI): Generic Syntax</title>
+<author initials='T.' surname='Berners-Lee' fullname='T. Berners-Lee'>
+<organization /></author>
+<author initials='R.' surname='Fielding' fullname='R. Fielding'>
+<organization /></author>
+<author initials='L.' surname='Masinter' fullname='L. Masinter'>
+<organization /></author>
+<date year='2005' month='January' /></front>
+<seriesInfo name='STD' value='66' />
+<seriesInfo name='RFC' value='3986' />
+<format type='TXT' octets='141811' target='ftp://ftp.isi.edu/in-notes/rfc3986.txt' />
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor='ATOMSUB'>
+<front>
+<title>Atomsub: Transporting Atom Notifications over the Publish-Subscribe Extension to the Extensible Messaging and Presence Protocol (XMPP)</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<author initials='J' surname='Hildebrand' fullname='Joe Hildebrand'>
+    <organization />
+</author>
+<author initials='B' surname='Wyman' fullname='Bob'>
+    <organization />
+</author>
+<date month='May' day='7' year='2008' />
+<abstract><t>This memo describes a method for notifying interested parties about changes in syndicated information encapsulated in the Atom feed format, where such notifications are delivered via an extension to the Extensible Messaging and Presence Protocol (XMPP) for publish- subscribe functionality.</t></abstract>
+
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-atompub-notify-06' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-saintandre-atompub-notify-06.txt' />
+</reference>
+
+<reference anchor='HTTP'>
+<front>
+<title abbrev='HTTP/1.1'>Hypertext Transfer Protocol -- HTTP/1.1</title>
+<author initials='R.' surname='Fielding' fullname='Roy T.  Fielding'>
+<organization abbrev='UC Irvine'>Department of Information and Computer Science</organization>
+<address>
+<postal>
+<street>University of California, Irvine</street>
+<city>Irvine</city>
+<region>CA</region>
+<code>92697-3425</code></postal>
+<facsimile>+1(949)824-1715</facsimile>
+<email>fielding@ics.uci.edu</email></address></author>
+<author initials='J.' surname='Gettys' fullname='James Gettys'>
+<organization abbrev='Compaq/W3C'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>jg@w3.org</email></address></author>
+<author initials='J.' surname='Mogul' fullname='Jeffrey C.  Mogul'>
+<organization abbrev='Compaq'>Compaq Computer Corporation</organization>
+<address>
+<postal>
+<street>Western Research Laboratory</street>
+<street>250 University Avenue</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94305</code></postal>
+<email>mogul@wrl.dec.com</email></address></author>
+<author initials='H.' surname='Frystyk' fullname='Henrik Frystyk Nielsen'>
+<organization abbrev='MIT/LCS'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>frystyk@w3.org</email></address></author>
+<author initials='L.' surname='Masinter' fullname='Larry Masinter'>
+<organization abbrev='Xerox'>Xerox Corporation</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>3333 Coyote Hill Road</street>
+<city>Palo Alto</city>
+<region>CA</region>
+<code>94034</code></postal>
+<email>masinter@parc.xerox.com</email></address></author>
+<author initials='P.' surname='Leach' fullname='Paul J.  Leach'>
+<organization abbrev='Microsoft'>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>1 Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code></postal>
+<email>paulle@microsoft.com</email></address></author>
+<author initials='T.' surname='Berners-Lee' fullname='Tim Berners-Lee'>
+<organization abbrev='MIT/LCS'>World Wide Web Consortium</organization>
+<address>
+<postal>
+<street>MIT Laboratory for Computer Science, NE43-356</street>
+<street>545 Technology Square</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02139</code></postal>
+<facsimile>+1(617)258-8682</facsimile>
+<email>timbl@w3.org</email></address></author>
+<date month='June' year='1999' />
+<abstract>
+<t>
+   The Hypertext Transfer Protocol (HTTP) is an application-level
+   protocol for distributed, collaborative, hypermedia information
+   systems.  It is a generic, stateless, protocol which can be used for
+   many tasks beyond its use for hypertext, such as name servers and
+   distributed object management systems, through extension of its
+   request methods, error codes and headers .  A feature of HTTP is
+   the typing and negotiation of data representation, allowing systems
+   to be built independently of the data being transferred.
+</t>
+<t>
+   HTTP has been in use by the World-Wide Web global information
+   initiative since 1990.  This specification defines the protocol
+   referred to as "HTTP/1.1", and is an update to RFC 2068 .
+</t></abstract></front>
+<seriesInfo name='RFC' value='2616' />
+<format type='TXT' octets='422317' target='ftp://ftp.isi.edu/in-notes/rfc2616.txt' />
+<format type='PS' octets='5529857' target='ftp://ftp.isi.edu/in-notes/rfc2616.ps' />
+<format type='PDF' octets='550558' target='ftp://ftp.isi.edu/in-notes/rfc2616.pdf' />
+<format type='HTML' octets='498891' target='http://xml.resource.org/public/rfc/html/rfc2616.html' />
+<format type='XML' octets='471630' target='http://xml.resource.org/public/rfc/xml/rfc2616.xml' />
+</reference>
+
+<reference anchor='IRC'>
+<front>
+<title>Internet Relay Chat Protocol</title>
+<author initials='J.' surname='Oikarinen' fullname='Jarkko Oikarinen'>
+<organization />
+<address>
+<postal>
+<street>Tuirantie 17 as 9</street>
+<city>Oulu</city>
+<region />
+<code>90500</code>
+<country>FI</country></postal>
+<email>jto@tolsun.oulu.fi</email></address></author>
+<author initials='D.' surname='Reed' fullname='Darren Reed'>
+<organization />
+<address>
+<postal>
+<street>4 Pateman Street</street>
+<city>Watsonia</city>
+<region>Victoria</region>
+<code>3087</code>
+<country>AU</country></postal>
+<email>avalon@coombs.anu.edu.au</email></address></author>
+<date month='May' year='1993' />
+<abstract>
+<t>The IRC protocol was developed over the last 4 years since it was first implemented as a means for users on a BBS to chat amongst themselves.  Now it supports a world-wide network of servers and clients, and is stringing to cope with growth. Over the past 2 years, the average number of users connected to the main IRC network has grown by a factor of 10.</t>
+<t>The IRC protocol is a text-based protocol, with the simplest client being any socket program capable of connecting to the server.</t></abstract></front>
+<seriesInfo name='RFC' value='1459' />
+<format type='TXT' octets='138964' target='ftp://ftp.isi.edu/in-notes/rfc1459.txt' />
+</reference>
+
+<reference anchor="IRI">
+<front>
+<title>Internationalized Resource Identifiers (IRIs)</title>
+<author initials='M.' surname='Duerst' fullname='M. Duerst'>
+<organization /></author>
+<author initials='M.' surname='Suignard' fullname='M. Suignard'>
+<organization /></author>
+<date year='2005' month='January' /></front>
+<seriesInfo name='RFC' value='3987' />
+<format type='TXT' octets='111190' target='ftp://ftp.isi.edu/in-notes/rfc3987.txt' />
+</reference>
+
+<reference anchor='MSRP'>
+<front>
+<title>The Message Session Relay Protocol (MSRP)</title>
+<author initials='B.' surname='Campbell' fullname='B.  Campbell'>
+<organization /></author>
+<author initials='R.' surname='Mahy' fullname='R.  Mahy'>
+<organization /></author>
+<author initials='C.' surname='Jennings' fullname='C.  Jennings'>
+<organization /></author>
+<date year='2007' month='September' />
+<abstract>
+<t>This document describes the Message Session Relay Protocol, a protocol for transmitting a series of related instant messages in the context of a session.  Message sessions are treated like any other media stream when set up via a rendezvous or session creation protocol such as the Session Initiation Protocol.  [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4975' />
+<format type='TXT' octets='144254' target='ftp://ftp.isi.edu/in-notes/rfc4975.txt' />
+</reference>
+
+<reference anchor="MUC">
+  <front>
+    <title>Multi-User Chat</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="10" month="April" year="2007"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0045"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0045.html"/>
+</reference>
+
+<reference anchor='NNTP'>
+<front>
+<title>Network News Transfer Protocol (NNTP)</title>
+<author initials='C.' surname='Feather' fullname='C. Feather'>
+<organization /></author>
+<date year='2006' month='October' />
+<abstract>
+<t>The Network News Transfer Protocol (NNTP) has been in use in the Internet for a decade, and remains one of the most popular protocols (by volume) in use today.  This document is a replacement for RFC 977, and officially updates the protocol specification.  It clarifies some vagueness in RFC 977, includes some new base functionality, and provides a specific mechanism to add standardized extensions to NNTP. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='3977' />
+<format type='TXT' octets='247440' target='ftp://ftp.isi.edu/in-notes/rfc3977.txt' />
+</reference>
+
+<reference anchor="PUBSUB">
+  <front>
+    <title>Publish-Subscribe</title>
+    <author initials="P." surname="Millard" fullname="Peter Millard">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email/>
+      </address>
+    </author>
+    <author initials="R." surname="Meijer" fullname="Ralph Meijer">
+      <organization/>
+      <address>
+        <email>ralphm@ik.nu</email>
+      </address>
+    </author>
+    <date day="5" month="March" year="2008"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0060"/>
+  <format type="HTML" target="http://www.xmpp.org/extensions/xep-0060.html"/>
+</reference>
+
+<reference anchor='SIP'>
+<front>
+<title>SIP: Session Initiation Protocol</title>
+<author initials='J.' surname='Rosenberg' fullname='J.  Rosenberg'>
+<organization /></author>
+<author initials='H.' surname='Schulzrinne' fullname='H.  Schulzrinne'>
+<organization /></author>
+<author initials='G.' surname='Camarillo' fullname='G.  Camarillo'>
+<organization /></author>
+<author initials='A.' surname='Johnston' fullname='A.  Johnston'>
+<organization /></author>
+<author initials='J.' surname='Peterson' fullname='J.  Peterson'>
+<organization /></author>
+<author initials='R.' surname='Sparks' fullname='R.  Sparks'>
+<organization /></author>
+<author initials='M.' surname='Handley' fullname='M.  Handley'>
+<organization /></author>
+<author initials='E.' surname='Schooler' fullname='E.  Schooler'>
+<organization /></author>
+<date year='2002' month='June' />
+<abstract>
+<t>This document describes Session Initiation Protocol (SIP), an application-layer control (signaling) protocol for creating, modifying, and terminating sessions with one or more participants.  These sessions include Internet telephone calls, multimedia distribution, and multimedia conferences.  [STANDARDS TRACK] </t></abstract></front>
+<seriesInfo name='RFC' value='3261' />
+<format type='TXT' octets='647976' target='ftp://ftp.isi.edu/in-notes/rfc3261.txt' />
+</reference>
+
+<reference anchor='THREADING'>
+<front>
+<title>Atom Threading Extensions</title>
+<author initials='J.' surname='Snell' fullname='J. Snell'>
+<organization /></author>
+<date year='2006' month='September' />
+<abstract>
+<t>This memo presents a mechanism that allows feeds publishers to express threaded discussions within the Atom Syndication Format. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4685' />
+<format type='TXT' octets='24403' target='ftp://ftp.isi.edu/in-notes/rfc4685.txt' />
+</reference>
+
+<reference anchor="XMPP">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3920' />
+  <format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+</reference>
+
+    </references>
+
+    <section title="Acknowledgements" anchor="acks">
+      <t>The author wishes to thank Frank Ellerman, Sylvain Hellegouarch, Aristotle Pagaltzis, Brian Smith, and James Snell for their feedback.</t>
+    </section>
+
+    <section title="Copying Conditions" anchor="copying">
+      <t>Regarding this entire document or any portion of it, the author makes no guarantees and is not responsible for any damage resulting from its use.  The author grants irrevocable permission to anyone to use, modify, and distribute it in any way that does not diminish the rights of anyone else to use, modify, and distribute it, provided that redistributed derivative works do not contain misleading author or version information.  Derivative works need not be licensed under similar terms.</t>
+    </section>
+
+  </back>
+
+</rfc>

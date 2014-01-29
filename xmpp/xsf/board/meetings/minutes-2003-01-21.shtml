@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2003-01-21 @ 17:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 17:05 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Michael Bauer</li>
+<li>Ryan Eatmon</li>
+<li>Jeremie Miller</li>
+<li>Marco Palombi</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>All Board members were in attendance. Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>2002 Annual Report</p>
+    <p>Michael and Peter are working on an annual report summarizing JSF achievements and Jabber community progress for 2002. It will be published by the end of January and will be part of the information package sent to prospective sponsors.</p>
+  </li>
+  <li>
+    <p>Sponsorship Program</p>
+    <p>The current sponsorship document is acceptable. Discussed the need to begin implementing a process for contacting prospective sponsors, with a somewhat different pitch depending on whether the company is a software development company, a large enterprise, or a service provider. Peter has a list of potential sponsors and will also contact the membership about sharing leads as well. Michael (as Chair) is the single point of contact for communicating with prospective sponsors.</p>
+  </li>
+  <li>
+    <p>Roadmap</p>
+    <p>Discussed the desirability of formulating an overall roadmap for the Jabber community. Best to focus only on 2003, since things change so fast. Best to work on this from the bottom up through roadmaps from Compliance, Marketing, and the Council. Discussed the importance of the wireless space and protocols to make inroads there (e.g., data compression and support for non-persistent connections); forward this to the Council for consideration.</p>
+  </li>
+  <li>
+    <p>Jabber Trademark</p>
+    <p>Discussed the need for refining the guidelines regarding use of the Jabber name in product and project names. Tony will forward to the Board later today a framework document for the trademark agreement, to be discussed by the Board. Also need to define an application process. The Board will deputize a Trademark Committee made up of Board members to oversee the trademark area, with a rotating Chairmanship. The Board will also create a Trademark Team from among the membership to advise the Trademark Committee, but final authority will rest with the Committee.</p>
+  </li>
+  <li>
+    <p>Compliance Team</p>
+    <p>Good progress being made recently by Ed Coughlin, new head of the Compliance Team. The Board expressed some concern that the compliance testing process not become too complicated and thus unwieldy to implement. Need to define the application process for getting in the queue for testing, as well as scheduling for beta testing of the testing process. A 2003 roadmap from the team would be very helpful, as would a report on 2002 activities (does not have to be big, one page would be fine).</p>
+  </li>
+  <li>
+    <p>Marketing Team</p>
+    <p>Discussed the proposed logo contest; consensus that this is a good idea and worth paying for (cash prize to designer of winning entry). Discussion of whether the contest rules should prohibit or discourage entries that use a light bulb theme; consensus that it is best not to constrain entries, although it would be desirable for the winner to not be too similar to existing graphical treatments (e.g., the light bulb logo used by Jabber, Inc.). Discussed the desirability of having a Jabber presence at various tradeshows (e.g., O'Reilly Open Source Convention and Instant Messaging Planet conferences). Focused participation in such events should be a priority. Tony brought up potential contribution of time and money from Jabber, Inc. with regard to some marketing activities; to be discussed further on the list and in person between JSF and Jabber, Inc. representatives. As with the Compliance Team, a 2002 report and 2003 roadmap would be helpful.</p>
+  </li>
+  <li>
+    <p>Jabber Council</p>
+    <p>Good progress in 2002, especially by the second Council. Here again a 2003 roadmap would be helpful.</p>
+  </li>
+</ol>
+<h2>New Business</h2>
+<ol>
+  <li>
+    <p>JEP Process Change</p>
+    <p>Recent change to proposal process (to involve Council more before Last Call) seems sensible. In general, no need to receive Board approval before instituting relatively minor changes to the process, but good to seek approval after instituting if the changes prove valuable.</p>
+  </li>
+  <li>
+    <p>JANA</p>
+    <p>Good idea, bad name (potential overlap/confusion with IANA). Change the name and it's good to go.</p>
+  </li>
+  <li>
+    <p>Jabberd "quickstart" package</p>
+    <p>Tony brought up new binary install system for jabberd created by temas. No objections, but no Board action needed either.</p>
+  </li>
+  <li>
+    <p>Next meeting</p>
+    <p>Agreed to meet again on 2003-03-04.</p> 
+  </li>
+</ol>
+<h2>Resolutions</h2>
+<ol>
+  <li>
+    <p>Resolved: to approve the recent changes made to Section 6 (Proposal Process) of JEP-0001 as reflected in version 1.6 of that JEP.</p>
+    <p>Action: Approved</li>
+  </li>
+  <li>
+    <p>Resolved: to approve the proposal regarding a Jabber Registry as defined in JEP-0053.</p>
+    <p>Action: Approved</li>
+  </li>
+  <li>
+    <p>Resolved: to form a Trademark Committee, consisting of one or more Directors of the Corporation and with a rotating Chairmanship, for the purpose of overseeing the JSF's position regarding the Jabber trademark and communication with the Jabber community; and to approve Tony Bamonti as the first Chairman of the Committee.</p>
+    <p>Action: Approved</li>
+  </li>
+  <li>
+    <p>Resolved: to define the nature of Teams (such as the Compliance Team and Marketing Team) and if necessary to formulate a modification to the Bylaws defining the legal and organizational status of such teams.</p>
+    <p>Action: Approved</li>
+  </li>
+  <li>
+    <p>Resolved: to form a Trademark Team from among the membership, whose role shall be to advise the Trademark Committee regarding processes for administration of the Jabber trademark by the JSF.</p>
+    <p>Action: Approved</li>
+  </li>
+  <li>
+    <p>Resolved: to approve a contest for the design of a new logo for the JSF and to approve a cash prize of $500 to be award to the designer of the winning entry.</p>
+    <p>Action: Approved</li>
+  </li>
+  <li>
+    <p>Resolved: to request 2002 reports and 2002 roadmaps from each Team as well as from the Jabber Council.</p>
+    <p>Action: Approved</li>
+  </li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 18:35 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

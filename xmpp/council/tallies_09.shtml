@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Council Vote Tallies -- 2009-2010</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Council Vote Tallies -- 2009-2010</h2>
+<p>This page provides detailed voting status information for each <a href='/extensions/'>XMPP Extension Protocol</a> proposed to the Ninth <a href='/council/'>XMPP Council</a> (2009-2010). For further information, refer to the <a href='http://mail.jabber.org/pipermail/council/'>mailing list archives</a> and <a href='http://xmpp.org:5290/muc_log/muc.xmpp.org/council/'>chatroom logs</a>, or contact the <a href='/extensions/editor.shtml'>XMPP Extensions Editor</a>.</p>
+
+<h3>Votes (in chronological order)</h3>
+
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>XEP</th>
+    <th>DC</th>
+    <th>NF</th>
+    <th>RM</th>
+    <th>KS</th>
+    <th>RT</th>
+    <th>MW</th>
+    <th>Type</th>
+    <th>Status</th>
+    <th>Version</th>
+    <th>Date</th>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0124.html'>0124</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.9</td>
+    <td valign='top'>2009-11-06</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0249.html'>0249</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.1</td>
+    <td valign='top'>2009-12-07</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0166.html'>0166</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.1</td>
+    <td valign='top'>2009-12-23</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0167.html'>0167</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.1</td>
+    <td valign='top'>2009-12-23</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0177.html'>0177</a></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.1</td>
+    <td valign='top'>2009-12-23</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top' colspan='11' align='center'>Note: Dave Cridland ("DC") resigned on 2010-03-01.</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0198.html'>0198</a></td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.1</td>
+    <td valign='top'>2010-03-05</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0237.html'>0237</a></td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.1</td>
+    <td valign='top'>2010-03-05</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0227.html'>0227</a></td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.0</td>
+    <td valign='top'>2010-03-12</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0184.html'>0184</a></td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.1</td>
+    <td valign='top'>2010-03-31</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top' colspan='11' align='center'>Note: Nathan Fritz ("NF") replaced Dave Cridland on 2010-03-31.</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0124.html'>0124</a></td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>DNV</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>DNV</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.10</td>
+    <td valign='top'>2010-07-02</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0206.html'>0206</a></td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>DNV</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>DNV</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.3</td>
+    <td valign='top'>2010-07-02</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0060.html'>0060</a></td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>-1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.13</td>
+    <td valign='top'>voting in progress</td>
+  </tr>
+  <tr class='tablebody'>
+    <td valign='top'><a href='/extensions/xep-0163.html'>0163</a></td>
+    <td valign='top'>&#151;</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'>+1</td>
+    <td valign='top'></td>
+    <td valign='top'>+1</td>
+    <td valign='top'>Standards Track</td>
+    <td valign='top'>Draft</td>
+    <td valign='top'>1.2</td>
+    <td valign='top'>voting in progress</td>
+  </tr>
+</table>
+
+<h3>Members of the Ninth Council</h3>
+
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Initials</th>
+    <th>Full Name</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>DC</td>
+    <td>Dave Cridland (resigned 2010-03-01)</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>NF</td>
+    <td>Nathan Fritz (joined 2010-03-31)</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>RM</td>
+    <td>Ralph Meijer</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>KS</td>
+    <td>Kevin Smith</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>RT</td>
+    <td>Remko Tron&#231;on</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>MW</td>
+    <td>Matthew Wild</td>
+  </tr>
+</table>
+
+<h3>Legend</h3>
+
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Vote</th>
+    <th>Meaning</th>
+  </tr>
+  <tr class='tablebody'>
+    <td>-1</td>
+    <td>Disapproved</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>0</td>
+    <td>Neutral</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>+1</td>
+    <td>Approved</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>DNV</td>
+    <td>Did not vote</td>
+  </tr>
+  <tr class='tablebody'>
+    <td>REC</td>
+    <td>Recused</td>
+  </tr>
+</table>
+
+<!--#include virtual="/includes/foot.txt" -->

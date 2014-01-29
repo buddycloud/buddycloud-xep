@@ -1,0 +1,14 @@
+<manifest>
+  <title>XMPP Ping</title>
+  <abstract>This specification defines an XMPP protocol extension for sending application-level pings over XML streams. Such pings can be sent from a client to a server, from one server to another, or end-to-end.</abstract>
+  <specnum>XEP-0199</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0199.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>urn:xmpp:ping</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/ping.xsd</schema>
+  </schemas>
+</manifest>

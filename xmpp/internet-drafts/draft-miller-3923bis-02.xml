@@ -1,0 +1,625 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc compact="yes"?>
+<?rfc strict="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<rfc category="std" docName="draft-miller-3923bis-02" ipr="trust200902" obsoletes="3923">
+
+  <front>
+    <title abbrev="XMPP E2E">End-to-End Object Encryption for the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials="M." surname="Miller" fullname="Matthew Miller">
+      <organization>Cisco Systems, Inc.</organization>
+      <address>
+        <postal>
+          <street>1899 Wyknoop Street, Suite 600</street>
+          <city>Denver</city>
+          <region>CO</region>
+          <code>80202</code>
+          <country>USA</country>
+        </postal>
+        <phone>+1-303-308-3204</phone>
+        <email>mamille2@cisco.com</email>
+      </address>
+    </author>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>Cisco Systems, Inc.</organization>
+      <address>
+        <postal>
+          <street>1899 Wyknoop Street, Suite 600</street>
+          <city>Denver</city>
+          <region>CO</region>
+          <code>80202</code>
+          <country>USA</country>
+        </postal>
+        <phone>+1-303-308-3282</phone>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+    <date month="June" day="29" year="2010"/>
+    <area>Applications</area>
+    <keyword>Internet-Draft</keyword>
+    <keyword>XMPP</keyword>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>Jabber</keyword>
+    <abstract>
+      <t>This document defines a method of end-to-end object encryption for the Extensible Messaging and Presence Protocol (XMPP).  The protocol defined herein is a simplified version of the protocol defined in RFC 3923.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <t>End-to-end encryption of traffic sent over the Extensible Messaging and Presence Protocol <xref target='XMPP-CORE'/> is a desirable goal.  Requirements and a threat analysis for XMPP encryption are provided in <xref target='E2E-REQ'/>.  Many possible approaches to meet those (or similar) requirements have been proposed over the years, including methods based on PGP, S/MIME, SIGMA, and TLS.</t>
+      <t>The S/MIME approach defined in <xref target='RFC3923'/> has never been implemented in XMPP clients to the best of our knowledge, but has some attractive features, especially the ability to store-and-forward an encrypted message at a user's server if the user is not online when the message is received (in the XMPP community this is called "offline storage" and the message is referred to as an "offline message").  The authors surmise that RFC 3923 has not been implemented mainly because it adds several new dependencies to XMPP clients, especially MIME (along with the CPIM and MSGFMT media types).  Therefore this document explores the possibility of an approach that is similar to but simpler than RFC 3923, while retaining the same basic object encryption model.</t>
+    </section>
+
+    <section title="Terminology" anchor="terms">
+      <t>This document inherits terminology defined in <xref target="XMPP-CORE"/>.</t>
+      <t>Security-related terms are to be understood in the sense defined in <xref target="SECTERMS"/>.</t>
+      <t>The capitalized key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="KEYWORDS"/>.</t>
+    </section>
+
+    <section title='Securing XMPP Stanzas' anchor='stanza'>
+      <t>The process that a sending agent follows for securing stanzas is the same regardless of the form of stanza (i.e., &lt;iq/&gt;, &lt;message/&gt;, or &lt;presence/&gt;).</t>
+      <t>
+        <list style="numbers">
+          <t>Constructs a cleartext version of the stanza, S.<vspace blankLines='1'/></t>
+          <t>Generates a session key R appropriate for the intended block cipher (e.g. AES-SHA-256).<vspace blankLines='1'/></t>
+          <t>Notes the current UTC date and time N when this stanza is constructed, formatted as described under <xref target='timestamps'/>.<vspace blankLines='1'/></t>
+          <t>Converts the stanza to a UTF-8 encoded string, optionally removing line breaks and other insignificant whitespace between elements and attributes, i.e., S' = UTF8-encode(S). We call S' a "stanza-string" because for purposes of encryption and decryption it is treated not as XML but as an opaque string (this avoids the need for complex canonicalization of the XML input).<vspace blankLines='1'/></t>
+          <t>Constructs a plaintext envelope (E) &lt;plain/&gt; as follows:<vspace blankLines='1'/>
+            <list style="symbols">
+              <t>The attribute 'timestamp' set to the UTC date and time value N<vspace blankLines='1'/></t>
+              <t>The XML character data set to the base64-encoded form of S' (where the encoding adheres to the definition in Section 4 of <xref target="BASE64"/> and where the padding bits are set to zero).  This encoding is necessary to preserve a canonicalized form of S'.<vspace blankLines='1'/></t>
+            </list>
+          </t>
+          <t>Converts the envelope (E) to a UTF-8 encoded string, optionally removing line breaks and other insignificant whitespace between elements and attributes, i.e., E' = UTF8-encode(E).<vspace blankLines='1'/></t>
+          <t>Encrypts the UTF8-encoded enveloped (E') using the intended block cipher, i.e. T = block-encrypt(R, E').<vspace blankLines='1'/></t>
+          <t>Generates a message authentication code (MAC) with a cryptographic hashing algorithm (e.g. HMACSHA256) using the encrypted data T as the salt and the session block cipher key R as the message, i.e., M = mac-hash(T, R)<vspace blankLines='1'/></t>
+          <t>Encrypts the session key (R) using the recipient's public key to produce encrypted data K. (Known issue: This step is under-specified and will be expanded in a later version of this document.)<vspace blankLines='1'/></t>
+          <t>Constructs an &lt;e2e/&gt; element qualified by the  "urn:ietf:params:xml:ns:xmpp-objenc:0" namespace as follows:<vspace blankLines='1'/>
+            <list style="symbols">
+              <t>The child element &lt;key/&gt; (implicitly qualified by the "urn:ietf:params:xml:ns:xmpp-objenc:0" namespace) as follows:<vspace blankLines='1'/>
+                <list style="symbols">
+                  <t>The attribute 'cipher-algo' set to the asynchronous encryption scheme used in step 9;<vspace blankLines='1'/></t>
+                  <t>The XML character data set to the base64-encoded form of K.<vspace blankLines='1'/></t>
+                </list>
+              </t>
+              <t>The child element &lt;data/&gt; qualified by the "urn:ietf:params:xml:ns:xmpp-objenc:0" namespace as follows:<vspace blankLines='1'/>
+                <list style='symbols'>
+                  <t>The attribute 'mac-algo' set to the cryptographic hashing algorithm used to generate M in step 8;<vspace blankLines='1'/></t>
+                  <t>The attribute 'mac-hash' set to the base64-encoded result of the MAC, M;<vspace blankLines='1'/></t>
+                  <t>The attribute 'cipher-algo' set to the block encryption scheme used to generate the encrypted data T in step 7;<vspace blankLines='1'/></t>
+                  <t>The XML character data as the base64-encoded form of T.<vspace blankLines='1'/></t>
+                </list>
+              </t>
+            </list>
+          </t>
+          <t>Sends the &lt;e2e/&gt; element as the payload of a stanza that SHOULD match the stanza from step 1 in kind (e.g., &lt;message/&gt;), type (e.g., "chat"), and addressing (e.g. to="romeo@montague.net" from="juliet@capulet.net/balcony"). If the original stanza (S) has a value for the "id" attribute, this stanza MUST NOT use the same value for its "id" attribute.<vspace blankLines='1'/></t>
+        </list>
+      </t>
+
+      <section title='Example of Securing Messages' anchor="ex-message">
+        <t>The sender begins with the cleartext version of the &lt;message/&gt; stanza "S":</t>
+        <figure>
+          <artwork><![CDATA[
+<message    xmlns='jabber:client'
+            from='juliet@capulet.net/balcony'
+            id='183ef129'
+            to='romeo@montague.net'
+            type='chat'>
+    <thread>8996aef0-061d-012d-347a-549a200771aa</thread>
+    <body>Wherefore art thou, Romeo?</body>
+</message>
+          ]]></artwork>
+        </figure>
+        <t>The sender then performs the steps 1 through 5 from above to generate:</t>
+        <figure>
+          <artwork><![CDATA[
+<plain  xmlns="urn:ietf:params:xml:ns:xmpp-objenc:0"
+        timestamp="2010-06-29T02:15:21.012Z">
+  PG1lc3NhZ2UgeG1sbnM9ImphYmJlcjpjbGllbnQiIGZyb209Imp1bGlldEBjYXB
+  1bGV0Lm5ldC9iYWxjb255IiB0bz0icm9tZW9AbW9udGVndWUubmV0IiB0eXBlPS
+  JjaGF0Ij48dGhyZWFkPmM2MzczODI0LWEzMDctNDBkZC04ZmUwLWJhZDZlNzI5O
+  WFkMDwvdGhyZWFkPjxib2R5PldoZXJlZm9yZSBhcnQgdGhvdSwgUm9tZW8/PC9i
+  b2R5PjwvbWVzc2FnZT4=
+</plain>
+          ]]></artwork>
+        </figure>
+        <t>Then performs steps 6 through 10, and sends the following:</t>
+        <figure>
+          <artwork><![CDATA[
+<message  xmlns='jabber:client'
+          from='juliet@capulet.net/balcony'
+          id='6410ed123'
+          to='romeo@montague.net'
+          type='chat'>
+  <e2e   xmlns="urn:ietf:params:xml:ns:xmpp-objenc:0">
+    <key    cipher-algo="RSAES-OAEP-SHA-256-MFG1">
+      OPfr4zudqiEeLcOQazZJIB6B9gx3zrVbyHKTU8a/aDb0wiZevztxxCi8hto0+Qw
+      Foyhcupj547WbFZJNlB2dsAPhlJzeH9SuGLJShjhbkOyKjmqZLLCZr3OQtJjcTU
+      sAVj7IZZsOOPDmwsb4Dxv5sz+icsDpi5l+5APfthDaoHbcrvz2pA1CJ5IFQoob4
+      a0i0WevcAFyB+vWXsRqQCxjn5sHdb6G4vjQ/m1lzTWahzKvi56pNUm7ll18oI8L
+      mPi1VWUEqH3aayGLVlJ9fhBDSSpW4jTQ/ts1nzPJwVlKdTqdgNBusFEhrRMhJD5
+      1JdLOhxx+Ov2Xbs22++XQ1tS8/A==
+    </key>
+    <data   cipher-algo="AES-256-CBC-PKCS5-WITH-IV"
+            mac-algo="HMACSHA256"
+            mac-data="HSGmwUFd4sESB+O12S32xsXVvMnO4gjRPaQITIrjWbs=">
+      a8zpjgRcO1VHZ9CoqU19/jB7nn58Gzu5/sQm8YQe4F9zz+YKUfqTS9LaHcqdAwa
+      z8BG1a24Z72VYb5Ptjh7nQ19f5QQdA/P4lZ3oqeTJTsA4DkhvJaSUhrjYib/NOk
+      3lkMoatR/OSbfvhPdqXQ/dutLuRFjkilXGVwNWkgLm3iSnKUiYSdUzWvj88RgR3
+      ldVHFeyrdgufU9qu/FyO6MZXjfEtD80O+3ZBbESqllzmYFXnfkzBrhfi14iCba6
+      /b5Io5zhFUyWaq5e6qq2z72a+1bjeWkG8F9XBiMkyaxkB64wAS0o6aDpWdir5Oi
+      +Rnms4LV/wxL4Is/oe8Fo9xR3UmrdlAiaehdGBh+EnJGqprKa9eccOKqSu7/lJQ
+      ObAdJGEOeAVs8JEkQkxw+qR8edkEDuv6ZXN7JCWQx9LNaiiwsfAzApJJbqfrtDx
+      koQ3JaBbxQ+8FE3TM0E4Tbr9V8NDZC8abgBramlpUBfgknJvLYMTzx1lnsiCUxo
+      6ezC0xqV
+    </data>
+  </e2e>
+</message>
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title='Example of Securing IQs' anchor="ex-iq">
+        <t>The sender begins with the cleartext version of the &lt;iq/&gt; stanza "S":</t>
+        <figure>
+          <artwork><![CDATA[
+<iq     xmlns="jabber:client"
+        from="juliet@capulet.net/crypt"
+        id="a543bc3ee"
+        to="romeo@montegue.net/crypt"
+        type="result">
+  <mood xmlns="http://jabber.org/protocol/mood">
+    <dejected />
+    <text>
+      Romeo, what's here? Poison? Drunk all, and 
+      left no friendly drop to help me after?
+    </text>
+  </mood>
+</iq>
+          ]]></artwork>
+        </figure>
+        <t>The sender then performs the steps 1 through 5 from above to generate:</t>
+        <figure>
+          <artwork><![CDATA[
+<plain  xmlns="urn:ietf:params:xml:ns:xmpp-objenc:0"
+        timestamp="2010-06-29T02:15:21.012Z">
+  PGlxIHhtbG5zPSJqYWJiZXI6aXEiIGZyb209Imp1bGlldEBjYXB1bGV0Lm5ldC9
+  jcnlwdCIgaWQ9ImE1NDNiYzNlZSIgdG89InJvbWVvQG1vbnRlZ3VlLm5ldC9jcn
+  lwdCIgdHlwZT0icmVzdWx0Ij48bW9vZCB4bWxucz0iaHR0cDovL2phYmJlci5vc
+  mcvcHJvdG9jb2wvbW9vZCI+PGRlamVjdGVkIC8+PHRleHQ+Um9tZW8sIHdoYXQn
+  cyBoZXJlPyBQb2lzb24/IERydW5rIGFsbCwgYW5kIGxlZnQgbm8gZnJlbmRseSB
+  kcm9wIHRvIGhlbHAgbWUgYWZ0ZXI/PC90ZXh0PjwvbW9vZD48L2lxPg==
+</plain>
+          ]]></artwork>
+        </figure>
+        <t>Then performs steps 6 through 10, and sends the following:</t>
+        <figure>
+          <artwork><![CDATA[
+<iq     xmlns="jabber:client"
+        type="result"
+        to="romeo@montegue.net/crypt"
+        id="42ca3de0345"
+        from="juliet@capulet.net/crypt">
+  <e2e xmlns="urn:ietf:params:xml:ns:xmpp-objenc:0">
+    <key    cipher-algo="RSAES-OAEP-SHA-256-MFG1">
+      hOU+BRkEcCY0+eKTX9hzCbP30Ij0q5zZ9buFgkOWu4LsVkI92OiH65SvYL/XCB6
+      12sb9fhjkiAIeR0AySGiid+AeS7KZDzpcZ+ORg8j9CkEX/LeTYszBfZFiHzDFkh
+      qtwu3s7QMAR0Bzxj9NVE7W8fSdleusvyOOP5c0scrpRkXDMVO2Z3/rTjC0xInx3
+      XQUP+RlqFE7g1HCr01BjoPjI4p3N+fONVv0U9mwtt1I5tJ4EXgTofUM0GMNGX1i
+      NoNNjPDb9XsihpLvDIjMblXVHvYAIyPwCs2ZdDv7L5kmZ6U+35b7Qx8TdWUN2I4
+      5fBbxczvkFN6+cx2h5uapOTxBkw==
+    </key>
+    <data   cipher-algo="AES-256-CBC-PKCS5-WITH-IV"
+            mac-algo="HMACSHA256"
+            mac-data="iKuTGRZNHe3PbZNdfxkFzwClXLMQlhx0Y8BuYawbaho=">
+      ksCAkoJeoymtf3ygzBJkrJYQV+g04CkAs5oSmej60GU89mRN3rKSX5FVfWo558W
+      Bcn8mVUxFxWhSdNBrsW5GQS1EyygDT+yfJe6OqzLTCqZn4iqaCyIPWM7XB/PolA
+      fvELw7y3hf8JrEAM4JXIfxrcOYDqewr7zmamwuuos4B6qzgiNN9ZW2AfTyKL3+l
+      twcmFvF/nWF1YN8CquGmBm83WFn7Ik9R+Nqq54+QNCABjSFPT25ZYquEhxk/RIS
+      CDAIXFOaFBozGjC20M3UDqnuwLsUF+P4ucjybysxhHQlqLOffX0Vhb1YesWaZac
+      pvsj8Ovfpv+ESrWGptXr+8GMK1og69GHRrd2k2TonPFp1KwS5MkbEpP2tS7R+nT
+      b9oGFojr6waNKhhhVmP/9FWRMi7C2KfLCHggAatLWDjBG8k7yd5DWdSqY7LwkwB
+      hT6+iErRfhdvk1EVxn2TVqjfhsFh33XDqkRT4BhPJUjJPkwLZkQ03PVgHKluMsE
+      JoUBS0OxD7gE5q808hy3qA+r5PDowy6nQ9zbUaCu4JbvKV2moql7fgHUy8MZLIe
+      DFVJ5A5z8Te6K4pFaQGAzxEOouS2A+BmvPAFczFeL+QGy58RSNMiXJ9ZMpb+N2C
+      1iDzPD8OL
+    </data>
+  </e2e>
+</iq>
+          ]]></artwork>
+        </figure>
+      </section>
+    </section>
+
+    <section title="Interaction with Stanza Semantics" anchor="interact">
+      <t>The following limitations and caveats apply:</t>
+      <t>
+        <list style="symbols">
+          <t>Undirected &lt;presence/&gt; stanzas MUST NOT be encrypted. Such stanzas are delivered to anyone the sender has authorized, and therefore it is highly unlikely that the sender can find an appropriate certificate.<vspace blankLines='1'/></t>
+          <t>Stanzas directed to multiplexing services (e.g. multi-user chat) SHOULD NOT be encrypted, unless the sender has established an acceptable trust relationship with the multiplexing service.<vspace blankLines='1'/></t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Handling of Inbound Stanzas" anchor="inbound">
+      <t>Several scenarios are possible when an entity receives an encrypted stanza:</t>
+      <t>
+        <list style='symbols'>
+          <t hangText='Case #1:'>The receiving application does not understand the protocol.<vspace blankLines='1'/></t>
+          <t hangText='Case #2:'>The receiving application understands the protocol and is able to decrypt the payload.<vspace blankLines='1'/></t>
+          <t hangText='Case #3:'>The receiving application understands the protocol and is able to decrypt the payload, but the timestamps fail the checks specified under <xref target="timestamps">Checking of Timestamps</xref>.<vspace blankLines='1'/></t>
+          <t hangText='Case #4:'>The receiving application understands the protocol but is unable to decrypt the payload.</t>
+        </list>
+      </t>
+      <t>In Case #1, the receiving application MUST do one and only one of the following: (1) ignore the &lt;e2e/&gt; extension, (2) ignore the entire stanza, or (3) return a &lt;service-unavailable/&gt; error to the sender, as described in <xref target="XMPP-CORE"/>.</t>
+      <t>In Case #2, the receiving application MUST NOT return a stanza error to the sender, since this is the success case.</t>
+      <t>In Case #3, the receiving application MAY return a &lt;not-acceptable/&gt; error to the sender (as described in <xref target="XMPP-CORE"/>), optionally supplemented by an application-specific error condition element of &lt;bad-timestamp/&gt; (previously defined in <xref target='RFC3923'/>):</t>
+      <figure>
+        <artwork><![CDATA[
+<message from='romeo@example.net/orchard'
+         id='6410ed123' 
+         to='juliet@capulet.net/balcony'
+         type='error'>
+  <e2e xmlns='urn:ietf:params:xml:ns:xmpp-objenc:0'>
+    XML-character-data-here
+  </e2e>
+  <error type='modify'>
+    <not-acceptable xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    <bad-timestamp xmlns='urn:ietf:params:xml:xmpp-e2e'/>
+  </error>
+</message>
+        ]]></artwork>
+      </figure>
+      <t>In Case #4, the receiving application SHOULD return a &lt;bad-request/&gt; error to the sender (as described in <xref target="XMPP-CORE"/>), optionally supplemented by an application-specific error condition element of &lt;decryption-failed/&gt; (previously defined in <xref target='RFC3923'/>):</t>
+      <figure>
+        <artwork><![CDATA[
+<message from='romeo@example.net/orchard'
+         id='6410ed123' 
+         to='juliet@capulet.net/balcony'
+         type='error'>
+  <e2e xmlns='urn:ietf:params:xml:ns:xmpp-objenc:0'>
+    XML-character-data-here
+  </e2e>
+  <error type='modify'>
+    <bad-request xmlns='urn:ietf:params:xml:ns:xmpp-stanzas'/>
+    <decryption-failed xmlns='urn:ietf:params:xml:xmpp-e2e'/>
+  </error>
+</message>
+        ]]></artwork>
+      </figure>
+      <t>In addition to returning an error in Case #4, the receiving application SHOULD NOT present the stanza to the intended recipient (human or application) and SHOULD provide some explicit alternate processing of the stanza (which MAY be to display a message informing the recipient that it has received a stanza that cannot be decrypted).</t>
+    </section>
+
+    <section title="Inclusion and Checking of Timestamps" anchor="timestamps">
+      <t>Timestamps are included to help prevent replay attacks.  All timestamps MUST conform to <xref target='DATETIME'/> and be presented as UTC with no offset, and SHOULD include the seconds and fractions of a second to three digits.  Absent a local adjustment to the sending agent's perceived time or the underlying clock time, the sending agent MUST ensure that the timestamps it sends to the receiver increase monotonically (if necessary by incrementing the seconds fraction in the timestamp if the clock returns the same time for multiple requests).  The following rules apply to the receiving application:</t>
+      <t>
+        <list style="symbols">
+          <t>It MUST verify that the timestamp received is within five minutes of the current time, except as described below for offline messages.<vspace blankLines='1'/></t>
+          <t>It SHOULD verify that the timestamp received is greater than any timestamp received in the last 10 minutes which passed the previous check.<vspace blankLines='1'/></t>
+          <t>If any of the foregoing checks fails, the timestamp SHOULD be presented to the receiving entity (human or application) marked as "old timestamp", "future timestamp", or "decreasing timestamp", and the receiving entity MAY return a stanza error to the sender.</t>
+        </list>
+      </t>
+      <t>The foregoing timestamp checks assume that the recipient is online when the message is received.  However, if the recipient is offline then the server will probably store the message for delivery when the recipient is next online (offline storage does not apply to &lt;iq/&gt; or &lt;presence/&gt; stanzas, only &lt;message/&gt; stanzas).  As described in <xref target='OFFLINE'/>, when sending an offline message to the recipient, the server SHOULD include delayed delivery data as specified in <xref target='DELAY'/> so that the recipient knows that this is an offline message and also knows the original time of receipt at the server.  In this case, the recipient SHOULD verify that the timestamp received in the encrypted message is within five minutes of the time stamped by the recipient's server in the &lt;delay/&gt; element.</t>
+    </section>
+
+    <section title="Mandatory-to-Implement Cryptographic Algorithms" anchor="mti">
+      <t>All implementations MUST support the following algorithms.  Implementations MAY support other algorithms as well.</t>
+      <t>
+        <list style='symbols'>
+          <t>The RSA (PKCS #1 v2.1) key transport, as specified in <xref target='X509-ALGO'/>.<vspace blankLines='1'/></t>
+          <t>The AES-128 encryption algorithm in CBC mode, as specified in <xref target="CMS-AES"/>.<vspace blankLines='1'/></t>
+          <t>The HMACSHA256 hashing algorithm, as specified in <xref target='HMAC'/>.</t>
+        </list>
+      </t>
+    </section>
+
+    <section title="Certificates" anchor="certs">
+      <t>To participate in end-to-end encryption using the methods defined in this document, a client needs to possess an X.509 certificate <xref target='PKIX'/>.  It is expected that many clients will generate their own (self-signed) certificates rather than obtain a certificate issued by a certification authority (CA).  In any case the certificate MUST include an XMPP address that is represented using the ASN.1 Object Identifier "id-on-xmppAddr" as specified in Section 5.1.1 of <xref target="XMPP-CORE"/>.</t>
+    </section>
+
+    <section title='Security Considerations' anchor='security'>
+      <t>The recipient's server might store any &lt;message/&gt; stanzas received until the recipient is next available; this duration could be anywhere from a few minutes to several months.</t>
+    </section>
+
+    <section title="IANA Considerations" anchor="iana">
+      <section title="XML Namespace Name for e2e Data in XMPP" anchor="iana-ns-e2e">
+        <t>A URN sub-namespace of encrypted content for the Extensible Messaging and Presence Protocol (XMPP) is defined as follows.</t>
+        <t>
+          <list style='hanging'> 
+            <t hangText='URI:'>urn:ietf:params:xml:ns:xmpp-objenc:0</t> 
+            <t hangText='Specification:'>RFC XXXX</t>
+            <t hangText='Description:'>This is an XML namespace name of signed and encrypted content for the Extensible Messaging and Presence Protocol as defined by RFC XXXX.</t>
+            <t hangText='Registrant Contact:'>IESG, &lt;iesg@ietf.org&gt;</t> 
+          </list>
+        </t>
+      </section>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+<reference anchor="BASE64">
+<front>
+<title>The Base16, Base32, and Base64 Data Encodings</title>
+<author initials='S.' surname='Josefsson' fullname='S. Josefsson'>
+<organization /></author>
+<date year='2006' month='October' />
+<abstract>
+<t>This document describes the commonly used base 64, base 32, and base 16 encoding schemes. It also discusses the use of line-feeds in encoded data, use of padding in encoded data, use of non-alphabet characters in encoded data, use of different encoding alphabets, and canonical encodings. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4648' />
+<format type='TXT' octets='35491' target='ftp://ftp.isi.edu/in-notes/rfc4648.txt' />
+</reference>
+
+<reference anchor='CMS-AES'>
+<front>
+<title>Use of the Advanced Encryption Standard (AES) Encryption Algorithm in Cryptographic Message Syntax (CMS)</title>
+<author initials='J.' surname='Schaad' fullname='J. Schaad'>
+<organization /></author>
+<date year='2003' month='July' /></front>
+<seriesInfo name='RFC' value='3565' />
+<format type='TXT' octets='26773' target='ftp://ftp.isi.edu/in-notes/rfc3565.txt' />
+</reference>
+
+<reference anchor='DATETIME'>
+<front>
+<title>Date and Time on the Internet: Timestamps</title>
+<author initials='G.' surname='Klyne' fullname='G. Klyne'>
+<organization /></author>
+<author initials='C.' surname='Newman' fullname='C. Newman'>
+<organization /></author>
+<date month='July' year='2002' /></front>
+<seriesInfo name='RFC' value='3339' />
+<format type='TXT' octets='35064' target='ftp://ftp.isi.edu/in-notes/rfc3339.txt' />
+</reference>
+
+<reference anchor="DELAY">
+  <front>
+    <title>Delayed Delivery</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="15" month="September" year="2009"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0203"/>
+  <format type="HTML" target="http://xmpp.org/extensions/xep-0203.html"/>
+</reference>
+
+<reference anchor='E2E-REQ'>
+<front>
+<title>Requirements for End-to-End Encryption in the Extensible Messaging and Presence Protocol (XMPP)</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='March' day='22' year='2010' />
+<abstract><t>This document describes requirements for end-to-end encryption in the Extensible Messaging and Presence Protocol (XMPP).</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-xmpp-e2e-requirements-01' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-saintandre-xmpp-e2e-requirements-01.txt' />
+</reference>
+
+      <reference anchor='KEYWORDS'>
+        <front>
+          <title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+          <author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+            <organization>Harvard University</organization>
+            <address>
+              <postal>
+                <street>1350 Mass.  Ave.</street>
+                <street>Cambridge</street>
+                <street>MA 02138</street>
+              </postal>
+              <phone>- +1 617 495 3864</phone>
+              <email>-</email>
+            </address>
+          </author>
+          <date month='March' year='1997'></date>
+          <area>General</area>
+          <keyword>keyword</keyword>
+          <abstract>
+            <t>In many standards track documents several words are used to signify the requirements in the specification.  These words are often capitalized.  This document defines these words as they should be interpreted in IETF documents.  Authors who follow these guidelines should incorporate this phrase near the beginning of their document: 
+              <list>
+                <t>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in RFC 2119.</t>
+              </list>
+            </t>
+            <t>Note that the force of these words is modified by the requirement level of the document in which they are used.</t>
+          </abstract>
+        </front>
+        <seriesInfo name='BCP' value='14' />
+        <seriesInfo name='RFC' value='2119' />
+      </reference>
+
+<reference anchor='HMAC'>
+<front>
+<title>US Secure Hash Algorithms (SHA and HMAC-SHA)</title>
+<author initials='D.' surname='Eastlake' fullname='D. Eastlake'>
+<organization /></author>
+<author initials='T.' surname='Hansen' fullname='T. Hansen'>
+<organization /></author>
+<date year='2006' month='July' />
+<abstract>
+<t>The United States of America has adopted a suite of Secure Hash Algorithms (SHAs), including four beyond SHA-1, as part of a Federal Information Processing Standard (FIPS), specifically SHA-224 (RFC 3874), SHA-256, SHA-384, and SHA-512. The purpose of this document is to make source code performing these hash functions conveniently available to the Internet community. The sample code supports input strings of arbitrary bit length. SHA-1's sample code from RFC 3174 has also been updated to handle input strings of arbitrary bit length. Most of the text herein was adapted by the authors from FIPS 180-2.&lt;/t>&lt;t> Code to perform SHA-based HMACs, with arbitrary bit length text, is also included. This memo provides information for the Internet community.</t></abstract></front>
+<seriesInfo name='RFC' value='4634' />
+<format type='TXT' octets='197147' target='ftp://ftp.isi.edu/in-notes/rfc4634.txt' />
+</reference>
+
+<reference anchor='PKIX'>
+<front>
+<title>Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile</title>
+<author initials='D.' surname='Cooper' fullname='D. Cooper'>
+<organization /></author>
+<author initials='S.' surname='Santesson' fullname='S. Santesson'>
+<organization /></author>
+<author initials='S.' surname='Farrell' fullname='S. Farrell'>
+<organization /></author>
+<author initials='S.' surname='Boeyen' fullname='S. Boeyen'>
+<organization /></author>
+<author initials='R.' surname='Housley' fullname='R. Housley'>
+<organization /></author>
+<author initials='W.' surname='Polk' fullname='W. Polk'>
+<organization /></author>
+<date year='2008' month='May' />
+<abstract>
+<t>This memo profiles the X.509 v3 certificate and X.509 v2 certificate revocation list (CRL) for use in the Internet.  An overview of this approach and model is provided as an introduction.  The X.509 v3 certificate format is described in detail, with additional information regarding the format and semantics of Internet name forms.  Standard certificate extensions are described and two Internet-specific extensions are defined.  A set of required certificate extensions is specified.  The X.509 v2 CRL format is described in detail along with standard and Internet-specific extensions.  An algorithm for X.509 certification path validation is described.  An ASN.1 module and examples are provided in the appendices. [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='5280' />
+<format type='TXT' octets='352580' target='ftp://ftp.isi.edu/in-notes/rfc5280.txt' />
+</reference>
+
+<reference anchor='SECTERMS'>
+<front>
+<title>Internet Security Glossary, Version 2</title>
+<author initials='R.' surname='Shirey' fullname='R. Shirey'>
+<organization /></author>
+<date year='2007' month='August' />
+<abstract>
+<t>This Glossary provides definitions, abbreviations, and explanations of terminology for information system security.  The 334 pages of entries offer recommendations to improve the comprehensibility of written material that is generated in the Internet Standards Process (RFC 2026).  The recommendations follow the principles that such writing should (a) use the same term or definition whenever the same concept is mentioned; (b) use terms in their plainest, dictionary sense; (c) use terms that are already well-established in open publications; and (d) avoid terms that either favor a particular vendor or favor a particular technology or mechanism over other, competing techniques that already exist or could be developed.  This memo provides information for the Internet community.</t></abstract></front>
+<seriesInfo name='RFC' value='4949' />
+<format type='TXT' octets='867626' target='ftp://ftp.isi.edu/in-notes/rfc4949.txt' />
+</reference>
+
+<reference anchor='X509-ALGO'>
+<front>
+<title>Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1</title>
+<author initials='J.' surname='Jonsson' fullname='J. Jonsson'>
+<organization /></author>
+<author initials='B.' surname='Kaliski' fullname='B. Kaliski'>
+<organization /></author>
+<date year='2003' month='February' />
+<abstract>
+<t>This memo represents a republication of PKCS #1 v2.1 from RSA Laboratories' Public-Key Cryptography Standards (PKCS) series, and change control is retained within the PKCS process.  The body of this document is taken directly from the PKCS #1 v2.1 document, with certain corrections made during the publication process.  This memo provides information for the Internet community.</t></abstract></front>
+<seriesInfo name='RFC' value='3447' />
+<format type='TXT' octets='143173' target='ftp://ftp.isi.edu/in-notes/rfc3447.txt' />
+</reference>
+
+<reference anchor="XMPP-CORE">
+<front>
+<title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='May' day='7' year='2010' />
+<abstract><t>This document defines the core features of the Extensible Messaging and Presence Protocol (XMPP), a technology for streaming Extensible Markup Language (XML) elements in order to exchange structured information in close to real time between any two or more network- aware entities. XMPP provides a generalized, extensible framework for incrementally exchanging XML data, upon which a variety of applications can be built. The framework includes methods for stream setup and teardown, channel encryption, authentication of a client to a server and of one server to another server, and primitives for push-style messages, publication of network availability information ("presence"), and request-response interactions between any two XMPP entities. This document obsoletes RFC 3920.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-ietf-xmpp-3920bis-08' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-ietf-xmpp-3920bis-08.txt' />
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor="OFFLINE">
+  <front>
+    <title>Best Practices for Handling Offline Messages</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization/>
+      <address>
+        <email>stpeter@jabber.org</email>
+      </address>
+    </author>
+    <date day="24" month="January" year="2006"/>
+  </front>
+  <seriesInfo name="XSF XEP" value="0160"/>
+  <format type="HTML" target="http://xmpp.org/extensions/xep-0160.html"/>
+</reference>
+
+<reference anchor="RFC3923">
+  <front>
+    <title>End-to-End Signing and Object Encryption for the Extensible Messaging and Presence Protocol (XMPP)</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3923' />
+  <format type='TXT' octets='51828' target='ftp://ftp.isi.edu/in-notes/rfc3923.txt' />
+</reference>
+
+    </references>
+
+    <section title="Schema for urn:ietf:params:xml:ns:xmpp-objenc:0" anchor="schemas-e2e">
+      <t>The following XML schema is descriptive, not normative.</t>
+      <figure>
+        <artwork><![CDATA[
+<?xml version='1.0' encoding='UTF-8'?>
+
+<xs:schema
+    xmlns:xs='http://www.w3.org/2001/XMLSchema'
+    targetNamespace='urn:ietf:params:xml:ns:xmpp-objenc:0'
+    xmlns='urn:ietf:params:xml:ns:xmpp-objenc:0'
+    elementFormDefault='qualified'>
+
+  <xs:element name='e2e'>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref='key' minOccurs='1' maxOccurs='1'/>
+        <xs:element ref='data' minOccurs='1' maxOccurs='1'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:element name='key'>
+    <xs:complexType>
+      <xs:simpleType>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='cipher-algo'
+                        type='xs:string'/>
+        </xs:extension>
+      </xs:simpleType>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='data'>
+    <xs:complexType>
+      <xs:simpleType>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='cipher-algo'
+                        type='xs:string'/>
+          <xs:attribute name='mac-algo'
+                        type='xs:string'/>
+          <xs:attribute name='mac-hash'
+                        type='xs:string'/>
+        </xs:extension>
+      </xs:simpleType>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='plain'>
+    <xs:complexType>
+      <xs:simpleType>
+        <xs:extension base='xs:string'>
+          <xs:attribute name='timestamp'
+                        type='xs:string'/>
+        </xs:extension>
+      </xs:simpleType>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name='decryption-failed' type='empty'/>
+  <xs:element name='bad-timestamp' type='empty'/>
+
+  <xs:simpleType name='empty'>
+    <xs:restriction base='xs:string'>
+      <xs:enumeration value=''/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+        ]]></artwork>
+      </figure>
+    </section>
+
+  </back>
+
+</rfc>

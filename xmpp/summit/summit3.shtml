@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Summit 3</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Summit 3</h2>
+
+<p>The <a href='/xsf/'>XMPP Standards Foundation</a> held its third developer conference on July 23 and 24, 2007, in Portland, Oregon, USA (the same week as <a href='http://conferences.oreillynet.com/os2007/'>OSCON 2007</a>).</p>
+
+<p>Note: The following information is archived here for historical purposes (last updated 2007-07-16).</p>
+
+<h3>Why Attend?</h3>
+
+<p>XMPP Summit 3 is the best place for developers to get a jumpstart on the upcoming 2008 certification program and to discuss cutting-edge topics in the XMPP community.</p>
+
+<h3>Discussion Topics</h3>
+
+<p>In general the discussion will focus on solving problems related to important XMPP protocol extensions and brainstorming new XMPP applications (including integration with existing applications such as content management and social networking). Potential topics include:</p>
+<ul>
+  <li>Details on the 2008 certification program</li>
+  <li>Personal Eventing via Pubsub (PEP)</li>
+  <li>End-to-end encryption via ESessions</li>
+  <li>Jingle for voice and beyond</li>
+  <li>Preventing the emergence of spim on the Jabber network</li>
+  <li>Encouraging deployment of TLS on the Jabber network via use of the XMPP ICA</li>
+  <li>Improvement of the <a href='http://www.xmpp.org/interop/'>interop testing network</a></li>
+  <li>Final clarifications to rfc3920bis and rfc3921bis</li>
+</ul>
+
+<h3>Logistics</h3>
+
+<p>Thanks to gracious assistance from <a href='http://www.oreilly.com/'>O'Reilly Conferences</a>, the devcon will held in room E142 at the <a href='http://www.oregoncc.org/'>Oregon Convention Center</a> on Monday July 23 and Tuesday July 24.</p>
+
+<p>Join the <a href='http://mail.jabber.org/mailman/listinfo/devcon'>devcon list</a> to discuss further details.</p>
+
+<h2>Participants</h2>
+
+<p>The following people are confirmed for participation:</p>
+<ul>
+  <li>Blaine Cook (Twitter)</li>
+  <li>Christian Jensen (Verb Exchange)</li>
+  <li>Joe Hildebrand (Jabber Inc.)</li>
+  <li>Toly Menn (VIACK)</li>
+  <li>Chris Mullins (Coversant)</li>
+  <li>Peter Saint-Andre (XMPP Standards Foundation)</li>
+  <li>Matt Tucker (Jive Software / XSF Board)</li>
+  <li>Bruno van Haetsdaele (Horizon Wimba)</li>
+</ul>
+
+<!--#include virtual="/includes/foot.txt" -->

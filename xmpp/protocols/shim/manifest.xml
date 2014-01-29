@@ -1,0 +1,14 @@
+<manifest>
+  <title>Stanza Headers and Internet Metadata</title>
+  <abstract>This specification defines an XMPP protocol extension for representing non-address-related headers in an XML format that is appropriate for use in XMPP. While the protocol provides a flexible mechanism for representing many kinds of standard Internet metadata, a registry of values is defined to structure the possible range of headers, and the inital registration includes headers from email, HTTP, MIME, and SIP.</abstract>
+  <specnum>XEP-0131</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0131.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/shim</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/shim.xsd</schema>
+  </schemas>
+</manifest>

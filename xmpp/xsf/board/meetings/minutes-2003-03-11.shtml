@@ -1,0 +1,82 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2003-03-11 @ 17:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 17:05 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Michael Bauer</li>
+<li>Ryan Eatmon</li>
+<li>Jeremie Miller</li>
+<li>Marco Palombi</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>All Board members were in attendance. Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Jabber Trademark</p>
+    <p>The license agreement (by which Jabber, Inc. will grant the JSF a perpetual, royalty-free license to use the term Jabber) is ready to sign. The sub-license agreement (which will enable the JSF to sub-license the trademark to other entities) has not been finalized yet.</p>
+  </li>
+  <li>
+    <p>Marketing Sponsorship Proposal</p>
+    <p>Jabber Inc. has presented a proposal to sponsor JSF-branded marketing initiatives. The proposal presents a framework for such initiatives, including projects such as banner ads on open-source community websites, ensuring a presence for the JSF at key conferences, development/printing of a press kit, public relations assistance, and writing/placement of technical articles and case studies. Such projects would be approved by the Board on a per-project basis. The first project would be to fund the JSF as a Silver Sponsor at the 2003 O'Reilly Open Source Convention (OSCON); this effort would be used to develop a process and materials for participating in other conferences in the future.</p>
+  </li>
+  <li>
+    <p>Wireless Integration</p>
+    <p>Discussed ways to insert Jabber/XMPP into the wireless space. Marco Palombi pointed out that that with GPRS devices, cell phones are now just another IP-enabled computing platform. Handset manufacturers may have some advantage since they can pre-load clients on their devices, but users can and will download what they need in order to communicate with their contacts (especially contacts on other networks). Might be valuable to try to increase wireless awareness within the Jabber community.</p>
+  </li>
+  <li>
+    <p>Interoperability</p>
+    <p>Discussed the continuing importance of interoperability to the Jabber "story", as revealed in the results of the recent end-user survey. Interoperability might include the traditional gateways to other networks, client-to-server support for other protocols (e.g., Wireless Village), HTTP tunneling at the front end of a Jabber server, and advanced server-to-server functionality. Unfortunately, working on gateways is a thankless task and the other projects have not gained traction within the community. Discussion of whether an Interoperability Team is required to focus this work. Discussion of whether it would help to develop a code framework for gateway development, making it easier to create gateways to other networks.</p>
+  </li>
+  <li>
+    <p>Academic Outreach</p>
+    <p>Tony Bamonti mentioned discussions he and Peter Saint-Andre have had with the CHEF project at the University of Michigan regarding their open-source collaboration and e-learning suite (strong interest among the CHEF team in integrating Jabber). Peter Saint-Andre has contacted several professors about the possibility of developing an academic outreach kit, but no firm plans yet. Need to make use of the academe@jabber.org mailing list. Michael Bauer has also talked with someone at Cal State about academic initiatives. Further work required.</p>
+  </li>
+  <li>
+    <p>Compliance Team</p>
+    <p>Good progress being made by Ed Coughlin and the Compliance Team. Jabber Inc. has open-sourced its protocol testing grammar and test cases to assist in the effort.</p>
+  </li>
+  <li>
+    <p>Marketing Team</p>
+    <p>The logo contest winner will be chosen on March 20th, in time for submission to O'Reilly for inclusion in the OSCON brochures. Harold Gottschalk recently gave a talk at the San Diego Linux Users Group; the Marketing Team has discussed ways to encourage LUG talks by members of the Jabber community. Tony Bamonti has talked a bit with HP, which is interested in providing an in-kind sponsorship consisting of equipment to help run JSF services. Still need to define Work Teams so that their decision authority is clear (the relevant Bylaws change to be put to a vote in April).</p>
+  </li>
+  <li>
+    <p>Jabber Council</p>
+    <p>Not much progress in the last 2 months, however several JEPs will be voted to Draft in the next month or so. Peter Saint-Andre mentioned his JEP on Jabber 1.0 Protocol Suites; agreement that this would be a good thing.</p>
+  </li>
+</ol>
+<h2>New Business</h2>
+<ol>
+  <li>
+    <p>Michael Bauer, Chair of the Board, signed the Trademark License Agreement.</p>
+  </li>
+  <li>
+    <p>The next Board meeting will be held on 2003-04-22.</p> 
+  </li>
+</ol>
+<h2>Resolutions</h2>
+<ol>
+  <li>
+    <p>Resolved: to approve the framework for marketing sponsorship proposed by Jabber, Inc., and to accept a donation of $7,500 from Jabber, Inc. for the purpose of enabling the JSF to be a Silver Sponsor at the 2003 O'Reilly Open Source Convention.</p>
+    <p>Action: Approved</li>
+  </li>
+  <li>
+    <p>Resolved: to request community comments and Council feedback regarding the feasibility and desirability of a more formal interoperability initiative.</p>
+    <p>Action: Approved</li>
+  </li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 18:25 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

@@ -1,0 +1,14 @@
+<manifest>
+  <title>XML Streams</title>
+  <abstract>This specification defines the core syntax of XML streams, which provide the wrapper for all XMPP communications.</abstract>
+  <specnum>RFC 3920</specnum>
+  <specurl>http://www.ietf.org/rfc/rfc3920.txt</specurl>
+  <status>Proposed</status>
+  <publisher>Internet Engineering Task Force</publisher>
+  <namespaces>
+    <name>http://etherx.jabber.org/streams</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/streams.xsd</schema>
+  </schemas>
+</manifest>

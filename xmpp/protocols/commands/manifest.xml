@@ -1,0 +1,14 @@
+<manifest>
+  <title>Ad-Hoc Commands</title>
+  <abstract>defines an XMPP protocol extension for advertising and executing application-specific commands, such as those related to a configuration workflow. Typically the commands contain data forms (XEP-0004) in order to structure the information exchange.</abstract>
+  <specnum>XEP-0050</specnum>
+  <specurl>http://www.xmpp.org/extensions/xep-0050.html</specurl>
+  <status>Draft</status>
+  <publisher>XMPP Standards Foundation</publisher>
+  <namespaces>
+    <name>http://jabber.org/protocol/commands</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/commands.xsd</schema>
+  </schemas>
+</manifest>

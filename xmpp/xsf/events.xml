@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<events>
+  <event>
+    <date>2011-02-04T08:00:00Z</date>
+    <duration>480</duration>
+    <summary>XMPP Hackfest</summary>
+    <url>http://xmpp.org/participate/the-xmpp-summit/xmpp-summit-10/</url>
+    <description>In-person hackfest at FOSDEM 2011 in Brussels, Belgium.</description>
+    <alarm></alarm>
+  </event>
+  <event>
+    <date>2011-02-05T12:00:00Z</date>
+    <duration>360</duration>
+    <summary>XMPP Devroom</summary>
+    <url>http://xmpp.org/participate/the-xmpp-summit/xmpp-summit-10/</url>
+    <description>Devroom presentations at FOSDEM 2011.</description>
+    <alarm></alarm>
+  </event>
+  <event>
+    <date>2011-02-07T08:00:00Z</date>
+    <duration>480</duration>
+    <summary>XMPP Summit</summary>
+    <url>http://xmpp.org/participate/the-xmpp-summit/xmpp-summit-10/</url>
+    <description>XMPP Summit at FOSDEM 2011, including interim meeting of the IETF's XMPP WG.</description>
+    <alarm></alarm>
+  </event>
+</events>

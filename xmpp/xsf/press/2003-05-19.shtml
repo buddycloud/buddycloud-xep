@@ -1,0 +1,22 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>XMPP/Jabber and SIP/SIMPLE to Face Off in Online Debate</h3>
+<h4>InfoWorld Online Discussion Forum to Feature Prominent Experts on Competing Instant Messaging Standards</h4>
+
+<p><strong>Denver, CO -- May 19, 2003</strong></p>
+<table border='0' cellpadding='5' cellspacing='0'>
+<tr class='tablebody'><td valign='top'>WHO:</td><td valign='top'>JSF Executive Director, Peter Saint-Andre<br />Jabber, Inc. Chief Architect, Joe Hildebrand<br />dynamicsoft Chief Scientist, Jonathan Rosenberg</td></tr>
+<tr class='tablebody'><td valign='top'>WHAT:</td><td valign='top'>InfoWorld iDiscuss Text Conference to compare and contrast XMPP/Jabber and SIP/SIMPLE as instant messaging and presence technologies</td></tr>
+<tr class='tablebody'><td valign='top'>WHERE:</td><td valign='top'><a href="http://idiscuss.infoworld.com">http://idiscuss.infoworld.com</a><br />Audience members are encouraged to SUBMIT QUESTIONS IN ADVANCE</td></tr>
+<tr class='tablebody'><td valign='top'>WHEN:</td><td valign='top'>Wednesday, May 28, 2003, 10:00 AM PDT (17:00 UTC)</td></tr>
+<tr class='tablebody'><td valign='top'>WHY:</td><td valign='top'>This text conference will be a follow-up to an article InfoWorld will publish on Monday, May 26, 2003 analyzing the emerging standards battle between XMPP/Jabber and SIP/SIMPLE</td></tr>
+<tr class='tablebody'><td valign='top'>HOW:</td><td valign='top'>Log in to <a href="http://idiscuss.infoworld.com">http://idiscuss.infoworld.com</a> and submit your questions to Peter, Joe, or Jonathan</td></tr>
+</table>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+<!--#include virtual="/includes/foot.txt" -->

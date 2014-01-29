@@ -1,0 +1,15 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Mission</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Mission</h2>
+
+<!--#include virtual="/includes/mission.txt" -->
+
+<p>We seek to achieve that goal by developing the world's best open protocols for instant messaging, presence, and other forms of near-real-time communication, based on the IETF's Extensible Messaging and Presence Protocol (<a href='/'>XMPP</a>). By "best" we mean simplest, most extensible, most powerful, most secure. We continually judge our work by these criteria, and invite others to do the same.</p>
+<p>The XSF's product is protocols; the XSF's market is developers. We do not write code; instead, we make it possible for others to write code. We listen to developers, service providers, and end users regarding the kinds of problems they want to solve, and we work with them to create protocols that solve those problems. Our <a href='/extensions/'>standards process</a> is developer-friendly. We strenuously avoid design by committee and we places a premium on the values that built the Internet in the first place: rough consensus and running code.</p>
+<p>We showcase the work of such developers, whether they be open-source or commercial. We document our protocols in a clear, accessible fashion, and we show developers how our protocols can solve problems and help them innovate. But we do not market ready-made solutions to organizations or individuals: that is the job of the developers we serve.</p>
+<p>We value freedom, openness, and good technical design. All of our work occurs in public forums (e.g., the <a href='http://mail.jabber.org/mailman/listinfo/standards'>extensions mailing list</a>) among an open community of technical experts, led by the <a href='/council/'>XMPP Council</a>. The output of our work is both openly available (in the <a href='/extensions/'>XEP Series</a>) and freely usable (in accordance with our liberal <a href='/extensions/ipr-policy.shtml'>IPR Policy</a>). And we strive to ensure that our work always meets the highest standards of technical excellence.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

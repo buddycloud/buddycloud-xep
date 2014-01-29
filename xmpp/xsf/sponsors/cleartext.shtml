@@ -1,0 +1,14 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Sponsors :: Cleartext</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Sponsors :: Cleartext</h2>
+
+<p>
+<a href='http://www.cleartextsystems.com/'><img alt='Cleartext Logo' style='float: right; border-width: 0px' src='/images/logo-cleartext.jpg'/></a>
+<a href='http://www.cleartextsystems.com/'>Cleartext</a>&#153;, a Silver Sponsor of the XMPP Standards Foundation (XSF), is an Australian company that consults, integrates and delivers online community, collaboration and communication solutions for organisations looking to leverage Web 2.0, Enterprise 2.0 and social networking communications technologies like email, SMS and XMPP.</p>
+<p>Among other offerings, Cleartext provides world-class managed communication and collaboration services, including a forthcoming XMPP service, at <a href='http://www.cleartext.net/'>Cleartext.net</a>.</p>
+<p>For more information about Cleartext, visit &lt;<a href='http://www.cleartextsystems.com/'>www.cleartextsystems.com</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

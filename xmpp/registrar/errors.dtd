@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- DTD for application-specific error conditions -->
+<!ELEMENT registry ( meta, condition* ) >
+<!ELEMENT meta ( title, legal, overview, revision+ ) >
+<!ELEMENT title (#PCDATA)* >
+<!ELEMENT legal (#PCDATA)* >
+<!ELEMENT overview (#PCDATA)* >
+<!ELEMENT revision ( version, date, initials, remark ) >
+<!ELEMENT version (#PCDATA)* >
+<!ELEMENT date (#PCDATA)* >
+<!ELEMENT initials (#PCDATA)* >
+<!ELEMENT remark (#PCDATA)* >
+<!ELEMENT condition ( ns, element, desc, doc ) >
+<!ELEMENT ns (#PCDATA)* >
+<!ELEMENT element (#PCDATA)* >
+<!ELEMENT desc (#PCDATA)* >
+<!ELEMENT doc (#PCDATA)* >

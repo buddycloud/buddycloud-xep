@@ -1,0 +1,25 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Source Control</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Source Control</h2>
+
+<p>All specifications, XML schemas, and registries produced by the <a href='/xsf/'>XMPP Standards Foundation</a> are kept under source control using the open-source <a href='http://subversion.tigris.org/'>Subversion</a> system. Anonymous checkout of these files can be completed via the following Subversion command:</p>
+<blockquote>
+<p style='code'>svn co svn://svn.xmpp.org:7938/xmpp .</p>
+</blockquote>
+<p>The repository can be viewed and tracked in the following ways:</p>
+<ul>
+  <!--<li>SVN viewer: &lt;<a href='http://svn.xmpp.org:18080/browse/XMPP'>http://svn.xmpp.org:18080/browse/XMPP</a>&gt;</li>-->
+  <li>Git mirror: &lt;<a href='http://github.com/xsf/documentation'>http://github.com/xsf/documentation</a>&gt;</li>
+  <li>Commits list: <a href='http://mail.jabber.org/mailman/listinfo/xmpp-commits'>xmpp-commits@xmpp.org</a></li>
+  <li>RSS feed: <a href='http://svn.xmpp.org:18080/changelog/~rss/XMPP/rss.xml'>rss.xml</a></li>
+</ul>  
+<p>If you are a XEP author or a member of the XSF's <a href='/xsf/teams/communication/'>Communication Team</a> or <a href='/xsf/teams/techreview/'>Technical Review Team</a>, please send your RSA/DSA key to Peter Saint-Andre for secure check-in privileges; instead of what is shown above you will use the following command for checkout:</p>
+<blockquote>
+<p style='code'>svn co svn+ssh://svn@svn.xmpp.org/xmpp .</p>
+</blockquote>
+<!--<p>Note: A license to use the <a href='http://www.cenqua.com/fisheye/'>Fisheye</a> SVN viewer has been generously donated by <a href='http://www.cenqua.com/'>Cenqua</a>.</p>-->
+
+<!--#include virtual="/includes/foot.txt" -->

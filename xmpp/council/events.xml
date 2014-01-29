@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<events>
+  <event>
+    <date>2011-01-19T16:00:00Z</date>
+    <duration>30</duration>
+    <summary>XMPP Council Meeting</summary>
+    <description>Click xmpp:council@muc.xmpp.org?join to enter the room.</description>
+    <alarm></alarm>
+  </event>
+</events>

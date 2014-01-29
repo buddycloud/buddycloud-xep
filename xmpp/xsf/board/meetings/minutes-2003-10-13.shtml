@@ -1,0 +1,65 @@
+<html>
+<head>
+<title>JSF Board Meeting</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>JSF Board Meeting</h2>
+
+<p>
+Date: 2003-10-13 @ 16:00 UTC<br />
+Location: 1899 Wynkoop Street, Denver, CO, USA<br />
+Alternate Participation: Conference Call<br />
+Scribe: Peter Saint-Andre, Secretary of the JSF
+</p>
+<h2>Roll Call</h2>
+<p>At 16:36 UTC, roll call was taken. The following individuals were in attendance:</p>
+<ul>
+<li>Tony Bamonti</li>
+<li>Russell Davis</li>
+<li>Ryan Eatmon</li>
+<li>Peter Saint-Andre</li>
+</ul>
+<p>All three Board members were in attendance. Quorum requirements were met.</p>
+<h2>Discussion</h2>
+<ol>
+  <li>
+    <p>Compliance Team</p>
+    <p>Because Iain Shigeoka (Compliance Team Chair) has resigned from the JSF, a new chair must be recruited. Russell suggested a hard restart for the team, but consensus was reached that it would be best to put out a call for volunteers first. Russell to follow up.</p>
+  </li>
+  <li>
+    <p>XMPP.ORG Work Team</p>
+    <p>One member of the team has resigned from the JSF, and another has resigned from the team. Peter to put out a new call for volunteers who want to work on the team in its current scope.</p>
+  </li>
+  <li>
+    <p>Prorated Sponsorships</p>
+    <p>Peter Saint-Andre broached the topic of prorating the sponsorship received from Jive Software given the fact that both JSF members from that company have resigned from the organization. The consensus of the Board was that this would set a bad precedent.</p>
+  </li>
+  <li>
+    <p>Infrastructure Update</p>
+    <p>Peter Millard worked over the weekend to move the production Jabber server to one of the new HP machines. The upgrade seems to have gone smoothly. The current client connection manager has a number of issues (dropped connections, resource utilization, sporadic misdirected packets); Jabber Inc. has offered the JSF a royalty-free license to its client connection manager component as a stopgap measure until jabberd2 (or some other solution) is ready to deploy. Tentative approval from the Board pending review of the licensing terms.</p>
+  </li>
+  <li>
+    <p>Board Resignations</p>
+    <p>Both Michael Bauer and Harold Gottschalk recently indicated that they desired to resign from the Board. Harold's resignation was received in writing via electronic communication, but Michael's was not. The Bylaws state that resignations must be received in writing. Russell to verify Michael's decision by seeking a written statement from him.</p>
+  </li>
+  <li>
+    <p>Recent Turmoil</p>
+    <p>Several JSF members have resigned of late (as have two recently-elected Board members), and it seems possible that other JSF members may to so as well. The question was asked whether some additional response is required from the Board. Consensus that this is not necessary at this time given the fact that people continually join and leave the community. However, the Board should regularly take the temperature of the community and seek out feedback regarding the direction of the organization.</p>
+  </li>
+</ol>
+<h2>Action and Consent Items</h2>
+<ol>
+  <li>
+    <p>Resolved: To approve the Charter for the Infrastructure Work Team submitted by Ryan Eatmon.</p>
+    <p>Action: Approved</li>
+  </li>
+</ol>
+<h2>New Business</h2>
+<ol>
+  <li>
+    <p>The next Board meeting is scheduled for October 28, 2003.</p> 
+  </li>
+</ol>
+<h2>Adjournment</h2>
+<p>The meeting adjourned at 17:31 UTC.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

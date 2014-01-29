@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Technologies: Core</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP Technologies: Core</h2>
+
+<h3>Table of Contents</h3>
+<ol>
+  <li><a href='#overview'>Overview</a></li>
+  <li><a href='#specs'>Specifications</a></li>
+  <li><a href='#impl'>Implementations</a></li>
+  <li><a href='#discuss'>Discussion Venues</a></li>
+</ol>
+
+<a name='overview'></a><h3>1. Overview</h3>
+<p>At its core, XMPP is a technology for streaming XML over a network. The protocol, which emerged from the <a href='/about/jabber.shtml'>Jabber</a> open-source community in 1999, was originally designed to provide an open, secure, decentralized alternative to consumer-oriented instant messaging (IM) services like ICQ, AIM, and MSN. The core technologies were formalized under the name Extensible Messaging and Presence Protocol (XMPP) at the <a href='http://www.ietf.org/'>IETF</a> in 2004. These core technologies include:</p>
+<ul>
+  <li>The base XML streaming layer</li>
+  <li>Channel encryption using Transport Layer Security (TLS)</li>
+  <li>Strong authentication using the Simple Authentication and Security Layer (SASL)</li>
+  <li>Use of UTF-8 for complete Unicode support, including fully internationalized addresses</li>
+  <li>Built-in information about network availability ("presence")</li>
+  <li>Presence subscriptions for two-way authorization</li>
+  <li>Presence-enabled contact lists ("rosters")</li>
+</ul>
+
+<a name='specs'></a><h3>2. Specifications</h3>
+<p>The core XMPP technologies are defined in two RFCs published by the IETF:</p>
+<ul>
+  <li><a href='http://xmpp.org/rfcs/rfc3920.html'>RFC 3920: XMPP Core</a></li>
+  <li><a href='http://xmpp.org/rfcs/rfc3921.html'>RFC 3921: XMPP IM</a></li>
+</ul>
+<p>These RFCs are currently undergoing revision based on implementation and deployment experience since 2004. The revised versions are available at &lt;<a href='http://xmpp.org/internet-drafts/'>http://xmpp.org/internet-drafts/</a>&gt;.</p>
+
+<a name='impl'></a><h3>3. Implementations</h3>
+
+<p>There are many implementations of the core XMPP specifications. See the following pages for details:</p>
+<ul>
+  <li><a href='/software/clients.shtml'>Clients</a></li>
+  <li><a href='/software/servers.shtml'>Servers</a></li>
+  <li><a href='/software/libraries.shtml'>Code Libraries</a></li>
+</ul>
+
+<a name='discuss'></a><h3>4. Discussion Venues</h3>
+<p>The XMPP Standards Foundation maintains several email discussion lists about the core XMPP technologies. The primary list is the "standards@xmpp.org" list. As with all XSF technology lists, the standards@xmpp.org list is open to all interested individuals.</p>
+<ul>
+  <li><a href='http://mail.jabber.org/mailman/listinfo/standards'>Info page and subscription information</a></li>
+  <li><a href='mailto:standards-subscribe@xmpp.org'>Subscribe via email</a></li>
+  <li><a href='http://mail.jabber.org/pipermail/standards/'>Discussion archives</a></li>
+</ul>
+<!--#include virtual="/includes/foot.txt" -->

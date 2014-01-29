@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Jabber Trademark Licensing Program</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2><a class='pagehead' href='index.shtml'>Jabber Trademark Licensing Program</a></h2>
+<h3>Pending Applications</h3>
+
+<!--
+<p>This page lists pending applications for sub-licensing of the <a href="/trademark/">Jabber trademark</a>. The following applications have been submitted to the XMPP Standards Foundation's <a href="contact.shtml">Trademark Committee</a> but have not yet been approved. Approved applications are <a href="approved.shtml">here</a>.</p>
+<table border='1' cellpadding='3' cellspacing='0'>
+  <tr class='tablebody'>
+    <th>Mark</th>
+    <th>Licensee</th>
+    <th>Type</th>
+    <th>Date Received</th>
+  </tr>
+</table>
+-->
+
+<p>There are no pending applications at this time.</p>
+
+<p>Return to <a href='/trademark/'>Jabber Trademark Licensing Program</a>.</p>
+<!--#include virtual="/includes/foot.txt" -->

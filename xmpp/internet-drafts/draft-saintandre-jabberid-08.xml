@@ -1,0 +1,311 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc strict="yes"?>
+<rfc category="info" docName="draft-saintandre-jabberid-08" ipr="trust200902">
+
+  <front>
+    <title abbrev='Jabber-ID'>The Jabber-ID Header Field</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>XMPP Standards Foundation</organization>
+      <address>
+        <email>stpeter@jabber.org</email>
+        <uri>https://stpeter.im/</uri>
+      </address>
+    </author>
+    <date year="2007" month="December" day="4"/>
+    <area>Applications</area>
+    <keyword>Extensible Messaging and Presence Protocol</keyword>
+    <keyword>XMPP</keyword>
+    <keyword>Jabber</keyword>
+    <keyword>Electronic Mail</keyword>
+    <keyword>Email</keyword>
+    <keyword>Netnews</keyword>
+    <abstract>
+      <t>This document defines a header field that enables the author of an email or netnews message to include a Jabber Identifier in the message header block for the purpose of associating the author with a particular Extensible Messaging and Presence Protocol (XMPP) address.</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <t>The Extensible Messaging and Presence Protocol (XMPP), documented in <xref target='XMPP-CORE'/>, is a streaming XML technology that enables any two entities on a network to exchange well-defined but extensible XML elements (called "XML stanzas") in close to real time.  Given XMPP's heritage in the Jabber open-source community, one of the primary uses for XMPP is instant messaging and presence as documented in <xref target='XMPP-IM'/>, and XMPP addresses are still referred to as Jabber Identifiers or Jabber IDs.</t>
+      <t>Because almost all human users of Jabber/XMPP instant messaging and presence systems also user email systems (see <xref target='MESSAGE'/>) and because many such users also use netnews systems (see <xref target='NETNEWS'/>), it can be helpful for such users to specify their Jabber Identifiers in the messages they author.  The Jabber-ID header field provides a standard location for that information.  Members of the Jabber instant messaging and presence community have been experimenting with this usage for several years.  As a result, this document provides informational documentation regarding the syntax and implementation of the Jabber-ID header field, including the information necessary to register the Jabber-ID field in the Provisional Message Header Field Registry maintained by the IANA.</t>
+      <t>Naturally it may be beneficial to define a more general header field (or fields) that can be used by non-XMPP instant messaging and presence systems.  In all likelihood the result would be one header field encapsulating a URI that conforms to the "im:" scheme (see <xref target='CPIM'/>) and a second header field encapsulating a URI that conforms to the "pres:" scheme (see <xref target='CPP'/>).  Experience gained with the Jabber-ID header field within the Jabber instant messaging and presence community should provide helpful input to the process of defining those more general header fields.</t>
+    </section>
+
+    <section title="Syntax" anchor="syntax">
+      <t>The syntax of the Jabber-ID header field is defined below using Augmented Backus-Naur Form (as specified by <xref target="ABNF"/>), where the "pathxmpp" rule is defined in <xref target='XMPP-URI'/> and the remaining rules are defined in <xref target='MESSAGE'/>:</t>
+      <figure>
+        <artwork><![CDATA[
+"Jabber-ID:" SP *WSP pathxmpp *WSP CRLF
+        ]]></artwork>
+      </figure>
+      <t>Note: Although a native XMPP address may contain virtually any <xref target='UNICODE'/> character, the header of an email or netnews message may contain only printable <xref target='US-ASCII'/> characters (see Section 2 of <xref target='MESSAGE'/>). Therefore, any characters outside the US-ASCII range in an XMPP address must be converted to US-ASCII before inclusion in a Jabber-ID header field, in accordance with the rules specified in <xref target='XMPP-URI'/>.  In addition, characters allowed in XMPP node identifiers and XMPP resource identifiers but disallowed by the relevant URI rules must be percent-encoded in accordance with the rules specified in <xref target='URI'/>; for details, see <xref target='XMPP-URI'/>.</t>
+    </section>
+
+    <section title="Implementation" anchor="impl">
+      <section title="Inclusion" anchor="impl-inclusion">
+        <t>The Jabber-ID header field is associated with the author of the message; see <xref target='MESSAGE'/>.  If the "From:" header field of an email message contains more than one mailbox, the Jabber-ID header field should not be added to the message.  There should be no more than one instance of the Jabber-ID header field.</t>
+      </section>
+      <section title="Generation" anchor="impl-generation">
+        <t>For a user whose XMPP address is "juliet@example.com", the corresponding Jabber-ID header field would be:</t>
+        <figure>
+          <artwork><![CDATA[
+Jabber-ID: juliet@example.com
+          ]]></artwork>
+        </figure>
+        <t>As noted, non-US-ASCII characters in XMPP addresses must be converted into US-ASCII before inclusion in a Jabber-ID header field.  Consider the following XMPP address:</t>
+        <figure>
+          <artwork><![CDATA[
+ji&#x159;i@&#x10D;echy.example
+          ]]></artwork>
+        </figure>
+        <t>Note: The string "&amp;#x159;" stands for the Unicode character LATIN SMALL LETTER R WITH CARON and the string "&amp;#x10D;" stands for the Unicode character LATIN SMALL LETTER C WITH CARON, following the "XML Notation" used in <xref target="IRI"/> to represent characters that cannot be rendered in ASCII-only documents (note also that these characters are represented in their stringprep canonical form; see <xref target='STRINGPREP'/>).  For those who do not read Czech, this example could be Anglicized as "george@czech-lands.example".</t>
+        <t>Following the rules in <xref target='XMPP-URI'/> and the Jabber-ID header field syntax, the resulting header field would be:</t>
+        <figure>
+          <artwork><![CDATA[
+Jabber-ID: 
+       ji%C5%99i@%C4%8Dechy.example
+          ]]></artwork>
+        </figure>
+      </section>
+      <section title="Processing" anchor="impl-processing">
+        <t>Upon receiving an email or netnews message containing a Jabber-ID header field, a user agent that supports the field should process the field by converting any escaped characters to characters outside the US-ASCII range in accordance with the rules specified in <xref target='XMPP-URI'/>, thus yielding a Jabber Idenfitier that can be used for native communication on an XMPP network.</t>
+      </section>
+      <section title="Disposition" anchor="impl-disposition">
+        <t>A user agent that has processed a Jabber-ID header field may provide appropriate interface elements if it has independent information linking the author of the email or netnews message with the specified Jabber Identifier (e.g., via a user-controlled address book or automated directory lookup).  Such interface elements might include an indicator of "presence" (i.e., that the author is online and available for communication via XMPP) if the user is subscribed to the presence of the author, and an element that enables the user to initiate a text chat with the author.</t>
+      </section>
+    </section>
+
+    <section title='IANA Considerations' anchor="iana">
+      <t>In accordance with <xref target="REG"/>, the IANA registers the "Jabber-ID" header field in the Provisional Message Header Field Registry.  The registration template is as follows:</t>
+      <t><list style='hanging'>
+        <t hangText='Header field name:'>Jabber-ID</t>
+        <t hangText='Applicable protocol:'>mail, netnews</t>
+        <t hangText='Status:'>provisional</t>
+        <t hangText='Author/Change controller:'>Peter Saint-Andre &lt;mailto:stpeter@jabber.org&gt;</t>
+        <t hangText='Specification document(s):'>draft-saintandre-jabberid-08</t>
+        <t hangText='Related information:'>For details regarding the native usage and format of Jabber Identifiers, see Extensible Messaging and Presence Protocol (RFC 3920).</t>
+      </list></t>
+      <t>[Note to IANA and RFC Editor: If appropriate, replace I-D name with RFC XXXX, where "XXXX" is the number of the RFC that results from this specification, if any]</t>
+    </section>
+
+    <section title='Security Considerations' anchor="sec">
+      <t>Message headers are an existing standard and are designed to easily accommodate new types.  Although the Jabber-ID header field may be forged, this problem is inherent in Internet email and netnews; however, because a forged Jabber-ID header field may break automated processing, applications should not depend on the Jabber-ID header field to indicate the authenticity of an email or netnews message, or the identity of its author or sender.  Including the Jabber-ID header field among the signer header fields in DomainKeys Identified Mail (DKIM) can help to mitigate against forging of the header (see <xref target='DKIMSIG'/>).</t>
+      <t>Advertising XMPP addresses in email or netnews headers may make it easier for malicious users to harvest XMPP addresses and therefore to send unsolicited bulk communications to the users or applications represented by those addresses.  Care should be taken in balancing the benefits of open information exchange against the potential costs of unwanted communication.  An email or netnews user agent that is capable of including the Jabber-ID header field in outgoing email or netnews messages should provide an option for its user to disable inclusion of the Jabber-ID header field generally, on a per-recipient basis, and on a per-message basis.</t>
+      <t>The security considerations discussed in <xref target="IRI"/>, <xref target="URI"/>, <xref target="XMPP-CORE"/>, <xref target='XMPP-IM'/>, and <xref target='XMPP-URI'/> may also apply to the Jabber-ID message header.</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+<reference anchor='ABNF'>
+<front>
+<title>Augmented BNF for Syntax Specifications: ABNF</title>
+<author initials='D.' surname='Crocker' fullname='D. Crocker'>
+<organization /></author>
+<author initials='P.' surname='Overell' fullname='P. Overell'>
+<organization /></author>
+<date year='2005' month='October' /></front>
+<seriesInfo name='RFC' value='4234' />
+<format type='TXT' octets='26351' target='ftp://ftp.isi.edu/in-notes/rfc4234.txt' />
+</reference>
+
+<reference anchor='MESSAGE'>
+<front>
+<title>Internet Message Format</title>
+<author initials='P.' surname='Resnick' fullname='P. Resnick'>
+<organization /></author>
+<date year='2001' month='April' /></front>
+<seriesInfo name='RFC' value='2822' />
+<format type='TXT' octets='110695' target='ftp://ftp.isi.edu/in-notes/rfc2822.txt' />
+</reference>
+
+<reference anchor='NETNEWS'>
+<front>
+<title abbrev='Standard for USENET Messages'>Standard for interchange of USENET messages</title>
+<author initials='M.' surname='Horton' fullname='M. Horton'>
+<organization>AT&amp;T Bell Laboratories</organization></author>
+<author initials='R.' surname='Adams' fullname='R. Adams'>
+<organization>Center for Seismic Studies</organization></author>
+<date year='1987' day='1' month='December' /></front>
+<seriesInfo name='RFC' value='1036' />
+<format type='TXT' octets='46891' target='ftp://ftp.isi.edu/in-notes/rfc1036.txt' />
+</reference>
+
+<reference anchor="XMPP-URI">
+<front>
+<title>Internationalized Resource Identifiers (IRIs) and Uniform Resource  Identifiers (URIs) for the Extensible Messaging and Presence Protocol (XMPP)</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<date month='June' day='14' year='2007' />
+<abstract><t>This document defines the use of Internationalized Resource Identifiers (IRIs) and Uniform Resource Identifiers (URIs) in identifying or interacting with entities that can communicate via the Extensible Messaging and Presence Protocol (XMPP). This document obsoletes RFC 4622.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-rfc4622bis-01' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-saintandre-rfc4622bis-01.txt' />
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor="CPIM">
+<front>
+<title>Common Profile for Instant Messaging (CPIM)</title>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<date year='2004' month='August' /></front>
+<seriesInfo name='RFC' value='3860' />
+<format type='TXT' octets='26486' target='ftp://ftp.isi.edu/in-notes/rfc3860.txt' />
+</reference>
+
+<reference anchor="CPP">
+<front>
+<title>Common Profile for Presence (CPP)</title>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<date year='2004' month='August' /></front>
+<seriesInfo name='RFC' value='3859' />
+<format type='TXT' octets='30537' target='ftp://ftp.isi.edu/in-notes/rfc3859.txt' />
+</reference>
+
+<reference anchor='DKIMSIG'>
+<front>
+<title>DomainKeys Identified Mail (DKIM) Signatures</title>
+<author initials='E.' surname='Allman' fullname='E. Allman'>
+<organization /></author>
+<author initials='J.' surname='Callas' fullname='J. Callas'>
+<organization /></author>
+<author initials='M.' surname='Delany' fullname='M. Delany'>
+<organization /></author>
+<author initials='M.' surname='Libbey' fullname='M. Libbey'>
+<organization /></author>
+<author initials='J.' surname='Fenton' fullname='J. Fenton'>
+<organization /></author>
+<author initials='M.' surname='Thomas' fullname='M. Thomas'>
+<organization /></author>
+<date year='2007' month='May' />
+<abstract>
+<t>DomainKeys Identified Mail (DKIM) defines a domain-level authentication framework for email using public-key cryptography and key server technology to permit verification of the source and contents of messages by either Mail Transfer Agents (MTAs) or Mail User Agents (MUAs). The ultimate goal of this framework is to permit a signing domain to assert responsibility for a message, thus protecting message signer identity and the integrity of the messages they convey while retaining the functionality of Internet email as it is known today. Protection of email identity may assist in the global control of "spam" and "phishing". [STANDARDS TRACK]</t></abstract></front>
+<seriesInfo name='RFC' value='4871' />
+<format type='TXT' octets='166054' target='ftp://ftp.isi.edu/in-notes/rfc4871.txt' />
+</reference>
+
+<reference anchor="IRI">
+<front>
+<title>Internationalized Resource Identifiers (IRIs)</title>
+<author initials='M.' surname='Duerst' fullname='M. Duerst'>
+<organization /></author>
+<author initials='M.' surname='Suignard' fullname='M. Suignard'>
+<organization /></author>
+<date year='2005' month='January' /></front>
+<seriesInfo name='RFC' value='3987' />
+<format type='TXT' octets='111190' target='ftp://ftp.isi.edu/in-notes/rfc3987.txt' />
+</reference>
+
+<reference anchor='REG'>
+<front>
+<title>Registration Procedures for Message Header Fields</title>
+<author initials='G.' surname='Klyne' fullname='G. Klyne'>
+<organization /></author>
+<author initials='M.' surname='Nottingham' fullname='M. Nottingham'>
+<organization /></author>
+<author initials='J.' surname='Mogul' fullname='J. Mogul'>
+<organization /></author>
+<date year='2004' month='September' />
+<abstract>
+<t>&lt;p>This specification defines registration procedures for the message header fields used by Internet mail, HTTP, Netnews and other applications. This document specifies an Internet Best Current Practices for the Internet Community, and requests discussion and suggestions for improvements. &lt;/p></t></abstract></front>
+<seriesInfo name='BCP' value='90' />
+<seriesInfo name='RFC' value='3864' />
+<format type='TXT' octets='36231' target='ftp://ftp.isi.edu/in-notes/rfc3864.txt' />
+</reference>
+
+<reference anchor="STRINGPREP">
+<front>
+<title>Preparation of Internationalized Strings ("stringprep")</title>
+<author initials='P.' surname='Hoffman' fullname='P.  Hoffman'>
+<organization /></author>
+<author initials='M.' surname='Blanchet' fullname='M.  Blanchet'>
+<organization /></author>
+<date month='December' year='2002' /></front>
+<seriesInfo name='RFC' value='3454' />
+<format type='TXT' octets='138684' target='ftp://ftp.isi.edu/in-notes/rfc3454.txt' />
+</reference>
+
+<reference anchor="UNICODE">
+  <front>
+    <title>The Unicode Standard, Version 3.2.0</title>
+    <author>
+      <organization>The Unicode Consortium</organization>
+    </author>
+    <date year="2000" />
+  </front>
+  <annotation>
+    The Unicode Standard, Version 3.2.0 is defined by The Unicode Standard, Version 3.0 (Reading, MA, Addison-Wesley, 2000. ISBN 0-201-61633-5), as amended by the Unicode Standard Annex #27: Unicode 3.1 (http://www.unicode.org/reports/tr27/) and by the Unicode Standard Annex #28: Unicode 3.2 (http://www.unicode.org/reports/tr28/).
+  </annotation>
+</reference>
+
+<reference anchor="URI">
+<front>
+<title>Uniform Resource Identifier (URI): Generic Syntax</title>
+<author initials='T.' surname='Berners-Lee' fullname='T. Berners-Lee'>
+<organization /></author>
+<author initials='R.' surname='Fielding' fullname='R. Fielding'>
+<organization /></author>
+<author initials='L.' surname='Masinter' fullname='L. Masinter'>
+<organization /></author>
+<date year='2005' month='January' /></front>
+<seriesInfo name='STD' value='66' />
+<seriesInfo name='RFC' value='3986' />
+<format type='TXT' octets='141811' target='ftp://ftp.isi.edu/in-notes/rfc3986.txt' />
+</reference>
+
+<reference anchor="US-ASCII">
+<front>
+<title>Coded Character Set - 7-bit American Standard Code for Information Interchange</title>
+<author>
+<organization>American National Standards Institute</organization>
+</author>
+<date month="" year="1986" />
+</front>
+<seriesInfo name="ANSI" value="X3.4" />
+</reference>
+
+<reference anchor="XMPP-CORE">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P.  Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3920' />
+  <format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+</reference>
+
+<reference anchor="XMPP-IM">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P.  Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3921' />
+  <format type='TXT' octets='217527' target='ftp://ftp.isi.edu/in-notes/rfc3921.txt' />
+</reference>
+
+    </references>
+
+  </back>
+
+</rfc>

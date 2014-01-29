@@ -1,0 +1,830 @@
+<?xml version="1.0"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocdepth="2"?>
+<?rfc symrefs="yes"?>
+<?rfc compact="yes"?>
+<?rfc strict="yes"?>
+<rfc category='info' docName='draft-saintandre-sip-xmpp-presence-02' ipr='pre5378Trust200902'>
+
+  <front>
+    <title abbrev="SIP-XMPP Interworking: Presence">Interworking between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP): Presence</title>
+    <author initials="P." surname="Saint-Andre" fullname="Peter Saint-Andre">
+      <organization>Cisco</organization>
+      <address>
+        <email>psaintan@cisco.com</email>
+      </address>
+    </author>
+    <author initials="A." surname="Houri" fullname="Avshalom Houri">
+      <organization>IBM</organization>
+      <address>
+        <postal>
+          <street>Building 18/D, Kiryat Weizmann Science Park</street>
+          <city>Rehovot</city>
+          <code>76123</code>
+          <country>Israel</country>
+        </postal>
+        <email>avshalom@il.ibm.com</email>
+      </address>
+    </author>
+    <author initials="J." surname="Hildebrand" fullname="Joe Hildebrand">
+      <organization>Cisco</organization>
+      <address>
+        <email>jhildebr@cisco.com</email>
+      </address>
+    </author>
+    <date year="2009" month="March" day="8"/>
+    <area>Applications</area>
+    <keyword>XMPP</keyword>
+    <keyword>Jabber</keyword>
+    <keyword>SIP</keyword>
+    <keyword>SIMPLE</keyword>
+    <keyword>IM</keyword>
+    <keyword>Instant Messaging</keyword>
+    <keyword>Presence</keyword>
+
+    <abstract>
+      <t>This document defines a bi-directional protocol mapping for the exchange of presence information between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP).</t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Introduction" anchor="intro">
+      <t>In order to help ensure interworking between presence systems that conform to the requirements of <xref target="IMP-REQS">RFC 2779</xref>, it is important to clearly define protocol mappings between such systems.  Within the IETF, work has proceeded on two presence technologies:</t>
+      <t>
+        <list style='symbols'>
+          <t>Various extensions to the Session Initiation Protocol (<xref target="SIP"/>) for instant messaging, as developed within the SIP for Instant Messaging and Presence Leveraging Extensions (SIMPLE) Working Group; the relevant specification for presence is <xref target='SIP-PRES'/></t>
+          <t>The Extensible Messaging and Presence Protocol (XMPP), which consists of a formalization of the core XML streaming protocols developed originally by the Jabber open-source community; the relevant specifications are <xref target='XMPP'/> for the XML streaming layer and <xref target='XMPP-IM'/> for basic presence and instant messaging extensions</t>
+        </list>
+      </t>
+      <t>One approach to helping ensure interworking between these protocols is to map each protocol to the abstract semantics described in <xref target="CPIM"/>; that is the approach taken by <xref target="SIMPLE-CPIM"/> and <xref target="XMPP-CPIM"/>.  The approach taken in this document is to directly map semantics from one protocol to another (i.e., from SIP/SIMPLE to XMPP and vice-versa).</t>
+      <t>The architectural assumptions underlying such direct mappings are provided in <xref target='SIP-XMPP'/>, including mapping of addresses and error condisions.  The mappings specified in this document cover basic presence functionality.  Mapping of more advanced functionality is out of scope for this document, but other documents in this "series" cover such topics.</t>
+      <t>Note: The capitalized key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED",  "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in <xref target="TERMS">RFC 2119</xref>.</t>
+    </section>
+
+    <section title="Presence Subscriptions" anchor="sub">
+      <section title="Overview" anchor="sub-over">
+        <t>Both XMPP and presence-aware SIP systems enable entities (often but not necessarily human users) to subscribe to the presence of other entities.  XMPP presence subscriptions are specified in <xref target="XMPP-IM"/>.  Presence subscriptions using a SIP event package for presence are specified in <xref target="SIP-PRES"/>.</t>
+        <t>As described in <xref target="XMPP-IM"/>, XMPP presence subscriptions are managed using XMPP presence stanzas of type "subscribe", "subscribed", "unsubscribe", and "unsubscribed".  The main subscription states are "none" (neither the user nor the contact is subscribed to the other's presence information), "from" (the user has a subscription from the contact), "to" (the user has a subscription to the contact's presence information), and "both" (both user and contact are subscribed to each other's presence information).</t>
+        <t>As described in <xref target="SIP-PRES"/>, SIP presence subscriptions are managed through the use of SIP SUBSCRIBE events sent from a SIP user agent to an intended recipient who is most generally referenced by an Instant Message URI of the form &lt;pres:user@domain&gt; but who may be referenced by a SIP or SIPS URI of the form &lt;sip:user@domain&gt; or &lt;sips:user@domain&gt;.</t>
+        <t>The subscription models underlying XMPP and SIP are quite different.  For instance, XMPP presence subscriptions are long-lived (indeed permanent if not explicitly cancelled), whereas SIP presence subscriptions are short-lived (the default time to live of a SIP presence subscription is 3600 seconds, as specified in Section 6.4 of <xref target="SIP-PRES"/>).  These differences are addressed below.</t>
+      </section>
+      <section title="XMPP to SIP" anchor="sub-xmpp">
+        <section title="Establishing" anchor="sub-xmpp-establish">
+          <t>An XMPP user initiates a subscription by sending a subscription request to another entity (conventionally called a "contact"), which request the contact either accepts or declines.  If the contact accepts the request, the user will have a subscription to the contact's presence information until (1) the user unsubscribes or (2) the contact cancels the subscription.  The subscription request is encapsulated in a presence stanza of type "subscribe":</t>
+          <figure>
+            <preamble>Example: XMPP user subscribes to SIP contact:</preamble>
+            <artwork><![CDATA[
+|  <presence from='juliet@example.com'
+|            to='romeo@example.net'
+|            type='subscribe'/>
+            ]]></artwork>
+          </figure>
+          <t>Upon receiving such a stanza, the XMPP server to which Juliet has connected needs to determine the identity of the foreign domain, which it does by performing one or more <xref target="SRV"/> lookups.  For presence stanzas, the order of lookups recommended by <xref target="XMPP-IM"/> is to first try the "_xmpp-server" service as specified in <xref target="XMPP"/> and to then try the "_pres" service as specified in <xref target="IMP-SRV"/>.  Here we assume that the first lookup will fail but that the second lookup will succeed and return a resolution "_pres._simple.example.net.", since we have already assumed that the example.net hostname is running a SIP presence service.</t>
+          <t>Once the XMPP server has determined that the foreign domain is serviced by a SIMPLE server, it must determine how to proceed.  We here assume that the XMPP server contains or has available to it an XMPP-SIMPLE gateway.  The XMPP server would then deliver the presence stanza to the XMPP-SIMPLE gateway.</t>
+          <t>The XMPP-SIMPLE gateway is then responsible for translating the XMPP subscription request into a SIP SUBSCRIBE request from the XMPP user to the SIP user:</t>
+          <figure>
+            <preamble>Example: XMPP user subscribes to SIP contact (SIP transformation):</preamble>
+            <artwork><![CDATA[
+|  SUBSCRIBE sip:romeo@example.net SIP/2.0
+|  Via: SIP/2.0/TCP x2s.example.com;branch=z9hG4bKna998sk
+|  From: <sip:juliet@example.com>;tag=ffd2
+|  To: <sip:romeo@example.net>
+|  Call-ID: l04th3s1p@example.com
+|  Event: presence
+|  Max-Forwards: 70
+|  CSeq: 123 SUBSCRIBE
+|  Contact: <sip:sipgate.example.com;transport=tcp>
+|  Accept: application/pidf+xml
+|  Expires: 3600
+|  Content-Length: 0
+            ]]></artwork>
+          </figure>
+          <t>The SIP user then SHOULD send a response indicating acceptance of the subscription request:</t>
+          <figure>
+            <preamble>Example: SIP accepts subscription request:</preamble>
+            <artwork><![CDATA[
+|  SIP/2.0 200 OK
+|  Via: SIP/2.0/TCP s2x.example.net;branch=z9hG4bKna998sk
+|  From: <sip:romeo@example.net>;tag=ffd2
+|  To: <sip:juliet@example.com>;tag=j89d
+|  Call-ID: l04th3s1p@example.com
+|  CSeq: 234 SUBSCRIBE
+|  Contact: <sip:simple.example.net;transport=tcp>
+|  Expires: 3600
+|  Content-Length: 0
+            ]]></artwork>
+          </figure>
+          <t>In accordance with <xref target='SIP-EVENT'/>, the XMPP-SIMPLE gateway should consider the subscription state to be "neutral" until it receives a NOTIFY message.  Therefore the SIP user or SIP-XMPP gateway at the SIP user's domain SHOULD immediately send a NOTIFY message containing a "Subscription-State" header whose value contains the string "active" (see <xref target="pres"/>).</t>
+          <figure>
+            <preamble>Example: SIP user sends presence notification:</preamble>
+            <artwork><![CDATA[
+|  NOTIFY sip:192.0.2.1 SIP/2.0
+|  Via: SIP/2.0/TCP simple.example.net;branch=z9hG4bKna998sk
+|  From: <sip:romeo@example.net>;tag=yt66
+|  To: <sip:juliet@example.com>;tag=bi54
+|  Call-ID: l04th3s1p@example.com
+|  Event: presence
+|  Subscription-State: active;expires=499
+|  Max-Forwards: 70
+|  CSeq: 8775 NOTIFY
+|  Contact: <sip:simple.example.net;transport=tcp>
+|  Content-Type: application/pidf+xml
+|  Content-Length: 193
+|
+|  <?xml version='1.0' encoding='UTF-8'?>
+|  <presence xmlns='urn:ietf:params:xml:ns:pidf'
+|            entity='pres:romeo@example.net'>
+|    <tuple id='orchard'>
+|      <status>
+|        <basic>open</basic>
+|      </status>
+|    </tuple>
+|  </presence>
+            ]]></artwork>
+          </figure>
+          <t>Upon receiving the first NOTIFY with a subscription state of active, the XMPP-SIMPLE gateway MUST generate a presence stanza of type "subscribed":</t>
+          <figure>
+            <preamble>Example: XMPP user receives acknowledgement from SIP contact:</preamble>
+            <artwork><![CDATA[
+|  <presence from='romeo@example.net'
+|            to='juliet@example.com'
+|            type='subscribed'/>
+            ]]></artwork>
+          </figure>
+          <t>As described under <xref target="pres"/>, the gateway MUST also generate a presence notification to the XMPP user:</t>
+          <figure>
+            <preamble>Example: XMPP user receives presence notification from SIP contact:</preamble>
+            <artwork><![CDATA[
+|  <presence from='romeo@example.net/orchard'
+|            to='juliet@example.com'/>
+            ]]></artwork>
+          </figure>
+        </section>
+        <section title="Refreshing" anchor="sub-xmpp-refresh">
+          <t>It is the responsibility of the XMPP-SIMPLE gateway to set the value of the "Expires" header and to periodically renew the subscription on the SIMPLE side of the gateway so that the subscription appears to be permanent to the XMPP user (e.g., the XMPP-SIMPLE gateway SHOULD send a new SUBSCRIBE request to the SIP user whenever the XMPP user sends initial presence to its XMPP server, i.e., upon initiating a presence session with the XMPP server).  See the <xref target='sec'>Security Considerations</xref> of this document for important information and requirements regarding the security implications of this functionality.</t>
+        </section>
+        <section title="Cancelling" anchor="sub-xmpp-cancel">
+          <t>At any time after subscribing, the XMPP user may unsubscribe from the contact's presence.  This is done by sending a presence stanza of type "unsubscribe":</t>
+          <figure>
+            <preamble>Example: XMPP user unsubscribes from SIP contact:</preamble>
+            <artwork><![CDATA[
+|  <presence from='juliet@example.com'
+|            to='romeo@example.net'
+|            type='unsubscribe'/>
+            ]]></artwork>
+          </figure>
+          <t>The XMPP-SIMPLE gateway is responsible for translating the unsubscribe command into a SIP SUBSCRIBE request with the "Expires" header set to a value of zero:</t>
+          <figure>
+            <preamble>Example: XMPP user unsubscribes from SIP contact (SIP transformation):</preamble>
+            <artwork><![CDATA[
+|  SUBSCRIBE sip:romeo@example.net SIP/2.0
+|  Via: SIP/2.0/TCP s2x.example.net;branch=z9hG4bKna998sk
+|  From: <sip:juliet@example.com>;tag=j89d
+|  To: <sip:romeo@example.net>;tag=xfg9
+|  Call-ID: 1ckm32@example.com
+|  Event: presence
+|  Max-Forwards: 70
+|  CSeq: 789 SUBSCRIBE
+|  Contact: <sip:x2s.example.com;transport=tcp>
+|  Accept: application/pidf+xml
+|  Expires: 0
+|  Content-Length: 0
+            ]]></artwork>
+          </figure>
+          <t>Upon sending the transformed unsubscribe, the XMPP-SIMPLE gateway SHOULD a presence stanza of type "unsubscribed" to the XMPP user:</t>
+          <figure>
+            <preamble>Example: XMPP user receives unsubscribed notification:</preamble>
+            <artwork><![CDATA[
+|  <presence from='romeo@example.net'
+|            to='juliet@example.com'
+|            type='unsubscribed'/>
+            ]]></artwork>
+          </figure>
+        </section>
+      </section>
+      <section title="SIP to XMPP" anchor="sub-sip">
+        <section title="Establishing" anchor="sub-sip-establish">
+          <t>A SIP user initiates a subscription to a contact's presence information by sending a SIP SUBSCRIBE request to the contact.  The following is an example of such a request:</t>
+          <figure>
+            <preamble>Example: SIP user subscribes to XMPP contact:</preamble>
+            <artwork><![CDATA[
+|  SUBSCRIBE sip:juliet@example.com SIP/2.0
+|  Via: SIP/2.0/TCP s2x.example.net;branch=z9hG4bKna998sk
+|  From: <sip:romeo@example.net>;tag=xfg9
+|  To: <sip:juliet@example.com>;tag=ur93
+|  Call-ID: 4wcm0n@example.net
+|  Event: presence
+|  Max-Forwards: 70
+|  CSeq: 263 SUBSCRIBE
+|  Contact: <sip:simple.example.net;transport=tcp>
+|  Accept: application/pidf+xml
+|  Content-Length: 0
+            ]]></artwork>
+          </figure>
+          <t>Notice that the "Expires" header was not included in the SUBSCRIBE request; this means that the default value of 3600 (i.e., 3600 seconds = 1 hour) applies.</t>
+          <t>Upon receiving such a request, a SIMPLE-XMPP gateway is responsible for translating it into an XMPP subscription request from the SIP user to the XMPP user:</t>
+          <figure>
+            <preamble>Example: SIP user subscribes to XMPP contact (XMPP transformation):</preamble>
+            <artwork><![CDATA[
+|  <presence from='romeo@example.net'
+|            to='juliet@example.com'
+|            type='subscribe'/>
+            ]]></artwork>
+          </figure>
+          <t>In accordance with <xref target='XMPP-IM'/>, the XMPP user's server MUST deliver the presence subscription request to the XMPP user (or, if a subscription already exists in the XMPP user's roster, discard the subscribe request).  If the XMPP user approves the subscription request, the XMPP server then MUST return a presence stanza of type "subscribed" from the XMPP user to the SIP user; if a subscription already exists, the XMPP server SHOULD auto-reply with a presence stanza of type "subscribed".  In any case, if the SIMPLE-XMPP gateway receives a presence stanza of type "subscribed" from the XMPP user, it SHOULD silently discard the stanza.</t>
+        </section>
+        <section title="Refreshing" anchor="sub-sip-refresh">
+          <t>It is the responsibility of the SIMPLE-XMPP gateway to properly handle the difference between short-lived SIP presence subscriptions and long-lived XMPP presence subscriptions.  The gateway has two options when the SIP user's subscription expires:</t>
+          <t><list style='symbols'>
+            <t>Cancel the subscription (i.e., treat it as temporary) and send an XMPP presence stanza of type "unsubscribe" to the XMPP contact; this honors the SIP semantic but will seem rather odd to the XMPP contact.</t>
+            <t>Maintain the subscription (i.e., treat it as long-lived) and (1) send a SIP NOTIFY request to the SIP user containing a PIDF document specifying that the XMPP contact now has a basic status of "closed", including a Subscription-State of "terminated" and (2) send an XMPP presence stanza of type "unavailable" to the XMPP contact; this violates the letter of the SIP semantic but will seem more natural to the XMPP contact.</t>
+          </list></t>
+          <t>Which of these options the SIMPLE-XMPP gateway chooses is up to the implementation.</t>
+          <t>If the implementation chooses the first option, the protocol generated would be as follows:</t>
+          <figure>
+            <preamble>Example: SIP subscription expires (treated as temporary by gateway):</preamble>
+            <artwork><![CDATA[
+|  <presence from='romeo@example.net'
+|            to='juliet@example.com'
+|            type='unsubscribe'/>
+            ]]></artwork>
+          </figure>
+          <t>If the implementation chooses the second option, the protocol generated would be as follows:</t>
+          <figure>
+            <preamble>Example: SIP subscription expires (treated as long-lived by gateway):</preamble>
+            <artwork><![CDATA[
+|  NOTIFY sip:192.0.2.2 SIP/2.0
+|  Via: SIP/2.0/TCP s2x.example.net;branch=z9hG4bKna998sk
+|  From: <sip:juliet@example.com>;tag=ur93
+|  To: <sip:romeo@example.net>;tag=pq72
+|  Call-ID: j4s0h4vny@example.com
+|  Event: presence
+|  Subscription-State: terminated;reason=timeout
+|  Max-Forwards: 70
+|  CSeq: 232 NOTIFY
+|  Contact: <sip:sipgate.example.com;transport=tcp>
+|  Content-Type: application/pidf+xml
+|  Content-Length: 194
+|
+|  <?xml version='1.0' encoding='UTF-8'?>
+|  <presence xmlns='urn:ietf:params:xml:ns:pidf'
+|            entity='pres:juliet@example.com'>
+|    <tuple id='balcony'>
+|      <status>
+|        <basic>closed</basic>
+|      </status>
+|    </tuple>
+|  </presence>
+            ]]></artwork>
+          </figure>
+          <figure>
+            <preamble>Example: SIP subscription expires (treated as long-lived by gateway):</preamble>
+            <artwork><![CDATA[
+|  <presence from='romeo@example.net'
+|            to='juliet@example.com'
+|            type='unavailable'/>
+            ]]></artwork>
+          </figure>
+        </section>
+        <section title="Cancelling" anchor="sub-sip-cancel">
+          <t>At any time, the SIP user may cancel the subscription by sending a SUBSCRIBE message whose "Expires" header is set to a value of zero ("0"):</t>
+          <figure>
+            <preamble>Example: SIP user cancels subscription:</preamble>
+            <artwork><![CDATA[
+|  SUBSCRIBE sip:192.0.2.1 SIP/2.0
+|  Via: SIP/2.0/TCP simple.example.net;branch=z9hG4bKna998sk
+|  From: <sip:romeo@example.net>;tag=yt66
+|  To: <sip:juliet@example.com>;tag=bi54
+|  Call-ID: 1tsn1ce@example.net
+|  Event: presence
+|  Max-Forwards: 70
+|  CSeq: 8775 SUBSCRIBE
+|  Contact: <sip:simple.example.net;transport=tcp>
+|  Expires: 0
+|  Content-Length: 0
+            ]]></artwork>
+          </figure>
+          <t>As above, upon receiving such a request, a SIMPLE-XMPP gateway is responsible for doing one of the following:</t>
+          <t><list style='symbols'>
+            <t>Cancel the subscription (i.e., treat it as temporary) and send an XMPP presence stanza of type "unsubscribe" to the XMPP contact.</t>
+            <t>Maintain the subscription (i.e., treat it as long-lived) and (1) send a SIP NOTIFY request to the SIP user containing a PIDF document specifying that the XMPP contact now has a basic status of "closed", (2) send a SIP SUBSCRIBE request to the SIP user with an "Expires" header set to a value of "0" (zero) when it receives XMPP presence of type "unavailable" from the XMPP contact, and (3) send an XMPP presence stanza of type "unavailable" to the XMPP contact.</t>
+          </list></t>
+        </section>
+      </section>
+    </section>
+
+    <section title="Presence Notifications" anchor="pres">
+      <section title="Overview" anchor="pres-over">
+        <t>Both XMPP and presence-aware SIP systems enable entities (often but not necessarily human users) to send presence notifications to other entities.  At a minimum, the term "presence" refers to information about an entity's availability for communication on a network (on/off), often supplemented by information that further specifies the entity's communications context (e.g., "do not disturb").  Some systems and protocols extend this notion even further and refer to any relatively ephemeral information about an entity as a kind of presence; categories of such "extended presence" include geographical location (e.g., GPS coordinates), user mood (e.g., grumpy), user activity (e.g., walking), and ambient environment (e.g., noisy).  In this document, we focus on the "least common denominator" of network availability only, although future documents may address broader notions of presence, including extended presence.</t>
+        <t><xref target="XMPP-IM"/> defines how XMPP presence stanzas can indicate availability (via absence of a 'type' attribute) or lack of availability (via a 'type' attribute with a value of "unavailable").  SIP presence using a SIP event package for presence is specified in <xref target="SIP-PRES"/>.</t>
+        <t>As described in <xref target="XMPP-IM"/>, presence information about an entity is communicated by means of an XML &lt;presence/&gt; stanza sent over an XML stream.  In this document we will assume that such a presence stanza is sent from an XMPP client to an XMPP server over an XML stream negotiated between the client and the server, and that the client is controlled by a human user (again, this is a simplifying assumption introduced for explanatory purposes only).  In general, XMPP presence is sent by the user to the user's server and then broadcasted to all entities who are subscribed to the user's presence information.</t>
+        <t>As described in <xref target="SIP-PRES"/>, presence information about an entity is communicated by means of a SIP NOTIFY event sent from a SIP user agent to an intended recipient who is most generally referenced by an Instant Message URI of the form &lt;pres:user@domain&gt; but who may be referenced by a SIP or SIPS URI of the form &lt;sip:user@domain&gt; or &lt;sips:user@domain&gt;.  Here again we introduce the simplifying assumption that the user agent is controlled by a human user.</t>
+      </section>
+      <section title="XMPP to SIP" anchor="pres-xmpp">
+        <t>When Juliet interacts with her XMPP client to modify her presence information (or when her client automatically updates her presence information, e.g. via an "auto-away" feature), her client generates an XMPP &lt;presence/&gt; stanza.  The syntax of the &lt;presence/&gt; stanza, including required and optional elements and attributes, is defined in <xref target="XMPP-IM"/>.  The following is an example of such a stanza:</t>
+        <figure>
+          <preamble>Example: XMPP user sends presence notification:</preamble>
+          <artwork><![CDATA[
+|  <presence from='juliet@example.com/balcony'/>
+          ]]></artwork>
+        </figure>
+        <t>Upon receiving such a stanza, the XMPP server to which Juliet has connected broadcasts it to all subscribers who are authorized to receive presence notifications from Juliet (this is similar to the SIP NOTIFY method).  For each subscriber, broadcasting the presence notification involves either delivering it to a local recipient (if the hostname in the subscriber's address matches one of the hostnames serviced by the XMPP server) or attempting to route it to the foreign domain that services the hostname in the subscriber's address.  Naturally, in this document we assume that the hostname is a SIP presence service hosted by a separate server.  As specified in <xref target="XMPP-IM"/>, the XMPP server needs to determine the identity of the foreign domain, which it does by performing one or more <xref target="SRV"/> lookups.  For presence stanzas, the order of lookups recommended by <xref target="XMPP-IM"/> is to first try the "_xmpp-server" service as specified in <xref target="XMPP"/> and to then try the "_pres" service as specified in <xref target="IMP-SRV"/>.  Here we assume that the first lookup will fail but that the second lookup will succeed and return a resolution "_pres._simple.example.net.", since we have already assumed that the example.net hostname is running a SIP presence service.  (Note: The XMPP server may have previously determined that the foreign domain is a SIMPLE server, e.g., when it sent a SIP SUBSCRIBE to the SIP user when Juliet sent initial presence to the XMPP server, in which case it would not need to perform the SRV lookups; the caching of such information is a matter of implementation and local service policy, and is therefore out of scope for this document.)</t>
+        <t>Once the XMPP server has determined that the foreign domain is serviced by a SIMPLE server, it must determine how to proceed.  We here assume that the XMPP server contains or has available to it an XMPP-SIMPLE gateway.  The XMPP server would then deliver the presence stanza to the XMPP-SIMPLE gateway.</t>
+        <t>The XMPP-SIMPLE gateway is then responsible for translating the XMPP presence stanza into a SIP NOTIFY request and included PIDF document from the XMPP user to the SIP user.</t>
+        <figure>
+          <preamble>Example: XMPP user sends presence notification (SIP transformation):</preamble>
+          <artwork><![CDATA[
+|  NOTIFY sip:192.0.2.2 SIP/2.0
+|  Via: SIP/2.0/TCP x2s.example.com;branch=z9hG4bKna998sk
+|  From: <sip:juliet@example.com>;tag=gh19
+|  To: <sip:romeo@example.net>;tag=yt66
+|  Call-ID: j4s0h4vny@example.com
+|  Event: presence
+|  Subscription-State: active;expires=599
+|  Max-Forwards: 70
+|  CSeq: 157 NOTIFY
+|  Contact: <sip:sipgate.example.com;transport=tcp>
+|  Content-Type: application/pidf+xml
+|  Content-Length: 192
+|
+|  <?xml version='1.0' encoding='UTF-8'?>
+|  <presence xmlns='urn:ietf:params:xml:ns:pidf'
+|            entity='pres:juliet@example.com'>
+|    <tuple id='balcony'>
+|      <status>
+|        <basic>open</basic>
+|      </status>
+|    </tuple>
+|  </presence>
+          ]]></artwork>
+        </figure>
+        <t>The mapping of XMPP syntax elements to SIP syntax elements SHOULD be as shown in the following table.  (Mappings for elements not mentioned are undefined.)</t>
+        <figure>
+          <preamble>Table 6: Presence syntax mapping from XMPP to SIP</preamble>
+          <artwork><![CDATA[
+   +-----------------------------+---------------------------+
+   |  XMPP Element or Attribute  |  SIP Header or PIDF Data  |
+   +-----------------------------+---------------------------+
+   |  <presence/> stanza         |  "Event: presence" [1]    |
+   |  XMPP resource identifer    |  tuple 'id' attribute     |
+   |  from                       |  From                     |
+   |  id                         |  Call-ID                  |
+   |  to                         |  To                       |
+   |  type                       |  basic status [2][3]      |
+   |  xml:lang                   |  Content-Language         |
+   |  <priority/>                |  PIDF priority for tuple  |
+   |  <show/>                    |  (no mapping)             |
+   |  <status/>                  |  note [4]                 |
+   +-----------------------------+---------------------------+
+          ]]></artwork>
+        </figure>
+        <t>Note the following regarding these mappings:</t>
+        <t><list style='numbers'>
+          <t>Only a presence stanza that lacks a 'type' attribute or whose 'type' attribute has a value of "unavailable" should be mapped by an XMPP-SIMPLE gateway to a SIP NOTIFY request, since those are the only presence stanzas that represent notifications.</t>
+          <t>Because the lack of a 'type' attribute indicates that an XMPP entity is available for communications, the gateway SHOULD map that information to a PIDF &lt;basic/&gt; status of "open".  Because a 'type' attribute with a value of "unavailable" indicates that an XMPP entity is not available for communications, the gateway SHOULD map that information to a PIDF &lt;basic/&gt; status of "closed".</t>
+          <t>When the XMPP-SIMPLE gateway receives XMPP presence of type "unavailable" from the XMPP contact, it SHOULD (1) send a SIP NOTIFY request to the SIP user containing a PIDF document specifying that the XMPP contact now has a basic status of "closed" and (2) send a SIP SUBSCRIBE request to the SIP user with an "Expires" header set to a value of "0" (zero).</t>
+          <t>The character data of the XMPP &lt;status/&gt; element MAY be mapped to the character data of the PIDF &lt;note/&gt; element.</t>
+        </list></t>
+      </section>
+      <section title="SIP to XMPP" anchor="pres-sip">
+        <t>When Romeo changes his presence, his SIP user agent generates a SIP NOTIFY request for any active subscriptions.  The syntax of the NOTIFY request is defined in <xref target="SIP-PRES"/>.  The following is an example of such a request:</t>
+        <figure>
+          <preamble>Example: SIP user sends presence notification:</preamble>
+          <artwork><![CDATA[
+|  NOTIFY sip:192.0.2.1 SIP/2.0
+|  Via: SIP/2.0/TCP simple.example.net;branch=z9hG4bKna998sk
+|  From: <sip:romeo@example.net>;tag=yt66
+|  To: <sip:juliet@example.com>;tag=bi54
+|  Call-ID: j0sj4sv1m@example.net
+|  Event: presence
+|  Subscription-State: active;expires=499
+|  Max-Forwards: 70
+|  CSeq: 8775 NOTIFY
+|  Contact: <sip:simple.example.net;transport=tcp>
+|  Content-Type: application/pidf+xml
+|  Content-Length: 193
+|
+|  <?xml version='1.0' encoding='UTF-8'?>
+|  <presence xmlns='urn:ietf:params:xml:ns:pidf'
+|            entity='pres:romeo@example.net'>
+|    <tuple id='orchard'>
+|      <status>
+|        <basic>closed</basic>
+|      </status>
+|    </tuple>
+|  </presence>
+          ]]></artwork>
+        </figure>
+        <t>Upon receiving such a request, a SIMPLE-XMPP gateway is responsible for translating it into an XMPP presence stanza from the SIP user to the XMPP user:</t>
+        <figure>
+          <preamble>Example: SIP user sends presence notification (XMPP transformation):</preamble>
+          <artwork><![CDATA[
+|  <presence from='romeo@example.net'
+|            to='juliet@example.com/balcony'
+|            type='unavailable'/>
+          ]]></artwork>
+        </figure>
+        <t>The mapping of SIP syntax elements to XMPP syntax elements SHOULD be as shown in the following table.  (Mappings for elements not mentioned are undefined.)</t>
+        <figure>
+          <preamble>Table 7: Presence syntax mapping from SIP to XMPP</preamble>
+          <artwork><![CDATA[
+   +---------------------------+-----------------------------+
+   |  SIP Header or PIDF Data  |  XMPP Element or Attribute  |
+   +---------------------------+-----------------------------+
+   |  basic status             |  type [1]                   |
+   |  Content-Language         |  xml:lang                   |
+   |  CSeq                     |  id (OPTIONAL)              |
+   |  From                     |  from                       |
+   |  priority for tuple       |  <priority/>                |
+   |  To                       |  to                         |
+   |  body of MESSAGE          |  <body/>                    |
+   +---------------------------+-----------------------------+
+          ]]></artwork>
+        </figure>
+        <t>Note the following regarding these mappings:</t>
+        <t><list style='numbers'>
+          <t>A PIDF basic status of "open" SHOULD be mapped to no 'type' attribute, and a PIDF basic status of "closed" SHOULD be mapped to a 'type' attribute whose value is "unavailable".</t>
+        </list></t>
+      </section>
+    </section>
+
+    <section title='Content Types' anchor="content">
+      <t>SIP requests of type NOTIFY normally contain presence information encapsulated using the "application/pidf+xml" content type.  The recommended procedures for SIMPLE-to-XMPP gateways to use in handling these content types are as follows.</t>
+      <t>The "application/pidf+xml' content type is specified in <xref target="PIDF"/>.  The Presence Information Data Format defines a common data format for presence protocols that conform to the Common Profile for Presence (<xref target="CPP"/>), enabling presence information to be transferred across CPP-compliant protocol boundaries without modification, with attendant benefits for end-to-end encryption and performance.  Because the syntax for the "application/pidf+xml" content type is Extensible Markup Language (<xref target="XML"/>), it is straightforward to send PIDF data over the Extensible Messaging and Presence Protocol (<xref target="XMPP"/>), since XMPP is simply an XML streaming protocol.</t>
+      <t>In addition to following the syntax mappings specified in <xref target='pres'/>, a SIMPLE-to-XMPP gateway MAY encapsulate PIDF data within an "extended namespace" contained in an XMPP presence stanza.  The RECOMMENDED method is to include the PIDF &lt;presence/&gt; element as a child of the XMPP &lt;presence/&gt; stanza.  Although it may appear that this would be potentially confusing, the inclusion of the 'urn:ietf:params:xml:ns:pidf' namespace ensures that PIDF data is kept separate from XMPP presence data (in accordance with <xref target="XML-NAMES"/>).  The following is a simple example of encapsulating PIDF data within an "extended namespace" in XMPP:</t>
+      <figure>
+       <preamble>A basic example of PIDF over XMPP:</preamble>
+       <artwork><![CDATA[
+<presence from='romeo@example.net/orchard' 
+          to='nurse@example.com'
+          xml:lang='en'>
+  <status>Wooing Juliet</status>
+  <presence xmlns='urn:ietf:params:xml:ns:pidf'
+            entity='pres:romeo@example.net'>
+    <tuple id='orchard'>
+      <status>
+        <basic>open</basic>
+        <note>Wooing Juliet</note>
+      </status>
+    </tuple>
+  </presence>
+</presence>
+        ]]></artwork>
+      </figure>
+    </section>
+
+    <section title='Security Considerations' anchor="sec">
+      <t>Detailed security considerations for presence protocols are given in <xref target='IMP-REQS'/>, for SIP-based presence in <xref target="SIP-PRES"/> (see also <xref target="SIP"/>), and for XMPP-based presence in <xref target="XMPP-IM"/> (see also <xref target="XMPP"/>).</t>
+      <t>The mismatch between long-lived XMPP presence subscriptions and short-lived SIP presence subscriptions introduces the possibility of an amplification attack launched from the XMPP network against a SIP presence server.  To help prevent such an attack, access to an XMPP-SIMPLE gateway that is hosted on the XMPP network SHOULD be restricted to XMPP users associated with a single domain or trust realm (e.g., a gateway hosted at simple.example.com should allow only users within the example.com domain to access the gateway, not users within example.org, example.net, or any other domain); if a SIP presence server receives communications through an XMPP-SIMPLE gateway from users who are not associated with a domain that is so related to the hostname of the gateway, it MAY (based on local service provisioning) refuse to service such users or refuse to communicate with the gateway.  Furthermore, whenever an XMPP-SIMPLE gateway seeks to refresh an XMPP user's long-lived subscription to a SIP user's presence, it MUST first send an XMPP &lt;presence/&gt; stanza of type "probe" from the address of the gateway to the "bare JID" (user@domain.tld) of the XMPP user, to which the user's XMPP server MUST respond in accordance with <xref target='XMPP-IM'/>; however, the administrator of an XMPP-SIMPLE gateway MAY (based on local service provisioning) exempt "known good" XMPP servers from this check (e.g., the XMPP server associated with the XMPP-SIMPLE gateway as described above).</t>
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References">
+
+<reference anchor="IMP-SRV">
+<front>
+<title>Address Resolution for Instant Messaging and Presence</title>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<date year='2004' month='August' /></front>
+<seriesInfo name='RFC' value='3861' />
+<format type='TXT' octets='15764' target='ftp://ftp.isi.edu/in-notes/rfc3861.txt' />
+</reference>
+
+<reference anchor="PIDF">
+<front>
+<title>Presence Information Data Format (PIDF)</title>
+<author initials='H.' surname='Sugano' fullname='H. Sugano'>
+<organization /></author>
+<author initials='S.' surname='Fujimoto' fullname='S. Fujimoto'>
+<organization /></author>
+<author initials='G.' surname='Klyne' fullname='G. Klyne'>
+<organization /></author>
+<author initials='A.' surname='Bateman' fullname='A. Bateman'>
+<organization /></author>
+<author initials='W.' surname='Carr' fullname='W. Carr'>
+<organization /></author>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<date year='2004' month='August' /></front>
+<seriesInfo name='RFC' value='3863' />
+<format type='TXT' octets='56956' target='ftp://ftp.isi.edu/in-notes/rfc3863.txt' />
+</reference>
+
+<reference anchor='SIP'>
+<front>
+<title>SIP: Session Initiation Protocol</title>
+<author initials='J.' surname='Rosenberg' fullname='J. Rosenberg'>
+<organization /></author>
+<author initials='H.' surname='Schulzrinne' fullname='H. Schulzrinne'>
+<organization /></author>
+<author initials='G.' surname='Camarillo' fullname='G. Camarillo'>
+<organization /></author>
+<author initials='A.' surname='Johnston' fullname='A. Johnston'>
+<organization /></author>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<author initials='R.' surname='Sparks' fullname='R. Sparks'>
+<organization /></author>
+<author initials='M.' surname='Handley' fullname='M. Handley'>
+<organization /></author>
+<author initials='E.' surname='Schooler' fullname='E. Schooler'>
+<organization /></author>
+<date month='June' year='2002' /></front>
+<seriesInfo name='RFC' value='3261' />
+<format type='TXT' octets='647976' target='ftp://ftp.isi.edu/in-notes/rfc3261.txt' />
+</reference>
+
+<reference anchor='SIP-EVENT'>
+<front>
+<title>Session Initiation Protocol (SIP)-Specific Event Notification</title>
+<author initials='A.B.' surname='Roach' fullname='A.B. Roach'>
+<organization /></author>
+<date year='2002' month='June' />
+<abstract>
+<t>&lt;p>This document describes an extension to the Session Initiation Protocol (SIP). The purpose of this extension is to provide an extensible framework by which SIP nodes can request notification from remote nodes indicating that certain events have occurred. [STANDARDS TRACK] &lt;/p></t></abstract></front>
+<seriesInfo name='RFC' value='3265' />
+<format type='TXT' octets='89005' target='ftp://ftp.isi.edu/in-notes/rfc3265.txt' />
+</reference>
+
+<reference anchor="SIP-PRES">
+<front>
+<title>A Presence Event Package for the Session Initiation Protocol (SIP)</title>
+<author initials='J.' surname='Rosenberg' fullname='J. Rosenberg'>
+<organization /></author>
+<date year='2004' month='August' /></front>
+<seriesInfo name='RFC' value='3856' />
+<format type='TXT' octets='62956' target='ftp://ftp.isi.edu/in-notes/rfc3856.txt' />
+</reference>
+
+<reference anchor='SIP-XMPP'>
+<front>
+<title>Interworking between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP): Core</title>
+<author initials='P' surname='Saint-Andre' fullname='Peter Saint-Andre'>
+    <organization />
+</author>
+<author initials='A' surname='Houri' fullname='Avshalom Houri'>
+    <organization />
+</author>
+<author initials='J' surname='Hildebrand' fullname='Joe Hildebrand'>
+    <organization />
+</author>
+<date month='March' day='8' year='2009' />
+<abstract><t>As a foundation for the definition of application-specific, bi-directional protocol mappings between the Session Initiation Protocol (SIP) and the Extensible Messaging and Presence Protocol (XMPP), this document specifies the architectural assumptions underlying such mappings as well as the mapping of addresses and error conditions.</t></abstract>
+</front>
+<seriesInfo name='Internet-Draft' value='draft-saintandre-sip-xmpp-core-01' />
+<format type='TXT'
+        target='http://www.ietf.org/internet-drafts/draft-saintandre-sip-xmpp-core-01.txt' />
+</reference>
+
+<reference anchor='SRV'>
+<front>
+<title abbrev='DNS SRV RR'>A DNS RR for specifying the location of services (DNS SRV)</title>
+<author initials='A.' surname='Gulbrandsen' fullname='Arnt Gulbrandsen'>
+<organization>Troll Tech</organization>
+<address>
+<postal>
+<street>Waldemar Thranes gate 98B</street>
+<city>Oslo</city>
+<region />
+<code>N-0175</code>
+<country>NO</country></postal>
+<phone>+47 22 806390</phone>
+<facsimile>+47 22 806380</facsimile>
+<email>arnt@troll.no</email></address></author>
+<author initials='P.' surname='Vixie' fullname='Paul Vixie'>
+<organization>Internet Software Consortium</organization>
+<address>
+<postal>
+<street>950 Charter Street</street>
+<city>Redwood City</city>
+<region>CA</region>
+<code>94063</code>
+<country>US</country></postal>
+<phone>+1 650 779 7001</phone></address></author>
+<author initials='L.' surname='Esibov' fullname='Levon Esibov'>
+<organization>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>One Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code>
+<country>US</country></postal>
+<email>levone@microsoft.com</email></address></author>
+<date month='February' year='2000' />
+<abstract>
+<t>This document describes a DNS RR which specifies the location of the
+   server(s) for a specific protocol and domain.</t></abstract></front>
+<seriesInfo name='RFC' value='2782' />
+<format type='TXT' octets='24013' target='ftp://ftp.isi.edu/in-notes/rfc2782.txt' />
+</reference>
+
+<reference anchor='TERMS'>
+  <front>
+    <title abbrev='RFC Key Words'>Key words for use in RFCs to Indicate Requirement Levels</title>
+    <author initials='S.' surname='Bradner' fullname='Scott Bradner'>
+      <organization>Harvard University</organization>
+      <address>
+        <postal>
+          <street>1350 Mass. Ave.</street>
+          <street>Cambridge</street>
+          <street>MA 02138</street>
+        </postal>
+        <phone>- +1 617 495 3864</phone>
+        <email>-</email>
+      </address>
+    </author>
+    <date month='March' year='1997'></date>
+    <area>General</area>
+    <keyword>keyword</keyword>
+    <abstract>
+      <t>In many standards track documents several words are used to signify the requirements in the specification.  These words are often capitalized.  This document defines these words as they should be interpreted in IETF documents.  Authors who follow these guidelines should incorporate this phrase near the beginning of their document:
+        <list>
+          <t>The key words &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;, &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;,  &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in RFC 2119.</t>
+        </list>
+      </t>
+      <t>Note that the force of these words is modified by the requirement level of the document in which they are used.</t>
+    </abstract>
+  </front>
+  <seriesInfo name='BCP' value='14' />
+  <seriesInfo name='RFC' value='2119' />
+</reference>
+
+<reference anchor='XML' target='http://www.w3.org/TR/2006/REC-xml-20060816'>
+<front>
+<title>Extensible Markup Language (XML) 1.0 (Fourth Edition)</title>
+<author initials='J.' surname='Paoli' fullname='Jean Paoli'>
+    <organization />
+</author>
+<author initials='E.' surname='Maler' fullname='Eve Maler'>
+    <organization />
+</author>
+<author initials='C.' surname='Sperberg-McQueen' fullname='C. M. Sperberg-McQueen'>
+    <organization />
+</author>
+<author initials='F.' surname='Yergeau' fullname='François Yergeau'>
+    <organization />
+</author>
+<author initials='T.' surname='Bray' fullname='Tim Bray'>
+    <organization />
+</author>
+<date month='August' day='16' year='2006' />
+</front>
+<seriesInfo name='World Wide Web Consortium Recommendation' value='REC-xml-20060816' />
+<format type='HTML' target='http://www.w3.org/TR/2006/REC-xml-20060816' />
+</reference>
+
+<reference anchor="XML-NAMES" target="http://www.w3.org/TR/REC-xml-names">
+  <front>
+    <title>Namespaces in XML</title>
+    <author initials="T." surname="Bray" fullname="Tim Bray">
+      <organization>Textuality</organization>
+      <address>
+        <email>tbray@textuality.com</email>
+      </address>
+    </author>
+    <author initials="D." surname="Hollander" fullname="Dave Hollander">
+      <organization>Hewlett-Packard Company</organization>
+      <address>
+        <email>dmh@corp.hp.com</email>
+      </address>
+    </author>
+    <author initials="A." surname="Layman" fullname="Andrew Layman">
+      <organization>Microsoft</organization>
+      <address>
+        <email>andrewl@microsoft.com</email>
+      </address>
+    </author>
+    <date day="14" month="January" year="1999"/>
+  </front>
+  <seriesInfo name="W3C" value="REC-xml-names"/>
+</reference>
+
+<reference anchor="XMPP">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Core</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3920' />
+  <format type='TXT' octets='194313' target='ftp://ftp.isi.edu/in-notes/rfc3920.txt' />
+</reference>
+
+<reference anchor="XMPP-IM">
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3921' />
+  <format type='TXT' octets='217527' target='ftp://ftp.isi.edu/in-notes/rfc3921.txt' />
+</reference>
+
+    </references>
+
+    <references title="Informative References">
+
+<reference anchor="CPIM">
+<front>
+<title>Common Profile for Instant Messaging (CPIM)</title>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<date year='2004' month='August' /></front>
+<seriesInfo name='RFC' value='3860' />
+<format type='TXT' octets='26486' target='ftp://ftp.isi.edu/in-notes/rfc3860.txt' />
+</reference>
+
+<reference anchor="CPP">
+<front>
+<title>Common Profile for Presence (CPP)</title>
+<author initials='J.' surname='Peterson' fullname='J. Peterson'>
+<organization /></author>
+<date year='2004' month='August' /></front>
+<seriesInfo name='RFC' value='3859' />
+<format type='TXT' octets='30537' target='ftp://ftp.isi.edu/in-notes/rfc3859.txt' />
+</reference>
+
+<reference anchor="IMP-REQS">
+<front>
+<title abbrev='Instant Messaging/Presence Protocol'>Instant Messaging / Presence Protocol Requirements</title>
+<author initials='M.' surname='Day' fullname='Mark Day'>
+<organization>SightPath, Inc.</organization>
+<address>
+<postal>
+<street>135 Beaver Street</street>
+<city>Waltham</city>
+<region>MA</region>
+<code>02452</code>
+<country>US</country></postal>
+<email>mday@alum.mit.edu</email></address></author>
+<author initials='S.' surname='Aggarwal' fullname='Sonu Aggarwal'>
+<organization>Microsoft Corporation</organization>
+<address>
+<postal>
+<street>One Microsoft Way</street>
+<city>Redmond</city>
+<region>WA</region>
+<code>98052</code>
+<country>US</country></postal>
+<email>sonuag@microsoft.com</email></address></author>
+<author initials='J.' surname='Vincent' fullname='Jesse Vincent'>
+<organization>Into Networks, Inc.</organization>
+<address>
+<postal>
+<street>150 Cambridgepark Drive</street>
+<city>Cambridge</city>
+<region>MA</region>
+<code>02140</code>
+<country>US</country></postal>
+<email>jesse@intonet.com</email></address></author>
+<date month='February' year='2000' />
+<abstract>
+<t>Presence and Instant Messaging have recently emerged as a new medium of communications over the Internet.  Presence is a means for finding, retrieving, and subscribing to changes in the presence information (e.g.  "online" or "offline") of other users.  Instant messaging is a means for sending small, simple messages that are delivered immediately to online users.</t>
+<t>Applications of presence and instant messaging currently use independent, non-standard and non-interoperable protocols developed by various vendors.  The goal of the Instant Messaging and Presence Protocol (IMPP) Working Group is to define a standard protocol so that independently developed applications of instant messaging and/or   presence can interoperate across the Internet.  This document defines a minimal set of requirements that IMPP must meet.</t></abstract></front>
+<seriesInfo name='RFC' value='2779' />
+<format type='TXT' octets='47420' target='ftp://ftp.isi.edu/in-notes/rfc2779.txt' />
+</reference>
+
+<reference anchor="SIMPLE-CPIM">
+<front>
+<title>CPIM Mapping of SIMPLE Presence and Instant Messaging</title>
+<author initials="J" surname="Rosenberg" fullname="Jonathan  Rosenberg">
+    <organization />
+</author>
+<author initials="B" surname="Campbell" fullname="Ben Campbell">
+    <organization />
+</author>
+<date month="June" day="28" year="2002" />
+</front>
+<seriesInfo name="Internet-Draft" value="draft-ietf-simple-cpim-mapping-01" />
+<format type="TXT"
+        target="http://www.ietf.org/internet-drafts/draft-ietf-simple-cpim-mapping-01.txt" />
+</reference>
+
+<reference anchor="XMPP-CPIM">
+  <front>
+    <title>Mapping the Extensible Messaging and Presence Protocol (XMPP) to Common Presence and Instant Messaging (CPIM)</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3922' />
+  <format type='TXT' octets='70790' target='ftp://ftp.isi.edu/in-notes/rfc3922.txt' />
+</reference>
+
+    </references>
+
+  </back>
+
+</rfc>

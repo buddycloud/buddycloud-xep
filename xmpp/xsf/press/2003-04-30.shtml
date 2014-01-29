@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Press Release</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<p>FOR IMMEDIATE RELEASE</p>
+<h3>Jive Software Sponsors Jabber Software Foundation</h3>
+<h4>Partnership to Further Define and Promote XMPP Standard</h4>
+
+<p>Denver, CO and New York, NY - April 30, 2003 - The Jabber Software Foundation (&lt;<a href="http://www.jabber.org/">www.jabber.org</a>&gt;), the non-profit organization that manages open application protocols built on top of the IETF's Extensible Messaging and Presence Protocol (XMPP), and Jive Software (&lt;<a href="http://www.jivesoftware.com/">www.jivesoftware.com</a>&gt;), a leading provider of software for collaboration and knowledge management, today announced Jive Software's sponsorship of the Foundation to promote XMPP and Jabber as standard protocols for instant messaging (IM) and group chat, and to foster interoperability between XMPP/Jabber implementations.</p>
+
+<p>As part of this partnership, Jive Software will provide financial support and development time to help the Jabber Software Foundation create an open standards body for the development, promotion, and testing of XMPP/Jabber protocols and technology. This will help the Foundation achieve its goals of ensuring compatibility between XMPP/Jabber implementations, developing new standards, and promoting XMPP/Jabber technology in a wide range of venues.</p>
+
+<p>"The Jabber community has already benefited from contributions by key individuals at Jive Software," noted Peter Saint-Andre, Executive Director of the Jabber Software Foundation.  "We look forward to formalizing that relationship, especially in the area of compliance testing, to help solidify XMPP/Jabber as the emerging standard for near-real-time messaging."</p>
+
+<p>"We believe strongly that a common, open IM/chat standard will unite the currently fragmented IM landscape, allowing communication between all people on the Internet," said Iain Shigeoka, Jive Software's Chief XMPP Engineer. "Vendors can then concentrate on adding valuable services on top of IM rather than in trying to bridge between open and proprietary networks."</p>
+
+<p>Jive Software joins existing sponsors such as IBM and Hitachi in supporting the JSF's work on XMPP/Jabber. To learn more about the benefits of sponsorship, visit &lt;<a href="http://www.jabber.org/sponsors/">www.jabber.org/sponsors/</a>&gt;.</p>
+
+<!--#include virtual="/includes/xsfboiler.txt" -->
+
+<h3>About Jive Software</h3>
+<p>Jive Software was founded in 2001 by the creators of CoolServlets.com to provide enterprises with advanced collaboration software. Jive Software now provides applications and services for online support environments that allow people to self-support or collaborate with other users. Jive Software has over 500 customers, including IBM, Sun, Oracle, BEA and Shell. Jive Software is based in New York City and can be found online at &lt;<a href="http://www.jivesoftware.com/">www.jivesoftware.com</a>&gt;.</p>
+
+<!--#include virtual="/includes/foot.txt" -->

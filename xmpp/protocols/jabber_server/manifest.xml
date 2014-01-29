@@ -1,0 +1,14 @@
+<manifest>
+  <title>Jabber Server</title>
+  <abstract>This specification defines the core syntax and semantics of the message, presence, and IQ stanzas for use in communications between two XMPP servers.</abstract>
+  <specnum>RFC 3920</specnum>
+  <specurl>http://www.ietf.org/rfc/rfc3920.txt</specurl>
+  <status>Proposed</status>
+  <publisher>Internet Engineering Task Force</publisher>
+  <namespaces>
+    <name>jabber:server</name>
+  </namespaces>
+  <schemas>
+    <schema>http://www.xmpp.org/schemas/jabber-server.xsd</schema>
+  </schemas>
+</manifest>

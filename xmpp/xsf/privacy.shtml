@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XSF Privacy and Security Policy</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XSF Privacy and Security Policy</h2>
+
+<table>
+  <tr class='tablebody'><td>Author:</td><td><a href='/xsf/people/stpeter.shtml'>Peter Saint-Andre</a></td></tr>
+  <tr class='tablebody'><td>Version:</td><td>1.0</td></tr>
+  <tr class='tablebody'><td>Date:</td><td>2008-12-09</td></tr>
+  <tr class='tablebody'><td>Status:</td><td><span style='color: green'>Approved</span></td></tr>
+</table>
+
+<p>The <a href='/xsf/'>XMPP Standards Foundation</a> (XSF) is committed to the privacy and security of your information and communications. This Privacy and Security Policy governs all of the public Internet services provided by the XSF, including the xmpp.org and jabber.org websites as well as the instant messaging (IM) service hosted at jabber.org.</p>
+
+<ol>
+  <li><a href='#default'>Our Default Policy</a></li>
+  <li><a href='#what'>Information We Gather or Store</a></li>
+  <li><a href='#passwords'>Passwords</a></li>
+  <li><a href='#messages'>Private Messages</a></li>
+  <li><a href='#chatrooms'>Chatrooms</a></li>
+  <li><a href='#lists'>Discussion Lists</a></li>
+  <li><a href='#cookies'>Cookies</a></li>
+  <li><a href='#scripts'>Scripts</a></li>
+  <li><a href='#backup'>Data Backup</a></li>
+  <li><a href='#changes'>Changes to This Policy</a></li>
+  <li><a href='#contact'>How to Contact Us</a></li>
+</ol>
+
+<a name='default'></a><h3>1. Our Default Policy</h3>
+<p>Our default policy is never to gather or store information about you, to log your conversations, or to engage in any other behavior that would compromise your privacy and security in any way. However, if you choose to use our services (especially the jabber.org IM service) we sometimes need to gather or store information so that you can use the relevant service (e.g., we require authentication for IM login, so we need to store your password). The following sections describe exactly what information we might gather and store.</p>
+
+<a name='what'></a><h3>2. Information We Gather or Store</h3>
+<p>We do not automatically gather any personal information (name, address, etc.) about you at jabber.org and xmpp.org; the only exceptions are information that you may voluntarily submit as described below.</p>
+<p>When you create an IM account at the jabber.org IM service, you provide a username and password. We do not gather any other personal information about you when you create an account.</p>
+<p>When you add people to your contact list (XMPP "roster"), that information is stored on the server so you can retrieve it whenever you log in; the roster information can contain the names or nicknames of your contacts if you assign such names in your roster. This data is never made public and is accessible only by you.</p>
+<p>The jabber.org IM service supports an XMPP extension for storing vCard data on the server: the <a href='/extensions/xep-0054.html'>vcard-temp</a> protocol. If your Jabber client also supports this feature and you choose to create a vCard (a kind of "electronic business card"), that data will be stored on the server. Your vCard data is publicly accessible so that other people can learn more about you (i.e., retrieve your electronic business card). Please check with the developers of your preferred Jabber client software about their support for this feature.</p>
+<p>The jabber.org IM service supports an XMPP extension for storing generic XML data on the server: the <a href='/extensions/xep-0049.html'>Private XML Storage</a> protocol. If your Jabber client also supports this feature, it might store bookmarked chatrooms, client preferences, and other data on the server. However, this data is never made public and is accessible only by you. Please check with the developers of your preferred Jabber client software about their support for this feature.</p>
+<p>The jabber.org IM service supports an XMPP extension for publishing generic XML data through the server: the <a href='/extensions/xep-0163.html'>Personal Eventing Protocol</a> (a profile of the XMPP <a href='/tech/pubsub.shtml'>publish-subscribe technology</a>). If your Jabber client also supports this feature and you configure your client to enable that feature, it might use the jabber.org service as a way to publish information about the tunes you listen to on your computer, your mood, and other "rich presence" data; furthermore, this data may be temporarily stored in our database so that it can be retrieved by your contacts when they log in. This data is never made public unless you so choose, and by default is accessible only by your contacts. Please check with the developers of your preferred Jabber client software about their support for this feature.</p>
+<p>The jabber.org IM service does not log information about your Internet Protocol (IP) address when you connect to the service. However, we reserve the right to block specific IP addresses that pose a threat or cause harm to our network services, and to keep a list of such offending IP addresses; this list of blacklisted IPs will not be made public.</p>
+
+<a name='passwords'></a><h3>3. Passwords</h3>
+<p>Passwords are not required to access any of the jabber.org or xmpp.org websites.</p>
+<p>Passwords are required to access the jabber.org IM service. We <strong>strongly encourage</strong> you to log in with an encrypted connection so that your password is not exposed to eavesdroppers; you can easily do this by connecting on the legacy port 5223 for Secure Sockets Layer (SSL) or by upgrading your connection on the standard port 5222 to an encrypted connection using the Transport Layer Security (TLS) protocol. The XSF may in the near future mandate this support and disallow unencrypted connections.</p>
+<p>Please note that currently your account password at the jabber.org IM service is stored as plaintext, not in hashed or encrypted form. Although access to the machine on which the jabber.org IM service runs is highly restricted and protected, any of the trusted administrators with access to the machine can view your password, and if the machine is hacked then the hacker would be able to learn your password. It is a good security practice to always use a unique password for each service or website that you access, and we <strong>strongly encourage</strong> you to use a unique password at the jabber.org IM service as well. Furthermore, we are also exploring options for encrypted storage of your IM password, or for doing away with passwords altogether.</p>
+
+<a name='messages'></a><h3>4. Private Messages</h3>
+<p>Private messages are IMs that you send to your friends at the jabber.org service or at other XMPP-based services on the Internet (such as Google Talk). If your messages are sent through other services then it is possible that those services can log your messages, and we do not have control over those services. However, your private messages are never intentionally logged at the jabber.org service.</p>
+<p>If you are not online when someone sends you a message, the message is stored on our server for delivery when you log in again. These "offline messages" are not encrypted when stored on our server.</p>
+
+<a name='chatrooms'></a><h3>5. Chatrooms</h3>
+<p>The XSF hosts a number of XMPP chatrooms at the conference.jabber.org domain. Conversations in <em>some</em> of these rooms are archived for future reference at &lt;<a href='http://logs.jabber.org/'>http://logs.jabber.org/</a>&gt; -- please visit that link to find out which rooms are archived. If you do not want your chatroom messages archived, please do not join these specific rooms. All other rooms on conference.jabber.org are unlogged, and logging can be enabled only by asking the server admins to enable logging (please ask in the jabber@conference.jabber.org room).</p>
+<p>Our chatroom software enables you to register a nickname across conference.jabber.org, and if you register a nickname then we store in the database an association between your JabberID and that nickname.</p>
+
+<a name='lists'></a><h3>6. Discussion Lists</h3>
+<p>The XSF hosts a number of <a href='/about/discuss.shtml'>email discussion lists</a> at jabber.org and xmpp.org using the common <a href='http://www.gnu.org/software/mailman/index.html'>Mailman</a> list manager software. All messages to these lists are archived for future reference. If you do not want your messages archived, please do not post to these lists.</p>
+
+<a name='cookies'></a><h3>7. Cookies</h3>
+<p>Some of our websites are deployed using common software packages such as <a href='http://www.mediawiki.org/'>MediaWiki</a> and <a href='http://wordpress.org/'>WordPress</a>, which use cookies for session IDs and other features. If you are not comfortable with these cookies, we encourage you to disable or track them using a common web browser plugin such as <a href='https://addons.mozilla.org/en-US/firefox/addon/2497'>CookieSafe</a> for Mozilla Firefox.</p>
+
+<a name='scripts'></a><h3>8. Scripts</h3>
+<p>Some of our websites use JavaScript to provide enhanced functionality, such as the ability to dynamically change the order of information presented in tables. If you are not comfortable with these scripts, we encourage you to disable them using a common web browser plugin such as <a href='http://noscript.net/'>NoScript</a> for Mozilla Firefox.</p>
+
+<a name='backup'></a><h3>9. Data Backup</h3>
+<p>In order to prevent service interruptions, we back up data related to our services. This data is backed up either at our secure data center (<a href='http://usshc.com/'>US Secure Hosting Center</a>) or at the <a href='http://aset.its.psu.edu/'>ASET</a> service maintained by Penn State University.</p>
+
+<a name='changes'></a><h3>10. Changes to This Policy</h3>
+<p>All changes to this policy must be approved by the <a href='/xsf/board/'>XSF Board of Directors</a>. Potential changes to this policy will be posted at least one month before a Board vote at &lt;<a href='http://blog.xmpp.org/'>http://blog.xmpp.org/</a>&gt; and notice will also be sent via instant message to all registered users of the jabber.org IM service.</p>
+
+<a name='contact'></a><h3>11. How to Contact Us</h3>
+<p>If you have any questions or suggestions regarding our Privacy and Security Policy, please send email to <a href='mailto:privacy@xmpp.org'>privacy@xmpp.org</a> or to the public <a href='http://mail.jabber.org/mailman/listinfo/juser'>juser@jabber.org</a> discussion list (also accessible via <a href='http://www.jabberforum.org/forumdisplay.php?f=21'>web forum</a> and <a href='nntp://news.gmane.org/gmane.network.jabber.user'>news group</a>).</p>
+
+<!--#include virtual="/includes/foot.txt" -->

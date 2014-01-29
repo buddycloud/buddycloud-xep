@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<reference anchor='RFC3921'>
+  <front>
+    <title>Extensible Messaging and Presence Protocol (XMPP): Instant Messaging and Presence</title>
+    <author initials='P.' surname='Saint-Andre' fullname='P. Saint-Andre'>
+      <organization>Jabber Software Foundation</organization>
+    </author>
+    <date year='2004' month='October' />
+  </front>
+  <seriesInfo name='RFC' value='3921' />
+  <format type='TXT' octets='217527' target='ftp://ftp.isi.edu/in-notes/rfc3921.txt' />
+</reference>

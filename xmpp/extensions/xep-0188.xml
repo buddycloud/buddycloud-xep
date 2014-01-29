@@ -1,0 +1,799 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE xep SYSTEM 'xep.dtd' [
+  <!ENTITY % ents SYSTEM 'xep.ent'>
+%ents;
+]>
+<?xml-stylesheet type='text/xsl' href='xep.xsl'?>
+<xep>
+<header>
+  <title>Cryptographic Design of Encrypted Sessions</title>
+  <abstract>This document describes the cryptographic design that underpins the XMPP protocol extensions Encrypted Session Negotiation, Offline Encrypted Sessions and Stanza Encryption.</abstract>
+  &LEGALNOTICE;
+  <number>0188</number>
+  <status>Deferred</status>
+  <type>Informational</type>
+  <sig>Standards</sig>
+  <dependencies>
+    <spec>XMPP Core</spec>
+    <spec>XMPP IM</spec>
+    <spec>RFC 2104</spec>
+  </dependencies>
+  <supersedes>None</supersedes>
+  <supersededby>None</supersededby>
+  <shortname>N/A</shortname>
+  &ianpaterson;
+  <revision>
+    <version>0.6</version>
+    <date>2007-05-30</date>
+    <initials>ip</initials>
+    <remark><p>SIGMA-R negotiates both isPKA and isPKB fields</p></remark>
+  </revision>
+  <revision>
+    <version>0.5</version>
+    <date>2007-04-20</date>
+    <initials>ip</initials>
+    <remark><p>Moved requirements, approach and scope to new XEP-0210</p></remark>
+  </revision>
+  <revision>
+    <version>0.4</version>
+    <date>2007-03-15</date>
+    <initials>ip</initials>
+    <remark><p>Incorporated whole forms into SAS calculation</p></remark>
+  </revision>
+  <revision>
+    <version>0.3</version>
+    <date>2006-11-27</date>
+    <initials>ip</initials>
+    <remark><p>Added PKI Independence and Robustness requirements; added optional public key independence, hash commitment, SAS authentication, retained secrets and other secrets to SIGMA-R key exchange</p></remark>
+  </revision>
+  <revision>
+    <version>0.2</version>
+    <date>2006-07-19</date>
+    <initials>ip</initials>
+    <remark><p>Removed public key IDs from Offline options</p></remark>
+  </revision>
+  <revision>
+    <version>0.1</version>
+    <date>2006-07-18</date>
+    <initials>ip</initials>
+    <remark><p>Initial version (extracted from XEP-0116 version 0.9).</p></remark>
+  </revision>
+</header>
+
+<section1 topic='Introduction' anchor='intro'>
+  <p><em>Note: The protocols developed according to the cryptographic design described in this document are described in &xep0116;, &xep0217;, &xep0187; and &xep0200;. The information in those documents should be sufficient for implementors. This purely informative document is primarily for people interested in the design and analysis of those protocols.</em></p>
+	<p>As specified in &rfc3920;, XMPP is an XML streaming protocol that enables the near-real-time exchange of XML fragments between any two (or more) network endpoints. To date, the main application built on top of the core XML streaming layer is instant messaging (IM) and presence, the base extensions for which are specified in &rfc3921;. There are three first-level elements of XML streams (&MESSAGE;, &PRESENCE;, and &IQ;); each of these "XML stanza" types has different semantics, which can complicate the task of defining a generalized approach to end-to-end encryption for XMPP. In addition, XML stanzas can be extended (via properly-namespaced child elements) for a wide variety of functionality.</p>
+  <p>XMPP is a session-oriented communication technology: normally, a client authenticates with a server and maintains a long-lived connection that defines the client's XMPP session. Such stream-level sessions may be secured via channel encryption using Transport Level Security (&rfc2246;), as specified in Section 5 of <cite>RFC 3920</cite>. However, there is no guarantee that all hops will implement or enforce channel encryption (or that intermediate servers are trustworthy), which makes end-to-end encryption desirable.</p>
+  <p>This document specifies a method for encrypted sessions ("ESessions") that takes advantage of the inherent possibilities and strengths of session encryption as opposed to object encryption. The detailed requirements for encrypted sessions are defined in &xep0210;.</p>
+	<p>The conceptual model for the approach specified in this document was inspired by "off-the-record" (OTR) communication, as implemented in the Gaim encryption plugin and described in &otr;. The basic concept is that of an encrypted session which acts as a secure tunnel between two endpoints. Once the tunnel is established, the content of all one-to-one XML stanzas exchanged between the endpoints will be encrypted and then transmitted within a "wrapper" protocol element.</p>
+  <p>Note: In order to gain a thorough understanding of this document, it is recommended that the <cite>Off-the-Record Communication</cite> paper and the &zrtp; Internet-Draft are read first.</p>
+</section1>
+
+<section1 topic="Dramatis Personae" anchor='personae'>
+  <p>This document introduces two characters to help the reader follow the necessary exchanges:</p>
+  <ol start='1'>
+    <li>"Alice" is the name of the initiator of the ESession.</li>
+    <li>"Bob" is the name of the other participant in the ESession started by Alice.</li>
+  </ol>
+  <p>While Alice and Bob are introduced as "end users", they are simply meant to be examples of XMPP entities. Any directly addressable XMPP entity may participate in an ESession.</p>
+</section1>
+
+<section1 topic='Cryptographic Origins' anchor='foundations'>
+  <section2 topic='Introduction' anchor='foundations-intro'>
+    <p>Authenticated key-exchange is the most challenging part of the design of any secure communication protocol. The ESessions key exchange essentially translates the &sigma;<note>Like <cite>RFC 2409</cite>, this protocol uses <em>variant (ii)</em>, as described in Secion 5.4 of the <cite>SIGMA</cite> paper.</note> key-exchange protocol into the syntax of XMPP. The SIGMA approach to Diffie-Hellman Key Agreement (see &rfc2631;) underpins several standard key-exchange protocols including the Internet Key Exchange (IKE) protocol versions 1 and 2 (see &rfc2409; and &rfc4306;).</p>
+    <p>Note: Although this section provides an overview of SIGMA, it is strongly recommended that the <cite>SIGMA</cite> paper is read first in order to gain a thorough understanding of this document.</p>
+    <p>The 3-message SIGMA-I-based key exchange protects the identity of the <em>initiator</em> against active attacks. This SHOULD NOT be used to establish client to client sessions since the <em>responder's</em> identity is not protected against active attacks. However, it SHOULD be used to establish client to service (server) sessions, especially where the identity of the service is well known to third parties.</p>
+    <p>The two 4-message SIGMA-R-based key exchanges with hash commitment defend the <em>responder's</em> identity against active attacks and facilitate detection of a Man in the Middle attack. They SHOULD be used to establish client to client sessions.</p>
+    <p>Note: The block cipher function, <em>cipher</em>, uses CTR mode.</p>
+  </section2>
+  <section2 topic='SIGMA Parameter Descriptions' anchor='foundations-parameters'>
+    <table caption='SIGMA and SAS Overview Parameters'>
+      <tr>
+        <th>Parameter</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>g</td>
+        <td>Diffie-Hellman generator</td>
+      </tr>
+      <tr>
+        <td>x, y</td>
+        <td>Alice and Bob's private Diffie-Hellman keys</td>
+      </tr>
+      <tr>
+        <td>&gsupx;, &gsupy;</td>
+        <td>Alice and Bob's public Diffie-Hellman keys</td>
+      </tr>
+      <tr>
+        <td>H&gsupx;</td>
+        <td>Hash of Alice's public Diffie-Hellman key</td>
+      </tr>
+      <tr>
+        <td>&KSsubA;, &KSsubB;</td>
+        <td>The MAC keys (derived from K) that Alice and Bob use to calculate &macA; and &macB;</td>
+      </tr>
+      <tr>
+        <td>&pubKeyA;, &pubKeyB;</td>
+        <td>The public keys that represent the identity of Alice and Bob, and are used to verify their signatures</td>
+      </tr>
+      <tr>
+        <td>&macA;, &macB;</td>
+        <td>The MAC values that associate the shared secret with the identity of Alice or Bob</td>
+      </tr>
+      <tr>
+        <td>&signKeyA;, &signKeyB;</td>
+        <td>The private keys that Alice and Bob use to sign</td>
+      </tr>
+      <tr>
+        <td>&signA;, &signB;</td>
+        <td>Alice's and Bob's signatures of the shared secret</td>
+      </tr>
+      <tr>
+        <td>&KCsubA;, &KCsubB;</td>
+        <td>The cipher keys (derived from K) that Alice and Bob use to encrypt</td>
+      </tr>
+      <tr>
+        <td>&IDA;, &IDB;</td>
+        <td>The encrypted parameters that identify Alice and Bob to each other</td>
+      </tr>
+      <tr>
+        <td>SAS</td>
+        <td>Short Authentication String</td>
+      </tr>
+    </table>
+    <table caption='Key Exchange Parameters'>
+      <tr>
+        <th>Parameter</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>p</td>
+        <td>Diffie-Hellman prime</td>
+      </tr>
+      <tr>
+        <td>e, d</td>
+        <td>Alice and Bob's public Diffie-Hellman keys (the same as &gsupx;, &gsupy;)</td>
+      </tr>
+      <tr>
+        <td>He</td>
+        <td>Hash of Alice's public Diffie-Hellman key</td>
+      </tr>
+      <tr>
+        <td>K</td>
+        <td>Shared secret (derived by Alice from &gsupy; and x, or by Bob from &gsupx; and y)</td>
+      </tr>
+      <tr>
+        <td>HASH</td>
+        <td>Selected hash algorithm</td>
+      </tr>
+      <tr>
+        <td>&NsubA;, &NsubB;</td>
+        <td>Alice and Bob's session freshness nonces (ESession IDs)</td>
+      </tr>
+      <tr>
+        <td>&CsubA;, &CsubB;</td>
+        <td>Block cipher initial counter value for blocks sent by Alice and Bob</td>
+      </tr>
+      <tr>
+        <td>n</td>
+        <td>Block size of selected cipher algorithm in bits</td>
+      </tr>
+      <tr>
+        <td>&KMsubA;, &KMsubB;</td>
+        <td>The MAC keys (derived from K) that Alice and Bob use to protect the integrity of encrypted data</td>
+      </tr>
+      <tr>
+        <td>&MsubA;, &MsubB;</td>
+        <td>The MAC values that Alice and Bob use to confirm the integrity of encrypted data</td>
+      </tr>
+      <tr>
+        <td>SRS</td>
+        <td>Shared retained secret (derived from K in previous session between the clients)</td>
+      </tr>
+      <tr>
+        <td>&RS1ARSZA;</td>
+        <td>Retained secrets Alice shares with Bob (one for each client he uses)</td>
+      </tr>
+      <tr>
+        <td>&RS1BRSZB;</td>
+        <td>Retained secrets Bob shares with Alice (one for each client she uses)</td>
+      </tr>
+      <tr>
+        <td>&RSH1ARSHZA;</td>
+        <td>HMACs of retained secrets Alice shares with Bob</td>
+      </tr>
+      <tr>
+        <td>SRSH</td>
+        <td>Bob's HMAC of SRS</td>
+      </tr>
+      <tr>
+        <td>OSS</td>
+        <td>Other shared secret of Alice and Bob (e.g. a shared password) defaults to "secret"</td>
+      </tr>
+      <tr>
+        <td>&isPKsubA;, &isPKsubB;</td>
+        <td>Whether or not Alice and Bob prefer to <em>receive</em> a public key (booleans)</td>
+      </tr>
+    </table>
+  </section2>
+
+  <section2 topic='SIGMA-I Overview' anchor='foundations-skeleton-i'>
+    <p>The diagram below demonstrates the barest cryptographic skeleton of the SIGMA-I key exchange protocol. Here Bob allows Alice to protect her identity from active attacks, by allowing her to authenticate him before she communicates her identity. Note: The cipher keys (&KCsubA; and &KCsubB;) are different in each direction, making this exchange slightly more conservative than <cite>SIGMA</cite>.</p>
+    <pre>
+<strong>ALICE</strong>&#160;                                               <strong>BOB</strong>&#160;
+                                            &gsupx;
+                                      ------------&gt;
+
+                                                     &macB; = <em>HMAC</em>(&KSsubB;, {&gsupx;, &gsupy;, &pubKeyB;})
+                                                     &signB; = <em>sign</em>(&signKeyB;, &macB;)
+                                                     &IDB; = <em>cipher</em>(&KCsubB;, {&pubKeyB;, &signB;})
+                                         &gsupy;, &IDB;&#160;
+                                      &lt;------------
+
+<em>authenticate</em>(&IDB;)&#160;
+&macA; = <em>HMAC</em>(&KSsubA;, {&gsupy;, &gsupx;, &pubKeyA;})
+&signA; = <em>sign</em>(&signKeyA;, &macA;)
+&IDA; = <em>cipher</em>(&KCsubA;, {&pubKeyA;, &signA;})
+                                            &IDA;
+                                      ------------&gt;
+
+                                                     <em>authenticate</em>(&IDA;)
+    </pre>
+  </section2>
+
+  <section2 topic='SAS-Only Overview' anchor='foundations-skeleton-sas'>
+    <p>The diagram below demonstrates the skeleton of the Diffie-Hellman key exchange that employs out-of-band Short Authentication String (SAS) verification. If Alice and Bob's public keys are not yet trusted, or if their private keys have been compromised, then the hash commitment sent in the first step enables Alice and Bob to verify their copies of each other's Diffie-Hellman (and public) keys and detect a Man in the Middle more easily.</p>
+    <p>If a Man in the Middle changes the public Diffie-Hellman keys that Alice and Bob receive, then he could potentially use his knowledge of the SAS that Bob will eventually calculate when choosing the key he will send to Alice in the second step. However, the fact that the value he received in the first step is only a hash means the Man in the Middle must choose the key he sends to Alice before he can predict the SAS that she will calculate with it. Therefore, even if the SAS is very short, he is unable to use his resources to choose a key that will (have a better than random chance to) result in a SAS that matches Bob's. So only a truncated version of the HASH of Alice and Bob's keys needs to be verified out-of-band in the final step.</p>
+    <pre>
+<strong>ALICE</strong>&#160;                                               <strong>BOB</strong>&#160;
+                                            H&gsupx;
+                                      ------------&gt;
+
+                                            &gsupy;
+                                      &lt;------------
+SAS = <em>truncate</em>(HASH(&gsupx; | &gsupy;))
+                                            &gsupx;
+                                      ------------&gt;
+
+                                                     <em>assert</em> H&gsupx; = HASH(&gsupx;)
+                                                     SAS = <em>truncate</em>(HASH(&gsupx; | &gsupy;))
+                                           SAS
+                                      &lt;===========&gt;
+    </pre>
+  </section2>
+
+  <section2 topic='SIGMA-R with SAS Overview' anchor='foundations-skeleton-r'>
+    <p>The logic of the four-step SIGMA-R protocol is similar to the three-step SIGMA-I protocol. The difference being that Bob protects his identity from active attacks by by delaying communicating his identity to Alice until he has authenticated her. The diagram below demonstrates the skeleton of the key exchange. Note that it also takes advantage of the extra step required for SIGMA-R to incorporate a hash commitment, thus enabling <em>optional</em> out-of-band SAS authentication.</p>
+    <pre>
+<strong>ALICE</strong>&#160;                                               <strong>BOB</strong>&#160;
+                                            H&gsupx;
+                                      ------------&gt;
+
+                                            &gsupy;
+                                      &lt;------------
+
+&macA; = <em>HMAC</em>(&KSsubA;, {&gsupy;, &gsupx;, &pubKeyA;})
+&signA; = <em>sign</em>(&signKeyA;, &macA;)
+&IDA; = <em>cipher</em>(&KCsubA;, {&pubKeyA;, &signA;})
+SAS = <em>truncate</em>(HASH(&gsupx; | &gsupy;))
+                                         &gsupx;, &IDA;
+                                      ------------&gt;
+
+                                                     <em>assert</em> H&gsupx; = HASH(&gsupx;)
+                                                     SAS = <em>truncate</em>(HASH(&gsupx; | &gsupy;))
+                                           SAS
+                                      &lt;===========&gt;
+
+                                                     <em>authenticate</em>(&IDA;)
+                                                     &macB; = <em>HMAC</em>(&KSsubB;, {&gsupx;, &gsupy;, &pubKeyB;})
+                                                     &signB; = <em>sign</em>(&signKeyB;, &macB;)
+                                                     &IDB; = <em>cipher</em>(&KCsubB;, {&pubKeyB;, &signB;})
+                                           &IDB;
+                                      &lt;------------
+<em>authenticate</em>(&IDB;)
+    </pre>
+  </section2>
+
+  <section2 topic='SIGMA-I Key Exchange' anchor='foundations-core-i'>
+    <p>The diagram below describes exactly the same SIGMA-I key exchange protocol as the <link url='#foundations-skeleton-i'>SIGMA-I Overview</link> above. It provides much more detail, without specifying any ESession-specific details. The differences between it and the <link url='#foundations-core-r'>SIGMA-R with SAS Key Exchange</link> are highlighted.</p>
+    <pre>
+<strong>ALICE</strong>&#160;                                       <strong>BOB</strong>&#160;
+
+&NsubA; = <em>random</em>()
+x = <em>random</em>()
+e = &gsupx; mod p
+                                 <span class='highlight'>e,</span>&#160;&NsubA;
+                             ------------&gt;
+                                             &NsubB; = <em>random</em>()
+                                             &CsubA; = <em>random</em>()
+                                             &CBeCAx2n1;&#160;
+                                             y = <em>random</em>()
+                                             d = &gsupy; mod p
+                                             <span class='highlight'><em>assert</em> 1 &lt; e &lt; p-1
+                                             K = HASH(&esupy; mod p)
+                                             &KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+                                             &KCsubB; = <em>HMAC</em>(HASH, K, "Responder Cipher Key")
+                                             &KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+                                             &KMsubB; = <em>HMAC</em>(HASH, K, "Responder MAC Key")
+                                             &KSsubA; = <em>HMAC</em>(HASH, K, "Initiator SIGMA Key")
+                                             &KSsubB; = <em>HMAC</em>(HASH, K, "Responder SIGMA Key")
+                                             &macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &pubKeyB;, &CsubA;})
+                                             &signB; = <em>sign</em>(&signKeyB;, &macB;)
+                                             &IDB; = <em>cipher</em>(&KCsubB;, &CsubB;, {&pubKeyB;, &signB;})
+                                             &MsubB; = <em>HMAC</em>(HASH, &KMsubB;, &CsubB;, &IDB;)</span>&#160;
+                               d, &CsubA;, &NsubB;
+                             &lt;------------
+                                <span class='highlight'>&IDB;, &MsubB;</span>&#160;
+&CBeCAx2n1;&#160;
+<em>assert</em> 1 &lt; d &lt; p-1
+K = HASH(&dsupx; mod p)
+&KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+<span class='highlight'>&KCsubB; = <em>HMAC</em>(HASH, K, "Responder Cipher Key")</span>&#160;
+&KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+<span class='highlight'>&KMsubB; = <em>HMAC</em>(HASH, K, "Responder MAC Key")</span>&#160;
+&KSsubA; = <em>HMAC</em>(HASH, K, "Initiator SIGMA Key")
+<span class='highlight'>&KSsubB; = <em>HMAC</em>(HASH, K, "Responder SIGMA Key")
+<em>assert</em>&#160;&MsubB; = <em>HMAC</em>(HASH, &KMsubB;, &CsubB;, &IDB;)
+{&pubKeyB;, &signB;} = <em>decipher</em>(&KCsubB;, &CsubB;, &IDB;)
+&macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &pubKeyB;, &CsubA;})
+<em>verify</em>(&signB;, &pubKeyB;, &macB;)</span>&#160;
+&macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &pubKeyA;})
+&signA; = <em>sign</em>(&signKeyA;, &macA;)
+&IDA; = <em>cipher</em>(&KCsubA;, &CsubA;, {&pubKeyA;, &signA;})
+&MsubA; = <em>HMAC</em>(HASH, &KMsubA;, &CsubA;, &IDA;)
+                                  &IDA;
+                             ------------&gt;
+                                   &MsubA;&#160;
+                                             <em>assert</em>&#160;&MsubA; = <em>HMAC</em>(HASH, &KMsubA;, &CsubA;, &IDA;)
+                                             {&pubKeyA;, &signA;} = <em>decipher</em>(&KCsubA;, &CsubA;, &IDA;)
+                                             &macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &pubKeyA;})
+                                             <em>verify</em>(&signA;, &pubKeyA;, &macA;)
+    </pre>
+  </section2>
+
+  <section2 topic='SIGMA-R with SAS Key Exchange' anchor='foundations-core-r'>
+    <p>The Short Authentication String technique enables protection against a Man in the Middle without the need to generate, distribute or authenticate any public keys. As long as a hash commitment is used at the start of the key exchange then only a short human-friendly string needs to be verified out-of-band (e.g. by recognizable voice communication).</p>
+    <p>Furthermore, if retained secrets associated with a client/user combination are employed <em>consistently</em> during key exchanges, then the Man in the Middle would need to be present for every session, including the first, and the out-of-band verification would only need to be performed once to verify the absence of a Man in the Middle for all sessions between the parties (past, present and future). <note>This combination of techniques underpins the <cite>ZRTP</cite> key agreement protocol.</note></p>
+    <p>Public keys are optional in the diagram below. It describes the same SIGMA-R with SAS key exchange protocol as the <link url='#foundations-skeleton-r'>SIGMA-R Overview</link>. It provides much more detail including the use of retained secrets and other secrets. The use of public keys is negotiated in the first two messages. Note: These <em>optional</em> security enhancements are especially important when the protocol is being used without public keys.</p>
+    <p>The diagram does not specify any ESession-specific details. The differences between it and the <link url='#foundations-core-i'>SIGMA-I Key Exchange</link> are highlighted.</p>
+    <pre>
+<strong>ALICE</strong>&#160;                                       <strong>BOB</strong>&#160;
+
+&NsubA; = <em>random</em>()
+x = <em>random</em>()
+e = &gsupx; mod p
+<span class='highlight'>He = SHA256(e)
+                               He, &isPKsubA;</span>
+                             ------------&gt;
+                               <span class='highlight'>&isPKsubB;,</span>&#160;&NsubA;&#160;
+                                             &NsubB; = <em>random</em>()
+                                             &CsubA; = <em>random</em>()
+                                             &CBeCAx2n1;&#160;
+                                             y = <em>random</em>()
+                                             d = &gsupy; mod p
+                               d, &CsubA;, &NsubB;
+                             &lt;------------
+                              <span class='highlight'>&isPKsubA;, &isPKsubB;</span>&#160;
+&CBeCAx2n1;&#160;
+<em>assert</em> 1 &lt; d &lt; p-1
+K = HASH(&dsupx; mod p)
+&KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+&KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+&KSsubA; = <em>HMAC</em>(HASH, K, "Initiator SIGMA Key")
+<span class='highlight'>&RSH1ARSHZA; = <em>HMAC</em>(HASH, &NsubA;, &RS1ARSZA;)
+<em>if</em>&#160;&isPKsubB;&#160;<em>equals false then:</em>&#160;
+    &macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &RSH1ARSHZA;})
+    &IDA; = <em>cipher</em>(&KCsubA;, &CsubA;, &macA;)
+<em>else:</em></span>&#160;
+    &macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &pubKeyA;, &RSH1ARSHZA;})
+    &signA; = <em>sign</em>(&signKeyA;, &macA;)
+    &IDA; = <em>cipher</em>(&KCsubA;, &CsubA;, {&pubKeyA;, &signA;})
+&MsubA; = <em>HMAC</em>(HASH, &KMsubA;, &CsubA;, &IDA;)
+<span class='highlight'>SAS = <em>truncate</em>(HASH(&MsubA; | d | "Short Authentication String"))</span>&#160;
+
+                                &IDA;, &MsubA;
+                             ------------&gt;
+                             <span class='highlight'>e, &RSH1ARSHZA;&#160;
+
+                                             <em>assert</em>&#160;He = SHA256(e)
+                                             SAS = <em>truncate</em>(HASH(&MsubA; | d | "Short Authentication String"))
+                                  SAS
+                             &lt;===========&gt;
+
+                                             <em>assert</em> 1 &lt; e &lt; p-1
+                                             K = HASH(&esupy; mod p)
+                                             &KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+                                             &KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+                                             &KSsubA; = <em>HMAC</em>(HASH, K, "Initiator SIGMA Key")</span>&#160;
+                                             <em>assert</em>&#160;&MsubA; = <em>HMAC</em>(HASH, &KMsubA;, &CsubA;, &IDA;)
+                                             <span class='highlight'><em>if</em>&#160;&isPKsubB;&#160;<em>equals false then:</em>&#160;
+                                                 &macA; = <em>decipher</em>(&KCsubA;, &CsubA;, &IDA;)
+                                                 <em>assert</em>&#160;&macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &RSH1ARSHZA;})
+                                             <em>else:</em></span>&#160;
+                                                 {&pubKeyA;, &signA;} = <em>decipher</em>(&KCsubA;, &CsubA;, &IDA;)
+                                                 &macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &pubKeyA;, &RSH1ARSHZA;})
+                                                 <em>verify</em>(&signA;, &pubKeyA;, &macA;)
+                                             <span class='highlight'>SRS = <em>choose</em>(&RS1BRSZB;, &RSH1ARSHZA;, &NsubA;)
+                                             K = HASH(K | SRS | OSS)
+                                             &KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+                                             &KCsubB; = <em>HMAC</em>(HASH, K, "Responder Cipher Key")
+                                             &KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+                                             &KMsubB; = <em>HMAC</em>(HASH, K, "Responder MAC Key")
+                                             &KSsubB; = <em>HMAC</em>(HASH, K, "Responder SIGMA Key")
+                                             SRSH = <em>HMAC</em>(HASH, SRS, "Shared Retained Secret")
+                                             <em>retain</em>(<em>HMAC</em>(HASH, K, "New Retained Secret"))
+                                             <em>if</em>&#160;&isPKsubA;&#160;<em>equals false then:</em>&#160;
+                                                 &macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &CsubA;})
+                                                 &IDB; = <em>cipher</em>(&KCsubB;, &CsubB;, &macB;)&#160;
+                                             <em>else:</em>&#160;
+                                                 &macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &pubKeyB;, &CsubA;})
+                                                 &signB; = <em>sign</em>(&signKeyB;, &macB;)
+                                                 &IDB; = <em>cipher</em>(&KCsubB;, &CsubB;, {&pubKeyB;, &signB;})
+                                             &MsubB; = <em>HMAC</em>(HASH, &KMsubB;, &CsubB;, &IDB;)
+                                   &IDB;
+                             &lt;------------
+                                &MsubB;, SRSH&#160;
+
+SRS = <em>choose</em>(&RS1ARSZA;, SRSH)
+K = HASH(K | SRS | OSS)
+&KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+&KCsubB; = <em>HMAC</em>(HASH, K, "Responder Cipher Key")
+&KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+&KMsubB; = <em>HMAC</em>(HASH, K, "Responder MAC Key")
+&KSsubB; = <em>HMAC</em>(HASH, K, "Responder SIGMA Key")
+<em>retain</em>(<em>HMAC</em>(HASH, K, "New Retained Secret"))
+<em>assert</em>&#160;&MsubB; = <em>HMAC</em>(HASH, &KMsubB;, &CsubB;, &IDB;)
+<em>if</em>&#160;&isPKsubA;&#160;<em>equals false then:</em>&#160;
+    <span class='highlight'>&macB; = <em>decipher</em>(&KCsubB;, &CsubB;, &IDB;)
+    <em>assert</em>&#160;&macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &CsubA;})
+<em>else:</em></span>&#160;
+    {&pubKeyB;, &signB;} = <em>decipher</em>(&KCsubB;, &CsubB;, &IDB;)
+    &macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &pubKeyB;, &CsubA;})
+    <em>verify</em>(&signB;, &pubKeyB;, &macB;)</span>
+    </pre>
+  </section2>
+
+</section1>
+
+<section1 topic='Cryptographic Design' anchor='design'>
+  <p>This section provides an overview of the full ESession key-exchange protocol from a cryptographic point of view. This protocol is based on the <em>full fledge</em> protocol, as described in Appendix B of the <cite>SIGMA</cite> paper. It also uses <em>variant (ii)</em>, as described in Secion 5.4 of the same paper.</p>
+  <section2 topic='ESession Parameter Descriptions' anchor='design-parameters'>
+    <p>The table below describes the parameters that are not found in the <link url='#foundations-parameters'>Parameter Descriptions</link> tables above.</p>
+    <table caption='ESession Negotiation Parameters'>
+      <tr>
+        <th>Parameter</th>
+        <th>Description</th>
+      </tr>
+      <tr>
+        <td>options</td>
+        <td>Includes a set of possible values for each and every ESession parameter (see the ESession Request sub-section in <cite>Encrypted Session Negotiation</cite>), including sets of possible values for p, g, HASH, CIPHER, SIGN</td>
+      </tr>
+      <tr>
+        <td>chosen</td>
+        <td>Includes a chosen value for each ESession parameter</td>
+      </tr>
+      <tr>
+        <td>CIPHER</td>
+        <td>Selected CTR-mode block cipher algorithm</td>
+      </tr>
+      <tr>
+        <td>DECIPHER</td>
+        <td>Selected CTR-mode block decipher algorithm (corresponds to CIPHER)</td>
+      </tr>
+      <tr>
+        <td>SIGN</td>
+        <td>Selected signature algorithm</td>
+      </tr>
+      <tr>
+        <td>VERIFY</td>
+        <td>The selected signature verification algorithm (corresponds to SIGN)</td>
+      </tr>
+      <tr>
+        <td>SASGEN</td>
+        <td>The selected SAS generation algorithm</td>
+      </tr>
+      <tr>
+        <td>&x1xZ;</td>
+        <td>Alice's private Diffie-Hellman keys - each value corresponds to one of Z different DH groups</td>
+      </tr>
+      <tr>
+        <td>&e1eZ;</td>
+        <td>The choice of public Diffie-Hellman keys that Alice offers Bob - each value corresponds to one of Z different DH groups (and a different value of x)</td>
+      </tr>
+      <tr>
+        <td>&He1HeZ;</td>
+        <td>The list of hash commitments that Alice sends to Bob (hashes of &e1eZ;)</td>
+      </tr>
+      <tr>
+        <td>*&signKeysA;</td>
+        <td>All the private keys that Alice is able to use to create signatures</td>
+      </tr>
+      <tr>
+        <td>*&signsB;</td>
+        <td>The set of signatures of &formB; (one for each of Bob's private keys)</td>
+      </tr>
+      <tr>
+        <td>*&pubKeysA;</td>
+        <td>All of Alice's public keys that Bob has access to</td>
+      </tr>
+    </table>
+    <p>* Offline negotiation only</p>
+  </section2>
+  <section2 topic='Online ESession-I Negotiation' anchor='design-online-i'>
+    <p>Alice uses this protocol when Bob is Online. In addition to the key exchange described in the <link url='#foundations-core-i'>SIGMA-I Key Exchange</link> protocol above, she offers Bob a choice of Diffie-Hellman groups with her corresponding values of e, various algorithms and other parameters. The differences between this protocol and <link url='#design-online-r'>Online ESession-R Negotiation</link> are highlighted.</p>
+    <!--The first two forms below negotiate policy, swap Diffie-Hellman public values and the ancillary data necessary for the exchange and authentication. The second message also authenticates the responder. The third message authenticates the initiator and exchanges the final Diffie-Hellman public value.-->
+    <pre>
+<strong>ALICE</strong>&#160;                                   <strong>BOB</strong>&#160;
+
+&NsubA; = <em>random</em>()
+<em>for</em> g,p &#8712; options
+    x = <em>random</em>()
+    e = &gsupx; mod p
+&formA; = {<span class='highlight'>&e1eZ;</span>, options, &NsubA;}
+                                &formA;
+                             ---------&gt;
+
+                                         chosen = {p,g,HASH,CIPHER,SIGN...} = <em>choose</em>(options)
+                                         <span class='highlight'>e</span> = <em>choose</em>(<span class='highlight'>&e1eZ;</span>, p)
+                                         &NsubB; = <em>random</em>()
+                                         &CsubA; = <em>random</em>()
+                                         &CBeCAx2n1;&#160;
+                                         y = <em>random</em>()
+                                         d = &gsupy; mod p
+                                         &formB; = {&CsubA;, chosen, d, &NsubA;, &NsubB;}
+                                         <span class='highlight'><em>assert</em> 1 &lt; e &lt; p-1
+                                         K = HASH(&esupy; mod p)
+                                         &KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+                                         &KCsubB; = <em>HMAC</em>(HASH, K, "Responder Cipher Key")
+                                         &KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+                                         &KMsubB; = <em>HMAC</em>(HASH, K, "Responder MAC Key")
+                                         &KSsubA; = <em>HMAC</em>(HASH, K, "Initiator SIGMA Key")
+                                         &KSsubB; = <em>HMAC</em>(HASH, K, "Responder SIGMA Key")
+                                         &macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &pubKeyB;, &formB;})
+                                         &signB; = SIGN(&signKeyB;, &macB;)
+                                         &IDB; = CIPHER(&KCsubB;, &CsubB;, {&pubKeyB;, &signB;})
+                                         &MsubB; = <em>HMAC</em>(HASH, &KMsubB;, &CsubB;, &IDB;)</span>&#160;
+                                &formB;
+                             &lt;---------
+                               <span class='highlight'>&IDB;, &MsubB;</span>&#160;
+<em>assert</em> chosen &#8712; options
+x = <em>choose</em>(&x1xZ;, p)
+e = &gsupx; mod p
+&CBeCAx2n1;&#160;
+<em>assert</em> 1 &lt; d &lt; p-1
+K = HASH(&dsupx; mod p)
+&KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+<span class='highlight'>&KCsubB; = <em>HMAC</em>(HASH, K, "Responder Cipher Key")</span>&#160;
+&KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+<span class='highlight'>&KMsubB; = <em>HMAC</em>(HASH, K, "Responder MAC Key")</span>&#160;
+&KSsubA; = <em>HMAC</em>(HASH, K, "Initiator SIGMA Key")
+<span class='highlight'>&KSsubB; = <em>HMAC</em>(HASH, K, "Responder SIGMA Key")
+<em>assert</em>&#160;&MsubB; = <em>HMAC</em>(HASH, &KMsubB;, &CsubB;, &IDB;)
+{&pubKeyB;, &signB;} = DECIPHER(&KCsubB;, &CsubB;, &IDB;)
+&macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &pubKeyB;, &formB;})
+VERIFY(&signB;, &pubKeyB;, &macB;)</span>&#160;
+&macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &pubKeyA;, &formA;})
+&signA; = SIGN(&signKeyA;, &macA;)
+&IDA; = CIPHER(&KCsubA;, &CsubA;, {&pubKeyA;, &signA;})
+&MsubA; = <em>HMAC</em>(HASH, &KMsubA;, &CsubA;, &IDA;)
+                                &IDA;
+                             ---------&gt;
+                               &MsubA;, <span class='highlight'>&NsubB;</span>&#160;
+                                         <em>assert</em>&#160;&MsubA; = <em>HMAC</em>(HASH, &KMsubA;, &CsubA;, &IDA;)
+                                         {&pubKeyA;, &signA;} = DECIPHER(&KCsubA;, &CsubA;, &IDA;)
+                                         &macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &pubKeyA;, &formA;})
+                                         VERIFY(&signA;, &pubKeyA;, &macA;)
+    </pre>
+  </section2>
+
+  <section2 topic='Online ESession-R Negotiation' anchor='design-online-r'>
+    <p>This protocol is similar to the <link url='#design-online-i'>Online ESession-I Negotiation</link> above, except that Bob's identity is protected from active attacks (by by delaying communicating his identity to Alice until he has authenticated her). The optional use of SAS, retained secrets and other secrets means the protocol may be used without any public keys. The differences between this protocol and <link url='#design-online-i'>Online ESession-I Negotiation</link> are highlighted.</p>
+    <pre>
+<strong>ALICE</strong>&#160;                                     <strong>BOB</strong>&#160;
+
+&NsubA; = <em>random</em>()
+<em>for</em> g,p &#8712; options
+    x = <em>random</em>()
+    e = &gsupx; mod p
+    <span class='highlight'>He = SHA256(e)</span>&#160;
+&formA; = {<span class='highlight'>&He1HeZ;</span>, options, &NsubA;}
+
+                                 &formA;
+                             ------------&gt;
+
+                                           chosen = {p,g,HASH,CIPHER,SIGN,SASGEN,<span class='highlight'>&isPKsubA;,&isPKsubB;</span>...} = <em>choose</em>(options)
+                                           <span class='highlight'>He</span> = <em>choose</em>(<span class='highlight'>&He1HeZ;</span>, p)
+                                           &NsubB; = <em>random</em>()
+                                           &CsubA; = <em>random</em>()
+                                           &CBeCAx2n1;&#160;
+                                           y = <em>random</em>()
+                                           d = &gsupy; mod p
+                                           &formB; = {&CsubA;, chosen, d, &NsubA;, &NsubB;}
+                                 &formB;
+                             &lt;------------
+<em>assert</em> chosen &#8712; options
+x = <em>choose</em>(&x1xZ;, p)
+e = <em>choose</em>(&e1eZ;, p)
+&CBeCAx2n1;&#160;
+<em>assert</em> 1 &lt; d &lt; p-1
+K = HASH(&dsupx; mod p)
+&KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+&KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+&KSsubA; = <em>HMAC</em>(HASH, K, "Initiator SIGMA Key")
+<span class='highlight'>&RSH1ARSHZA; = <em>HMAC</em>(HASH, &NsubA;, &RS1ARSZA;)
+&formA2; = {&RSH1ARSHZA;, e, &NsubB;}
+<em>if</em>&#160;&isPKsubB;&#160;<em>equals false then:</em>&#160;
+    &macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &formA;, &formA2;})
+    &IDA; = CIPHER(&KCsubA;, &CsubA;, &macA;)
+<em>else:</em>&#160;</span>&#160;
+    &macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &pubKeyA;, &formA;, &formA2;})
+    &signA; = SIGN(&signKeyA;, &macA;)
+    &IDA; = CIPHER(&KCsubA;, &CsubA;, {&pubKeyA;, &signA;})
+&MsubA; = <em>HMAC</em>(HASH, &KMsubA;, &CsubA;, &IDA;)
+<span class='highlight'>SAS = SASGEN(&MsubA;, &formB;)</span>&#160;
+                                &IDA;, &MsubA;
+                             ------------&gt;
+                                 <span class='highlight'>&formA2;&#160;
+
+                                           <em>assert</em>&#160;He = SHA256(e)
+                                           SAS = SASGEN(&MsubA;, &formB;)
+                                  SAS
+                             &lt;===========&gt;
+
+                                           <em>assert</em> 1 &lt; e &lt; p-1
+                                           K = HASH(&esupy; mod p)
+                                           &KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+                                           &KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+                                           &KSsubA; = <em>HMAC</em>(HASH, K, "Initiator SIGMA Key")
+                                           </span><em>assert</em>&#160;&MsubA; = <em>HMAC</em>(HASH, &KMsubA;, &CsubA;, &IDA;)
+                                           <span class='highlight'><em>if</em>&#160;&isPKsubB;&#160;<em>equals false then:</em>&#160;
+                                               &macA; = DECIPHER(&KCsubA;, &CsubA;, &IDA;)
+                                               <em>assert</em>&#160;&macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &formA;, &formA2;})
+                                           <em>else:</em></span>&#160;
+                                               {&pubKeyA;, &signA;} = DECIPHER(&KCsubA;, &CsubA;, &IDA;)
+                                               &macA; = <em>HMAC</em>(HASH, &KSsubA;, {&NsubB;, &NsubA;, e, &pubKeyA;, &formA;, &formA2;})
+                                               VERIFY(&signA;, &pubKeyA;, &macA;)
+                                           <span class='highlight'>SRS = <em>choose</em>(&RS1BRSZB;, &RSH1ARSHZA;, &NsubA;)
+                                           K = HASH(K | SRS | OSS)
+                                           &KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+                                           &KCsubB; = <em>HMAC</em>(HASH, K, "Responder Cipher Key")
+                                           &KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+                                           &KMsubB; = <em>HMAC</em>(HASH, K, "Responder MAC Key")
+                                           &KSsubB; = <em>HMAC</em>(HASH, K, "Responder SIGMA Key")
+                                           <em>if</em> SRS <em>equals false then:</em>&#160;
+                                               SRS = <em>random</em>()
+                                           SRSH = <em>HMAC</em>(HASH, SRS, "Shared Retained Secret")
+                                           <em>retain</em>(<em>HMAC</em>(HASH, K, "New Retained Secret"))
+                                           &formB2; = {&NsubA;, SRSH}
+                                           <em>if</em>&#160;&isPKsubA;&#160;<em>equals false then:</em>&#160;
+                                               &macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &formB;, &formB2;})
+                                               &IDB; = CIPHER(&KCsubB;, &CsubB;, &macB;)&#160;
+                                           <em>else:</em>&#160;
+                                               &macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &pubKeyB;, &formB;, &formB2;})
+                                               &signB; = SIGN(&signKeyB;, &macB;)
+                                               &IDB; = CIPHER(&KCsubB;, &CsubB;, {&pubKeyB;, &signB;})
+                                           &MsubB; = <em>HMAC</em>(HASH, &KMsubB;, &CsubB;, &IDB;)
+
+                                &IDB;, &MsubB;&#160;
+                             &lt;------------
+                                 &formB2;&#160;
+
+SRS = <em>choose</em>(&RS1ARSZA;, SRSH)
+K = HASH(K | SRS | OSS)
+&KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+&KCsubB; = <em>HMAC</em>(HASH, K, "Responder Cipher Key")
+&KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+&KMsubB; = <em>HMAC</em>(HASH, K, "Responder MAC Key")
+&KSsubB; = <em>HMAC</em>(HASH, K, "Responder SIGMA Key")
+<em>retain</em>(<em>HMAC</em>(HASH, K, "New Retained Secret"))
+<em>assert</em>&#160;&MsubB; = <em>HMAC</em>(HASH, &KMsubB;, &CsubB;, &IDB;)
+<em>if</em>&#160;&isPKsubA;&#160;<em>equals false then:</em>&#160;
+    &macB; = DECIPHER(&KCsubB;, &CsubB;, &IDB;)
+    <em>assert</em>&#160;&macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &formB;, &formB2;})
+<em>else:</em>&#160;
+    {&pubKeyB;, &signB;} = DECIPHER(&KCsubB;, &CsubB;, &IDB;)
+    &macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &pubKeyB;, &formB;, &formB2;})
+    VERIFY(&signB;, &pubKeyB;, &macB;)</span>
+    </pre>
+  </section2>
+
+  <section2 topic='Offline ESession Negotiation' anchor='design-offline'>
+    <p>Bob uses this protocol to send stanzas to Alice when she is Offline. Note: Since the full <cite>SIGMA</cite> protocol cannot be used if Alice is offline, her identity is not protected at all.</p>
+    <p>The diagram is split into three phases. First Alice publishes her ESession options before going offline. Later Bob completes the key exchange (and sends her encrypted stanzas that are not shown below) these are all stored by Alice's server. Finally when Alice comes online again she verifies and calculates the decryption key.</p>
+    <p>The differences between this offline protocol and the <link url='#design-online-i'>Online ESession-I Negotiation</link> protocol above are highlighted in the diagram below.</p>
+    <pre>
+<strong>ALICE</strong>&#160;                   <strong>ALICE'S SERVER</strong>&#160;             <strong>BOB</strong>&#160;
+
+&NsubA; = <em>random</em>()
+<em>for</em> g,p &#8712; options
+    x = <em>random</em>()
+    e = &gsupx; mod p
+&formA; = {&e1eZ;, options, &NsubA;}
+<span class='highlight'>&signsA; = <em>multi_sign</em>(&signKeysA;, &formA;)
+<em>retain</em>(&NsubA;, &x1xZ;, expireTime)</span>&#160;
+
+                   &formA;
+                 --------&gt;
+                   <span class='highlight'>&signsA;&#160;
+
+                         <em>retain</em>(&formA;, &signsA;)
+---------------------------------------------------------------------------------------------------------
+                         <em>retrieve</em>(&formA;, &signsA;)</span>&#160;
+
+                                             &formA;
+                                           --------&gt;
+                                             <span class='highlight'>&signsA;&#160;
+
+                                                     <em>verify_one</em>(&signsA;, &pubKeysA;, &formA;)</span>
+                                                     chosen = {p,g,HASH,CIPHER,SIGN...} = <em>choose</em>(options)
+                                                     e = <em>choose</em>(&e1eZ;, p)
+                                                     &CsubA; = <em>random</em>()
+                                                     y = <em>random</em>()
+                                                     d = &gsupy; mod p
+                                                     &CBeCAx2n1;&#160;
+                                                     &NsubB; = <em>random</em>()
+                                                     &formB; = {&CsubA;, chosen, d, &NsubA;, &NsubB;}
+                                                     <em>assert</em> 1 &lt; e &lt; p-1
+                                                     K = HASH(&esupy; mod p)
+                                                     &KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+                                                     &KCsubB; = <em>HMAC</em>(HASH, K, "Responder Cipher Key")
+                                                     &KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+                                                     &KMsubB; = <em>HMAC</em>(HASH, K, "Responder MAC Key")
+                                                     &KSsubA; = <em>HMAC</em>(HASH, K, "Initiator SIGMA Key")
+                                                     &KSsubB; = <em>HMAC</em>(HASH, K, "Responder SIGMA Key")
+                                                     &macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &pubKeyB;, &formB;})
+                                                     &signB; = SIGN(&signKeyB;, &macB;)
+                                                     &IDB; = CIPHER(&KCsubB;, &CsubB;, {&pubKeyB;, &signB;})
+                                                     &MsubB; = <em>HMAC</em>(HASH, &KMsubB;, &CsubB;, &IDB;)
+
+                                             &formB;
+                                           &lt;--------
+                                            &IDB;, &MsubB;&#160;
+
+                         <span class='highlight'><em>retain</em>(&formB;,&IDB;,&MsubB;)
+---------------------------------------------------------------------------------------------------------
+                         <em>retrieve</em>(&formB;,&IDB;,&MsubB;)</span>&#160;
+                   &formB;
+                 &lt;--------
+                  &IDB;, &MsubB;&#160;
+
+<span class='highlight'><em>retrieve</em>(&NsubA;, &x1xZ;, expireTime)
+<em>assert</em> now &lt; expireTime</span>&#160;
+<em>assert</em> chosen &#8712; options
+x = <em>choose</em>(&x1xZ;, p)
+e = &gsupx; mod p
+&CBeCAx2n1;&#160;
+<em>assert</em> 1 &lt; d &lt; p-1
+K = HASH(&dsupx; mod p)
+&KCsubA; = <em>HMAC</em>(HASH, K, "Initiator Cipher Key")
+&KCsubB; = <em>HMAC</em>(HASH, K, "Responder Cipher Key")
+&KMsubA; = <em>HMAC</em>(HASH, K, "Initiator MAC Key")
+&KMsubB; = <em>HMAC</em>(HASH, K, "Responder MAC Key")
+&KSsubA; = <em>HMAC</em>(HASH, K, "Initiator SIGMA Key")
+&KSsubB; = <em>HMAC</em>(HASH, K, "Responder SIGMA Key")
+<em>assert</em>&#160;&MsubB; = <em>HMAC</em>(HASH, &KMsubB;, &CsubB;, &IDB;)
+{&pubKeyB;, &signB;} = DECIPHER(&KCsubB;, &CsubB;, &IDB;)
+&macB; = <em>HMAC</em>(HASH, &KSsubB;, {&NsubA;, &NsubB;, d, &pubKeyB;, &formB;})
+VERIFY(&signB;, &pubKeyB;, &macB;)
+    </pre>
+    <p>Note: &KMsubB; is necessary only to allow Bob to terminate the ESession if he comes online before Alice terminates it. The calculation of &KCsubB; and &KSsubB; is not strictly necessary.</p>
+  </section2>
+</section1>
+
+<section1 topic='Security Considerations' anchor='sec'>
+  <p>The security considerations are described in <cite>Encrypted Session Negotiation</cite> and <cite>Offline Encrypted Sessions</cite>.</p>
+</section1>
+
+<section1 topic='IANA Considerations' anchor='iana'>
+  <p>This document requires no interaction with &IANA;. </p>
+</section1>
+
+<section1 topic='XMPP Registrar Considerations' anchor='registrar'>
+  <p>This document requires no interaction with the &REGISTRAR;.</p>
+</section1>
+
+<section1 topic='Acknowledgments' anchor='acknowledgments'>
+  <p>The author would like to thank: Ian Goldberg for the time he spent reviewing an early version of this protocol and for his invaluable suggestions and comments; and Hugo Krawczyk for his general advice and encouragment. The author of this document is entirely responsable for any errors it contains.</p>
+</section1>
+
+</xep>

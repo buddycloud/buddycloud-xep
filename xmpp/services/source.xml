@@ -1,0 +1,855 @@
+<services>
+  <service>
+    <domain>0nl1ne.at</domain>
+    <website>http://0nl1ne.at/jabber.html</website>
+    <desc>A free public XMPP service hosted in Austria brought to you by linuxlovers.at. Server messages and main website only in German.</desc>
+    <year>2007</year>
+    <country>AT</country>
+    <lat>46.64</lat>
+    <lon>14.34</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:nik@linuxlovers.at'>Nikolaus Polak</admin>
+  </service>
+  <service>
+    <domain>binaryfreedom.info</domain>
+    <website>http://jabber.binaryfreedom.info/</website>
+    <desc>This server is sponsored by BinaryFreedom.info to allow digital freedom activists use free and open tools one of them the jabber server among others like email, webspace and other web services.</desc>
+    <year>2002</year>
+    <country>USA</country>
+    <lat>32.73</lat>
+    <lon>-117.17</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:rek2@binaryfreedom.info'>rek2@binaryfreedom.info</admin>
+  </service>
+  <service>
+    <domain>boese-ban.de</domain>
+    <website>http://kaoskinder.de/jabber_server</website>
+    <desc>The Jabber server of the Chaos Computer Club people in Jena, Germany.</desc>
+    <year>2008</year>
+    <country>DE</country>
+    <lat>51.0</lat>
+    <lon>9.0</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:tim@boese-ban.de'>Tim Schumacher</admin>
+  </service>
+  <service>
+    <domain>brauchen.info</domain>
+    <website>http://www.draugr.de/</website>
+    <desc>An XMPP server in Germany, hosted by draugr.de.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>49.45</lat>
+    <lon>11.07</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:christian@draugr.de'>Christian Dröge</admin>
+  </service>
+  <service>
+    <domain>cassilis.net</domain>
+    <website>http://cassilis.net/</website>
+    <desc>
+    </desc>
+    <year>2008</year>
+    <country>RU</country>
+    <lat>55.75</lat>
+    <lon>37.98</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:alexey@cassilis.net'>Alexey Petrachuk</admin>
+  </service>
+  <service>
+    <domain>chatmask.com</domain>
+    <website>http://www.chatmask.com/</website>
+    <desc>A public Jabber server with support from AIM, Yahoo, GaduGadu, ICQ and IRC.</desc>
+    <year>2009</year>
+    <country>USA</country>
+    <lat>42.2</lat>
+    <lon>-91.2</lon>
+    <ca uri='http://www.geotrust.com/resources/root-certificates/'>Equifax</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:xboxnorm@chatmask.com'>Adam Seabrook</admin>
+  </service>
+  <service>
+    <domain>climm.org</domain>
+    <website>http://www.i-pobox.net/</website>
+    <desc>An XMPP server in Germany, hosted by i-pobox.net.</desc>
+    <year>2003</year>
+    <country>DE</country>
+    <lat>52.32</lat>
+    <lon>9.78</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:migri@jabber.i-pobox.net'>Michael Grigutsch</admin>
+  </service>
+  <service>
+    <domain>codingteam.net</domain>
+    <website>http://codingteam.net/jabber</website>
+    <desc>CodingTeam.net is a forge for free (as in freedom) software projects. The Jabber server is mainly useful for communication inside CodingTeam projects (chatrooms integrated in the forge, presence for users, etc.) but is open to everyone.</desc>
+    <year>2007</year>
+    <country>FR</country>
+    <lat>50.69</lat>
+    <lon>3.17</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:xbright@codingteam.net'>Erwan Briand</admin>
+  </service>
+  <service>
+    <domain>darkdna.net</domain>
+    <website>http://darkdna.net/</website>
+    <desc>A small public server in New Jersey.</desc>
+    <year>2008</year>
+    <country>USA</country>
+    <lat>40.73</lat>
+    <lon>-70.18</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://prosody.im/'>Prosody</server>
+    <admin uri='xmpp:purrdeta@darkdna.net'>Alex Hanselka</admin>
+  </service>
+  <service>
+    <domain>default.rs</domain>
+    <website>http://www.default.rs/</website>
+    <desc>The first jabber server in Serbia, physically hosted in Serbia.</desc>
+    <year>2002</year>
+    <country>RS</country>
+    <lat>44.82</lat>
+    <lon>20.47</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:bc@default.rs'>Bogdan Ćulibrk</admin>
+  </service>
+  <service>
+    <domain>deshalbfrei.org</domain>
+    <website>http://www.draugr.de/</website>
+    <desc>An XMPP server in Germany, hosted by draugr.de.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>49.45</lat>
+    <lon>11.07</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:christian@draugr.de'>Christian Dröge</admin>
+  </service>
+  <service>
+    <domain>draugr.de</domain>
+    <website>http://www.draugr.de/</website>
+    <desc>XMPP server in Germany with a MUC service, a file transfer proxy, and more.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>49.45</lat>
+    <lon>11.07</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:christian@draugr.de'>Christian Dröge</admin>
+  </service>
+  <service>
+    <domain>im.apinc.org</domain>
+    <website>http://jabber.apinc.org/</website>
+    <desc>A free public jabber server maintained by the French association APINC.</desc>
+    <year>2004</year>
+    <country>FR</country>
+    <lat>48.53</lat>
+    <lon>2.15</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:omega@im.apinc.org'>Grégoire Menuel</admin>
+  </service>
+  <service>
+    <domain>im.flosoft.biz</domain>
+    <website>http://im.flosoft.biz/</website>
+    <desc>A completely free public Jabber service whose main goal is 100% uptime. Operated by Flosoft.biz.</desc>
+    <year>2004</year>
+    <country>EU</country>
+    <lat>50.12</lat>
+    <lon>3.03</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.tigase.org/'>Tigase</server>
+    <admin uri='xmpp:admin@im.flosoft.biz'>Florian Jensen</admin>
+  </service>
+  <service>
+    <domain>internet-exception.de</domain>
+    <website>http://internet-exception.de/</website>
+    <desc>Former li-nux.de service, offering an ICQ transport.</desc>
+    <year>2009</year>
+    <country>DE</country>
+    <lat>19,34</lat>
+    <lon>39,15</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:bene@internet-exception.de'>Benedikt Marquard</admin>
+  </service>
+  <service>
+    <domain>jabber.ccc.de</domain>
+    <website>http://web.jabber.ccc.de/</website>
+    <desc>A Jabber Server operated by the Chaos Computer Club.</desc>
+    <year>2003</year>
+    <country>DE</country>
+    <lat>48.38</lat>
+    <lon>10.01</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:vt100@jabber.ccc.de'>Peter Schwindt</admin>
+  </service>
+  <service>
+    <domain>jabber.chaotic.de</domain>
+    <website>http://www.i-pobox.net/</website>
+    <desc>An XMPP server in Germany, hosted by i-pobox.net.</desc>
+    <year>2003</year>
+    <country>DE</country>
+    <lat>52.32</lat>
+    <lon>9.78</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:migri@jabber.i-pobox.net'>Michael Grigutsch</admin>
+  </service>
+  <service>
+    <domain>jabber.co.nz</domain>
+    <website>http://www.jabber.co.nz/</website>
+    <desc>Representing the Jabber community in New Zealand.</desc>
+    <year>2009</year>
+    <country>NZ</country>
+    <lat>-37.46</lat>
+    <lon>175.18</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:paul@jabber.yeahnah.co.nz'>Paul Willard</admin>
+  </service>
+  <service>
+    <domain>jabber.cz</domain>
+    <website>http://www.jabbim.cz/</website>
+    <desc>Public service hosted by jabbim.cz</desc>
+    <year>2001</year>
+    <country>CZ</country>
+    <lat>50.07</lat>
+    <lon>14.51</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:pinky@njs.netlab.cz'>Jan Pinkas</admin>
+  </service>
+  <service>
+    <domain>jabber.fourecks.de</domain>
+    <website>http://www.i-pobox.net/</website>
+    <desc>An XMPP server in Germany, hosted by i-pobox.net.</desc>
+    <year>2003</year>
+    <country>DE</country>
+    <lat>52.32</lat>
+    <lon>9.78</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:migri@jabber.i-pobox.net'>Michael Grigutsch</admin>
+  </service>
+  <service>
+    <domain>jabber.fsinf.at</domain>
+    <website>http://jabber.fsinf.at/</website>
+    <desc>XMPP server with all the usual features (multi-user chat, irc-support, ...) plus file-transfer proxy, ICQ-transport, web-presence support, publish-subscribe service and a website in English and German.</desc>
+    <year>2006</year>
+    <country>AT</country>
+    <lat>48.2</lat>
+    <lon>16.37</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:mati@jabber.fsinf.at'>Mathias Ertl</admin>
+  </service>
+  <service>
+    <domain>jabber.hot-chilli.net</domain>
+    <website>http://www.hot-chilli.net/jabber</website>
+    <desc>A free Jabber service for everybody by hot-chilli.net webhosting, a friendly and individual online services company in Germany. We offer serveral Jabber transports (ICQ, AIM, Yahoo, MSN, IRC) and numerous other Jabber services like JMC, JUD, MUC and Proxy65.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>48.87</lat>
+    <lon>2.37</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:roi@jabber.hot-chilli.net'>Martin Sebald</admin>
+  </service>
+  <service>
+    <domain>jabber.iitsp.com</domain>
+    <website>http://jabber.iitsp.com/</website>
+    <desc>A free Jabber service from iITSP.</desc>
+    <year>2008</year>
+    <country>USA</country>
+    <lat>27.97</lat>
+    <lon>-82.53</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:nkukard@jabber.iitsp.com'>Nigel Kukard</admin>
+  </service>
+  <service>
+    <domain>jabber.i-pobox.net</domain>
+    <website>http://www.i-pobox.net/</website>
+    <desc>Jabber service with multiple hostnames, ICQ and AIM Transports, MUC-Service with simple IRC-Entry (Port 6668), RSS-Feeds, and more.</desc>
+    <year>2003</year>
+    <country>DE</country>
+    <lat>52.32</lat>
+    <lon>9.78</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:migri@jabber.i-pobox.net'>Michael Grigutsch</admin>
+  </service>
+  <service>
+    <domain>jabber.loudas.com</domain>
+    <website>http://loudas.com/</website>
+    <desc>Delivering chat services in New Zealand, including transports to AIM, ICQ, and MSN.</desc>
+    <year>2009</year>
+    <country>NZ</country>
+    <lat>-37.46</lat>
+    <lon>175.18</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:paul@jabber.yeahnah.co.nz'>Paul Willard</admin>
+  </service>
+  <service>
+    <domain>jabber.minus273.org</domain>
+    <website>http://jabber.minus273.org/</website>
+    <desc>The first open Jabber server in Bulgaria.</desc>
+    <year>2002</year>
+    <country>BG</country>
+    <lat>43.22</lat>
+    <year>27.93</year>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:nikky@jabber.minus273.org'>Nickola Kolev</admin>
+  </service>
+  <service>
+    <domain>jabber.no</domain>
+    <website>http://jabber.no/</website>
+    <desc>Free Jabber server set up for Norwegian users in 2004. The service is provided free of charge and has also now an English web page due to the many users outside Norway.</desc>
+    <year>2004</year>
+    <country>NO</country>
+    <lat>59.91</lat>
+    <lon>10.75</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:stian@jabber.no'>Stian Barmen</admin>
+  </service>
+  <service>
+    <domain>jabber.org</domain>
+    <website>http://jabber.org/</website>
+    <desc>The original XMPP service, in continuous operation since 1999.</desc>
+    <year>1999</year>
+    <country>USA</country>
+    <lat>42.25</lat>
+    <lon>-91.05</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.isode.com/products/m-link.html'>Isode M-Link</server>
+    <admin uri='xmpp:stpeter@jabber.org'>Peter Saint-Andre</admin>
+  </service>
+  <service>
+    <domain>jabber.rootbash.com</domain>
+    <website>http://jabber.rootbash.com/</website>
+    <desc>A public XMPP server with several services like publish-subscribe and gateways to other proprietary IM networks. Hosted by Nauck IT KG.</desc>
+    <year>2006</year>
+    <country>DE</country>
+    <lat>50.12</lat>
+    <lon>8.63</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:dna@jabber.rootbash.com'>Daniel Nauck</admin>
+  </service>
+  <service>
+    <domain>jabber.rueckgr.at</domain>
+    <website>http://jabber.rueckgr.at/</website>
+    <desc>An XMPP server free to use for everyone.</desc>
+    <year>2010</year>
+    <country>DE</country>
+    <lat>50.9</lat>
+    <lon>11.9</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:paulchen@rueckgr.at'>Paul Staroch</admin>
+  </service>
+  <service>
+    <domain>jabber.scha.de</domain>
+    <website>http://www.i-pobox.net/</website>
+    <desc>An XMPP server in Germany, hosted by i-pobox.net.</desc>
+    <year>2003</year>
+    <country>DE</country>
+    <lat>52.32</lat>
+    <lon>9.78</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:migri@jabber.i-pobox.net'>Michael Grigutsch</admin>
+  </service>
+  <service>
+    <domain>jabber.second-home.de</domain>
+    <website>http://www.i-pobox.net/</website>
+    <desc>An XMPP server in Germany, hosted by i-pobox.net.</desc>
+    <year>2003</year>
+    <country>DE</country>
+    <lat>52.32</lat>
+    <lon>9.78</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:migri@jabber.i-pobox.net'>Michael Grigutsch</admin>
+  </service>
+  <service>
+    <domain>jabber.sow.as</domain>
+    <website>http://www.i-pobox.net/</website>
+    <desc>An XMPP server in Germany, hosted by i-pobox.net.</desc>
+    <year>2003</year>
+    <country>DE</country>
+    <lat>52.32</lat>
+    <lon>9.78</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:migri@jabber.i-pobox.net'>Michael Grigutsch</admin>
+  </service>
+  <service>
+    <domain>jabber.tmkis.com</domain>
+    <website>http://lotgdforum.de/</website>
+    <desc>Jabber Server of the German lotgd community.</desc>
+    <year>2009</year>
+    <country>DE</country>
+    <lat>49.97</lat>
+    <lon>8.56</lon>
+    <ca uri='http://www.geotrust.com/resources/root-certificates/'>Equifax</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:thomas@jabber.tmkis.com'>Thomas Kramer</admin>
+  </service>
+  <service>
+    <domain>jabber.yeahnah.co.nz</domain>
+    <website>http://www.yeahnah.co.nz</website>
+    <desc>Aims to deliver Jabber services on a server located in New Zealand, making connections easy and quick for New Zealand residents.</desc>
+    <year>2009</year>
+    <country>NZ</country>
+    <lat>-37.46</lat>
+    <lon>175.18</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:paul@jabber.yeahnah.co.nz'>Paul Willard</admin>
+  </service>
+  <service>
+    <domain>jabber-br.org</domain>
+    <website>http://www.jabber-br.org/</website>
+    <desc>The original Brazilian Jabber service. Run by Brazilian people, but hosted in USA.</desc>
+    <year>2005</year>
+    <country>BR</country>
+    <lat></lat>
+    <lon></lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:cascardo@jabber-br.org'>Thadeu Lima de Souza Cascardo</admin>
+  </service>
+  <service>
+    <domain>jabber-hispano.org</domain>
+    <website>http://www.jabber-hispano.org/</website>
+    <desc>A Jabber server for the Hispanic community..</desc>
+    <year>2004</year>
+    <country>ES</country>
+    <lat>42.21</lat>
+    <lon>-8.75</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:suso@jabber-hispano.org'>Carlos E. López Vilas</admin>
+  </service>
+  <service>
+    <domain>jabberbr.com</domain>
+    <website>http://www.jabberbr.com/</website>
+    <desc>O primeiro servidor confiável e grátis Jabber/XMPP para a comunidade Brasileira com serviços MSN/AIM/ICQ/YAHOO/GTalk habilitados. Nós falamos a sua língua.</desc>
+    <year>2009</year>
+    <country>BR</country>
+    <lat>37.51</lat>
+    <lon>-95.71</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:wsartori@jabberbr.com'>Wagner Sartori Junior</admin>
+  </service>
+  <service>
+    <domain>jabberd.eu</domain>
+    <website>http://jabberd.eu/</website>
+    <desc>Jabber service for EU countries with an ICQ transport.</desc>
+    <year>2009</year>
+    <country>RU</country>
+    <lat>55.75</lat>
+    <lon>37.58</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://jabberd2.xiaoka.com/'>jabberd2</server>
+    <admin uri='xmpp:benjamin@jabberd.eu'>Benjamin Beskrovny</admin>
+  </service>
+  <service>
+    <domain>jabberes.org</domain>
+    <website>http://www.jabberes.org/</website>
+    <desc>A server for the Spanish-language Jabber community. Hosted by the non-profit organization Aditel.</desc>
+    <year>2003</year>
+    <country>ES</country>
+    <lat>40.04</lat>
+    <lon>-0.07</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:peralta@jabberes.org'>Luis Peralta</admin>
+  </service>
+  <service>
+    <domain>jabberim.de</domain>
+    <website>http://www.jabberim.de/</website>
+    <desc>All users are welcome. This server provides transports to ICQ, MSN, YAHOO, AOL and more. All passwords (account and transports) are encrypted.</desc>
+    <year>2008</year>
+    <country>DE</country>
+    <lat>50</lat>
+    <lon>8</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:sebastian@jabberim.de'>Sebastian Riebel</admin>
+  </service>
+  <service>
+    <domain>jabbim.com</domain>
+    <website>http://www.jabbim.cz/</website>
+    <desc>Public service hosted by jabbim.cz</desc>
+    <year>2005</year>
+    <country>CZ</country>
+    <lat>50.07</lat>
+    <lon>14.51</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:pinky@njs.netlab.cz'>Jan Pinkas</admin>
+  </service>
+  <service>
+    <domain>jabbim.cz</domain>
+    <website>http://www.jabbim.cz/</website>
+    <desc>Stable ejabberd clustered server with good support and many transports and services: ICQ, AIM, MSN, Facebook, Weather, Yahoo, Notes, bots, MUCs, proxy65, STUN server for voice support, and more</desc>
+    <year>2005</year>
+    <country>CZ</country>
+    <lat>50.07</lat>
+    <lon>14.51</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:pinky@njs.netlab.cz'>Jan Pinkas</admin>
+  </service>
+  <service>
+    <domain>jabbim.pl</domain>
+    <website>http://www.jabbim.cz/</website>
+    <desc>Public service hosted by jabbim.cz</desc>
+    <year>2005</year>
+    <country>CZ</country>
+    <lat>50.07</lat>
+    <lon>14.51</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:pinky@njs.netlab.cz'>Jan Pinkas</admin>
+  </service>
+  <service>
+    <domain>jabbim.sk</domain>
+    <website>http://www.jabbim.cz/</website>
+    <desc>Public service hosted by jabbim.cz</desc>
+    <year>2005</year>
+    <country>CZ</country>
+    <lat>50.07</lat>
+    <lon>14.51</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:pinky@njs.netlab.cz'>Jan Pinkas</admin>
+  </service>
+  <service>
+    <domain>jabme.de</domain>
+    <website>http://www.jabme.de/</website>
+    <desc>A free XMPP service with transports, MUCs, a file tranfer proxy, twitter bot and more.</desc>
+    <year>2009</year>
+    <country>DE</country>
+    <lat></lat>
+    <lon></lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:christoph@jabme.de'>Christoph Heer</admin>
+  </service>
+  <service>
+    <domain>jabster.pl</domain>
+    <website>http://www.jabster.pl/</website>
+    <desc>An open Jabber service in Poland.</desc>
+    <year>2004</year>
+    <country>PL</country>
+    <lat>50.07</lat>
+    <lon>14.51</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:zbyszek@jabster.pl'>zbyszek@jabster.pl</admin>
+  </service>
+  <service>
+    <domain>jaim.at</domain>
+    <website>http://www.jaim.at/</website>
+    <desc>A public Jabber instant messaging server in Austria.</desc>
+    <year>2004</year>
+    <country>AT</country>
+    <lat>48.1</lat>
+    <lon>16.3</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:frz@jaim.at'>Friedrich Kron</admin>
+  </service>
+  <service>
+    <domain>lethyro.net</domain>
+    <website>http://www.lethyro.net/</website>
+    <desc>A public Jabber server with gateways to ICQ, MSN, AIM, MySpace, JMC, and GaduGadu.</desc>
+    <year>2008</year>
+    <country>DE</country>
+    <lat>50.1</lat>
+    <lon>8.6</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:lethyro@lethyro.net'>Oliver Weber</admin>
+  </service>
+  <service>
+    <domain>limun.org</domain>
+    <website>https://limun.org/</website>
+    <desc>Public Jabber service with web-registration and some transports.</desc>
+    <year>2009</year>
+    <country>DE</country>
+    <lat>50.93</lat>
+    <lon>11.59</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:tux@limun.org'>Mihael Pranji&#263;</admin>
+  </service>
+  <service>
+    <domain>linuxlovers.at</domain>
+    <website>http://wiki.linuxlovers.at/de/about/jabber</website>
+    <desc>A free public XMPP service hosted in Austria with IRC, ICQ and MSN/Live! transport. No ads and high availibility, server messages and main website only in German.</desc>
+    <year>2006</year>
+    <country>AT</country>
+    <lat>46.64</lat>
+    <lon>14.34</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:nik@linuxlovers.at'>Nikolaus Polak</admin>
+  </service>
+  <service>
+    <domain>macjabber.de</domain>
+    <website>http://www.macjabber.de/</website>
+    <desc>A small but reliable Jabber server. Not only for Mac users!</desc>
+    <year>2006</year>
+    <country>DE</country>
+    <lat>52.5</lat>
+    <lon>13.37</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:jan@macjabber.de'>Jan-Kaspar Münnich</admin>
+  </service>
+  <service>
+    <domain>na-di.de</domain>
+    <website>http://www.na-di.de/</website>
+    <desc>Just another free public XMPP service</desc>
+    <year>2009</year>
+    <country>DE</country>
+    <lat></lat>
+    <lon></lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:alex@na-di.de'>Alexander Anger</admin>
+  </service>
+  <service>
+    <domain>neko.im</domain>
+    <website>http://www.neko.im/</website>
+    <desc>Neko IM is a free public Jabber server, running Openfire, located in Sandnes, Norway.</desc>
+    <year>2008</year>
+    <country>NO</country>
+    <lat>58.86</lat>
+    <lon>5.79</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:nulani@neko.im'>Nulani t'Acraya</admin>
+  </service>
+  <service>
+    <domain>netmindz.net</domain>
+    <website>http://www.netmindz.net/</website>
+    <desc>A long-running, UK-based service with AIM / ICQ / MSN / Yahoo transports.</desc>
+    <year>2002</year>
+    <country>UK</country>
+    <lat></lat>
+    <lon></lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://jabberd2.xiaoka.com/'>jabberd2</server>
+    <admin uri='xmpp:will@netmindz.net'>Will Tatam</admin>
+  </service>
+  <service>
+    <domain>njs.netlab.cz</domain>
+    <website>http://www.jabbim.cz/</website>
+    <desc>Public service hosted by jabbim.cz</desc>
+    <year>2001</year>
+    <country>CZ</country>
+    <lat>50.07</lat>
+    <lon>14.51</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:pinky@njs.netlab.cz'>Jan Pinkas</admin>
+  </service>
+  <service>
+    <domain>pandion.im</domain>
+    <website>http://www.pandion.im/</website>
+    <desc>Pandion IM users and others can use this server freely. Enjoy!</desc>
+    <year>2009</year>
+    <country>EU</country>
+    <lat>50.12</lat>
+    <lon>3.03</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.tigase.org/'>Tigase</server>
+    <admin uri='xmpp:admin@im.flosoft.biz'>Florian Jensen</admin>
+  </service>
+  <service>
+    <domain>programmer-art.org</domain>
+    <website>http://programmer-art.org/services/</website>
+    <desc>Programmer-art.org offers a free and easy to use XMPP server that is open to anyone. We offer offline message and private data storage, group chats, file and media sharing proxies, and simple instructions for setting up common clients with our server.</desc>
+    <year>2008</year>
+    <country>USA</country>
+    <lat>32.9</lat>
+    <lon>-97.01</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:dan@programmer-art.org'>Daniel G. Taylor</admin>
+  </service>
+  <service>
+    <domain>richim.org</domain>
+    <website>http://richim.org/</website>
+    <desc>Free public Jabber service with many capabilities and the best support for Ukrainian users. Located in UK.</desc>
+    <year>2009</year>
+    <country>UA</country>
+    <lat>56.5</lat>
+    <lon>-2.97</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:rain@richim.org'>Alexandr Shapoval</admin>
+  </service>
+  <service>
+    <domain>sternenschweif.de</domain>
+    <website>http://www.i-pobox.net/</website>
+    <desc>An XMPP server in Germany, hosted by i-pobox.net.</desc>
+    <year>2003</year>
+    <country>DE</country>
+    <lat>52.32</lat>
+    <lon>9.78</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:migri@jabber.i-pobox.net'>Michael Grigutsch</admin>
+  </service>
+  <service>
+    <domain>swissjabber.ch</domain>
+    <website>http://web.swissjabber.ch/</website>
+    <desc>Public Jabber server with a mainly German website that has a lot of documentation and articles for Jabber beginners.</desc>
+    <year>2002</year>
+    <country>CH</country>
+    <lat>47.31</lat>
+    <lon>8.51</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:micressor@swissjabber.ch'>Marco Balmer</admin>
+  </service>
+  <service>
+    <domain>ubuntu-jabber.de</domain>
+    <website>http://www.draugr.de/</website>
+    <desc>An XMPP server in Germany, hosted by draugr.de.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>49.45</lat>
+    <lon>11.07</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:christian@draugr.de'>Christian Dröge</admin>
+  </service>
+  <service>
+    <domain>thiessen.im</domain>
+    <website>http://www.thiessen.im</website>
+    <desc>We aim for high availability, stability and openness. Our server is located in Germany and offers several transports (ICQ, MSN, IRC) and other services like MUC and Proxy65.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>50.1</lat>
+    <lon>8.86</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://prosody.im/'>Prosody</server>
+    <admin uri='xmpp:florian@thiessen.org'>Florian Thießen</admin>
+  </service>
+  <service>
+    <domain>thiessen.it</domain>
+    <website>http://www.thiessen.im</website>
+    <desc>We aim for high availability, stability and openness. Our server is located in Germany and offers several transports (ICQ, MSN, IRC) and other services like MUC and Proxy65.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>50.1</lat>
+    <lon>8.86</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://prosody.im/'>Prosody</server>
+    <admin uri='xmpp:florian@thiessen.org'>Florian Thießen</admin>
+  </service>
+  <service>
+    <domain>thiessen.org</domain>
+    <website>http://www.thiessen.im</website>
+    <desc>We aim for high availability, stability and openness. Our server is located in Germany and offers several transports (ICQ, MSN, IRC) and other services like MUC and Proxy65.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>50.1</lat>
+    <lon>8.86</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://prosody.im/'>Prosody</server>
+    <admin uri='xmpp:florian@thiessen.org'>Florian Thießen</admin>
+  </service>
+  <service>
+    <domain>ubuntu-jabber.net</domain>
+    <website>http://www.draugr.de/</website>
+    <desc>An XMPP server in Germany, hosted by draugr.de.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>49.45</lat>
+    <lon>11.07</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:christian@draugr.de'>Christian Dröge</admin>
+  </service>
+  <service>
+    <domain>verdammung.org</domain>
+    <website>http://www.draugr.de/</website>
+    <desc>An XMPP server in Germany, hosted by draugr.de.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>49.45</lat>
+    <lon>11.07</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:christian@draugr.de'>Christian Dröge</admin>
+  </service>
+  <service>
+    <domain>xabber.de</domain>
+    <website>http://www.draugr.de/</website>
+    <desc>An XMPP server in Germany, hosted by draugr.de.</desc>
+    <year>2005</year>
+    <country>DE</country>
+    <lat>49.45</lat>
+    <lon>11.07</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:christian@draugr.de'>Christian Dröge</admin>
+  </service>
+  <service>
+    <domain>xmpp.jp</domain>
+    <website>http://www.xmpp.jp/</website>
+    <desc>A free public XMPP service hosted in Japan.</desc>
+    <year>2009</year>
+    <country>JP</country>
+    <lat>35.60</lat>
+    <lon>139.71</lon>
+    <ca uri='http://www.startssl.com/'>StartSSL</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:hamano@xmpp.jp'>Tsukasa Hamano</admin>
+  </service>
+  <service>
+    <domain>xmppnet.de</domain>
+    <website>http://www.i-pobox.net/</website>
+    <desc>Jabber service with multiple hostnames, ICQ and AIM Transports, MUC-Service with simple IRC-Entry (Port 6668), RSS-Feeds, and more.</desc>
+    <year>2003</year>
+    <country>DE</country>
+    <lat>52.32</lat>
+    <lon>9.78</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.ejabberd.im/'>ejabberd</server>
+    <admin uri='xmpp:migri@jabber.i-pobox.net'>Michael Grigutsch</admin>
+  </service>
+  <service>
+    <domain>zsim.de</domain>
+    <website>http://zsim.de/</website>
+    <desc>Our Jabber Server originally started for a couple of friends, but is also open for everyone else. We are respecting the privacy of everyone and trying to provide a high availability service. No conversations will be logged.</desc>
+    <year>2009</year>
+    <country>DE</country>
+    <lat>49</lat>
+    <lon>10.7</lon>
+    <ca uri='http://www.cacert.org/'>CAcert</ca>
+    <server uri='http://www.igniterealtime.org/projects/openfire/'>Openfire</server>
+    <admin uri='xmpp:kase@zsim.de'>Kaspar Janssen</admin>
+  </service>
+</services>

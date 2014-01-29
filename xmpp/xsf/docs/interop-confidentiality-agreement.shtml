@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP Interoperability Testing Network Confidentiality Agreement</title>
+<!--#include virtual="/includes/head.txt" -->
+
+<h1>XMPP Interoperability Testing Network Confidentiality Agreement</h1>
+
+<table>
+  <tr class='tablebody'><td>Version:</td><td>1.0</td></tr>
+  <tr class='tablebody'><td>Date:</td><td>2007-05-03</td></tr>
+</table>
+
+<p style='font-style: italic'>This document defines terms and conditions for participation in the XMPP Interoperability Testing Network maintained by the XMPP Standards Foundation.</p>
+
+<p style='font-weight: bold'>Table of Contents</p>
+<ol>
+  <li><a href='#definitions'>Definitions</a></li>
+  <li><a href='#participation'>Participation at Will</a></li>
+  <li><a href='#confidentiality'>Confidentiality</a></li>
+  <li><a href='#copyrights'>Retention of Copyrights and Patents</a></li>
+  <li><a href='#warranty'>Disclaimer of Warranty</a></li>
+  <li><a href='#liability'>Limitation of Liability</a></li>
+</ol>
+
+<hr/>
+<p style='text-align: center'>TERMS AND CONDITIONS</p>
+<h2><a name='definitions'></a>1.0 Definitions</h2>
+
+<p>"Provider" shall mean the XMPP Standards Foundation (XSF), a not-for-profit corporation chartered in the State of Delaware.</p>
+
+<p>"Protocols" shall mean the Extensible Messaging and Presence Protocol (XMPP) as defined by the Internet Engineering Task Force (IETF), as well as any relevant extensions to XMPP defined and approved by the XMPP Standards Foundation.</p>
+
+<p>"Application" shall mean any software product (under any license whatsoever) that implements part or all of the Protocols, including (but not limited to) servers, clients, and components.</p> 
+
+<p>"Service" shall mean any Application that is or can be connected to other Services in the Network.</p>
+
+<p>"Network" shall mean the Services that are interconnected under the auspices of the Provider for the purpose of interoperability testing over the Internet; the sum total of such Services and the communications between them comprise the "XMPP Interoperability Testing Network".</p>
+
+<p>"Producer" shall mean any Individual, Project, or Legal Entity that has created an Application and that has been approved by the Provider for participation in the Network.</p>
+
+<p>"Individual" shall mean a natural person who is an independent Producer.</p>
+
+<p>"Project" shall mean a collective of multiple Individuals that together functions as a Producer but that does comprise a Legal Entity.</p>
+
+<p>"Legal Entity" shall mean any for-profit or not-for-profit corporation that functions as a Producer.</p>
+
+<p>"Participant" shall mean an Individual or a natural person who is an authorized representative of a Project or Legal Entity.</p>
+
+<p>"You" shall mean a Producer who agrees to the conditions specified in this Agreement.</p>
+
+<h2><a name='participation'></a>2.0 Participation at Will</h2>
+
+<p>Participation in the Network is subject to acceptance and approval by the Provider, which shall include but not necessarily be limited to Your agreement to the terms and conditions specified herein. Violation of the terms and conditions specified herein shall subject You to suspension or termination of Your participation in the Network. Decisions regarding suspension or termination of participation may be appealed to the Board of Directors of the XMPP Standards Foundation.</p>
+
+<h2><a name='confidentiality'></a>3.0 Confidentiality</h2>
+
+<p>By participating in the Network, You agree to forever keep private and confidential any and all knowledge gained about any and all other Services, Applications, and Producers that participate in the Network.</p>
+
+<h2><a name='copyrights'></a>4.0 Retention of Copyrights and Patents</h2>
+
+<p>Participation in the Network MUST NOT be construed as awarding any rights or licenses from a Producer to the Provider or to other Producers over any copyrights and patents held by the Producer. By offering a Service, a Producer offers only network communications capabilities for the sake of interoperability testing, and retains all rights and privileges associated with the Application(s) created by the Producer.</p>
+
+<h2><a name='warranty'></a>5.0 Disclaimer of Warranty</h2>
+
+<p>Unless required by applicable law or agreed to in writing, Provider offers the Network (and each Participant offers its Services) on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied, including, without limitation, any warranties or conditions of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. You are solely responsible for determining the appropriateness of participating in the Network and communicating with the Services therein, and You assume any risks associated with Your exercise of permissions under this Agreement.</p>
+
+<h2><a name='liability'></a>6.0 Limitation of Liability</h2>
+
+<p>In no event and under no legal theory, whether in tort (including negligence), contract, or otherwise, unless required by applicable law (such as deliberate and grossly negligent acts) or agreed to in writing, shall Provider or any Producer be liable to You for damages, including any direct, indirect, special, incidental, or consequential damages of any character arising as a result of Your participation in the Network (including but not limited to damages for loss of goodwill, work stoppage, computer failure or malfunction, or any and all other commercial damages or losses), even if Provider or Producer has been advised of the possibility of such damages.</p>
+
+<p style='text-align: center'>END OF TERMS AND CONDITIONS</p>
+<hr/>
+<p>&#160;</p>
+<p style='text-align: center'>ACCEPTANCE</p>
+<p>&#160;</p>
+<p>_______________________________________</p>
+<p>Full Legal Name of Participant</p>
+<p>&#160;</p>
+<p>_______________________________________</p>
+<p>Project or Legal Entity ("N/A" if none)</p>
+<p>&#160;</p>
+<p>_______________________________________</p>
+<p>Email Address</p>
+<p>&#160;</p>
+<p>_______________________________________</p>
+<p>Jabber Identifier</p>
+<p>&#160;</p>
+<p>_______________________________________</p>
+<p>Date</p>
+<p>&#160;</p>
+<p>_______________________________________</p>
+<p>Signature</p>
+
+<!--#include virtual="/includes/foot.txt" -->

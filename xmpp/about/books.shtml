@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>Books about Jabber/XMPP Technologies</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>Books about Jabber/XMPP Technologies</h2>
+<p>To date, the following books have been published about Jabber/XMPP technologies (listed in reverse chronological order):</p>
+<p><a href='http://professionalxmpp.com/'><img src='/images/PROFXMPP.jpg' border='1'/></a></p>
+<p><a href='http://oreilly.com/catalog/9780596157197/'><img src='/images/XMPPTDG.png' border='1'/></a></p>
+<p><a href='http://www.amazon.com/Jabber-Developers-Handbook-Library/dp/0672325365/'><img src='/images/JabberDevelopersHandbook.jpg' border='1'/></a></p>
+<p><a href='http://www.amazon.com/Instant-Messaging-Java-Jabber-Protocols/dp/1930110464/'><img src='/images/IMInJava.jpg' border='1'/></a></p>
+<p><a href='http://www.amazon.com/Jabber-Programming-Stephen-Lee/dp/0764549340/'><img src='/images/JabberProgramming.jpg' border='1'/></a></p>
+<p><a href='http://www.amazon.com/Programming-Jabber-Extending-Messaging-OReilly/dp/0596002025/'><img src='/images/ProgrammingJabber.jpg' border='1'/></a></p>
+<!--
+<ul>
+  <li><a href='http://www.amazon.com/XMPP-Definitive-Guide-Peter-Saint-Andre/dp/059652126X/'>XMPP: The Definitive Guide</a> by Peter Saint-Andre, Kevin Smith, and Remko Tronçon (O'Reilly, 2009)</li>
+  <li><a href='http://www.amazon.com/Jabber-Developers-Handbook-Library/dp/0672325365/'>Jabber Developer's Handbook</a> by William Wright and Dana Moore (Pearson, 2003)</li>
+  <li><a href='http://www.amazon.com/Instant-Messaging-Java-Jabber-Protocols/dp/1930110464/'>Instant Messaging in Java: The Jabber Protocols</a> by Iain Shigeoka (Manning, 2002)</li>
+  <li><a href='http://www.amazon.com/Jabber-Programming-Stephen-Lee/dp/0764549340/ref=sr_1_4?ie=UTF8&s=books&qid=1232046895&sr=1-4'>Jabber Programming</a> by Stephen Lee and Terence Smelser (M&amp;T Books, 2002)</li>
+  <li><a href='http://www.amazon.com/Programming-Jabber-Extending-Messaging-OReilly/dp/0596002025/'>Programming Jabber</a> by DJ Adams (O'Reilly, 2002)</li>
+</ul>
+-->
+<!--#include virtual="/includes/foot.txt" -->

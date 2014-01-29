@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en'>
+<head>
+<title>XMPP and Jabber</title>
+<!--#include virtual="/includes/head.txt" -->
+<h2>XMPP and Jabber</h2>
+
+<p>The Extensible Messaging and Presence Protocol (XMPP) emerged from the Jabber open-source community starting in 1999. Thus the terms "Jabber" and "XMPP" are often used interchangeably. This page provides a bit of background information about Jabber and XMPP.</p>
+<p>Jabber technologies were invented by <a href='/xsf/people/jer.shtml'>Jeremie Miller</a> in 1998. He was tired of running four different clients for the popular instant messaging (IM) services, so in true open-source fashion he decided to "scratch an itch" by solving the problem himself. His goal? To foster freedom of conversation. His method? To build an IM technology that would be:</p>
+<ul>
+  <li><strong>Open</strong> -- anyone can write their own Jabber software using the open specifications that define how the technology works</li>
+  <li><strong>Decentralized</strong> -- anyone can run their own Jabber server and connect to other servers on the network</li>
+  <li><strong>Secure</strong> -- strong encryption, authentication, and identity features help to ensure confidentiality, protect privacy, and prevent spam</li>
+  <li><strong>Flexible</strong> -- the same Jabber transport used or IM can also be used to exchange any structured data, including custom payloads</li>
+</ul>
+<p>In other words, NOT a closed, insecure, unfriendly, centralized, proprietary instant messaging silo.</p>
+<p>When Jeremie released the first version of his server on January 4, 1999, the open-source community responded by contributing clients, server components, and code libraries. To communicate over the Internet, these entities used a common XML protocol on the wire, which eventually became known as the Extensible Messaging and Presence Protocol or XMPP. The rest is <a href='history.shtml'>history</a>.</p>
+
+<!--#include virtual="/includes/foot.txt" -->
