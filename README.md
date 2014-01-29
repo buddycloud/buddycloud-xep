@@ -1,20 +1,23 @@
 buddycloud-xep
 ==============
 
-http://buddycloud.com/buddycloud-xep/buddycloud.html
-http://buddycloud.com/buddycloud-xep/buddycloud.xml
-
 This XEP defines the XMPP protocol for buddycloud servers and clients.
 
-building the XEP
+## building the XEP
 
 ```bash
 edit ./sections/{{ APPROPRIATE FILE }}
 make
 ```
 
-Next steps
-----------
+## Build status
+
+[![Build Status](https://travis-ci.org/buddycloud/buddycloud-xep.png?branch=gh-pages)](https://travis-ci.org/buddycloud/buddycloud-xep)
+
+http://buddycloud.com/buddycloud-xep/buddycloud.html
+http://buddycloud.com/buddycloud-xep/buddycloud.xml
+
+## Next steps
 
 * restructure according to https://github.com/buddycloud/buddycloud-xep/issues/6
 
