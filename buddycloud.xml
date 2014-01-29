@@ -103,10 +103,9 @@
 				<p>First draft.</p>
 			</remark>
 		</revision>
-	</header>
-<section1 topic='Buddycloud Introduction' anchor='intro'>
+	</header><section1 topic='Buddycloud Introduction' anchor='intro'>
 	<p>Buddycloud is a set of servers and clients that enable rich
-		federated communication between uses and groups. Buddycloud builds on
+		federated communication between users and groups. Buddycloud builds on
 		XMPP's native federaton and pubsub principles to connect to and
 		synchronise updates with other Buddycloud servers.
 	</p>
@@ -116,7 +115,8 @@
 		example channel:romeo@montagu.lit) and a topic channel,
 		(beer@montague.liu)
 	</p>
-</section1><section1 topic='Service Discovery' anchor='servicediscovery'>
+</section1>
+<section1 topic='Service Discovery' anchor='servicediscovery'>
   <p>Service discovery happens per domain, and is a multi step process.
 
   </p>
