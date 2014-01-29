@@ -6,11 +6,4 @@
 		federation and pub-sub principles to connect to and synchronise
 		updates with other Buddycloud servers.
 	</p>
-	<p>Buddycloud users have a channel named after their JID. Channels are
-		a bundle of pub-sub nodes that have the same owner, folllowers and
-		access permissions. There are two types of channel: user channels
-		(named after the user's JID), for example romeo@montagu.lit) and topic
-		channels, for example balcony-speeches@topics.montague.lit) which are
-		owned by the channel creator.
-	</p>
 </section1>
