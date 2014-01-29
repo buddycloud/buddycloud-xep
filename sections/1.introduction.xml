@@ -1,13 +1,16 @@
-<section1 topic='Buddycloud Introduction' anchor='intro'>
-	<p>Buddycloud is a set of servers and clients that enable rich
-		federated communication between users and groups. Buddycloud builds on
-		XMPP's native federaton and pubsub principles to connect to and
-		synchronise updates with other Buddycloud servers.
+
+<section1 topic='Introduction to Buddycloud' anchor='intro'>
+	<p>Buddycloud is a collection of servers, running as XMPP components
+		that enable rich, federated communications for groups and individual
+		users. users uses and groups. Buddycloud builds on XMPP's native
+		federation and pub-sub principles to connect to and synchronise
+		updates with other Buddycloud servers.
 	</p>
-	<p>At buddycloud's core are "channels". Channels represent a bundle of
-		publish-subscribe nodes that have the same owner, folllowers and
-		permissions. There are two types of channel: a user channel, for
-		example channel:romeo@montagu.lit) and a topic channel,
-		(beer@montague.liu)
+	<p>Buddycloud users have a channel named after their JID. Channels are
+		a bundle of pub-sub nodes that have the same owner, folllowers and
+		access permissions. There are two types of channel: user channels
+		(named after the user's JID), for example romeo@montagu.lit) and topic
+		channels, for example balcony-speeches@topics.montague.lit) which are
+		owned by the channel creator.
 	</p>
 </section1>
