@@ -73,7 +73,7 @@
 	</section2>
 	<section2 topic='Discovery priority' anchor='servicediscovery-which-is-more-secure'>
 		<p> In the case of conflicting answers, the DNS result is
-			authoritative.
+			authoritative. This permits domain owners to run Buddycloud on domains on "chat only" domains such as google hosted apps.
 		</p>
 	</section2>
 </section1>
