@@ -22,6 +22,7 @@
 			<p>Most metadata fields used for Channels are already defined in &xep0060;.
 				The relevant ones are listed below. 
 			</p>
+			<p>
 			<table caption="Channel Metadata Fields">
 				<tr>
 					<th>Metadata</th>
@@ -73,9 +74,11 @@
 					<td></td>
 				</tr>
 			</table>
+			</p>
 			<p>Channel owners and moderators can also set the default affiliation
 				for the channel
 			</p>
+			<p>
 			<table caption="Channel Access Models">
 				<tr>
 					<th>Access Model</th>
@@ -98,5 +101,6 @@
 					</td>
 				</tr>
 			</table>
+			</p>
 		</section2>
 </section1>
