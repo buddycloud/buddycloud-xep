@@ -1,1 +1,16 @@
-<section1 topic="Federation" anchor="federation" />
+<section1 topic="Federation" anchor="federation">
+	<section2 topic="Inbox" anchor="inbox">
+	</section2>
+	<section2 topic="Interaction With Other Services"	anchor="plays-nicely-with-others">
+		<p>Buddycloud is designed to be as modular by offering discrete
+			services across multiple XMPP components. For example, a media
+			hosting is delivered via a separate XMPP component that a) checks
+			permission against the Buddycloud server and then offers the files
+			via HTTP.
+		</p>
+		<p>Other components offer services offer services like crawling and
+			content search, similar channel recommendation, an HTTP API and
+			tailored push notification services. Additional services are covered
+			under separate XEPs.</p>
+	</section2>
+</section1>

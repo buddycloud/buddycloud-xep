@@ -1,45 +1,89 @@
-<section1 topic="Channel affiliations" anchor='affiliations'/>
-		<section2 topic='Maintain Similar Affiliations across Channel Nodes'
-			anchor='rules-nodeaffiliations'>
-			<p>A Channel Server MUST maintain similar affiliations for a
-				subscribed entity across all the Nodes of a Channel.
-			</p>
-			<p>To achieve this a Client MUST only update the affiliation of the
-				/posts Channel Node. The Channel Server MUST then maintain the
-				affiliation of the other Channel Nodes appropriately according to
-				the following table:
-			</p>
-			<table caption="Node Affiliation Mappings">
-				<tr>
-					<th>Affiliation set for the /posts Channel Node</th>
-					<th>Affiliation implied for the other Channel Nodes</th>
-				</tr>
-				<tr>
-					<td>owner</td>
-					<td>owner</td>
-				</tr>
-				<tr>
-					<td>moderator</td>
-					<td>follower</td>
-				</tr>
-				<tr>
-					<td>follower+post</td>
-					<td>follower</td>
-				</tr>
-				<tr>
-					<td>follower</td>
-					<td>follower</td>
-				</tr>
-				<tr>
-					<td>none</td>
-					<td>none</td>
-				</tr>
-				<tr>
-					<td>outcast</td>
-					<td>outcast</td>
-				</tr>
-			</table>
-			<p>Note that this only applies to Personal Channels as Topic Channels
-				only have a /posts Node
-			</p>
-		</section2>
+<section1 topic="Channel affiliations" anchor='affiliations' />
+<section2 topic='Buddycloud to XEP-0060 mappings' anchor='affiliation-to-xep-60-mappings' />
+<p>
+	Buddycloud channels build on XEP-0060's node affiliations.
+	<table caption="Channel Affiliations">
+		<tr>
+			<th>XEP-0060 Affiliation</th>
+			<th>Buddycloud Affiliation</th>
+			<th>Description</th>
+			<th>Can</th>
+			<th>Required?</th>
+		</tr>
+		<tr>
+			<td>Owner</td>
+			<td>owner</td>
+			<td>The channel owner. Full access rights</td>
+			<td>Can add and delete moderators</td>
+			<td>REQUIRED</td>
+		</tr>
+		<tr>
+			<td>-</td>
+			<td>moderator</td>
+			<td>A follower who has follower+post rights, rights to manage the
+				affiliation of entites with the node (except changing ownership),
+				and rights to manage the subscriptions of entities with the node.
+			</td>
+			
+			<td>REQUIRED</td>
+		</tr>
+		<tr>
+			<td>Publisher</td>
+			<td>follower+post</td>
+			<td>Entity can view posts and replies, publish new posts, and publish
+				replies to posts.
+			</td>
+			<td>REQUIRED</td>
+		</tr>
+		<tr>
+			<td>Member</td>
+			<td>follower</td>
+			<td>Entity can view posts and replies for whitelist and open
+				channels, but cannot publish new posts or replies.
+			</td>
+			<td>REQUIRED</td>
+		</tr>
+		<tr>
+			<td>None</td>
+			<td>none</td>
+			<td>Entity can view posts and replies for open channels, but cannot
+				publish new posts or replies.
+			</td>
+			<td>REQUIRED</td>
+		</tr>
+		<tr>
+			<td>Outcast</td>
+			<td>outcast</td>
+			<td>Entity cannot view any posts or replies, and cannot publish new
+				posts or replies.
+			</td>
+			<td>RECOMMENDED</td>
+		</tr>
+	</table>
+</p>
+</section2>
+<section2 topic='Maintain Similar Affiliations across Channel Nodes'
+	anchor='rules-nodeaffiliations'>
+	<p>
+		A Channel Server SHOULD maintain similar affiliations for a subscribed
+		entity across all the Nodes of a Channel.
+		<section2 topic='Affiliation permissions' anchor='rules-affiliation-permissions'>
+			<di>
+				<dt>Producer</dt>
+				<dd>the owner of a channel with the ability to add and remove
+					moderators
+				</dd>
+			</di>
+			<di>
+				<dt>Follower</dt>
+				<dd>A Channel subscriber</dd>
+			</di>
+			<di>
+				<dt>Moderator</dt>
+				<dd>A channel follower with capabilities to also approve followers
+					to topic channels and retract posts
+				</dd>
+			</di>
+			<!-- End fix this -->
+	</p>
+</section2>
