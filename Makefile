@@ -8,7 +8,7 @@ buddycloud.html:
 	done;
 	xsltproc xep.xsl buddycloud.xml > $@
 
-travis:
+xep.html:
 	if [ -e buddycloud.xml ]; then rm buddycloud.xml; fi;
 	touch buddycloud.xml; 
 	for i in `ls ./sections/ | sort -n`; do \
