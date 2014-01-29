@@ -13,7 +13,7 @@
 		<abstract>This document describes a profile and conventions for usage
 			of the PubSub protocol in the context of a new type of communication.</abstract>
 		<legal>
-			<copyright>This XMPP Extension Protocol is copyright (c) 1999 - 2010
+			<copyright>This XMPP Extension Protocol is copyright (c) 1999 - {{YEAR}}
 				by the XMPP Standards Foundation (XSF).
 			</copyright>
 			<permissions> Permission is hereby granted, free of charge, to any
