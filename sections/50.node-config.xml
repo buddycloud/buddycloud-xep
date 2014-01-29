@@ -71,7 +71,8 @@
 					<td>Buddycloud#channel_type</td>
 					<td>"personal"</td>
 					<td>The type of this channel. (see below). Set by the server at
-						creation. Not user changable.</td>
+						creation. Not user changable.
+					</td>
 					<td>N/A</td>
 				</tr>
 				<tr>
@@ -79,7 +80,8 @@
 					<td>pubsub#creation_date</td>
 					<td>"2011-01-31T23:59:42"</td>
 					<td>When the channel was created in ISO 8601 time format. Set by
-						the server at creation. Not user changable.</td>
+						the server at creation. Not user changable.
+					</td>
 					<td></td>
 				</tr>
 			</table>
@@ -97,10 +99,7 @@
 				<tr>
 					<td>personal channel</td>
 					<td>Channel named after and owned by the user's JID.</td>
-				</td>
-				<td>
-					romeo@montagu.lit
-				</td>
+					<td> romeo@montagu.lit</td>
 				</tr>
 				<tr>
 					<td>Topic channel</td>
@@ -112,7 +111,8 @@
 					<td>
 						<p>Appears as an open channel to local users on that domain.</p>
 						<p>Appears as a closed channel to users on remote Buddycloud
-							domains.</p>
+							domains.
+						</p>
 					</td>
 				</tr>
 			</table>
@@ -138,7 +138,8 @@
 					<td>
 						<p>Appears as an open channel to local users on that domain.</p>
 						<p>Appears as a closed channel to users on remote Buddycloud
-							domains.</p>
+							domains.
+						</p>
 					</td>
 				</tr>
 			</table>
