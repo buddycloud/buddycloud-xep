@@ -32,7 +32,7 @@
 				number, or publisher of the Specification, and shall not claim
 				endorsement of the modified works by the authors, any organization
 				or project to which the authors belong, or the XMPP Standards
-				Foundation. 
+				Foundation.
 			</permissions>
 			<warranty> ## NOTE WELL: This Specification is provided on an
 				&quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -43,7 +43,7 @@
 				Specification be liable for any claim, damages, or other liability,
 				whether in an action of contract, tort, or otherwise, arising from,
 				out of, or in connection with the Specification or the
-				implementation, deployment, or other use of the Specification. ## 
+				implementation, deployment, or other use of the Specification. ##
 			</warranty>
 			<liability> In no event and under no legal theory, whether in tort
 				(including negligence), contract, or otherwise, unless required by
@@ -64,7 +64,7 @@
 				copy of which may be found at &lt;
 				<link url='http://www.xmpp.org/extensions/ipr-policy.shtml'>http://www.xmpp.org/extensions/ipr-policy.shtml</link>
 				&gt; or obtained by writing to XSF, P.O. Box 1641, Denver, CO 80201
-				USA). 
+				USA).
 			</conformance>
 		</legal>
 		<number>xxxx</number>
@@ -110,13 +110,49 @@
 			</remark>
 		</revision>
 	</header>
-        <xi:include href="sections/10.intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml"/>
-        <xi:include href="sections/20.channel-intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml"/>
-        <xi:include href="sections/30.discovery.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml"/>
-        <xi:include href="sections/40.register.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml"/>
-        <xi:include href="sections/50.node-config.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml"/>
-        <xi:include href="sections/60.items.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml"/>
-        <xi:include href="sections/70.subscriptions.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml"/>
-        <xi:include href="sections/80.affiliations.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml"/>
-        <xi:include href="sections/90.federation.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml"/>
+        <xi:include href="sections/10.intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml">
+             <xi:fallback>
+                 <xi:include href="sections/fail.xml" parse="xml" />
+             </xi:fallback>
+        </xi:include>
+        <xi:include href="sections/20.channel-intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml">
+             <xi:fallback>
+                 <xi:include href="sections/fail.xml" parse="xml" />
+             </xi:fallback>
+        </xi:include>
+        <xi:include href="sections/30.discovery.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml">
+             <xi:fallback>
+                 <xi:include href="sections/fail.xml" parse="xml" />
+             </xi:fallback>
+        </xi:include>
+        <xi:include href="sections/40.register.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml">
+             <xi:fallback>
+                 <xi:include href="sections/fail.xml" parse="xml" />
+             </xi:fallback>
+        </xi:include>
+        <xi:include href="sections/50.node-config.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml">
+             <xi:fallback>
+                 <xi:include href="sections/fail.xml" parse="xml" />
+             </xi:fallback>
+        </xi:include>
+        <xi:include href="sections/60.items.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml">
+             <xi:fallback>
+                 <xi:include href="sections/fail.xml" parse="xml" />
+             </xi:fallback>
+        </xi:include>
+        <xi:include href="sections/70.subscriptions.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml">
+             <xi:fallback>
+                 <xi:include href="sections/fail.xml" parse="xml" />
+             </xi:fallback>
+        </xi:include>
+        <xi:include href="sections/80.affiliations.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml">
+             <xi:fallback>
+                 <xi:include href="sections/fail.xml" parse="xml" />
+             </xi:fallback>
+        </xi:include>
+        <xi:include href="sections/90.federation.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml">
+             <xi:fallback>
+                 <xi:include href="sections/fail.xml" parse="xml" />
+             </xi:fallback>
+        </xi:include>
 </xep>
