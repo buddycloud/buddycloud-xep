@@ -3,20 +3,24 @@ buddycloud-xep
 
 This XEP defines the XMPP protocol for buddycloud servers and clients.
 
-## building the XEP
+## Building the XEP
 
 ```bash
-edit ./sections/{{ APPROPRIATE FILE }}
 make
+open index.html
 ```
+
+## Editing the XEP
+
+XEP sections are held in the subdirectory. Edit these as appropriate and then build as above.
+
+When files are pushed to the master branch in buddycloud/buddycloud-xep if valid travis-ci will build the HTML file and deploy to the URLs below.
 
 ## Build status
 
 [![Build Status](https://travis-ci.org/buddycloud/buddycloud-xep.png?branch=gh-pages)](https://travis-ci.org/buddycloud/buddycloud-xep)
 
-http://buddycloud.com/buddycloud-xep/index.html
-
-http://buddycloud.com/buddycloud-xep/buddycloud.xml
+http://buddycloud.com/buddycloud-xep/
 
 ## Next steps
 
