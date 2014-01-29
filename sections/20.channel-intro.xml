@@ -1,4 +1,3 @@
-
 <section1 topic='Channel Introduction' anchor='intro'>
 	<p>Channels are a bundle of pub-sub nodes that have the same owner,
 		folllowers and access permissions. There are two types of channel:
