@@ -19,7 +19,7 @@ after_success:
   - echo "https://${GH_TOKEN}@github.com" > .git/credentials
   - git remote add github "https://${GH_TOKEN}@github.com/buddycloud/buddycloud-xep.git" > /dev/null
   - git commit -a -m "Updating XEP"
-  - git push github gh-pages
+  - git push github gh-pages > /dev/null
 env:
   global:
   - secure: 'EF0sdrfSkfTIjaQwlFyC+Ma9IOwlKh1N7qKDS0RMo7goq+5cFXOMXvlYguuxPX6YnxBFRWhTz5NNMjeCfjchET0Mu5mvD9aS4g38yAYHsqD0pBxgjXx01rkVo45dtrwASHUWhbupAde7ppbYKbjY5spOvFvyI57Vo/9hcrazyVk='
