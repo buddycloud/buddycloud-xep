@@ -70,6 +70,7 @@
     <![CDATA[
     _buddycloud-server._tcp.EXAMPLE.COM. IN SRV 5 0 5269 buddycloud.EXAMPLE.COM.
     ]]>
+                </example>
 	</section2>
 	<section2 topic='Discovery priority' anchor='servicediscovery-which-is-more-secure'>
 		<p> In the case of conflicting answers, the DNS result is
