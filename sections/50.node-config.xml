@@ -1,1 +1,102 @@
-<section1 topic="Node configuration" anchor="nodeconfiguration"/>
+
+<section1 topic='Channel and Node Configuration' anchor='channel-config'>
+	<p>Node metadata is used to describe the channel to users. All nodes in
+		a channel have the same metadata and permission.
+	</p>
+	<p>
+		talk about:
+		<section2 topic='Get Node Configuration' anchor="get-node-config"> - using
+			disco-info with the node specifified - using xep-60 5.4 Discover 
+			
+			Node Metadata
+		</section2>
+		<section2 topic='Set Node Configuration' anchor="set-node-config"> set Not sure
+			what goes here?
+		</section2>
+		<section2 topic='Default roles' anchor="default roles">
+			<p> minimum setting/optional recommended fallbacks
+			</p>
+			<p>Channel metadata is stored as node metadata against the /posts
+				node of the channel.
+			</p>
+			<p>Most metadata fields used for Channels are already defined in &xep0060;.
+				The relevant ones are listed below. 
+			</p>
+			<table caption="Channel Metadata Fields">
+				<tr>
+					<th>Metadata</th>
+					<th>Field</th>
+					<th>Example</th>
+					<th>Notes</th>
+					<th>Defaults</th>
+				</tr>
+				<tr>
+					<td>Channel Title</td>
+					<td>pubsub#title</td>
+					<td>"Juliet's musings"</td>
+					<td>Should be a brief single sentence</td>
+					<td>"juliet@capulet.lit's Buddycloud channel"</td>
+				</tr>
+				<tr>
+					<td>Channel Description</td>
+					<td>pubsub#description</td>
+					<td>"This is a channel about the things that I like to do."</td>
+					<td>A longer description of the channel</td>
+					<td>&lt;empty&gt;</td>
+				</tr>
+				<tr>
+					<td>Channel Access Model</td>
+					<td>pubsub#access_model</td>
+					<td>"whitelist"</td>
+					<td>The channel subscriber model</td>
+					<td>Dependent on Node</td>
+				</tr>
+				<tr>
+					<td>Default Affiliation</td>
+					<td>Buddycloud#default_affiliation</td>
+					<td>"publisher"</td>
+					<td>The role given to new channel followers</td>
+					<td>Dependent on Channel Type</td>
+				</tr>
+				<tr>
+					<td>Channel Type</td>
+					<td>Buddycloud#channel_type</td>
+					<td>"personal"</td>
+					<td>The type of this channel</td>
+					<td>N/A</td>
+				</tr>
+				<tr>
+					<td>Channel Creation Date</td>
+					<td>pubsub#creation_date</td>
+					<td>"2011-01-31T23:59:42"</td>
+					<td>When the channel was created in ISO 8601 time format</td>
+					<td></td>
+				</tr>
+			</table>
+			<p>Channel owners and moderators can also set the default affiliation
+				for the channel
+			</p>
+			<table caption="Channel Access Models">
+				<tr>
+					<th>Access Model</th>
+					<th>Description</th>
+				</tr>
+				<tr>
+					<td>"authorise"</td>
+					<td>The channel is only viewable by it's producer, followers,
+						followers+post and moderators.
+					</td>
+				</tr>
+				<tr>
+					<td>"open"</td>
+					<td>Anyone can view the channel.</td>
+				</tr>
+				<tr>
+					<td>"local"</td>
+					<td>Appears as an open chnnel to local users on that domain.
+						Appears as a closed channel to users on remote buddycloud domains.
+					</td>
+				</tr>
+			</table>
+		</section2>
+</section1>
