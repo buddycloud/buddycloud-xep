@@ -3,26 +3,25 @@
 	<p>Node metadata is used to describe the channel to users. All nodes in
 		a channel have the same metadata and permission.
 	</p>
-	<p>
-		talk about:
-		<section2 topic='Get Node Configuration' anchor='get-node-config'> - using
-			disco-info with the node specifified - using xep-60 5.4 Discover 
-			
-			Node Metadata
-		</section2>
-		<section2 topic='Set Node Configuration' anchor='set-node-config'> set Not sure
-			what goes here?
-		</section2>
-		<section2 topic='Default roles' anchor='default roles'>
-			<p> minimum setting/optional recommended fallbacks
-			</p>
-			<p>Channel metadata is stored as node metadata against the /posts
-				node of the channel.
-			</p>
-			<p>Most metadata fields used for Channels are already defined in <!--  how do we ref this? -->xep0060;.
-				The relevant ones are listed below. 
-			</p>
-			<p>
+	<section2 topic='Get Node Configuration' anchor='get-node-config'> - using
+		disco-info with the node specifified - using xep-60 5.4 Discover Node
+		Metadata
+	</section2>
+	<section2 topic='Set Node Configuration' anchor='set-node-config'> set Not sure
+		what goes here?
+	</section2>
+	<section2 topic='Default roles' anchor='default roles'>
+		<p> minimum setting/optional recommended fallbacks
+		</p>
+		<p>Channel metadata is stored as node metadata against the /posts node
+			of the channel.
+		</p>
+		<p>
+			Most metadata fields used for Channels are already defined in <!-- how 
+				do we ref this? -->
+			xep0060;. The relevant ones are listed below.
+		</p>
+		<p>
 			<table caption="Channel Metadata Fields">
 				<tr>
 					<th>Metadata</th>
@@ -74,11 +73,11 @@
 					<td></td>
 				</tr>
 			</table>
-			</p>
-			<p>Channel owners and moderators can also set the default affiliation
-				for the channel
-			</p>
-			<p>
+		</p>
+		<p>Channel owners and moderators can also set the default affiliation
+			for the channel
+		</p>
+		<p>
 			<table caption="Channel Access Models">
 				<tr>
 					<th>Access Model</th>
@@ -101,6 +100,6 @@
 					</td>
 				</tr>
 			</table>
-			</p>
-		</section2>
+		</p>
+	</section2>
 </section1>
