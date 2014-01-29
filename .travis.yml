@@ -3,6 +3,8 @@ before_install:
 script:
   - make
 after_success: 
+  - git config --global user.email "deploy@travis-ci.org"
+  - git config --global user.name "Travis deploy"
   - git add -f buddycloud.xml buddycloud.html
   - echo "Added generated files"
   - git config credential.helper "store --file=.git/credentials"
