@@ -95,6 +95,12 @@
 			<email>ashley.ward@surevine.com</email>
 			<jid>ashley.ward@surevine.com</jid>
 		</author>
+                <author>
+                        <firstname>Lloyd</firstname>
+                        <surname>Watkin</surname>
+                        <email>lloyd@evilprofessor.co.uk</email>
+                        <jid>lloyd@evilprofessor.co.uk</jid>
+                </author>
 		<revision>
 			<version>0.0.1</version>
 			<date>2014-01-xx</date>
