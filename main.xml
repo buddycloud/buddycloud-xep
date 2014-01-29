@@ -8,20 +8,14 @@
 ]>
 <?xml-stylesheet type='text/xsl' href='xep.xsl'?>
 <xep>
-	<header>
-        <xi:include href="sections/project-details.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-        <xi:include href="sections/legal-guff.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-        <xi:include href="sections/linked-xeps.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-		<shortname>NOT_YET_ASSIGNED</shortname>
-        <xi:include href="sections/authors.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-	</header>
-        <xi:include href="sections/10.intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-        <xi:include href="sections/20.channel-intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-        <xi:include href="sections/30.discovery.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-        <xi:include href="sections/40.register.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-        <xi:include href="sections/50.node-config.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-        <xi:include href="sections/60.items.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-        <xi:include href="sections/70.subscriptions.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-        <xi:include href="sections/80.affiliations.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-        <xi:include href="sections/90.federation.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/header.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/10.intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/20.channel-intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/30.discovery.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/40.register.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/50.node-config.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/60.items.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/70.subscriptions.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/80.affiliations.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/90.federation.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
 </xep>
