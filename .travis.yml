@@ -1,11 +1,12 @@
 before_install:
   - sudo apt-get install xsltproc
 script:
-  - make travis
+  - make xep.html
 after_success: 
   - git config --global user.email "deploy@travis-ci.org"
   - git config --global user.name "Travis deploy"
-  - git add -f buddycloud.xml buddycloud.html
+  - git checkout gh-pages
+  - git add -f buddycloud.xml xep.html
   - echo "Added generated files"
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${GH_TOKEN}@github.com" > .git/credentials
