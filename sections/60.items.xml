@@ -1,1 +1,22 @@
-<section1 topic="Pubsub Items" anchor="items"/>
+<section1 topic="Pubsub Items" anchor="items">
+
+    <p>Many of the item use cases follow those from &amp;<strong>xep0060</strong>; here we 
+    only note the departures from the parent XEP and specific requirements.</p>
+
+    <section2 topic="Deleting items" anchor="items-delete" />
+
+    <section2 topic="Item Payload" anchor="item-payload">
+
+        <p>Buddycloud item data are formatted according two &amp;<strong>atom</strong>; standards 
+        and optionally making use of &amp;<strong>thread</strong>; and &amp;<strong>rating</strong>; extensions.</p>
+
+        <section3 topic='Threading' anchor='item-threading' />
+
+        <section3 topic='Referencing' anchor='item-referencing' />
+
+        <section3 topic='Rating' anchor='item-rating' />
+
+
+    </section2>
+
+</section1>
