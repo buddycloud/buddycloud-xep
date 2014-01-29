@@ -1,22 +1,89 @@
 <?xml version="1.0"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>XEP-xxxx: Buddycloud Channels</title><link rel="stylesheet" type="text/css" href="xmpp/xmpp.css" /><link href="xmpp/prettify.css" type="text/css" rel="stylesheet" /><link rel="shortcut icon" type="image/x-icon" href="xmpp/favicon.ico" /><script type="text/javascript" src="xmpp/prettify.js"></script><meta name="DC.Title" content="Buddycloud Channels" /><meta name="DC.Creator" content="Simon Tennant" /><meta name="DC.Creator" content="Ashley Ward" /><meta name="DC.Creator" content="Lloyd Watkin" /><meta name="DC.Description" content="This document describes a profile and conventions for usage&#10;&#9;&#9;&#9;of the PubSub protocol in the context of a new type of communication." /><meta name="DC.Publisher" content="XMPP Standards Foundation" /><meta name="DC.Contributor" content="XMPP Extensions Editor" /><meta name="DC.Date" content="2014-01-29" /><meta name="DC.Type" content="XMPP Extension Protocol" /><meta name="DC.Format" content="XHTML" /><meta name="DC.Identifier" content="XEP-xxxx" /><meta name="DC.Language" content="en" /><meta name="DC.Rights" content="This XMPP Extension Protocol is copyright (c) 1999 - 2014&#10;&#9;&#9;&#9;&#9;by the XMPP Standards Foundation (XSF).&#10;&#9;&#9;&#9;" /></head><body onload="prettyPrint()"><h1>XEP-xxxx: Buddycloud Channels</h1><table><tr valign="top"><td><strong>Abstract:</strong></td><td>This document describes a profile and conventions for usage
-			of the PubSub protocol in the context of a new type of communication.</td></tr><tr valign="top"><td><strong>Authors:</strong></td><td>Simon Tennant, Ashley Ward, Lloyd Watkin</td></tr><tr valign="top"><td><strong>Copyright:</strong></td><td>© 1999 - 2010 XMPP Standards Foundation. <a href="#appendix-legal">SEE LEGAL NOTICES</a>.</td></tr><tr valign="top"><td><strong>Status:</strong></td><td>ProtoXEP</td></tr><tr valign="top"><td><strong>Type:</strong></td><td>Standards Track</td></tr><tr valign="top"><td><strong>Version:</strong></td><td>0.0.1</td></tr><tr valign="top"><td><strong>Last Updated:</strong></td><td>2014-01-29</td></tr></table><hr /><p style="color:red">WARNING: This document has not yet been accepted for consideration or approved in any official manner by the XMPP Standards Foundation, and this document is not yet an XMPP Extension Protocol (XEP). If this document is accepted as a XEP by the XMPP Council, it will be published at &lt;<a href="http://xmpp.org/extensions/">http://xmpp.org/extensions/</a>&gt; and announced on the &lt;standards@xmpp.org&gt; mailing list.</p><hr /><h2>Table of Contents</h2><div class="indent"><p><br />1.  <a href="#intro">Buddycloud Introduction</a><br />2.  <a href="#intro">Channel Introduction</a><br />3.  <a href="#servicediscovery">Service Discovery</a><br />   
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>XEP-: </title><link rel="stylesheet" type="text/css" href="xmpp/xmpp.css" /><link href="xmpp/prettify.css" type="text/css" rel="stylesheet" /><link rel="shortcut icon" type="image/x-icon" href="xmpp/favicon.ico" /><script type="text/javascript" src="xmpp/prettify.js"></script><meta name="DC.Title" content="" /><meta name="DC.Description" content="" /><meta name="DC.Publisher" content="XMPP Standards Foundation" /><meta name="DC.Contributor" content="XMPP Extensions Editor" /><meta name="DC.Date" content="" /><meta name="DC.Type" content="XMPP Extension Protocol" /><meta name="DC.Format" content="XHTML" /><meta name="DC.Identifier" content="XEP-" /><meta name="DC.Language" content="en" /><meta name="DC.Rights" content="This XMPP Extension Protocol is copyright (c) 1999 - 2014&#10;        by the XMPP Standards Foundation (XSF).&#10;    " /></head><body onload="prettyPrint()"><h1>XEP-: </h1><table><tr valign="top"><td><strong>Abstract:</strong></td><td></td></tr><tr valign="top"><td><strong>Copyright:</strong></td><td>© 1999 - 2010 XMPP Standards Foundation. <a href="#appendix-legal">SEE LEGAL NOTICES</a>.</td></tr><tr valign="top"><td><strong>Status:</strong></td><td></td></tr><tr valign="top"><td><strong>Type:</strong></td><td></td></tr><tr valign="top"><td><strong>Version:</strong></td><td></td></tr><tr valign="top"><td><strong>Last Updated:</strong></td><td></td></tr></table><hr /><hr /><h2>Table of Contents</h2><div class="indent"><p><br />1.  <a href="#intro">Buddycloud Introduction</a><br />   
+      1.1.  <a href="#about">About buddycloud</a><br />   
+      1.2.  <a href="#glossary">Glossary</a><br />2.  <a href="#intro">Channel Introduction</a><br />3.  <a href="#servicediscovery">Service Discovery</a><br />   
       3.1.  <a href="#servicediscovery-dnsdiscovery">DNS Discovery</a><br />   
-      3.2.  <a href="#which-has-prio">Discovery priority</a><br />4.  <a href="#register">Register</a><br />5.  <a href="#items">Pubsub Items</a><br />   
-      5.1.  <a href="#items-delete">Deleting items</a><br />   
-      5.2.  <a href="#item-payload">Item Payload</a><br />      
-      5.2.1.  <a href="#item-publishing">Publishing</a><br />      
-      5.2.2.  <a href="#item-threading">Threading</a><br />      
-      5.2.3.  <a href="#item-referencing">Referencing</a><br />      
-      5.2.4.  <a href="#item-rating">Rating</a><br />6.  <a href="#federation">Federation</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
+      3.2.  <a href="#which-has-prio">Discovery priority</a><br />4.  <a href="#register">Register</a><br />5.  <a href="#channel-config">Channel and Node Configuration</a><br />   
+      5.1.  <a href="#get-node-config">Get Node Configuration</a><br />   
+      5.2.  <a href="#set-node-config">Set Node Configuration</a><br />   
+      5.3.  <a href="#default roles">Default roles</a><br />6.  <a href="#items">Pubsub Items</a><br />   
+      6.1.  <a href="#items-delete">Deleting items</a><br />   
+      6.2.  <a href="#item-payload">Item Payload</a><br />      
+      6.2.1.  <a href="#item-publishing">Publishing</a><br />      
+      6.2.2.  <a href="#item-threading">Threading</a><br />      
+      6.2.3.  <a href="#item-referencing">Referencing</a><br />      
+      6.2.4.  <a href="#item-rating">Rating</a><br />        
+      6.2.4.1.  <a href="#item-rating-errorcases">Error cases</a><br />7.  <a href="#federation">Federation</a><br />   
+      7.1.  <a href="#inbox">Inbox</a><br />   
+      7.2.  <a href="#plays-nicely-with-others">Interaction With Other Services</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
        <a name="intro" id="intro">Buddycloud Introduction</a></h2>
-	<p>Buddycloud is a collection of servers, running as XMPP components
-		that enable rich, federated communications for groups and individual
-		users. users uses and groups. Buddycloud builds on XMPP's native
-		federation and pub-sub principles to connect to and synchronise
-		updates with other Buddycloud servers.
+	<div class="indent"><h3>1.1 <a name="about" id="about">About buddycloud</a></h3>
+		<p>Buddycloud is a collection of servers, running as XMPP components
+			that enable rich, federated communications for groups and individual
+			users. users uses and groups. Buddycloud builds on XMPP's native
+			federation and pub-sub principles to connect to and synchronise
+			updates with other Buddycloud servers.
+		</p>
+	</div>
+	<div class="indent"><h3>1.2 <a name="glossary" id="glossary">Glossary</a></h3>
+		<div class="indent"><dl>
+			<di>
+				<dt><strong>Channel</strong></dt>
+				<dd>
+					A collection of content-specific 
+					Nodes (posts, geoloc, public-key)
+				</dd>
+			</di>
+			<di>
+				<dt><strong>Budycloud Server</strong></dt>
+				<dd>An XMPP component which hosts channel nodes and provides an
+					interface conforming to this document to allow access to them via
+					XMPP.
+				</dd>
+			</di>
+			<di>
+				<dt><strong>Home Server</strong></dt>
+				<dd>The Buddycloud server which hosts a user's personal channel
+					nodes and contains their Inbox. The home server operates on behalf
+					of users (for example subscribing to a whitelisted channel))
+				</dd>
+			</di>
+			<di>
+				<dt><strong>Producer</strong></dt>
+				<dd>the owner of a channel with the ability to add and remove
+					moderators
+				</dd>
+			</di>
+			<di>
+				<dt><strong>Follower</strong></dt>
+				<dd>A Channel subscriber</dd>
+			</di>
+			<di>
+				<dt><strong>Moderator</strong></dt>
+				<dd>A channel follower with capabilities to also approve followers
+					to topic channels and retract posts
+				</dd>
+			</di>
+			<di>
+				<dt><strong>Producer</strong></dt>
+				<dd>the owner of a channel with the ability to add and remove
+					moderators
+				</dd>
+			</di>
+			<di>
+				<dt><strong>Inbox</strong></dt>
+				<dd> Service on the Entity's Home Server which subscribes to nodes
+					on the Entity's behalf, and may cache node data and provide an
+					ability to replay recent messages.
+				</dd>
+			</di>
+
+		</dl></div>
+	</div>
+	<p>
 	</p>
+	<p>Clients always to to their Home server. The home server then</p>
 <h2>2.
        <a name="intro" id="intro">Channel Introduction</a></h2>
 	<p>Channels are a bundle of pub-sub nodes that have the same owner,
@@ -129,24 +196,170 @@
   </p>
   
 <h2>5.
+       <a name="channel-config" id="channel-config">Channel and Node Configuration</a></h2>
+	<p>Node metadata is used to describe the channel to users. All nodes in
+		a channel have the same metadata and permission.
+	</p>
+	<div class="indent"><h3>5.1 <a name="get-node-config" id="get-node-config">Get Node Configuration</a></h3> - using
+		disco-info with the node specified - using xep-60 5.4 Discover Node
+		Metadata
+	</div>
+	<div class="indent"><h3>5.2 <a name="set-node-config" id="set-node-config">Set Node Configuration</a></h3> set Not sure
+		what goes here?
+	</div>
+	<div class="indent"><h3>5.3 <a name="default roles" id="default roles">Default roles</a></h3>
+		<p> minimum setting/optional recommended fallbacks
+		</p>
+		<p>Channel metadata is stored as node metadata against the /posts node
+			of the channel. It is recommended that all channel nodes have the
+			same permissions and an update to one updates the others.
+		</p>
+		<p>
+			Most metadata fields used for Channels are already defined in 
+			xep0060;. The relevant ones are listed below.
+		</p>
+		<p>
+			<div class="indent"><p class="caption"><a name="table-1" id="table-1"></a>Table 1: Channel Metadata Fields</p><table border="1" cellpadding="3" cellspacing="0">
+				<tr class="body">
+					<th>Metadata</th>
+					<th>Field</th>
+					<th>Example</th>
+					<th>Notes</th>
+					<th>Defaults</th>
+				</tr>
+				<tr class="body">
+					<td>Channel Title</td>
+					<td>pubsub#title</td>
+					<td>"Juliet's musings"</td>
+					<td>Should be a brief single sentence</td>
+					<td>"juliet@capulet.lit's Buddycloud channel"</td>
+				</tr>
+				<tr class="body">
+					<td>Channel Description</td>
+					<td>pubsub#description</td>
+					<td>"This is a channel about the things that I like to do."</td>
+					<td>A longer description of the channel</td>
+					<td>&lt;empty&gt;</td>
+				</tr>
+				<tr class="body">
+					<td>Channel Access Model</td>
+					<td>pubsub#access_model</td>
+					<td>open, authorize, local</td>
+					<td>The channel subscriber model</td>
+					<td>Dependent on Node</td>
+				</tr>
+				<tr class="body">
+					<td>Channel Creator</td>
+					<td>buddycloud#channel_creator</td>
+					<td>mercutio@capulet.lit</td>
+					<td>The channel creator's JID</td>
+					<td>Dependent on Node</td>
+				</tr>
+				<tr class="body">
+					<td>Default Affiliation</td>
+					<td>Buddycloud#default_affiliation</td>
+					<td>"publisher"</td>
+					<td>The role given to new channel followers</td>
+					<td>Dependent on Channel Type</td>
+				</tr>
+				<tr class="body">
+					<td>Channel Type</td>
+					<td>Buddycloud#channel_type</td>
+					<td>"personal"</td>
+					<td>The type of this channel. (see below). Set by the server at
+						creation. Not user changable.
+					</td>
+					<td>N/A</td>
+				</tr>
+				<tr class="body">
+					<td>Channel Creation Date</td>
+					<td>pubsub#creation_date</td>
+					<td>"2011-01-31T23:59:42"</td>
+					<td>When the channel was created in ISO 8601 time format. Set by
+						the server at creation. Not user changable.
+					</td>
+					<td></td>
+				</tr>
+			</table></div>
+		</p>
+		<p>Channel owners and moderators can also set the default affiliation
+			for the channel
+		</p>
+		<p>
+			<div class="indent"><p class="caption"><a name="table-2" id="table-2"></a>Table 2: Channel Types</p><table border="1" cellpadding="3" cellspacing="0">
+				<tr class="body">
+					<th>Channel Type</th>
+					<th>Description</th>
+					<th>Example</th>
+				</tr>
+				<tr class="body">
+					<td>personal channel</td>
+					<td>Channel named after and owned by the user's JID.</td>
+					<td> romeo@montagu.lit</td>
+				</tr>
+				<tr class="body">
+					<td>Topic channel</td>
+					<td>A channel features around a common topic.</td>
+					<td>cauldron-recipees@coven.shakespeare.lit</td>
+				</tr>
+				<tr class="body">
+					<td>local</td>
+					<td>
+						<p>Appears as an open channel to local users on that domain.</p>
+						<p>Appears as a closed channel to users on remote Buddycloud
+							domains.
+						</p>
+					</td>
+				</tr>
+			</table></div>
+		</p>
+		<p>
+			<div class="indent"><p class="caption"><a name="table-3" id="table-3"></a>Table 3: Channel Access Models</p><table border="1" cellpadding="3" cellspacing="0">
+				<tr class="body">
+					<th>Access Model</th>
+					<th>Description</th>
+				</tr>
+				<tr class="body">
+					<td>authorise</td>
+					<td>The channel is only viewable by it's producer, followers,
+						followers+post and moderators.
+					</td>
+				</tr>
+				<tr class="body">
+					<td>open</td>
+					<td>Anyone can view the channel.</td>
+				</tr>
+				<tr class="body">
+					<td>local</td>
+					<td>
+						<p>Appears as an open channel to local users on that domain.</p>
+						<p>Appears as a closed channel to users on remote Buddycloud
+							domains.
+						</p>
+					</td>
+				</tr>
+			</table></div>
+		</p>
+	</div>
+<h2>6.
        <a name="items" id="items">Pubsub Items</a></h2>
 
-    <p>Many of the item use cases follow those from &amp;<span class="strong">xep0060</span>; here we 
+    <p>Many of the item use cases follow those from &amp;<span class="strong">xep0060</span>; here we
     only note the departures from the parent XEP and specific requirements.</p>
 
-    <div class="indent"><h3>5.1 <a name="items-delete" id="items-delete">Deleting items</a></h3></div>
+    <div class="indent"><h3>6.1 <a name="items-delete" id="items-delete">Deleting items</a></h3></div>
 
-    <div class="indent"><h3>5.2 <a name="item-payload" id="item-payload">Item Payload</a></h3>
+    <div class="indent"><h3>6.2 <a name="item-payload" id="item-payload">Item Payload</a></h3>
 
-        <p>Buddycloud item data are formatted according to &amp;<span class="strong">atom</span>; standards 
+        <p>Buddycloud item data are formatted according to &amp;<span class="strong">atom</span>; standards
         and optionally making use of &amp;<span class="strong">thread</span>; and &amp;<span class="strong">review</span>; extensions.</p>
 
-        <div class="indent"><h3>5.2.1 <a name="item-publishing" id="item-publishing">Publishing</a></h3></div>
+        <div class="indent"><h3>6.2.1 <a name="item-publishing" id="item-publishing">Publishing</a></h3></div>
 
         <p>The minimal payload for a publish request must be formatted as follows:</p>
         <p class="caption"><a name="example-7" id="example-7"></a>Example 7. The Entity publishes to a node</p><div class="indent"><pre class="prettyprint">
   
-&lt;iq from="juliet@montague.lit/balcony" to="channels.montague.lit" type="set" id="publish:20"&gt; 
+&lt;iq from="juliet@montague.lit/balcony" to="channels.montague.lit" type="set" id="publish:20"&gt;
    &lt;pubsub xmlns="http://jabber.org/protocol/pubsub"&gt;
       &lt;publish node="/user/romeo@capulet.lit/posts"&gt;
          &lt;item&gt;
@@ -182,8 +395,8 @@
 
         </pre></div>
 
-        <div class="indent"><h3>5.2..1 <a name="item-publishing-errorcases" id="item-publishing-errorcases">Error Cases</a></h3>
-  
+        <div class="indent"><h3>6.2..1 <a name="item-publishing-errorcases" id="item-publishing-errorcases">Error Cases</a></h3>
+
         <p>Beyond standard &amp;<span class="strong">xep0060</span>; error cases additional errors are used:</p>
 
         <ul>
@@ -194,13 +407,13 @@
 
         </div>
 
-        <div class="indent"><h3>5.2.2 <a name="item-threading" id="item-threading">Threading</a></h3></div>
+        <div class="indent"><h3>6.2.2 <a name="item-threading" id="item-threading">Threading</a></h3></div>
 
-        <p>Posts in Buddycloud can be formed into threads consisting of a 
+        <p>Posts in Buddycloud can be formed into threads consisting of a
         parent post and comments to a maximum thread depth of 1.</p>
 
         <p>For this functionality we utilise the &amp;<span class="strong">thread</span>;
-        namespace with the 'ref' attribute referring to the full global ID 
+        namespace with the 'ref' attribute referring to the full global ID
         of the parent post.</p>
 
         <p class="caption"><a name="example-9" id="example-9"></a>Example 9. A valid payload for replying in a thread</p><div class="indent"><pre class="prettyprint">
@@ -224,108 +437,175 @@
         
         </pre></div>
 
-        <div class="indent"><h3>5.2..2 <a name="item-threading-errorcases" id="item-threading-errorcases">Error Cases</a></h3></div>
+        <div class="indent"><h3>6.2..2 <a name="item-threading-errorcases" id="item-threading-errorcases">Error Cases</a></h3></div>
 
         <ul>
            <li><span class="em">parent-item-not-found</span>: A reply must be made to an exisinting post within the same node</li>
            <li><span class="em">max-tread-depth-exceeded</span>: An attempt to comment on a comment will result in this error response</li>
         </ul>
 
-        <div class="indent"><h3>5.2.3 <a name="item-referencing" id="item-referencing">Referencing</a></h3></div>
+        <div class="indent"><h3>6.2.3 <a name="item-referencing" id="item-referencing">Referencing</a></h3></div>
 
-        <div class="indent"><h3>5.2.4 <a name="item-rating" id="item-rating">Rating</a></h3></div>
+        <p>Within a single thread comments can reference other comments or the parent item. This is for the purpose of making a comment to a post further back in the thread.</p>
 
- 
-	public static final String TARGETED_ITEM_NOT_FOUND = "targeted-item-not-found";
-	public static final String IN_REPLY_TO_MISSING = "missing-in-reply-to";
-	public static final String TARGET_ELEMENT_MISSING = "missing-target";
-	public static final String MISSING_TARGET_ID = "missing-target-id";
-	public static final String RATING_OUT_OF_RANGE = "rating-out-of-range";
-	public static final String INVALID_RATING_VALUE = "invalid-rating";
-	public static final String TARGET_MUST_BE_IN_SAME_THREAD = "target-outside-thread";
-	public static final String CAN_ONLY_RATE_A_POST = "invalid-rating-request";
+        <p class="caption"><a name="example-10" id="example-10"></a>Example 10. A valid payload for referencing another post within a thread</p><div class="indent"><pre class="prettyprint">
+        
+            &lt;entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/"&gt;
+               &lt;id&gt;96da02ee1baef61e767742844207bec4&lt;/id&gt;
+               &lt;title&gt;Post title&lt;/title&gt;
+               &lt;published&gt;2014-01-01T00:00:00.000Z&lt;/published&gt;
+               &lt;updated&gt;2014-01-01T00:00:00.000Z&lt;/updated&gt;
+               &lt;author&gt;
+                  &lt;name&gt;romeo@capulet.lit&lt;/name&gt;
+                  &lt;jid xmlns="http://buddycloud.com/atom-elements-0"&gt;romeo@capulet.lit&lt;/jid&gt;
+               &lt;/author&gt;
+               &lt;content type="text"&gt;Shall I hear more, or shall I speak at this?&lt;/content&gt;
+               &lt;activity:verb&gt;post&lt;/activity:verb&gt;
+               &lt;activity:object&gt;
+                  &lt;activity:object-type&gt;comment&lt;/activity:object-type&gt;
+               &lt;/activity:object&gt;
+               &lt;thr:in-reply-to ref="tag:channels.capulet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095" /&gt;
+&lt;activity:target&gt;                 &lt;id&gt;tag:channels.capuet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095&lt;/id&gt;
+               &lt;/activity:target&gt;
+            &lt;/entry&gt;
+        
+        </pre></div>
 
+        <div class="indent"><h3>6.2..3 <a name="item-referencing-errorcases" id="item-referencing-errorcases">Error Cases</a></h3>
+        <ul>
+            <li><span class="em">missing-in-reply-to</span>: As posts referencing other posts can only be comments then attempting to do so results in this error</li>
+            <li><span class="em">missing-target-id</span>: A target ID must be specificed as text to the target element</li>
+            <li><span class="em">targeted-item-not-found</span>: If the targetted item can not be found in the current thread this error response will be returned</li>
+            <li><span class="em">target-outside-thread</span>: The targetted item must be within the same thread as the new post</li>
+        </ul>
+
+        </div>
+
+        <div class="indent"><h3>6.2.4 <a name="item-rating" id="item-rating">Rating</a></h3>
+
+        <p>By making use of the &amp;<span class="strong">review</span>; extension of activity streams and the &amp;<span class="strong">target</span>; element outline above Buddycloud is able to support 'rating' a post.</p>
+
+        <p>Posts can be rated an integer value between 1 and 5, although may only wish to provide a binary setting to match popular services which provide 'likes', '+1', etc.</p>
+
+        <p>Any post content is discarded and replaced with <span class="strong">rating:X.0</span> (where <span class="em">X</span> is the rating value). The activity very is also overwritten with 'rated'.</p>
+
+        <p class="caption"><a name="example-11" id="example-11"></a>Example 11. A valid payload for rating another post</p><div class="indent"><pre class="prettyprint">
+        
+            &lt;entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/"&gt;
+               &lt;id&gt;96da02ee1baef61e767742844207bec4&lt;/id&gt;
+               &lt;title&gt;Post title&lt;/title&gt;
+               &lt;published&gt;2014-01-01T00:00:00.000Z&lt;/published&gt;
+               &lt;updated&gt;2014-01-01T00:00:00.000Z&lt;/updated&gt;
+               &lt;author&gt;
+                  &lt;name&gt;romeo@capulet.lit&lt;/name&gt;
+                  &lt;jid xmlns="http://buddycloud.com/atom-elements-0"&gt;romeo@capulet.lit&lt;/jid&gt;
+               &lt;/author&gt;
+               &lt;content type="text"&gt;rating:5.0&lt;/content&gt;
+               &lt;activity:verb&gt;rated&lt;/activity:verb&gt;
+               &lt;activity:object&gt;
+                  &lt;activity:object-type&gt;comment&lt;/activity:object-type&gt;
+               &lt;/activity:object&gt;
+               &lt;thr:in-reply-to ref="tag:channels.capulet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095" /&gt;
+&lt;activity:target&gt;                 &lt;id&gt;tag:channels.capuet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095&lt;/id&gt;
+               &lt;/activity:target&gt;
+               &lt;review:rating&gt;5.0&lt;/review:rating&gt;
+            &lt;/entry&gt;
+        
+        </pre></div>
+
+        <div class="indent"><h3>6.2.4.1 <a name="item-rating-errorcases" id="item-rating-errorcases">Error cases</a></h3>
+
+            <ul>
+                <li><span class="em">invalid-rating</span>: A non-numerically parsable rating value will result in this error message</li>
+                <li><span class="em">rating-out-of-range</span>: A rating can only have an integer value between 1 and 5 (inclusive)</li>
+                <li><span class="em">invalid-rating-request</span>: Ratings can only be made against post types 'post' and 'comment' i.e. it is not possible to rate a rating</li>
+            </ul>
+
+        </div>
+
+        </div>
 
     </div>
 
-<h2>6.
-       <a name="federation" id="federation">Federation</a></h2><hr /><a name="appendices" id="appendices"></a><h2>Appendices</h2><hr /><a name="appendix-docinfo" id="appendix-docinfo"></a><h3>Appendix A: Document Information</h3><p class="indent">
+<h2>7.
+       <a name="federation" id="federation">Federation</a></h2>
+	<div class="indent"><h3>7.1 <a name="inbox" id="inbox">Inbox</a></h3>
+	</div>
+	<div class="indent"><h3>7.2 <a name="plays-nicely-with-others" id="plays-nicely-with-others">Interaction With Other Services</a></h3>
+		<p>Buddycloud is designed to be as modular by offering discrete
+			services across multiple XMPP components. For example, a media
+			hosting is delivered via a separate XMPP component that a) checks
+			permission against the Buddycloud server and then offers the files
+			via HTTP.
+		</p>
+		<p>Other components offer services offer services like crawling and
+			content search, similar channel recommendation, an HTTP API and
+			tailored push notification services. Additional services are covered
+			under separate XEPs.</p>
+	</div>
+<hr /><a name="appendices" id="appendices"></a><h2>Appendices</h2><hr /><a name="appendix-docinfo" id="appendix-docinfo"></a><h3>Appendix A: Document Information</h3><p class="indent">
             Series: <a href="http://xmpp.org/extensions/">XEP</a><br />
-            Number: xxxx<br />
+            Number: <br />
             Publisher: <a href="/xsf/">XMPP Standards Foundation</a><br />
             Status: 
-            <a href="http://xmpp.org/extensions/xep-0001.html#states-ProtoXEP">ProtoXEP</a><br />
+            <a href="http://xmpp.org/extensions/xep-0001.html#states-"></a><br />
             Type:
-            <a href="http://xmpp.org/extensions/xep-0001.html#types-Standards Track">Standards Track</a><br />
-            Version: 0.0.1<br />
-            Last Updated: 2014-01-29<br />
-                Approving Body: <a href="http://xmpp.org/council/">XMPP Council</a><br />Dependencies: XMPP Core, XEP-0059, XEP-0060, XEP-0313, XEP-0255, XEP-0107<br />
+            <a href="http://xmpp.org/extensions/xep-0001.html#types-"></a><br />
+            Version: <br />
+            Last Updated: <br />
+                Approving Body: <a href="http://xmpp.org/council/">XMPP Council</a><br />
+                Dependencies: None<br />
                 Supersedes: None<br />
                 Superseded By: None<br />
             Short Name: NOT_YET_ASSIGNED<br />
             This document in other formats: 
-                <a class="standardsButton" href="http://xmpp.org/extensions/xep-xxxx.xml">XML</a> 
-                <a class="standardsButton" href="http://xmpp.org/extensions/xep-xxxx.pdf">PDF</a></p><hr /><a name="appendix-authorinfo" id="appendix-authorinfo"></a><h3>Appendix B: Author Information</h3><div class="indent"><h3>Simon Tennant</h3><p class="indent">
-        Email:
-        <a href="mailto:simon@buddycloud.com">simon@buddycloud.com</a><br />
-        JabberID: 
-        <a href="xmpp:simon@buddycloud.com">simon@buddycloud.com</a><br /></p><h3>Ashley Ward</h3><p class="indent">
-        Email:
-        <a href="mailto:ashley.ward@surevine.com">ashley.ward@surevine.com</a><br />
-        JabberID: 
-        <a href="xmpp:ashley.ward@surevine.com">ashley.ward@surevine.com</a><br /></p><h3>Lloyd Watkin</h3><p class="indent">
-        Email:
-        <a href="mailto:lloyd@evilprofessor.co.uk">lloyd@evilprofessor.co.uk</a><br />
-        JabberID: 
-        <a href="xmpp:lloyd@evilprofessor.co.uk">lloyd@evilprofessor.co.uk</a><br /></p></div><hr /><a name="appendix-legal" id="appendix-legal"></a><h3>Appendix C: Legal Notices</h3><div class="indent"><h4>Copyright</h4>This XMPP Extension Protocol is copyright (c) 1999 - 2014
-				by the XMPP Standards Foundation (XSF).
-			<h4>Permissions</h4> Permission is hereby granted, free of charge, to any
-				person obtaining a copy of this specification (the
-				"Specification"), to make use of the Specification without
-				restriction, including without limitation the rights to implement
-				the Specification in a software program, deploy the Specification in
-				a network service, and copy, modify, merge, publish, translate,
-				distribute, sublicense, or sell copies of the Specification, and to
-				permit persons to whom the Specification is furnished to do so,
-				subject to the condition that the foregoing copyright notice and
-				this permission notice shall be included in all copies or
-				substantial portions of the Specification. Unless separate
-				permission is granted, modified works that are redistributed shall
-				not contain misleading information regarding the authors, title,
-				number, or publisher of the Specification, and shall not claim
-				endorsement of the modified works by the authors, any organization
-				or project to which the authors belong, or the XMPP Standards
-				Foundation. 
-			<h4>Disclaimer of Warranty</h4><span style="font-weight: bold"> ## NOTE WELL: This Specification is provided on an
-				"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-				KIND, express or implied, including, without limitation, any
-				warranties or conditions of TITLE, NON-INFRINGEMENT,
-				MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. In no event
-				shall the XMPP Standards Foundation or the authors of this
-				Specification be liable for any claim, damages, or other liability,
-				whether in an action of contract, tort, or otherwise, arising from,
-				out of, or in connection with the Specification or the
-				implementation, deployment, or other use of the Specification. ## 
-			</span><h4>Limitation of Liability</h4> In no event and under no legal theory, whether in tort
-				(including negligence), contract, or otherwise, unless required by
-				applicable law (such as deliberate and grossly negligent acts) or
-				agreed to in writing, shall the XMPP Standards Foundation or any
-				author of this Specification be liable for damages, including any
-				direct, indirect, special, incidental, or consequential damages of
-				any character arising out of the use or inability to use the
-				Specification (including but not limited to damages for loss of
-				goodwill, work stoppage, computer failure or malfunction, or any and
-				all other commercial damages or losses), even if the XMPP Standards
-				Foundation or such author has been advised of the possibility of
-				such damages.
-			<h4>IPR Conformance</h4>
-				This XMPP Extension Protocol has been contributed in full
-				conformance with the XSF's Intellectual Property Rights Policy (a
-				copy of which may be found at &lt;
-				<a href="http://www.xmpp.org/extensions/ipr-policy.shtml">http://www.xmpp.org/extensions/ipr-policy.shtml</a>
-				&gt; or obtained by writing to XSF, P.O. Box 1641, Denver, CO 80201
-				USA). 
-			</div><hr /><a name="appendix-xmpp" id="appendix-xmpp"></a><h3>Appendix D: Relation to XMPP</h3><p class="indent">The Extensible Messaging and Presence Protocol (XMPP) is defined in the XMPP Core (RFC 3920) and XMPP IM (RFC 3921) specifications contributed by the XMPP Standards Foundation to the Internet Standards Process, which is managed by the Internet Engineering Task Force in accordance with RFC 2026. Any protocol defined in this document has been developed outside the Internet Standards Process and is to be understood as an extension to XMPP rather than as an evolution, development, or modification of XMPP itself.</p><hr /><a name="appendix-discuss" id="appendix-discuss"></a><h3>Appendix E: Discussion Venue</h3><p class="indent">The primary venue for discussion of XMPP Extension Protocols is the &lt;<a href="http://mail.jabber.org/mailman/listinfo/standards">standards@xmpp.org</a>&gt; discussion list.</p><p class="indent">Discussion on other xmpp.org discussion lists might also be appropriate; see &lt;<a href="http://xmpp.org/about/discuss.shtml">http://xmpp.org/about/discuss.shtml</a>&gt; for a complete list.</p><p class="indent">Errata can be sent to &lt;<a href="mailto:editor@xmpp.org">editor@xmpp.org</a>&gt;.</p><hr /><a name="appendix-conformance" id="appendix-conformance"></a><h3>Appendix F: Requirements Conformance</h3><p class="indent">The following requirements keywords as used in this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>: "MUST", "SHALL", "REQUIRED"; "MUST NOT", "SHALL NOT"; "SHOULD", "RECOMMENDED"; "SHOULD NOT", "NOT RECOMMENDED"; "MAY", "OPTIONAL".</p><hr /><a name="appendix-notes" id="appendix-notes"></a><h3>Appendix G: Notes</h3><div class="indent"></div><hr /><a name="appendix-revs" id="appendix-revs"></a><h3>Appendix H: Revision History</h3><p>Note: Older versions of this specification might be available at <a href="http://xmpp.org/extensions/attic/">http://xmpp.org/extensions/attic/</a></p><div class="indent"><h4>Version 0.0.1 (2014-01-29)</h4><div class="indent">
-				<p class="" style="">First draft.</p>
-			 (sdt)
-    </div></div><hr /><p>END</p></body></html>
+                <a class="standardsButton" href="http://xmpp.org/extensions/xep-.xml">XML</a> 
+                <a class="standardsButton" href="http://xmpp.org/extensions/xep-.pdf">PDF</a></p><hr /><a name="appendix-authorinfo" id="appendix-authorinfo"></a><h3>Appendix B: Author Information</h3><div class="indent"></div><hr /><a name="appendix-legal" id="appendix-legal"></a><h3>Appendix C: Legal Notices</h3><div class="indent"><h4>Copyright</h4>This XMPP Extension Protocol is copyright (c) 1999 - 2014
+        by the XMPP Standards Foundation (XSF).
+    <h4>Permissions</h4> Permission is hereby granted, free of charge, to any
+        person obtaining a copy of this specification (the
+        "Specification"), to make use of the Specification without
+        restriction, including without limitation the rights to implement
+        the Specification in a software program, deploy the Specification in
+        a network service, and copy, modify, merge, publish, translate,
+        distribute, sublicense, or sell copies of the Specification, and to
+        permit persons to whom the Specification is furnished to do so,
+        subject to the condition that the foregoing copyright notice and
+        this permission notice shall be included in all copies or
+        substantial portions of the Specification. Unless separate
+        permission is granted, modified works that are redistributed shall
+        not contain misleading information regarding the authors, title,
+        number, or publisher of the Specification, and shall not claim
+        endorsement of the modified works by the authors, any organization
+        or project to which the authors belong, or the XMPP Standards
+        Foundation.
+    <h4>Disclaimer of Warranty</h4><span style="font-weight: bold"> ## NOTE WELL: This Specification is provided on an
+        "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+        KIND, express or implied, including, without limitation, any
+        warranties or conditions of TITLE, NON-INFRINGEMENT,
+        MERCHANTABILITY, or FITNESS FOR A PARTICULAR PURPOSE. In no event
+        shall the XMPP Standards Foundation or the authors of this
+        Specification be liable for any claim, damages, or other liability,
+        whether in an action of contract, tort, or otherwise, arising from,
+        out of, or in connection with the Specification or the
+        implementation, deployment, or other use of the Specification. ##
+    </span><h4>Limitation of Liability</h4> In no event and under no legal theory, whether in tort
+        (including negligence), contract, or otherwise, unless required by
+        applicable law (such as deliberate and grossly negligent acts) or
+        agreed to in writing, shall the XMPP Standards Foundation or any
+        author of this Specification be liable for damages, including any
+        direct, indirect, special, incidental, or consequential damages of
+        any character arising out of the use or inability to use the
+        Specification (including but not limited to damages for loss of
+        goodwill, work stoppage, computer failure or malfunction, or any and
+        all other commercial damages or losses), even if the XMPP Standards
+        Foundation or such author has been advised of the possibility of
+        such damages.
+    <h4>IPR Conformance</h4>
+        This XMPP Extension Protocol has been contributed in full
+        conformance with the XSF's Intellectual Property Rights Policy (a
+        copy of which may be found at &lt;
+        <a href="http://www.xmpp.org/extensions/ipr-policy.shtml">http://www.xmpp.org/extensions/ipr-policy.shtml</a>
+        &gt; or obtained by writing to XSF, P.O. Box 1641, Denver, CO 80201
+        USA).
+    </div><hr /><a name="appendix-xmpp" id="appendix-xmpp"></a><h3>Appendix D: Relation to XMPP</h3><p class="indent">The Extensible Messaging and Presence Protocol (XMPP) is defined in the XMPP Core (RFC 3920) and XMPP IM (RFC 3921) specifications contributed by the XMPP Standards Foundation to the Internet Standards Process, which is managed by the Internet Engineering Task Force in accordance with RFC 2026. Any protocol defined in this document has been developed outside the Internet Standards Process and is to be understood as an extension to XMPP rather than as an evolution, development, or modification of XMPP itself.</p><hr /><a name="appendix-discuss" id="appendix-discuss"></a><h3>Appendix E: Discussion Venue</h3><p class="indent">The primary venue for discussion of XMPP Extension Protocols is the &lt;<a href="http://mail.jabber.org/mailman/listinfo/standards">standards@xmpp.org</a>&gt; discussion list.</p><p class="indent">Discussion on other xmpp.org discussion lists might also be appropriate; see &lt;<a href="http://xmpp.org/about/discuss.shtml">http://xmpp.org/about/discuss.shtml</a>&gt; for a complete list.</p><p class="indent">Errata can be sent to &lt;<a href="mailto:editor@xmpp.org">editor@xmpp.org</a>&gt;.</p><hr /><a name="appendix-conformance" id="appendix-conformance"></a><h3>Appendix F: Requirements Conformance</h3><p class="indent">The following requirements keywords as used in this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>: "MUST", "SHALL", "REQUIRED"; "MUST NOT", "SHALL NOT"; "SHOULD", "RECOMMENDED"; "SHOULD NOT", "NOT RECOMMENDED"; "MAY", "OPTIONAL".</p><hr /><a name="appendix-notes" id="appendix-notes"></a><h3>Appendix G: Notes</h3><div class="indent"></div><hr /><a name="appendix-revs" id="appendix-revs"></a><h3>Appendix H: Revision History</h3><p>Note: Older versions of this specification might be available at <a href="http://xmpp.org/extensions/attic/">http://xmpp.org/extensions/attic/</a></p><div class="indent"></div><hr /><p>END</p></body></html>
