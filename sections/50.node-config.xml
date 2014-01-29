@@ -14,7 +14,8 @@
 		<p> minimum setting/optional recommended fallbacks
 		</p>
 		<p>Channel metadata is stored as node metadata against the /posts node
-			of the channel.
+			of the channel. It is recommended that all channel nodes have the
+			same permissions and an update to one updates the others.
 		</p>
 		<p>
 			Most metadata fields used for Channels are already defined in <!-- how 
@@ -47,8 +48,15 @@
 				<tr>
 					<td>Channel Access Model</td>
 					<td>pubsub#access_model</td>
-					<td>"whitelist"</td>
+					<td>open, authorize, local</td>
 					<td>The channel subscriber model</td>
+					<td>Dependent on Node</td>
+				</tr>
+				<tr>
+					<td>Channel Creator</td>
+					<td>buddycloud#channel_creator</td>
+					<td>mercutio@capulet.lit</td>
+					<td>The channel creator's JID</td>
 					<td>Dependent on Node</td>
 				</tr>
 				<tr>
@@ -62,14 +70,16 @@
 					<td>Channel Type</td>
 					<td>Buddycloud#channel_type</td>
 					<td>"personal"</td>
-					<td>The type of this channel</td>
+					<td>The type of this channel. (see below). Set by the server at
+						creation. Not user changable.</td>
 					<td>N/A</td>
 				</tr>
 				<tr>
 					<td>Channel Creation Date</td>
 					<td>pubsub#creation_date</td>
 					<td>"2011-01-31T23:59:42"</td>
-					<td>When the channel was created in ISO 8601 time format</td>
+					<td>When the channel was created in ISO 8601 time format. Set by
+						the server at creation. Not user changable.</td>
 					<td></td>
 				</tr>
 			</table>
@@ -78,25 +88,56 @@
 			for the channel
 		</p>
 		<p>
+			<table caption="Channel Types">
+				<tr>
+					<th>Channel Type</th>
+					<th>Description</th>
+					<th>Example</th>
+				</tr>
+				<tr>
+					<td>personal channel</td>
+					<td>Channel named after and owned by the user's JID.</td>
+				</td>
+					romeo@montagu.lit
+				</td>
+				</tr>
+				<tr>
+					<td>Topic channel</td>
+					<td>A channel features around a common topic.</td>
+					<td>cauldron-recipees@coven.shakespeare.lit</td>
+				</tr>
+				<tr>
+					<td>local</td>
+					<td>
+						<p>Appears as an open channel to local users on that domain.</p>
+						<p>Appears as a closed channel to users on remote Buddycloud
+							domains.</p>
+					</td>
+				</tr>
+			</table>
+		</p>
+		<p>
 			<table caption="Channel Access Models">
 				<tr>
 					<th>Access Model</th>
 					<th>Description</th>
 				</tr>
 				<tr>
-					<td>"authorise"</td>
+					<td>authorise</td>
 					<td>The channel is only viewable by it's producer, followers,
 						followers+post and moderators.
 					</td>
 				</tr>
 				<tr>
-					<td>"open"</td>
+					<td>open</td>
 					<td>Anyone can view the channel.</td>
 				</tr>
 				<tr>
-					<td>"local"</td>
-					<td>Appears as an open chnnel to local users on that domain.
-						Appears as a closed channel to users on remote buddycloud domains.
+					<td>local</td>
+					<td>
+						<p>Appears as an open channel to local users on that domain.</p>
+						<p>Appears as a closed channel to users on remote Buddycloud
+							domains.</p>
 					</td>
 				</tr>
 			</table>
