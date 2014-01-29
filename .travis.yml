@@ -1,7 +1,7 @@
 before_install:
   - sudo apt-get install xsltproc
 script:
-  - make
+  - make travis
 after_success: 
   - git config --global user.email "deploy@travis-ci.org"
   - git config --global user.name "Travis deploy"
