@@ -1,12 +1,11 @@
 <section1 topic='Service Discovery' anchor='servicediscovery'>
-  <p>Service discovery happens per domain, and is a multi step process.
-
-  </p>
-  <p>To discover the channels component for a domain, the entity first
-          sends an items discovery request to the domain to discover all the
-          available components.</p>
-          
-  <example caption="The Entity sends a disco#items request to the domain">
+	<p>Service discovery happens per domain, and is a multi step process.
+	</p>
+	<p>To discover the channels component for a domain, the entity first
+		sends an items discovery request to the domain to discover all the
+		available components.
+	</p>
+	<example caption="The Entity sends a disco#items request to the domain">
   <![CDATA[
   <iq type='get'
   from='juliet@capulet.lit/balcony'
@@ -15,11 +14,11 @@
   <query xmlns='http://jabber.org/protocol/disco#items'/>
   </iq>
   ]]>
-  </example>
-  <p>The server replies with the list of available components, along
-          with their associated JIDs.
-  </p>
-  <example caption="The server replies with a list of available components.">
+	</example>
+	<p>The server replies with the list of available components, along with
+		their associated JIDs.
+	</p>
+	<example caption="The server replies with a list of available components.">
   <![CDATA[
   <iq type='result' from='capulet.lit' to='juliet@capulet.lit/balcony'
   id='items1'>
@@ -29,11 +28,11 @@
   </query>
   </iq>
   ]]>
-  </example>
-  <p>The entity then iterates through the &lt;item/&gt; elements,
-          sending an info discovery request to each jid. 
-  </p>
-  <example caption="The Entity sends a disco#info request to each component">
+	</example>
+	<p>The entity then iterates through the &lt;item/&gt; elements, sending
+		an info discovery request to each jid. 
+	</p>
+	<example caption="The Entity sends a disco#info request to each component">
   <![CDATA[
         <iq type='get'
                 from='juliet@capulet.lit/balcony'
@@ -42,16 +41,14 @@
                 <query xmlns='http://jabber.org/protocol/disco#info'/>
         </iq>
         ]]>
-</example>
-  <p>Each component replies with its identity. The channels component
-          has an identity of category 'pubsub' and type 'channels'.</p>
-          
-  <p>
-          A domain MUST only host one component with an identity of category
-          'pubsub' and type 'channels'.
-  </p>
-  
-  <example caption="The Buddycloud component replies with its identity">
+	</example>
+	<p>Each component replies with its identity. The channels component has
+		an identity of category 'pubsub' and type 'channels'.
+	</p>
+	<p> A domain MUST only host one component with an identity of category
+		'pubsub' and type 'channels'.
+	</p>
+	<example caption="The Buddycloud component replies with its identity">
   <![CDATA[
   <iq type='result' from='buddycloud.capulet.lit' to='juliet@capulet.lit/BuddycloudApp'
   id='info2'>
@@ -64,18 +61,19 @@
   </query>
   </iq>
   ]]>
-  </example>
-   
-  <section2 topic='DNS Discovery' anchor='servicediscovery-dnsdiscovery'>
-
-  <p>Buddycloud components can also be discovered using a DNS SRV record formatted as follows.</p>
-  
-  <example caption="SRV record for channel server didsovery">
+	</example>
+	<section2 topic='DNS Discovery' anchor='servicediscovery-dnsdiscovery'>
+		<p>Buddycloud components can also be discovered using a DNS SRV record
+			formatted as follows.
+		</p>
+		<example caption="SRV record for channel server didsovery">
     <![CDATA[
     _buddycloud-server._tcp.EXAMPLE.COM. IN SRV 5 0 5269 buddycloud.EXAMPLE.COM.
     ]]>
-  </example>
-    
-  </section2>
-  
+	</section2>
+	<section2 topic='Discovery priority' anchor='servicediscovery-which-is-more-secure'>
+		<p> In the case of conflicting answers, the DNS result is
+			authoritative.
+		</p>
+	</section2>
 </section1>
