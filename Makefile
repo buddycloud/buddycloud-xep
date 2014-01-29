@@ -1,7 +1,7 @@
 index.html:
 	if [ -e $@ ]; then rm $@; fi;
 	xsltproc --xinclude xep.xsl main.xml > $@
-	[ $? -ne 0 ]; then
+	[ $? -ne 0 ]; then \
     		echo "xsltproc build failed";
 		exit 1;
 	fi;
