@@ -17,6 +17,7 @@ xep.html:
 	xsltproc xep.xsl buddycloud.xml > $@
 	git config user.email "deploy@travis-ci.org"
 	git config user.name "Travis deploy"
+	git checkout gh-pages
 	git add -f buddycloud.xml buddycloud.html
 	echo "Added generated files"
 	git config credential.helper "store --file=.git/credentials"
