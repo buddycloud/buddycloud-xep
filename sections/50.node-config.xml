@@ -22,70 +22,69 @@
 				do we ref this? -->
 			xep0060;. The relevant ones are listed below.
 		</p>
-		<p>
-			<table caption="Channel Metadata Fields">
-				<tr>
-					<th>Metadata</th>
-					<th>Field</th>
-					<th>Example</th>
-					<th>Notes</th>
-					<th>Defaults</th>
-				</tr>
-				<tr>
-					<td>Channel Title</td>
-					<td>pubsub#title</td>
-					<td>"Juliet's musings"</td>
-					<td>Should be a brief single sentence</td>
-					<td>"juliet@capulet.lit's Buddycloud channel"</td>
-				</tr>
-				<tr>
-					<td>Channel Description</td>
-					<td>pubsub#description</td>
-					<td>"This is a channel about the things that I like to do."</td>
-					<td>A longer description of the channel</td>
-					<td>&lt;empty&gt;</td>
-				</tr>
-				<tr>
-					<td>Channel Access Model</td>
-					<td>pubsub#access_model</td>
-					<td>open, authorize, local</td>
-					<td>The channel subscriber model</td>
-					<td>Dependent on Node</td>
-				</tr>
-				<tr>
-					<td>Channel Creator</td>
-					<td>buddycloud#channel_creator</td>
-					<td>mercutio@capulet.lit</td>
-					<td>The channel creator's JID</td>
-					<td>Dependent on Node</td>
-				</tr>
-				<tr>
-					<td>Default Affiliation</td>
-					<td>Buddycloud#default_affiliation</td>
-					<td>"publisher"</td>
-					<td>The role given to new channel followers</td>
-					<td>Dependent on Channel Type</td>
-				</tr>
-				<tr>
-					<td>Channel Type</td>
-					<td>Buddycloud#channel_type</td>
-					<td>"personal"</td>
-					<td>The type of this channel. (see below). Set by the server at
-						creation. Not user changable.
-					</td>
-					<td>N/A</td>
-				</tr>
-				<tr>
-					<td>Channel Creation Date</td>
-					<td>pubsub#creation_date</td>
-					<td>"2011-01-31T23:59:42"</td>
-					<td>When the channel was created in ISO 8601 time format. Set by
-						the server at creation. Not user changable.
-					</td>
-					<td></td>
-				</tr>
-			</table>
-		</p>
+		<table caption="Channel Metadata Fields">
+			<tr>
+				<th>Metadata</th>
+				<th>Field</th>
+				<th>Example</th>
+				<th>Notes</th>
+				<th>Defaults</th>
+			</tr>
+			<tr>
+				<td>Channel Title</td>
+				<td>pubsub#title</td>
+				<td>"Juliet's musings"</td>
+				<td>Should be a brief single sentence</td>
+				<td>"juliet@capulet.lit's Buddycloud channel"</td>
+			</tr>
+			<tr>
+				<td>Channel Description</td>
+				<td>pubsub#description</td>
+				<td>"This is a channel about the things that I like to do."</td>
+				<td>A longer description of the channel</td>
+				<td>&lt;empty&gt;</td>
+			</tr>
+			<tr>
+				<td>Channel Access Model</td>
+				<td>pubsub#access_model</td>
+				<td>open, authorize, local</td>
+				<td>The channel subscriber model</td>
+				<td>Dependent on Node</td>
+			</tr>
+			<tr>
+				<td>Channel Creator</td>
+				<td>buddycloud#channel_creator</td>
+				<td>mercutio@capulet.lit</td>
+				<td>The channel creator's JID</td>
+				<td>Dependent on Node</td>
+			</tr>
+			<tr>
+				<td>Default Affiliation</td>
+				<td>Buddycloud#default_affiliation</td>
+				<td>"publisher"</td>
+				<td>The role given to new channel followers</td>
+				<td>Dependent on Channel Type</td>
+			</tr>
+			<tr>
+				<td>Channel Type</td>
+				<td>Buddycloud#channel_type</td>
+				<td>"personal"</td>
+				<td>The type of this channel. (see below). Set by the server at
+					creation. Not user changable.
+				</td>
+				<td>N/A</td>
+			</tr>
+			<tr>
+				<td>Channel Creation Date</td>
+				<td>pubsub#creation_date</td>
+				<td>"2011-01-31T23:59:42"</td>
+				<td>When the channel was created in ISO 8601 time format. Set by the
+					server at creation. Not user changeable.
+				</td>
+				<td></td>
+			</tr>
+		</table>
+	</p>
 		<p>Channel owners and moderators can also set the default affiliation
 			for the channel
 		</p>
@@ -144,5 +143,149 @@
 				</tr>
 			</table>
 		</p>
+	</section2>
+	<section2>
+		<table>
+			<tbody>
+				<tr>
+					<td>Entity</td>
+					<td>Channel access model</td>
+					<td>Example</td>
+					<td>producer</td>
+					<td>moderator</td>
+					<td>follower+post</td>
+					<td>follower</td>
+					<td> anonymous/web</td>
+					<td> banned</td>
+				</tr>
+				<tr>
+					<td>channel address</td>
+					<td>all</td>
+					<td> me@domain.com</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+				</tr>
+				<tr>
+					<td>channel name</td>
+					<td>all</td>
+					<td> My little channel</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+				</tr>
+				<tr>
+					<td>channel description</td>
+					<td>all</td>
+					<td> A channel about me</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+				</tr>
+				<tr>
+					<td>banned user list</td>
+					<td>all</td>
+					<td>banned-user@example.com</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>no</td>
+					<td>no</td>
+					<td>no</td>
+					<td>no</td>
+				</tr>
+				<tr>
+					<td>pending channel subscriptions</td>
+					<td>all</td>
+					<td>pendinguser@example.com</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>no</td>
+					<td>no</td>
+					<td>no</td>
+					<td>no</td>
+				</tr>
+				<tr>
+					<td rowspan="3">channel posts</td>
+					<td>open</td>
+					<td rowspan="3">O Romeo, Romeo! Wherefore art thou Romeo? Deny thy
+						father and refuse thy name. Or, if thou wilt not, be but sworn my
+						love, And I’ll no longer be a Capulet.
+					</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>authorize</td>
+					<td></td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>no</td>
+					<td>no</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>local</td>
+					<td></td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>no</td>
+					<td>no</td>
+				</tr>
+				<tr>
+					<td rowspan="3">follower, moderator and owner lists
+					</td>
+					<td>open</td>
+					<td rowspan="3"> follower@example.com, follower2@example.com,
+						moderatorguy@example.com
+					</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>authorize</td>
+					<td></td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>no</td>
+					<td>no</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td>local</td>
+					<td></td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>yes</td>
+					<td>no</td>
+					<td>no</td>
+				</tr>
+			</tbody>
+		</table>
 	</section2>
 </section1>
