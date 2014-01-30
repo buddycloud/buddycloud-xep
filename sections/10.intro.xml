@@ -1,5 +1,5 @@
 <section1 topic='Buddycloud Introduction' anchor='intro'>
-	<section2 topic='About buddycloud' anchor='about'>
+	<section2 topic='About Buddycloud' anchor='about-buddycloud'>
 		<p>Buddycloud is a collection of servers, running as XMPP components
 			that enable rich, federated communications for groups and individual
 			users. users uses and groups. Buddycloud builds on XMPP's native
@@ -7,13 +7,30 @@
 			updates with other Buddycloud servers.
 		</p>
 	</section2>
+	<section2 topic='About Channels' anchor='channels-intro'>
+		<p>Channels are a bundle of pub-sub nodes that have the same owner,
+			folllowers and access permissions. There are two types of channel:
+			user channels (named after the user's JID), for example
+			romeo@montagu.lit) and topic channels, for example
+			balcony-speeches@topics.montague.lit) which are owned by the channel
+			creator. Content posted into channels is automatically synchronised
+			to the correct followers on other Buddycloud servers.
+		</p>
+	</section2>
 	<section2 topic='Glossary' anchor='glossary'>
 		<dl>
 			<di>
-				<dt>Channel</dt>
-				<dd>
-					A collection of content-specific <!-- how to referece this &xep0060; -->
-					Nodes (posts, geoloc, public-key)
+				<dt>Personal Channel</dt>
+				<dd> Personal channels are a group of pub-sub nodes that have the
+					same owner, folllowers and access permissions.
+				</dd>
+			</di>
+			<di>
+				<dt>Topic Channel</dt>
+				<dd> Topic channels are decoupled from the owners jid. For example
+					balcony-speeches@topics.montague.lit could be owned by a jid,
+					speechwriter@montagu.lit. Topic channels have different default
+					settings and default nodes.
 				</dd>
 			</di>
 			<di>
@@ -25,44 +42,22 @@
 			</di>
 			<di>
 				<dt>Home Server</dt>
-				<dd>The Buddycloud server which hosts a user's personal channel
-					nodes and contains their Inbox. The home server operates on behalf
-					of users (for example subscribing to a whitelisted channel))
+				<dd>The Buddycloud server that maintains a user's channels and
+					Inbox.
 				</dd>
 			</di>
 			<di>
-				<dt>Producer</dt>
-				<dd>the owner of a channel with the ability to add and remove
-					moderators
+				<dt>Remote Server</dt>
+				<dd>Buddycloud servers that run on other XMPP domains.
 				</dd>
 			</di>
 			<di>
-				<dt>Follower</dt>
-				<dd>A Channel subscriber</dd>
-			</di>
-			<di>
-				<dt>Moderator</dt>
-				<dd>A channel follower with capabilities to also approve followers
-					to topic channels and retract posts
-				</dd>
-			</di>
-			<di>
-				<dt>Producer</dt>
-				<dd>the owner of a channel with the ability to add and remove
-					moderators
-				</dd>
-			</di>
-			<di>
-				<dt>Inbox</dt>
+				<dt>Budycloud Inbox</dt>
 				<dd> Service on the Entity's Home Server which subscribes to nodes
 					on the Entity's behalf, and may cache node data and provide an
 					ability to replay recent messages.
 				</dd>
 			</di>
-
 		</dl>
 	</section2>
-	<p>
-	</p>
-	<p>Clients always to to their Home server. The home server then</p>
 </section1>

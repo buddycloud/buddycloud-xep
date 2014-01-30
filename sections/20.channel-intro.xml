@@ -1,10 +1,1 @@
-<section1 topic='Channel Introduction' anchor='intro'>
-	<p>Channels are a bundle of pub-sub nodes that have the same owner,
-		folllowers and access permissions. There are two types of channel:
-		user channels (named after the user's JID), for example
-		romeo@montagu.lit) and topic channels, for example
-		balcony-speeches@topics.montague.lit) which are owned by the channel
-		creator. Content posted into channels is automatically synchronised to
-		the correct followers on other Buddycloud servers.
-	</p>
-</section1>
+<!-- moved to intro -->
