@@ -10,7 +10,6 @@
 <xep>
     <xi:include href="sections/header.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
     <xi:include href="sections/10.intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-    <xi:include href="sections/20.channel-intro.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
     <xi:include href="sections/30.discovery.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
     <xi:include href="sections/40.register.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
     <xi:include href="sections/50.node-config.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
