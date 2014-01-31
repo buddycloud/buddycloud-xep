@@ -16,6 +16,16 @@ XEP sections are held in the subdirectory. Edit these as appropriate and then bu
 
 When files are pushed to the master branch in buddycloud/buddycloud-xep if valid travis-ci will build the HTML file and deploy to the URLs below.
 
+### Building the XEP as you work
+
+```
+npm install -g grunt-cli
+npm i .
+grunt
+```
+
+Every time you now edit an xml file the XEP will be rebuilt
+
 ## Build status
 
 [![Build Status](https://travis-ci.org/buddycloud/buddycloud-xep.png?branch=gh-pages)](https://travis-ci.org/buddycloud/buddycloud-xep)

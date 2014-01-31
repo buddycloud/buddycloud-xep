@@ -1,0 +1,24 @@
+{
+  "name": "buddycloud-xep",
+  "version": "0.0.0",
+  "description": "Buddycloud XEP",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/buddycloud/buddycloud-xep"
+  },
+  "author": "",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/buddycloud/buddycloud-xep/issues"
+  },
+  "dependencies": {
+    "grunt-cli": "~0.1.13",
+    "grunt": "~0.4.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "shelljs": "~0.2.6"
+  }
+}
