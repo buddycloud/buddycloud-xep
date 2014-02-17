@@ -64,13 +64,20 @@
 	</example>
 	<section2 topic='DNS Discovery' anchor='servicediscovery-dnsdiscovery'>
 		<p>Buddycloud components can also be discovered using a DNS SRV record
-			formatted as follows.
+			formatted as follows.</p>
+			<p>Or PTR... 
 		</p>
 		<example caption="SRV record for channel server didsovery">
     <![CDATA[
     _buddycloud-server._tcp.EXAMPLE.COM. IN SRV 5 0 5269 buddycloud.EXAMPLE.COM.
     ]]>
                 </example>
+                		<example caption="PTR record for channel server didsovery">
+    <![CDATA[
+    _buddycloud-server._tcp.montague.lit. PTR buddycloud-component.verona.lit.
+    ]]>
+  </example>
+                
 	</section2>
 	<section2 topic='Discovery priority' anchor='which-has-prio'>
 		<p> In the case of conflicting answers, the DNS result is
