@@ -146,23 +146,23 @@
 		</p>
 	</section2>
 	<section2>
-	<table>
+	<table caption="Read permissions">
 			<tbody>
 				<tr>
 					<td>Entity</td>
-					<td>Channel access model</td>
+					<td>Access model</td>
 					<td>Example</td>
-					<td>producer</td>
-					<td>moderator</td>
-					<td>follower+post</td>
-					<td>follower</td>
-					<td> anonymous/web</td>
-					<td> banned</td>
+					<td>Channel Producer</td>
+					<td>Channel Moderator</td>
+					<td>Follower+post</td>
+					<td>Follower</td>
+					<td>Anonymous (e.g. web)</td>
+					<td>Banned users</td>
 				</tr>
 				<tr>
 					<td>channel address</td>
 					<td>all</td>
-					<td> me@domain.com</td>
+					<td>juliet@capulet.lit</td>
 					<td>yes</td>
 					<td>yes</td>
 					<td>yes</td>
@@ -173,7 +173,7 @@
 				<tr>
 					<td>channel name</td>
 					<td>all</td>
-					<td> My little channel</td>
+					<td>Posts about Romeo</td>
 					<td>yes</td>
 					<td>yes</td>
 					<td>yes</td>
@@ -184,7 +184,7 @@
 				<tr>
 					<td>channel description</td>
 					<td>all</td>
-					<td> A channel about me</td>
+					<td>Posts and photos of my darling Romeo.</td>
 					<td>yes</td>
 					<td>yes</td>
 					<td>yes</td>
@@ -195,7 +195,7 @@
 				<tr>
 					<td>banned user list</td>
 					<td>all</td>
-					<td>banned-user@example.com</td>
+					<td>father@montague.lit</td>
 					<td>yes</td>
 					<td>yes</td>
 					<td>no</td>
@@ -206,7 +206,7 @@
 				<tr>
 					<td>pending channel subscriptions</td>
 					<td>all</td>
-					<td>pendinguser@example.com</td>
+					<td>nurse@capulet.lit</td>
 					<td>yes</td>
 					<td>yes</td>
 					<td>no</td>
@@ -250,8 +250,7 @@
 					<td rowspan="3">follower, moderator and owner lists
 					</td>
 					<td>open</td>
-					<td rowspan="3"> follower@example.com, follower2@example.com,
-						moderatorguy@example.com
+					<td rowspan="3">tybalt@capulet.lit, servant@capulet.lit, peter@capulet.lit
 					</td>
 					<td>yes</td>
 					<td>yes</td>
