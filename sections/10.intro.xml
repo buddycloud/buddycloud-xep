@@ -1,20 +1,28 @@
 <section1 topic='Buddycloud Introduction' anchor='intro'>
 	<section2 topic='About Buddycloud' anchor='about-buddycloud'>
-		<p>Buddycloud is a collection of servers, running as XMPP components
-			that enable rich, federated communications for groups and individual
-			users. users uses and groups. Buddycloud builds on XMPP's native
-			federation and pub-sub principles to connect to and synchronise
-			updates with other Buddycloud servers.
+		<p>Buddycloud is a collection of services, running as XMPP components
+			that enable rich, federated communications between individuals and
+			groups. Buddycloud builds on XMPP's native federation and pub-sub
+			principles to connect to and synchronise content with followers on
+			local and remote Buddycloud servers.
 		</p>
 	</section2>
 	<section2 topic='About Channels' anchor='channels-intro'>
-		<p>Channels are a bundle of pub-sub nodes that have the same owner,
-			folllowers and access permissions. There are two types of channel:
-			user channels (named after the user's JID), for example
-			romeo@montagu.lit) and topic channels, for example
-			balcony-speeches@topics.montague.lit) which are owned by the channel
-			creator. Content posted into channels is automatically synchronised
-			to the correct followers on other Buddycloud servers.
+		<p>
+			Buddycloud channels are a bundle of pub-sub nodes presented as a
+			JID-like name (for example, buddycloud:juliet@capulet.lit). There are
+			two types of channel:
+			<ul>
+				<li>user channels (named after the user's JID), for example
+					romeo@montague.lit) and,
+				</li>
+				<li>topic channels, for example
+					balcony-speeches@topics.montague.lit) which are owned by the
+					channel creator and (usually) named after the content.
+				</li>
+			</ul>
+			Content posted into channels is automatically synchronised to the
+			correct followers on other Buddycloud servers.
 		</p>
 	</section2>
 	<section2 topic='Glossary' anchor='glossary'>
@@ -29,7 +37,7 @@
 				<dt>Topic Channel</dt>
 				<dd> Topic channels are decoupled from the owners jid. For example
 					balcony-speeches@topics.montague.lit could be owned by a jid,
-					speechwriter@montagu.lit. Topic channels have different default
+					speechwriter@montague.lit. Topic channels have different default
 					settings and default nodes.
 				</dd>
 			</di>

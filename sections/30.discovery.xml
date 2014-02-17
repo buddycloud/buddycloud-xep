@@ -63,16 +63,9 @@
   ]]>
 	</example>
 	<section2 topic='DNS Discovery' anchor='servicediscovery-dnsdiscovery'>
-		<p>Buddycloud components can also be discovered using a DNS SRV record
+		<p>Buddycloud components can also be discovered using a DNS PTR record
 			formatted as follows.</p>
-			<p>Or PTR... 
-		</p>
-		<example caption="SRV record for channel server didsovery">
-    <![CDATA[
-    _buddycloud-server._tcp.EXAMPLE.COM. IN SRV 5 0 5269 buddycloud.EXAMPLE.COM.
-    ]]>
-                </example>
-                		<example caption="PTR record for channel server didsovery">
+    <example caption="PTR record for buddycloud server discovery">
     <![CDATA[
     _buddycloud-server._tcp.montague.lit. PTR buddycloud-component.verona.lit.
     ]]>
