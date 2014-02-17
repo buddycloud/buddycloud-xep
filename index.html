@@ -9,7 +9,7 @@
       4.1.  <a href="#get-node-config">Get Node Configuration</a><br />   
       4.2.  <a href="#set-node-config">Set Node Configuration</a><br />   
       4.3.  <a href="#default roles">Default roles</a><br />   
-      4.4.  <a href="#sect-idp1520960"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
+      4.4.  <a href="#sect-idp1444128"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
       5.1.  <a href="#items-delete">Deleting items</a><br />   
       5.2.  <a href="#item-payload">Item Payload</a><br />      
       5.2.1.  <a href="#item-publishing">Publishing</a><br />      
@@ -24,21 +24,29 @@
       8.2.  <a href="#plays-nicely-with-others">Interaction With Other Services</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
        <a name="intro" id="intro">Buddycloud Introduction</a></h2>
 	<div class="indent"><h3>1.1 <a name="about-buddycloud" id="about-buddycloud">About Buddycloud</a></h3>
-		<p>Buddycloud is a collection of servers, running as XMPP components
-			that enable rich, federated communications for groups and individual
-			users. users uses and groups. Buddycloud builds on XMPP's native
-			federation and pub-sub principles to connect to and synchronise
-			updates with other Buddycloud servers.
+		<p>Buddycloud is a collection of services, running as XMPP components
+			that enable rich, federated communications between individuals and
+			groups. Buddycloud builds on XMPP's native federation and pub-sub
+			principles to connect to and synchronise content with followers on
+			local and remote Buddycloud servers.
 		</p>
 	</div>
 	<div class="indent"><h3>1.2 <a name="channels-intro" id="channels-intro">About Channels</a></h3>
-		<p>Channels are a bundle of pub-sub nodes that have the same owner,
-			folllowers and access permissions. There are two types of channel:
-			user channels (named after the user's JID), for example
-			romeo@montagu.lit) and topic channels, for example
-			balcony-speeches@topics.montague.lit) which are owned by the channel
-			creator. Content posted into channels is automatically synchronised
-			to the correct followers on other Buddycloud servers.
+		<p>
+			Buddycloud channels are a bundle of pub-sub nodes presented as a
+			JID-like name (for example, buddycloud:juliet@capulet.lit). There are
+			two types of channel:
+			<ul>
+				<li>user channels (named after the user's JID), for example
+					romeo@montague.lit) and,
+				</li>
+				<li>topic channels, for example
+					balcony-speeches@topics.montague.lit) which are owned by the
+					channel creator and (usually) named after the content.
+				</li>
+			</ul>
+			Content posted into channels is automatically synchronised to the
+			correct followers on other Buddycloud servers.
 		</p>
 	</div>
 	<div class="indent"><h3>1.3 <a name="glossary" id="glossary">Glossary</a></h3>
@@ -53,7 +61,7 @@
 				<dt><strong>Topic Channel</strong></dt>
 				<dd> Topic channels are decoupled from the owners jid. For example
 					balcony-speeches@topics.montague.lit could be owned by a jid,
-					speechwriter@montagu.lit. Topic channels have different default
+					speechwriter@montague.lit. Topic channels have different default
 					settings and default nodes.
 				</dd>
 			</di>
@@ -150,16 +158,9 @@
   
 	</pre></div>
 	<div class="indent"><h3>2.1 <a name="servicediscovery-dnsdiscovery" id="servicediscovery-dnsdiscovery">DNS Discovery</a></h3>
-		<p>Buddycloud components can also be discovered using a DNS SRV record
+		<p>Buddycloud components can also be discovered using a DNS PTR record
 			formatted as follows.</p>
-			<p>Or PTR... 
-		</p>
-		<p class="caption"><a name="example-5" id="example-5"></a>Example 5. SRV record for channel server didsovery</p><div class="indent"><pre class="prettyprint">
-    
-    _buddycloud-server._tcp.EXAMPLE.COM. IN SRV 5 0 5269 buddycloud.EXAMPLE.COM.
-    
-                </pre></div>
-                		<p class="caption"><a name="example-6" id="example-6"></a>Example 6. PTR record for channel server didsovery</p><div class="indent"><pre class="prettyprint">
+    <p class="caption"><a name="example-5" id="example-5"></a>Example 5. PTR record for buddycloud server discovery</p><div class="indent"><pre class="prettyprint">
     
     _buddycloud-server._tcp.montague.lit. PTR buddycloud-component.verona.lit.
     
@@ -176,7 +177,7 @@
   <p>Upon connection to the buddycloud server a user should send a register 
      stanza.</p>
 
-  <p class="caption"><a name="example-7" id="example-7"></a>Example 7. The Entity sends a register request to the domain</p><div class="indent"><pre class="prettyprint">
+  <p class="caption"><a name="example-6" id="example-6"></a>Example 6. The Entity sends a register request to the domain</p><div class="indent"><pre class="prettyprint">
   
   &lt;iq type='set'
   from='juliet@capulet.lit/balcony'
@@ -338,7 +339,7 @@
 			</table></div>
 		</p>
 	</div>
-	<div class="indent"><h3>4.4 <a name="sect-idp1520960" id="sect-idp1520960"></a></h3>
+	<div class="indent"><h3>4.4 <a name="sect-idp1444128" id="sect-idp1444128"></a></h3>
 	<div class="indent"><p class="caption"><a name="table-4" id="table-4"></a>Table 4: Read permissions</p><table border="1" cellpadding="3" cellspacing="0">
 			
 				<tr class="body">
@@ -489,7 +490,7 @@
         <div class="indent"><h3>5.2.1 <a name="item-publishing" id="item-publishing">Publishing</a></h3></div>
 
         <p>The minimal payload for a publish request must be formatted as follows:</p>
-        <p class="caption"><a name="example-8" id="example-8"></a>Example 8. The Entity publishes to a node</p><div class="indent"><pre class="prettyprint">
+        <p class="caption"><a name="example-7" id="example-7"></a>Example 7. The Entity publishes to a node</p><div class="indent"><pre class="prettyprint">
   
 &lt;iq from="juliet@montague.lit/balcony" to="channels.montague.lit" type="set" id="publish:20"&gt;
    &lt;pubsub xmlns="http://jabber.org/protocol/pubsub"&gt;
@@ -507,7 +508,7 @@
 
         <p>This payload will be extended with default data by the server if not provided. The final payload looking as follows:</p>
 
-        <p class="caption"><a name="example-9" id="example-9"></a>Example 9. Payload with server-added elements</p><div class="indent"><pre class="prettyprint">
+        <p class="caption"><a name="example-8" id="example-8"></a>Example 8. Payload with server-added elements</p><div class="indent"><pre class="prettyprint">
         
             &lt;entry xmlns="http://www.w3.org/2005/Atom"&gt;
                &lt;id&gt;fc362eb42085f017ed9ccd9c4004b095&lt;/id&gt;
@@ -548,7 +549,7 @@
         namespace with the 'ref' attribute referring to the full global ID
         of the parent post.</p>
 
-        <p class="caption"><a name="example-10" id="example-10"></a>Example 10. A valid payload for replying in a thread</p><div class="indent"><pre class="prettyprint">
+        <p class="caption"><a name="example-9" id="example-9"></a>Example 9. A valid payload for replying in a thread</p><div class="indent"><pre class="prettyprint">
         
             &lt;entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/"&gt;
                &lt;id&gt;96da02ee1baef61e767742844207bec4&lt;/id&gt;
@@ -580,7 +581,7 @@
 
         <p>Within a single thread comments can reference other comments or the parent item. This is for the purpose of making a comment to a post further back in the thread.</p>
 
-        <p class="caption"><a name="example-11" id="example-11"></a>Example 11. A valid payload for referencing another post within a thread</p><div class="indent"><pre class="prettyprint">
+        <p class="caption"><a name="example-10" id="example-10"></a>Example 10. A valid payload for referencing another post within a thread</p><div class="indent"><pre class="prettyprint">
         
             &lt;entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/"&gt;
                &lt;id&gt;96da02ee1baef61e767742844207bec4&lt;/id&gt;
@@ -621,7 +622,7 @@
 
         <p>Any post content is discarded and replaced with <span class="strong">rating:X.0</span> (where <span class="em">X</span> is the rating value). The activity very is also overwritten with 'rated'.</p>
 
-        <p class="caption"><a name="example-12" id="example-12"></a>Example 12. A valid payload for rating another post</p><div class="indent"><pre class="prettyprint">
+        <p class="caption"><a name="example-11" id="example-11"></a>Example 11. A valid payload for rating another post</p><div class="indent"><pre class="prettyprint">
         
             &lt;entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/"&gt;
                &lt;id&gt;96da02ee1baef61e767742844207bec4&lt;/id&gt;
@@ -755,16 +756,17 @@
 	<div class="indent"><h3>8.1 <a name="inbox" id="inbox">Inbox</a></h3>
 	</div>
 	<div class="indent"><h3>8.2 <a name="plays-nicely-with-others" id="plays-nicely-with-others">Interaction With Other Services</a></h3>
-		<p>Buddycloud is designed to be as modular by offering discrete
-			services across multiple XMPP components. For example, a media
-			hosting is delivered via a separate XMPP component that a) checks
-			permission against the Buddycloud server and then offers the files
-			via HTTP.
+		<p>Buddycloud is designed around replaceable XMPP server components.
+			Each component offers a discrete set of services, and communicated
+			with other components using XEP-0114 component connections. For
+			example, a media hosting is delivered via a separate XMPP component
+			that communicates with the local and remote Buddycloud server.
 		</p>
-		<p>Other components offer services offer services like crawling and
-			content search, similar channel recommendation, an HTTP API and
-			tailored push notification services. Additional services are covered
-			under separate XEPs.</p>
+		<p>Other components offer services offer services like Buddycloud
+			channel crawling and content search, channel recommendations, an HTTP
+			API and tailored push notification services. Additional services are
+			covered by separate XEPs.
+		</p>
 	</div>
 <hr /><a name="appendices" id="appendices"></a><h2>Appendices</h2><hr /><a name="appendix-docinfo" id="appendix-docinfo"></a><h3>Appendix A: Document Information</h3><p class="indent">
             Series: <a href="http://xmpp.org/extensions/">XEP</a><br />
