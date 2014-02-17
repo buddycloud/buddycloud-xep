@@ -8,7 +8,7 @@
 			<th>Buddycloud Affiliation</th>
 			<th>Description</th>
 			<th>Can</th>
-			<th>Required?</th>
+			<th></th>
 		</tr>
 		<tr>
 			<td>Owner</td>
@@ -24,7 +24,6 @@
 				affiliation of entites with the node (except changing ownership),
 				and rights to manage the subscriptions of entities with the node.
 			</td>
-
 			<td>REQUIRED</td>
 		</tr>
 		<tr>

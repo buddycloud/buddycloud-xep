@@ -72,7 +72,7 @@
 				<td>The type of this channel. (see below). Set by the server at
 					creation. Not user changable.
 				</td>
-				<td>N/A</td>
+				<td>N.A.</td>
 			</tr>
 			<tr>
 				<td>Channel Creation Date</td>
@@ -81,7 +81,7 @@
 				<td>When the channel was created in ISO 8601 time format. Set by the
 					server at creation. Not user changeable.
 				</td>
-				<td></td>
+				<td>N.A.</td>
 			</tr>
 		</table>
 		<p>Channel owners and moderators can also set the default affiliation
@@ -97,7 +97,7 @@
 				<tr>
 					<td>personal channel</td>
 					<td>Channel named after and owned by the user's JID.</td>
-					<td> romeo@montagu.lit</td>
+					<td> romeo@montague.lit</td>
 				</tr>
 				<tr>
 					<td>Topic channel</td>
@@ -111,6 +111,8 @@
 						<p>Appears as a closed channel to users on remote Buddycloud
 							domains.
 						</p>
+					</td>
+					<td>montague-family-channel@montague.lit
 					</td>
 				</tr>
 			</table>
@@ -144,7 +146,7 @@
 		</p>
 	</section2>
 	<section2>
-		<table>
+	<table>
 			<tbody>
 				<tr>
 					<td>Entity</td>
@@ -227,9 +229,7 @@
 					<td>yes</td>
 				</tr>
 				<tr>
-					<td></td>
 					<td>authorize</td>
-					<td></td>
 					<td>yes</td>
 					<td>yes</td>
 					<td>yes</td>
@@ -238,9 +238,7 @@
 					<td>no</td>
 				</tr>
 				<tr>
-					<td></td>
 					<td>local</td>
-					<td></td>
 					<td>yes</td>
 					<td>yes</td>
 					<td>yes</td>
@@ -263,9 +261,7 @@
 					<td>yes</td>
 				</tr>
 				<tr>
-					<td></td>
 					<td>authorize</td>
-					<td></td>
 					<td>yes</td>
 					<td>yes</td>
 					<td>yes</td>
@@ -274,9 +270,7 @@
 					<td>no</td>
 				</tr>
 				<tr>
-					<td></td>
 					<td>local</td>
-					<td></td>
 					<td>yes</td>
 					<td>yes</td>
 					<td>yes</td>

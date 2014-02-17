@@ -52,7 +52,7 @@
 				</dd>
 			</di>
 			<di>
-				<dt>Budycloud Inbox</dt>
+				<dt>Buddycloud Inbox</dt>
 				<dd> Service on the Entity's Home Server which subscribes to nodes
 					on the Entity's behalf, and may cache node data and provide an
 					ability to replay recent messages.
