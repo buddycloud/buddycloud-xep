@@ -9,7 +9,7 @@
       4.1.  <a href="#get-node-config">Get Node Configuration</a><br />   
       4.2.  <a href="#set-node-config">Set Node Configuration</a><br />   
       4.3.  <a href="#default roles">Default roles</a><br />   
-      4.4.  <a href="#sect-idp1444128"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
+      4.4.  <a href="#sect-idp1559808"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
       5.1.  <a href="#items-delete">Deleting items</a><br />   
       5.2.  <a href="#item-payload">Item Payload</a><br />      
       5.2.1.  <a href="#item-publishing">Publishing</a><br />      
@@ -339,7 +339,7 @@
 			</table></div>
 		</p>
 	</div>
-	<div class="indent"><h3>4.4 <a name="sect-idp1444128" id="sect-idp1444128"></a></h3>
+	<div class="indent"><h3>4.4 <a name="sect-idp1559808" id="sect-idp1559808"></a></h3>
 	<div class="indent"><p class="caption"><a name="table-4" id="table-4"></a>Table 4: Read permissions</p><table border="1" cellpadding="3" cellspacing="0">
 			
 				<tr class="body">
@@ -476,21 +476,70 @@
 	</div>
 <h2>5.
        <a name="items" id="items">Pubsub Items</a></h2>
-
-    <p>Many of the item use cases follow those from &amp;<span class="strong">xep0060</span>; here we
-    only note the departures from the parent XEP and specific requirements.</p>
-
-    <div class="indent"><h3>5.1 <a name="items-delete" id="items-delete">Deleting items</a></h3></div>
-
-    <div class="indent"><h3>5.2 <a name="item-payload" id="item-payload">Item Payload</a></h3>
-
-        <p>Buddycloud item data are formatted according to &amp;<span class="strong">atom</span>; standards
-        and optionally making use of &amp;<span class="strong">thread</span>; and &amp;<span class="strong">review</span>; extensions.</p>
-
-        <div class="indent"><h3>5.2.1 <a name="item-publishing" id="item-publishing">Publishing</a></h3></div>
-
-        <p>The minimal payload for a publish request must be formatted as follows:</p>
-        <p class="caption"><a name="example-7" id="example-7"></a>Example 7. The Entity publishes to a node</p><div class="indent"><pre class="prettyprint">
+	<p>Many
+		of the item use cases follow those from &amp;
+		<span class="strong">xep0060</span>
+		; here we only note the departures from the parent XEP and specific
+		requirements.
+	</p>
+	<div class="indent"><h3>5.1 <a name="items-delete" id="items-delete">Deleting items</a></h3>
+		<p class="caption"><a name="example-7" id="example-7"></a>Example 7. The client sends</p><div class="indent"><pre class="prettyprint">
+  
+&lt;iq from="juliet@capulet.lit/bc-app" to="buddycloud.capulet.lit" type="set" id="retractitem:32"&gt; 
+  &lt;pubsub xmlns="http://jabber.org/protocol/pubsub"&gt; 
+    &lt;retract node="/user/juliet@capulet.lit/posts" notify="1"&gt; 
+      &lt;item id="1291048772456"/&gt; 
+    &lt;/retract&gt; 
+  &lt;/pubsub&gt; 
+&lt;/iq&gt;
+  
+		</pre></div>
+		<p class="caption"><a name="example-8" id="example-8"></a>Example 8. Server replies</p><div class="indent"><pre class="prettyprint">
+  
+&lt;iq from="buddycloud.capulet.lit" to="juliet@capulet.lit/bc-app" type="result" id="retractitem:32"/&gt;
+  
+		</pre></div>
+		A retraction message is sent to all online clients, with an Atom
+		tombstone to replace the deleted post
+		<p class="caption"><a name="example-9" id="example-9"></a>Example 9. The Buddycloud server sends retractions out to online clients</p><div class="indent"><pre class="prettyprint">
+  
+&lt;message from="buddycloud.capulet.lit" id="bc:MGV3B" to="benvolio@montague.lit"&gt; 
+  &lt;event xmlns="http://jabber.org/protocol/pubsub#event"&gt; 
+    &lt;items node="/user/channeluser@example.com/posts"&gt; 
+      &lt;retract id="1291048772456"/&gt; 
+      &lt;item id="1291048772456"&gt;
+        &lt;deleted-entry xmlns="http://purl.org/atompub/tombstones/1.0" ref="xmpp:buddycloud.capulet.lit?pubsub;action=retrieve;node=/user/juliet@capulet.lit/posts;item=1291048772456" when="2012-07-01T15:08:32.950Z"&gt;
+          &lt;updated&gt;2012-07-01T15:08:32.950Z&lt;/updated&gt;
+          &lt;id xmlns="http://www.w3.org/2005/Atom"&gt;1291048772456&lt;/id&gt;
+          &lt;link xmlns="http://www.w3.org/2005/Atom" href="xmpp:buddycloud.capulet.lit?pubsub;action=retrieve;node=/user/juliet@capulet.lit/posts;item=1291048772456" rel="self"/&gt;
+          &lt;published xmlns="http://www.w3.org/2005/Atom"&gt;2012-07-01T15:08:30.922Z&lt;/published&gt;
+          &lt;object xmlns="http://activitystrea.ms/spec/1.0/"&gt;
+            &lt;object-type&gt;comment&lt;/object-type&gt;
+          &lt;/object&gt;
+          &lt;verb xmlns="http://activitystrea.ms/spec/1.0/"&gt;post&lt;/verb&gt;
+        &lt;/deleted-entry&gt;
+      &lt;/item&gt;
+    &lt;/items&gt; 
+  &lt;/event&gt; 
+&lt;/message&gt;
+  
+		</pre></div>
+	</div>
+	<div class="indent"><h3>5.2 <a name="item-payload" id="item-payload">Item Payload</a></h3>
+		<p>Buddycloud
+			item data are formatted according to &amp;
+			<span class="strong">atom</span>;
+			standards and optionally making use of &amp;
+			<span class="strong">thread</span>;
+			and &amp;
+			<span class="strong">review</span>
+			; extensions.
+		</p>
+		<div class="indent"><h3>5.2.1 <a name="item-publishing" id="item-publishing">Publishing</a></h3></div>
+		<p>The minimal payload for a publish request must be formatted as
+			follows:
+		</p>
+		<p class="caption"><a name="example-10" id="example-10"></a>Example 10. The Entity publishes to a node</p><div class="indent"><pre class="prettyprint">
   
 &lt;iq from="juliet@montague.lit/balcony" to="channels.montague.lit" type="set" id="publish:20"&gt;
    &lt;pubsub xmlns="http://jabber.org/protocol/pubsub"&gt;
@@ -504,11 +553,11 @@
    &lt;/pubsub&gt;
 &lt;/iq&gt;
   
-        </pre></div>
-
-        <p>This payload will be extended with default data by the server if not provided. The final payload looking as follows:</p>
-
-        <p class="caption"><a name="example-8" id="example-8"></a>Example 8. Payload with server-added elements</p><div class="indent"><pre class="prettyprint">
+		</pre></div>
+		<p>This payload will be extended with default data by the server if
+			not provided. The final payload looking as follows:
+		</p>
+		<p class="caption"><a name="example-11" id="example-11"></a>Example 11. Payload with server-added elements</p><div class="indent"><pre class="prettyprint">
         
             &lt;entry xmlns="http://www.w3.org/2005/Atom"&gt;
                &lt;id&gt;fc362eb42085f017ed9ccd9c4004b095&lt;/id&gt;
@@ -526,30 +575,41 @@
                &lt;/activity:object&gt;
              &lt;/entry&gt;
 
-        </pre></div>
-
-        <div class="indent"><h3>5.2..1 <a name="item-publishing-errorcases" id="item-publishing-errorcases">Error Cases</a></h3>
-
-        <p>Beyond standard &amp;<span class="strong">xep0060</span>; error cases additional errors are used:</p>
-
-        <ul>
-            <li><span class="em">entry-element-required</span>: Where no entry element has been provided in the payload</li>
-            <li><span class="em">content-element-required</span>: Where no content element or an empty content element is provided</li>
-            <li><span class="em">unsupported-content-type</span>: If provided the 'type' attribute of the content element must be either 'text' or 'xhtml'. If not provided value will default to 'text'</li>
-        </ul>
-
-        </div>
-
-        <div class="indent"><h3>5.2.2 <a name="item-threading" id="item-threading">Threading</a></h3></div>
-
-        <p>Posts in Buddycloud can be formed into threads consisting of a
-        parent post and comments to a maximum thread depth of 1.</p>
-
-        <p>For this functionality we utilise the &amp;<span class="strong">thread</span>;
-        namespace with the 'ref' attribute referring to the full global ID
-        of the parent post.</p>
-
-        <p class="caption"><a name="example-9" id="example-9"></a>Example 9. A valid payload for replying in a thread</p><div class="indent"><pre class="prettyprint">
+		</pre></div>
+		<div class="indent"><h3>5.2..1 <a name="item-publishing-errorcases" id="item-publishing-errorcases">Error Cases</a></h3>
+			<p>Beyond
+				standard &amp;
+				<span class="strong">xep0060</span>
+				; error cases additional errors are used:
+			</p>
+			<ul>
+				<li>
+					<span class="em">entry-element-required</span>
+					: Where no entry element has been provided in the payload
+				</li>
+				<li>
+					<span class="em">content-element-required</span>
+					: Where no content element or an empty content element is provided
+				</li>
+				<li>
+					<span class="em">unsupported-content-type</span>
+					: If provided the 'type' attribute of the content element must be
+					either 'text' or 'xhtml'. If not provided value will default to
+					'text'
+				</li>
+			</ul>
+		</div>
+		<div class="indent"><h3>5.2.2 <a name="item-threading" id="item-threading">Threading</a></h3></div>
+		<p>Posts in Buddycloud can be formed into threads consisting of a
+			parent post and comments to a maximum thread depth of 1.
+		</p>
+		<p>For
+			this functionality we utilise the &amp;
+			<span class="strong">thread</span>
+			; namespace with the 'ref' attribute referring to the full global ID
+			of the parent post.
+		</p>
+		<p class="caption"><a name="example-12" id="example-12"></a>Example 12. A valid payload for replying in a thread</p><div class="indent"><pre class="prettyprint">
         
             &lt;entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/"&gt;
                &lt;id&gt;96da02ee1baef61e767742844207bec4&lt;/id&gt;
@@ -568,20 +628,25 @@
                &lt;thr:in-reply-to ref="tag:channels.capulet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095" /&gt;
             &lt;/entry&gt;
         
-        </pre></div>
-
-        <div class="indent"><h3>5.2..2 <a name="item-threading-errorcases" id="item-threading-errorcases">Error Cases</a></h3></div>
-
-        <ul>
-           <li><span class="em">parent-item-not-found</span>: A reply must be made to an exisinting post within the same node</li>
-           <li><span class="em">max-tread-depth-exceeded</span>: An attempt to comment on a comment will result in this error response</li>
-        </ul>
-
-        <div class="indent"><h3>5.2.3 <a name="item-referencing" id="item-referencing">Referencing</a></h3></div>
-
-        <p>Within a single thread comments can reference other comments or the parent item. This is for the purpose of making a comment to a post further back in the thread.</p>
-
-        <p class="caption"><a name="example-10" id="example-10"></a>Example 10. A valid payload for referencing another post within a thread</p><div class="indent"><pre class="prettyprint">
+		</pre></div>
+		<div class="indent"><h3>5.2..2 <a name="item-threading-errorcases" id="item-threading-errorcases">Error Cases</a></h3></div>
+		<ul>
+			<li>
+				<span class="em">parent-item-not-found</span>
+				: A reply must be made to an exisinting post within the same node
+			</li>
+			<li>
+				<span class="em">max-tread-depth-exceeded</span>
+				: An attempt to comment on a comment will result in this error
+				response
+			</li>
+		</ul>
+		<div class="indent"><h3>5.2.3 <a name="item-referencing" id="item-referencing">Referencing</a></h3></div>
+		<p>Within a single thread comments can reference other comments or the
+			parent item. This is for the purpose of making a comment to a post
+			further back in the thread.
+		</p>
+		<p class="caption"><a name="example-13" id="example-13"></a>Example 13. A valid payload for referencing another post within a thread</p><div class="indent"><pre class="prettyprint">
         
             &lt;entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/"&gt;
                &lt;id&gt;96da02ee1baef61e767742844207bec4&lt;/id&gt;
@@ -602,27 +667,51 @@
                &lt;/activity:target&gt;
             &lt;/entry&gt;
         
-        </pre></div>
-
-        <div class="indent"><h3>5.2..3 <a name="item-referencing-errorcases" id="item-referencing-errorcases">Error Cases</a></h3>
-        <ul>
-            <li><span class="em">missing-in-reply-to</span>: As posts referencing other posts can only be comments then attempting to do so results in this error</li>
-            <li><span class="em">missing-target-id</span>: A target ID must be specificed as text to the target element</li>
-            <li><span class="em">targeted-item-not-found</span>: If the targetted item can not be found in the current thread this error response will be returned</li>
-            <li><span class="em">target-outside-thread</span>: The targetted item must be within the same thread as the new post</li>
-        </ul>
-
-        </div>
-
-        <div class="indent"><h3>5.2.4 <a name="item-rating" id="item-rating">Rating</a></h3>
-
-        <p>By making use of the &amp;<span class="strong">review</span>; extension of activity streams and the &amp;<span class="strong">target</span>; element outline above Buddycloud is able to support 'rating' a post.</p>
-
-        <p>Posts can be rated an integer value between 1 and 5, although may only wish to provide a binary setting to match popular services which provide 'likes', '+1', etc.</p>
-
-        <p>Any post content is discarded and replaced with <span class="strong">rating:X.0</span> (where <span class="em">X</span> is the rating value). The activity very is also overwritten with 'rated'.</p>
-
-        <p class="caption"><a name="example-11" id="example-11"></a>Example 11. A valid payload for rating another post</p><div class="indent"><pre class="prettyprint">
+		</pre></div>
+		<div class="indent"><h3>5.2..3 <a name="item-referencing-errorcases" id="item-referencing-errorcases">Error Cases</a></h3>
+			<ul>
+				<li>
+					<span class="em">missing-in-reply-to</span>
+					: As posts referencing other posts can only be comments then
+					attempting to do so results in this error
+				</li>
+				<li>
+					<span class="em">missing-target-id</span>
+					: A target ID must be specificed as text to the target element
+				</li>
+				<li>
+					<span class="em">targeted-item-not-found</span>
+					: If the targetted item can not be found in the current thread this
+					error response will be returned
+				</li>
+				<li>
+					<span class="em">target-outside-thread</span>
+					: The targetted item must be within the same thread as the new post
+				</li>
+			</ul>
+		</div>
+		<div class="indent"><h3>5.2.4 <a name="item-rating" id="item-rating">Rating</a></h3>
+			<p>By
+				making use of the &amp;
+				<span class="strong">review</span>;
+				extension of activity streams and the &amp;
+				<span class="strong">target</span>
+				; element outline above Buddycloud is able to support 'rating' a
+				post.
+			</p>
+			<p>Posts can be rated an integer value between 1 and 5, although may
+				only wish to provide a binary setting to match popular services
+				which provide 'likes', '+1', etc.
+			</p>
+			<p>
+				Any post content is discarded and replaced with
+				<span class="strong">rating:X.0</span>
+				(where
+				<span class="em">X</span>
+				is the rating value). The activity very is also overwritten with
+				'rated'.
+			</p>
+			<p class="caption"><a name="example-14" id="example-14"></a>Example 14. A valid payload for rating another post</p><div class="indent"><pre class="prettyprint">
         
             &lt;entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/"&gt;
                &lt;id&gt;96da02ee1baef61e767742844207bec4&lt;/id&gt;
@@ -644,22 +733,28 @@
                &lt;review:rating&gt;5.0&lt;/review:rating&gt;
             &lt;/entry&gt;
         
-        </pre></div>
-
-        <div class="indent"><h3>5.2.4.1 <a name="item-rating-errorcases" id="item-rating-errorcases">Error cases</a></h3>
-
-            <ul>
-                <li><span class="em">invalid-rating</span>: A non-numerically parsable rating value will result in this error message</li>
-                <li><span class="em">rating-out-of-range</span>: A rating can only have an integer value between 1 and 5 (inclusive)</li>
-                <li><span class="em">invalid-rating-request</span>: Ratings can only be made against post types 'post' and 'comment' i.e. it is not possible to rate a rating</li>
-            </ul>
-
-        </div>
-
-        </div>
-
-    </div>
-
+			</pre></div>
+			<div class="indent"><h3>5.2.4.1 <a name="item-rating-errorcases" id="item-rating-errorcases">Error cases</a></h3>
+				<ul>
+					<li>
+						<span class="em">invalid-rating</span>
+						: A non-numerically parsable rating value will result in this
+						error message
+					</li>
+					<li>
+						<span class="em">rating-out-of-range</span>
+						: A rating can only have an integer value between 1 and 5
+						(inclusive)
+					</li>
+					<li>
+						<span class="em">invalid-rating-request</span>
+						: Ratings can only be made against post types 'post' and 'comment'
+						i.e. it is not possible to rate a rating
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 <h2>6.
        <a name="subscriptions" id="subscriptions">Channel subscriptions</a></h2>
     <p>See XEP 60.</p>
