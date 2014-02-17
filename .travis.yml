@@ -4,8 +4,8 @@ before_install:
 script:
   - make
 after_success: 
-  - git config user.email "deploy@travis-ci.org"
-  - git config user.name "Travis deploy"
+  - git config --global user.email "deploy@travis-ci.org"
+  - git config --global user.name "Travis deploy"
   - git clone "https://${GH_TOKEN}@github.com/buddycloud/buddycloud-xep.git" ~/repo > /dev/null
   - cp index.html ~/repo/
   - cd ~/repo
