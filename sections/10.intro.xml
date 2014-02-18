@@ -1,5 +1,9 @@
-<section1 topic='Buddycloud Introduction' anchor='intro'>
-	<section2 topic='About Buddycloud' anchor='about-buddycloud'>
+<section1
+	topic='Buddycloud Introduction'
+	anchor='Buddycloud Introduction'>
+	<section2
+		topic='About Buddycloud'
+		anchor='about-buddycloud'>
 		<p>Buddycloud is a collection of services, running as XMPP components
 			that enable rich, federated communications between individuals and
 			groups. Buddycloud builds on XMPP's native federation and pub-sub
@@ -7,38 +11,43 @@
 			local and remote Buddycloud servers.
 		</p>
 	</section2>
-	<section2 topic='About Channels' anchor='channels-intro'>
+	<section2
+		topic='Buddycloud Channels'
+		anchor='Buddycloud Channels'>
 		<p>
 			Buddycloud channels are a bundle of pub-sub nodes presented as a
-			JID-like name (for example, buddycloud:juliet@capulet.lit). There are
-			two types of channel:
-			<ul>
-				<li>user channels (named after the user's JID), for example
-					romeo@montague.lit) and,
-				</li>
-				<li>topic channels, for example
-					balcony-speeches@topics.montague.lit) which are owned by the
-					channel creator and (usually) named after the content.
-				</li>
-			</ul>
-			Content posted into channels is automatically synchronised to the
+			JID-like name (example:
+			<link url='buddycloud:juliet@capulit.lit'>juliet@capulet.lit</link>
+			. Content posted into channels is automatically synchronised to the
 			correct followers on other Buddycloud servers.
 		</p>
 	</section2>
-	<section2 topic='Glossary' anchor='glossary'>
+	<section2
+		topic='Glossary'
+		anchor='glossary'>
 		<dl>
 			<di>
 				<dt>Personal Channel</dt>
 				<dd> Personal channels are a group of pub-sub nodes that have the
-					same owner, folllowers and access permissions.
+					same owner, followers and access permissions.
 				</dd>
 			</di>
 			<di>
 				<dt>Topic Channel</dt>
-				<dd> Topic channels are decoupled from the owners jid. For example
-					balcony-speeches@topics.montague.lit could be owned by a jid,
-					speechwriter@montague.lit. Topic channels have different default
-					settings and default nodes.
+				<dd>Topic channels are for group discussions and decoupled from the
+					owners jid. For example balcony-speeches@topics.montague.lit could
+					be owned by speechwriter@montague.lit.
+				</dd>
+			</di>
+			<di>
+				<dt>Ephemeral Channel</dt>
+				<dd>
+					Ephemeral channels, are generated for one-off use and automatically
+					removed by the Buddycloud server after the last participant
+					unfollows them (similar to the Google Hangout service) An example
+					ephemeral channel would be
+					<code>125bd2c4-afc2-4d4c-b869-efc0c0dad8c5@montague.lit</code>
+					.
 				</dd>
 			</di>
 			<di>
@@ -50,8 +59,7 @@
 			</di>
 			<di>
 				<dt>Home Server</dt>
-				<dd>The Buddycloud server that maintains a user's channels and
-					Inbox.
+				<dd>The Buddycloud server responsible for a JID's channels and Inbox.
 				</dd>
 			</di>
 			<di>
@@ -61,9 +69,9 @@
 			</di>
 			<di>
 				<dt>Buddycloud Inbox</dt>
-				<dd> Service on the Entity's Home Server which subscribes to nodes
-					on the Entity's behalf, and may cache node data and provide an
-					ability to replay recent messages.
+				<dd>Service on the Entity's Home Server which subscribes to nodes on
+					the Entity's behalf, and may cache node data and provide an ability
+					to replay recent messages.
 				</dd>
 			</di>
 		</dl>

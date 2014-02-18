@@ -1,24 +1,28 @@
-<section1 topic='Service Discovery' anchor='servicediscovery'>
-	<p>Service discovery happens per domain, and is a multi step process.
+<?xml version="1.0" encoding="UTF-8"?>
+<section1
+	topic='Service Discovery'
+	anchor='Service Discovery'>
+	<p>To find the correct remote Buddycloud server for a domain, the
+		Buddycloud server will first attempt discovery using a DISCO query,
+		and then fail back to DNS discovery.
 	</p>
-	<p>To discover the channels component for a domain, the entity first
-		sends an items discovery request to the domain to discover all the
-		available components.
-	</p>
-	<example caption="The Entity sends a disco#items request to the domain">
+	<section2
+		topic='Discovering the Buddycloud server using Disco'
+		anchor='Discovering the Buddycloud server using Disco'>
+		<p>The Buddycloud server first sends an items discovery request to the
+			domain to discover all the available components.
+		</p>
+		<example caption="The Entity sends a disco#items request to the domain">
   <![CDATA[
-  <iq type='get'
-  from='juliet@capulet.lit/balcony'
-  to='capulet.lit'
-  id='items1'>
-  <query xmlns='http://jabber.org/protocol/disco#items'/>
+  <iq type='get' from='juliet@capulet.lit/balcony' to='capulet.lit' id='items1'>
+    <query xmlns='http://jabber.org/protocol/disco#items'/>
   </iq>
   ]]>
-	</example>
-	<p>The server replies with the list of available components, along with
-		their associated JIDs.
-	</p>
-	<example caption="The server replies with a list of available components.">
+		</example>
+		<p>The server replies with the list of available components, along
+			with their associated JIDs.
+		</p>
+		<example caption="The server replies with a list of available components.">
   <![CDATA[
   <iq type='result' from='capulet.lit' to='juliet@capulet.lit/balcony'
   id='items1'>
@@ -28,11 +32,11 @@
   </query>
   </iq>
   ]]>
-	</example>
-	<p>The entity then iterates through the &lt;item/&gt; elements, sending
-		an info discovery request to each jid. 
-	</p>
-	<example caption="The Entity sends a disco#info request to each component">
+		</example>
+		<p>The entity then iterates through the &lt;item/&gt; elements,
+			sending an info discovery request to each jid. 
+		</p>
+		<example caption="The Entity sends a disco#info request to each component">
   <![CDATA[
         <iq type='get'
                 from='juliet@capulet.lit/balcony'
@@ -41,14 +45,14 @@
                 <query xmlns='http://jabber.org/protocol/disco#info'/>
         </iq>
         ]]>
-	</example>
-	<p>Each component replies with its identity. The channels component has
-		an identity of category 'pubsub' and type 'channels'.
-	</p>
-	<p> A domain MUST only host one component with an identity of category
-		'pubsub' and type 'channels'.
-	</p>
-	<example caption="The Buddycloud component replies with its identity">
+		</example>
+		<p>Each component replies with its identity. The channels component
+			has an identity of category 'pubsub' and type 'channels'.
+		</p>
+		<p> A domain MUST only host one component with an identity of category
+			'pubsub' and type 'channels'.
+		</p>
+		<example caption="The Buddycloud component replies with its identity">
   <![CDATA[
   <iq type='result' from='buddycloud.capulet.lit' to='juliet@capulet.lit/BuddycloudApp'
   id='info2'>
@@ -61,20 +65,26 @@
   </query>
   </iq>
   ]]>
-	</example>
-	<section2 topic='DNS Discovery' anchor='servicediscovery-dnsdiscovery'>
-		<p>Buddycloud components can also be discovered using a DNS PTR record
-			formatted as follows.</p>
-    <example caption="PTR record for buddycloud server discovery">
+		</example>
+	</section2>
+	<section2
+		topic='Discovering the Buddycloud server using DNS'
+		anchor='Discovering the Buddycloud server using DNS'>
+		<p>It's possible to use a PTR record to delegate Buddycloud services
+			to a remote Buddycloud server using a PTR record.
+		</p>
+		<p>a DNS lookup is used:
+		</p>
+		<example caption="PTR record for buddycloud server discovery">
     <![CDATA[
     _buddycloud-server._tcp.montague.lit. PTR buddycloud-component.verona.lit.
     ]]>
-  </example>
-                
-	</section2>
-	<section2 topic='Discovery priority' anchor='which-has-prio'>
-		<p> In the case of conflicting answers, the DNS result is
-			authoritative. This permits domain owners to run Buddycloud on domains on "chat only" domains such as google hosted apps.
+		</example>
+		<p>
+			This example will delegate all the Buddycloud service to a Buddycloud
+			server running at
+			<code>buddycloud-component.verona.lit</code>
+			.
 		</p>
 	</section2>
 </section1>

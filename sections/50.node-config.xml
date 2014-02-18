@@ -1,16 +1,22 @@
 
-<section1 topic='Channel and Node Configuration' anchor='channel-config'>
+<section1
+	topic='Channel and Node Configuration'
+	anchor='channel-config'>
 	<p>Node metadata is used to describe the channel to users. All nodes in
 		a channel have the same metadata and permission.
 	</p>
-	<section2 topic='Get Node Configuration' anchor='get-node-config'> - using
-		disco-info with the node specified - using xep-60 5.4 Discover Node
-		Metadata
+	<section2
+		topic='Get Node Configuration'
+		anchor='get-node-config'> - using disco-info with the node specified - using xep-60 5.4
+		Discover Node Metadata
 	</section2>
-	<section2 topic='Set Node Configuration' anchor='set-node-config'> set Not sure
-		what goes here?
+	<section2
+		topic='Set Node Configuration'
+		anchor='set-node-config'> set Not sure what goes here?
 	</section2>
-	<section2 topic='Default roles' anchor='default roles'>
+	<section2
+		topic='Default roles'
+		anchor='default roles'>
 		<p> minimum setting/optional recommended fallbacks
 		</p>
 		<p>Channel metadata is stored as node metadata against the /posts node
@@ -18,8 +24,8 @@
 			same permissions and an update to one updates the others.
 		</p>
 		<p>
-			Most metadata fields used for Channels are already defined in <!-- how 
-				do we ref this? -->
+			Most metadata fields used for Channels are already defined <!-- how do 
+				we ref this? -->
 			xep0060;. The relevant ones are listed below.
 		</p>
 		<table caption="Channel Metadata Fields">
@@ -69,8 +75,7 @@
 				<td>Channel Type</td>
 				<td>Buddycloud#channel_type</td>
 				<td>"personal"</td>
-				<td>The type of this channel. (see below). Set by the server at
-					creation. Not user changable.
+				<td>Set by the server when the channel is created. Not alterable.
 				</td>
 				<td>N.A.</td>
 			</tr>
@@ -146,138 +151,146 @@
 		</p>
 	</section2>
 	<section2>
-	<table caption="Read permissions">
-			<tbody>
-				<tr>
-					<td>Entity</td>
-					<td>Access model</td>
-					<td>Example</td>
-					<td>Channel Producer</td>
-					<td>Channel Moderator</td>
-					<td>Follower+post</td>
-					<td>Follower</td>
-					<td>Anonymous (e.g. web)</td>
-					<td>Banned users</td>
-				</tr>
-				<tr>
-					<td>channel address</td>
-					<td>all</td>
-					<td>juliet@capulet.lit</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-				</tr>
-				<tr>
-					<td>channel name</td>
-					<td>all</td>
-					<td>Posts about Romeo</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-				</tr>
-				<tr>
-					<td>channel description</td>
-					<td>all</td>
-					<td>Posts and photos of my darling Romeo.</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-				</tr>
-				<tr>
-					<td>banned user list</td>
-					<td>all</td>
-					<td>father@montague.lit</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-				<tr>
-					<td>pending channel subscriptions</td>
-					<td>all</td>
-					<td>nurse@capulet.lit</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-				<tr>
-					<td rowspan="3">channel posts</td>
-					<td>open</td>
-					<td rowspan="3">O Romeo, Romeo! Wherefore art thou Romeo? Deny thy
-						father and refuse thy name. Or, if thou wilt not, be but sworn my
-						love, And I’ll no longer be a Capulet.
-					</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-				</tr>
-				<tr>
-					<td>authorize</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-				<tr>
-					<td>local</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-				<tr>
-					<td rowspan="3">follower, moderator and owner lists
-					</td>
-					<td>open</td>
-					<td rowspan="3">tybalt@capulet.lit, servant@capulet.lit, peter@capulet.lit
-					</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-				</tr>
-				<tr>
-					<td>authorize</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-				<tr>
-					<td>local</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-			</tbody>
-		</table>
+		<p>
+			Buddycloud adapts XEP-0060's machine-to-machine-centric design with
+			logic and presets that work better in a social person-to-person and
+			person-to-group environment. For example, to discourage "glorifying
+			the wicked", the list of banned users is only presented to the
+			channel's moderators.
+			<table caption="channel read permissions">
+				<tbody>
+					<tr>
+						<td>Channel Property</td>
+						<td>Access model</td>
+						<td>Example</td>
+						<td>Channel Producer</td>
+						<td>Channel Moderator</td>
+						<td>Follower+post</td>
+						<td>Follower</td>
+						<td>Anonymous (e.g. web)</td>
+						<td>Banned users</td>
+					</tr>
+					<tr>
+						<td>channel address</td>
+						<td>all</td>
+						<td>juliet@capulet.lit</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr>
+						<td>channel name</td>
+						<td>all</td>
+						<td>Posts about Romeo</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr>
+						<td>channel description</td>
+						<td>all</td>
+						<td>Posts and photos of my darling Romeo. This is not a place for
+							Verona gossip.
+						</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr>
+						<td>banned user list</td>
+						<td>all</td>
+						<td>father@montague.lit</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>pending subscription list</td>
+						<td>all</td>
+						<td>nurse@capulet.lit</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td rowspan="3">channel posts</td>
+						<td>open</td>
+						<td rowspan="3">O Romeo, Romeo! Wherefore art thou Romeo? Deny thy
+							father and refuse thy name. Or, if thou wilt not, be but sworn my
+							love, And I’ll no longer be a Capulet.
+						</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr>
+						<td>authorize</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>local</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td rowspan="3">followers, moderators and owner</td>
+						<td>open</td>
+						<td rowspan="3">tybalt@capulet.lit, servant@capulet.lit,
+							peter@capulet.lit
+						</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr>
+						<td>authorize</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>local</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+				</tbody>
+			</table>
 	</section2>
 </section1>

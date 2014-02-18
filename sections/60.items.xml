@@ -1,11 +1,15 @@
-<section1 topic="Pubsub Items" anchor="items">
+<section1
+	topic="Pubsub Items"
+	anchor="items">
 	<p>Many
 		of the item use cases follow those from &amp;
 		<strong>xep0060</strong>
 		; here we only note the departures from the parent XEP and specific
 		requirements.
 	</p>
-	<section2 topic="Deleting items" anchor="items-delete">
+	<section2
+		topic="Deleting items"
+		anchor="items-delete">
 		<example caption="The client sends">
   <![CDATA[
 <iq from="juliet@capulet.lit/bc-app" to="buddycloud.capulet.lit" type="set" id="retractitem:32"> 
@@ -49,7 +53,9 @@
   ]]>
 		</example>
 	</section2>
-	<section2 topic="Item Payload" anchor="item-payload">
+	<section2
+		topic="Item Payload"
+		anchor="item-payload">
 		<p>Buddycloud
 			item data are formatted according to &amp;
 			<strong>atom</strong>;
@@ -59,7 +65,9 @@
 			<strong>review</strong>
 			; extensions.
 		</p>
-		<section3 topic='Publishing' anchor='item-publishing' />
+		<section3
+			topic='Publishing'
+			anchor='item-publishing' />
 		<p>The minimal payload for a publish request must be formatted as
 			follows:
 		</p>
@@ -100,7 +108,9 @@
              </entry>
 ]]>
 		</example>
-		<section4 topic='Error Cases' anchor='item-publishing-errorcases'>
+		<section4
+			topic='Error Cases'
+			anchor='item-publishing-errorcases'>
 			<p>Beyond
 				standard &amp;
 				<strong>xep0060</strong>
@@ -123,7 +133,9 @@
 				</li>
 			</ul>
 		</section4>
-		<section3 topic='Threading' anchor='item-threading' />
+		<section3
+			topic='Threading'
+			anchor='item-threading' />
 		<p>Posts in Buddycloud can be formed into threads consisting of a
 			parent post and comments to a maximum thread depth of 1.
 		</p>
@@ -153,7 +165,9 @@
             </entry>
         ]]>
 		</example>
-		<section4 topic='Error Cases' anchor='item-threading-errorcases' />
+		<section4
+			topic='Error Cases'
+			anchor='item-threading-errorcases' />
 		<ul>
 			<li>
 				<em>parent-item-not-found</em>
@@ -165,7 +179,9 @@
 				response
 			</li>
 		</ul>
-		<section3 topic='Referencing' anchor='item-referencing' />
+		<section3
+			topic='Referencing'
+			anchor='item-referencing' />
 		<p>Within a single thread comments can reference other comments or the
 			parent item. This is for the purpose of making a comment to a post
 			further back in the thread.
@@ -193,7 +209,9 @@
             </entry>
         ]]>
 		</example>
-		<section4 topic='Error Cases' anchor='item-referencing-errorcases'>
+		<section4
+			topic='Error Cases'
+			anchor='item-referencing-errorcases'>
 			<ul>
 				<li>
 					<em>missing-in-reply-to</em>
@@ -215,7 +233,9 @@
 				</li>
 			</ul>
 		</section4>
-		<section3 topic='Rating' anchor='item-rating'>
+		<section3
+			topic='Rating'
+			anchor='item-rating'>
 			<p>By
 				making use of the &amp;
 				<strong>review</strong>;
@@ -259,7 +279,9 @@
             </entry>
         ]]>
 			</example>
-			<section4 topic='Error cases' anchor='item-rating-errorcases'>
+			<section4
+				topic='Error cases'
+				anchor='item-rating-errorcases'>
 				<ul>
 					<li>
 						<em>invalid-rating</em>
