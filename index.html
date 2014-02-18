@@ -6,19 +6,23 @@
       1.3.  <a href="#glossary">Glossary</a><br />2.  <a href="#Finding-the-right-Buddycloud-server">Service Discovery</a><br />   
       2.1.  <a href="#DISCOorDNS">Discovery order</a><br />   
       2.2.  <a href="#Discovering the Buddycloud server using Disco">Discovery using Disco</a><br />   
-      2.3.  <a href="#Discovering the Buddycloud server using DNS">Discovery using DNS</a><br />3.  <a href="#register">Register</a><br />4.  <a href="#items">Pubsub Items</a><br />   
-      4.1.  <a href="#items-delete">Deleting items</a><br />   
-      4.2.  <a href="#item-payload">Item Payload</a><br />      
-      4.2.1.  <a href="#item-publishing">Publishing</a><br />      
-      4.2.2.  <a href="#item-threading">Threading</a><br />      
-      4.2.3.  <a href="#item-referencing">Referencing</a><br />      
-      4.2.4.  <a href="#item-rating">Rating</a><br />        
-      4.2.4.1.  <a href="#item-rating-errorcases">Error cases</a><br />5.  <a href="#subscriptions">Channel subscriptions</a><br />6.  <a href="#affiliations">Channel affiliations</a><br />   
-      6.1.  <a href="#affiliation-to-xep-60-mappings">Buddycloud to XEP-0060 mappings</a><br />   
-      6.2.  <a href="#rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a><br />      
-      6.2.1.  <a href="#rules-affiliation-permissions">Affiliation permissions</a><br />7.  <a href="#federation">Federation</a><br />   
-      7.1.  <a href="#inbox">Inbox</a><br />   
-      7.2.  <a href="#plays-nicely-with-others">Interaction With Other Services</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
+      2.3.  <a href="#Discovering the Buddycloud server using DNS">Discovery using DNS</a><br />3.  <a href="#register">Register</a><br />4.  <a href="#channel-config">Channel and Node Configuration</a><br />   
+      4.1.  <a href="#get-node-config">Get Node Configuration</a><br />   
+      4.2.  <a href="#set-node-config">Set Node Configuration</a><br />   
+      4.3.  <a href="#default roles">Default roles</a><br />   
+      4.4.  <a href="#sect-idp1616528"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
+      5.1.  <a href="#items-delete">Deleting items</a><br />   
+      5.2.  <a href="#item-payload">Item Payload</a><br />      
+      5.2.1.  <a href="#item-publishing">Publishing</a><br />      
+      5.2.2.  <a href="#item-threading">Threading</a><br />      
+      5.2.3.  <a href="#item-referencing">Referencing</a><br />      
+      5.2.4.  <a href="#item-rating">Rating</a><br />        
+      5.2.4.1.  <a href="#item-rating-errorcases">Error cases</a><br />6.  <a href="#subscriptions">Channel subscriptions</a><br />7.  <a href="#affiliations">Channel affiliations</a><br />   
+      7.1.  <a href="#affiliation-to-xep-60-mappings">Buddycloud to XEP-0060 mappings</a><br />   
+      7.2.  <a href="#rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a><br />      
+      7.2.1.  <a href="#rules-affiliation-permissions">Affiliation permissions</a><br />8.  <a href="#federation">Federation</a><br />   
+      8.1.  <a href="#inbox">Inbox</a><br />   
+      8.2.  <a href="#plays-nicely-with-others">Interaction With Other Services</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
        <a name="Buddycloud Introduction" id="Buddycloud Introduction">Buddycloud Introduction</a></h2>
 	<div class="indent"><h3>1.1 <a name="about-buddycloud" id="about-buddycloud">About Buddycloud</a></h3>
 		<p>Buddycloud is a collection of services, running as XMPP components
@@ -200,6 +204,293 @@
   </p>
   
 <h2>4.
+       <a name="channel-config" id="channel-config">Channel and Node Configuration</a></h2>
+	<p>Node metadata is used to describe the channel to users. All nodes in
+		a channel have the same metadata and permission.
+	</p>
+	<div class="indent"><h3>4.1 <a name="get-node-config" id="get-node-config">Get Node Configuration</a></h3> - using disco-info with the node specified - using xep-60 5.4
+		Discover Node Metadata
+	</div>
+	<div class="indent"><h3>4.2 <a name="set-node-config" id="set-node-config">Set Node Configuration</a></h3> set Not sure what goes here?
+	</div>
+	<div class="indent"><h3>4.3 <a name="default roles" id="default roles">Default roles</a></h3>
+		<p> minimum setting/optional recommended fallbacks
+		</p>
+		<p>Channel metadata is stored as node metadata against the /posts node
+			of the channel. It is recommended that all channel nodes have the
+			same permissions and an update to one updates the others.
+		</p>
+		<p>
+			Most metadata fields used for Channels are already defined 
+			xep0060;. The relevant ones are listed below.
+		</p>
+		<div class="indent"><p class="caption"><a name="table-1" id="table-1"></a>Table 1: Channel Metadata Fields</p><table border="1" cellpadding="3" cellspacing="0">
+			<tr class="body">
+				<th>Metadata</th>
+				<th>Field</th>
+				<th>Example</th>
+				<th>Notes</th>
+				<th>Defaults</th>
+			</tr>
+			<tr class="body">
+				<td>Channel Title</td>
+				<td>pubsub#title</td>
+				<td>"Juliet's musings"</td>
+				<td>Should be a brief single sentence</td>
+				<td>"juliet@capulet.lit's Buddycloud channel"</td>
+			</tr>
+			<tr class="body">
+				<td>Channel Description</td>
+				<td>pubsub#description</td>
+				<td>"This is a channel about the things that I like to do."</td>
+				<td>A longer description of the channel</td>
+				<td>&lt;empty&gt;</td>
+			</tr>
+			<tr class="body">
+				<td>Channel Access Model</td>
+				<td>pubsub#access_model</td>
+				<td>open, authorize, local</td>
+				<td>The channel subscriber model</td>
+				<td>Dependent on Node</td>
+			</tr>
+			<tr class="body">
+				<td>Channel Creator</td>
+				<td>buddycloud#channel_creator</td>
+				<td>mercutio@capulet.lit</td>
+				<td>The channel creator's JID</td>
+				<td>Dependent on Node</td>
+			</tr>
+			<tr class="body">
+				<td>Default Affiliation</td>
+				<td>Buddycloud#default_affiliation</td>
+				<td>"publisher"</td>
+				<td>The role given to new channel followers</td>
+				<td>Dependent on Channel Type</td>
+			</tr>
+			<tr class="body">
+				<td>Channel Type</td>
+				<td>Buddycloud#channel_type</td>
+				<td>"personal"</td>
+				<td>Set by the server when the channel is created. Not alterable.
+				</td>
+				<td>N.A.</td>
+			</tr>
+			<tr class="body">
+				<td>Channel Creation Date</td>
+				<td>pubsub#creation_date</td>
+				<td>"2011-01-31T23:59:42"</td>
+				<td>When the channel was created in ISO 8601 time format. Set by the
+					server at creation. Not user changeable.
+				</td>
+				<td>N.A.</td>
+			</tr>
+		</table></div>
+		<p>Channel owners and moderators can also set the default affiliation
+			for the channel
+		</p>
+		<p>
+			<div class="indent"><p class="caption"><a name="table-2" id="table-2"></a>Table 2: Channel Types</p><table border="1" cellpadding="3" cellspacing="0">
+				<tr class="body">
+					<th>Channel Type</th>
+					<th>Description</th>
+					<th>Example</th>
+				</tr>
+				<tr class="body">
+					<td>personal channel</td>
+					<td>Channel named after and owned by the user's JID.</td>
+					<td> romeo@montague.lit</td>
+				</tr>
+				<tr class="body">
+					<td>Topic channel</td>
+					<td>A channel features around a common topic.</td>
+					<td>cauldron-recipees@coven.shakespeare.lit</td>
+				</tr>
+				<tr class="body">
+					<td>local</td>
+					<td>
+						<p>Appears as an open channel to local users on that domain.</p>
+						<p>Appears as a closed channel to users on remote Buddycloud
+							domains.
+						</p>
+					</td>
+					<td>montague-family-channel@montague.lit
+					</td>
+				</tr>
+			</table></div>
+		</p>
+		<p>
+			<div class="indent"><p class="caption"><a name="table-3" id="table-3"></a>Table 3: Channel Access Models</p><table border="1" cellpadding="3" cellspacing="0">
+				<tr class="body">
+					<th>Access Model</th>
+					<th>Description</th>
+				</tr>
+				<tr class="body">
+					<td>authorise</td>
+					<td>The channel is only viewable by it's producer, followers,
+						followers+post and moderators.
+					</td>
+				</tr>
+				<tr class="body">
+					<td>open</td>
+					<td>Anyone can view the channel.</td>
+				</tr>
+				<tr class="body">
+					<td>local</td>
+					<td>
+						<p>Appears as an open channel to local users on that domain.</p>
+						<p>Appears as a closed channel to users on remote Buddycloud
+							domains.
+						</p>
+					</td>
+				</tr>
+			</table></div>
+		</p>
+	</div>
+	<div class="indent"><h3>4.4 <a name="sect-idp1616528" id="sect-idp1616528"></a></h3>
+		<p>
+			Buddycloud adapts XEP-0060's machine-to-machine-centric design with
+			logic and presets that work better in a social person-to-person and
+			person-to-group environment. For example, to discourage "glorifying
+			the wicked", the list of banned users is only presented to the
+			channel's moderators.
+			<div class="indent"><p class="caption"><a name="table-4" id="table-4"></a>Table 4: channel read permissions</p><table border="1" cellpadding="3" cellspacing="0">
+				
+					<tr class="body">
+						<td>Channel Property</td>
+						<td>Access model</td>
+						<td>Example</td>
+						<td>Channel Producer</td>
+						<td>Channel Moderator</td>
+						<td>Follower+post</td>
+						<td>Follower</td>
+						<td>Anonymous (e.g. web)</td>
+						<td>Banned users</td>
+					</tr>
+					<tr class="body">
+						<td>channel address</td>
+						<td>all</td>
+						<td>juliet@capulet.lit</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr class="body">
+						<td>channel name</td>
+						<td>all</td>
+						<td>Posts about Romeo</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr class="body">
+						<td>channel description</td>
+						<td>all</td>
+						<td>Posts and photos of my darling Romeo. This is not a place for
+							Verona gossip.
+						</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr class="body">
+						<td>banned user list</td>
+						<td>all</td>
+						<td>father@montague.lit</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td>pending subscription list</td>
+						<td>all</td>
+						<td>nurse@capulet.lit</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td rowspan="3">channel posts</td>
+						<td>open</td>
+						<td rowspan="3">O Romeo, Romeo! Wherefore art thou Romeo? Deny thy
+							father and refuse thy name. Or, if thou wilt not, be but sworn my
+							love, And I’ll no longer be a Capulet.
+						</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr class="body">
+						<td>authorize</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td>local</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td rowspan="3">followers, moderators and owner</td>
+						<td>open</td>
+						<td rowspan="3">tybalt@capulet.lit, servant@capulet.lit,
+							peter@capulet.lit
+						</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr class="body">
+						<td>authorize</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td>local</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+				
+			</table></div>
+		</p>
+	</div>
+<h2>5.
        <a name="items" id="items">Pubsub Items</a></h2>
 	<p>Many
 		of the item use cases follow those from &amp;
@@ -207,7 +498,7 @@
 		; here we only note the departures from the parent XEP and specific
 		requirements.
 	</p>
-	<div class="indent"><h3>4.1 <a name="items-delete" id="items-delete">Deleting items</a></h3>
+	<div class="indent"><h3>5.1 <a name="items-delete" id="items-delete">Deleting items</a></h3>
 		<p class="caption"><a name="example-7" id="example-7"></a>Example 7. The client sends</p><div class="indent"><pre class="prettyprint">
   
 &lt;iq from="juliet@capulet.lit/bc-app" to="buddycloud.capulet.lit" type="set" id="retractitem:32"&gt; 
@@ -250,7 +541,7 @@
   
 		</pre></div>
 	</div>
-	<div class="indent"><h3>4.2 <a name="item-payload" id="item-payload">Item Payload</a></h3>
+	<div class="indent"><h3>5.2 <a name="item-payload" id="item-payload">Item Payload</a></h3>
 		<p>Buddycloud
 			item data are formatted according to &amp;
 			<span class="strong">atom</span>;
@@ -260,7 +551,7 @@
 			<span class="strong">review</span>
 			; extensions.
 		</p>
-		<div class="indent"><h3>4.2.1 <a name="item-publishing" id="item-publishing">Publishing</a></h3></div>
+		<div class="indent"><h3>5.2.1 <a name="item-publishing" id="item-publishing">Publishing</a></h3></div>
 		<p>The minimal payload for a publish request must be formatted as
 			follows:
 		</p>
@@ -301,7 +592,7 @@
              &lt;/entry&gt;
 
 		</pre></div>
-		<div class="indent"><h3>4.2..1 <a name="item-publishing-errorcases" id="item-publishing-errorcases">Error Cases</a></h3>
+		<div class="indent"><h3>5.2..1 <a name="item-publishing-errorcases" id="item-publishing-errorcases">Error Cases</a></h3>
 			<p>Beyond
 				standard &amp;
 				<span class="strong">xep0060</span>
@@ -324,7 +615,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="indent"><h3>4.2.2 <a name="item-threading" id="item-threading">Threading</a></h3></div>
+		<div class="indent"><h3>5.2.2 <a name="item-threading" id="item-threading">Threading</a></h3></div>
 		<p>Posts in Buddycloud can be formed into threads consisting of a
 			parent post and comments to a maximum thread depth of 1.
 		</p>
@@ -354,7 +645,7 @@
             &lt;/entry&gt;
         
 		</pre></div>
-		<div class="indent"><h3>4.2..2 <a name="item-threading-errorcases" id="item-threading-errorcases">Error Cases</a></h3></div>
+		<div class="indent"><h3>5.2..2 <a name="item-threading-errorcases" id="item-threading-errorcases">Error Cases</a></h3></div>
 		<ul>
 			<li>
 				<span class="em">parent-item-not-found</span>
@@ -366,7 +657,7 @@
 				response
 			</li>
 		</ul>
-		<div class="indent"><h3>4.2.3 <a name="item-referencing" id="item-referencing">Referencing</a></h3></div>
+		<div class="indent"><h3>5.2.3 <a name="item-referencing" id="item-referencing">Referencing</a></h3></div>
 		<p>Within a single thread comments can reference other comments or the
 			parent item. This is for the purpose of making a comment to a post
 			further back in the thread.
@@ -393,7 +684,7 @@
             &lt;/entry&gt;
         
 		</pre></div>
-		<div class="indent"><h3>4.2..3 <a name="item-referencing-errorcases" id="item-referencing-errorcases">Error Cases</a></h3>
+		<div class="indent"><h3>5.2..3 <a name="item-referencing-errorcases" id="item-referencing-errorcases">Error Cases</a></h3>
 			<ul>
 				<li>
 					<span class="em">missing-in-reply-to</span>
@@ -415,7 +706,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="indent"><h3>4.2.4 <a name="item-rating" id="item-rating">Rating</a></h3>
+		<div class="indent"><h3>5.2.4 <a name="item-rating" id="item-rating">Rating</a></h3>
 			<p>By
 				making use of the &amp;
 				<span class="strong">review</span>;
@@ -459,7 +750,7 @@
             &lt;/entry&gt;
         
 			</pre></div>
-			<div class="indent"><h3>4.2.4.1 <a name="item-rating-errorcases" id="item-rating-errorcases">Error cases</a></h3>
+			<div class="indent"><h3>5.2.4.1 <a name="item-rating-errorcases" id="item-rating-errorcases">Error cases</a></h3>
 				<ul>
 					<li>
 						<span class="em">invalid-rating</span>
@@ -480,15 +771,15 @@
 			</div>
 		</div>
 	</div>
-<h2>5.
+<h2>6.
        <a name="subscriptions" id="subscriptions">Channel subscriptions</a></h2>
     <p>See XEP 60.</p>
-<h2>6.
+<h2>7.
        <a name="affiliations" id="affiliations">Channel affiliations</a></h2>
-<div class="indent"><h3>6.1 <a name="affiliation-to-xep-60-mappings" id="affiliation-to-xep-60-mappings">Buddycloud to XEP-0060 mappings</a></h3>
+<div class="indent"><h3>7.1 <a name="affiliation-to-xep-60-mappings" id="affiliation-to-xep-60-mappings">Buddycloud to XEP-0060 mappings</a></h3>
 <p>
 	Buddycloud channels build on XEP-0060's node affiliations.
-	<div class="indent"><p class="caption"><a name="table-1" id="table-1"></a>Table 1: Channel Affiliations</p><table border="1" cellpadding="3" cellspacing="0">
+	<div class="indent"><p class="caption"><a name="table-5" id="table-5"></a>Table 5: Channel Affiliations</p><table border="1" cellpadding="3" cellspacing="0">
 		<tr class="body">
 			<th>XEP-0060 Affiliation</th>
 			<th>Buddycloud Affiliation</th>
@@ -547,12 +838,12 @@
 	</table></div>
 </p>
 </div>
-<div class="indent"><h3>6.2 <a name="rules-nodeaffiliations" id="rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a></h3>
+<div class="indent"><h3>7.2 <a name="rules-nodeaffiliations" id="rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a></h3>
 	<p>
 		A Channel Server SHOULD maintain similar affiliations for a subscribed
 		entity across all the Nodes of a Channel.</p>
 
-		  <div class="indent"><h3>6.2.1 <a name="rules-affiliation-permissions" id="rules-affiliation-permissions">Affiliation permissions</a></h3>
+		  <div class="indent"><h3>7.2.1 <a name="rules-affiliation-permissions" id="rules-affiliation-permissions">Affiliation permissions</a></h3>
 			<div class="indent"><dl>
 				<dt><strong>Producer</strong></dt>
 				<dd>the owner of a channel with the ability to add and remove
@@ -571,11 +862,11 @@
 			</dl></div>
             </div>
 </div>
-<h2>7.
+<h2>8.
        <a name="federation" id="federation">Federation</a></h2>
-	<div class="indent"><h3>7.1 <a name="inbox" id="inbox">Inbox</a></h3>
+	<div class="indent"><h3>8.1 <a name="inbox" id="inbox">Inbox</a></h3>
 	</div>
-	<div class="indent"><h3>7.2 <a name="plays-nicely-with-others" id="plays-nicely-with-others">Interaction With Other Services</a></h3>
+	<div class="indent"><h3>8.2 <a name="plays-nicely-with-others" id="plays-nicely-with-others">Interaction With Other Services</a></h3>
 		<p>Buddycloud is designed around replaceable XMPP server components.
 			Each component offers a discrete set of services, and communicated
 			with other components using XEP-0114 component connections. For
