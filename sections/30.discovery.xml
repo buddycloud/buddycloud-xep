@@ -1,64 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section1
 	topic='Service Discovery'
-	anchor='Service Discovery'>
-	<p>To find the correct remote Buddycloud server for a domain, the
-		Buddycloud server will first attempt discovery the responsible
-		Buddycloud Server using a DISCO query, and, failing that, then attempt
-		DNS discovery.
+	anchor='Finding-the-right-Buddycloud-server'>
+	<p>Each XMPP domain can have one Buddycloud server that serves user's
+		channels. Buddycloud clients and servers need to be able to discover
+		the authoratative Buddycloud server. find the
 	</p>
-	<section2 topic='Discovering the Buddycloud component'>
-		<section3
-			topic='Discovery using Disco'
-			anchor='Discovering the Buddycloud server using Disco'>
-			<p>The Buddycloud server first sends an items discovery request to
-				the domain to discover all the available components.
-			</p>
-			<example caption="The Entity sends a disco#items request to the domain">
+	<section2
+		topic='Discovery order'
+		anchor='DISCOorDNS'>
+		<p>
+			To find the correct remote Buddycloud server for a domain, the
+			Buddycloud server will
+			<ol>
+				<li>attempt discovery the responsible Buddycloud Server using a
+					disco#item query,
+				</li>
+			</ol>
+			<li>if no suitable answer comes back, use the DNS discovery method.
+			</li>
+		</p>
+	</section2>
+	<section2
+		topic='Discovery using Disco'
+		anchor='Discovering the Buddycloud server using Disco'>
+		<p>The Buddycloud server first sends an items discovery request to the
+			domain to discover all the available components.
+		</p>
+		<example caption="The Entity sends a disco#items request to the domain">
 <![CDATA[
 <iq type='get' from='juliet@capulet.lit/balcony' to='capulet.lit' id='items1'>
   <query xmlns='http://jabber.org/protocol/disco#items'/>
 </iq>]]>
-			</example>
-			<p>The server replies with the list of available components, along
-				with their associated JIDs.
-			</p>
-			<example caption="The server replies with a list of available components.">
+		</example>
+		<p>The server replies with the list of available components, along
+			with their associated JIDs.
+		</p>
+		<example caption="The server replies with a list of available components.">
   <![CDATA[
-  <iq type='result' from='capulet.lit' to='juliet@capulet.lit/balcony' id='items1'>
-    <query xmlns='http://jabber.org/protocol/disco#items'>
+<iq type='result' from='capulet.lit' to='juliet@capulet.lit/balcony' id='items1'>
+  <query xmlns='http://jabber.org/protocol/disco#items'>
     <item jid='muc.capulet.lit' name='Chatrooms' />
-  <item jid='buddycloud.capulet.lit' name='Buddycloud Server' />
+    <item jid='buddycloud.capulet.lit' name='Buddycloud Server' />
   </query>
-  </iq>
+</iq>
   ]]>
-			</example>
-		</section3>
-		<section3
-			topic='Discovery using DNS'
-			anchor='Discovering the Buddycloud server using DNS'>
-			<p>It's possible to use a PTR record to delegate Buddycloud services
-				to a remote Buddycloud server using a PTR record.
-			</p>
-			<p>a DNS lookup is used:
-			</p>
-			<example caption="PTR record for buddycloud server discovery">
-    <![CDATA[
-    _buddycloud-server._tcp.montague.lit. PTR buddycloud-component.verona.lit.
-    ]]>
-			</example>
-			<p>
-				This example will delegate all the Buddycloud service to a
-				Buddycloud server running at
-				<code>buddycloud-component.verona.lit</code>
-				.
-				<!-- what should the server now do? -->
-			</p>
-		</section3>
-	</section2>
-	<section2
-		topic='Querying the Buddycloud Component'
-		anchor='Querying the Buddycloud Component'>
+		</example>
 		<p>The entity then iterates through the &lt;item/&gt; elements,
 			sending an info discovery request to each JID. 
 		</p>
@@ -88,5 +75,24 @@
 </iq>
   ]]>
 		</example>
+	</section2>
+	<section2
+		topic='Discovery using DNS'
+		anchor='Discovering the Buddycloud server using DNS'>
+		<p>In the case that no server is found via disco, DNS should be used
+			to discover the Buddycloud server. A PTR record can be used to
+			delegate Buddycloud services to a remote Buddycloud server.
+		</p>
+		<example caption="PTR record for buddycloud server discovery">
+    <![CDATA[
+    _buddycloud-server._tcp.montague.lit. PTR buddycloud-component.verona.lit.
+    ]]>
+		</example>
+		<p>
+			This example delegates all the Buddycloud service to a Buddycloud
+			server running as an XMPP component named
+			<i>buddycloud-component.verona.lit</i>
+			.
+		</p>
 	</section2>
 </section1>
