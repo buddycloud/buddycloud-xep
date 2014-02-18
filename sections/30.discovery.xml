@@ -57,8 +57,8 @@
 		</section3>
 	</section2>
 	<section2
-		topic='Quering the Buddycloud Component'
-		anchor='Quering the Buddycloud Component'>
+		topic='Querying the Buddycloud Component'
+		anchor='Querying the Buddycloud Component'>
 		<p>The entity then iterates through the &lt;item/&gt; elements,
 			sending an info discovery request to each JID. 
 		</p>
