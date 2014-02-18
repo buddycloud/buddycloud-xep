@@ -3,11 +3,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>XEP-xxxx: Buddycloud Channels</title><link rel="stylesheet" type="text/css" href="xmpp/xmpp.css" /><link href="xmpp/prettify.css" type="text/css" rel="stylesheet" /><link rel="shortcut icon" type="image/x-icon" href="xmpp/favicon.ico" /><script type="text/javascript" src="xmpp/prettify.js"></script><meta name="DC.Title" content="Buddycloud Channels" /><meta name="DC.Creator" content="Simon Tennant" /><meta name="DC.Creator" content="Lloyd Watkin" /><meta name="DC.Creator" content="Ashley Ward" /><meta name="DC.Description" content="This document describes a profile and conventions for usage of the PubSub protocol in the context of a new type of communication." /><meta name="DC.Publisher" content="XMPP Standards Foundation" /><meta name="DC.Contributor" content="XMPP Extensions Editor" /><meta name="DC.Date" content="2014-02-18" /><meta name="DC.Type" content="XMPP Extension Protocol" /><meta name="DC.Format" content="XHTML" /><meta name="DC.Identifier" content="XEP-xxxx" /><meta name="DC.Language" content="en" /><meta name="DC.Rights" content="This XMPP Extension Protocol is copyright (c) 1999 - 2014&#10;        by the XMPP Standards Foundation (XSF).&#10;    " /></head><body onload="prettyPrint()"><h1>XEP-xxxx: Buddycloud Channels</h1><table><tr valign="top"><td><strong>Abstract:</strong></td><td>This document describes a profile and conventions for usage of the PubSub protocol in the context of a new type of communication.</td></tr><tr valign="top"><td><strong>Authors:</strong></td><td>Simon Tennant, Lloyd Watkin, Ashley Ward</td></tr><tr valign="top"><td><strong>Copyright:</strong></td><td>© 1999 - 2010 XMPP Standards Foundation. <a href="#appendix-legal">SEE LEGAL NOTICES</a>.</td></tr><tr valign="top"><td><strong>Status:</strong></td><td>ProtoXEP</td></tr><tr valign="top"><td><strong>Type:</strong></td><td>Standards Track</td></tr><tr valign="top"><td><strong>Version:</strong></td><td>0.0.1</td></tr><tr valign="top"><td><strong>Last Updated:</strong></td><td>2014-02-18</td></tr></table><hr /><p style="color:red">WARNING: This document has not yet been accepted for consideration or approved in any official manner by the XMPP Standards Foundation, and this document is not yet an XMPP Extension Protocol (XEP). If this document is accepted as a XEP by the XMPP Council, it will be published at &lt;<a href="http://xmpp.org/extensions/">http://xmpp.org/extensions/</a>&gt; and announced on the &lt;standards@xmpp.org&gt; mailing list.</p><hr /><h2>Table of Contents</h2><div class="indent"><p><br />1.  <a href="#Buddycloud Introduction">Buddycloud Introduction</a><br />   
       1.1.  <a href="#about-buddycloud">About Buddycloud</a><br />   
       1.2.  <a href="#Buddycloud Channels">Buddycloud Channels</a><br />   
-      1.3.  <a href="#glossary">Glossary</a><br />2.  <a href="#Service Discovery">Service Discovery</a><br />   
-      2.1.  <a href="#sect-idp579472">Discovering the Buddycloud component</a><br />      
-      2.1.1.  <a href="#Discovering the Buddycloud server using Disco">Discovery using Disco</a><br />      
-      2.1.2.  <a href="#Discovering the Buddycloud server using DNS">Discovery using DNS</a><br />   
-      2.2.  <a href="#Querying the Buddycloud Component">Querying the Buddycloud Component</a><br />3.  <a href="#register">Register</a><br />4.  <a href="#items">Pubsub Items</a><br />   
+      1.3.  <a href="#glossary">Glossary</a><br />2.  <a href="#Finding-the-right-Buddycloud-server">Service Discovery</a><br />   
+      2.1.  <a href="#DISCOorDNS">Discovery order</a><br />   
+      2.2.  <a href="#Discovering the Buddycloud server using Disco">Discovery using Disco</a><br />   
+      2.3.  <a href="#Discovering the Buddycloud server using DNS">Discovery using DNS</a><br />3.  <a href="#register">Register</a><br />4.  <a href="#items">Pubsub Items</a><br />   
       4.1.  <a href="#items-delete">Deleting items</a><br />   
       4.2.  <a href="#item-payload">Item Payload</a><br />      
       4.2.1.  <a href="#item-publishing">Publishing</a><br />      
@@ -91,62 +90,51 @@
 		</dl></div>
 	</div>
 <h2>2.
-       <a name="Service Discovery" id="Service Discovery">Service Discovery</a></h2>
-	<p>To find the correct remote Buddycloud server for a domain, the
-		Buddycloud server will first attempt discovery the responsible
-		Buddycloud Server using a DISCO query, and, failing that, then attempt
-		DNS discovery.
+       <a name="Finding-the-right-Buddycloud-server" id="Finding-the-right-Buddycloud-server">Service Discovery</a></h2>
+	<p>Each XMPP domain can have one Buddycloud server that serves user's
+		channels. Buddycloud clients and servers need to be able to discover
+		the authoratative Buddycloud server. find the
 	</p>
-	<div class="indent"><h3>2.1 <a name="sect-idp579472" id="sect-idp579472">Discovering the Buddycloud component</a></h3>
-		<div class="indent"><h3>2.1.1 <a name="Discovering the Buddycloud server using Disco" id="Discovering the Buddycloud server using Disco">Discovery using Disco</a></h3>
-			<p>The Buddycloud server first sends an items discovery request to
-				the domain to discover all the available components.
-			</p>
-			<p class="caption"><a name="example-1" id="example-1"></a>Example 1. The Entity sends a disco#items request to the domain</p><div class="indent"><pre class="prettyprint">
+	<div class="indent"><h3>2.1 <a name="DISCOorDNS" id="DISCOorDNS">Discovery order</a></h3>
+		<p>
+			To find the correct remote Buddycloud server for a domain, the
+			Buddycloud server will
+			<ol>
+				<li>attempt discovery the responsible Buddycloud Server using a
+					disco#item query,
+				</li>
+			</ol>
+			<li>if no suitable answer comes back, use the DNS discovery method.
+			</li>
+		</p>
+	</div>
+	<div class="indent"><h3>2.2 <a name="Discovering the Buddycloud server using Disco" id="Discovering the Buddycloud server using Disco">Discovery using Disco</a></h3>
+		<p>The Buddycloud server first sends an items discovery request to the
+			domain to discover all the available components.
+		</p>
+		<p class="caption"><a name="example-1" id="example-1"></a>Example 1. The Entity sends a disco#items request to the domain</p><div class="indent"><pre class="prettyprint">
 
 &lt;iq type='get' from='juliet@capulet.lit/balcony' to='capulet.lit' id='items1'&gt;
   &lt;query xmlns='http://jabber.org/protocol/disco#items'/&gt;
 &lt;/iq&gt;
-			</pre></div>
-			<p>The server replies with the list of available components, along
-				with their associated JIDs.
-			</p>
-			<p class="caption"><a name="example-2" id="example-2"></a>Example 2. The server replies with a list of available components.</p><div class="indent"><pre class="prettyprint">
+		</pre></div>
+		<p>The server replies with the list of available components, along
+			with their associated JIDs.
+		</p>
+		<p class="caption"><a name="example-2" id="example-2"></a>Example 2. The server replies with a list of available components.</p><div class="indent"><pre class="prettyprint">
   
-  &lt;iq type='result' from='capulet.lit' to='juliet@capulet.lit/balcony' id='items1'&gt;
-    &lt;query xmlns='http://jabber.org/protocol/disco#items'&gt;
+&lt;iq type='result' from='capulet.lit' to='juliet@capulet.lit/balcony' id='items1'&gt;
+  &lt;query xmlns='http://jabber.org/protocol/disco#items'&gt;
     &lt;item jid='muc.capulet.lit' name='Chatrooms' /&gt;
-  &lt;item jid='buddycloud.capulet.lit' name='Buddycloud Server' /&gt;
+    &lt;item jid='buddycloud.capulet.lit' name='Buddycloud Server' /&gt;
   &lt;/query&gt;
-  &lt;/iq&gt;
+&lt;/iq&gt;
   
-			</pre></div>
-		</div>
-		<div class="indent"><h3>2.1.2 <a name="Discovering the Buddycloud server using DNS" id="Discovering the Buddycloud server using DNS">Discovery using DNS</a></h3>
-			<p>It's possible to use a PTR record to delegate Buddycloud services
-				to a remote Buddycloud server using a PTR record.
-			</p>
-			<p>a DNS lookup is used:
-			</p>
-			<p class="caption"><a name="example-3" id="example-3"></a>Example 3. PTR record for buddycloud server discovery</p><div class="indent"><pre class="prettyprint">
-    
-    _buddycloud-server._tcp.montague.lit. PTR buddycloud-component.verona.lit.
-    
-			</pre></div>
-			<p>
-				This example will delegate all the Buddycloud service to a
-				Buddycloud server running at
-				<p class="caption"></p><div class="indent"><pre class="prettyprint">buddycloud-component.verona.lit</pre></div>
-				.
-				
-			</p>
-		</div>
-	</div>
-	<div class="indent"><h3>2.2 <a name="Querying the Buddycloud Component" id="Querying the Buddycloud Component">Querying the Buddycloud Component</a></h3>
+		</pre></div>
 		<p>The entity then iterates through the &lt;item/&gt; elements,
 			sending an info discovery request to each JID. 
 		</p>
-		<p class="caption"><a name="example-4" id="example-4"></a>Example 4. The Entity sends a disco#info request to each component</p><div class="indent"><pre class="prettyprint">
+		<p class="caption"><a name="example-3" id="example-3"></a>Example 3. The Entity sends a disco#info request to each component</p><div class="indent"><pre class="prettyprint">
 
 &lt;iq type='get' from='juliet@capulet.lit/balcony' to='buddycloud.capulet.lit' id='info1'&gt;
   &lt;query xmlns='http://jabber.org/protocol/disco#info'/&gt;
@@ -159,7 +147,7 @@
 		<p>A domain MUST only host one component with an identity of category
 			'pubsub' and type 'channels'.
 		</p>
-		<p class="caption"><a name="example-5" id="example-5"></a>Example 5. The Buddycloud server replies with its identity</p><div class="indent"><pre class="prettyprint">
+		<p class="caption"><a name="example-4" id="example-4"></a>Example 4. The Buddycloud server replies with its identity</p><div class="indent"><pre class="prettyprint">
   
 &lt;iq type='result' from='buddycloud.capulet.lit' to='juliet@capulet.lit/BuddycloudApp' id='info2'&gt;
   &lt;query xmlns='http://jabber.org/protocol/disco#info'&gt;
@@ -172,6 +160,23 @@
 &lt;/iq&gt;
   
 		</pre></div>
+	</div>
+	<div class="indent"><h3>2.3 <a name="Discovering the Buddycloud server using DNS" id="Discovering the Buddycloud server using DNS">Discovery using DNS</a></h3>
+		<p>In the case that no server is found via disco, DNS should be used
+			to discover the Buddycloud server. A PTR record can be used to
+			delegate Buddycloud services to a remote Buddycloud server.
+		</p>
+		<p class="caption"><a name="example-5" id="example-5"></a>Example 5. PTR record for buddycloud server discovery</p><div class="indent"><pre class="prettyprint">
+    
+    _buddycloud-server._tcp.montague.lit. PTR buddycloud-component.verona.lit.
+    
+		</pre></div>
+		<p>
+			This example delegates all the Buddycloud service to a Buddycloud
+			server running as an XMPP component named
+			buddycloud-component.verona.lit
+			.
+		</p>
 	</div>
 <h2>3.
        <a name="register" id="register">Register</a></h2>
