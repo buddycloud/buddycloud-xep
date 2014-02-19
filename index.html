@@ -10,7 +10,7 @@
       4.1.  <a href="#get-node-config">Get Node Configuration</a><br />   
       4.2.  <a href="#set-node-config">Set Node Configuration</a><br />   
       4.3.  <a href="#default roles">Default roles</a><br />   
-      4.4.  <a href="#sect-idp1578368"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
+      4.4.  <a href="#sect-idp1567088"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
       5.1.  <a href="#items-delete">Deleting items</a><br />   
       5.2.  <a href="#item-payload">Item Payload</a><br />      
       5.2.1.  <a href="#item-publishing">Publishing</a><br />      
@@ -22,7 +22,9 @@
       7.2.  <a href="#rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a><br />      
       7.2.1.  <a href="#rules-affiliation-permissions">Affiliation permissions</a><br />8.  <a href="#federation">Federation</a><br />   
       8.1.  <a href="#inbox">Inbox</a><br />   
-      8.2.  <a href="#plays-nicely-with-others">Interaction With Other Services</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
+      8.2.  <a href="#plays-nicely-with-others">Interaction With Other Services</a><br />9.  <a href="#security-considerations">Security Considerations</a><br />   
+      9.1.  <a href="#server-trust">Server trust</a><br />   
+      9.2.  <a href="#security-considerations-with-follower+post-role">Default Role</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
        <a name="Buddycloud Introduction" id="Buddycloud Introduction">Buddycloud Introduction</a></h2>
 	<div class="indent"><h3>1.1 <a name="about-buddycloud" id="about-buddycloud">About Buddycloud</a></h3>
 		<p>Buddycloud is a collection of services, running as XMPP components
@@ -349,7 +351,7 @@
 			</table></div>
 		</p>
 	</div>
-	<div class="indent"><h3>4.4 <a name="sect-idp1578368" id="sect-idp1578368"></a></h3>
+	<div class="indent"><h3>4.4 <a name="sect-idp1567088" id="sect-idp1567088"></a></h3>
 	<div class="indent"><p class="caption"><a name="table-4" id="table-4"></a>Table 4: Read permissions</p><table border="1" cellpadding="3" cellspacing="0">
 			
 				<tr class="body">
@@ -872,6 +874,15 @@
 			API and tailored push notification services. Additional services are
 			covered by separate XEPs.
 		</p>
+	</div>
+<h2>9.
+       <a name="security-considerations" id="security-considerations">Security Considerations</a></h2>
+	<div class="indent"><h3>9.1 <a name="server-trust" id="server-trust">Server trust</a></h3>
+<p>The Buddycloud server should make sure that the remote server component is the authoratative Buddycloud server for the domain it claims to represent. This is done by running the server discovery  process and confirming the same XMPP component name.</p>
+	</div>
+	<div class="indent"><h3>9.2 <a name="security-considerations-with-follower+post-role" id="security-considerations-with-follower+post-role">Default Role</a></h3>
+<p>Open channel where members join with a follow+post role present an attractive target for spamming and maliscious behavior. This default role should be use with caution especially when the Buddycloud server federates with remote domains.
+</p>
 	</div>
 <hr /><a name="appendices" id="appendices"></a><h2>Appendices</h2><hr /><a name="appendix-docinfo" id="appendix-docinfo"></a><h3>Appendix A: Document Information</h3><p class="indent">
             Series: <a href="http://xmpp.org/extensions/">XEP</a><br />
