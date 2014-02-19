@@ -10,7 +10,7 @@
       4.1.  <a href="#get-node-config">Get Node Configuration</a><br />   
       4.2.  <a href="#set-node-config">Set Node Configuration</a><br />   
       4.3.  <a href="#default roles">Default roles</a><br />   
-      4.4.  <a href="#sect-idp1567088"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
+      4.4.  <a href="#sect-idp1628944"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
       5.1.  <a href="#items-delete">Deleting items</a><br />   
       5.2.  <a href="#item-payload">Item Payload</a><br />      
       5.2.1.  <a href="#item-publishing">Publishing</a><br />      
@@ -351,7 +351,7 @@
 			</table></div>
 		</p>
 	</div>
-	<div class="indent"><h3>4.4 <a name="sect-idp1567088" id="sect-idp1567088"></a></h3>
+	<div class="indent"><h3>4.4 <a name="sect-idp1628944" id="sect-idp1628944"></a></h3>
 	<div class="indent"><p class="caption"><a name="table-4" id="table-4"></a>Table 4: Read permissions</p><table border="1" cellpadding="3" cellspacing="0">
 			
 				<tr class="body">
@@ -878,11 +878,19 @@
 <h2>9.
        <a name="security-considerations" id="security-considerations">Security Considerations</a></h2>
 	<div class="indent"><h3>9.1 <a name="server-trust" id="server-trust">Server trust</a></h3>
-<p>The Buddycloud server should make sure that the remote server component is the authoratative Buddycloud server for the domain it claims to represent. This is done by running the server discovery  process and confirming the same XMPP component name.</p>
+		<p>
+			The Buddycloud server should make sure that the remote server
+			component is the authoratative Buddycloud server for the domain it
+			claims to represent. This is done by running the server discovery 
+			process and confirming the same XMPP component name.
+		</p>
 	</div>
 	<div class="indent"><h3>9.2 <a name="security-considerations-with-follower+post-role" id="security-considerations-with-follower+post-role">Default Role</a></h3>
-<p>Open channel where members join with a follow+post role present an attractive target for spamming and maliscious behavior. This default role should be use with caution especially when the Buddycloud server federates with remote domains.
-</p>
+		<p>Open channel where members join with a follow+post role present an
+			attractive target for spamming and maliscious behavior. This default
+			role should be use with caution especially when the Buddycloud server
+			federates with remote Buddycloud-enabled domains.
+		</p>
 	</div>
 <hr /><a name="appendices" id="appendices"></a><h2>Appendices</h2><hr /><a name="appendix-docinfo" id="appendix-docinfo"></a><h3>Appendix A: Document Information</h3><p class="indent">
             Series: <a href="http://xmpp.org/extensions/">XEP</a><br />
