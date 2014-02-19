@@ -158,18 +158,20 @@
 			the wicked", the list of banned users is only presented to the
 			channel's moderators.
 			<table caption="channel read permissions">
-				<tbody>
+				<thead>
 					<tr>
-						<td>Channel Property</td>
-						<td>Access model</td>
-						<td>Example</td>
-						<td>Channel Producer</td>
-						<td>Channel Moderator</td>
-						<td>Follower+post</td>
-						<td>Follower</td>
-						<td>Anonymous (e.g. web)</td>
-						<td>Banned users</td>
+						<th>Property</th>
+						<th>Access model</th>
+						<th>Example</th>
+						<th>Channel Producer</th>
+						<th>Channel Moderator</th>
+						<th>Follower+post</th>
+						<th>Follower</th>
+						<th>Anonymous (e.g. web)</th>
+						<th>Banned users</th>
 					</tr>
+				</thead>
+				<tbody>
 					<tr>
 						<td>channel address</td>
 						<td>all</td>
@@ -287,6 +289,88 @@
 						<td>yes</td>
 						<td>yes</td>
 						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+				</tbody>
+			</table>
+		</p>
+	</section2>
+	<section2>
+		<p>
+			<table caption="channel write permissions">
+				<thead>
+					<tr>
+						<th>Property</th>
+						<th>Producer</th>
+						<th>Moderator</th>
+						<th>Follower+post</th>
+						<th>Follower</th>
+						<th>Anonymous (e.g. web)</th>
+						<th>Banned users</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>channel address</td>
+						<td>only at creation time</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>channel name</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>change channel description</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>change banned user list</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>Approve pending subscriptions</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>Create posts</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>Delete posts</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>own posts</td>
+						<td>no</td>
 						<td>no</td>
 						<td>no</td>
 					</tr>
