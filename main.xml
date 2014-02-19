@@ -17,4 +17,5 @@
     <xi:include href="sections/70.subscriptions.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
     <xi:include href="sections/80.affiliations.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
     <xi:include href="sections/90.federation.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
+    <xi:include href="sections/95.security.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
 </xep>
