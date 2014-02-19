@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>XEP-xxxx: Buddycloud Channels</title><link rel="stylesheet" type="text/css" href="xmpp/xmpp.css" /><link href="xmpp/prettify.css" type="text/css" rel="stylesheet" /><link rel="shortcut icon" type="image/x-icon" href="xmpp/favicon.ico" /><script type="text/javascript" src="xmpp/prettify.js"></script><meta name="DC.Title" content="Buddycloud Channels" /><meta name="DC.Creator" content="Simon Tennant" /><meta name="DC.Creator" content="Lloyd Watkin" /><meta name="DC.Creator" content="Ashley Ward" /><meta name="DC.Description" content="This document describes a profile and conventions for usage of the PubSub protocol in the context of a new type of communication." /><meta name="DC.Publisher" content="XMPP Standards Foundation" /><meta name="DC.Contributor" content="XMPP Extensions Editor" /><meta name="DC.Date" content="2014-02-18" /><meta name="DC.Type" content="XMPP Extension Protocol" /><meta name="DC.Format" content="XHTML" /><meta name="DC.Identifier" content="XEP-xxxx" /><meta name="DC.Language" content="en" /><meta name="DC.Rights" content="This XMPP Extension Protocol is copyright (c) 1999 - 2014&#10;        by the XMPP Standards Foundation (XSF).&#10;    " /></head><body onload="prettyPrint()"><h1>XEP-xxxx: Buddycloud Channels</h1><table><tr valign="top"><td><strong>Abstract:</strong></td><td>This document describes a profile and conventions for usage of the PubSub protocol in the context of a new type of communication.</td></tr><tr valign="top"><td><strong>Authors:</strong></td><td>Simon Tennant, Lloyd Watkin, Ashley Ward</td></tr><tr valign="top"><td><strong>Copyright:</strong></td><td>© 1999 - 2010 XMPP Standards Foundation. <a href="#appendix-legal">SEE LEGAL NOTICES</a>.</td></tr><tr valign="top"><td><strong>Status:</strong></td><td>ProtoXEP</td></tr><tr valign="top"><td><strong>Type:</strong></td><td>Standards Track</td></tr><tr valign="top"><td><strong>Version:</strong></td><td>0.0.1</td></tr><tr valign="top"><td><strong>Last Updated:</strong></td><td>2014-02-18</td></tr></table><hr /><p style="color:red">WARNING: This document has not yet been accepted for consideration or approved in any official manner by the XMPP Standards Foundation, and this document is not yet an XMPP Extension Protocol (XEP). If this document is accepted as a XEP by the XMPP Council, it will be published at &lt;<a href="http://xmpp.org/extensions/">http://xmpp.org/extensions/</a>&gt; and announced on the &lt;standards@xmpp.org&gt; mailing list.</p><hr /><h2>Table of Contents</h2><div class="indent"><p><br />1.  <a href="#Buddycloud Introduction">Buddycloud Introduction</a><br />   
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>XEP-xxxx: Buddycloud Channels</title><link rel="stylesheet" type="text/css" href="xmpp/xmpp.css" /><link href="xmpp/prettify.css" type="text/css" rel="stylesheet" /><link rel="shortcut icon" type="image/x-icon" href="xmpp/favicon.ico" /><script type="text/javascript" src="xmpp/prettify.js"></script><meta name="DC.Title" content="Buddycloud Channels" /><meta name="DC.Creator" content="Simon Tennant" /><meta name="DC.Creator" content="Lloyd Watkin" /><meta name="DC.Creator" content="Ashley Ward" /><meta name="DC.Description" content="This document describes a profile and conventions for usage of the PubSub protocol in the context of a new type of communication." /><meta name="DC.Publisher" content="XMPP Standards Foundation" /><meta name="DC.Contributor" content="XMPP Extensions Editor" /><meta name="DC.Date" content="2014-02-19" /><meta name="DC.Type" content="XMPP Extension Protocol" /><meta name="DC.Format" content="XHTML" /><meta name="DC.Identifier" content="XEP-xxxx" /><meta name="DC.Language" content="en" /><meta name="DC.Rights" content="This XMPP Extension Protocol is copyright (c) 1999 - 2014&#10;        by the XMPP Standards Foundation (XSF).&#10;    " /></head><body onload="prettyPrint()"><h1>XEP-xxxx: Buddycloud Channels</h1><table><tr valign="top"><td><strong>Abstract:</strong></td><td>This document describes a profile and conventions for usage of the PubSub protocol in the context of a new type of communication.</td></tr><tr valign="top"><td><strong>Authors:</strong></td><td>Simon Tennant, Lloyd Watkin, Ashley Ward</td></tr><tr valign="top"><td><strong>Copyright:</strong></td><td>© 1999 - 2010 XMPP Standards Foundation. <a href="#appendix-legal">SEE LEGAL NOTICES</a>.</td></tr><tr valign="top"><td><strong>Status:</strong></td><td>ProtoXEP</td></tr><tr valign="top"><td><strong>Type:</strong></td><td>Standards Track</td></tr><tr valign="top"><td><strong>Version:</strong></td><td>0.0.1</td></tr><tr valign="top"><td><strong>Last Updated:</strong></td><td>2014-02-19</td></tr></table><hr /><p style="color:red">WARNING: This document has not yet been accepted for consideration or approved in any official manner by the XMPP Standards Foundation, and this document is not yet an XMPP Extension Protocol (XEP). If this document is accepted as a XEP by the XMPP Council, it will be published at &lt;<a href="http://xmpp.org/extensions/">http://xmpp.org/extensions/</a>&gt; and announced on the &lt;standards@xmpp.org&gt; mailing list.</p><hr /><h2>Table of Contents</h2><div class="indent"><p><br />1.  <a href="#Buddycloud Introduction">Buddycloud Introduction</a><br />   
       1.1.  <a href="#about-buddycloud">About Buddycloud</a><br />   
       1.2.  <a href="#Buddycloud Channels">Buddycloud Channels</a><br />   
       1.3.  <a href="#glossary">Glossary</a><br />2.  <a href="#Finding-the-right-Buddycloud-server">Service Discovery</a><br />   
@@ -10,7 +10,8 @@
       4.1.  <a href="#get-node-config">Get Node Configuration</a><br />   
       4.2.  <a href="#set-node-config">Set Node Configuration</a><br />   
       4.3.  <a href="#default roles">Default roles</a><br />   
-      4.4.  <a href="#sect-idp1616528"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
+      4.4.  <a href="#sect-idp1634832"></a><br />   
+      4.5.  <a href="#sect-idp1688848"></a><br />5.  <a href="#items">Pubsub Items</a><br />   
       5.1.  <a href="#items-delete">Deleting items</a><br />   
       5.2.  <a href="#item-payload">Item Payload</a><br />      
       5.2.1.  <a href="#item-publishing">Publishing</a><br />      
@@ -346,7 +347,7 @@
 			</table></div>
 		</p>
 	</div>
-	<div class="indent"><h3>4.4 <a name="sect-idp1616528" id="sect-idp1616528"></a></h3>
+	<div class="indent"><h3>4.4 <a name="sect-idp1634832" id="sect-idp1634832"></a></h3>
 		<p>
 			Buddycloud adapts XEP-0060's machine-to-machine-centric design with
 			logic and presets that work better in a social person-to-person and
@@ -356,16 +357,18 @@
 			<div class="indent"><p class="caption"><a name="table-4" id="table-4"></a>Table 4: channel read permissions</p><table border="1" cellpadding="3" cellspacing="0">
 				
 					<tr class="body">
-						<td>Channel Property</td>
-						<td>Access model</td>
-						<td>Example</td>
-						<td>Channel Producer</td>
-						<td>Channel Moderator</td>
-						<td>Follower+post</td>
-						<td>Follower</td>
-						<td>Anonymous (e.g. web)</td>
-						<td>Banned users</td>
+						<th>Property</th>
+						<th>Access model</th>
+						<th>Example</th>
+						<th>Channel Producer</th>
+						<th>Channel Moderator</th>
+						<th>Follower+post</th>
+						<th>Follower</th>
+						<th>Anonymous (e.g. web)</th>
+						<th>Banned users</th>
 					</tr>
+				
+				
 					<tr class="body">
 						<td>channel address</td>
 						<td>all</td>
@@ -483,6 +486,88 @@
 						<td>yes</td>
 						<td>yes</td>
 						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+				
+			</table></div>
+		</p>
+	</div>
+	<div class="indent"><h3>4.5 <a name="sect-idp1688848" id="sect-idp1688848"></a></h3>
+		<p>
+			<div class="indent"><p class="caption"><a name="table-5" id="table-5"></a>Table 5: channel write permissions</p><table border="1" cellpadding="3" cellspacing="0">
+				
+					<tr class="body">
+						<th>Property</th>
+						<th>Producer</th>
+						<th>Moderator</th>
+						<th>Follower+post</th>
+						<th>Follower</th>
+						<th>Anonymous (e.g. web)</th>
+						<th>Banned users</th>
+					</tr>
+				
+				
+					<tr class="body">
+						<td>channel address</td>
+						<td>only at creation time</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td>channel name</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td>change channel description</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td>change banned user list</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td>Approve pending subscriptions</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td>Create posts</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr class="body">
+						<td>Delete posts</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>own posts</td>
+						<td>no</td>
 						<td>no</td>
 						<td>no</td>
 					</tr>
@@ -776,74 +861,67 @@
     <p>See XEP 60.</p>
 <h2>7.
        <a name="affiliations" id="affiliations">Channel affiliations</a></h2>
-<div class="indent"><h3>7.1 <a name="affiliation-to-xep-60-mappings" id="affiliation-to-xep-60-mappings">Buddycloud to XEP-0060 mappings</a></h3>
-<p>
-	Buddycloud channels build on XEP-0060's node affiliations.
-	<div class="indent"><p class="caption"><a name="table-5" id="table-5"></a>Table 5: Channel Affiliations</p><table border="1" cellpadding="3" cellspacing="0">
-		<tr class="body">
-			<th>XEP-0060 Affiliation</th>
-			<th>Buddycloud Affiliation</th>
-			<th>Description</th>
-			<th>Can</th>
-			<th></th>
-		</tr>
-		<tr class="body">
-			<td>Owner</td>
-			<td>owner</td>
-			<td>The channel owner. Full access rights</td>
-			<td>Can add and delete moderators</td>
-			<td>REQUIRED</td>
-		</tr>
-		<tr class="body">
-			<td>-</td>
-			<td>moderator</td>
-			<td>A follower who has follower+post rights, rights to manage the
-				affiliation of entites with the node (except changing ownership),
-				and rights to manage the subscriptions of entities with the node.
-			</td>
-			<td>REQUIRED</td>
-		</tr>
-		<tr class="body">
-			<td>Publisher</td>
-			<td>follower+post</td>
-			<td>Entity can view posts and replies, publish new posts, and publish
-				replies to posts.
-			</td>
-			<td>REQUIRED</td>
-		</tr>
-		<tr class="body">
-			<td>Member</td>
-			<td>follower</td>
-			<td>Entity can view posts and replies for whitelist and open
-				channels, but cannot publish new posts or replies.
-			</td>
-			<td>REQUIRED</td>
-		</tr>
-		<tr class="body">
-			<td>None</td>
-			<td>none</td>
-			<td>Entity can view posts and replies for open channels, but cannot
-				publish new posts or replies.
-			</td>
-			<td>REQUIRED</td>
-		</tr>
-		<tr class="body">
-			<td>Outcast</td>
-			<td>outcast</td>
-			<td>Entity cannot view any posts or replies, and cannot publish new
-				posts or replies.
-			</td>
-			<td>RECOMMENDED</td>
-		</tr>
-	</table></div>
-</p>
-</div>
-<div class="indent"><h3>7.2 <a name="rules-nodeaffiliations" id="rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a></h3>
-	<p>
-		A Channel Server SHOULD maintain similar affiliations for a subscribed
-		entity across all the Nodes of a Channel.</p>
-
-		  <div class="indent"><h3>7.2.1 <a name="rules-affiliation-permissions" id="rules-affiliation-permissions">Affiliation permissions</a></h3>
+	<div class="indent"><h3>7.1 <a name="affiliation-to-xep-60-mappings" id="affiliation-to-xep-60-mappings">Buddycloud to XEP-0060 mappings</a></h3>
+		<p>
+			Buddycloud channels build on XEP-0060's node affiliations.
+			<div class="indent"><p class="caption"><a name="table-6" id="table-6"></a>Table 6: Channel Affiliations</p><table border="1" cellpadding="3" cellspacing="0">
+				<tr class="body">
+					<th>XEP-0060 Affiliation</th>
+					<th>Buddycloud Affiliation</th>
+					<th>Description</th>
+					<th>Can</th>
+				</tr>
+				<tr class="body">
+					<td>Owner</td>
+					<td>owner</td>
+					<td>The channel owner. Full access rights</td>
+					<td>Can add and delete moderators</td>
+				</tr>
+				<tr class="body">
+					<td>-</td>
+					<td>moderator</td>
+					<td>A follower who has follower+post rights, rights to manage the
+						affiliation of entites with the node (except changing ownership),
+						and rights to manage the subscriptions of entities with the node.
+					</td>
+				</tr>
+				<tr class="body">
+					<td>Publisher</td>
+					<td>follower+post</td>
+					<td>Entity can view posts and replies, publish new posts, and
+						publish replies to posts.
+					</td>
+				</tr>
+				<tr class="body">
+					<td>Member</td>
+					<td>follower</td>
+					<td>Entity can view posts and replies for whitelist and open
+						channels, but cannot publish new posts or replies.
+					</td>
+				</tr>
+				<tr class="body">
+					<td>None</td>
+					<td>none</td>
+					<td>Entity can view posts and replies for open channels, but cannot
+						publish new posts or replies.
+					</td>
+				</tr>
+				<tr class="body">
+					<td>Outcast</td>
+					<td>outcast</td>
+					<td>Entity cannot view any posts or replies, and cannot publish new
+						posts or replies.
+					</td>
+				</tr>
+			</table></div>
+		</p>
+	</div>
+	<div class="indent"><h3>7.2 <a name="rules-nodeaffiliations" id="rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a></h3>
+		<p>To avoid confusion between different clients and a general privacy
+			configuration confusion the Buddycloud server must maintain similar
+			affiliations for a subscribed entity across all of a channel's nodes.
+		</p>
+		<div class="indent"><h3>7.2.1 <a name="rules-affiliation-permissions" id="rules-affiliation-permissions">Affiliation permissions</a></h3>
 			<div class="indent"><dl>
 				<dt><strong>Producer</strong></dt>
 				<dd>the owner of a channel with the ability to add and remove
@@ -860,8 +938,8 @@
 					to topic channels and retract posts
 				</dd>
 			</dl></div>
-            </div>
-</div>
+		</div>
+	</div>
 <h2>8.
        <a name="federation" id="federation">Federation</a></h2>
 	<div class="indent"><h3>8.1 <a name="inbox" id="inbox">Inbox</a></h3>
@@ -888,7 +966,7 @@
             Type:
             <a href="http://xmpp.org/extensions/xep-0001.html#types-Standards Track">Standards Track</a><br />
             Version: 0.0.1<br />
-            Last Updated: 2014-02-18<br />
+            Last Updated: 2014-02-19<br />
                 Approving Body: <a href="http://xmpp.org/council/">XMPP Council</a><br />Dependencies: XMPP Core, XEP-0059, XEP-0060, XEP-0313, XEP-0255, XEP-0107<br />
                 Supersedes: None<br />
                 Superseded By: None<br />
@@ -955,7 +1033,7 @@
         <a href="http://www.xmpp.org/extensions/ipr-policy.shtml">http://www.xmpp.org/extensions/ipr-policy.shtml</a>
         &gt; or obtained by writing to XSF, P.O. Box 1641, Denver, CO 80201
         USA).
-    </div><hr /><a name="appendix-xmpp" id="appendix-xmpp"></a><h3>Appendix D: Relation to XMPP</h3><p class="indent">The Extensible Messaging and Presence Protocol (XMPP) is defined in the XMPP Core (RFC 3920) and XMPP IM (RFC 3921) specifications contributed by the XMPP Standards Foundation to the Internet Standards Process, which is managed by the Internet Engineering Task Force in accordance with RFC 2026. Any protocol defined in this document has been developed outside the Internet Standards Process and is to be understood as an extension to XMPP rather than as an evolution, development, or modification of XMPP itself.</p><hr /><a name="appendix-discuss" id="appendix-discuss"></a><h3>Appendix E: Discussion Venue</h3><p class="indent">The primary venue for discussion of XMPP Extension Protocols is the &lt;<a href="http://mail.jabber.org/mailman/listinfo/standards">standards@xmpp.org</a>&gt; discussion list.</p><p class="indent">Discussion on other xmpp.org discussion lists might also be appropriate; see &lt;<a href="http://xmpp.org/about/discuss.shtml">http://xmpp.org/about/discuss.shtml</a>&gt; for a complete list.</p><p class="indent">Errata can be sent to &lt;<a href="mailto:editor@xmpp.org">editor@xmpp.org</a>&gt;.</p><hr /><a name="appendix-conformance" id="appendix-conformance"></a><h3>Appendix F: Requirements Conformance</h3><p class="indent">The following requirements keywords as used in this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>: "MUST", "SHALL", "REQUIRED"; "MUST NOT", "SHALL NOT"; "SHOULD", "RECOMMENDED"; "SHOULD NOT", "NOT RECOMMENDED"; "MAY", "OPTIONAL".</p><hr /><a name="appendix-notes" id="appendix-notes"></a><h3>Appendix G: Notes</h3><div class="indent"></div><hr /><a name="appendix-revs" id="appendix-revs"></a><h3>Appendix H: Revision History</h3><p>Note: Older versions of this specification might be available at <a href="http://xmpp.org/extensions/attic/">http://xmpp.org/extensions/attic/</a></p><div class="indent"><h4>Version 0.0.1 (2014-02-18)</h4><div class="indent">
+    </div><hr /><a name="appendix-xmpp" id="appendix-xmpp"></a><h3>Appendix D: Relation to XMPP</h3><p class="indent">The Extensible Messaging and Presence Protocol (XMPP) is defined in the XMPP Core (RFC 3920) and XMPP IM (RFC 3921) specifications contributed by the XMPP Standards Foundation to the Internet Standards Process, which is managed by the Internet Engineering Task Force in accordance with RFC 2026. Any protocol defined in this document has been developed outside the Internet Standards Process and is to be understood as an extension to XMPP rather than as an evolution, development, or modification of XMPP itself.</p><hr /><a name="appendix-discuss" id="appendix-discuss"></a><h3>Appendix E: Discussion Venue</h3><p class="indent">The primary venue for discussion of XMPP Extension Protocols is the &lt;<a href="http://mail.jabber.org/mailman/listinfo/standards">standards@xmpp.org</a>&gt; discussion list.</p><p class="indent">Discussion on other xmpp.org discussion lists might also be appropriate; see &lt;<a href="http://xmpp.org/about/discuss.shtml">http://xmpp.org/about/discuss.shtml</a>&gt; for a complete list.</p><p class="indent">Errata can be sent to &lt;<a href="mailto:editor@xmpp.org">editor@xmpp.org</a>&gt;.</p><hr /><a name="appendix-conformance" id="appendix-conformance"></a><h3>Appendix F: Requirements Conformance</h3><p class="indent">The following requirements keywords as used in this document are to be interpreted as described in <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119</a>: "MUST", "SHALL", "REQUIRED"; "MUST NOT", "SHALL NOT"; "SHOULD", "RECOMMENDED"; "SHOULD NOT", "NOT RECOMMENDED"; "MAY", "OPTIONAL".</p><hr /><a name="appendix-notes" id="appendix-notes"></a><h3>Appendix G: Notes</h3><div class="indent"></div><hr /><a name="appendix-revs" id="appendix-revs"></a><h3>Appendix H: Revision History</h3><p>Note: Older versions of this specification might be available at <a href="http://xmpp.org/extensions/attic/">http://xmpp.org/extensions/attic/</a></p><div class="indent"><h4>Version 0.0.1 (2014-02-19)</h4><div class="indent">
             <p>First draft.</p>
          (sdt)
     </div></div><hr /><p>END</p></body></html>
