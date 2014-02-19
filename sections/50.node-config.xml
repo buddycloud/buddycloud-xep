@@ -4,7 +4,7 @@
 		a channel have the same metadata and permission.
 	</p>
 	<section2 topic='Get Node Configuration' anchor='get-node-config'> - using
-		disco-info with the node specified - using xep-60 5.4 Discover Node
+		disco-info with the node specified - using XEP-0060 5.4 Discover Node
 		Metadata
 	</section2>
 	<section2 topic='Set Node Configuration' anchor='set-node-config'> set Not sure

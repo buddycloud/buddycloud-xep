@@ -1,5 +1,5 @@
 <section1 topic="Channel affiliations" anchor='affiliations'>
-<section2 topic='Buddycloud to XEP-0060 mappings' anchor='affiliation-to-xep-60-mappings'>
+<section2 topic='Buddycloud to XEP-0060 mappings' anchor='affiliation-to-xep-0060-mappings'>
 <p>
 	Buddycloud channels build on XEP-0060's node affiliations.
 	<table caption="Channel Affiliations">
