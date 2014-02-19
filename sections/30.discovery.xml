@@ -1,80 +1,98 @@
-<section1 topic='Service Discovery' anchor='servicediscovery'>
-	<p>Service discovery happens per domain, and is a multi step process.
+<?xml version="1.0" encoding="UTF-8"?>
+<section1
+	topic='Service Discovery'
+	anchor='Finding-the-right-Buddycloud-server'>
+	<p>Each XMPP domain can have one Buddycloud server that serves user's
+		channels. Buddycloud clients and servers need to be able to discover
+		the authoratative Buddycloud server. find the
 	</p>
-	<p>To discover the channels component for a domain, the entity first
-		sends an items discovery request to the domain to discover all the
-		available components.
-	</p>
-	<example caption="The Entity sends a disco#items request to the domain">
-  <![CDATA[
-  <iq type='get'
-  from='juliet@capulet.lit/balcony'
-  to='capulet.lit'
-  id='items1'>
+	<section2
+		topic='Discovery order'
+		anchor='DISCOorDNS'>
+		<p>
+			To find the correct remote Buddycloud server for a domain, the
+			Buddycloud server will
+			<ol>
+				<li>attempt discovery the responsible Buddycloud Server using a
+					disco#item query,
+				</li>
+			</ol>
+			<li>if no suitable answer comes back, use the DNS discovery method.
+			</li>
+		</p>
+	</section2>
+	<section2
+		topic='Discovery using Disco'
+		anchor='Discovering the Buddycloud server using Disco'>
+		<p>The Buddycloud server first sends an items discovery request to the
+			domain to discover all the available components.
+		</p>
+		<example caption="The Entity sends a disco#items request to the domain">
+<![CDATA[
+<iq type='get' from='juliet@capulet.lit/balcony' to='capulet.lit' id='items1'>
   <query xmlns='http://jabber.org/protocol/disco#items'/>
-  </iq>
-  ]]>
-	</example>
-	<p>The server replies with the list of available components, along with
-		their associated JIDs.
-	</p>
-	<example caption="The server replies with a list of available components.">
+</iq>]]>
+		</example>
+		<p>The server replies with the list of available components, along
+			with their associated JIDs.
+		</p>
+		<example caption="The server replies with a list of available components.">
   <![CDATA[
-  <iq type='result' from='capulet.lit' to='juliet@capulet.lit/balcony'
-  id='items1'>
+<iq type='result' from='capulet.lit' to='juliet@capulet.lit/balcony' id='items1'>
   <query xmlns='http://jabber.org/protocol/disco#items'>
-  <item jid='muc.capulet.lit' name='Chatrooms' />
-  <item jid='buddycloud.capulet.lit' name='Buddycloud Server' />
+    <item jid='muc.capulet.lit' name='Chatrooms' />
+    <item jid='buddycloud.capulet.lit' name='Buddycloud Server' />
   </query>
-  </iq>
+</iq>
   ]]>
-	</example>
-	<p>The entity then iterates through the &lt;item/&gt; elements, sending
-		an info discovery request to each jid. 
-	</p>
-	<example caption="The Entity sends a disco#info request to each component">
+		</example>
+		<p>The entity then iterates through the &lt;item/&gt; elements,
+			sending an info discovery request to each JID. 
+		</p>
+		<example caption="The Entity sends a disco#info request to each component">
+<![CDATA[
+<iq type='get' from='juliet@capulet.lit/balcony' to='buddycloud.capulet.lit' id='info1'>
+  <query xmlns='http://jabber.org/protocol/disco#info'/>
+</iq>
+]]>
+		</example>
+		<p>Each component replies with its identity. The Buddycloud server has
+			an identity of category 'pubsub' and type 'channels'.
+		</p>
+		<p>A domain MUST only host one component with an identity of category
+			'pubsub' and type 'channels'.
+		</p>
+		<example caption="The Buddycloud server replies with its identity">
   <![CDATA[
-        <iq type='get'
-                from='juliet@capulet.lit/balcony'
-                to='buddycloud.capulet.lit'
-                id='info1'>
-                <query xmlns='http://jabber.org/protocol/disco#info'/>
-        </iq>
-        ]]>
-	</example>
-	<p>Each component replies with its identity. The channels component has
-		an identity of category 'pubsub' and type 'channels'.
-	</p>
-	<p> A domain MUST only host one component with an identity of category
-		'pubsub' and type 'channels'.
-	</p>
-	<example caption="The Buddycloud component replies with its identity">
-  <![CDATA[
-  <iq type='result' from='buddycloud.capulet.lit' to='juliet@capulet.lit/BuddycloudApp'
-  id='info2'>
+<iq type='result' from='buddycloud.capulet.lit' to='juliet@capulet.lit/BuddycloudApp' id='info2'>
   <query xmlns='http://jabber.org/protocol/disco#info'>
-  <identity category='pubsub' type='channels' />
-  <identity category='pubsub' type='inbox' />
-  <feature var='jabber:iq:register' />
-  <feature var='http://jabber.org/protocol/disco#info' />
-  <feature var='jabber:iq:search' />
+    <identity category='pubsub' type='channels' />
+    <identity category='pubsub' type='inbox' />
+    <feature var='jabber:iq:register' />
+    <feature var='http://jabber.org/protocol/disco#info' />
+    <feature var='jabber:iq:search' />
   </query>
-  </iq>
+</iq>
   ]]>
-	</example>
-	<section2 topic='DNS Discovery' anchor='servicediscovery-dnsdiscovery'>
-		<p>Buddycloud components can also be discovered using a DNS PTR record
-			formatted as follows.</p>
-    <example caption="PTR record for buddycloud server discovery">
+		</example>
+	</section2>
+	<section2
+		topic='Discovery using DNS'
+		anchor='Discovering the Buddycloud server using DNS'>
+		<p>In the case that no server is found via disco, DNS should be used
+			to discover the Buddycloud server. A PTR record can be used to
+			delegate Buddycloud services to a remote Buddycloud server.
+		</p>
+		<example caption="PTR record for buddycloud server discovery">
     <![CDATA[
     _buddycloud-server._tcp.montague.lit. PTR buddycloud-component.verona.lit.
     ]]>
-  </example>
-                
-	</section2>
-	<section2 topic='Discovery priority' anchor='which-has-prio'>
-		<p> In the case of conflicting answers, the DNS result is
-			authoritative. This permits domain owners to run Buddycloud on domains on "chat only" domains such as google hosted apps.
+		</example>
+		<p>
+			This example delegates all the Buddycloud service to a Buddycloud
+			server running as an XMPP component named
+			<i>buddycloud-component.verona.lit</i>
+			.
 		</p>
 	</section2>
 </section1>

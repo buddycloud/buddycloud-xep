@@ -1,0 +1,238 @@
+<section1
+	topic="Business Logic"
+	anchor="biz-logic">
+	<section2>
+		<p>
+			Buddycloud adapts XEP-0060's machine-to-machine-centric design with
+			logic and presets that work better in a social person-to-person and
+			person-to-group environment. For example, to discourage "glorifying
+			the wicked", the list of banned users is only presented to the
+			channel's moderators.
+			<table caption="channel read permissions">
+				<thead>
+					<tr>
+						<th>Property</th>
+						<th>Access model</th>
+						<th>Example</th>
+						<th>Channel Producer</th>
+						<th>Channel Moderator</th>
+						<th>Follower+post</th>
+						<th>Follower</th>
+						<th>Anonymous (e.g. web)</th>
+						<th>Banned users</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>channel address</td>
+						<td>all</td>
+						<td>juliet@capulet.lit</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr>
+						<td>channel name</td>
+						<td>all</td>
+						<td>Posts about Romeo</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr>
+						<td>channel description</td>
+						<td>all</td>
+						<td>Posts and photos of my darling Romeo. This is not a place for
+							Verona gossip.
+						</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr>
+						<td>banned user list</td>
+						<td>all</td>
+						<td>father@montague.lit</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>pending subscription list</td>
+						<td>all</td>
+						<td>nurse@capulet.lit</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td rowspan="3">channel posts</td>
+						<td>open</td>
+						<td rowspan="3">O Romeo, Romeo! Wherefore art thou Romeo? Deny thy
+							father and refuse thy name. Or, if thou wilt not, be but sworn my
+							love, And I’ll no longer be a Capulet.
+						</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr>
+						<td>authorize</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>local</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td rowspan="3">followers, moderators and owner</td>
+						<td>open</td>
+						<td rowspan="3">tybalt@capulet.lit, servant@capulet.lit,
+							peter@capulet.lit
+						</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+					</tr>
+					<tr>
+						<td>authorise</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>local</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+				</tbody>
+			</table>
+		</p>
+		<p>
+			<table caption="channel write permissions">
+				<thead>
+					<tr>
+						<th>Property</th>
+						<th>Producer</th>
+						<th>Moderator</th>
+						<th>Follower+post</th>
+						<th>Follower</th>
+						<th>Anonymous (e.g. web)</th>
+						<th>Banned users</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>channel address</td>
+						<td>only at creation time</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>channel name</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>change channel description</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>change banned user list</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>Approve pending subscriptions</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>Create posts</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+					<tr>
+						<td>Delete posts</td>
+						<td>yes</td>
+						<td>yes</td>
+						<td>own posts</td>
+						<td>no</td>
+						<td>no</td>
+						<td>no</td>
+					</tr>
+				</tbody>
+			</table>
+		</p>
+	</section2>
+	<section2
+		topic='Maintain Similar Affiliations across Channel Nodes'
+		anchor='rules-nodeaffiliations'>
+		<p>To avoid confusion between different clients and a general privacy
+			configuration confusion the Buddycloud server must maintain similar
+			affiliations for a subscribed entity across all of a channel's nodes.
+		</p>
+	</section2>
+</section1>
