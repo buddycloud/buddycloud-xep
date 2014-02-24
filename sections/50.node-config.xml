@@ -77,12 +77,19 @@
 			<tr>
 				<td>Channel Creation Date</td>
 				<td>pubsub#creation_date</td>
-				<td>"2011-01-31T23:59:42"</td>
+				<td>"1997-08-29T02:14:42-05:00Z"</td>
 				<td>When the channel was created in ISO 8601 time format. Set by the
 					server at creation. Not user changeable.
 				</td>
 				<td>N.A.</td>
 			</tr>
+            <tr>
+                <td>Channel Updated Date</td>
+                <td>buddycloud#updated_date</td>
+                <td>"2011-04-21T20:11:00-05:00Z"</td>
+                <td>The date the channel configuration was later updated in ISO 8601 time format.
+                Set by the server. Not user changable.</td>
+            </tr>
 		</table>
 		<p>Channel owners and moderators can also set the default affiliation
 			for the channel
