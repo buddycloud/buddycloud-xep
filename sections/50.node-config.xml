@@ -89,6 +89,7 @@
                 <td>"2011-04-21T20:11:00-05:00Z"</td>
                 <td>The date the channel configuration was later updated in ISO 8601 time format.
                 Set by the server. Not user changable.</td>
+                <td>N.A.</td>
             </tr>
 		</table>
 		<p>Channel owners and moderators can also set the default affiliation
