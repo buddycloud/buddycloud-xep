@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<section1
-	topic='Service Discovery'
-	anchor='Finding-the-right-Buddycloud-server'>
+<section1 topic='Service Discovery' anchor='Finding-the-right-Buddycloud-server'>
 	<p>Each XMPP domain can have one Buddycloud server that serves user's
 		channels. Buddycloud clients and servers need to be able to discover
 		the authoratative Buddycloud server. find the
 	</p>
-	<section2
-		topic='Discovery order'
-		anchor='DISCOorDNS'>
+	<section2 topic='Discovery order' anchor='DISCOorDNS'>
 		<p>
 			To find the correct remote Buddycloud server for a domain, the
-			Buddycloud server will
+			Buddycloud server should
 			<ol>
-				<li>attempt discovery the responsible Buddycloud Server using a
-					disco#item query,
+				<li>Use a disco#items query against the XMPP server for the remote
+					Buddycloud domain.
+				</li>
+				<li>If no answer is returned (perhaps the remote server doesn't run
+					a full XMPP service) the Buddycloud server should proceed to use
+					the DNS discovery method.
 				</li>
 			</ol>
-			<li>if no suitable answer comes back, use the DNS discovery method.
-			</li>
 		</p>
 	</section2>
-	<section2
-		topic='Discovery using Disco'
+	<section2 topic='Discovery using Disco'
 		anchor='Discovering the Buddycloud server using Disco'>
 		<p>The Buddycloud server first sends an items discovery request to the
 			domain to discover all the available components.
@@ -76,9 +73,7 @@
   ]]>
 		</example>
 	</section2>
-	<section2
-		topic='Discovery using DNS'
-		anchor='Discovering the Buddycloud server using DNS'>
+	<section2 topic='Discovery using DNS' anchor='Discovering the Buddycloud server using DNS'>
 		<p>In the case that no server is found via disco, DNS should be used
 			to discover the Buddycloud server. A PTR record can be used to
 			delegate Buddycloud services to a remote Buddycloud server.
