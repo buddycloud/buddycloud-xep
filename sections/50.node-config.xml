@@ -124,7 +124,7 @@
 					<th>Description</th>
 				</tr>
 				<tr>
-					<td>authorise</td>
+					<td>authorize</td>
 					<td>The channel is only viewable by it's producer, followers,
 						followers+post and moderators.
 					</td>
