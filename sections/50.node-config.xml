@@ -53,7 +53,7 @@
 			</tr>
 			<tr>
 				<td>Channel Creator</td>
-				<td>buddycloud#channel_creator</td>
+				<td>pubsub#creator</td>
 				<td>mercutio@capulet.lit</td>
 				<td>The channel creator's JID</td>
 				<td>Dependent on Node</td>
