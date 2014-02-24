@@ -4,7 +4,8 @@ before_install:
   - rm -f buddycloud.xml
 script:
   - make
-after_success: 
+after_success:
+  - if [ "master" -ne $TRAVIS_BRANCH ] exit 0 
   - git config --global user.email "deploy@travis-ci.org"
   - git config --global user.name "Travis deploy"
   - cp index.html ~/
@@ -21,6 +22,3 @@ after_success:
 env:
   global:
   - secure: 'EF0sdrfSkfTIjaQwlFyC+Ma9IOwlKh1N7qKDS0RMo7goq+5cFXOMXvlYguuxPX6YnxBFRWhTz5NNMjeCfjchET0Mu5mvD9aS4g38yAYHsqD0pBxgjXx01rkVo45dtrwASHUWhbupAde7ppbYKbjY5spOvFvyI57Vo/9hcrazyVk='
-branches:
-  only:
-    - master
