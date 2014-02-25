@@ -13,7 +13,7 @@
     <xi:include href="sections/30.discovery.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
     <xi:include href="sections/40.register.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
     <xi:include href="sections/50.node-config.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
-	<xi:include	href="sections/55.application-logic.xml" xmlns:xi="http://www.w3.org/2001/XInclude"	parse="xml" />
+    <xi:include	href="sections/55.application-logic.xml" xmlns:xi="http://www.w3.org/2001/XInclude"	parse="xml" />
     <xi:include href="sections/60.items.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
     <xi:include href="sections/70.subscriptions.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
     <xi:include href="sections/80.affiliations.xml" xmlns:xi="http://www.w3.org/2001/XInclude" parse="xml" />
