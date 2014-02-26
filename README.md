@@ -3,6 +3,8 @@ buddycloud-xep
 
 This XEP defines the XMPP protocol for buddycloud servers and clients.
 
+Built using https://github.com/lloydwatkin/xep-builder
+
 ## Building the XEP
 
 ```bash

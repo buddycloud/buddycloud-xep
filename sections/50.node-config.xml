@@ -53,7 +53,7 @@
 			</tr>
 			<tr>
 				<td>Channel Creator</td>
-				<td>buddycloud#channel_creator</td>
+				<td>pubsub#creator</td>
 				<td>mercutio@capulet.lit</td>
 				<td>The channel creator's JID</td>
 				<td>Dependent on Node</td>
@@ -77,7 +77,7 @@
 			<tr>
 				<td>Channel Creation Date</td>
 				<td>pubsub#creation_date</td>
-				<td>"2011-01-31T23:59:42"</td>
+				<td>"1997-08-29T02:14:42-05:00Z"</td>
 				<td>When the channel was created in ISO 8601 time format. Set by the
 					server at creation. Not user changeable.
 				</td>
@@ -88,6 +88,15 @@
                 <td>pubsub#type</td>
                 <td>http://www.w3.org/2005/Atom</td>
                 <td>The type of content held within this node.</td>
+                <td>N.A.</td>
+            </tr>
+            <tr>
+                <td>Channel Updated Date</td>
+                <td>buddycloud#updated_date</td>
+                <td>"2011-04-21T20:11:00-05:00Z"</td>
+                <td>The date the channel configuration was later updated in ISO 8601 time format.
+                Set by the server. Not user changable.</td>
+                <td>N.A.</td>
             </tr>
 		</table>
 		<p>Channel owners and moderators can also set the default affiliation

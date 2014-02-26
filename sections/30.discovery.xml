@@ -4,7 +4,7 @@
 		channels. Buddycloud clients and servers need to be able to discover
 		the authoratative Buddycloud server. find the
 	</p>
-	<section2 topic='Discovery order' anchor='DISCOorDNS'>
+	<section2 topic='Discovery order' anchor='DISCOthenDNS'>
 		<p>
 			To find the correct remote Buddycloud server for a domain, the
 			Buddycloud server should
