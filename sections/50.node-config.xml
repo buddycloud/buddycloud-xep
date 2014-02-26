@@ -88,7 +88,7 @@
                 <td>pubsub#type</td>
                 <td>http://www.w3.org/2005/Atom</td>
                 <td>The type of content held within this node.</td>
-                <td>N.A.</td>
+                <td>http://www.w3.org/2005/Atom</td>
             </tr>
             <tr>
                 <td>Channel Updated Date</td>
