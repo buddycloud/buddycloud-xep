@@ -157,7 +157,7 @@
 				: A reply must be made to an existing post within the same node
 			</li>
 			<li>
-				<em>max-tread-depth-exceeded</em>
+				<em>max-thread-depth-exceeded</em>
 				: An attempt to comment on a comment will result in this error response
 			</li>
 		</ul>
