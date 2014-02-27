@@ -51,7 +51,7 @@
 				</dd>
 			</di>
 			<di>
-				<dt>Budycloud Server</dt>
+				<dt>Buddycloud Server</dt>
 				<dd>An XMPP component which hosts channel nodes and provides an
 					interface conforming to this document to allow access to them via
 					XMPP.
