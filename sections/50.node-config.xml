@@ -1,25 +1,21 @@
 
 <section1 topic='Channel and Node Configuration' anchor='channel-config'>
-	<p>Node metadata is used to describe the channel to users. All nodes in
-		a channel have the same metadata and permission.
+	<p>Node metadata is used to describe the channel to users. All nodes in a channel have the same metadata and
+		permission.
 	</p>
-	<section2 topic='Get Node Configuration' anchor='get-node-config'> - using
-		disco-info with the node specified - using XEP-0060 5.4 Discover Node
-		Metadata
+	<section2 topic='Get Node Configuration' anchor='get-node-config'> - using disco-info with the node specified - using XEP-0060
+		5.4 Discover Node Metadata
 	</section2>
-	<section2 topic='Set Node Configuration' anchor='set-node-config'> set Not sure
-		what goes here?
+	<section2 topic='Set Node Configuration' anchor='set-node-config'> set Not sure what goes here?
 	</section2>
 	<section2 topic='Default roles' anchor='default roles'>
 		<p> minimum setting/optional recommended fallbacks
 		</p>
-		<p>Channel metadata is stored as node metadata against the /posts node
-			of the channel. It is recommended that all channel nodes have the
-			same permissions and an update to one updates the others.
+		<p>Channel metadata is stored as node metadata against the /posts node of the channel. It is recommended that all
+			channel nodes have the same permissions and an update to one updates the others.
 		</p>
 		<p>
-			Most metadata fields used for Channels are already defined in <!-- how 
-				do we ref this? -->
+			Most metadata fields used for Channels are already defined in <!-- how do we ref this? -->
 			xep0060;. The relevant ones are listed below.
 		</p>
 		<table caption="Channel Metadata Fields">
@@ -69,8 +65,7 @@
 				<td>Channel Type</td>
 				<td>Buddycloud#channel_type</td>
 				<td>"personal"</td>
-				<td>The type of this channel. (see below). Set by the server at
-					creation. Not user changable.
+				<td>The type of this channel. (see below). Set by the server at creation. Not user changable.
 				</td>
 				<td>N.A.</td>
 			</tr>
@@ -78,22 +73,21 @@
 				<td>Channel Creation Date</td>
 				<td>pubsub#creation_date</td>
 				<td>"1997-08-29T02:14:42-05:00Z"</td>
-				<td>When the channel was created in ISO 8601 time format. Set by the
-					server at creation. Not user changeable.
+				<td>When the channel was created in ISO 8601 time format. Set by the server at creation. Not user changeable.
 				</td>
 				<td>N.A.</td>
 			</tr>
-            <tr>
-                <td>Channel Updated Date</td>
-                <td>buddycloud#updated_date</td>
-                <td>"2011-04-21T20:11:00-05:00Z"</td>
-                <td>The date the channel configuration was later updated in ISO 8601 time format.
-                Set by the server. Not user changable.</td>
-                <td>N.A.</td>
-            </tr>
+			<tr>
+				<td>Channel Updated Date</td>
+				<td>buddycloud#updated_date</td>
+				<td>"2011-04-21T20:11:00-05:00Z"</td>
+				<td>The date the channel configuration was later updated in ISO 8601 time format. Set by the server. Not user
+					changable.
+				</td>
+				<td>N.A.</td>
+			</tr>
 		</table>
-		<p>Channel owners and moderators can also set the default affiliation
-			for the channel
+		<p>Channel owners and moderators can also set the default affiliation for the channel
 		</p>
 		<p>
 			<table caption="Channel Types">
@@ -116,8 +110,7 @@
 					<td>local</td>
 					<td>
 						<p>Appears as an open channel to local users on that domain.</p>
-						<p>Appears as a closed channel to users on remote Buddycloud
-							domains.
+						<p>Appears as a closed channel to users on remote Buddycloud domains.
 						</p>
 					</td>
 					<td>montague-family-channel@montague.lit
@@ -133,8 +126,7 @@
 				</tr>
 				<tr>
 					<td>authorize</td>
-					<td>The channel is only viewable by it's producer, followers,
-						followers+post and moderators.
+					<td>The channel is only viewable by it's producer, followers, followers+post and moderators.
 					</td>
 				</tr>
 				<tr>
@@ -145,147 +137,11 @@
 					<td>local</td>
 					<td>
 						<p>Appears as an open channel to local users on that domain.</p>
-						<p>Appears as a closed channel to users on remote Buddycloud
-							domains.
+						<p>Appears as a closed channel to users on remote Buddycloud domains.
 						</p>
 					</td>
 				</tr>
 			</table>
 		</p>
-	</section2>
-	<section2>
-	<table caption="Read permissions">
-			<tbody>
-				<tr>
-					<td>Entity</td>
-					<td>Access model</td>
-					<td>Example</td>
-					<td>Channel Producer</td>
-					<td>Channel Moderator</td>
-					<td>Follower+post</td>
-					<td>Follower</td>
-					<td>Anonymous (e.g. web)</td>
-					<td>Banned users</td>
-				</tr>
-				<tr>
-					<td>channel address</td>
-					<td>all</td>
-					<td>juliet@capulet.lit</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-				</tr>
-				<tr>
-					<td>channel name</td>
-					<td>all</td>
-					<td>Posts about Romeo</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-				</tr>
-				<tr>
-					<td>channel description</td>
-					<td>all</td>
-					<td>Posts and photos of my darling Romeo.</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-				</tr>
-				<tr>
-					<td>banned user list</td>
-					<td>all</td>
-					<td>father@montague.lit</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-				<tr>
-					<td>pending channel subscriptions</td>
-					<td>all</td>
-					<td>nurse@capulet.lit</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-				<tr>
-					<td rowspan="3">channel posts</td>
-					<td>open</td>
-					<td rowspan="3">O Romeo, Romeo! Wherefore art thou Romeo? Deny thy
-						father and refuse thy name. Or, if thou wilt not, be but sworn my
-						love, And I’ll no longer be a Capulet.
-					</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-				</tr>
-				<tr>
-					<td>authorize</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-				<tr>
-					<td>local</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-				<tr>
-					<td rowspan="3">follower, moderator and owner lists
-					</td>
-					<td>open</td>
-					<td rowspan="3">tybalt@capulet.lit, servant@capulet.lit, peter@capulet.lit
-					</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-				</tr>
-				<tr>
-					<td>authorize</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-				<tr>
-					<td>local</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>yes</td>
-					<td>no</td>
-					<td>no</td>
-				</tr>
-			</tbody>
-		</table>
 	</section2>
 </section1>
