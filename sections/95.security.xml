@@ -11,7 +11,7 @@
 	<section2 topic="Default Role"
 		anchor="security-considerations-with-follower+post-role">
 		<p>Open channel where members join with a follow+post role present an
-			attractive target for spamming and maliscious behavior. This default
+			attractive target for spamming and malicious behavior. This default
 			role should be use with caution especially when the Buddycloud server
 			federates with remote Buddycloud-enabled domains.
 		</p>
