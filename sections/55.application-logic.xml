@@ -1,9 +1,11 @@
 <section1 topic="Business Logic" anchor="biz-logic">
-	<section2 topic="Human to Human" anchor="PubSub-for-humans">
-		<p>
-			Buddycloud adapts XEP-0060's machine-to-machine-centric design with logic and presets that work better in a social
-			person-to-person and person-to-group environment. For example, to discourage "glorifying the wicked", the list of
+	<section2 topic="PubSub for Humans" anchor="PubSub-for-humans">
+		<p> Buddycloud adapts XEP-0060's machine-to-machine design goals with logic
+			and presets that work better in a social person-to-person and person-to-group
+			environment. For example, to discourage "glorifying the wicked", the list of
 			banned users is only presented to the channel's moderators.
+		</p>
+		<p>
 			<table caption="channel read permissions">
 				<thead>
 					<tr>
@@ -44,7 +46,8 @@
 					<tr>
 						<td>channel description</td>
 						<td>all</td>
-						<td>Posts and photos of my darling Romeo. This is not a place for Verona gossip.
+						<td>Posts and photos of my darling Romeo. This is not a place for Verona
+							gossip.
 						</td>
 						<td>yes</td>
 						<td>yes</td>
@@ -78,8 +81,9 @@
 					<tr>
 						<td rowspan="3">channel posts</td>
 						<td>open</td>
-						<td rowspan="3">O Romeo, Romeo! Wherefore art thou Romeo? Deny thy father and refuse thy name. Or, if thou wilt
-							not, be but sworn my love, And I’ll no longer be a Capulet.
+						<td rowspan="3">O Romeo, Romeo! Wherefore art thou Romeo? Deny thy father
+							and refuse thy name. Or, if thou wilt not, be but sworn my love, And I’ll
+							no longer be a Capulet.
 						</td>
 						<td>yes</td>
 						<td>yes</td>
@@ -220,9 +224,15 @@
 			</table>
 		</p>
 	</section2>
-	<section2 topic='Maintain Similar Affiliations across Channel Nodes' anchor='rules-nodeaffiliations'>
-		<p>To avoid confusion between different clients and a general privacy configuration confusion the Buddycloud server
-			must maintain similar affiliations for a subscribed entity across all of a channel's nodes.
+	<section2 topic='Maintain Similar Affiliations across Channel Nodes'
+		anchor='rules-nodeaffiliations'>
+		<p>To avoid confusion between different clients and a general privacy
+			configuration confusion the Buddycloud server must maintain similar
+			affiliations for a subscribed entity across all of a channel's nodes. For
+			example a user concerned about privacy and changes their channel from open to
+			whitelist. The server should automatically ensure that all nodes belonging to
+			that channel are updated. At no point should the use need to hunt though
+			privacy settings per individual node.
 		</p>
 	</section2>
 </section1>
