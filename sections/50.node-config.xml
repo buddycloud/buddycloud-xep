@@ -1,21 +1,24 @@
 
 <section1 topic='Channel and Node Configuration' anchor='channel-config'>
-	<p>Node metadata is used to describe the channel to users. All nodes in a channel have the same metadata and
-		permission.
+	<p>Node metadata is used to describe the channel to users. All nodes in a
+		channel have the same metadata and permission.
 	</p>
-	<section2 topic='Get Node Configuration' anchor='get-node-config'> - using disco-info with the node specified - using XEP-0060
-		5.4 Discover Node Metadata
+	<section2 topic='Get Node Configuration' anchor='get-node-config'> - using disco-info
+		with the node specified - using XEP-0060 5.4 Discover Node Metadata
 	</section2>
-	<section2 topic='Set Node Configuration' anchor='set-node-config'> set Not sure what goes here?
+	<section2 topic='Set Node Configuration' anchor='set-node-config'> set Not sure what
+		goes here?
 	</section2>
 	<section2 topic='Default roles' anchor='default roles'>
 		<p> minimum setting/optional recommended fallbacks
 		</p>
-		<p>Channel metadata is stored as node metadata against the /posts node of the channel. It is recommended that all
-			channel nodes have the same permissions and an update to one updates the others.
+		<p>Channel metadata is stored as node metadata against the /posts node of the
+			channel. It is recommended that all channel nodes have the same permissions
+			and an update to one updates the others.
 		</p>
 		<p>
-			Most metadata fields used for Channels are already defined in <!-- how do we ref this? -->
+			Most metadata fields used for Channels are already defined in <!-- how do we ref 
+				this? -->
 			xep0060;. The relevant ones are listed below.
 		</p>
 		<table caption="Channel Metadata Fields">
@@ -65,7 +68,8 @@
 				<td>Channel Type</td>
 				<td>Buddycloud#channel_type</td>
 				<td>"personal"</td>
-				<td>The type of this channel. (see below). Set by the server at creation. Not user changable.
+				<td>The type of this channel. (see below). Set by the server at creation.
+					Not user changable.
 				</td>
 				<td>N.A.</td>
 			</tr>
@@ -73,7 +77,8 @@
 				<td>Channel Creation Date</td>
 				<td>pubsub#creation_date</td>
 				<td>"1997-08-29T02:14:42-05:00Z"</td>
-				<td>When the channel was created in ISO 8601 time format. Set by the server at creation. Not user changeable.
+				<td>When the channel was created in ISO 8601 time format. Set by the server
+					at creation. Not user changeable.
 				</td>
 				<td>N.A.</td>
 			</tr>
@@ -81,13 +86,14 @@
 				<td>Channel Updated Date</td>
 				<td>buddycloud#updated_date</td>
 				<td>"2011-04-21T20:11:00-05:00Z"</td>
-				<td>The date the channel configuration was later updated in ISO 8601 time format. Set by the server. Not user
-					changable.
+				<td>The date the channel configuration was later updated in ISO 8601 time
+					format. Set by the server. Not user changable.
 				</td>
 				<td>N.A.</td>
 			</tr>
 		</table>
-		<p>Channel owners and moderators can also set the default affiliation for the channel
+		<p>Channel owners and moderators can also set the default affiliation for the
+			channel
 		</p>
 		<p>
 			<table caption="Channel Types">
@@ -126,7 +132,8 @@
 				</tr>
 				<tr>
 					<td>authorize</td>
-					<td>The channel is only viewable by it's producer, followers, followers+post and moderators.
+					<td>The channel is only viewable by it's producer, followers,
+						followers+post and moderators.
 					</td>
 				</tr>
 				<tr>
@@ -143,5 +150,70 @@
 				</tr>
 			</table>
 		</p>
+	</section2>
+	<section2 topic='Well known nodes' anchor='well-known-nodes'>
+		<p>Buddycloud is designed to be extended with new node and content types.
+			Buddycloud starts with some well known and used nodes. It is recommended that
+			new nodes are announced publicly on the XSF standards mailing list and an
+			informal registry will be kept.
+		</p>
+		<table caption="Well known Buddycloud nodes.">
+			<tr>
+				<th>Node Name</th>
+				<th>Use</th>
+				<th>Format</th>
+				<th>Notes</th>
+			</tr>
+			<tr>
+				<td>/user/&lt;jid>&gt;/posts</td>
+				<td>Activity stream</td>
+				<td>Atom format</td>
+				<td>Activty stream formatted posts</td>
+			</tr>
+			<tr>
+				<td>/user/&lt;jid>&gt;/public-key</td>
+				<td>An RFC 4880 (OpenPGP) format public key for encrypting messages and
+					posts to the channel owner.
+				</td>
+				<td>Key is published using ASCII Armor encoding scheme as detailed in
+					RFC-2440, Section 6
+				</td>
+				<td>For encoding messages and posts to the node owner, applications can
+					publish the user's PGP public to this well known node.
+				</td>
+			</tr>
+			<tr>
+				<td>/user/&lt;jid>&gt;/geoloc-past</td>
+				<td>Describes where the channel owner was previously.</td>
+				<td>XEP-0080</td>
+				<td>Show's key location or place "checkins".</td>
+			</tr>
+			<tr>
+				<td>/user/&lt;jid>&gt;/geoloc</td>
+				<td>Describes where the channel owner is now.</td>
+				<td>XEP-0080</td>
+				<td>A single item.</td>
+			</tr>
+			<tr>
+				<td>/user/&lt;jid>&gt;/geoloc-future</td>
+				<td>Describe where the channel owner plans to go.</td>
+				<td>XEP-0080</td>
+				<td>Show's an intended location or description (for example "Juliet's
+					Balcony" or "Going out this evening to read love poetry"). A good
+					application will clear the geoloc-future location when it matches the
+					current location.
+				</td>
+			</tr>
+			<tr>
+				<td>/user/&lt;jid>&gt;/status</td>
+				<td>A one line descrition of the channels status.</td>
+				<td>
+					unknown <!-- is this ATOM? -->
+				</td>
+				<td>For example a user might enter "Is happy" and a topic channel for a
+					development team might have a status line of "Code is building correctly"
+				</td>
+			</tr>
+		</table>
 	</section2>
 </section1>
