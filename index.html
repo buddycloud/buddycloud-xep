@@ -359,10 +359,10 @@
 		</p>
 	</div>
 	<div class="indent"><h3>4.4 <a name="well-known-nodes" id="well-known-nodes">Well known nodes</a></h3>
-		<p>Buddycloud is designed to be extended with new node and content types.
-			Buddycloud starts with some well known and used nodes. It is recommended that
-			new nodes are announced publicly on the XSF standards mailing list and an
-			informal registry will be kept.
+		<p>Buddycloud is designed to be extended with new node and content types. To
+			kickstart Buddycloud starts with some well known and used nodes. It is
+			recommended that new nodes are announced publicly on the XSF standards
+			mailing list and an informal registry will be kept.
 		</p>
 		<div class="indent"><p class="caption"><a name="table-4" id="table-4"></a>Table 4: Well known Buddycloud nodes.</p><table border="1" cellpadding="3" cellspacing="0">
 			<tr class="body">
@@ -379,14 +379,14 @@
 			</tr>
 			<tr class="body">
 				<td>/user/&lt;jid&gt;&gt;/public-key</td>
-				<td>An RFC 4880 (OpenPGP) format public key for encrypting messages and
-					posts to the channel owner.
+				<td>RFC 4880 OpenPGP public key
 				</td>
-				<td>Key is published using ASCII Armor encoding scheme as detailed in
-					RFC-2440, Section 6
+				<td>Key is published using ASCII Armour encoding scheme as detailed in
+					RFC-2440, Section 6 and is encoded using the
+					http://xmpp.org/extensions/xep-0189.xml#schema-pubkey syntax.
 				</td>
-				<td>For encoding messages and posts to the node owner, applications can
-					publish the user's PGP public to this well known node.
+				<td>Applications use the Public Key to encode messages and posts to the node
+					owner.
 				</td>
 			</tr>
 			<tr class="body">
