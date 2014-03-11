@@ -22,7 +22,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>channel address</td>
+						<td>channel name</td>
 						<td>all</td>
 						<td>juliet@capulet.lit</td>
 						<td>yes</td>
@@ -33,7 +33,7 @@
 						<td>yes</td>
 					</tr>
 					<tr>
-						<td>channel name</td>
+						<td>channel title</td>
 						<td>all</td>
 						<td>Posts about Romeo</td>
 						<td>yes</td>
@@ -158,7 +158,7 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>channel address</td>
+						<td>change channel name</td>
 						<td>only at creation time</td>
 						<td>no</td>
 						<td>no</td>
@@ -167,7 +167,7 @@
 						<td>no</td>
 					</tr>
 					<tr>
-						<td>channel name</td>
+						<td>channel channel title</td>
 						<td>yes</td>
 						<td>yes</td>
 						<td>no</td>
@@ -194,7 +194,7 @@
 						<td>no</td>
 					</tr>
 					<tr>
-						<td>Approve pending subscriptions</td>
+						<td>approve pending subscriptions</td>
 						<td>yes</td>
 						<td>yes</td>
 						<td>no</td>
@@ -203,7 +203,7 @@
 						<td>no</td>
 					</tr>
 					<tr>
-						<td>Create posts</td>
+						<td>create posts</td>
 						<td>yes</td>
 						<td>yes</td>
 						<td>yes</td>
@@ -212,7 +212,7 @@
 						<td>no</td>
 					</tr>
 					<tr>
-						<td>Delete posts</td>
+						<td>delete posts</td>
 						<td>yes</td>
 						<td>yes</td>
 						<td>own posts</td>
