@@ -21,8 +21,8 @@
       6.2.4.  <a href="#item-rating">Rating</a><br />        
       6.2.4.1.  <a href="#item-rating-errorcases">Error cases</a><br />7.  <a href="#subscriptions">Channel subscriptions</a><br />8.  <a href="#federation">Federation</a><br />   
       8.1.  <a href="#inbox">Inbox</a><br />   
-      8.2.  <a href="#plays-nicely-with-others">Interaction With Other Services</a><br />9.  <a href="#security-considerations">Security Considerations</a><br />   
-      9.1.  <a href="#server-trust">Server trust</a><br />   
+      8.2.  <a href="#Interaction-With-Other-Services">Interaction With Other Services</a><br />9.  <a href="#security-considerations">Security Considerations</a><br />   
+      9.1.  <a href="#server-trust">Server Trust</a><br />   
       9.2.  <a href="#security-considerations-with-follower+post-role">Default Role</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
        <a name="Buddycloud Introduction" id="Buddycloud Introduction">Buddycloud Introduction</a></h2>
 	<div class="indent"><h3>1.1 <a name="about-buddycloud" id="about-buddycloud">About Buddycloud</a></h3>
@@ -943,32 +943,33 @@
        <a name="federation" id="federation">Federation</a></h2>
 	<div class="indent"><h3>8.1 <a name="inbox" id="inbox">Inbox</a></h3>
 	</div>
-	<div class="indent"><h3>8.2 <a name="plays-nicely-with-others" id="plays-nicely-with-others">Interaction With Other Services</a></h3>
-		<p>Buddycloud is designed around replaceable XMPP server components.
-			Each component offers a discrete set of services, and communicated
-			with other components using XEP-0114 component connections. For
-			example, a media hosting is delivered via a separate XMPP component
-			that communicates with the local and remote Buddycloud server.
+	<div class="indent"><h3>8.2 <a name="Interaction-With-Other-Services" id="Interaction-With-Other-Services">Interaction With Other Services</a></h3>
+		<p>The Buddycloud service is designed to work with interchangeable components
+			that offer discrete services and together form a complete communication
+			service.
 		</p>
-		<p>Other components offer services offer services like Buddycloud
-			channel crawling and content search, channel recommendations, an HTTP
-			API and tailored push notification services. Additional services are
-			covered by separate XEPs.
+		<p>While the Buddycloud Server is designed to work independently of other
+			services but can be enhanced with helper services. Each helper communicates
+			with the Buddycloud server and other components using XEP-0114 connections.
+			Examples of helper services include: push notifications, media hosting,
+			contact matching, content search and channel recommendations.
+		</p>
+		<p>Operation of helper services are covered by separate XEPs.
 		</p>
 	</div>
 <h2>9.
        <a name="security-considerations" id="security-considerations">Security Considerations</a></h2>
-	<div class="indent"><h3>9.1 <a name="server-trust" id="server-trust">Server trust</a></h3>
+	<div class="indent"><h3>9.1 <a name="server-trust" id="server-trust">Server Trust</a></h3>
 		<p>
 			The Buddycloud server should make sure that the remote server
-			component is the authoratative Buddycloud server for the domain it
+			component is the authoritative Buddycloud server for the domain it
 			claims to represent. This is done by running the server discovery 
 			process and confirming the same XMPP component name.
 		</p>
 	</div>
 	<div class="indent"><h3>9.2 <a name="security-considerations-with-follower+post-role" id="security-considerations-with-follower+post-role">Default Role</a></h3>
 		<p>Open channel where members join with a follow+post role present an
-			attractive target for spamming and malicious behavior. This default
+			attractive target for spamming and malicious behaviour. This default
 			role should be use with caution especially when the Buddycloud server
 			federates with remote Buddycloud-enabled domains.
 		</p>
