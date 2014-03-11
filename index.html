@@ -5,7 +5,7 @@
       1.2.  <a href="#Buddycloud Channels">Buddycloud Channels</a><br />   
       1.3.  <a href="#glossary">Glossary</a><br />2.  <a href="#Finding-the-right-Buddycloud-server">Service Discovery</a><br />   
       2.1.  <a href="#DISCOthenDNS">Discovery order</a><br />   
-      2.2.  <a href="#Discovering the Buddycloud server using Disco">Discovery using Disco</a><br />   
+      2.2.  <a href="#Discovering the Buddycloud service using Disco">Discovery using Disco</a><br />   
       2.3.  <a href="#Discovering the Buddycloud server using DNS">Discovery using DNS</a><br />3.  <a href="#register">Register</a><br />4.  <a href="#channel-config">Channel and Node Configuration</a><br />   
       4.1.  <a href="#get-node-config">Get Node Configuration</a><br />   
       4.2.  <a href="#set-node-config">Set Node Configuration</a><br />   
@@ -19,21 +19,18 @@
       6.2.2.  <a href="#item-threading">Threading</a><br />      
       6.2.3.  <a href="#item-referencing">Referencing</a><br />      
       6.2.4.  <a href="#item-rating">Rating</a><br />        
-      6.2.4.1.  <a href="#item-rating-errorcases">Error cases</a><br />7.  <a href="#subscriptions">Channel subscriptions</a><br />8.  <a href="#affiliations">Channel affiliations</a><br />   
-      8.1.  <a href="#affiliation-to-xep-0060-mappings">Buddycloud to XEP-0060 mappings</a><br />   
-      8.2.  <a href="#rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a><br />      
-      8.2.1.  <a href="#rules-affiliation-permissions">Affiliation permissions</a><br />9.  <a href="#federation">Federation</a><br />   
-      9.1.  <a href="#inbox">Inbox</a><br />   
-      9.2.  <a href="#plays-nicely-with-others">Interaction With Other Services</a><br />10.  <a href="#security-considerations">Security Considerations</a><br />   
-      10.1.  <a href="#server-trust">Server trust</a><br />   
-      10.2.  <a href="#security-considerations-with-follower+post-role">Default Role</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
+      6.2.4.1.  <a href="#item-rating-errorcases">Error cases</a><br />7.  <a href="#subscriptions">Channel subscriptions</a><br />8.  <a href="#federation">Federation</a><br />   
+      8.1.  <a href="#inbox">Inbox</a><br />   
+      8.2.  <a href="#plays-nicely-with-others">Interaction With Other Services</a><br />9.  <a href="#security-considerations">Security Considerations</a><br />   
+      9.1.  <a href="#server-trust">Server trust</a><br />   
+      9.2.  <a href="#security-considerations-with-follower+post-role">Default Role</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
        <a name="Buddycloud Introduction" id="Buddycloud Introduction">Buddycloud Introduction</a></h2>
 	<div class="indent"><h3>1.1 <a name="about-buddycloud" id="about-buddycloud">About Buddycloud</a></h3>
 		<p>Buddycloud is a collection of services, running as XMPP components
 			that enable rich, federated communications between individuals and
 			groups. Buddycloud builds on XMPP's native federation and pub-sub
 			principles to connect to and synchronise content with followers on
-			local and remote Buddycloud servers.
+			local and remote Buddycloud domains.
 		</p>
 	</div>
 	<div class="indent"><h3>1.2 <a name="Buddycloud Channels" id="Buddycloud Channels">Buddycloud Channels</a></h3>
@@ -42,7 +39,7 @@
 			JID-like name (example:
 			<a href="buddycloud:juliet@capulit.lit">juliet@capulet.lit</a>
 			. Content posted into channels is automatically synchronised to the
-			correct followers on other Buddycloud servers.
+			correct followers on other Buddycloud domains.
 		</p>
 	</div>
 	<div class="indent"><h3>1.3 <a name="glossary" id="glossary">Glossary</a></h3>
@@ -64,7 +61,7 @@
 				<dt><strong>Ephemeral Channel</strong></dt>
 				<dd>
 					Ephemeral channels, are generated for one-off use and automatically
-					removed by the Buddycloud server after the last participant
+					removed by the Buddycloud service after the last participant
 					unfollows them (similar to the Google Hangout service) An example
 					ephemeral channel would be
 					<p class="caption"></p><div class="indent"><pre class="prettyprint">125bd2c4-afc2-4d4c-b869-efc0c0dad8c5@montague.lit</pre></div>
@@ -72,25 +69,25 @@
 				</dd>
 			</di>
 			<di>
-				<dt><strong>Buddycloud Server</strong></dt>
+				<dt><strong>Buddycloud Service</strong></dt>
 				<dd>An XMPP component which hosts channel nodes and provides an
 					interface conforming to this document to allow access to them via
 					XMPP.
 				</dd>
 			</di>
 			<di>
-				<dt><strong>Home Server</strong></dt>
-				<dd>The Buddycloud server responsible for a JID's channels and Inbox.
+				<dt><strong>Home server</strong></dt>
+				<dd>The Buddycloud service responsible for a JID's channels and Inbox.
 				</dd>
 			</di>
 			<di>
 				<dt><strong>Remote Server</strong></dt>
-				<dd>Buddycloud servers that run on other XMPP domains.
+				<dd>Buddycloud service that run on other XMPP domains.
 				</dd>
 			</di>
 			<di>
 				<dt><strong>Buddycloud Inbox</strong></dt>
-				<dd>Service on the Entity's Home Server which subscribes to nodes on
+				<dd>Service on the entity's home Buddycloud service which subscribes to nodes on
 					the Entity's behalf, and may cache node data and provide an ability
 					to replay recent messages.
 				</dd>
@@ -99,28 +96,28 @@
 	</div>
 <h2>2.
        <a name="Finding-the-right-Buddycloud-server" id="Finding-the-right-Buddycloud-server">Service Discovery</a></h2>
-	<p>Each XMPP domain can have one Buddycloud server that serves user's
-		channels. Buddycloud clients and servers need to be able to discover
-		the authoratative Buddycloud server. find the
+	<p>Each XMPP domain can have one Buddycloud server that serves user's channels.
+		Buddycloud clients and servers need to be able to discover the authoratative
+		Buddycloud server. find the
 	</p>
 	<div class="indent"><h3>2.1 <a name="DISCOthenDNS" id="DISCOthenDNS">Discovery order</a></h3>
 		<p>
-			To find the correct remote Buddycloud server for a domain, the
-			Buddycloud server should
+			To find the correct remote Buddycloud service for a domain, the Buddycloud
+			server should:
 			<ol>
-				<li>Use a disco#items query against the XMPP server for the remote
+				<li>Use a disco#items query against the XMPP service for the remote
 					Buddycloud domain.
 				</li>
-				<li>If no answer is returned (perhaps the remote server doesn't run
-					a full XMPP service) the Buddycloud server should proceed to use
-					the DNS discovery method.
+				<li>If no answer is returned (perhaps the remote site doesn't run a full
+					XMPP service) the Buddycloud service should proceed to use the DNS
+					discovery method.
 				</li>
 			</ol>
 		</p>
 	</div>
-	<div class="indent"><h3>2.2 <a name="Discovering the Buddycloud server using Disco" id="Discovering the Buddycloud server using Disco">Discovery using Disco</a></h3>
-		<p>The Buddycloud server first sends an items discovery request to the
-			domain to discover all the available components.
+	<div class="indent"><h3>2.2 <a name="Discovering the Buddycloud service using Disco" id="Discovering the Buddycloud service using Disco">Discovery using Disco</a></h3>
+		<p>The Buddycloud service first sends an items discovery request to the domain
+			to discover all the available components.
 		</p>
 		<p class="caption"><a name="example-1" id="example-1"></a>Example 1. The Entity sends a disco#items request to the domain</p><div class="indent"><pre class="prettyprint">
 
@@ -128,8 +125,8 @@
   &lt;query xmlns='http://jabber.org/protocol/disco#items'/&gt;
 &lt;/iq&gt;
 		</pre></div>
-		<p>The server replies with the list of available components, along
-			with their associated JIDs.
+		<p>The server replies with the list of available components, along with their
+			associated JIDs.
 		</p>
 		<p class="caption"><a name="example-2" id="example-2"></a>Example 2. The server replies with a list of available components.</p><div class="indent"><pre class="prettyprint">
   
@@ -141,8 +138,8 @@
 &lt;/iq&gt;
   
 		</pre></div>
-		<p>The entity then iterates through the &lt;item/&gt; elements,
-			sending an info discovery request to each JID. 
+		<p>The entity then iterates through the &lt;item/&gt; elements, sending an
+			info discovery request to each JID. 
 		</p>
 		<p class="caption"><a name="example-3" id="example-3"></a>Example 3. The Entity sends a disco#info request to each component</p><div class="indent"><pre class="prettyprint">
 
@@ -151,11 +148,11 @@
 &lt;/iq&gt;
 
 		</pre></div>
-		<p>Each component replies with its identity. The Buddycloud server has
-			an identity of category 'pubsub' and type 'channels'.
+		<p>Each component replies with its identity. The Buddycloud server has an
+			identity of category 'pubsub' and type 'channels'.
 		</p>
-		<p>A domain MUST only host one component with an identity of category
-			'pubsub' and type 'channels'.
+		<p>A domain MUST only host one component with an identity of category 'pubsub'
+			and type 'channels'.
 		</p>
 		<p class="caption"><a name="example-4" id="example-4"></a>Example 4. The Buddycloud server replies with its identity</p><div class="indent"><pre class="prettyprint">
   
@@ -172,9 +169,9 @@
 		</pre></div>
 	</div>
 	<div class="indent"><h3>2.3 <a name="Discovering the Buddycloud server using DNS" id="Discovering the Buddycloud server using DNS">Discovery using DNS</a></h3>
-		<p>In the case that no server is found via disco, DNS should be used
-			to discover the Buddycloud server. A PTR record can be used to
-			delegate Buddycloud services to a remote Buddycloud server.
+		<p>In the case that no server is found via disco, DNS should be used to
+			discover the Buddycloud server. A PTR record can be used to delegate
+			Buddycloud services to a remote Buddycloud server.
 		</p>
 		<p class="caption"><a name="example-5" id="example-5"></a>Example 5. PTR record for buddycloud server discovery</p><div class="indent"><pre class="prettyprint">
     
@@ -182,8 +179,8 @@
     
 		</pre></div>
 		<p>
-			This example delegates all the Buddycloud service to a Buddycloud
-			server running as an XMPP component named
+			This example delegates all the Buddycloud service to an XMPP component
+			running the Buddycloud named
 			buddycloud-component.verona.lit
 			.
 		</p>
@@ -654,13 +651,14 @@
 		</p>
 	</div>
 	<div class="indent"><h3>5.2 <a name="rules-nodeaffiliations" id="rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a></h3>
-		<p>To avoid confusion between different clients and a general privacy
-			configuration confusion the Buddycloud server must maintain similar
-			affiliations for a subscribed entity across all of a channel's nodes. For
-			example a user concerned about privacy and changes their channel from open to
-			whitelist. The server should automatically ensure that all nodes belonging to
-			that channel are updated. At no point should the use need to hunt though
-			privacy settings per individual node.
+		<p>A Buddycloud server SHOULD maintain similar affiliations for a subscribed
+			entity across all the Nodes of a Channel.
+		</p>
+		<p>The server should automatically ensure that all nodes belonging to that
+			channel are updated with the same permissions. This helps address a common
+			criticism of the "privacy confusion" of other social products where users
+			need to search settings on different clients to ensure that their profile
+			really is private.
 		</p>
 	</div>
 <h2>6.
@@ -942,98 +940,10 @@
        <a name="subscriptions" id="subscriptions">Channel subscriptions</a></h2>
     <p>See XEP-0060.</p>
 <h2>8.
-       <a name="affiliations" id="affiliations">Channel affiliations</a></h2>
-<div class="indent"><h3>8.1 <a name="affiliation-to-xep-0060-mappings" id="affiliation-to-xep-0060-mappings">Buddycloud to XEP-0060 mappings</a></h3>
-<p>
-	Buddycloud channels build on XEP-0060's node affiliations.
-	<div class="indent"><p class="caption"><a name="table-7" id="table-7"></a>Table 7: Channel Affiliations</p><table border="1" cellpadding="3" cellspacing="0">
-		<tr class="body">
-			<th>XEP-0060 Affiliation</th>
-			<th>Buddycloud Affiliation</th>
-			<th>Description</th>
-			<th>Can</th>
-			<th></th>
-		</tr>
-		<tr class="body">
-			<td>Owner</td>
-			<td>owner</td>
-			<td>The channel owner. Full access rights</td>
-			<td>Can add and delete moderators</td>
-			<td>REQUIRED</td>
-		</tr>
-		<tr class="body">
-			<td>-</td>
-			<td>moderator</td>
-			<td>A follower who has follower+post rights, rights to manage the
-				affiliation of entites with the node (except changing ownership),
-				and rights to manage the subscriptions of entities with the node.
-			</td>
-			<td>REQUIRED</td>
-		</tr>
-		<tr class="body">
-			<td>Publisher</td>
-			<td>follower+post</td>
-			<td>Entity can view posts and replies, publish new posts, and publish
-				replies to posts.
-			</td>
-			<td>REQUIRED</td>
-		</tr>
-		<tr class="body">
-			<td>Member</td>
-			<td>follower</td>
-			<td>Entity can view posts and replies for whitelist and open
-				channels, but cannot publish new posts or replies.
-			</td>
-			<td>REQUIRED</td>
-		</tr>
-		<tr class="body">
-			<td>None</td>
-			<td>none</td>
-			<td>Entity can view posts and replies for open channels, but cannot
-				publish new posts or replies.
-			</td>
-			<td>REQUIRED</td>
-		</tr>
-		<tr class="body">
-			<td>Outcast</td>
-			<td>outcast</td>
-			<td>Entity cannot view any posts or replies, and cannot publish new
-				posts or replies.
-			</td>
-			<td>RECOMMENDED</td>
-		</tr>
-	</table></div>
-</p>
-</div>
-<div class="indent"><h3>8.2 <a name="rules-nodeaffiliations" id="rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a></h3>
-	<p>
-		A Channel Server SHOULD maintain similar affiliations for a subscribed
-		entity across all the Nodes of a Channel.</p>
-
-		  <div class="indent"><h3>8.2.1 <a name="rules-affiliation-permissions" id="rules-affiliation-permissions">Affiliation permissions</a></h3>
-			<div class="indent"><dl>
-				<dt><strong>Producer</strong></dt>
-				<dd>the owner of a channel with the ability to add and remove
-					moderators
-				</dd>
-			</dl></div>
-			<div class="indent"><dl>
-				<dt><strong>Follower</strong></dt>
-				<dd>A Channel subscriber</dd>
-			</dl></div>
-			<div class="indent"><dl>
-				<dt><strong>Moderator</strong></dt>
-				<dd>A channel follower with capabilities to also approve followers
-					to topic channels and retract posts
-				</dd>
-			</dl></div>
-            </div>
-</div>
-<h2>9.
        <a name="federation" id="federation">Federation</a></h2>
-	<div class="indent"><h3>9.1 <a name="inbox" id="inbox">Inbox</a></h3>
+	<div class="indent"><h3>8.1 <a name="inbox" id="inbox">Inbox</a></h3>
 	</div>
-	<div class="indent"><h3>9.2 <a name="plays-nicely-with-others" id="plays-nicely-with-others">Interaction With Other Services</a></h3>
+	<div class="indent"><h3>8.2 <a name="plays-nicely-with-others" id="plays-nicely-with-others">Interaction With Other Services</a></h3>
 		<p>Buddycloud is designed around replaceable XMPP server components.
 			Each component offers a discrete set of services, and communicated
 			with other components using XEP-0114 component connections. For
@@ -1046,9 +956,9 @@
 			covered by separate XEPs.
 		</p>
 	</div>
-<h2>10.
+<h2>9.
        <a name="security-considerations" id="security-considerations">Security Considerations</a></h2>
-	<div class="indent"><h3>10.1 <a name="server-trust" id="server-trust">Server trust</a></h3>
+	<div class="indent"><h3>9.1 <a name="server-trust" id="server-trust">Server trust</a></h3>
 		<p>
 			The Buddycloud server should make sure that the remote server
 			component is the authoratative Buddycloud server for the domain it
@@ -1056,7 +966,7 @@
 			process and confirming the same XMPP component name.
 		</p>
 	</div>
-	<div class="indent"><h3>10.2 <a name="security-considerations-with-follower+post-role" id="security-considerations-with-follower+post-role">Default Role</a></h3>
+	<div class="indent"><h3>9.2 <a name="security-considerations-with-follower+post-role" id="security-considerations-with-follower+post-role">Default Role</a></h3>
 		<p>Open channel where members join with a follow+post role present an
 			attractive target for spamming and malicious behavior. This default
 			role should be use with caution especially when the Buddycloud server
