@@ -12,7 +12,7 @@
 			Examples of helper services include: push notifications, media hosting,
 			contact matching, content search and channel recommendations.
 		</p>
-		<p>Operation of helper services are covered by separate XEPs.
+		<p>Helper services' specifications are covered in separate XEPs.
 		</p>
 	</section2>
 </section1>
