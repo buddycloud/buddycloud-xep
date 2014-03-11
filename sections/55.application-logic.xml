@@ -226,13 +226,14 @@
 	</section2>
 	<section2 topic='Maintain Similar Affiliations across Channel Nodes'
 		anchor='rules-nodeaffiliations'>
-		<p>To avoid confusion between different clients and a general privacy
-			configuration confusion the Buddycloud server must maintain similar
-			affiliations for a subscribed entity across all of a channel's nodes. For
-			example a user concerned about privacy and changes their channel from open to
-			whitelist. The server should automatically ensure that all nodes belonging to
-			that channel are updated. At no point should the use need to hunt though
-			privacy settings per individual node.
+		<p>A Buddycloud server SHOULD maintain similar affiliations for a subscribed
+			entity across all the Nodes of a Channel.
+		</p>
+		<p>The server should automatically ensure that all nodes belonging to that
+			channel are updated with the same permissions. This helps address a common
+			criticism of the "privacy confusion" of other social products where users
+			need to search settings on different clients to ensure that their profile
+			really is private.
 		</p>
 	</section2>
 </section1>

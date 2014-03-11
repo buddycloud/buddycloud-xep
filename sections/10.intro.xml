@@ -8,7 +8,7 @@
 			that enable rich, federated communications between individuals and
 			groups. Buddycloud builds on XMPP's native federation and pub-sub
 			principles to connect to and synchronise content with followers on
-			local and remote Buddycloud servers.
+			local and remote Buddycloud domains.
 		</p>
 	</section2>
 	<section2
@@ -19,7 +19,7 @@
 			JID-like name (example:
 			<link url='buddycloud:juliet@capulit.lit'>juliet@capulet.lit</link>
 			. Content posted into channels is automatically synchronised to the
-			correct followers on other Buddycloud servers.
+			correct followers on other Buddycloud domains.
 		</p>
 	</section2>
 	<section2
@@ -43,7 +43,7 @@
 				<dt>Ephemeral Channel</dt>
 				<dd>
 					Ephemeral channels, are generated for one-off use and automatically
-					removed by the Buddycloud server after the last participant
+					removed by the Buddycloud service after the last participant
 					unfollows them (similar to the Google Hangout service) An example
 					ephemeral channel would be
 					<code>125bd2c4-afc2-4d4c-b869-efc0c0dad8c5@montague.lit</code>
@@ -51,25 +51,25 @@
 				</dd>
 			</di>
 			<di>
-				<dt>Buddycloud Server</dt>
+				<dt>Buddycloud Service</dt>
 				<dd>An XMPP component which hosts channel nodes and provides an
 					interface conforming to this document to allow access to them via
 					XMPP.
 				</dd>
 			</di>
 			<di>
-				<dt>Home Server</dt>
-				<dd>The Buddycloud server responsible for a JID's channels and Inbox.
+				<dt>Home server</dt>
+				<dd>The Buddycloud service responsible for a JID's channels and Inbox.
 				</dd>
 			</di>
 			<di>
 				<dt>Remote Server</dt>
-				<dd>Buddycloud servers that run on other XMPP domains.
+				<dd>Buddycloud service that run on other XMPP domains.
 				</dd>
 			</di>
 			<di>
 				<dt>Buddycloud Inbox</dt>
-				<dd>Service on the Entity's Home Server which subscribes to nodes on
+				<dd>Service on the entity's home Buddycloud service which subscribes to nodes on
 					the Entity's behalf, and may cache node data and provide an ability
 					to replay recent messages.
 				</dd>
