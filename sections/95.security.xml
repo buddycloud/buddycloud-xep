@@ -1,8 +1,8 @@
 <section1 topic="Security Considerations" anchor="security-considerations">
-	<section2 topic="Server trust" anchor="server-trust">
+	<section2 topic="Server Trust" anchor="server-trust">
 		<p>
 			The Buddycloud server should make sure that the remote server
-			component is the authoratative Buddycloud server for the domain it
+			component is the authoritative Buddycloud server for the domain it
 			claims to represent. This is done by running the server discovery <!-- 
 				how do we reference a section in this document? -->
 			process and confirming the same XMPP component name.
@@ -11,7 +11,7 @@
 	<section2 topic="Default Role"
 		anchor="security-considerations-with-follower+post-role">
 		<p>Open channel where members join with a follow+post role present an
-			attractive target for spamming and malicious behavior. This default
+			attractive target for spamming and malicious behaviour. This default
 			role should be use with caution especially when the Buddycloud server
 			federates with remote Buddycloud-enabled domains.
 		</p>
