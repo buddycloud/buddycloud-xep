@@ -1,60 +1,55 @@
-<section1
-	topic='Buddycloud Introduction'
-	anchor='Buddycloud Introduction'>
-	<section2
-		topic='About Buddycloud'
-		anchor='about-buddycloud'>
-		<p>Buddycloud is a collection of services, running as XMPP components
-			that enable rich, federated communications between individuals and
-			groups. Buddycloud builds on XMPP's native federation and pub-sub
-			principles to connect to and synchronise content with followers on
-			local and remote Buddycloud domains.
+<section1 topic='Buddycloud Introduction' anchor='Buddycloud Introduction'>
+	<section2 topic='About Buddycloud' anchor='about-buddycloud'>
+		<p>The Buddycloud project attempts to define a common set of non-silo'd
+			communication tools, services and libraries that help developers build
+			federated communication applications and services.
+		</p>
+		<p>The buddycloud stack is a collection of services, running as XMPP
+			components that enable rich, federated communications between individuals and
+			groups. Buddycloud builds on XMPP's native federation and pub-sub principles
+			to connect to and synchronise content with followers on local and remote
+			domains.
 		</p>
 	</section2>
-	<section2
-		topic='Buddycloud Channels'
-		anchor='Buddycloud Channels'>
+	<section2 topic='Buddycloud Channels' anchor='Buddycloud Channels'>
 		<p>
-			Buddycloud channels are a bundle of pub-sub nodes presented as a
-			JID-like name (example:
+			Buddycloud channels are a bundle of pub-sub nodes presented as a JID-like
+			name (example:
 			<link url='buddycloud:juliet@capulit.lit'>juliet@capulet.lit</link>
-			. Content posted into channels is automatically synchronised to the
-			correct followers on other Buddycloud domains.
+			. Content posted into channels is automatically synchronised to the correct
+			followers on other Buddycloud domains.
 		</p>
 	</section2>
-	<section2
-		topic='Glossary'
-		anchor='glossary'>
+	<section2 topic='Glossary' anchor='glossary'>
 		<dl>
 			<di>
 				<dt>Personal Channel</dt>
-				<dd> Personal channels are a group of pub-sub nodes that have the
-					same owner, followers and access permissions.
+				<dd> Personal channels are a group of pub-sub nodes that have the same
+					owner, followers and access permissions.
 				</dd>
 			</di>
 			<di>
 				<dt>Topic Channel</dt>
-				<dd>Topic channels are for group discussions and decoupled from the
-					owners jid. For example balcony-speeches@topics.montague.lit could
-					be owned by speechwriter@montague.lit.
+				<dd>Topic channels are for group discussions and decoupled from the owners
+					jid. For example balcony-speeches@topics.montague.lit could be owned by
+					speechwriter@montague.lit.
 				</dd>
 			</di>
 			<di>
 				<dt>Ephemeral Channel</dt>
 				<dd>
-					Ephemeral channels, are generated for one-off use and automatically
-					removed by the Buddycloud service after the last participant
-					unfollows them (similar to the Google Hangout service) An example
-					ephemeral channel would be
+					Ephemeral channels, are generated for one-off use and automatically removed
+					by the Buddycloud service after the last participant unfollows them
+					(similar to the Google Hangout service) An example ephemeral channel would
+					be
 					<code>125bd2c4-afc2-4d4c-b869-efc0c0dad8c5@montague.lit</code>
 					.
 				</dd>
 			</di>
 			<di>
 				<dt>Buddycloud Service</dt>
-				<dd>An XMPP component which hosts channel nodes and provides an
-					interface conforming to this document to allow access to them via
-					XMPP.
+				<dd>An XMPP component which hosts channel nodes and provides an interface
+					conforming to this document to allow access to them via XMPP.
 				</dd>
 			</di>
 			<di>
@@ -69,9 +64,9 @@
 			</di>
 			<di>
 				<dt>Buddycloud Inbox</dt>
-				<dd>Service on the entity's home Buddycloud service which subscribes to nodes on
-					the Entity's behalf, and may cache node data and provide an ability
-					to replay recent messages.
+				<dd>Service on the entity's home Buddycloud service which subscribes to
+					nodes on the Entity's behalf, and may cache node data and provide an
+					ability to replay recent messages.
 				</dd>
 			</di>
 		</dl>
