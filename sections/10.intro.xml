@@ -1,14 +1,18 @@
 <section1 topic='Buddycloud Introduction' anchor='Buddycloud Introduction'>
 	<section2 topic='About Buddycloud' anchor='about-buddycloud'>
-		<p>The Buddycloud project attempts to define a common set of non-silo'd
-			communication tools, services and libraries that help developers build
-			federated communication applications and services.
+		<p>The Buddycloud project is a set of independently deployable services, that
+			inter-operate to create a rich collaboration service.
 		</p>
-		<p>The buddycloud stack is a collection of services, running as XMPP
-			components that enable rich, federated communications between individuals and
-			groups. Buddycloud builds on XMPP's native federation and pub-sub principles
-			to connect to and synchronise content with followers on local and remote
-			domains.
+		<p>Buddycloud Channels build on XMPP's native federation and publish-subscribe
+			principles to connect to, and synchronise content with users on local and
+			remote domains. Services are designed to interoperate. For example, the Media
+			Server, Friend Finder, content recommendation engine work together to help
+			developers build a unified collaboration services for individual and groups
+			of users.
+		</p>
+		<p>This XEP seeks to define how the Buddycloud Channel service currently
+			functions. It also seeks stay extensible for accommodate future, undefined
+			use cases.
 		</p>
 	</section2>
 	<section2 topic='Buddycloud Channels' anchor='Buddycloud Channels'>
