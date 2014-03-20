@@ -268,6 +268,10 @@
 						: Ratings can only be made against post types 'post' and 'comment' i.e. it
 						is not possible to rate a rating
 					</li>
+					<li>
+						<em>item-already-rated</em>
+						: A user can only rate a single post once
+					</li>
 				</ul>
 			</section4>
 		</section3>
