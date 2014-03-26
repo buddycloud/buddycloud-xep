@@ -126,7 +126,7 @@ OR OTHER DEALINGS IN THE SOFTWARE.
           </xsl:if>
           <tr valign='top'>
             <td><strong>Copyright:</strong></td>
-            <td>&#169; 1999 - 2010 XMPP Standards Foundation. <a href='#appendix-legal'>SEE LEGAL NOTICES</a>.</td>
+            <td>&#169; 1999 - 2014 XMPP Standards Foundation. <a href='#appendix-legal'>SEE LEGAL NOTICES</a>.</td>
           </tr>
           <tr valign='top'>
             <td><strong>Status:</strong></td>
