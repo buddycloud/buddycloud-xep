@@ -1,4 +1,3 @@
-
 <section1 topic='Channel and Node Configuration' anchor='channel-config'>
 	<p>Node metadata is used to describe the channel to users. All nodes in a
 		channel have the same metadata and permission.
@@ -9,7 +8,7 @@
 	<section2 topic='Set Node Configuration' anchor='set-node-config'> set Not sure what
 		goes here?
 	</section2>
-	<section2 topic='Default roles' anchor='default roles'>
+	<section2 topic='Default roles' anchor='default-roles'>
 		<p> minimum setting/optional recommended fallbacks
 		</p>
 		<p>Channel metadata is stored as node metadata against the /posts node of the
