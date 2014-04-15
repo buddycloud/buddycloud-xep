@@ -32,7 +32,7 @@ Every time you now edit an xml file the XEP will be rebuilt
 
 [![Build Status](https://travis-ci.org/buddycloud/buddycloud-xep.png?branch=gh-pages)](https://travis-ci.org/buddycloud/buddycloud-xep)
 
-http://buddycloud.com/buddycloud-xep/
+http://buddycloud.github.io/buddycloud-xep/
 
 ## Next steps
 
