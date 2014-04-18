@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section1 topic='Service Discovery' anchor='Finding-the-right-Buddycloud-server'>
-	<p>Each XMPP domain can have one Buddycloud server that serves user's
-		channels. Buddycloud clients and servers need to be able to discover
-		the authoratative Buddycloud server. find the
+	<p>Each XMPP domain can have one Buddycloud server that serves user's channels.
+		Buddycloud clients and servers need to be able to discover the authoratative
+		Buddycloud server. find the
 	</p>
-	<section2 topic='Discovery order' anchor='DISCOorDNS'>
+	<section2 topic='Discovery order' anchor='DISCOthenDNS'>
 		<p>
-			To find the correct remote Buddycloud server for a domain, the
-			Buddycloud server should
+			To find the correct remote Buddycloud service for a domain, the Buddycloud
+			server should:
 			<ol>
-				<li>Use a disco#items query against the XMPP server for the remote
+				<li>Use a disco#items query against the XMPP service for the remote
 					Buddycloud domain.
 				</li>
-				<li>If no answer is returned (perhaps the remote server doesn't run
-					a full XMPP service) the Buddycloud server should proceed to use
-					the DNS discovery method.
+				<li>If no answer is returned (perhaps the remote site doesn't run a full
+					XMPP service) the Buddycloud service should proceed to use the DNS
+					discovery method.
 				</li>
 			</ol>
 		</p>
 	</section2>
-	<section2 topic='Discovery using Disco'
-		anchor='Discovering the Buddycloud server using Disco'>
-		<p>The Buddycloud server first sends an items discovery request to the
-			domain to discover all the available components.
+	<section2 topic='Discovery using Disco' anchor='disco-discovery'>
+		<p>The Buddycloud service first sends an items discovery request to the domain
+			to discover all the available components.
 		</p>
 		<example caption="The Entity sends a disco#items request to the domain">
 <![CDATA[
@@ -30,8 +29,8 @@
   <query xmlns='http://jabber.org/protocol/disco#items'/>
 </iq>]]>
 		</example>
-		<p>The server replies with the list of available components, along
-			with their associated JIDs.
+		<p>The server replies with the list of available components, along with their
+			associated JIDs.
 		</p>
 		<example caption="The server replies with a list of available components.">
   <![CDATA[
@@ -43,8 +42,8 @@
 </iq>
   ]]>
 		</example>
-		<p>The entity then iterates through the &lt;item/&gt; elements,
-			sending an info discovery request to each JID. 
+		<p>The entity then iterates through the &lt;item/&gt; elements, sending an
+			info discovery request to each JID. 
 		</p>
 		<example caption="The Entity sends a disco#info request to each component">
 <![CDATA[
@@ -53,11 +52,11 @@
 </iq>
 ]]>
 		</example>
-		<p>Each component replies with its identity. The Buddycloud server has
-			an identity of category 'pubsub' and type 'channels'.
+		<p>Each component replies with its identity. The Buddycloud server has an
+			identity of category 'pubsub' and type 'channels'.
 		</p>
-		<p>A domain MUST only host one component with an identity of category
-			'pubsub' and type 'channels'.
+		<p>A domain MUST only host one component with an identity of category 'pubsub'
+			and type 'channels'.
 		</p>
 		<example caption="The Buddycloud server replies with its identity">
   <![CDATA[
@@ -73,10 +72,10 @@
   ]]>
 		</example>
 	</section2>
-	<section2 topic='Discovery using DNS' anchor='Discovering the Buddycloud server using DNS'>
-		<p>In the case that no server is found via disco, DNS should be used
-			to discover the Buddycloud server. A PTR record can be used to
-			delegate Buddycloud services to a remote Buddycloud server.
+	<section2 topic='Discovery using DNS' anchor='DNS-discovery'>
+		<p>In the case that no server is found via disco, DNS should be used to
+			discover the Buddycloud server. A PTR record can be used to delegate
+			Buddycloud services to a remote Buddycloud server.
 		</p>
 		<example caption="PTR record for buddycloud server discovery">
     <![CDATA[
@@ -84,8 +83,8 @@
     ]]>
 		</example>
 		<p>
-			This example delegates all the Buddycloud service to a Buddycloud
-			server running as an XMPP component named
+			This example delegates all the Buddycloud service to an XMPP component
+			running the Buddycloud named
 			<i>buddycloud-component.verona.lit</i>
 			.
 		</p>
