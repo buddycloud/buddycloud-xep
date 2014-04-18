@@ -1,4 +1,7 @@
-<section1 topic="Pubsub Items" anchor="items">
+<section1
+	topic="Pubsub Items"
+	anchor="items">
+
 	<p>Many
 		of the item use cases follow those from &amp;
 		<strong>xep0060</strong>
