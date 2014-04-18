@@ -7,6 +7,30 @@
 		; here we only note the departures from the parent XEP and specific
 		requirements.
 	</p>
+    
+    <section2
+		topic="Retrieving items"
+		anchor="items-retrieve">
+        
+        <section3
+			topic='Recent Items'
+			anchor='items-recent'>
+        
+            <p>It is possible to retrieve any new items since last retrieval from all subscribed channels ('<em>/posts</em>' nodes specifically) since last retrieval using the <strong>recent items</strong> functionality.
+            </p>
+            
+            <example caption="Recent items query">
+  <![CDATA[
+<iq from="juliet@capulet.lit/bc-app" to="buddycloud.capulet.lit" type="get" id="recent-items:1"> 
+  <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+    <recent-items xmlns="http://buddycloud.org/v1" since="2014-04-18T10:46.100Z" max="50" parent-only="true" /> 
+  </pubsub> 
+</iq>
+  ]]>
+            </example>
+        
+        </section3>
+    </section2>
 	<section2
 		topic="Deleting items"
 		anchor="items-delete">
