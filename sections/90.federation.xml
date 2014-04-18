@@ -1,17 +1,18 @@
 <section1 topic="Federation" anchor="federation">
 	<section2 topic="Inbox" anchor="inbox">
 	</section2>
-	<section2 topic="Interaction With Other Services" anchor="plays-nicely-with-others">
-		<p>Buddycloud is designed around replaceable XMPP server components.
-			Each component offers a discrete set of services, and communicated
-			with other components using XEP-0114 component connections. For
-			example, a media hosting is delivered via a separate XMPP component
-			that communicates with the local and remote Buddycloud server.
+	<section2 topic="Interaction With Other Services" anchor="Interaction-With-Other-Services">
+		<p>The Buddycloud service is designed to work with interchangeable components
+			that offer discrete services and together form a complete communication
+			service.
 		</p>
-		<p>Other components offer services offer services like Buddycloud
-			channel crawling and content search, channel recommendations, an HTTP
-			API and tailored push notification services. Additional services are
-			covered by separate XEPs.
+		<p>While the Buddycloud Server is designed to work independently of other
+			services but can be enhanced with helper services. Each helper communicates
+			with the Buddycloud server and other components using XEP-0114 connections.
+			Examples of helper services include: push notifications, media hosting,
+			contact matching, content search and channel recommendations.
+		</p>
+		<p>Helper services' specifications are covered in separate XEPs.
 		</p>
 	</section2>
 </section1>

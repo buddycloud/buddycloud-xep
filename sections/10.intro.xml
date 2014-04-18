@@ -1,77 +1,76 @@
-<section1
-	topic='Buddycloud Introduction'
-	anchor='Buddycloud Introduction'>
-	<section2
-		topic='About Buddycloud'
-		anchor='about-buddycloud'>
-		<p>Buddycloud is a collection of services, running as XMPP components
-			that enable rich, federated communications between individuals and
-			groups. Buddycloud builds on XMPP's native federation and pub-sub
-			principles to connect to and synchronise content with followers on
-			local and remote Buddycloud servers.
+<section1 topic='Buddycloud Introduction' anchor='Buddycloud Introduction'>
+	<section2 topic='About Buddycloud' anchor='about-buddycloud'>
+		<p>The Buddycloud project is a set of independently deployable services, that
+			inter-operate to create a rich collaboration service.
+		</p>
+		<p>Buddycloud Channels build on XMPP's native federation and publish-subscribe
+			principles to connect to, and synchronise content with users on local and
+			remote domains. Services are designed to interoperate. For example, the Media
+			Server, Friend Finder, content recommendation engine work together to help
+			developers build a unified collaboration services for individual and groups
+			of users.
+		</p>
+		<p>This XEP seeks to define how the Buddycloud Channel service currently
+			functions. It also seeks stay extensible for accommodate future, undefined
+			use cases.
 		</p>
 	</section2>
-	<section2
-		topic='Buddycloud Channels'
-		anchor='Buddycloud Channels'>
+	<section2 topic='Buddycloud Channels' anchor='Buddycloud Channels'>
 		<p>
-			Buddycloud channels are a bundle of pub-sub nodes presented as a
-			JID-like name (example:
+			Buddycloud channels are a bundle of pub-sub nodes presented as a JID-like
+			name (example:
 			<link url='buddycloud:juliet@capulit.lit'>juliet@capulet.lit</link>
-			. Content posted into channels is automatically synchronised to the
-			correct followers on other Buddycloud servers.
+			. Content posted into channels is automatically synchronised to the correct
+			followers on other Buddycloud domains.
 		</p>
 	</section2>
-	<section2
-		topic='Glossary'
-		anchor='glossary'>
+	<section2 topic='Glossary' anchor='glossary'>
 		<dl>
 			<di>
 				<dt>Personal Channel</dt>
-				<dd> Personal channels are a group of pub-sub nodes that have the
-					same owner, followers and access permissions.
+				<dd> Personal channels are a group of pub-sub nodes that have the same
+					owner, followers and access permissions.
 				</dd>
 			</di>
 			<di>
 				<dt>Topic Channel</dt>
-				<dd>Topic channels are for group discussions and decoupled from the
-					owners jid. For example balcony-speeches@topics.montague.lit could
-					be owned by speechwriter@montague.lit.
+				<dd>Topic channels are for group discussions and decoupled from the owners
+					jid. For example balcony-speeches@topics.montague.lit could be owned by
+					speechwriter@montague.lit.
 				</dd>
 			</di>
 			<di>
 				<dt>Ephemeral Channel</dt>
 				<dd>
-					Ephemeral channels, are generated for one-off use and automatically
-					removed by the Buddycloud server after the last participant
-					unfollows them (similar to the Google Hangout service) An example
-					ephemeral channel would be
+					Ephemeral channels, are generated for one-off use and automatically removed
+					by the Buddycloud service after the last participant unfollows them
+					(similar to the Google Hangout service) An example ephemeral channel would
+					be
 					<code>125bd2c4-afc2-4d4c-b869-efc0c0dad8c5@montague.lit</code>
 					.
 				</dd>
 			</di>
 			<di>
-				<dt>Budycloud Server</dt>
-				<dd>An XMPP component which hosts channel nodes and provides an
-					interface conforming to this document to allow access to them via
-					XMPP.
+				<dt>Buddycloud Service</dt>
+				<dd>An XMPP component which hosts channel nodes and provides an interface
+					conforming to this document to allow access to them via XMPP.
 				</dd>
 			</di>
 			<di>
-				<dt>Home Server</dt>
-				<dd>The Buddycloud server responsible for a JID's channels and Inbox.
+				<dt>Home server</dt>
+				<dd>The Buddycloud service responsible for a JID's channels and Inbox.
 				</dd>
 			</di>
 			<di>
 				<dt>Remote Server</dt>
-				<dd>Buddycloud servers that run on other XMPP domains.
+				<dd>Buddycloud service that run on other XMPP domains.
 				</dd>
 			</di>
 			<di>
 				<dt>Buddycloud Inbox</dt>
-				<dd>Service on the Entity's Home Server which subscribes to nodes on
-					the Entity's behalf, and may cache node data and provide an ability
-					to replay recent messages.
+				<dd>Service on the entity's home Buddycloud service which subscribes to
+					nodes on the Entity's behalf, and may cache node data and provide an
+					ability to replay recent messages.
 				</dd>
 			</di>
 		</dl>

@@ -157,7 +157,7 @@
 				: A reply must be made to an existing post within the same node
 			</li>
 			<li>
-				<em>max-tread-depth-exceeded</em>
+				<em>max-thread-depth-exceeded</em>
 				: An attempt to comment on a comment will result in this error response
 			</li>
 		</ul>
@@ -227,7 +227,7 @@
 				<strong>rating:X.0</strong>
 				(where
 				<em>X</em>
-				is the rating value). The activity very is also overwritten with 'rated'.
+				is the rating value). The activity verb is also overwritten with 'rated'.
 			</p>
 			<example caption='A valid payload for rating another post'>
         <![CDATA[
@@ -267,6 +267,10 @@
 						<em>invalid-rating-request</em>
 						: Ratings can only be made against post types 'post' and 'comment' i.e. it
 						is not possible to rate a rating
+					</li>
+					<li>
+						<em>item-already-rated</em>
+						: A user can only rate a single post once
 					</li>
 				</ul>
 			</section4>
