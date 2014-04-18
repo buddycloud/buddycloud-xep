@@ -67,172 +67,176 @@
 		</p>
 		<section3
 			topic='Publishing'
-			anchor='item-publishing' />
-		<p>The minimal payload for a publish request must be formatted as
-			follows:
-		</p>
-		<example caption="The Entity publishes to a node">
-  <![CDATA[
-<iq from="juliet@montague.lit/balcony" to="channels.montague.lit" type="set" id="publish:20">
-   <pubsub xmlns="http://jabber.org/protocol/pubsub">
-      <publish node="/user/romeo@capulet.lit/posts">
-         <item>
-            <entry xmlns="http://www.w3.org/2005/Atom">
-               <content type="text">O Romeo, Romeo! wherefore art thou Romeo?</content>
-             </entry>
-         </item>
-      </publish>
-   </pubsub>
-</iq>
-  ]]>
-		</example>
-		<p>This payload will be extended with default data by the server if
-			not provided. The final payload looking as follows:
-		</p>
-		<example caption='Payload with server-added elements'>
-        <![CDATA[
-            <entry xmlns="http://www.w3.org/2005/Atom">
-               <id>fc362eb42085f017ed9ccd9c4004b095</id>
-               <title>Post title</title>
-               <published>2014-01-01T00:00:00.000Z</published>
-               <updated>2014-01-01T00:00:00.000Z</updated>
-               <author>
-                  <name>juliet@montague.lit</name>
-                  <jid xmlns="http://buddycloud.com/atom-elements-0">juliet@montague.lit</jid>
-               </author>
-               <content type="text">O Romeo, Romeo! wherefore art thou Romeo?</content>
-               <activity:verb>post</activity:verb>
-               <activity:object>
-                  <activity:object-type>post</activity:object-type>
-               </activity:object>
-             </entry>
-]]>
-		</example>
-		<section4
-			topic='Error Cases'
-			anchor='item-publishing-errorcases'>
-			<p>Beyond
-				standard &amp;
-				<strong>xep0060</strong>
-				; error cases additional errors are used:
-			</p>
-			<ul>
-				<li>
-					<em>entry-element-required</em>
-					: Where no entry element has been provided in the payload
-				</li>
-				<li>
-					<em>content-element-required</em>
-					: Where no content element or an empty content element is provided
-				</li>
-				<li>
-					<em>unsupported-content-type</em>
-					: If provided the 'type' attribute of the content element must be
-					either 'text' or 'xhtml'. If not provided value will default to
-					'text'
-				</li>
-			</ul>
-		</section4>
+			anchor='item-publishing' >
+            <p>The minimal payload for a publish request must be formatted as
+                follows:
+            </p>
+            <example caption="The Entity publishes to a node">
+      <![CDATA[
+    <iq from="juliet@montague.lit/balcony" to="channels.montague.lit" type="set" id="publish:20">
+       <pubsub xmlns="http://jabber.org/protocol/pubsub">
+          <publish node="/user/romeo@capulet.lit/posts">
+             <item>
+                <entry xmlns="http://www.w3.org/2005/Atom">
+                   <content type="text">O Romeo, Romeo! wherefore art thou Romeo?</content>
+                 </entry>
+             </item>
+          </publish>
+       </pubsub>
+    </iq>
+      ]]>
+            </example>
+            <p>This payload will be extended with default data by the server if
+                not provided. The final payload looking as follows:
+            </p>
+            <example caption='Payload with server-added elements'>
+            <![CDATA[
+                <entry xmlns="http://www.w3.org/2005/Atom">
+                   <id>fc362eb42085f017ed9ccd9c4004b095</id>
+                   <title>Post title</title>
+                   <published>2014-01-01T00:00:00.000Z</published>
+                   <updated>2014-01-01T00:00:00.000Z</updated>
+                   <author>
+                      <name>juliet@montague.lit</name>
+                      <jid xmlns="http://buddycloud.com/atom-elements-0">juliet@montague.lit</jid>
+                   </author>
+                   <content type="text">O Romeo, Romeo! wherefore art thou Romeo?</content>
+                   <activity:verb>post</activity:verb>
+                   <activity:object>
+                      <activity:object-type>post</activity:object-type>
+                   </activity:object>
+                 </entry>
+    ]]>
+            </example>
+            <section4
+                topic='Error Cases'
+                anchor='item-publishing-errorcases'>
+                <p>Beyond
+                    standard &amp;
+                    <strong>xep0060</strong>
+                    ; error cases additional errors are used:
+                </p>
+                <ul>
+                    <li>
+                        <em>entry-element-required</em>
+                        : Where no entry element has been provided in the payload
+                    </li>
+                    <li>
+                        <em>content-element-required</em>
+                        : Where no content element or an empty content element is provided
+                    </li>
+                    <li>
+                        <em>unsupported-content-type</em>
+                        : If provided the 'type' attribute of the content element must be
+                        either 'text' or 'xhtml'. If not provided value will default to
+                        'text'
+                    </li>
+                </ul>
+            </section4>
+        </section3>
+        
 		<section3
 			topic='Threading'
-			anchor='item-threading' />
-		<p>Posts in Buddycloud can be formed into threads consisting of a
-			parent post and comments to a maximum thread depth of 1.
-		</p>
-		<p>For
-			this functionality we utilise the &amp;
-			<strong>thread</strong>
-			; namespace with the 'ref' attribute referring to the full global ID
-			of the parent post.
-		</p>
-		<example caption='A valid payload for replying in a thread'>
-        <![CDATA[
-            <entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/">
-               <id>96da02ee1baef61e767742844207bec4</id>
-               <title>Post title</title>
-               <published>2014-01-01T00:00:00.000Z</published>
-               <updated>2014-01-01T00:00:00.000Z</updated>
-               <author>
-                  <name>romeo@capulet.lit</name>
-                  <jid xmlns="http://buddycloud.com/atom-elements-0">romeo@capulet.lit</jid>
-               </author>
-               <content type="text">Shall I hear more, or shall I speak at this?</content>
-               <activity:verb>post</activity:verb>
-               <activity:object>
-                  <activity:object-type>comment</activity:object-type>
-               </activity:object>
-               <thr:in-reply-to ref="tag:channels.capulet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095" />
-            </entry>
-        ]]>
-		</example>
-		<section4
-			topic='Error Cases'
-			anchor='item-threading-errorcases' />
-		<ul>
-			<li>
-				<em>parent-item-not-found</em>
-				: A reply must be made to an exisinting post within the same node
-			</li>
-			<li>
-				<em>max-tread-depth-exceeded</em>
-				: An attempt to comment on a comment will result in this error
-				response
-			</li>
-		</ul>
+			anchor='item-threading' >
+            <p>Posts in Buddycloud can be formed into threads consisting of a
+                parent post and comments to a maximum thread depth of 1.
+            </p>
+            <p>For
+                this functionality we utilise the &amp;
+                <strong>thread</strong>
+                ; namespace with the 'ref' attribute referring to the full global ID
+                of the parent post.
+            </p>
+            <example caption='A valid payload for replying in a thread'>
+            <![CDATA[
+                <entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/">
+                   <id>96da02ee1baef61e767742844207bec4</id>
+                   <title>Post title</title>
+                   <published>2014-01-01T00:00:00.000Z</published>
+                   <updated>2014-01-01T00:00:00.000Z</updated>
+                   <author>
+                      <name>romeo@capulet.lit</name>
+                      <jid xmlns="http://buddycloud.com/atom-elements-0">romeo@capulet.lit</jid>
+                   </author>
+                   <content type="text">Shall I hear more, or shall I speak at this?</content>
+                   <activity:verb>post</activity:verb>
+                   <activity:object>
+                      <activity:object-type>comment</activity:object-type>
+                   </activity:object>
+                   <thr:in-reply-to ref="tag:channels.capulet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095" />
+                </entry>
+            ]]>
+            </example>
+            <section4
+                topic='Error Cases'
+                anchor='item-threading-errorcases' />
+            <ul>
+                <li>
+                    <em>parent-item-not-found</em>
+                    : A reply must be made to an exisinting post within the same node
+                </li>
+                <li>
+                    <em>max-tread-depth-exceeded</em>
+                    : An attempt to comment on a comment will result in this error
+                    response
+                </li>
+            </ul>
+        </section3>
 		<section3
 			topic='Referencing'
-			anchor='item-referencing' />
-		<p>Within a single thread comments can reference other comments or the
-			parent item. This is for the purpose of making a comment to a post
-			further back in the thread.
-		</p>
-		<example
-			caption='A valid payload for referencing another post within a thread'>
-        <![CDATA[
-            <entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/">
-               <id>96da02ee1baef61e767742844207bec4</id>
-               <title>Post title</title>
-               <published>2014-01-01T00:00:00.000Z</published>
-               <updated>2014-01-01T00:00:00.000Z</updated>
-               <author>
-                  <name>romeo@capulet.lit</name>
-                  <jid xmlns="http://buddycloud.com/atom-elements-0">romeo@capulet.lit</jid>
-               </author>
-               <content type="text">Shall I hear more, or shall I speak at this?</content>
-               <activity:verb>post</activity:verb>
-               <activity:object>
-                  <activity:object-type>comment</activity:object-type>
-               </activity:object>
-               <thr:in-reply-to ref="tag:channels.capulet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095" />
-<activity:target>                 <id>tag:channels.capuet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095</id>
-               </activity:target>
-            </entry>
-        ]]>
-		</example>
-		<section4
-			topic='Error Cases'
-			anchor='item-referencing-errorcases'>
-			<ul>
-				<li>
-					<em>missing-in-reply-to</em>
-					: As posts referencing other posts can only be comments then
-					attempting to do so results in this error
-				</li>
-				<li>
-					<em>missing-target-id</em>
-					: A target ID must be specificed as text to the target element
-				</li>
-				<li>
-					<em>targeted-item-not-found</em>
-					: If the targetted item can not be found in the current thread this
-					error response will be returned
-				</li>
-				<li>
-					<em>target-outside-thread</em>
-					: The targetted item must be within the same thread as the new post
-				</li>
-			</ul>
-		</section4>
+			anchor='item-referencing' >
+            <p>Within a single thread comments can reference other comments or the
+                parent item. This is for the purpose of making a comment to a post
+                further back in the thread.
+            </p>
+            <example
+                caption='A valid payload for referencing another post within a thread'>
+            <![CDATA[
+                <entry xmlns="http://www.w3.org/2005/Atom" xmlns:thr="http://purl.org/syndication/thread/1.0" xmlns:activity="http://activitystrea.ms/spec/1.0/">
+                   <id>96da02ee1baef61e767742844207bec4</id>
+                   <title>Post title</title>
+                   <published>2014-01-01T00:00:00.000Z</published>
+                   <updated>2014-01-01T00:00:00.000Z</updated>
+                   <author>
+                      <name>romeo@capulet.lit</name>
+                      <jid xmlns="http://buddycloud.com/atom-elements-0">romeo@capulet.lit</jid>
+                   </author>
+                   <content type="text">Shall I hear more, or shall I speak at this?</content>
+                   <activity:verb>post</activity:verb>
+                   <activity:object>
+                      <activity:object-type>comment</activity:object-type>
+                   </activity:object>
+                   <thr:in-reply-to ref="tag:channels.capulet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095" />
+    <activity:target>                 <id>tag:channels.capuet.lit,/users/romeo@capulet.lit/posts,fc362eb42085f017ed9ccd9c4004b095</id>
+                   </activity:target>
+                </entry>
+            ]]>
+            </example>
+            <section4
+                topic='Error Cases'
+                anchor='item-referencing-errorcases'>
+                <ul>
+                    <li>
+                        <em>missing-in-reply-to</em>
+                        : As posts referencing other posts can only be comments then
+                        attempting to do so results in this error
+                    </li>
+                    <li>
+                        <em>missing-target-id</em>
+                        : A target ID must be specificed as text to the target element
+                    </li>
+                    <li>
+                        <em>targeted-item-not-found</em>
+                        : If the targetted item can not be found in the current thread this
+                        error response will be returned
+                    </li>
+                    <li>
+                        <em>target-outside-thread</em>
+                        : The targetted item must be within the same thread as the new post
+                    </li>
+                </ul>
+            </section4>
+        </section3>
 		<section3
 			topic='Rating'
 			anchor='item-rating'>
