@@ -1,10 +1,97 @@
-<section1 topic="Pubsub Items" anchor="items">
+<section1
+	topic="Pubsub Items"
+	anchor="items">
+
 	<p>Many
 		of the item use cases follow those from &amp;
 		<strong>xep0060</strong>
 		; here we only note the departures from the parent XEP and specific
 		requirements.
 	</p>
+    
+
+    <section2
+		topic="Retrieving items"
+		anchor="items-retrieve">
+        
+        <section3
+			topic='Recent Items'
+			anchor='items-recent'>
+        
+            <p>It is possible to retrieve any new items since last retrieval from all subscribed channels ('<em>/posts</em>' nodes specifically) since last retrieval using the <strong>recent items</strong> functionality.
+            </p>
+
+            <example caption="Recent items query">
+  <![CDATA[
+<iq from="juliet@capulet.lit/bc-app" to="buddycloud.capulet.lit" type="get" id="recent-items:1"> 
+  <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+    <recent-items xmlns="http://buddycloud.org/v1" 
+                  since="2014-04-18T10:46.100Z" 
+                  max="50"
+                  parent-only="true" /> 
+  </pubsub> 
+</iq>
+  ]]>
+            </example>
+            
+            <example caption="Recent items reply">
+  <![CDATA[
+<iq to="juliet@capulet.lit/bc-app" from="buddycloud.capulet.lit" type="result" id="recent-items:1"> 
+  <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+    <items node="/user/romeo@montague.lit/posts">
+        <item id="tag:channels.capulet.lit,/users/juliet@montague.lit/posts,16584564008760001">
+            ...atom payload...
+        </item>
+        <item id="tag:channels.capulet.lit,/users/juliet@montague.lit/posts,10070506450002">
+            ...atom payload...
+        </item>
+    </items>
+    <items node="/user/juliet@capulet.lit/posts">
+        <item id="tag:channels.capulet.lit,/users/juliet@capulet.lit/posts,3252545492409">
+            ...atom payload...
+        </item>
+    </items>
+    <items node="/user/romeo@montague.lit/posts">
+        <item id="tag:channels.capulet.lit,/users/juliet@montague.lit/posts,106876700003">
+            ...atom payload...
+        </item>
+    </items>
+  </pubsub> 
+</iq>
+  ]]>
+            </example>
+            
+            <p>In this example <em>max</em> represents the maximum number of items the user wishes to retrieve 
+            from any one channel, <em>since</em> is the datetime from which posts should start, and 
+            <em>parent-only</em> allows users to requests posts which only start a discussion 
+            (i.e. no reply posts).</p>
+            
+            <section4 topic="Error Cases" anchor="items-recent-errorcases">
+                <p>The following extended error cases are used:
+                </p>
+                <ul>
+                    <li>
+                        <em>max-required</em>
+                        : A maximum number of items per node is required
+                    </li>
+                    <li>
+                        <em>invalid-max-value-provided</em>
+                        : The value of <em>max</em> must be a positive integer
+                    </li>
+                    <li>
+                        <em>since-required</em>
+                        : A valid value for <em>since</em> must be provided
+                    </li>
+                    <li>
+                        <em>invalid-since-value-provided</em>
+                        : <em>since</em> must be a parsable date string (ISO-8601 format)
+                    </li>
+                </ul>
+            </section4>
+        
+        </section3>
+    </section2>
+    
 	<section2 topic="Deleting items" anchor="items-delete">
 		<example caption="The client sends">
   <![CDATA[

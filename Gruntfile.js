@@ -6,11 +6,11 @@ module.exports = function(grunt) {
     watch: {
       gruntfile: {
         files: 'Gruntfile.js',
-        tasks: ['clean:build'],
+        tasks: ['clean', 'build'],
       },
       src: {
         files: ['./**/*.xml'],
-        tasks: ['build'],
+        tasks: ['clean', 'build'],
       },
     },
   })
