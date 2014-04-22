@@ -58,14 +58,14 @@
 			</tr>
 			<tr>
 				<td>Default Affiliation</td>
-				<td>Buddycloud#default_affiliation</td>
+				<td>buddycloud#default_affiliation</td>
 				<td>"publisher"</td>
 				<td>The role given to new channel followers</td>
 				<td>Dependent on Channel Type</td>
 			</tr>
 			<tr>
 				<td>Channel Type</td>
-				<td>Buddycloud#channel_type</td>
+				<td>buddycloud#channel_type</td>
 				<td>"personal"</td>
 				<td>The type of this channel. (see below). Set by the server at creation.
 					Not user changable.
@@ -90,6 +90,13 @@
 				</td>
 				<td>N.A.</td>
 			</tr>
+            <tr>
+                <td>Node content type</td>
+                <td>pubsub#type</td>
+                <td>http://www.w3.org/2005/Atom</td>
+                <td>The type of content held within this node.</td>
+                <td>http://www.w3.org/2005/Atom</td>
+            </tr>
 		</table>
 		<p>Channel owners and moderators can also set the default affiliation for the
 			channel
