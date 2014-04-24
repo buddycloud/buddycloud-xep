@@ -1,3 +1,3 @@
 <section1 topic="Channel subscriptions" anchor="subscriptions">
-    <p>See XEP-0060.</p>
+    <p>Buddycloud clients follow <cite>XEP-0060</cite> subscription mechanisms for following and unfollowing a channel.</p>
 </section1>
