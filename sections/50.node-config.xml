@@ -173,7 +173,7 @@
 			<tr>
 				<td>/user/&lt;jid>&gt;/posts</td>
 				<td>Activity stream</td>
-				<td>Atom format</td>
+				<td>Atom 1.0</td>
 				<td>Activty stream formatted posts</td>
 			</tr>
 			<tr>
@@ -214,7 +214,7 @@
 				<td>/user/&lt;jid>&gt;/status</td>
 				<td>A one line descrition of the channels status.</td>
 				<td>
-					unknown <!-- is this ATOM? -->
+					Atom 1.0
 				</td>
 				<td>For example a user might enter "Is happy" and a topic channel for a
 					development team might have a status line of "Code is building correctly"
