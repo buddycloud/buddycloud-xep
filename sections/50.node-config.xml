@@ -3,7 +3,7 @@
 		channel have the same metadata and permission.
 	</p>
 	<section2 topic='Get Node Configuration' anchor='get-node-config'> - using disco-info
-		with the node specified - using XEP-0060 5.4 Discover Node Metadata
+		with the node specified - using <cite>XEP-0060</cite> 5.4 Discover Node Metadata
 	</section2>
 	<section2 topic='Set Node Configuration' anchor='set-node-config'> set Not sure what
 		goes here?
@@ -16,9 +16,7 @@
 			and an update to one updates the others.
 		</p>
 		<p>
-			Most metadata fields used for Channels are already defined in <!-- how do we ref 
-				this? -->
-			xep0060;. The relevant ones are listed below.
+			Most metadata fields used for Channels are already defined in <cite>XEP-0060</cite>. The relevant ones are listed below.
 		</p>
 		<table caption="Channel Metadata Fields">
 			<tr>
