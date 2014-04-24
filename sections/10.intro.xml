@@ -17,7 +17,8 @@
 	</section2>
 	<section2 topic='Buddycloud Channels' anchor='Buddycloud Channels'>
 		<p>
-			Buddycloud channels are a bundle of pub-sub nodes presented as a JID-like
+			Buddycloud channels are a bundle of &xep0060; publish-subscribe nodes with 
+			identical subscribers and permissions presented as a JID-like
 			name (example:
 			<link url='buddycloud:juliet@capulit.lit'>juliet@capulet.lit</link>
 			. Content posted into channels is automatically synchronised to the correct
