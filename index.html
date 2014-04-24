@@ -1,116 +1,35 @@
 <?xml version="1.0"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>XEP-xxxx: Buddycloud Channels</title><link rel="stylesheet" type="text/css" href="xmpp/xmpp.css" /><link href="xmpp/prettify.css" type="text/css" rel="stylesheet" /><link rel="shortcut icon" type="image/x-icon" href="xmpp/favicon.ico" /><script type="text/javascript" src="xmpp/prettify.js"></script><meta name="DC.Title" content="Buddycloud Channels" /><meta name="DC.Creator" content="Simon Tennant" /><meta name="DC.Creator" content="Lloyd Watkin" /><meta name="DC.Creator" content="Ashley Ward" /><meta name="DC.Description" content="This document describes a profile and conventions for usage of the PubSub protocol in the context of a new type of communication." /><meta name="DC.Publisher" content="XMPP Standards Foundation" /><meta name="DC.Contributor" content="XMPP Extensions Editor" /><meta name="DC.Date" content="`date +%Y-%m-%d`" /><meta name="DC.Type" content="XMPP Extension Protocol" /><meta name="DC.Format" content="XHTML" /><meta name="DC.Identifier" content="XEP-xxxx" /><meta name="DC.Language" content="en" /><meta name="DC.Rights" content="This XMPP Extension Protocol is copyright (c) 1999 - `date +%Y`&#10;        by the XMPP Standards Foundation (XSF).&#10;    " /></head><body onload="prettyPrint()"><h1>XEP-xxxx: Buddycloud Channels</h1><table><tr valign="top"><td><strong>Abstract:</strong></td><td>This document describes a profile and conventions for usage of the PubSub protocol in the context of a new type of communication.</td></tr><tr valign="top"><td><strong>Authors:</strong></td><td>Simon Tennant, Lloyd Watkin, Ashley Ward</td></tr><tr valign="top"><td><strong>Copyright:</strong></td><td>© 1999 - 2014 XMPP Standards Foundation. <a href="#appendix-legal">SEE LEGAL NOTICES</a>.</td></tr><tr valign="top"><td><strong>Status:</strong></td><td>ProtoXEP</td></tr><tr valign="top"><td><strong>Type:</strong></td><td>Standards Track</td></tr><tr valign="top"><td><strong>Version:</strong></td><td>0.0.2</td></tr><tr valign="top"><td><strong>Last Updated:</strong></td><td>`date +%Y-%m-%d`</td></tr></table><hr /><p style="color:red">WARNING: This document has not yet been accepted for consideration or approved in any official manner by the XMPP Standards Foundation, and this document is not yet an XMPP Extension Protocol (XEP). If this document is accepted as a XEP by the XMPP Council, it will be published at &lt;<a href="http://xmpp.org/extensions/">http://xmpp.org/extensions/</a>&gt; and announced on the &lt;standards@xmpp.org&gt; mailing list.</p><hr /><h2>Table of Contents</h2><div class="indent"><p><br />1.  <a href="#Buddycloud Introduction">Buddycloud Introduction</a><br />   
-      1.1.  <a href="#about-buddycloud">About Buddycloud</a><br />   
-      1.2.  <a href="#Buddycloud Channels">Buddycloud Channels</a><br />   
-      1.3.  <a href="#glossary">Glossary</a><br />2.  <a href="#Finding-the-right-Buddycloud-server">Service Discovery</a><br />   
-      2.1.  <a href="#DISCOthenDNS">Discovery order</a><br />   
-      2.2.  <a href="#disco-discovery">Discovery using Disco</a><br />   
-      2.3.  <a href="#DNS-discovery">Discovery using DNS</a><br />3.  <a href="#register">Register</a><br />4.  <a href="#channel-config">Channel and Node Configuration</a><br />   
-      4.1.  <a href="#get-node-config">Get Node Configuration</a><br />   
-      4.2.  <a href="#set-node-config">Set Node Configuration</a><br />   
-      4.3.  <a href="#default-roles">Default roles</a><br />   
-      4.4.  <a href="#well-known-nodes">Well known nodes</a><br />5.  <a href="#biz-logic">Business Logic</a><br />   
-      5.1.  <a href="#PubSub-for-humans">PubSub for Humans</a><br />   
-      5.2.  <a href="#rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a><br />6.  <a href="#items">Pubsub Items</a><br />   
-      6.1.  <a href="#items-retrieve">Retrieving items</a><br />      
-      6.1.1.  <a href="#items-recent">Recent Items</a><br />        
-      6.1.1.1.  <a href="#items-recent-errorcases">Error Cases</a><br />   
-      6.2.  <a href="#items-delete">Deleting items</a><br />   
-      6.3.  <a href="#item-payload">Item Payload</a><br />      
-      6.3.1.  <a href="#item-publishing">Publishing</a><br />      
-      6.3.2.  <a href="#item-threading">Threading</a><br />      
-      6.3.3.  <a href="#item-referencing">Referencing</a><br />      
-      6.3.4.  <a href="#item-rating">Rating</a><br />        
-      6.3.4.1.  <a href="#item-rating-errorcases">Error cases</a><br />7.  <a href="#subscriptions">Channel subscriptions</a><br />8.  <a href="#federation">Federation</a><br />   
-      8.1.  <a href="#inbox">Inbox</a><br />   
-      8.2.  <a href="#Interaction-With-Other-Services">Interaction With Other Services</a><br />9.  <a href="#security-considerations">Security Considerations</a><br />   
-      9.1.  <a href="#server-trust">Server Trust</a><br />   
-      9.2.  <a href="#security-considerations-with-follower+post-role">Default Role</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
-       <a name="Buddycloud Introduction" id="Buddycloud Introduction">Buddycloud Introduction</a></h2>
-	<div class="indent"><h3>1.1 <a name="about-buddycloud" id="about-buddycloud">About Buddycloud</a></h3>
-		<p>The Buddycloud project is a set of independently deployable services, that
-			inter-operate to create a rich collaboration service.
-		</p>
-		<p>Buddycloud Channels build on XMPP's native federation and publish-subscribe
-			principles to connect to, and synchronise content with users on local and
-			remote domains. Services are designed to interoperate. For example, the Media
-			Server, Friend Finder, content recommendation engine work together to help
-			developers build a unified collaboration services for individual and groups
-			of users.
-		</p>
-		<p>This XEP seeks to define how the Buddycloud Channel service currently
-			functions. It also seeks stay extensible for accommodate future, undefined
-			use cases.
-		</p>
-	</div>
-	<div class="indent"><h3>1.2 <a name="Buddycloud Channels" id="Buddycloud Channels">Buddycloud Channels</a></h3>
-		<p>
-			Buddycloud channels are a bundle of pub-sub nodes presented as a JID-like
-			name (example:
-			<a href="buddycloud:juliet@capulit.lit">juliet@capulet.lit</a>
-			. Content posted into channels is automatically synchronised to the correct
-			followers on other Buddycloud domains.
-		</p>
-	</div>
-	<div class="indent"><h3>1.3 <a name="glossary" id="glossary">Glossary</a></h3>
-		<div class="indent"><dl>
-			<di>
-				<dt><strong>Personal Channel</strong></dt>
-				<dd> Personal channels are a group of pub-sub nodes that have the same
-					owner, followers and access permissions.
-				</dd>
-			</di>
-			<di>
-				<dt><strong>Topic Channel</strong></dt>
-				<dd>Topic channels are for group discussions and decoupled from the owners
-					jid. For example balcony-speeches@topics.montague.lit could be owned by
-					speechwriter@montague.lit.
-				</dd>
-			</di>
-			<di>
-				<dt><strong>Ephemeral Channel</strong></dt>
-				<dd>
-					Ephemeral channels, are generated for one-off use and automatically removed
-					by the Buddycloud service after the last participant unfollows them
-					(similar to the Google Hangout service) An example ephemeral channel would
-					be
-					<p class="caption"></p><div class="indent"><pre class="prettyprint">125bd2c4-afc2-4d4c-b869-efc0c0dad8c5@montague.lit</pre></div>
-					.
-				</dd>
-			</di>
-			<di>
-				<dt><strong>Buddycloud Service</strong></dt>
-				<dd>An XMPP component which hosts channel nodes and provides an interface
-					conforming to this document to allow access to them via XMPP.
-				</dd>
-			</di>
-			<di>
-				<dt><strong>Home server</strong></dt>
-				<dd>The Buddycloud service responsible for a JID's channels and Inbox.
-				</dd>
-			</di>
-			<di>
-				<dt><strong>Remote Server</strong></dt>
-				<dd>Buddycloud service that run on other XMPP domains.
-				</dd>
-			</di>
-			<di>
-				<dt><strong>Buddycloud Inbox</strong></dt>
-				<dd>Service on the entity's home Buddycloud service which subscribes to
-					nodes on the Entity's behalf, and may cache node data and provide an
-					ability to replay recent messages.
-				</dd>
-			</di>
-		</dl></div>
-	</div>
-<h2>2.
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>XEP-xxxx: Buddycloud Channels</title><link rel="stylesheet" type="text/css" href="xmpp/xmpp.css" /><link href="xmpp/prettify.css" type="text/css" rel="stylesheet" /><link rel="shortcut icon" type="image/x-icon" href="xmpp/favicon.ico" /><script type="text/javascript" src="xmpp/prettify.js"></script><meta name="DC.Title" content="Buddycloud Channels" /><meta name="DC.Creator" content="Simon Tennant" /><meta name="DC.Creator" content="Lloyd Watkin" /><meta name="DC.Creator" content="Ashley Ward" /><meta name="DC.Description" content="This document describes a profile and conventions for usage of the PubSub protocol in the context of a new type of communication." /><meta name="DC.Publisher" content="XMPP Standards Foundation" /><meta name="DC.Contributor" content="XMPP Extensions Editor" /><meta name="DC.Date" content="`date +%Y-%m-%d`" /><meta name="DC.Type" content="XMPP Extension Protocol" /><meta name="DC.Format" content="XHTML" /><meta name="DC.Identifier" content="XEP-xxxx" /><meta name="DC.Language" content="en" /><meta name="DC.Rights" content="This XMPP Extension Protocol is copyright (c) 1999 - `date +%Y`&#10;        by the XMPP Standards Foundation (XSF).&#10;    " /></head><body onload="prettyPrint()"><h1>XEP-xxxx: Buddycloud Channels</h1><table><tr valign="top"><td><strong>Abstract:</strong></td><td>This document describes a profile and conventions for usage of the PubSub protocol in the context of a new type of communication.</td></tr><tr valign="top"><td><strong>Authors:</strong></td><td>Simon Tennant, Lloyd Watkin, Ashley Ward</td></tr><tr valign="top"><td><strong>Copyright:</strong></td><td>© 1999 - 2014 XMPP Standards Foundation. <a href="#appendix-legal">SEE LEGAL NOTICES</a>.</td></tr><tr valign="top"><td><strong>Status:</strong></td><td>ProtoXEP</td></tr><tr valign="top"><td><strong>Type:</strong></td><td>Standards Track</td></tr><tr valign="top"><td><strong>Version:</strong></td><td>0.0.2</td></tr><tr valign="top"><td><strong>Last Updated:</strong></td><td>`date +%Y-%m-%d`</td></tr></table><hr /><p style="color:red">WARNING: This document has not yet been accepted for consideration or approved in any official manner by the XMPP Standards Foundation, and this document is not yet an XMPP Extension Protocol (XEP). If this document is accepted as a XEP by the XMPP Council, it will be published at &lt;<a href="http://xmpp.org/extensions/">http://xmpp.org/extensions/</a>&gt; and announced on the &lt;standards@xmpp.org&gt; mailing list.</p><hr /><h2>Table of Contents</h2><div class="indent"><p><br />1.  <a href="#Finding-the-right-Buddycloud-server">Service Discovery</a><br />   
+      1.1.  <a href="#DISCOthenDNS">Discovery order</a><br />   
+      1.2.  <a href="#disco-discovery">Discovery using Disco</a><br />   
+      1.3.  <a href="#DNS-discovery">Discovery using DNS</a><br />2.  <a href="#register">Register</a><br />3.  <a href="#channel-config">Channel and Node Configuration</a><br />   
+      3.1.  <a href="#get-node-config">Get Node Configuration</a><br />   
+      3.2.  <a href="#set-node-config">Set Node Configuration</a><br />   
+      3.3.  <a href="#default-roles">Default roles</a><br />   
+      3.4.  <a href="#well-known-nodes">Well known nodes</a><br />4.  <a href="#biz-logic">Business Logic</a><br />   
+      4.1.  <a href="#PubSub-for-humans">PubSub for Humans</a><br />   
+      4.2.  <a href="#rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a><br />5.  <a href="#items">Pubsub Items</a><br />   
+      5.1.  <a href="#items-retrieve">Retrieving items</a><br />      
+      5.1.1.  <a href="#items-recent">Recent Items</a><br />        
+      5.1.1.1.  <a href="#items-recent-errorcases">Error Cases</a><br />   
+      5.2.  <a href="#items-delete">Deleting items</a><br />   
+      5.3.  <a href="#item-payload">Item Payload</a><br />      
+      5.3.1.  <a href="#item-publishing">Publishing</a><br />      
+      5.3.2.  <a href="#item-threading">Threading</a><br />      
+      5.3.3.  <a href="#item-referencing">Referencing</a><br />      
+      5.3.4.  <a href="#item-rating">Rating</a><br />        
+      5.3.4.1.  <a href="#item-rating-errorcases">Error cases</a><br />6.  <a href="#subscriptions">Channel subscriptions</a><br />7.  <a href="#federation">Federation</a><br />   
+      7.1.  <a href="#inbox">Inbox</a><br />   
+      7.2.  <a href="#Interaction-With-Other-Services">Interaction With Other Services</a><br />8.  <a href="#security-considerations">Security Considerations</a><br />   
+      8.1.  <a href="#server-trust">Server Trust</a><br />   
+      8.2.  <a href="#security-considerations-with-follower+post-role">Default Role</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
        <a name="Finding-the-right-Buddycloud-server" id="Finding-the-right-Buddycloud-server">Service Discovery</a></h2>
 	<p>Each XMPP domain can have one Buddycloud server that serves user's channels.
 		Buddycloud clients and servers need to be able to discover the authoratative
 		Buddycloud server. find the
 	</p>
-	<div class="indent"><h3>2.1 <a name="DISCOthenDNS" id="DISCOthenDNS">Discovery order</a></h3>
+	<div class="indent"><h3>1.1 <a name="DISCOthenDNS" id="DISCOthenDNS">Discovery order</a></h3>
 		<p>
 			To find the correct remote Buddycloud service for a domain, the Buddycloud
 			server should:
@@ -125,7 +44,7 @@
 			</ol>
 		</p>
 	</div>
-	<div class="indent"><h3>2.2 <a name="disco-discovery" id="disco-discovery">Discovery using Disco</a></h3>
+	<div class="indent"><h3>1.2 <a name="disco-discovery" id="disco-discovery">Discovery using Disco</a></h3>
 		<p>The Buddycloud service first sends an items discovery request to the domain
 			to discover all the available components.
 		</p>
@@ -178,7 +97,7 @@
   
 		</pre></div>
 	</div>
-	<div class="indent"><h3>2.3 <a name="DNS-discovery" id="DNS-discovery">Discovery using DNS</a></h3>
+	<div class="indent"><h3>1.3 <a name="DNS-discovery" id="DNS-discovery">Discovery using DNS</a></h3>
 		<p>In the case that no server is found via disco, DNS should be used to
 			discover the Buddycloud server. A PTR record can be used to delegate
 			Buddycloud services to a remote Buddycloud server.
@@ -195,7 +114,7 @@
 			.
 		</p>
 	</div>
-<h2>3.
+<h2>2.
        <a name="register" id="register">Register</a></h2>
   <p>Upon connection to the buddycloud server a user should send a register 
      stanza.</p>
@@ -216,18 +135,18 @@
   as they become available on the server (e.g. 'status' node, 'geoloc' nodes).
   </p>
   
-<h2>4.
+<h2>3.
        <a name="channel-config" id="channel-config">Channel and Node Configuration</a></h2>
 	<p>Node metadata is used to describe the channel to users. All nodes in a
 		channel have the same metadata and permission.
 	</p>
-	<div class="indent"><h3>4.1 <a name="get-node-config" id="get-node-config">Get Node Configuration</a></h3> - using disco-info
+	<div class="indent"><h3>3.1 <a name="get-node-config" id="get-node-config">Get Node Configuration</a></h3> - using disco-info
 		with the node specified - using XEP-0060 5.4 Discover Node Metadata
 	</div>
-	<div class="indent"><h3>4.2 <a name="set-node-config" id="set-node-config">Set Node Configuration</a></h3> set Not sure what
+	<div class="indent"><h3>3.2 <a name="set-node-config" id="set-node-config">Set Node Configuration</a></h3> set Not sure what
 		goes here?
 	</div>
-	<div class="indent"><h3>4.3 <a name="default-roles" id="default-roles">Default roles</a></h3>
+	<div class="indent"><h3>3.3 <a name="default-roles" id="default-roles">Default roles</a></h3>
 		<p> minimum setting/optional recommended fallbacks
 		</p>
 		<p>Channel metadata is stored as node metadata against the /posts node of the
@@ -375,7 +294,7 @@
 			</table></div>
 		</p>
 	</div>
-	<div class="indent"><h3>4.4 <a name="well-known-nodes" id="well-known-nodes">Well known nodes</a></h3>
+	<div class="indent"><h3>3.4 <a name="well-known-nodes" id="well-known-nodes">Well known nodes</a></h3>
 		<p>Buddycloud is designed to be extended with new node and content types. To
 			kickstart Buddycloud starts with some well known and used nodes. It is
 			recommended that new nodes are announced publicly on the XSF standards
@@ -440,9 +359,9 @@
 			</tr>
 		</table></div>
 	</div>
-<h2>5.
+<h2>4.
        <a name="biz-logic" id="biz-logic">Business Logic</a></h2>
-	<div class="indent"><h3>5.1 <a name="PubSub-for-humans" id="PubSub-for-humans">PubSub for Humans</a></h3>
+	<div class="indent"><h3>4.1 <a name="PubSub-for-humans" id="PubSub-for-humans">PubSub for Humans</a></h3>
 		<p> Buddycloud adapts XEP-0060's machine-to-machine design goals with logic
 			and presets that work better in a social person-to-person and person-to-group
 			environment. For example, to discourage "glorifying the wicked", the list of
@@ -667,7 +586,7 @@
 			</table></div>
 		</p>
 	</div>
-	<div class="indent"><h3>5.2 <a name="rules-nodeaffiliations" id="rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a></h3>
+	<div class="indent"><h3>4.2 <a name="rules-nodeaffiliations" id="rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a></h3>
 		<p>A Buddycloud server SHOULD maintain similar affiliations for a subscribed
 			entity across all the Nodes of a Channel.
 		</p>
@@ -678,7 +597,7 @@
 			really is private.
 		</p>
 	</div>
-<h2>6.
+<h2>5.
        <a name="items" id="items">Pubsub Items</a></h2>
 
 	<p>Many
@@ -689,9 +608,9 @@
 	</p>
     
 
-    <div class="indent"><h3>6.1 <a name="items-retrieve" id="items-retrieve">Retrieving items</a></h3>
+    <div class="indent"><h3>5.1 <a name="items-retrieve" id="items-retrieve">Retrieving items</a></h3>
         
-        <div class="indent"><h3>6.1.1 <a name="items-recent" id="items-recent">Recent Items</a></h3>
+        <div class="indent"><h3>5.1.1 <a name="items-recent" id="items-recent">Recent Items</a></h3>
         
             <p>It is possible to retrieve any new items since last retrieval from all subscribed channels ('<span class="em">/posts</span>' nodes specifically) since last retrieval using the <span class="strong">recent items</span> functionality.
             </p>
@@ -741,7 +660,7 @@
             <span class="em">parent-only</span> allows users to requests posts which only start a discussion 
             (i.e. no reply posts).</p>
             
-            <div class="indent"><h3>6.1.1.1 <a name="items-recent-errorcases" id="items-recent-errorcases">Error Cases</a></h3>
+            <div class="indent"><h3>5.1.1.1 <a name="items-recent-errorcases" id="items-recent-errorcases">Error Cases</a></h3>
                 <p>The following extended error cases are used:
                 </p>
                 <ul>
@@ -767,7 +686,7 @@
         </div>
     </div>
     
-	<div class="indent"><h3>6.2 <a name="items-delete" id="items-delete">Deleting items</a></h3>
+	<div class="indent"><h3>5.2 <a name="items-delete" id="items-delete">Deleting items</a></h3>
 		<p class="caption"><a name="example-9" id="example-9"></a>Example 9. The client sends</p><div class="indent"><pre class="prettyprint">
   
 &lt;iq from="juliet@capulet.lit/bc-app" to="buddycloud.capulet.lit" type="set" id="retractitem:32"&gt; 
@@ -810,7 +729,7 @@
   
 		</pre></div>
 	</div>
-	<div class="indent"><h3>6.3 <a name="item-payload" id="item-payload">Item Payload</a></h3>
+	<div class="indent"><h3>5.3 <a name="item-payload" id="item-payload">Item Payload</a></h3>
 		<p>Buddycloud
 			item data are formatted according to &amp;
 			<span class="strong">atom</span>;
@@ -820,7 +739,7 @@
 			<span class="strong">review</span>
 			; extensions.
 		</p>
-		<div class="indent"><h3>6.3.1 <a name="item-publishing" id="item-publishing">Publishing</a></h3></div>
+		<div class="indent"><h3>5.3.1 <a name="item-publishing" id="item-publishing">Publishing</a></h3></div>
 		<p>The minimal payload for a publish request must be formatted as follows:
 		</p>
 		<p class="caption"><a name="example-12" id="example-12"></a>Example 12. The Entity publishes to a node</p><div class="indent"><pre class="prettyprint">
@@ -860,7 +779,7 @@
              &lt;/entry&gt;
 
 		</pre></div>
-		<div class="indent"><h3>6.3..1 <a name="item-publishing-errorcases" id="item-publishing-errorcases">Error Cases</a></h3>
+		<div class="indent"><h3>5.3..1 <a name="item-publishing-errorcases" id="item-publishing-errorcases">Error Cases</a></h3>
 			<p>Beyond
 				standard &amp;
 				<span class="strong">xep0060</span>
@@ -882,7 +801,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="indent"><h3>6.3.2 <a name="item-threading" id="item-threading">Threading</a></h3></div>
+		<div class="indent"><h3>5.3.2 <a name="item-threading" id="item-threading">Threading</a></h3></div>
 		<p>
 			Posts in Buddycloud can be formed into threads consisting of a parent post
 			and comments to a maximum thread depth of 1. Posts follow the
@@ -912,7 +831,7 @@
             &lt;/entry&gt;
         
 		</pre></div>
-		<div class="indent"><h3>6.3..2 <a name="item-threading-errorcases" id="item-threading-errorcases">Error Cases</a></h3></div>
+		<div class="indent"><h3>5.3..2 <a name="item-threading-errorcases" id="item-threading-errorcases">Error Cases</a></h3></div>
 		<ul>
 			<li>
 				<span class="em">parent-item-not-found</span>
@@ -923,7 +842,7 @@
 				: An attempt to comment on a comment will result in this error response
 			</li>
 		</ul>
-		<div class="indent"><h3>6.3.3 <a name="item-referencing" id="item-referencing">Referencing</a></h3></div>
+		<div class="indent"><h3>5.3.3 <a name="item-referencing" id="item-referencing">Referencing</a></h3></div>
 		<p>Within a single thread comments can reference other comments or the parent
 			item. This is for the purpose of making a comment to a post further back in
 			the thread.
@@ -950,7 +869,7 @@
             &lt;/entry&gt;
         
 		</pre></div>
-		<div class="indent"><h3>6.3..3 <a name="item-referencing-errorcases" id="item-referencing-errorcases">Error Cases</a></h3>
+		<div class="indent"><h3>5.3..3 <a name="item-referencing-errorcases" id="item-referencing-errorcases">Error Cases</a></h3>
 			<ul>
 				<li>
 					<span class="em">missing-in-reply-to</span>
@@ -972,7 +891,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="indent"><h3>6.3.4 <a name="item-rating" id="item-rating">Rating</a></h3>
+		<div class="indent"><h3>5.3.4 <a name="item-rating" id="item-rating">Rating</a></h3>
 			<p>By
 				making use of the &amp;
 				<span class="strong">review</span>;
@@ -1014,7 +933,7 @@
             &lt;/entry&gt;
         
 			</pre></div>
-			<div class="indent"><h3>6.3.4.1 <a name="item-rating-errorcases" id="item-rating-errorcases">Error cases</a></h3>
+			<div class="indent"><h3>5.3.4.1 <a name="item-rating-errorcases" id="item-rating-errorcases">Error cases</a></h3>
 				<ul>
 					<li>
 						<span class="em">invalid-rating</span>
@@ -1038,14 +957,14 @@
 			</div>
 		</div>
 	</div>
-<h2>7.
+<h2>6.
        <a name="subscriptions" id="subscriptions">Channel subscriptions</a></h2>
     <p>See XEP-0060.</p>
-<h2>8.
+<h2>7.
        <a name="federation" id="federation">Federation</a></h2>
-	<div class="indent"><h3>8.1 <a name="inbox" id="inbox">Inbox</a></h3>
+	<div class="indent"><h3>7.1 <a name="inbox" id="inbox">Inbox</a></h3>
 	</div>
-	<div class="indent"><h3>8.2 <a name="Interaction-With-Other-Services" id="Interaction-With-Other-Services">Interaction With Other Services</a></h3>
+	<div class="indent"><h3>7.2 <a name="Interaction-With-Other-Services" id="Interaction-With-Other-Services">Interaction With Other Services</a></h3>
 		<p>The Buddycloud service is designed to work with interchangeable components
 			that offer discrete services and together form a complete communication
 			service.
@@ -1059,9 +978,9 @@
 		<p>Helper services' specifications are covered in separate XEPs.
 		</p>
 	</div>
-<h2>9.
+<h2>8.
        <a name="security-considerations" id="security-considerations">Security Considerations</a></h2>
-	<div class="indent"><h3>9.1 <a name="server-trust" id="server-trust">Server Trust</a></h3>
+	<div class="indent"><h3>8.1 <a name="server-trust" id="server-trust">Server Trust</a></h3>
 		<p>
 			The Buddycloud server should make sure that the remote server
 			component is the authoritative Buddycloud server for the domain it
@@ -1069,7 +988,7 @@
 			process and confirming the same XMPP component name.
 		</p>
 	</div>
-	<div class="indent"><h3>9.2 <a name="security-considerations-with-follower+post-role" id="security-considerations-with-follower+post-role">Default Role</a></h3>
+	<div class="indent"><h3>8.2 <a name="security-considerations-with-follower+post-role" id="security-considerations-with-follower+post-role">Default Role</a></h3>
 		<p>Open channel where members join with a follow+post role present an
 			attractive target for spamming and malicious behaviour. This default
 			role should be use with caution especially when the Buddycloud server
