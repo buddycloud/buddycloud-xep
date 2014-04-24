@@ -361,7 +361,7 @@
 <h2>4.
        <a name="biz-logic" id="biz-logic">Business Logic</a></h2>
 	<div class="indent"><h3>4.1 <a name="PubSub-for-humans" id="PubSub-for-humans">PubSub for Humans</a></h3>
-		<p> Buddycloud adapts XEP-0060's machine-to-machine design goals with logic
+		<p> Buddycloud adapts <span class="ref">XEP-0060</span>'s machine-to-machine design goals with logic
 			and presets that work better in a social person-to-person and person-to-group
 			environment. For example, to discourage "glorifying the wicked", the list of
 			banned users is only presented to the channel's moderators.
@@ -586,8 +586,9 @@
 		</p>
 	</div>
 	<div class="indent"><h3>4.2 <a name="rules-nodeaffiliations" id="rules-nodeaffiliations">Maintain Similar Affiliations across Channel Nodes</a></h3>
-		<p>A Buddycloud server SHOULD maintain similar affiliations for a subscribed
-			entity across all the Nodes of a Channel.
+		<p>A Buddycloud server MUST maintain similar affiliations and permissions for a subscribed
+			entity across all nodes that comprise a channel. For example, following the "posts" node
+			would also follow the status node.
 		</p>
 		<p>The server should automatically ensure that all nodes belonging to that
 			channel are updated with the same permissions. This helps address a common
