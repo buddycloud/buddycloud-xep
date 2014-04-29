@@ -19,11 +19,12 @@
       5.3.2.  <a href="#item-threading">Threading</a><br />      
       5.3.3.  <a href="#item-referencing">Referencing</a><br />      
       5.3.4.  <a href="#item-rating">Rating</a><br />        
-      5.3.4.1.  <a href="#item-rating-errorcases">Error cases</a><br />6.  <a href="#subscriptions">Channel subscriptions</a><br />7.  <a href="#federation">Federation</a><br />   
-      7.1.  <a href="#inbox">Inbox</a><br />   
-      7.2.  <a href="#Interaction-With-Other-Services">Interaction With Other Services</a><br />8.  <a href="#security-considerations">Security Considerations</a><br />   
-      8.1.  <a href="#server-trust">Server Trust</a><br />   
-      8.2.  <a href="#security-considerations-with-follower+post-role">Default Role</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
+      5.3.4.1.  <a href="#item-rating-errorcases">Error cases</a><br />6.  <a href="#subscriptions">Channel subscriptions</a><br />7.  <a href="#affiliations">Channel affiliations</a><br />   
+      7.1.  <a href="#affiliation-to-xep-0060-mappings">Buddycloud to XEP-0060 mappings</a><br />8.  <a href="#federation">Federation</a><br />   
+      8.1.  <a href="#inbox">Inbox</a><br />   
+      8.2.  <a href="#Interaction-With-Other-Services">Interaction With Other Services</a><br />9.  <a href="#security-considerations">Security Considerations</a><br />   
+      9.1.  <a href="#server-trust">Server Trust</a><br />   
+      9.2.  <a href="#security-considerations-with-follower+post-role">Default Role</a></p><p><a href="#appendices">Appendices</a><br />    <a href="#appendix-docinfo">A: Document Information</a><br />    <a href="#appendix-authorinfo">B: Author Information</a><br />    <a href="#appendix-legal">C: Legal Notices</a><br />    <a href="#appendix-xmpp">D: Relation to XMPP</a><br />    <a href="#appendix-discuss">E: Discussion Venue</a><br />    <a href="#appendix-conformance">F: Requirements Conformance</a><br />    <a href="#appendix-notes">G: Notes</a><br />    <a href="#appendix-revs">H: Revision History</a></p></div><hr /><h2>1.
        <a name="Finding-the-right-Buddycloud-server" id="Finding-the-right-Buddycloud-server">Service Discovery</a></h2>
 	<p>Each XMPP domain can have one Buddycloud server that serves user's channels.
 		Buddycloud clients and servers need to be able to discover the authoratative
@@ -958,10 +959,74 @@
        <a name="subscriptions" id="subscriptions">Channel subscriptions</a></h2>
     <p>Buddycloud clients follow <span class="ref">XEP-0060</span> subscription mechanisms for following and unfollowing a channel.</p>
 <h2>7.
+       <a name="affiliations" id="affiliations">Channel affiliations</a></h2>
+  <div class="indent"><h3>7.1 <a name="affiliation-to-xep-0060-mappings" id="affiliation-to-xep-0060-mappings">Buddycloud to XEP-0060 mappings</a></h3>
+    <p>
+      Buddycloud channels build on XEP-0060's node affiliations.
+      <div class="indent"><p class="caption"><a name="table-7" id="table-7"></a>Table 7: Channel Affiliations</p><table border="1" cellpadding="3" cellspacing="0">
+        <tr class="body">
+          <th>XEP-0060 Affiliation</th>
+          <th>Buddycloud Affiliation</th>
+          <th>Description</th>
+          <th>Required?</th>
+        </tr>
+        <tr class="body">
+          <td>Owner</td>
+          <td>owner</td>
+          <td>The channel owner. Full access rights. Can add and delete
+            moderators.
+          </td>
+          <td>REQUIRED</td>
+        </tr>
+        <tr class="body">
+          <td>-</td>
+          <td>moderator</td>
+          <td>A follower who has follower+post rights, rights to manage the
+            affiliation of entites with the node (except changing ownership),
+            and rights to manage the subscriptions of entities with the node.
+          </td>
+          <td>REQUIRED</td>
+        </tr>
+        <tr class="body">
+          <td>Publisher</td>
+          <td>follower+post</td>
+          <td>Entity can view posts and replies, publish new posts, and publish
+            replies to posts.
+          </td>
+          <td>REQUIRED</td>
+        </tr>
+        <tr class="body">
+          <td>Member</td>
+          <td>follower</td>
+          <td>Entity can view posts and replies for whitelist and open channels,
+            but cannot publish new posts or replies.
+          </td>
+          <td>REQUIRED</td>
+        </tr>
+        <tr class="body">
+          <td>None</td>
+          <td>none</td>
+          <td>Entity can view posts and replies for open channels, but cannot
+            publish new posts or replies.
+          </td>
+          <td>REQUIRED</td>
+        </tr>
+        <tr class="body">
+          <td>Outcast</td>
+          <td>outcast</td>
+          <td>Entity cannot view any posts or replies, and cannot publish new
+            posts or replies.
+          </td>
+          <td>RECOMMENDED</td>
+        </tr>
+      </table></div>
+    </p>
+  </div>
+<h2>8.
        <a name="federation" id="federation">Federation</a></h2>
-	<div class="indent"><h3>7.1 <a name="inbox" id="inbox">Inbox</a></h3>
+	<div class="indent"><h3>8.1 <a name="inbox" id="inbox">Inbox</a></h3>
 	</div>
-	<div class="indent"><h3>7.2 <a name="Interaction-With-Other-Services" id="Interaction-With-Other-Services">Interaction With Other Services</a></h3>
+	<div class="indent"><h3>8.2 <a name="Interaction-With-Other-Services" id="Interaction-With-Other-Services">Interaction With Other Services</a></h3>
 		<p>The Buddycloud service is designed to work with interchangeable components
 			that offer discrete services and together form a complete communication
 			service.
@@ -975,9 +1040,9 @@
 		<p>Helper services' specifications are covered in separate XEPs.
 		</p>
 	</div>
-<h2>8.
+<h2>9.
        <a name="security-considerations" id="security-considerations">Security Considerations</a></h2>
-	<div class="indent"><h3>8.1 <a name="server-trust" id="server-trust">Server Trust</a></h3>
+	<div class="indent"><h3>9.1 <a name="server-trust" id="server-trust">Server Trust</a></h3>
 		<p>
 			The Buddycloud server should make sure that the remote server
 			component is the authoritative Buddycloud server for the domain it
@@ -985,7 +1050,7 @@
 			process and confirming the same XMPP component name.
 		</p>
 	</div>
-	<div class="indent"><h3>8.2 <a name="security-considerations-with-follower+post-role" id="security-considerations-with-follower+post-role">Default Role</a></h3>
+	<div class="indent"><h3>9.2 <a name="security-considerations-with-follower+post-role" id="security-considerations-with-follower+post-role">Default Role</a></h3>
 		<p>Open channel where members join with a follow+post role present an
 			attractive target for spamming and malicious behaviour. This default
 			role should be use with caution especially when the Buddycloud server
