@@ -9,10 +9,12 @@ after_success:
   - git config --global user.email "deploy@travis-ci.org"
   - git config --global user.name "Travis deploy"
   - cp index.html ~/
+  - cp buddycloud.xml ~/
   - git remote add github "https://${GH_TOKEN}@github.com/buddycloud/buddycloud-xep.git" > /dev/null
   - git fetch github
   - git checkout gh-pages
   - cp ~/index.html .
+  - cp ~/buddycloud.xml .
   - git add -f index.html buddycloud.xml
   - echo "Added generated files"
   - git config credential.helper "store --file=.git/credentials"
