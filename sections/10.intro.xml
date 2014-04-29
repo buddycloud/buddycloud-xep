@@ -17,7 +17,7 @@
 	</section2>
 	<section2 topic='Buddycloud Channels' anchor='Buddycloud Channels'>
 		<p>
-			Buddycloud channels are a bundle of &xep0060; publish-subscribe nodes with 
+			Buddycloud channels are a bundle of <cite>XEP-0060</cite> publish-subscribe nodes with 
 			identical subscribers and permissions presented as a JID-like
 			name (example:
 			<link url='buddycloud:juliet@capulit.lit'>juliet@capulet.lit</link>
