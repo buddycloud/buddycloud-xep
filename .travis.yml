@@ -13,7 +13,7 @@ after_success:
   - git fetch github
   - git checkout gh-pages
   - cp ~/index.html .
-  - git add -f index.html
+  - git add -f index.html buddycloud.xml
   - echo "Added generated files"
   - git config credential.helper "store --file=.git/credentials"
   - echo "https://${GH_TOKEN}@github.com" > .git/credentials
