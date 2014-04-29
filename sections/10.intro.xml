@@ -6,7 +6,7 @@
 		<p>Buddycloud Channels build on XMPP's native federation and publish-subscribe
 			principles to connect to, and synchronise content with users on local and
 			remote domains. Services are designed to interoperate. For example, the Media
-			Server, Friend Finder, content recommendation engine work together to help
+			Server, Friend Finder, and content recommendation engine work together to help
 			developers build a unified collaboration services for individual and groups
 			of users.
 		</p>
