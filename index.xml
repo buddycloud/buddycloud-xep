@@ -1080,7 +1080,7 @@ IANA Service Location Protocol, Version 2 (SLPv2) Templates</link></span> <note>
     <approver>Council</approver>
     <revision>
         <version>0.0.2</version>
-        <date>{{DATE}}</date>
+        <date>2014-04-29</date>
         <initials>sdt</initials>
         <remark>
             <p>First draft.</p>
@@ -1088,7 +1088,7 @@ IANA Service Location Protocol, Version 2 (SLPv2) Templates</link></span> <note>
     </revision>
     <shortname>NOT_YET_ASSIGNED</shortname>
     <legal>
-    <copyright>This XMPP Extension Protocol is copyright (c) 1999 - {{YEAR}}
+    <copyright>This XMPP Extension Protocol is copyright (c) 1999 - 2014
         by the XMPP Standards Foundation (XSF).
     </copyright>
     <permissions> Permission is hereby granted, free of charge, to any
