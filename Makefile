@@ -1,5 +1,9 @@
+.PHONY: default
+
 DATE=$(shell date +%Y-%m-%d)
 YEAR=$(shell date +%Y)
+
+default: index.html index.xml
 
 index.html:
 	xsltproc --xinclude --output $@ xep.xsl main.xml; if [ $$? -ne 0 ]; then echo "xsltproc build failed"; exit 1; fi;
