@@ -1080,7 +1080,7 @@ IANA Service Location Protocol, Version 2 (SLPv2) Templates</link></span> <note>
     <approver>Council</approver>
     <revision>
         <version>0.0.2</version>
-        <date>2014-04-29</date>
+        <date>2014-06-09</date>
         <initials>sdt</initials>
         <remark>
             <p>First draft.</p>
@@ -1592,6 +1592,8 @@ IANA Service Location Protocol, Version 2 (SLPv2) Templates</link></span> <note>
 			environment. For example, to discourage "glorifying the wicked", the list of
 			banned users is only presented to the channel's moderators.
 		</p>
+	</section2>
+	<section2 topic="Channel Read Permissions" anchor="channel-read-permissions">
 		<p>
 			<table caption="channel read permissions">
 				<thead>
@@ -1730,6 +1732,8 @@ IANA Service Location Protocol, Version 2 (SLPv2) Templates</link></span> <note>
 				</tbody>
 			</table>
 		</p>
+	</section2>
+	<section2 topic="Channel Write Permissions" anchor="channel-write-permissions">
 		<p>
 			<table caption="channel write permissions">
 				<thead>
