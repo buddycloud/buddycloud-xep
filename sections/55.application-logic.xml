@@ -5,6 +5,8 @@
 			environment. For example, to discourage "glorifying the wicked", the list of
 			banned users is only presented to the channel's moderators.
 		</p>
+	</section2>
+	<section2 topic="Channel Read Permissions" anchor="channel-read-permissions">
 		<p>
 			<table caption="channel read permissions">
 				<thead>
@@ -143,6 +145,8 @@
 				</tbody>
 			</table>
 		</p>
+	</section2>
+	<section2 topic="Channel Write Permissions" anchor="channel-write-permissions">
 		<p>
 			<table caption="channel write permissions">
 				<thead>
