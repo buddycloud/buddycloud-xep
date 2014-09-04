@@ -73,12 +73,12 @@
 	</section2>
 	<section2 topic='Discovery using DNS' anchor='DNS-discovery'>
 		<p>In the case that no server is found via disco, DNS should be used to
-			discover the Buddycloud server. A PTR record can be used to delegate
-			Buddycloud services to a remote Buddycloud server.
+			discover the Buddycloud server. An IANA service-discovery record (DNS-SD) record can be used to delegate
+			services to a <link href="http://www.iana.org/assignments/service-names-port-numbers/service-names-port-numbers.xml" format="html" scope="external"><linktext>remote Buddycloud server</linktext></link>. 
 		</p>
-		<example caption="PTR record for buddycloud server discovery">
+		<example caption="TXT record for Buddycloud server discovery">
     <![CDATA[
-    _buddycloud-server._tcp.montague.lit. PTR buddycloud-component.verona.lit.
+    _bcloud-server._tcp.montague.lit. TXT  "v=1.0 host=server01.verona.lit."
     ]]>
 		</example>
 		<p>
