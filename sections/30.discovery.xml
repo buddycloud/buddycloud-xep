@@ -78,7 +78,7 @@
 		</p>
 		<example caption="TXT record for Buddycloud server discovery">
     <![CDATA[
-    _bcloud-server._tcp.montague.lit. TXT  "v=1.0 host=server01.verona.lit."
+    _bcloud-server._tcp.montague.lit. TXT  "v=1.0 server=server01.verona.lit."
     ]]>
 		</example>
 		<p>
