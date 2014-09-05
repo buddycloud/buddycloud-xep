@@ -17,7 +17,7 @@
     <approver>Council</approver>
     <revision>
         <version>0.0.2</version>
-        <date>2014-09-04</date>
+        <date>2014-09-05</date>
         <initials>sdt</initials>
         <remark>
             <p>First draft.</p>
@@ -267,7 +267,7 @@
 		</p>
 		<example caption="TXT record for Buddycloud server discovery">
     <![CDATA[
-    _bcloud-server._tcp.montague.lit. TXT  "v=1.0 host=server01.verona.lit."
+    _bcloud-server._tcp.montague.lit. TXT  "v=1.0 server=server01.verona.lit."
     ]]>
 		</example>
 		<p>
