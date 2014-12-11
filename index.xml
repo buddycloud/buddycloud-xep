@@ -1151,11 +1151,11 @@
             <field type="hidden" var="FORM_TYPE">
               <value>http://jabber.org/protocol/pubsub#node_config</value>
             </field>
-            <field var="key2">
-              <value>value2</value>
+            <field var="title">
+              <value>Romeo</value>
             </field>
-            <field var="key1">
-              <value>value1</value>
+            <field var="description">
+              <value>Romeo's node description</value>
             </field>
           </x>
         </configure>
@@ -1166,11 +1166,11 @@
             <field type="hidden" var="FORM_TYPE">
               <value>http://jabber.org/protocol/pubsub#node_config</value>
             </field>
-            <field var="key2">
-              <value>value4</value>
+            <field var="title">
+              <value>Juliet</value>
             </field>
-            <field var="key1">
-              <value>value3</value>
+            <field var="description">
+              <value>Juliet's node description</value>
             </field>
           </x>
         </configure>
@@ -1185,15 +1185,20 @@
         all subscriptions plus all configuration fields.</p>
 
         <example caption="Subscriptions with configuration query (with filters)">
+
+        <p>In this example, by using both the <em>subscription-filter</em> and <em>configuration-filter</em>, 
+        the requesting entity is only interested in retrieving the <em>key2</em> field of its subcriptions which 
+        configuration value for the field <em>key1</em> is <em>value1</em>.</p>
+
   <![CDATA[
 <iq from="juliet@capulet.lit/bc-app" to="buddycloud.capulet.lit" type="get" id="subscriptions-conf:1"> 
   <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
     <subscriptions-with-configuration xmlns="http://buddycloud.org/v1">
       <subscription-filter>
-        <allow field="key1" value="value1"/>
+        <allow field="title" value="Romeo"/>
       </subscription-filter>
       <configuration-filter>
-        <allow field="key2"/>
+        <allow field="description"/>
       </configuration-filter>
     </subscriptions-with-configuration>
   </pubsub> 
@@ -1212,8 +1217,8 @@
             <field type="hidden" var="FORM_TYPE">
               <value>http://jabber.org/protocol/pubsub#node_config</value>
             </field>
-            <field var="key2">
-              <value>value2</value>
+            <field var="description">
+              <value>Romeo's node description</value>
             </field>
           </x>
         </configure>
@@ -1224,9 +1229,9 @@
   ]]>
         </example>
 
-         <p>In this example, by using both the <em>subscription-filter</em> and <em>configuration-filter</em>, 
-         the requesting entity is only interested in retrieving the <em>key2</em> field of its subcriptions which 
-         configuration value for the field <em>key1</em> is <em>value1</em>.</p>
+        <p>In this example, by using both the <em>subscription-filter</em> and <em>configuration-filter</em>, 
+        the requesting entity is only interested in retrieving the <em>key2</em> field of its subcriptions which 
+        configuration value for the field <em>key1</em> is <em>value1</em>.</p>
 
     </section2>
 </section1>

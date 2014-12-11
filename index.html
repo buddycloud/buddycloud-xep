@@ -1074,11 +1074,11 @@
             &lt;field type="hidden" var="FORM_TYPE"&gt;
               &lt;value&gt;http://jabber.org/protocol/pubsub#node_config&lt;/value&gt;
             &lt;/field&gt;
-            &lt;field var="key2"&gt;
-              &lt;value&gt;value2&lt;/value&gt;
+            &lt;field var="title"&gt;
+              &lt;value&gt;Romeo&lt;/value&gt;
             &lt;/field&gt;
-            &lt;field var="key1"&gt;
-              &lt;value&gt;value1&lt;/value&gt;
+            &lt;field var="description"&gt;
+              &lt;value&gt;Romeo's node description&lt;/value&gt;
             &lt;/field&gt;
           &lt;/x&gt;
         &lt;/configure&gt;
@@ -1089,11 +1089,11 @@
             &lt;field type="hidden" var="FORM_TYPE"&gt;
               &lt;value&gt;http://jabber.org/protocol/pubsub#node_config&lt;/value&gt;
             &lt;/field&gt;
-            &lt;field var="key2"&gt;
-              &lt;value&gt;value4&lt;/value&gt;
+            &lt;field var="title"&gt;
+              &lt;value&gt;Juliet&lt;/value&gt;
             &lt;/field&gt;
-            &lt;field var="key1"&gt;
-              &lt;value&gt;value3&lt;/value&gt;
+            &lt;field var="description"&gt;
+              &lt;value&gt;Juliet's node description&lt;/value&gt;
             &lt;/field&gt;
           &lt;/x&gt;
         &lt;/configure&gt;
@@ -1108,15 +1108,20 @@
         all subscriptions plus all configuration fields.</p>
 
         <p class="caption"><a name="example-19" id="example-19"></a>Example 19. Subscriptions with configuration query (with filters)</p><div class="indent"><pre class="prettyprint">
+
+        <p>In this example, by using both the <span class="em">subscription-filter</span> and <span class="em">configuration-filter</span>, 
+        the requesting entity is only interested in retrieving the <span class="em">key2</span> field of its subcriptions which 
+        configuration value for the field <span class="em">key1</span> is <span class="em">value1</span>.</p>
+
   
 &lt;iq from="juliet@capulet.lit/bc-app" to="buddycloud.capulet.lit" type="get" id="subscriptions-conf:1"&gt; 
   &lt;pubsub xmlns="http://jabber.org/protocol/pubsub"&gt; 
     &lt;subscriptions-with-configuration xmlns="http://buddycloud.org/v1"&gt;
       &lt;subscription-filter&gt;
-        &lt;allow field="key1" value="value1"/&gt;
+        &lt;allow field="title" value="Romeo"/&gt;
       &lt;/subscription-filter&gt;
       &lt;configuration-filter&gt;
-        &lt;allow field="key2"/&gt;
+        &lt;allow field="description"/&gt;
       &lt;/configuration-filter&gt;
     &lt;/subscriptions-with-configuration&gt;
   &lt;/pubsub&gt; 
@@ -1135,8 +1140,8 @@
             &lt;field type="hidden" var="FORM_TYPE"&gt;
               &lt;value&gt;http://jabber.org/protocol/pubsub#node_config&lt;/value&gt;
             &lt;/field&gt;
-            &lt;field var="key2"&gt;
-              &lt;value&gt;value2&lt;/value&gt;
+            &lt;field var="description"&gt;
+              &lt;value&gt;Romeo's node description&lt;/value&gt;
             &lt;/field&gt;
           &lt;/x&gt;
         &lt;/configure&gt;
@@ -1147,9 +1152,9 @@
   
         </pre></div>
 
-         <p>In this example, by using both the <span class="em">subscription-filter</span> and <span class="em">configuration-filter</span>, 
-         the requesting entity is only interested in retrieving the <span class="em">key2</span> field of its subcriptions which 
-         configuration value for the field <span class="em">key1</span> is <span class="em">value1</span>.</p>
+        <p>In this example, by using both the <span class="em">subscription-filter</span> and <span class="em">configuration-filter</span>, 
+        the requesting entity is only interested in retrieving the <span class="em">key2</span> field of its subcriptions which 
+        configuration value for the field <span class="em">key1</span> is <span class="em">value1</span>.</p>
 
     </div>
 <h2>8.
