@@ -1,3 +1,114 @@
 <section1 topic="Channel subscriptions" anchor="subscriptions">
     <p>Buddycloud clients follow <cite>XEP-0060</cite> subscription mechanisms for following and unfollowing a channel.</p>
+    <section2 topic="Retrieving subscriptions with configuration" anchor="retrieve-subscriptions-with-configuration">
+        <p>It is also possible to retrieve the list of all subscribed nodes with their respective configuration embedded in a single response IQ using the <strong>subscription with configuration</strong> functionality.
+        </p>
+        <p>When using this feature, one is able to filter out subscriptions that don't match a given criteria, and/or filter out unwanted configuration fields. That makes it easier to control the size of the payload.
+        </p>
+
+        <example caption="Subscriptions with configuration query">
+  <![CDATA[
+<iq from="juliet@capulet.lit/bc-app" to="buddycloud.capulet.lit" type="get" id="subscriptions-conf:1"> 
+  <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+    <subscriptions-with-configuration xmlns="http://buddycloud.org/v1"/>
+  </pubsub> 
+</iq>
+  ]]>
+        </example>
+            
+        <example caption="Subscriptions with configuration reply">
+  <![CDATA[
+<iq to="juliet@capulet.lit/bc-app" from="buddycloud.capulet.lit" type="result" id="subscriptions-conf:1"> 
+  <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+    <subscriptions-with-configuration xmlns="http://buddycloud.org/v1">
+      <subscription-with-configuration node="/user/romeo@montague.lit/posts" subscription="subscribed" jid="juliet@capulet.lit">
+        <configure node="/user/romeo@montague.lit/posts">
+          <x xmlns="jabber:x:data" type="result">
+            <field type="hidden" var="FORM_TYPE">
+              <value>http://jabber.org/protocol/pubsub#node_config</value>
+            </field>
+            <field var="title">
+              <value>Romeo</value>
+            </field>
+            <field var="description">
+              <value>Romeo's node description</value>
+            </field>
+          </x>
+        </configure>
+      </subscription-with-configuration>
+      <subscription-with-configuration node="/user/juliet@capulet.lit/posts" subscription="subscribed" jid="juliet@capulet.lit">
+        <configure node="/user/juliet@capulet.lit/posts">
+          <x xmlns="jabber:x:data" type="result">
+            <field type="hidden" var="FORM_TYPE">
+              <value>http://jabber.org/protocol/pubsub#node_config</value>
+            </field>
+            <field var="title">
+              <value>Juliet</value>
+            </field>
+            <field var="description">
+              <value>Juliet's node description</value>
+            </field>
+          </x>
+        </configure>
+      </subscription-with-configuration>
+    </subscriptions-with-configuration>
+  </pubsub> 
+</iq>
+  ]]>
+        </example>
+
+        <p>In the previous example, the requesting entity didn't specify any filters, thus the response contained 
+        all subscriptions plus all configuration fields.</p>
+
+        <p>The requesting entity can also filter the returned subscriptions by configuration 
+        fields and/or filter specific configuration fields out. The subscription filter is useful when 
+        the client is only interested in nodes of a given type, e.g. topic or private; while 
+        the configuration filter is useful for bandwith-constrained clients that only require certain
+        configuration fields.</p>
+
+        <example caption="Subscriptions with configuration query (with filters)">
+  <![CDATA[
+<iq from="juliet@capulet.lit/bc-app" to="buddycloud.capulet.lit" type="get" id="subscriptions-conf:1"> 
+  <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+    <subscriptions-with-configuration xmlns="http://buddycloud.org/v1">
+      <subscription-filter>
+        <allow field="title" value="Romeo"/>
+      </subscription-filter>
+      <configuration-filter>
+        <allow field="description"/>
+      </configuration-filter>
+    </subscriptions-with-configuration>
+  </pubsub> 
+</iq>
+  ]]>
+        </example>
+            
+        <example caption="Subscriptions with configuration reply (with filters)">
+  <![CDATA[
+<iq to="juliet@capulet.lit/bc-app" from="buddycloud.capulet.lit" type="result" id="subscriptions-conf:1"> 
+  <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
+    <subscriptions-with-configuration xmlns="http://buddycloud.org/v1">
+      <subscription-with-configuration node="/user/romeo@montague.lit/posts" subscription="subscribed" jid="juliet@capulet.lit">
+        <configure node="/user/romeo@montague.lit/posts">
+          <x xmlns="jabber:x:data" type="result">
+            <field type="hidden" var="FORM_TYPE">
+              <value>http://jabber.org/protocol/pubsub#node_config</value>
+            </field>
+            <field var="description">
+              <value>A description of Romeo's channel-node.</value>
+            </field>
+          </x>
+        </configure>
+      </subscription-with-configuration>
+    </subscriptions-with-configuration>
+  </pubsub> 
+</iq>
+  ]]>
+        </example>
+
+        <p>In this example, by using both the <em>subscription-filter</em> and <em>configuration-filter</em>, 
+        the requesting entity retrieves the <em>description</em> field of its subcriptions which 
+        configuration value for the field <em>title</em> is <em>Romeo</em>.</p>
+
+    </section2>
 </section1>
