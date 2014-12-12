@@ -95,7 +95,7 @@
               <value>http://jabber.org/protocol/pubsub#node_config</value>
             </field>
             <field var="description">
-              <value>Romeo's node description</value>
+              <value>A description of Romeo's channel-node.</value>
             </field>
           </x>
         </configure>
