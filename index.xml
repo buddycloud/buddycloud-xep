@@ -17,7 +17,7 @@
     <approver>Council</approver>
     <revision>
         <version>0.0.2</version>
-        <date>2014-12-11</date>
+        <date>2014-12-12</date>
         <initials>sdt</initials>
         <remark>
             <p>First draft.</p>
@@ -1145,7 +1145,7 @@
 <iq to="juliet@capulet.lit/bc-app" from="buddycloud.capulet.lit" type="result" id="subscriptions-conf:1"> 
   <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
     <subscriptions-with-configuration xmlns="http://buddycloud.org/v1">
-      <subscription-with-metadata node="/user/romeo@montague.lit/posts" subscription="subscribed" jid="juliet@capulet.lit">
+      <subscription-with-configuration node="/user/romeo@montague.lit/posts" subscription="subscribed" jid="juliet@capulet.lit">
         <configure node="/user/romeo@montague.lit/posts">
           <x xmlns="jabber:x:data" type="result">
             <field type="hidden" var="FORM_TYPE">
@@ -1159,8 +1159,8 @@
             </field>
           </x>
         </configure>
-      </subscription-with-metadata>
-      <subscription-with-metadata node="/user/juliet@capulet.lit/posts" subscription="subscribed" jid="juliet@capulet.lit">
+      </subscription-with-configuration>
+      <subscription-with-configuration node="/user/juliet@capulet.lit/posts" subscription="subscribed" jid="juliet@capulet.lit">
         <configure node="/user/juliet@capulet.lit/posts">
           <x xmlns="jabber:x:data" type="result">
             <field type="hidden" var="FORM_TYPE">
@@ -1174,7 +1174,7 @@
             </field>
           </x>
         </configure>
-      </subscription-with-metadata>
+      </subscription-with-configuration>
     </subscriptions-with-configuration>
   </pubsub> 
 </iq>
@@ -1212,7 +1212,7 @@
 <iq to="juliet@capulet.lit/bc-app" from="buddycloud.capulet.lit" type="result" id="subscriptions-conf:1"> 
   <pubsub xmlns="http://jabber.org/protocol/pubsub"> 
     <subscriptions-with-configuration xmlns="http://buddycloud.org/v1">
-      <subscription-with-metadata node="/user/romeo@montague.lit/posts" subscription="subscribed" jid="juliet@capulet.lit">
+      <subscription-with-configuration node="/user/romeo@montague.lit/posts" subscription="subscribed" jid="juliet@capulet.lit">
         <configure node="/user/romeo@montague.lit/posts">
           <x xmlns="jabber:x:data" type="result">
             <field type="hidden" var="FORM_TYPE">
@@ -1223,7 +1223,7 @@
             </field>
           </x>
         </configure>
-      </subscription-with-metadata>
+      </subscription-with-configuration>
     </subscriptions-with-configuration>
   </pubsub> 
 </iq>
